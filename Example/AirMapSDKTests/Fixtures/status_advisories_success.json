@@ -1,0 +1,120 @@
+{
+  "status": "success",
+  "data": {
+    "advisories": [
+      {
+        "id": "cff59ee7-f460-478f-88a0-1e860b521d5b",
+        "name": "San Jose International Airport",
+        "type": "airport",
+        "color": "red",
+        "distance": 1000,
+        "latitude": 34.043277,
+        "longitude": -118.4688775,
+        "country": "USA",
+        "state": "CA",
+        "city": "San Jose",
+        "properties": {
+          "phone": "+14082774705",
+          "tower": true,
+          "paved": true,
+          "longest_runway": 11000,
+          "elevation": 62,
+          "public_use": true,
+          "identifier": "KSMO"
+        },
+        "requirements": {
+          "notice": {
+            "digital": true,
+            "phone": "+15557779999"
+          },
+          "permits": {
+            "types": [
+              {
+                "id": "permit|02efar1",
+                "name": "Recreational Permit",
+                "description": "Non-commercial drone flights."
+              }
+            ],
+            "permit_decision_flow": {
+              "first_question_id": "question|abc000",
+              "questions": [
+                {
+                  "id": "question|abc000",
+                  "text": "Are you flying recreationally?",
+                  "answers": [
+                    {
+                      "id": "answer|xyz100",
+                      "text": "Yes",
+                      "permit_id": "permit|02efar1"
+                    },
+                    {
+                      "id": "answer|xyz101",
+                      "text": "No",
+                      "next_question_id": "question|abc001"
+                    }
+                  ]
+                },
+                {
+                  "id": "question|abc001",
+                  "text": "Are you flying commercially?",
+                  "answers": [
+                    {
+                      "id": "answer|xyz102",
+                      "text": "Yes",
+                      "message": "Commercial flights are not allowed."
+                    },
+                    {
+                      "id": "answer|xyz103",
+                      "text": "No",
+                      "message": "Please contact the airport for special use requirements."
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "334c7d24-5ac2-476b-9c4d-a1e1de4ffab2",
+        "name": "Yosemite",
+        "type": "park",
+        "latitude": 34.043277,
+        "longitude": -118.4688775,
+        "country": "USA",
+        "last_updated": "2016-05-18T23:52:17+00:00",
+        "properties": {
+          "type": "national_park",
+          "size": 1000000
+        },
+        "geometry": "POLYGON(...)",
+        "rules": [
+          {
+            "id": "41966e24-2bc0-44a3-848b-78e16dcd5a31",
+            "name": "FAA National Park Restrictions",
+            "description": "Flying in National Parks run by....",
+            "jurisdiction": {
+              "name": "FAA",
+              "type": "federal"
+            },
+            "restriction_type": "prohibited",
+            "geometry": "POLYGON(...)"
+          }
+        ]
+      }
+    ],
+    "weather": {
+      "condition": "Partly Cloudy",
+      "icon": "partly-cloudy",
+      "wind": {
+        "heading": 240,
+        "speed": 11,
+        "gusting": 0
+      },
+      "humidity": 0.5,
+      "visibility": 16.1,
+      "precipitation": 0,
+      "temperature": 22.4
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+	"status": "success",
+	"data": {
+		"results": [
+					{
+					"id": "184f9077-8f15-4767-b817-dbe0fb4d9783",
+					"aircraft": null,
+					"lat": "33.996640",
+					"lng": "-118.473142",
+					"radius": "121.920",
+					"altitude": "121.920",
+					"creation_date": "2016-07-13T18:21:19.302Z",
+					"start_date": "2016-07-13T18:21:15.000Z",
+					"end_date": "2016-07-13T19:21:15.000Z",
+					"public": true,
+					"pilot_id": "google-oauth2|113706186669211921589",
+					"pilot": {
+					"username": "adolfo2"
+					}
+					}
+					]
+	}
+}

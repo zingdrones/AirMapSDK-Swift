@@ -1,0 +1,211 @@
+{
+	"status": "Success",
+	"data": {
+		"color": "green",
+		"safe_radius": 0,
+		"advisories": [{
+			"uuid": "",
+			"name": "Santa Monica Mountains National Recreation Area",
+			"type": "national_parks",
+			"state": "",
+			"last_updated": "2016-03-21T21:47:00.000Z",
+			"color": "green",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "JOHN ADAMS MIDDLE",
+			"type": "schools",
+			"city": "Santa Monica",
+			"state": "",
+			"country": "USA",
+			"last_updated": "2016-03-08T03:02:42.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "SANTA MONICA MUNI",
+			"type": "airports_recreational",
+			"city": "SANTA MONICA",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T22:52:23.000Z",
+			"color": "red",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "OCA HELIPORT",
+			"type": "heliports",
+			"city": "LOS ANGELES",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "VA GREATER LOS ANGELES HEALTH CARE CENTER",
+			"type": "heliports",
+			"city": "WEST LOS ANGELES",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "OCCIDENTAL PETROLEUM",
+			"type": "heliports",
+			"city": "LOS ANGELES",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "PLAYA VISTA 2",
+			"type": "heliports",
+			"city": "CULVER CITY",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "SANTA MONICA HIGH",
+			"type": "schools",
+			"city": "Santa Monica",
+			"state": "",
+			"country": "USA",
+			"last_updated": "2016-03-08T03:02:42.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "WESTWOOD GATEWAY",
+			"type": "heliports",
+			"city": "LOS ANGELES",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "SANTA MONICA CLASS D",
+			"type": "class_d",
+			"city": "SANTA MONICA",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-03-07T18:32:45.000Z",
+			"color": "green",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "CENTURY CITY",
+			"type": "heliports",
+			"city": "LOS ANGELES",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "THE RITZ-CARLTON HOTEL COMPANY",
+			"type": "heliports",
+			"city": "MARINA DEL REY",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "THE WILSHIRE THAYER",
+			"type": "heliports",
+			"city": "LOS ANGELES",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "EVEREST & JENNINGS HELISTOP NR 1",
+			"type": "heliports",
+			"city": "LOS ANGELES",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "PACIFIC BELL-2300 IMPERIAL HWY",
+			"type": "heliports",
+			"city": "EL SEGUNDO",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "HUGHES/CORPORATE",
+			"type": "heliports",
+			"city": "LOS ANGELES",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "WESTSIDE TOWERS",
+			"type": "heliports",
+			"city": "LOS ANGELES",
+			"state": "",
+			"country": "US",
+			"last_updated": "2016-02-25T23:10:58.000Z",
+			"color": "yellow",
+			"distance": 0
+		}, {
+			"uuid": "",
+			"name": "Pardee Rand Graduate School of Policy Studies",
+			"type": "schools",
+			"city": "Santa Monica",
+			"state": "",
+			"country": "USA",
+			"last_updated": "2016-03-08T03:02:42.000Z",
+			"color": "yellow",
+			"distance": 3
+		}, {
+			"uuid": "",
+			"name": "WILL ROGERS ELEMENTARY",
+			"type": "schools",
+			"city": "Santa Monica",
+			"state": "",
+			"country": "USA",
+			"last_updated": "2016-03-08T03:02:42.000Z",
+			"color": "yellow",
+			"distance": 56
+		}],
+		"requirements": [{
+			"name": "Santa Monica",
+			"type": "city_boundaries",
+			"notice": {
+				"digital": true
+			},
+			"id": "city|kZ2nb"
+		}, {
+			"name": "SANTA MONICA MUNI",
+			"type": "airports_recreational",
+			"notice": {
+				"phone": "310-458-8591",
+				"digital": true
+			}
+		}]
+	}
+}

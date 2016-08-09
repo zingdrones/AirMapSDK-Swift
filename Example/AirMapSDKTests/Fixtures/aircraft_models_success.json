@@ -1,0 +1,17 @@
+
+{
+	"status": "success",
+	"data": [
+			 {
+			 "id": "23ce631b-6e0d-453b-9198-9232829bd266",
+			 "name" : "Phantom 3",
+			 "manufacturer": {
+			 "id": "17de75cd-ece0-4ab2-8385-ceaaddc6615f",
+			 "name": "DJI"
+			 },
+			 "metadata": {
+			 
+			 }
+			 }
+    ]
+}

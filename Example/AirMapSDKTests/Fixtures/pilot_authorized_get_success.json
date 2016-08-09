@@ -1,0 +1,31 @@
+{
+	"status": "success",
+	"data": {
+		"id": "auth0|abc123",
+		"email": "r2d2@airmap.com",
+		"first_name": "R2D2",
+		"last_name": "Skywalker",
+		"username": "R2theD2",
+		"picture_url": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+		"phone": "+15557779999",
+		"verification_status": {
+			"phone": false,
+			"email": true
+		},
+		"user_metadata": {
+			"faa_registration_number": "123B22434"
+		},
+		"app_metadata": {
+			"foo" : "bar"
+		},
+		"statistics": {
+			"flight": {
+				"total": 10,
+				"last_flight_time": "2016-07-05T10:51:19.000Z"
+			},
+			"aircraft": {
+				"total": 2
+			}
+		}
+	}
+}

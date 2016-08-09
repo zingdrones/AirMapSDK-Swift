@@ -1,0 +1,61 @@
+{
+	"data": {
+		"results": [
+					{
+					"aircraft": {
+					"id": "23ce631b-6e0d-453b-9198-9232829bd266",
+					"manufacturer": {
+					"id": "17de75cd-ece0-4ab2-8385-ceaaddc6615f",
+					"name": "DJI"
+					},
+					"metadata": {},
+					"name": "Phantom 3",
+					"nickname": "Ghost Rider"
+					},
+					"aircraft_id": "aircraft|zyx123",
+					"buffer": 100,
+					"city": "Santa Monica",
+					"country": "USA",
+					"created_at": "2016-06-21T12:49:450Z",
+					"end_time": "2016-06-21T12:52:450Z",
+					"geometry": "",
+					"id": "flight|abc123",
+					"latitude": "33.123456",
+					"longitude": "110.123456",
+					"max_altitude": 100,
+					"notify": true,
+					"permits": [
+								"permit|abc123"
+								],
+					"pilot": {
+					"email": "r2d2@airmap.com",
+					"first_name": "R2D2",
+					"id": "auth0|abc123",
+					"last_name": "Skywalker",
+					"phone": "+15557779999",
+					"picture_url": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+					"username": "R2theD2"
+					},
+					"pilot_id": "auth0|zyx321",
+					"public": false,
+					"start_time": "2016-06-21T12:49:45Z",
+					"state": "California",
+					"statuses": [
+								 {
+								 "manager_id": "airport|klax",
+								 "status": "accepted"
+								 },
+								 {
+								 "manager_id": "university|abc123",
+								 "status": "pending"
+								 },
+								 {
+								 "manager_id": "city|xyz789",
+								 "status": "rejected"
+								 }
+								 ]
+					}
+					],
+		"status": "success"
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"status": "success",
+	"data": {
+		"id": "468b63fa-820d-4e9e-9ffe-c0b6b91e654b",
+		"pilot": {
+			"email": "adolfo@airmap.com",
+			"picture": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+			"user_id": "google-oauth2|113706186669211921589",
+			"name": null,
+			"phone": null,
+			"username": null
+		},
+		"aircraft": null,
+		"lat": "35.900000",
+		"lng": "-110.500000",
+		"radius": "300.000",
+		"start_date": "2016-07-01T19:22:00.456Z",
+		"end_date": "2016-07-01T22:42:00.415Z",
+		"created_at": "2016-07-01T21:42:00.960Z",
+		"altitude": "150.000",
+		"public": false,
+		"notify": true,
+		"notification_status": [],
+		"pilot_id": "google-oauth2|113706186669211921589"
+	}
+}

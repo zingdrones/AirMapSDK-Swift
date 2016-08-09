@@ -1,0 +1,24 @@
+source 'git@github.com:CocoaPods/Specs.git'
+source 'https://github.com/airmap/PodSpecs.git'
+
+use_frameworks!
+
+target 'AirMapSDK-Example-iOS' do
+	platform :ios, '8.0'
+	pod 'AirMapSDK', :path => '../'
+	pod 'AirMapSDK/UI', :path => '../'
+	pod 'Mapbox-iOS-SDK'
+end
+
+target 'AirMapSDK-Example-macOS' do
+	platform :osx, '10.10'
+	pod 'AirMapSDK', :path => '../'
+end
+
+target 'AirMapSDKTests' do
+	platform :ios, '8.0'
+	pod 'AirMapSDK', :path => '../'
+	pod 'Mockingjay'
+	pod 'Quick'
+	pod 'Nimble'
+end

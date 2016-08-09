@@ -1,0 +1,21 @@
+{
+	"status": "Success",
+	"data": {
+		"color": "green",
+		"safe_radius": 500,
+		"advisories": [],
+		"requirements": [],
+		"weather": {
+			"condition": "Mostly Sunny",
+			"wind": {
+				"heading": 299,
+				"speed": 13,
+				"gusting": 0
+			},
+			"humidity": 0.49,
+			"visibility": 16,
+			"precipitation": 0,
+			"temperature": 23
+		}
+	}
+}

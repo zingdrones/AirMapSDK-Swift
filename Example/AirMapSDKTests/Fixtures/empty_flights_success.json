@@ -1,0 +1,12 @@
+{
+	"status": "success",
+	"data": {
+	
+		"results" : [],
+		"paging" : {
+			"limit": 100,
+			"next": "https://api.airmap.io/flight?limit=100&starts_before=2016-06-21T12:49:45Z",
+			"prev": "https://api.airmap.io/flight?limit=100&starts_before=2016-06-21T12:49:45Z"
+		}
+	}
+}

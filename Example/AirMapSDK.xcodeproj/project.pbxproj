@@ -1,0 +1,889 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		15A4E7A959DD57ECB400F6A1 /* Pods_AirMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE62349DC0A5B9212735A22 /* Pods_AirMapSDKTests.framework */; };
+		21C893DCADED9DE164CF9018 /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F96490668CD014C7C7F888B /* Pods_AirMapSDK_Example_iOS.framework */; };
+		5C24433F1D470CC900FB7F8A /* CoordinateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F11781D275AF10053CEA2 /* CoordinateFactory.swift */; };
+		5C3B7B8A1D3EA8C0004705EA /* pilot_authorized_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C3B7B891D3EA8C0004705EA /* pilot_authorized_get_success.json */; };
+		5C3B7B8C1D3EA8CE004705EA /* PilotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3B7B8B1D3EA8CE004705EA /* PilotTests.swift */; };
+		5C3B7B901D3EC2A0004705EA /* flight_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C3B7B8F1D3EC2A0004705EA /* flight_get_success.json */; };
+		5C40A9611D36BD66009761F3 /* flights_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C40A9601D36BD66009761F3 /* flights_get_success.json */; };
+		5CD99DD91D41832600D21B72 /* empty_flights_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CD99DD81D41832600D21B72 /* empty_flights_success.json */; };
+		5CD99DDD1D418FCE00D21B72 /* permit_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CD99DDC1D418FCE00D21B72 /* permit_get_success.json */; };
+		5CD99DDF1D418FEC00D21B72 /* PermitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD99DDE1D418FEC00D21B72 /* PermitTests.swift */; };
+		5CD99DE31D41A6D700D21B72 /* permit_apply_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CD99DE21D41A6D700D21B72 /* permit_apply_success.json */; };
+		5CD99DEC1D41CAD100D21B72 /* aircraft_manufacturers_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CD99DEB1D41CAD100D21B72 /* aircraft_manufacturers_success.json */; };
+		5CD99DEE1D41CB1600D21B72 /* aircraft_models_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CD99DED1D41CB1600D21B72 /* aircraft_models_success.json */; };
+		5CD99DF01D41CB4800D21B72 /* aircraft_model_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CD99DEF1D41CB4800D21B72 /* aircraft_model_success.json */; };
+		5CD99DF21D41CBCB00D21B72 /* pilot_aircraft_create_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CD99DF11D41CBCB00D21B72 /* pilot_aircraft_create_success.json */; };
+		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
+		607FACD81AFB9204008FA782 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* MapViewController.swift */; };
+		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
+		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
+		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		9109E7B81D2DB7BA00C119E8 /* status_get_polygon_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 9109E7B71D2DB7BA00C119E8 /* status_get_polygon_success.json */; };
+		9109E7BA1D2DB8A100C119E8 /* status_get_path_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 9109E7B91D2DB8A100C119E8 /* status_get_path_success.json */; };
+		910F11711D274A450053CEA2 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F11701D274A450053CEA2 /* TestCase.swift */; };
+		910F11751D274BF80053CEA2 /* FlightFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F11741D274BF80053CEA2 /* FlightFactory.swift */; };
+		910F11771D27546E0053CEA2 /* StatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F11761D27546E0053CEA2 /* StatusTests.swift */; };
+		910F11791D275AF10053CEA2 /* CoordinateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F11781D275AF10053CEA2 /* CoordinateFactory.swift */; };
+		910F117E1D275CB80053CEA2 /* empty_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 910F117A1D275CB80053CEA2 /* empty_success.json */; };
+		910F117F1D275CB80053CEA2 /* flight_post_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 910F117B1D275CB80053CEA2 /* flight_post_success.json */; };
+		910F11801D275CB80053CEA2 /* flight_put_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 910F117C1D275CB80053CEA2 /* flight_put_success.json */; };
+		910F11811D275CB80053CEA2 /* status_get_point_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 910F117D1D275CB80053CEA2 /* status_get_point_success.json */; };
+		916956EF1D356821006F97B8 /* status_weather_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916956EE1D356821006F97B8 /* status_weather_success.json */; };
+		916A9B421D2D991B00322CDB /* flight_comm_key_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916A9B411D2D991B00322CDB /* flight_comm_key_success.json */; };
+		91763D391D2C228F00E825DA /* TelemetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91763D381D2C228F00E825DA /* TelemetryTests.swift */; };
+		918451121D270C64003B3D26 /* FlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918451111D270C64003B3D26 /* FlightTests.swift */; };
+		91AA74731D3DF03800FB82C4 /* AircraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA74721D3DF03800FB82C4 /* AircraftTests.swift */; };
+		91AA747D1D3EA5F300FB82C4 /* aircraft_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91AA747C1D3EA5F300FB82C4 /* aircraft_get_success.json */; };
+		91AC923F1D513C0600A76D7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC923E1D513C0600A76D7B /* AppDelegate.swift */; };
+		91AC92411D513C0600A76D7B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC92401D513C0600A76D7B /* ViewController.swift */; };
+		91AC92431D513C0600A76D7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91AC92421D513C0600A76D7B /* Assets.xcassets */; };
+		91AC92461D513C0600A76D7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91AC92441D513C0600A76D7B /* Main.storyboard */; };
+		91F9006D1D37448C005B1084 /* StatusAdvisoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */; };
+		91F9006F1D3744CD005B1084 /* status_advisories_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91F9006E1D3744CD005B1084 /* status_advisories_success.json */; };
+		A24FD92FA16A520999A8BEF0 /* Pods_AirMapSDK_Example_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D49023F5DEFB47E1C1736C /* Pods_AirMapSDK_Example_macOS.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		918451141D270C64003B3D26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = AirMapSDKExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		013FD3346845265F161D3417 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDK-Example-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDK-Example-iOS/Pods-AirMapSDK-Example-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		091B9B4CD51B9DF5383C1795 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDK-Example-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDK-Example-iOS/Pods-AirMapSDK-Example-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		276608810D8DAED6F91BA14A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		4FE62349DC0A5B9212735A22 /* Pods_AirMapSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirMapSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C3B7B891D3EA8C0004705EA /* pilot_authorized_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = pilot_authorized_get_success.json; path = Fixtures/pilot_authorized_get_success.json; sourceTree = "<group>"; };
+		5C3B7B8B1D3EA8CE004705EA /* PilotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotTests.swift; sourceTree = "<group>"; };
+		5C3B7B8F1D3EC2A0004705EA /* flight_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_get_success.json; path = Fixtures/flight_get_success.json; sourceTree = "<group>"; };
+		5C40A9601D36BD66009761F3 /* flights_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flights_get_success.json; path = Fixtures/flights_get_success.json; sourceTree = "<group>"; };
+		5CD99DD81D41832600D21B72 /* empty_flights_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = empty_flights_success.json; path = Fixtures/empty_flights_success.json; sourceTree = "<group>"; };
+		5CD99DDC1D418FCE00D21B72 /* permit_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = permit_get_success.json; path = Fixtures/permit_get_success.json; sourceTree = "<group>"; };
+		5CD99DDE1D418FEC00D21B72 /* PermitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermitTests.swift; sourceTree = "<group>"; };
+		5CD99DE21D41A6D700D21B72 /* permit_apply_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = permit_apply_success.json; path = Fixtures/permit_apply_success.json; sourceTree = "<group>"; };
+		5CD99DEB1D41CAD100D21B72 /* aircraft_manufacturers_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = aircraft_manufacturers_success.json; path = Fixtures/aircraft_manufacturers_success.json; sourceTree = "<group>"; };
+		5CD99DED1D41CB1600D21B72 /* aircraft_models_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = aircraft_models_success.json; path = Fixtures/aircraft_models_success.json; sourceTree = "<group>"; };
+		5CD99DEF1D41CB4800D21B72 /* aircraft_model_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = aircraft_model_success.json; path = Fixtures/aircraft_model_success.json; sourceTree = "<group>"; };
+		5CD99DF11D41CBCB00D21B72 /* pilot_aircraft_create_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = pilot_aircraft_create_success.json; path = Fixtures/pilot_aircraft_create_success.json; sourceTree = "<group>"; };
+		5CE51312FE384AC2A1B58AD4 /* Pods-AirMapSDK-Example-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDK-Example-macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDK-Example-macOS/Pods-AirMapSDK-Example-macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		607FACD01AFB9204008FA782 /* AirMapSDK-Example-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AirMapSDK-Example-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		607FACD71AFB9204008FA782 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		60D49023F5DEFB47E1C1736C /* Pods_AirMapSDK_Example_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirMapSDK_Example_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65899E1ACF42AC911BEEB736 /* Pods-AirMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDKTests/Pods-AirMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		73A68E3150D3B04CFF6AF7D2 /* AirMapSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AirMapSDK.podspec; path = ../AirMapSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9109E7B71D2DB7BA00C119E8 /* status_get_polygon_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_polygon_success.json; path = Fixtures/status_get_polygon_success.json; sourceTree = "<group>"; };
+		9109E7B91D2DB8A100C119E8 /* status_get_path_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_path_success.json; path = Fixtures/status_get_path_success.json; sourceTree = "<group>"; };
+		910F11701D274A450053CEA2 /* TestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
+		910F11741D274BF80053CEA2 /* FlightFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightFactory.swift; sourceTree = "<group>"; };
+		910F11761D27546E0053CEA2 /* StatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTests.swift; sourceTree = "<group>"; };
+		910F11781D275AF10053CEA2 /* CoordinateFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateFactory.swift; sourceTree = "<group>"; };
+		910F117A1D275CB80053CEA2 /* empty_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = empty_success.json; path = Fixtures/empty_success.json; sourceTree = "<group>"; };
+		910F117B1D275CB80053CEA2 /* flight_post_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_post_success.json; path = Fixtures/flight_post_success.json; sourceTree = "<group>"; };
+		910F117C1D275CB80053CEA2 /* flight_put_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_put_success.json; path = Fixtures/flight_put_success.json; sourceTree = "<group>"; };
+		910F117D1D275CB80053CEA2 /* status_get_point_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_point_success.json; path = Fixtures/status_get_point_success.json; sourceTree = "<group>"; };
+		916956EE1D356821006F97B8 /* status_weather_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_weather_success.json; path = Fixtures/status_weather_success.json; sourceTree = "<group>"; };
+		916A9B411D2D991B00322CDB /* flight_comm_key_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_comm_key_success.json; path = Fixtures/flight_comm_key_success.json; sourceTree = "<group>"; };
+		91763D381D2C228F00E825DA /* TelemetryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelemetryTests.swift; sourceTree = "<group>"; };
+		9184510F1D270C64003B3D26 /* AirMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		918451111D270C64003B3D26 /* FlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightTests.swift; sourceTree = "<group>"; };
+		918451131D270C64003B3D26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91AA74721D3DF03800FB82C4 /* AircraftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AircraftTests.swift; sourceTree = "<group>"; };
+		91AA747C1D3EA5F300FB82C4 /* aircraft_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aircraft_get_success.json; sourceTree = "<group>"; };
+		91AC923C1D513C0600A76D7B /* AirMapSDK-Example-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AirMapSDK-Example-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		91AC923E1D513C0600A76D7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		91AC92401D513C0600A76D7B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		91AC92421D513C0600A76D7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		91AC92451D513C0600A76D7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		91AC92471D513C0600A76D7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusAdvisoriesTests.swift; sourceTree = "<group>"; };
+		91F9006E1D3744CD005B1084 /* status_advisories_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_advisories_success.json; path = Fixtures/status_advisories_success.json; sourceTree = "<group>"; };
+		9F96490668CD014C7C7F888B /* Pods_AirMapSDK_Example_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirMapSDK_Example_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C867670F3016A0692C66DD27 /* Pods-AirMapSDK-Example-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDK-Example-macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDK-Example-macOS/Pods-AirMapSDK-Example-macOS.release.xcconfig"; sourceTree = "<group>"; };
+		D9A4E1BD6513C05E146BCD9C /* Pods-AirMapSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDKTests/Pods-AirMapSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F22062793E9F961EED1127FB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		607FACCD1AFB9204008FA782 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C893DCADED9DE164CF9018 /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9184510C1D270C64003B3D26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15A4E7A959DD57ECB400F6A1 /* Pods_AirMapSDKTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91AC92391D513C0600A76D7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A24FD92FA16A520999A8BEF0 /* Pods_AirMapSDK_Example_macOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		476DA58777962E68195CFAC3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				091B9B4CD51B9DF5383C1795 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */,
+				013FD3346845265F161D3417 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */,
+				5CE51312FE384AC2A1B58AD4 /* Pods-AirMapSDK-Example-macOS.debug.xcconfig */,
+				C867670F3016A0692C66DD27 /* Pods-AirMapSDK-Example-macOS.release.xcconfig */,
+				D9A4E1BD6513C05E146BCD9C /* Pods-AirMapSDKTests.debug.xcconfig */,
+				65899E1ACF42AC911BEEB736 /* Pods-AirMapSDKTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4DC8E816FDF19BD341413BA7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F96490668CD014C7C7F888B /* Pods_AirMapSDK_Example_iOS.framework */,
+				60D49023F5DEFB47E1C1736C /* Pods_AirMapSDK_Example_macOS.framework */,
+				4FE62349DC0A5B9212735A22 /* Pods_AirMapSDKTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		607FACC71AFB9204008FA782 = {
+			isa = PBXGroup;
+			children = (
+				607FACF51AFB993E008FA782 /* Podspec Metadata */,
+				607FACD21AFB9204008FA782 /* Example iOS */,
+				91AC923D1D513C0600A76D7B /* Example macOS */,
+				607FACD11AFB9204008FA782 /* Products */,
+				4DC8E816FDF19BD341413BA7 /* Frameworks */,
+				918451101D270C64003B3D26 /* Tests */,
+				476DA58777962E68195CFAC3 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		607FACD11AFB9204008FA782 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				607FACD01AFB9204008FA782 /* AirMapSDK-Example-iOS.app */,
+				9184510F1D270C64003B3D26 /* AirMapSDKTests.xctest */,
+				91AC923C1D513C0600A76D7B /* AirMapSDK-Example-macOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		607FACD21AFB9204008FA782 /* Example iOS */ = {
+			isa = PBXGroup;
+			children = (
+				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				607FACD71AFB9204008FA782 /* MapViewController.swift */,
+				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				607FACDC1AFB9204008FA782 /* Images.xcassets */,
+				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				607FACD41AFB9204008FA782 /* Info.plist */,
+			);
+			name = "Example iOS";
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				73A68E3150D3B04CFF6AF7D2 /* AirMapSDK.podspec */,
+				F22062793E9F961EED1127FB /* README.md */,
+				276608810D8DAED6F91BA14A /* LICENSE */,
+			);
+			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		9109E7BB1D2DE42600C119E8 /* Test Cases */ = {
+			isa = PBXGroup;
+			children = (
+				91AA74721D3DF03800FB82C4 /* AircraftTests.swift */,
+				918451111D270C64003B3D26 /* FlightTests.swift */,
+				5CD99DDE1D418FEC00D21B72 /* PermitTests.swift */,
+				5C3B7B8B1D3EA8CE004705EA /* PilotTests.swift */,
+				91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */,
+				910F11761D27546E0053CEA2 /* StatusTests.swift */,
+				91763D381D2C228F00E825DA /* TelemetryTests.swift */,
+				910F11701D274A450053CEA2 /* TestCase.swift */,
+			);
+			name = "Test Cases";
+			sourceTree = "<group>";
+		};
+		9109E7BC1D2DE42D00C119E8 /* Test Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				91AA747C1D3EA5F300FB82C4 /* aircraft_get_success.json */,
+				5CD99DEB1D41CAD100D21B72 /* aircraft_manufacturers_success.json */,
+				5CD99DEF1D41CB4800D21B72 /* aircraft_model_success.json */,
+				5CD99DED1D41CB1600D21B72 /* aircraft_models_success.json */,
+				5CD99DD81D41832600D21B72 /* empty_flights_success.json */,
+				910F117A1D275CB80053CEA2 /* empty_success.json */,
+				916A9B411D2D991B00322CDB /* flight_comm_key_success.json */,
+				5C3B7B8F1D3EC2A0004705EA /* flight_get_success.json */,
+				910F117B1D275CB80053CEA2 /* flight_post_success.json */,
+				910F117C1D275CB80053CEA2 /* flight_put_success.json */,
+				5C40A9601D36BD66009761F3 /* flights_get_success.json */,
+				5CD99DE21D41A6D700D21B72 /* permit_apply_success.json */,
+				5CD99DDC1D418FCE00D21B72 /* permit_get_success.json */,
+				5CD99DF11D41CBCB00D21B72 /* pilot_aircraft_create_success.json */,
+				5C3B7B891D3EA8C0004705EA /* pilot_authorized_get_success.json */,
+				91F9006E1D3744CD005B1084 /* status_advisories_success.json */,
+				9109E7B91D2DB8A100C119E8 /* status_get_path_success.json */,
+				910F117D1D275CB80053CEA2 /* status_get_point_success.json */,
+				9109E7B71D2DB7BA00C119E8 /* status_get_polygon_success.json */,
+				916956EE1D356821006F97B8 /* status_weather_success.json */,
+			);
+			name = "Test Fixtures";
+			sourceTree = "<group>";
+		};
+		9109E7BD1D2DE43900C119E8 /* Object Factories */ = {
+			isa = PBXGroup;
+			children = (
+				910F11781D275AF10053CEA2 /* CoordinateFactory.swift */,
+				910F11741D274BF80053CEA2 /* FlightFactory.swift */,
+			);
+			name = "Object Factories";
+			sourceTree = "<group>";
+		};
+		918451101D270C64003B3D26 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				9109E7BD1D2DE43900C119E8 /* Object Factories */,
+				9109E7BC1D2DE42D00C119E8 /* Test Fixtures */,
+				9109E7BB1D2DE42600C119E8 /* Test Cases */,
+				918451131D270C64003B3D26 /* Info.plist */,
+			);
+			name = Tests;
+			path = AirMapSDKTests;
+			sourceTree = "<group>";
+		};
+		91AC923D1D513C0600A76D7B /* Example macOS */ = {
+			isa = PBXGroup;
+			children = (
+				91AC923E1D513C0600A76D7B /* AppDelegate.swift */,
+				91AC92401D513C0600A76D7B /* ViewController.swift */,
+				91AC92421D513C0600A76D7B /* Assets.xcassets */,
+				91AC92441D513C0600A76D7B /* Main.storyboard */,
+				91AC92471D513C0600A76D7B /* Info.plist */,
+			);
+			name = "Example macOS";
+			path = macOS;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		607FACCF1AFB9204008FA782 /* AirMapSDK-Example-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "AirMapSDK-Example-iOS" */;
+			buildPhases = (
+				46F6F2DF13F3F66D445B607F /* [CP] Check Pods Manifest.lock */,
+				607FACCC1AFB9204008FA782 /* Sources */,
+				607FACCD1AFB9204008FA782 /* Frameworks */,
+				4DD1C4DCCECEDC5017B1391C /* [CP] Embed Pods Frameworks */,
+				607FACCE1AFB9204008FA782 /* Resources */,
+				A3101B230BA166EA2D0F0C23 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AirMapSDK-Example-iOS";
+			productName = AirMapSDK;
+			productReference = 607FACD01AFB9204008FA782 /* AirMapSDK-Example-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9184510E1D270C64003B3D26 /* AirMapSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 918451161D270C64003B3D26 /* Build configuration list for PBXNativeTarget "AirMapSDKTests" */;
+			buildPhases = (
+				3F400FDF04FB298C64220D0F /* [CP] Check Pods Manifest.lock */,
+				9184510B1D270C64003B3D26 /* Sources */,
+				9184510C1D270C64003B3D26 /* Frameworks */,
+				9184510D1D270C64003B3D26 /* Resources */,
+				6726E5594B24D188DBCF82D7 /* [CP] Embed Pods Frameworks */,
+				28880A4BDE2BE050ED71D79D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				918451151D270C64003B3D26 /* PBXTargetDependency */,
+			);
+			name = AirMapSDKTests;
+			productName = AirMapSDKTests;
+			productReference = 9184510F1D270C64003B3D26 /* AirMapSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		91AC923B1D513C0600A76D7B /* AirMapSDK-Example-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91AC924A1D513C0600A76D7B /* Build configuration list for PBXNativeTarget "AirMapSDK-Example-macOS" */;
+			buildPhases = (
+				61B8B2EC319C3826A4BEA001 /* [CP] Check Pods Manifest.lock */,
+				91AC92381D513C0600A76D7B /* Sources */,
+				91AC92391D513C0600A76D7B /* Frameworks */,
+				91AC923A1D513C0600A76D7B /* Resources */,
+				49C69A25D027CC87DB196214 /* [CP] Embed Pods Frameworks */,
+				520F9747FA03528C82C427AC /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AirMapSDK-Example-macOS";
+			productName = "AirMapSDK-macOS-Example";
+			productReference = 91AC923C1D513C0600A76D7B /* AirMapSDK-Example-macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		607FACC81AFB9204008FA782 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = "";
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "AirMap, Inc.";
+				TargetAttributes = {
+					607FACCF1AFB9204008FA782 = {
+						CreatedOnToolsVersion = 6.3.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
+					};
+					9184510E1D270C64003B3D26 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
+					91AC923B1D513C0600A76D7B = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "AirMapSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 607FACC71AFB9204008FA782;
+			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				607FACCF1AFB9204008FA782 /* AirMapSDK-Example-iOS */,
+				91AC923B1D513C0600A76D7B /* AirMapSDK-Example-macOS */,
+				9184510E1D270C64003B3D26 /* AirMapSDKTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		607FACCE1AFB9204008FA782 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9184510D1D270C64003B3D26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91F9006F1D3744CD005B1084 /* status_advisories_success.json in Resources */,
+				910F11801D275CB80053CEA2 /* flight_put_success.json in Resources */,
+				916A9B421D2D991B00322CDB /* flight_comm_key_success.json in Resources */,
+				910F11811D275CB80053CEA2 /* status_get_point_success.json in Resources */,
+				5CD99DDD1D418FCE00D21B72 /* permit_get_success.json in Resources */,
+				5C3B7B901D3EC2A0004705EA /* flight_get_success.json in Resources */,
+				9109E7B81D2DB7BA00C119E8 /* status_get_polygon_success.json in Resources */,
+				91AA747D1D3EA5F300FB82C4 /* aircraft_get_success.json in Resources */,
+				910F117E1D275CB80053CEA2 /* empty_success.json in Resources */,
+				5C40A9611D36BD66009761F3 /* flights_get_success.json in Resources */,
+				5CD99DD91D41832600D21B72 /* empty_flights_success.json in Resources */,
+				9109E7BA1D2DB8A100C119E8 /* status_get_path_success.json in Resources */,
+				5C3B7B8A1D3EA8C0004705EA /* pilot_authorized_get_success.json in Resources */,
+				5CD99DF01D41CB4800D21B72 /* aircraft_model_success.json in Resources */,
+				5CD99DEE1D41CB1600D21B72 /* aircraft_models_success.json in Resources */,
+				916956EF1D356821006F97B8 /* status_weather_success.json in Resources */,
+				5CD99DF21D41CBCB00D21B72 /* pilot_aircraft_create_success.json in Resources */,
+				910F117F1D275CB80053CEA2 /* flight_post_success.json in Resources */,
+				5CD99DE31D41A6D700D21B72 /* permit_apply_success.json in Resources */,
+				5CD99DEC1D41CAD100D21B72 /* aircraft_manufacturers_success.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91AC923A1D513C0600A76D7B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91AC92431D513C0600A76D7B /* Assets.xcassets in Resources */,
+				91AC92461D513C0600A76D7B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		28880A4BDE2BE050ED71D79D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AirMapSDKTests/Pods-AirMapSDKTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3F400FDF04FB298C64220D0F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		46F6F2DF13F3F66D445B607F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		49C69A25D027CC87DB196214 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AirMapSDK-Example-macOS/Pods-AirMapSDK-Example-macOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4DD1C4DCCECEDC5017B1391C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AirMapSDK-Example-iOS/Pods-AirMapSDK-Example-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		520F9747FA03528C82C427AC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AirMapSDK-Example-macOS/Pods-AirMapSDK-Example-macOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61B8B2EC319C3826A4BEA001 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6726E5594B24D188DBCF82D7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AirMapSDKTests/Pods-AirMapSDKTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A3101B230BA166EA2D0F0C23 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AirMapSDK-Example-iOS/Pods-AirMapSDK-Example-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		607FACCC1AFB9204008FA782 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C24433F1D470CC900FB7F8A /* CoordinateFactory.swift in Sources */,
+				607FACD81AFB9204008FA782 /* MapViewController.swift in Sources */,
+				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9184510B1D270C64003B3D26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				910F11751D274BF80053CEA2 /* FlightFactory.swift in Sources */,
+				918451121D270C64003B3D26 /* FlightTests.swift in Sources */,
+				910F11791D275AF10053CEA2 /* CoordinateFactory.swift in Sources */,
+				910F11711D274A450053CEA2 /* TestCase.swift in Sources */,
+				910F11771D27546E0053CEA2 /* StatusTests.swift in Sources */,
+				91AA74731D3DF03800FB82C4 /* AircraftTests.swift in Sources */,
+				5CD99DDF1D418FEC00D21B72 /* PermitTests.swift in Sources */,
+				91F9006D1D37448C005B1084 /* StatusAdvisoriesTests.swift in Sources */,
+				5C3B7B8C1D3EA8CE004705EA /* PilotTests.swift in Sources */,
+				91763D391D2C228F00E825DA /* TelemetryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91AC92381D513C0600A76D7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91AC92411D513C0600A76D7B /* ViewController.swift in Sources */,
+				91AC923F1D513C0600A76D7B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		918451151D270C64003B3D26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* AirMapSDK-Example-iOS */;
+			targetProxy = 918451141D270C64003B3D26 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		607FACD91AFB9204008FA782 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				607FACDA1AFB9204008FA782 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				607FACDF1AFB9204008FA782 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		91AC92441D513C0600A76D7B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91AC92451D513C0600A76D7B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		607FACED1AFB9204008FA782 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		607FACEE1AFB9204008FA782 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		607FACF01AFB9204008FA782 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 091B9B4CD51B9DF5383C1795 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MODULE_NAME = ExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airmap.AirMapSDK-Example-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		607FACF11AFB9204008FA782 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 013FD3346845265F161D3417 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MODULE_NAME = ExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airmap.AirMapSDK-Example-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		918451171D270C64003B3D26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9A4E1BD6513C05E146BCD9C /* Pods-AirMapSDKTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = AirMapSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMapSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirMapSDK-Example-iOS.app/AirMapSDK-Example-iOS";
+			};
+			name = Debug;
+		};
+		918451181D270C64003B3D26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65899E1ACF42AC911BEEB736 /* Pods-AirMapSDKTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = AirMapSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMapSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirMapSDK-Example-iOS.app/AirMapSDK-Example-iOS";
+			};
+			name = Release;
+		};
+		91AC92481D513C0600A76D7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CE51312FE384AC2A1B58AD4 /* Pods-AirMapSDK-Example-macOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airmap.AirMapSDK-macOS-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		91AC92491D513C0600A76D7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C867670F3016A0692C66DD27 /* Pods-AirMapSDK-Example-macOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.airmap.AirMapSDK-macOS-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "AirMapSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				607FACED1AFB9204008FA782 /* Debug */,
+				607FACEE1AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "AirMapSDK-Example-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				607FACF01AFB9204008FA782 /* Debug */,
+				607FACF11AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		918451161D270C64003B3D26 /* Build configuration list for PBXNativeTarget "AirMapSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				918451171D270C64003B3D26 /* Debug */,
+				918451181D270C64003B3D26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91AC924A1D513C0600A76D7B /* Build configuration list for PBXNativeTarget "AirMapSDK-Example-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91AC92481D513C0600A76D7B /* Debug */,
+				91AC92491D513C0600A76D7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
+}
