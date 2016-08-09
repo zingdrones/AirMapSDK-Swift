@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 	s.name              = 'AirMapSDK'
 	s.module_name       = 'AirMap'
 	s.author            = 'AirMap, Inc.'
-	s.version           = '0.1.0'
+	s.version           = '0.1.1'
 	s.summary           = 'AirMap SDK for iOS'
 	s.description       = 'Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.'
 	s.license           = { :type => 'Custom', :file => 'LICENSE' }
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 		:git => 'https://github.com/AirMap/AirMapSDK-Swift.git',
 		:tag => s.version.to_s
 	}
-	s.cocoapods_version = '>= 0.39.0'
+	s.cocoapods_version = '>= 1.0.0'
 	s.frameworks = 'Foundation'
 	
 	s.ios.deployment_target = '8.0'

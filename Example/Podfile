@@ -6,7 +6,6 @@ use_frameworks!
 target 'AirMapSDK-Example-iOS' do
 	platform :ios, '8.0'
 	pod 'AirMapSDK', :path => '../'
-	pod 'AirMapSDK/UI', :path => '../'
 	pod 'Mapbox-iOS-SDK'
 end
 

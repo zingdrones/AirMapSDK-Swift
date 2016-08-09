@@ -49,8 +49,8 @@ class AirMapVerifySMSCodeViewController: UITableViewController {
 					//FIXME: Handle error
 					self?.navigationController?.popViewControllerAnimated(true)
 				}
-				
-		}
+			}
+			.addDisposableTo(disposeBag)
 	}
 	
 }

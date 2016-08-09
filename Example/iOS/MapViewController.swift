@@ -17,8 +17,7 @@ class MapViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		AirMap.apiKey = <#AirMap API Key#>
-		AirMap.authToken = <#AirMap Auth Token#>
+		AirMap.configure(apiKey: <#AirMap API Key#>)
 		AirMap.trafficDelegate = self
 		MGLAccountManager.setAccessToken(<#Mapbox API Key#>)
 	}

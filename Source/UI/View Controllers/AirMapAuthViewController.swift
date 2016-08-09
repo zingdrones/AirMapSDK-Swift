@@ -48,7 +48,7 @@ public class AirMapAuthViewController: UIViewController, UIWebViewDelegate {
 		AirMap.rx_getAuthenticatedPilot()
 			.doOnError {[unowned self] error in
 				self.loadRequest() // reload
-				self.authSessionDelegate?.airMapAuthSessionAuthenticationDidFail(error as! NSError)
+				self.authSessionDelegate?.airMapAuthSessionAuthenticationDidFail(error as NSError)
 			}
 			.subscribeNext {[unowned self]  pilot in
 				self.authSessionDelegate?.airMapAuthSessionDidAuthenticate(pilot)

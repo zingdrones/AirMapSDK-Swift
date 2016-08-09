@@ -3,6 +3,7 @@ PODS:
     - AirMapSDK/Core (= 0.1.0)
     - AirMapSDK/Telemetry (= 0.1.0)
     - AirMapSDK/Traffic (= 0.1.0)
+    - AirMapSDK/UI (= 0.1.0)
   - AirMapSDK/Core (0.1.0):
     - Alamofire
     - JWTDecode
@@ -57,7 +58,6 @@ PODS:
 
 DEPENDENCIES:
   - AirMapSDK (from `../`)
-  - AirMapSDK/UI (from `../`)
   - Mapbox-iOS-SDK
   - Mockingjay
   - Nimble
@@ -68,7 +68,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AirMapSDK: 1a9f75bfcafc07a7efd473157d19177ec9b83169
+  AirMapSDK: 157e83263ad7fd9ba20df3eb348f95a87ba5c244
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   CryptoSwift: c1ef79f901b86099a6fe8b3c7524cf9f3f3c8c40
@@ -88,6 +88,6 @@ SPEC CHECKSUMS:
   SwiftMQTT: ab4576321641775cf137c3d1e9409bd64878880d
   URITemplate: 398a48d6559e23b77bd41176b675b017ad1fc959
 
-PODFILE CHECKSUM: 1a39fecc68ed049275698001bad2648684df8f25
+PODFILE CHECKSUM: 88f644dc5ec5160302cb236cd00d69562186c392
 
 COCOAPODS: 1.0.1
