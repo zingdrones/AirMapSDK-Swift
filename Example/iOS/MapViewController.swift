@@ -17,6 +17,7 @@ class MapViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		AirMap.logger.minLevel = .Debug
 		AirMap.authSessionDelegate = self
 		AirMap.trafficDelegate = self
 
