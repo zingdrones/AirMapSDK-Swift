@@ -88,7 +88,7 @@ public class AirMapAuthViewController: UIViewController, UIWebViewDelegate {
 		
 		if let url = request.URL {
 			
-			if url.host! == callbackUrl.host! {
+			if url.host != nil && url.host! == callbackUrl.host! {
 				
 				let callbackUrl = AirMap.configuration.auth0CallbackUrl
 				
