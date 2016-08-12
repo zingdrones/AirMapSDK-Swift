@@ -28,7 +28,7 @@ class MapViewController: UIViewController {
 		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self) {
 			presentViewController(flightPlanController, animated: true, completion: nil)
 		} else {
-			self.openLoginForm()
+			openLoginForm()
 		}
 	}
 
@@ -42,9 +42,6 @@ extension MapViewController: AirMapAuthSessionDelegate {
 
 	func airmapSessionShouldAuthenticate() {
 
-		AirMap.refreshAuthToken { error in
-			if error != nil { self.openLoginForm() }
-		}
 	}
 
 	func airMapAuthSessionDidAuthenticate(pilot: AirMapPilot) {
