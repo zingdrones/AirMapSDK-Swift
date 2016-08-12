@@ -1,10 +1,10 @@
 PODS:
-  - AirMapSDK (0.1.1):
-    - AirMapSDK/Core (= 0.1.1)
-    - AirMapSDK/Telemetry (= 0.1.1)
-    - AirMapSDK/Traffic (= 0.1.1)
-    - AirMapSDK/UI (= 0.1.1)
-  - AirMapSDK/Core (0.1.1):
+  - AirMapSDK (0.1.2):
+    - AirMapSDK/Core (= 0.1.2)
+    - AirMapSDK/Telemetry (= 0.1.2)
+    - AirMapSDK/Traffic (= 0.1.2)
+    - AirMapSDK/UI (= 0.1.2)
+  - AirMapSDK/Core (0.1.2):
     - Alamofire
     - JWTDecode
     - Log
@@ -13,18 +13,18 @@ PODS:
     - RxSwift
     - RxSwiftExt
     - SimpleKeychain
-  - AirMapSDK/Telemetry (0.1.1):
+  - AirMapSDK/Telemetry (0.1.2):
     - AirMapSDK/Core
     - CocoaAsyncSocket
     - CryptoSwift
     - ProtocolBuffers-Swift
-  - AirMapSDK/Traffic (0.1.1):
+  - AirMapSDK/Traffic (0.1.2):
     - AirMapSDK/Core
     - SwiftMQTT
-  - AirMapSDK/UI (0.1.1):
+  - AirMapSDK/UI (0.1.2):
     - AirMapSDK/Core
     - libPhoneNumber-iOS
-    - Mapbox-iOS-SDK
+    - Mapbox-iOS-SDK (~> 3.3.3)
     - RxDataSources
   - Alamofire (3.4.1)
   - CocoaAsyncSocket (7.5.0):
@@ -34,7 +34,7 @@ PODS:
   - JWTDecode (1.0.0)
   - libPhoneNumber-iOS (0.8.15)
   - Log (0.5)
-  - Mapbox-iOS-SDK (3.3.3)
+  - Mapbox-iOS-SDK (3.3.4)
   - Mockingjay (1.2.2):
     - Mockingjay/Core (= 1.2.2)
     - Mockingjay/XCTest (= 1.2.2)
@@ -64,29 +64,20 @@ DEPENDENCIES:
   - Mockingjay
   - Nimble
   - Quick
-  - SwiftMQTT (from `https://github.com/adolfo/SwiftMQTT.git`, branch `feature/add-ssl-support`)
 
 EXTERNAL SOURCES:
   AirMapSDK:
     :path: ../
-  SwiftMQTT:
-    :branch: feature/add-ssl-support
-    :git: https://github.com/adolfo/SwiftMQTT.git
-
-CHECKOUT OPTIONS:
-  SwiftMQTT:
-    :commit: ac347f303468b58d638998e169e2bc7f306b4c13
-    :git: https://github.com/adolfo/SwiftMQTT.git
 
 SPEC CHECKSUMS:
-  AirMapSDK: 9676ca01d7e2b6bf8cd1fb0d9329b6f8adee9252
+  AirMapSDK: 5e0f471efdee849d46790df3ce7686f97f4579ff
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   CryptoSwift: c1ef79f901b86099a6fe8b3c7524cf9f3f3c8c40
   JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
   libPhoneNumber-iOS: 62a740e1ea5741060f5cec0f788b52071115cf31
   Log: 5972312cb85cffbc56407b612936b610eb4af8a5
-  Mapbox-iOS-SDK: 13cd4d7e118acae2782a1bdc5947164d8f6d80fd
+  Mapbox-iOS-SDK: b22da0d9703fcfb0a8b592b6a7f6a21264fe44b0
   Mockingjay: 5de65f14108473afc6727e05df9a3ecc9cef8562
   Nimble: 97a0a4cae5124c117115634b2d055d8c97d0af19
   ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
@@ -100,6 +91,6 @@ SPEC CHECKSUMS:
   SwiftMQTT: 664488495d2db350af92589d6d82406ff52e9da9
   URITemplate: 398a48d6559e23b77bd41176b675b017ad1fc959
 
-PODFILE CHECKSUM: a2281463c9547b11f834fd7900f1c77ce5ecf53b
+PODFILE CHECKSUM: 72ac157703332f50acb8da64d77b4705daa2a158
 
 COCOAPODS: 1.0.1

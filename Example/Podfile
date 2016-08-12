@@ -4,8 +4,6 @@ target 'AirMapSDK-Example-iOS' do
 	platform :ios, '8.0'
 	pod 'AirMapSDK', :path => '../'
 	pod 'Mapbox-iOS-SDK'
-        # Use fork with SSL support until merged upstream
-	pod 'SwiftMQTT', :git => 'https://github.com/adolfo/SwiftMQTT.git', :branch => 'feature/add-ssl-support'
 end
 
 target 'AirMapSDKTests' do
