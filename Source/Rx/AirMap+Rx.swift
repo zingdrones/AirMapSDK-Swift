@@ -12,12 +12,12 @@ import RxCocoa
 private typealias RxAirMap_Flight = AirMap
 extension RxAirMap_Flight {
 
-	public class func rx_listAllPublicAndAuthenticatedPilotFlights(startAfter: NSDate = NSDate(), limit: Int? = nil) -> Observable<[AirMapFlight]> {
-		return flightClient.listAllPublicAndAuthenticatedPilotFlights(startAfter, limit: limit)
+	public class func rx_listAllPublicAndAuthenticatedPilotFlights(startBefore: NSDate = NSDate(), endAfter: NSDate = NSDate(), limit: Int? = nil) -> Observable<[AirMapFlight]> {
+		return flightClient.listAllPublicAndAuthenticatedPilotFlights(startBefore: startBefore, endAfter: endAfter, limit: limit)
 	}
 
 	public class func rx_getCurrentAuthenticatedPilotFlight() -> Observable<AirMapFlight?> {
-		return flightClient.list(startAfter: NSDate(), pilotId: AirMap.authSession.userId, authCheck:true ).map { $0.first }
+		return flightClient.list(startBefore: NSDate(), endAfter: NSDate(), pilotId: AirMap.authSession.userId, authCheck:true ).map { $0.first }
 	}
 
 	public class func rx_getFlight(flightId: String) -> Observable<AirMapFlight> {
@@ -77,7 +77,6 @@ extension RxAirMap_Pilot_Aircraft {
 	}
 }
 
-
 private typealias RxAirMap_Pilot = AirMap
 extension RxAirMap_Pilot {
 
@@ -93,8 +92,12 @@ extension RxAirMap_Pilot {
 		return pilotClient.update(pilot)
 	}
 
-	public class func rx_verify(token: String) -> Observable<AirMapPilotVerified> {
-		return pilotClient.verify(token)
+	public class func rx_sendVerificationToken() -> Observable<Void> {
+		return pilotClient.sendVerificationToken()
+	}
+
+	public class func rx_verifySMS(token: String) -> Observable<AirMapPilotVerified> {
+		return pilotClient.verifySMS(token)
 	}
 }
 
@@ -109,7 +112,6 @@ extension RxAirMap_Pilot_Permits {
 		return pilotClient.deletePilotPermit(pilotId, permit: permit)
 	}
 }
-
 
 private typealias RxAirMap_Permit = AirMap
 extension RxAirMap_Permit {

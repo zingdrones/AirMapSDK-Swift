@@ -2,7 +2,7 @@
 //  Paging.swift
 //
 //  Created by Rocky Demoff on 7/19/16
-//  Copyright (c) AirMap, Inc.. All rights reserved.
+//  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
 import ObjectMapper

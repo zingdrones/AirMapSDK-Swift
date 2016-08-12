@@ -2,7 +2,7 @@
 //  AirMapErrorResponse.swift
 //
 //  Created by Rocky Demoff on 7/19/16
-//  Copyright (c) AirMap, Inc.. All rights reserved.
+//  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
 import ObjectMapper
@@ -50,7 +50,6 @@ public class AirMapApiError: Mappable {
 		}
 	}
 }
-
 
 public class AirMapApiValidationErrors: Mappable {
 
@@ -116,7 +115,6 @@ public enum AirMapError: Int {
 		]
 	}
 }
-
 
 extension NSError {
 

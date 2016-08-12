@@ -72,8 +72,9 @@ class AirMapFlightPlanViewController: UIViewController {
 	private let pilot    = Variable(nil as AirMapPilot?)
 	private let aircraft = Variable(nil as AirMapAircraft?)
 
-	private let disposeBag = DisposeBag()
+	private let mapViewDelegate = AirMapMapboxMapViewDelegate()
 	private var sections = [TableSection]()
+	private let disposeBag = DisposeBag()
 
 	override var navigationController: AirMapFlightPlanNavigationController? {
 		return super.navigationController as? AirMapFlightPlanNavigationController
@@ -82,9 +83,8 @@ class AirMapFlightPlanViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 			
-		MGLAccountManager.setAccessToken("pk.eyJ1IjoiYWlybWFwIiwiYSI6InhIMVMxeHcifQ.-5KWsUSR1cTbqUhTRpGkgQ")
 		mapView.addAnnotation(navigationController!.flight.value)
-		mapView.delegate = self
+		mapView.delegate = mapViewDelegate
 
 		setupTable()
 		setupBindings()
@@ -180,6 +180,7 @@ class AirMapFlightPlanViewController: UIViewController {
 			.addDisposableTo(disposeBag)
 		
 		status.asObservable()
+			.doOnNext{ self.mapViewDelegate.status = $0 }
 			.map {
 				let advisories = $0?.advisories ?? []
 				let requirements = advisories.map { $0.requirements }.flatMap { $0 }
@@ -258,7 +259,7 @@ class AirMapFlightPlanViewController: UIViewController {
 		} else {
 			AirMap.rx_createFlight(navigationController!.flight.value)
 				.doOnError { [weak self] error in
-					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error)
+					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
 				}
 				.subscribeNext { [weak self] flight in
 					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidCreate(flight)
@@ -322,7 +323,7 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 
 			case is AssociatedPilotModelRow:
 				let cell = tableView.dequeueCell(at: indexPath) as AirMapFlightPilotCell
-				cell.pilot.asObservable().bindTo(pilot).addDisposableTo(disposeBag)
+				cell.pilot = pilot
 				return cell
 
 			case is AssociatedAircraftModelRow:

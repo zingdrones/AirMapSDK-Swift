@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import libPhoneNumber_iOS
 
 class AirMapPilotProfileViewController: UITableViewController {
 	
@@ -21,11 +22,16 @@ class AirMapPilotProfileViewController: UITableViewController {
 	@IBOutlet var saveButton: UIButton!
 	
 	private let disposeBag = DisposeBag()
-	
+	private var numberFormatter = NBAsYouTypeFormatter()
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		setupBindings()
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		
 		AirMap
 			.rx_getAuthenticatedPilot()
@@ -75,7 +81,7 @@ class AirMapPilotProfileViewController: UITableViewController {
 		
 		pilotObsl
 			.map { $0.phone }
-			.unwrap()
+			.map(unowned(self, AirMapPilotProfileViewController.formatPhoneNumber))
 			.bindTo(phoneNumber.rx_text)
 			.addDisposableTo(disposeBag)
 		
@@ -111,6 +117,10 @@ class AirMapPilotProfileViewController: UITableViewController {
 	
 	func fullName(names: [String]) -> String {
 		return names.filter { !$0.isEmpty }.joinWithSeparator(" ")
+	}
+	
+	func formatPhoneNumber(phone: String?) -> String {
+		return numberFormatter.inputString(phone) ?? ""
 	}
 	
 	@IBAction func unwindToPilotProfile(segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }

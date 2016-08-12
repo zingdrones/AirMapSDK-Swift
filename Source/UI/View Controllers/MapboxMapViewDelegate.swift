@@ -1,5 +1,5 @@
 //
-//  AirMapFlightPlanViewController+Mapbox.swift
+//  MapboxMapViewDelegate.swift
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 7/20/16.
@@ -8,13 +8,15 @@
 
 import Mapbox
 
-extension AirMapFlightPlanViewController: MGLMapViewDelegate {
+class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
+	
+	var status: AirMapStatus!
 
 	func mapView(mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
 
 		let color: UIColor
 
-		if let status = navigationController?.status.value {
+		if let status = status {
 			switch status.advisoryColor {
 			case .Gray:    color = .airMapGray()
 			case .Red:     color = .airMapRed()

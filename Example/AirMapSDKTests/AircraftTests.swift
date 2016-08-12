@@ -24,7 +24,7 @@ class AircraftTests: TestCase {
 		aircraft.nickname = "My Drone"
 		aircraft.model = aircraftModel
 
-		stub(.POST, "/pilot/\(AirMap.env())/:id/aircraft", with: "pilot_aircraft_create_success.json")
+		stub(.POST, Config.AirMapApi.pilotUrl + ":id/aircraft", with: "pilot_aircraft_create_success.json")
 
 		waitUntil { done in
 			AirMap.rx_createAircraft(aircraft)
@@ -41,7 +41,7 @@ class AircraftTests: TestCase {
 
 	func testListAircraftManufacturers() {
 
-		stub(.POST, "/aircraft/\(AirMap.env())/manufacturer", with: "aircraft_manufacturers_success.json")
+		stub(.POST, Config.AirMapApi.aircraftUrl + "manufacturer", with: "aircraft_manufacturers_success.json")
 
 		waitUntil { done in
 			AirMap.rx_listManufacturers()
@@ -57,7 +57,7 @@ class AircraftTests: TestCase {
 
 	func testListAircraftManufacturer() {
 
-		stub(.POST, "/aircraft/\(AirMap.env())/manufacturer/", with: "aircraft_manufacturers_success.json")
+		stub(.POST, Config.AirMapApi.aircraftUrl + "manufacturer/", with: "aircraft_manufacturers_success.json")
 
 		waitUntil { done in
 			AirMap.rx_listManufacturers()
@@ -74,7 +74,7 @@ class AircraftTests: TestCase {
 
 	func testListAircraftModels() {
 
-		stub(.POST, "/aircraft/\(AirMap.env())/model", with: "aircraft_models_success.json")
+		stub(.POST, Config.AirMapApi.aircraftUrl = "model", with: "aircraft_models_success.json")
 
 		waitUntil { done in
 			AirMap.rx_listModels()
@@ -93,7 +93,7 @@ class AircraftTests: TestCase {
 
 		let modelId = "76d29840-1bc5-469c-ba92-3f637a100c1d"
 
-		stub(.POST, "/aircraft/\(AirMap.env())/model/\(modelId)", with: "aircraft_model_success.json")
+		stub(.POST, Config.AirMapApi.aircraftUrl + "model/\(modelId)", with: "aircraft_model_success.json")
 
 		waitUntil { done in
 			AirMap.rx_getModel(modelId)

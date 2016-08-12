@@ -74,14 +74,25 @@ extension AirMap_Pilot {
 	
 	/**
 	
-	Verify Token
+	Send Verification Token
 	
-	- parameter token: `String` The token sent to the device
 	- parameter handler: `(AirMapPilot?, NSError?) -> Void`
 	
 	*/
-	public class func verify(token: String, handler: AirMapPilotVerificationResponseHandler) {
-		pilotClient.verify(token).subscribe(handler)
+	public class func verifySMS(handler: AirMapErrorHandler) {
+		pilotClient.sendVerificationToken().subscribe(handler)
+	}
+	
+	/**
+	
+	Verify Token
+	
+	- parameter token: `String` The token sent to the device via SMS
+	- parameter handler: `(AirMapPilot?, NSError?) -> Void`
+	
+	*/
+	public class func verifySMS(token: String, handler: AirMapPilotVerificationResponseHandler) {
+		pilotClient.verifySMS(token).subscribe(handler)
 	}
 	
 }

@@ -7,8 +7,8 @@
 //
 
 @objc public protocol AirMapAuthSessionDelegate {
-	func airmapSessionShouldReauthenticate(handler: ((token: String) -> Void)?)
-	func airMapAuthSessionDidAuthenticate(pilot: AirMapPilot)
+	func airmapSessionShouldAuthenticate()
+	optional func airMapAuthSessionDidAuthenticate(pilot: AirMapPilot)
 	func airMapAuthSessionAuthenticationDidFail(error: NSError)
 }
 
@@ -22,6 +22,15 @@ extension AirMap_AuthSession {
 	*/
 	public static var authSessionDelegate: AirMapAuthSessionDelegate? {
 		didSet { authSession.delegate = authSessionDelegate }
+	}
+
+	/**
+
+	Refreshes the `AirMap Access Token` and notifies the AirMapAuthSessionDelegate upon completion
+
+	*/
+	public static func refreshAuthToken(handler: AirMapErrorHandler) {
+		authClient.refreshAccessToken().subscribe(handler)
 	}
 
 }

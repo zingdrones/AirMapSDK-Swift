@@ -35,7 +35,7 @@ class FlightTests: TestCase {
 		point.coordinate = coordinate
 
 
-		stub(.POST, "/flight/\(AirMap.env())/point", with: "flight_post_success.json")
+		stub(.POST, Config.AirMapApi.flightUrl + "point", with: "flight_post_success.json")
 
 		waitUntil { done in
 			AirMap.rx_createFlight(flight)
@@ -60,7 +60,7 @@ class FlightTests: TestCase {
 
 	func testGetCurrentFlight() {
 
-		stub(.GET, "/flight/\(AirMap.env())", with: "flight_get_success.json")
+		stub(.GET, Config.AirMapApi.flightUrl, with: "flight_get_success.json")
 
 		waitUntil { done in
 			AirMap.rx_getCurrentAuthenticatedPilotFlight()
@@ -77,7 +77,7 @@ class FlightTests: TestCase {
 
 	func testGetCurrentFlightNoFlight() {
 
-		stub(.GET, "/flight/\(AirMap.env())", with: "empty_flights_success.json")
+		stub(.GET, Config.AirMapApi.flightUrl, with: "empty_flights_success.json")
 
 		waitUntil { done in
 			AirMap.rx_getCurrentAuthenticatedPilotFlight()
@@ -93,7 +93,7 @@ class FlightTests: TestCase {
 
 	func testListAllFlights() {
 
-		stub(.GET, "/flight/\(AirMap.env())", with: "flights_get_success.json")
+		stub(.GET, Config.AirMapApi.flightUrl, with: "flights_get_success.json")
 
 		waitUntil { done in
 			AirMap.rx_listAllPublicAndAuthenticatedPilotFlights()
@@ -111,7 +111,7 @@ class FlightTests: TestCase {
 
 		let flight = FlightFactory.defaultFlight()
 
-		stub(.DELETE, "/flight/\(AirMap.env())/\(flight.flightId)", with: "empty_success.json")
+		stub(.DELETE, Config.AirMapApi.flightUrl + "\(flight.flightId)", with: "empty_success.json")
 
 		waitUntil { done in
 			AirMap.rx_deleteFlight(flight)
@@ -126,7 +126,7 @@ class FlightTests: TestCase {
 
 		let flight = FlightFactory.defaultFlight()
 
-		stub(.PATCH, "/flight/\(AirMap.env())/\(flight.flightId)/start-comm", with: "flight_comm_key_success.json")
+		stub(.PATCH, Config.AirMapApi.flightUrl + "\(flight.flightId)/start-comm", with: "flight_comm_key_success.json")
 
 		waitUntil { done in
 			AirMap.flightClient.getCommKey(flight)

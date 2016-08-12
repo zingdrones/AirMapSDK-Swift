@@ -20,12 +20,6 @@ extension AirMap_MapTileService {
 
 	*/
 	public class func getTileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> NSURL? {
-
-		guard AirMap.hasValidApiKey() else {
-			logger.error(AirMap.self, "Call \(#selector(AirMap.configure(apiKey:pinCertificates:))) before sending telemetry data.")
-			return nil
-		}
-
 		return mappingService.tileSourceUrl(layers, theme: theme)
 	}
 

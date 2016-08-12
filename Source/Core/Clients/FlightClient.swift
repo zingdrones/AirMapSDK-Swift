@@ -82,46 +82,46 @@ extension FlightClient {
 		params["country"     ] = country
 		params["enhance"     ] = String(enhanced ?? false)
 
-		AirMap.logger.info("Get Flights", params)
+		AirMap.logger.debug("Get Flights", params)
 		return call(.GET, params: params, keyPath: "data.results")
 	}
 
-	func listAllPublicAndAuthenticatedPilotFlights(startAfter: NSDate = NSDate(), limit: Int? = nil) -> Observable<[AirMapFlight]> {
+	func listAllPublicAndAuthenticatedPilotFlights(startBefore startBefore: NSDate = NSDate(), endAfter: NSDate = NSDate(), limit: Int? = nil) -> Observable<[AirMapFlight]> {
 		
-		AirMap.logger.info("Get All Public and Authenticated User Flights", startAfter)
+		AirMap.logger.debug("Get All Public and Authenticated User Flights", startBefore, endAfter)
 
 		if AirMap.authSession.hasValidCredentials() {
-			let publicFlights = list(limit, startAfter: startAfter)
-			let pilotFlights = list(startAfter: startAfter, pilotId: AirMap.authSession.userId)
+			let publicFlights = list(limit, startBefore: startBefore, endAfter: endAfter)
+			let pilotFlights = list(startBefore: startBefore, endAfter: endAfter, pilotId: AirMap.authSession.userId)
 			
 			return [publicFlights, pilotFlights].zip{ flights in
 				return Array(Set(flights.flatMap({$0})))
 			}
 			
 		} else {
-			return list(limit, startAfter: startAfter)
+			return list(limit, startBefore: startBefore, endAfter: endAfter)
 		}
 	}
 
 	func get(flightId: String) -> Observable<AirMapFlight> {
-		AirMap.logger.info("Get flight", flightId)
+		AirMap.logger.debug("Get flight", flightId)
 		var params = [String : AnyObject]()
 		params["enhance"] = String(true)
 		return call(.GET, url:"/\(flightId.urlEncoded)", params: params)
 	}
 
 	func create(flight: AirMapFlight) -> Observable<AirMapFlight> {
-		AirMap.logger.info("Create flight", flight)
+		AirMap.logger.debug("Create flight", flight)
 		return call(.POST, url:"/\(flight.geometryType().value)", params: flight.params(), update: flight)
 	}
 
 	func end(flight: AirMapFlight) -> Observable<AirMapFlight> {
-		AirMap.logger.info("End flight", flight)
+		AirMap.logger.debug("End flight", flight)
 		return call(.POST, url:"/\(flight.flightId.urlEncoded)/end", update: flight)
 	}
 
 	func delete(flight: AirMapFlight) -> Observable<Void> {
-		AirMap.logger.info("Delete flight", flight)
-		return call(.POST, url:"/\(flight.flightId.urlEncoded)/cancel")
+		AirMap.logger.debug("Delete flight", flight)
+		return call(.POST, url:"/\(flight.flightId.urlEncoded)/delete")
 	}
 }

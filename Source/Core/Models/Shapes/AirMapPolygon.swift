@@ -30,6 +30,7 @@ extension AirMapPolygon: Mappable {
 		var params = [String: AnyObject]()
 
 		if let coords = coordinates {
+			params["type"] = "Polygon"
 			params["coordinates"] = coords.map { [$0.latitude, $0.longitude] } as [[Double]]
 		}
 

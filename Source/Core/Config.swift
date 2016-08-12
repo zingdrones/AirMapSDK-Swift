@@ -9,33 +9,57 @@
 struct Config {
 
 	struct AirMapApi {
-		static let env = "stage"
-		static let host = "https://api.airmap.io"
-		static let aircraftUrl = host + "/aircraft/" + env
-		static let pilotUrl    = host + "/pilot/"    + env
-		static let flightUrl   = host + "/flight/"   + env
-		static let permitUrl   = host + "/permit/"   + env
-		static let statusUrl   = host + "/status/"   + env
-		static let mapTilesUrl = host + "/maps/v4/tilejson"
+
+		static let host = "https://api.airmap.com"
+
+		static var aircraftUrl: String {
+			return AirMapApi.urlForResource("aircraft", version: 2)
+		}
+		static var flightUrl: String {
+			return AirMapApi.urlForResource("flight", version: 2)
+		}
+		static var permitUrl: String {
+			return AirMapApi.urlForResource("permit", version: 2)
+		}
+		static var pilotUrl: String {
+			return AirMapApi.urlForResource("pilot", version: 2)
+		}
+		static var statusUrl: String {
+			return AirMapApi.urlForResource("status", version: 2)
+		}
+		static var mapTilesUrl: String {
+			return host + "/maps/v4/tilejson"
+		}
+		
+		static func urlForResource(named: String, version: Int) -> String {
+			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "v\(version)")
+		}
 
 		struct Auth {
-			static let callbackUrlHost = "localhost"
-			static let callbackUrlPort = 8080
-			static let callbackUrlPath = "/login"
-			static let loginUrl = "https://sso.airmap.io/authorize?response_type=token&client_id=2iV1XSfdLJNOfZiTZ9JGdrNHtcNzYstt&redirect_uri=https://\(Auth.callbackUrlHost):\(Auth.callbackUrlPort)\(Auth.callbackUrlPath)&scope=openid+offline_access"
+			static let ssoUrl    = "https://sso.airmap.io"
+			static let scope     = "openid+offline_access"
+			static let grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer"
+			static let keychainKeyRefreshToken = "com.airmap.airmapsdk.refresh_token"
 		}
+
 		static let dateFormat  = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // Ex: 2016-06-30T16:54:17.606Z
 		static let smsCodeLength = 6
 	}
 
 	struct AirMapTelemetry {
-		static let host = "ec2-54-186-255-126.us-west-2.compute.amazonaws.com"
+		static var host: String {
+			let env = AirMap.configuration.environment ?? "prod"
+			return "api-telemetry.\(env).airmap.com"
+		}
 		static let port = UInt16(8000)
 	}
 
 	struct AirMapTraffic {
-		static let host = "ec2-54-218-56-69.us-west-2.compute.amazonaws.com"
-		static let port = UInt16(1883)
+		static var host: String {
+			let env = AirMap.configuration.environment ?? "prod"
+			return "mqtt-\(env).airmap.io"
+		}
+		static let port = UInt16(8883)
 		static let keepAlive = UInt16(15)
 		static let expirationInterval = NSTimeInterval(30)
 		static let trafficAlertChannel = "uav/traffic/alert/"

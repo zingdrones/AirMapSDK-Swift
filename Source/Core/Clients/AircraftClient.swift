@@ -15,17 +15,17 @@ internal class AircraftClient: HTTPClient {
 	}
 	
 	func listManufacturers() -> Observable<[AirMapAircraftManufacturer]> {
-		AirMap.logger.info("Get Aircraft Manufacturers")
+		AirMap.logger.debug("Get Aircraft Manufacturers")
 		return call(.GET, url:"/manufacturer")
 	}
 	
 	func listModels() -> Observable<[AirMapAircraftModel]> {
-		AirMap.logger.info("Get Aircraft Models")
+		AirMap.logger.debug("Get Aircraft Models")
 		return call(.GET, url:"/model")
 	}
 	
 	func getModel(modelId: String) -> Observable<AirMapAircraftModel> {
-		AirMap.logger.info("Get Model", modelId)
+		AirMap.logger.debug("Get Model", modelId)
 		return call(.GET, url:"/model/\(modelId.urlEncoded)")
 	}
 }

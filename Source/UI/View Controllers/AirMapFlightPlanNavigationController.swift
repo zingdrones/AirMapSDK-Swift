@@ -11,7 +11,7 @@ import RxSwift
 public protocol AirMapFlightPlanDelegate {
 	
 	func airMapFlightPlanDidCreate(flight: AirMapFlight)
-	func airMapFlightPlanDidEncounter(error: ErrorType)
+	func airMapFlightPlanDidEncounter(error: NSError)
 }
 
 public class AirMapFlightPlanNavigationController: UINavigationController {

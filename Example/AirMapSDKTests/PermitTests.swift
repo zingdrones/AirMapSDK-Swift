@@ -18,7 +18,7 @@ class PermitTests: TestCase {
 
 	func testGetSinglePermit() {
 
-		stub(.GET, "/permit/\(AirMap.env())", with: "permit_get_success.json")
+		stub(.GET, Config.AirMapApi.permitUrl, with: "permit_get_success.json")
 
 		let permitId = "permit|abc123"
 
@@ -48,7 +48,7 @@ class PermitTests: TestCase {
 		
 		permit.customProperties = [studentId]
 
-		stub(.POST, "/permit/\(AirMap.env())/\(permit.id)/apply", with: "permit_apply_success.json")
+		stub(.POST, Config.AirMapApi.permitUrl + "\(permit.id)/apply", with: "permit_apply_success.json")
 
 		waitUntil { done in
 			AirMap.rx_applyForPermit(permit)

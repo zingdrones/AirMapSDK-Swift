@@ -22,7 +22,7 @@ internal class TelemetrySocket: NSObject {
 
 	func retreiveCommunicationKey(flight: AirMapFlight) -> Observable<Comm> {
 
-		AirMap.logger.info("Requesting AirMapTelemetry Key")
+		AirMap.logger.debug("Requesting AirMapTelemetry Key")
 
 		keyState = .Retreiving
 
@@ -43,10 +43,10 @@ internal class TelemetrySocket: NSObject {
 	func connect() -> Bool {
 
 		do {
-			AirMap.logger.info("Connecting AirMapTelemetrySocket")
+			AirMap.logger.debug("Connecting AirMapTelemetrySocket")
 			try socket.connectToHost(Config.AirMapTelemetry.host, onPort: UInt16(Config.AirMapTelemetry.port))
 			try socket.beginReceiving()
-			AirMap.logger.info("AirMapTelemetrySocket Connected")
+			AirMap.logger.debug("AirMapTelemetrySocket Connected")
 			return true
 		} catch {
 			AirMap.logger.error("AirMapTelemetrySocket Error \(error)")
@@ -65,7 +65,7 @@ internal class TelemetrySocket: NSObject {
 extension TelemetrySocket: GCDAsyncUdpSocketDelegate {
 	
 	@objc func udpSocket(sock: GCDAsyncUdpSocket, didConnectToAddress address: NSData) {
-		AirMap.logger.info("AirMapTelemetrySocket DidConnect")
+		AirMap.logger.debug("AirMapTelemetrySocket DidConnect")
 	}
 
 	@objc func udpSocket(sock: GCDAsyncUdpSocket, didNotConnect error: NSError) {

@@ -166,9 +166,7 @@ extension Request {
 		}
 
 		if statusCode == 401 {
-			AirMap.authSession.delegate?.airmapSessionShouldReauthenticate({ (token) in
-				AirMap.authToken = token
-			})
+			AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
 		}
 
 		if statusCode >= 400 {

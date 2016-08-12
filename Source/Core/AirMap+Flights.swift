@@ -15,12 +15,13 @@ extension AirMap_Flights {
 	/**
 	Get the all public `AirMapFlight`s including private flights, if available, of the authenticated user.
 
-	- parameter startsAt: `NSDate` of when the flights should start
+	- parameter startBefore: `NSDate` of when the flights should start
+	- parameter endAfter: `NSDate` of when the flights should end
 	- parameter handler: `(AirMapFlight?, NSError?) -> Void`
 
 	*/
-	public class func listAllPublicAndAuthenticatedUserFlights(startAfter: NSDate = NSDate(), limit: Int? = nil, handler: AirMapFlightCollectionResponseHandler) {
-		flightClient.listAllPublicAndAuthenticatedPilotFlights(startAfter).subscribe(handler)
+	public class func listAllPublicAndAuthenticatedUserFlights(startBefore: NSDate = NSDate(), endAfter: NSDate = NSDate(), limit: Int? = nil, handler: AirMapFlightCollectionResponseHandler) {
+		flightClient.listAllPublicAndAuthenticatedPilotFlights(startBefore: startBefore, endAfter: endAfter).subscribe(handler)
 	}
 
 	/**
@@ -31,8 +32,7 @@ extension AirMap_Flights {
 	*/
 	public class func getCurrentAuthenticatedPilotFlight(handler: AirMapFlightResponseHandler) {
 		
-		//TODO: Verify if this be startBefore now and endAfter now to return ACTIVE flights?
-		flightClient.list(startAfter: NSDate(), pilotId: AirMap.authSession.userId, enhanced: true, authCheck:true).map { $0.first }.subscribe(handler)
+		flightClient.list(startBefore: NSDate(), endAfter: NSDate(), pilotId: AirMap.authSession.userId, enhanced: true, authCheck:true).map { $0.first }.subscribe(handler)
 	}
 
 	/**

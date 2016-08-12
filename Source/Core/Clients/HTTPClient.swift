@@ -22,43 +22,48 @@ internal class HTTPClient {
 		case CacheControl  = "Cache-Control"
 		case XApiKey       = "X-API-Key"
 	}
-
+	
 	private let baseUrl: String!
+	
 	private var headers: [String : String] {
-		return [Header.Accept.rawValue: MimeType.JSON.rawValue,
-		 Header.XApiKey.rawValue : AirMap.authSession.apiKey  ?? "Adolofoo",
-		 Header.Authorization.rawValue : (AirMap.authSession.tokenType ?? "") +  " " + (AirMap.authSession.authToken ?? "")]
+	
+		let authorizationValue = [AirMap.authSession.tokenType, AirMap.authSession.authToken]
+			.flatMap{$0}
+			.joinWithSeparator(" ")
+		
+		return [
+			Header.Accept.rawValue: MimeType.JSON.rawValue,
+			Header.XApiKey.rawValue: AirMap.configuration.airMapApiKey,
+			Header.Authorization.rawValue: authorizationValue
+		]
 	}
 
 	lazy var manager: Manager = {
 
+		let host = NSURL(string: Config.AirMapApi.host)!.host!
+		let certs = ServerTrustPolicy.certificatesInBundle(AirMapBundle.mainBundle())
+		
 		let serverTrustPolicies: [String: ServerTrustPolicy] = [
-			"api.airmap.io": .PinCertificates(
-				certificates: ServerTrustPolicy.certificatesInBundle(AirMapBundle.mainBundle()),
-				validateCertificateChain: true,
-				validateHost: true
-			),
+			host: ServerTrustPolicy.PinCertificates(certificates: certs, validateCertificateChain: true, validateHost: true)
 		]
-
-		if AirMap.authSession.enableCertificatePinning {
-			return Manager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies))
-		}
-
-		return Manager()
+		
+		return AirMap.authSession.enableCertificatePinning ?
+			Manager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)) : Manager()
 
 	}()
 
 	init(_ baseUrl: String) {
 		self.baseUrl = baseUrl
 	}
-
+	
 	func call<T: Mappable>(method: Alamofire.Method, url: String = "", params: [String: AnyObject] = [:], keyPath: String? = "data", update object: T? = nil, authCheck: Bool = false) -> Observable<T> {
 
 		return Observable.create { (observer: AnyObserver<T>) -> Disposable in
 
 			if authCheck && !AirMap.hasValidCredentials() {
 				observer.onError(AirMapErrorType.Unauthorized)
-				return AnonymousDisposable {}
+				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
+				return NopDisposable.instance
 			}
 
 			let encoding: ParameterEncoding = (method == .GET) ? .URL : .JSON
@@ -86,7 +91,8 @@ internal class HTTPClient {
 		return Observable.create { (observer: AnyObserver<T?>) -> Disposable in
 			if authCheck && !AirMap.hasValidCredentials() {
 				observer.onError(AirMapErrorType.Unauthorized)
-				return AnonymousDisposable {}
+				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
+				return NopDisposable.instance
 			}
 
 			let encoding: ParameterEncoding = (method == Alamofire.Method.GET) ? .URL : .JSON
@@ -114,7 +120,8 @@ internal class HTTPClient {
 
 			if authCheck && !AirMap.hasValidCredentials() {
 				observer.onError(AirMapErrorType.Unauthorized)
-				return AnonymousDisposable {}
+				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
+				return NopDisposable.instance
 			}
 
 			let encoding: ParameterEncoding = (method == .GET) ? .URL : .JSON
@@ -122,12 +129,12 @@ internal class HTTPClient {
 			let request = self.manager.request(method, self.baseUrl + url, parameters: params, encoding: encoding, headers: self.headers)
 				.responseArray(keyPath: keyPath) { (response: Response<[T], NSError>) in
 					if let error = response.result.error {
-
 						AirMap.logger.error(method, String(T), url, error)
 						observer.onError(error)
 					} else {
-						AirMap.logger.debug(String(T), "response:", response.result.value!)
-						observer.on(.Next(response.result.value!))
+						let resultValue = response.result.value!
+						AirMap.logger.debug("Response:", resultValue.count, String(T)+"s")
+						observer.on(.Next(resultValue))
 						observer.on(.Completed)
 					}
 			}
@@ -143,7 +150,8 @@ internal class HTTPClient {
 
 			if authCheck && !AirMap.hasValidCredentials() {
 				observer.onError(AirMapErrorType.Unauthorized)
-				return AnonymousDisposable {}
+				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
+				return NopDisposable.instance
 			}
 
 			let encoding: ParameterEncoding = (method == .GET) ? .URL : .JSON

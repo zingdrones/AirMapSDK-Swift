@@ -9,9 +9,14 @@
 import Mapbox
 
 extension AirMapFlight: MGLAnnotation {
-	
+		
 	public var title: String? {
-		return description
+		guard let startTime = startTime else { return nil }
+		let dateFormatter = NSDateFormatter()
+		dateFormatter.doesRelativeDateFormatting = true
+		dateFormatter.dateStyle = .MediumStyle
+		dateFormatter.timeStyle = .LongStyle
+		return dateFormatter.stringFromDate(startTime)
 	}
 	
 }

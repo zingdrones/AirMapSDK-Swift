@@ -62,7 +62,7 @@ import ObjectMapper
 
 	public override init() {
 		super.init()
-	}
+	}	
 }
 
 extension AirMapFlight: Mappable {
@@ -103,17 +103,18 @@ extension AirMapFlight: Mappable {
 	}
 
 	/**
+	
 	Returns key value parameters
 
 	- returns: [String: AnyObject]
+	
 	*/
-
 	func params() -> [String: AnyObject] {
 
 		var params = [String: AnyObject]()
 
-		params["latitude"    ] = String(coordinate.latitude)
-		params["longitude"   ] = String(coordinate.longitude)
+		params["latitude"    ] = coordinate.latitude
+		params["longitude"   ] = coordinate.longitude
 		params["max_altitude"] = maxAltitude
 		params["aircraft_id" ] = aircraftId
 		params["start_time"  ] = startTime?.ISO8601String()
@@ -144,6 +145,7 @@ extension AirMapFlight: Mappable {
 		let lineString = coordinates.flatMap {"\($0.latitude) \($0.longitude)"}.joinWithSeparator(", ")
 		return "LINESTRING(\(lineString))"
 	}
+	
 }
 
 func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {

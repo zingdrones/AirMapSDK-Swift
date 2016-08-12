@@ -18,6 +18,8 @@ extension AirMap_Internal {
 	@nonobjc internal static let statusClient = StatusClient()
 	@nonobjc internal static let mappingService = MappingService()
 	@nonobjc internal static let authSession = AirMapAuthSession()
+	@nonobjc internal static let authClient = AirMapAuthClient()
+
 
 	#if AIRMAP_TELEMETRY
 	@nonobjc internal static let telemetrySocket = TelemetrySocket()
@@ -33,7 +35,4 @@ extension AirMap_Internal {
 		return authSession.hasValidCredentials()
 	}
 
-	@nonobjc internal static func hasValidApiKey() -> Bool {
-		return authSession.hasValidApiKey()
-	}
 }

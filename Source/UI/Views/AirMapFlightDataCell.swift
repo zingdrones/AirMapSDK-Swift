@@ -24,13 +24,6 @@ class AirMapFlightDataCell: UITableViewCell {
 		
 	private func setupBindings() {
 		
-		model.value
-			.asObservable()
-			.single()
-			.map(unowned(self, AirMapFlightDataCell.modelValueToSliderValue))
-			.bindTo(slider.rx_value)
-			.addDisposableTo(disposeBag)
-		
 		model.title
 			.asObservable()
 			.bindTo(label.rx_text)

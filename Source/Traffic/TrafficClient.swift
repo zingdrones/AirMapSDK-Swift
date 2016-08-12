@@ -17,7 +17,8 @@ internal class TrafficClient: MQTTSession {
 			port: Config.AirMapTraffic.port,
 			clientID: Config.AirMapTraffic.clientId,
 			cleanSession: true,
-			keepAlive: Config.AirMapTraffic.keepAlive
+			keepAlive: Config.AirMapTraffic.keepAlive,
+			useSSL: true
 		)
 	}
 	var currentChannels = [String]()

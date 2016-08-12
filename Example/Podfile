@@ -1,17 +1,11 @@
-source 'git@github.com:CocoaPods/Specs.git'
-source 'https://github.com/airmap/PodSpecs.git'
-
 use_frameworks!
 
 target 'AirMapSDK-Example-iOS' do
 	platform :ios, '8.0'
 	pod 'AirMapSDK', :path => '../'
 	pod 'Mapbox-iOS-SDK'
-end
-
-target 'AirMapSDK-Example-macOS' do
-	platform :osx, '10.10'
-	pod 'AirMapSDK', :path => '../'
+        # Use fork with SSL support until merged upstream
+	pod 'SwiftMQTT', :git => 'https://github.com/adolfo/SwiftMQTT.git', :branch => 'feature/add-ssl-support'
 end
 
 target 'AirMapSDKTests' do

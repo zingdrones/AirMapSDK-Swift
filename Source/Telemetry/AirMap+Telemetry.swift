@@ -31,7 +31,7 @@ extension AirMapTelemetryServices {
 	                                     baro: Double?) {
 
 		guard AirMap.hasValidCredentials() else {
-			logger.error(AirMap.self, "Call \(#selector(AirMap.configure(apiKey:pinCertificates:))) before sending telemetry data.")
+			logger.error(AirMap.self, "Please login before sending telemetry data.")
 			return
 		}
 

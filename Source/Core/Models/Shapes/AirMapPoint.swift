@@ -9,7 +9,7 @@
 import ObjectMapper
 
 public class AirMapPoint: AirMapGeometry {
-	
+
 	public var coordinate: CLLocationCoordinate2D!
 }
 
@@ -29,10 +29,11 @@ extension AirMapPoint: Mappable {
 		var params = [String: AnyObject]()
 
 		if let coords = coordinate {
+			params["type"] = "Point"
 			params["coordinates"] = [coords.latitude, coords.longitude]
 		}
 
 		return params
 	}
-	
+
 }

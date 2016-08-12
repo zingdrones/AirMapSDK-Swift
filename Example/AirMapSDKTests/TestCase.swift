@@ -8,15 +8,15 @@
 
 import Mockingjay
 import XCTest
-import AirMap
+@testable import AirMap
 
 class TestCase: XCTestCase {
 
 	func setup() {
 		super.setUp()
 
-		AirMap.apiKey = <#AirMap API Key#>
-		AirMap.authToken = <#AirMap Auth Token#>
+		AirMap.authToken = nil
+		XCTAssert(AirMap.authSession.hasValidCredentials())
 	}
 
 	func stub(method: HTTPMethod, _ uri: String, with fixtureNamed: String) {

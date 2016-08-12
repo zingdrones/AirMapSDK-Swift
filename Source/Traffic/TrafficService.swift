@@ -134,13 +134,6 @@ internal class TrafficService: MQTTSessionDelegate {
 			.addDisposableTo(disposeBag)
 	}
 
-
-//		guard AirMap.authSession.hasValidCredentials() else {
-//			AirMap.logger.error(TrafficService.self, "Configure API-Key and Auth Token before connecting")
-//			return
-//		}
-
-
 	func connect() {
 		
 		if AirMap.hasValidCredentials() && delegate != nil {
@@ -362,7 +355,6 @@ internal class TrafficService: MQTTSessionDelegate {
 			return traffic.initialCoordinate
 		}
 
-		// FIXME: Assumption here is that recordTime and local time are in sync (use a new `receivedTime` instead?)
 		let elapsedTime = Double(NSDate().timeIntervalSinceDate(traffic.recordedTime))
 		let metersPerSecond = Double(traffic.groundSpeedKt) * 0.514444
 		let distanceTraveledInMeters = metersPerSecond*elapsedTime

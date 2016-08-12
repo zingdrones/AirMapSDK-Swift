@@ -49,7 +49,7 @@ class AirMapFlightNoticeViewController: UIViewController {
 		}
 		
 		let notices = advisories
-			.filter { $0.requirements?.notice?.digital == false }
+			.filter { $0.requirements?.notice?.digital == false && $0.requirements?.notice?.phoneNumber != nil }
 			.flatMap { $0 }
 		
 		if notices.count > 0 {
@@ -68,9 +68,13 @@ class AirMapFlightNoticeViewController: UIViewController {
 			let cell: AirMapFlightNoticeCell!
 			let notice = datasource.sectionAtIndex(indexPath.section).model
 			if notice.digital {
-				cell = tableView.dequeueReusableCellWithIdentifier("digitalNoticeCell") as! AirMapFlightNoticeCell
-			} else {
 				cell = tableView.dequeueReusableCellWithIdentifier("noticeCell") as! AirMapFlightNoticeCell
+			} else {
+				if let phoneNumber = advisory.requirements?.notice?.phoneNumber where !phoneNumber.isEmpty {
+					cell = tableView.dequeueReusableCellWithIdentifier("noticePhoneNumberCell") as! AirMapFlightNoticeCell
+				} else {
+					cell = tableView.dequeueReusableCellWithIdentifier("noticeCell") as! AirMapFlightNoticeCell
+				}
 			}
 			cell.advisory = advisory
 			return cell

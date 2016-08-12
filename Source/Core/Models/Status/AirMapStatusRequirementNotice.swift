@@ -11,7 +11,7 @@ import ObjectMapper
 @objc public class AirMapStatusRequirementNotice: NSObject {
 	
 	public var digital = false
-	public var phoneNumber = ""
+	public var phoneNumber: String?
 	
 	public required init?(_ map: Map) {}
 }

@@ -24,7 +24,7 @@
             </objects>
             <point key="canvasLocation" x="-267" y="-71"/>
         </scene>
-        <!--AirMap SDK Demo-->
+        <!--Delegate-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="MapViewController" customModule="AirMapSDK_Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -41,15 +41,18 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="latitude">
-                                        <real key="value" value="47.655299999999997"/>
+                                        <real key="value" value="34.016810599999999"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="longitude">
-                                        <real key="value" value="-122.3035"/>
+                                        <real key="value" value="-118.4950975"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="zoomLevel">
                                         <real key="value" value="12"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="XRT-HK-QkD"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -60,7 +63,7 @@
                             <constraint firstItem="ahe-iJ-i8H" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="omt-WX-FjL"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="AirMap SDK Demo" id="N4h-me-nvF">
+                    <navigationItem key="navigationItem" title="AirMap SDK Example" id="N4h-me-nvF">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="07S-Df-dnD">
                             <connections>
                                 <action selector="addFlight" destination="vXZ-lx-hvc" id="dtd-hP-LaQ"/>

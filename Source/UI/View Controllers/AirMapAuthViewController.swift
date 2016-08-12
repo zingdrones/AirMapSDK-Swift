@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+
 public class AirMapAuthViewController: UIViewController, UIWebViewDelegate {
 
 	@IBOutlet weak var webView: UIWebView!
@@ -31,19 +32,29 @@ public class AirMapAuthViewController: UIViewController, UIWebViewDelegate {
 	}
 
 	private func loadRequest() {
-		webView.loadRequest(NSURLRequest(URL: NSURL(string: Config.AirMapApi.Auth.loginUrl)!))
+		
+		let ssoUrl = Config.AirMapApi.Auth.ssoUrl
+		let callbackUrl = AirMap.configuration.auth0CallbackUrl
+		let clientId = AirMap.configuration.auth0ClientId
+		let scope = Config.AirMapApi.Auth.scope
+		
+		let url = NSURL(string: "\(ssoUrl)/authorize?response_type=token&client_id=\(clientId)&redirect_uri=\(callbackUrl)&scope=\(scope)")!
+		
+		webView.loadRequest(NSURLRequest(URL: url))
 	}
 
 	/**
 	Attempts to authenticate the
 
-	- parameter urlString: The urlString to parse
+	- parameter urlString: The url String to parse
 
 	*/
-
 	private func authenticateWithUrl(url: String) {
 
-		AirMap.authToken = parseToken(url)
+		let tokens = parseTokens(url)
+
+		AirMap.authToken = tokens.authToken
+		AirMap.authSession.saveRefreshToken(tokens.refeshToken)
 
 		AirMap.rx_getAuthenticatedPilot()
 			.doOnError {[unowned self] error in
@@ -51,7 +62,7 @@ public class AirMapAuthViewController: UIViewController, UIWebViewDelegate {
 				self.authSessionDelegate?.airMapAuthSessionAuthenticationDidFail(error as NSError)
 			}
 			.subscribeNext {[unowned self]  pilot in
-				self.authSessionDelegate?.airMapAuthSessionDidAuthenticate(pilot)
+				self.authSessionDelegate?.airMapAuthSessionDidAuthenticate?(pilot)
 			}
 			.addDisposableTo(disposeBag)
 	}
@@ -62,31 +73,33 @@ public class AirMapAuthViewController: UIViewController, UIWebViewDelegate {
 	- parameter urlString: The urlString to parse
 
 	*/
-	private func parseToken(urlString: String) -> String? {
+	private func parseTokens(urlString: String) -> (authToken: String?, refeshToken: String?) {
 
 		let urlComponents = NSURLComponents(string: urlString)
 		let queryItems = urlComponents?.queryItems
-		return queryItems?.filter({$0.name == "id_token"}).first?.value
+		return (queryItems?.filter({$0.name == "id_token"}).first?.value, queryItems?.filter({$0.name == "refresh_token"}).first?.value)
 	}
 
 	//MARK: - UIWebViewDelegate Methods
 
 	public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
 
-		if let host =  request.URL?.host, port = request.URL?.port?.integerValue {
-
-			if host == Config.AirMapApi.Auth.callbackUrlHost && port == Config.AirMapApi.Auth.callbackUrlPort {
-
-				let findString = "//\(host):\(port)\(Config.AirMapApi.Auth.callbackUrlPath)#"
+		let callbackUrl = NSURL(string: AirMap.configuration.auth0CallbackUrl)!
+		
+		if let url = request.URL {
+			
+			if url.host! == callbackUrl.host! {
+				
+				let callbackUrl = AirMap.configuration.auth0CallbackUrl
+				
+				let findString = callbackUrl + "#"
 				let replaceString = findString.stringByReplacingOccurrencesOfString("#", withString: "?")
-				let url = request.URL!.absoluteString.stringByReplacingOccurrencesOfString(findString, withString: replaceString)
+				let url = url.absoluteString.stringByReplacingOccurrencesOfString(findString, withString: replaceString)
 				authenticateWithUrl(url)
 			}
+		
 		}
 
 		return true
 	}
-
-
-
 }

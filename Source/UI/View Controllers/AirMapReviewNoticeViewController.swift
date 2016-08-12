@@ -41,7 +41,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 				cell = tableView.dequeueReusableCellWithIdentifier("noDigitalCell")!
 			}
 			cell.textLabel?.text = rowData.advisory.name
-			cell.detailTextLabel?.text = self?.phoneStringFromE164(rowData.notice.phoneNumber)
+			cell.detailTextLabel?.text = self?.phoneStringFromE164(rowData.notice.phoneNumber ?? "")
 			return cell
 		}
 		
@@ -51,7 +51,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 		}
 		
 		let digitalNotices = advisoryNotices.filter { $0.notice.digital == true }
-		let regularNotices = advisoryNotices.filter { $0.notice.digital == false }
+		let regularNotices = advisoryNotices.filter { $0.notice.digital == false && $0.notice.phoneNumber != nil }
 		
 		let digitalSection = SectionModel(model: true, items: digitalNotices)
 		let regularSection = SectionModel(model: false, items: regularNotices)

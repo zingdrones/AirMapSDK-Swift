@@ -41,12 +41,12 @@ class AirMapVerifySMSCodeViewController: UITableViewController {
 	
 	@IBAction func submitSMSCode() {
 		
-		AirMap.rx_verify(smsTextField.text!)
-			.subscribeNext { [weak self] verified in
-				if verified.verified {
+		AirMap.rx_verifySMS(smsTextField.text!)
+			.subscribeNext { [weak self] response in
+				if response.verified {
 					self?.performSegueWithIdentifier("unwindToPilotProfile", sender: self)
 				} else {
-					//FIXME: Handle error
+					//TODO: Handle error
 					self?.navigationController?.popViewControllerAnimated(true)
 				}
 			}

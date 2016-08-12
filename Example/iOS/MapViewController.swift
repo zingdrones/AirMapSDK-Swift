@@ -12,41 +12,43 @@ import Mapbox
 
 class MapViewController: UIViewController {
 
-	@IBOutlet weak var mapView: MGLMapView!
+	@IBOutlet weak var mapView: AirMapMapView!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		AirMap.configure(apiKey: <#AirMap API Key#>)
+		AirMap.authSessionDelegate = self
 		AirMap.trafficDelegate = self
-		MGLAccountManager.setAccessToken(<#Mapbox API Key#>)
+
+		mapView.configure(layers: [.EssentialAirspace, .TFRs], theme: .Light)
 	}
 
 	@IBAction func addFlight() {
 
-		if AirMap.authToken != nil {
-			return openFlightCreationForm()
+		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self) {
+			presentViewController(flightPlanController, animated: true, completion: nil)
+		} else {
+			self.openLoginForm()
 		}
-
-		let auth = AirMap.authViewController(airMapAuthSessionDelegate: self)
-		presentViewController(auth, animated: true, completion: nil)
-
 	}
 
-	func openFlightCreationForm() {
-		let flightPlanNav = AirMap.flightPlanViewController(nil, location: mapView.centerCoordinate, flightPlanDelegate: self)
-		presentViewController(flightPlanNav, animated: true, completion: nil)
+	func openLoginForm() {
+		let auth = AirMap.authViewController(airMapAuthSessionDelegate: self)
+		presentViewController(auth, animated: true, completion: nil)
 	}
 }
 
 extension MapViewController: AirMapAuthSessionDelegate {
 
-	func airmapSessionShouldReauthenticate(handler: ((token: String) -> Void)?) {
+	func airmapSessionShouldAuthenticate() {
 
+		AirMap.refreshAuthToken { error in
+			if error != nil { self.openLoginForm() }
+		}
 	}
 
 	func airMapAuthSessionDidAuthenticate(pilot: AirMapPilot) {
-		dismissViewControllerAnimated(true, completion: { self.openFlightCreationForm() })
+		dismissViewControllerAnimated(true, completion: addFlight)
 
 	}
 	func airMapAuthSessionAuthenticationDidFail(error: NSError) {
@@ -55,25 +57,23 @@ extension MapViewController: AirMapAuthSessionDelegate {
 }
 
 extension MapViewController: AirMapFlightPlanDelegate {
-	
+
+
 	func airMapFlightPlanDidCreate(flight: AirMapFlight) {
 		mapView.addAnnotation(flight)
 		dismissViewControllerAnimated(true, completion: nil)
 	}
-	
-	func airMapFlightPlanDidEncounter(error: ErrorType) {
+
+	func airMapFlightPlanDidEncounter(error: NSError) {
 		print(error)
 	}
-
 }
-
 
 extension AirMapTraffic: MGLAnnotation {
 
 	public var title: String? {
 		return properties.aircraftId
 	}
-
 }
 
 extension MapViewController: AirMapTrafficObserver {
@@ -96,6 +96,29 @@ extension MapViewController: AirMapTrafficObserver {
 
 	func airMapTrafficServiceDidDisconnect() {
 		print("Disconnected")
+	}
+}
+
+extension MapViewController: MGLMapViewDelegate {
+
+	func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
+		
+		switch annotation {
+		
+		case is AirMapFlight:
+			let image = AirMapImage.flightIcon(.Active)!
+			return MGLAnnotationImage(image: image, reuseIdentifier: "flightIcon")
+		
+		case is AirMapTraffic:
+			return (annotation as! AirMapTraffic).mglAnnotationImage()
+		
+		default:
+			return nil
+		}
+	}
+
+	func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+		return true
 	}
 
 }

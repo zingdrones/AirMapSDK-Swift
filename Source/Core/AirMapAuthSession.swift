@@ -9,6 +9,7 @@
 import JWTDecode
 import RxSwift
 import RxSwiftExt
+import SimpleKeychain
 
 class AirMapAuthSession {
 
@@ -24,7 +25,6 @@ class AirMapAuthSession {
 
 	var tokenType: String = "Bearer"
 	var enableCertificatePinning: Bool = false
-	var apiKey: String?
 	var userId: String = ""
 	var expiresAt: NSDate!
 	var delegate: AirMapAuthSessionDelegate?
@@ -60,12 +60,7 @@ class AirMapAuthSession {
 		}
 
 		guard let decoded = try? JWTDecode.decode(jwt) else {
-
-			delegate?.airmapSessionShouldReauthenticate { (token) in
-				AirMap.logger.debug("Attempting to reauthenticate with new token", token)
-				self.authToken = token
-			}
-
+			delegate?.airmapSessionShouldAuthenticate()
 			return
 		}
 
@@ -90,10 +85,7 @@ class AirMapAuthSession {
 				self.expiresAt = nil
 			}
 
-			delegate?.airmapSessionShouldReauthenticate { (token) in
-				AirMap.logger.debug("airmapSessionShouldReauthenticate", token)
-				self.authToken = token
-			}
+			delegate?.airmapSessionShouldAuthenticate()
 		}
 	}
 
@@ -105,12 +97,18 @@ class AirMapAuthSession {
 
 	/// Validates the credentials and returns a Bool
 	func hasValidCredentials() -> Bool {
-		return authToken != nil && !authToken!.isEmpty && apiKey != nil && !apiKey!.isEmpty && !tokenIsExpired()
+		return authToken != nil && !authToken!.isEmpty && !tokenIsExpired()
 	}
 
-	/// Validates the credentials and returns a Bool
-	func hasValidApiKey() -> Bool {
-		return apiKey != nil && !apiKey!.isEmpty
+	func saveRefreshToken(token: String?) {
+		if let token = token {
+			A0SimpleKeychain().setString(token, forKey: Config.AirMapApi.Auth.keychainKeyRefreshToken)
+		} else {
+			A0SimpleKeychain().deleteEntryForKey(Config.AirMapApi.Auth.keychainKeyRefreshToken)
+		}
 	}
 
+	func getRefreshToken() -> String? {
+		return A0SimpleKeychain().stringForKey(Config.AirMapApi.Auth.keychainKeyRefreshToken)
+	}
 }

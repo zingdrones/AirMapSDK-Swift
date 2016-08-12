@@ -19,7 +19,7 @@ class PilotTests: TestCase {
 
 		let pilotId: String = "auth1|56c3a9171ab18142396182fc"
 
-		//		stub(.GET, "/pilot/\(AirMap.env())/\(pilotId)", with: "pilot_authorized_get_success.json")
+		//		stub(.GET, Config.AirMapApi.pilotUrl + "\(pilotId)", with: "pilot_authorized_get_success.json")
 
 		waitUntil { done in
 
@@ -39,7 +39,7 @@ class PilotTests: TestCase {
 
 		let pilotId: String = "auth0|56c3a9171ab18142396182fc"
 
-//		stub(.GET, "/pilot/\(AirMap.env())/\(pilotId)", with: "pilot_authorized_get_success.json")
+//		stub(.GET, Config.AirMapApi.pilotUrl + "\(pilotId)", with: "pilot_authorized_get_success.json")
 
 		waitUntil { done in
 
@@ -64,7 +64,7 @@ class PilotTests: TestCase {
 
 		let pilotId: String = "auth0|56c3a9171ab18142396182fc"
 
-		//		stub(.GET, "/pilot/\(AirMap.env())/\(pilotId)", with: "pilot_authorized_get_success.json")
+		//		stub(.GET, Config.AirMapApi.pilotUrl + "\(pilotId)", with: "pilot_authorized_get_success.json")
 
 		waitUntil { done in
 

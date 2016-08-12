@@ -15,7 +15,7 @@ internal class PermitClient: HTTPClient {
 	}
 
 	func list(permitIds: [String]? = nil, organizationId: String? = nil) -> Observable<[AirMapAvailablePermit]> {
-		AirMap.logger.info("Get Permit", permitIds, organizationId)
+		AirMap.logger.debug("Get Permit", permitIds, organizationId)
 
 		var params = [String : AnyObject]()
 		params["ids"] = permitIds?.joinWithSeparator(",")
@@ -25,7 +25,7 @@ internal class PermitClient: HTTPClient {
 	}
 
 	func apply(permit: AirMapAvailablePermit) -> Observable<AirMapPilotPermit> {
-		AirMap.logger.info("Apply for Permit", permit)
+		AirMap.logger.debug("Apply for Permit", permit)
 		return call(.POST, url:"/\(permit.id.urlEncoded)/apply", params: permit.params())
 	}
 }

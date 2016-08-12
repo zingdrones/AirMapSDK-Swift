@@ -10,7 +10,7 @@ import Mapbox
 import RxSwift
 
 class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelegate, TabSelectorDelegate {
-
+	
 	@IBOutlet weak var mapView: AirMapMapView!
 	@IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet weak var tabView: TabSelectorView!
@@ -23,11 +23,12 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 	private var embeddedViews = [(title: String, view: UIView)]()
 	private let disposeBag = DisposeBag()
+	private let mapViewDelegate = AirMapMapboxMapViewDelegate()
 
 	override var navigationController: AirMapFlightPlanNavigationController? {
 		return super.navigationController as? AirMapFlightPlanNavigationController
 	}
-
+	
 	enum Segue: String {
 		case embedFlightDetails
 		case embedPermits
@@ -38,6 +39,21 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		super.viewDidLoad()
 
 		setupEmbeddedViews()
+		
+		mapView.delegate = mapViewDelegate
+		mapViewDelegate.status = navigationController?.status.value
+		
+		let flight = navigationController!.flight.value
+		let polygon = AirMapFlightRadiusAnnotation.polygon(flight.coordinate, radius: flight.buffer!)
+		
+		mapView.addAnnotations([flight, polygon])
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+		mapView.showAnnotations(mapView.annotations!, edgePadding: insets, animated: false)
 	}
 
 	func setupEmbeddedViews() {
@@ -80,16 +96,6 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		}
 	}
 
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-
-		let flight = navigationController!.flight.value
-		let polygon = AirMapFlightRadiusAnnotation.polygon(flight.coordinate, radius: flight.buffer!)
-		self.mapView.addAnnotation(polygon)
-		let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-		self.mapView.showAnnotations([polygon], edgePadding: insets, animated: false)
-	}
-
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 
@@ -130,11 +136,8 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		}
 
 		flight
-			.flatMap { flight in
-				AirMap.rx_createFlight(flight)
-					.doOnError(flow.flightPlanDelegate.airMapFlightPlanDidEncounter)
-			}
-			.doOnError(flow.flightPlanDelegate.airMapFlightPlanDidEncounter)
+			.flatMap { AirMap.rx_createFlight($0) }
+			.doOnError { flow.flightPlanDelegate.airMapFlightPlanDidEncounter($0 as NSError) }
 			.subscribeNext(flow.flightPlanDelegate.airMapFlightPlanDidCreate)
 			.addDisposableTo(disposeBag)
 	}
@@ -149,21 +152,4 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 	func scrollViewDidScroll(scrollView: UIScrollView) {
 		tabSelectionIndicator.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x / CGFloat(embeddedViews.count), 0)
 	}
-}
-
-extension AirMapReviewFlightPlanViewController: MGLMapViewDelegate {
-
-
-	func mapView(mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
-		return UIColor(red: 252.0/255.0, green: 76.0/255.0, blue: 2.0/255.0, alpha: 0.75)
-	}
-
-	func mapView(mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-		return 8.0
-	}
-
-	func mapView(mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
-		return .redColor()
-	}
-
 }

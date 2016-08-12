@@ -6,7 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import AirMap
+@testable import AirMap
 import Mockingjay
 import Nimble
 import RxSwift
@@ -17,7 +17,7 @@ class StatusTests: TestCase {
 
 	func testGetPointStatus() {
 
-		stub(.GET, "/data/next2/status/point", with: "status_get_point_success.json")
+		stub(.GET, Config.AirMapApi.statusUrl + "point", with: "status_get_point_success.json")
 
 		waitUntil { done in
 
@@ -38,7 +38,7 @@ class StatusTests: TestCase {
 
 	func testGetFlightPathStatus() {
 
-		stub(.GET, "/data/next2/status/path", with: "status_get_path_success.json")
+		stub(.GET, Config.AirMapApi.statusUrl + "path", with: "status_get_path_success.json")
 
 		waitUntil { done in
 
@@ -62,7 +62,7 @@ class StatusTests: TestCase {
 
 	func testGetFlightPolygonStatus() {
 
-		stub(.GET, "/data/next2/status/polygon", with: "status_get_polygon_success.json")
+		stub(.GET, Config.AirMapApi.statusUrl + "polygon", with: "status_get_polygon_success.json")
 
 		waitUntil { done in
 
@@ -83,7 +83,7 @@ class StatusTests: TestCase {
 
 	func testWeatherStatus() {
 
-		stub(.GET, "/data/next2/status/point", with: "status_weather_success.json")
+		stub(.GET, Config.AirMapApi.statusUrl + "point", with: "status_weather_success.json")
 
 		waitUntil { done in
 

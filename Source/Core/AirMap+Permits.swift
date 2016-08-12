@@ -35,7 +35,7 @@ extension AirMap_Permits {
 	- parameter handler: `([AirMapOrganizationPermit]?, NSError?) -> Void`
 
 	*/
-	public class func getAvialablePermit(permitId: String, handler: AirMapAvailablePermitResponseHandler) {
+	public class func getAvailablePermit(permitId: String, handler: AirMapAvailablePermitResponseHandler) {
 		return permitClient.list([permitId]).map { $0.first }.subscribe(handler)
 	}
 
