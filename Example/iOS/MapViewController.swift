@@ -110,7 +110,10 @@ extension MapViewController: MGLMapViewDelegate {
 			return MGLAnnotationImage(image: image, reuseIdentifier: "flightIcon")
 		
 		case is AirMapTraffic:
-			return (annotation as! AirMapTraffic).mglAnnotationImage()
+
+			let traffic = annotation as! AirMapTraffic
+			let image = AirMapImage.trafficIcon(traffic.trafficType, heading: traffic.trueHeading)!
+			return MGLAnnotationImage(image: image, reuseIdentifier: traffic.id)
 		
 		default:
 			return nil
