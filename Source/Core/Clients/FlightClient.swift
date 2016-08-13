@@ -21,7 +21,7 @@ internal class FlightClient: HTTPClient {
 	- returns: `Comm` key for a AirMapFlight
 	*/
 	func getCommKey(flight: AirMapFlight) -> Observable<Comm> {
-		return call(.PATCH, url: "/\(flight.flightId)/start-comm")
+		return call(.POST, url: "/\(flight.flightId.urlEncoded)/start-comm")
 	}
 
 	/**
@@ -30,7 +30,7 @@ internal class FlightClient: HTTPClient {
 	- returns: Void
 	*/
 	func clearCommKey(flight: AirMapFlight) -> Observable<Void> {
-		return call(.POST, url: "/\(flight.flightId)/end-comm")
+		return call(.POST, url: "/\(flight.flightId.urlEncoded)/end-comm")
 	}
 
 	#endif
@@ -55,7 +55,7 @@ extension FlightClient {
 	- parameter enhanced: Optional, Returns enhanced Flight, Pilot & Aircraft information
 
 	- returns: `Observable<[AirMapFlight]>`
-	
+
 	*/
 	func list(limit: Int? = nil,
 	                pilotId: String? = nil,
@@ -87,17 +87,17 @@ extension FlightClient {
 	}
 
 	func listAllPublicAndAuthenticatedPilotFlights(startBefore startBefore: NSDate = NSDate(), endAfter: NSDate = NSDate(), limit: Int? = nil) -> Observable<[AirMapFlight]> {
-		
+
 		AirMap.logger.debug("Get All Public and Authenticated User Flights", startBefore, endAfter)
 
 		if AirMap.authSession.hasValidCredentials() {
 			let publicFlights = list(limit, startBefore: startBefore, endAfter: endAfter)
 			let pilotFlights = list(startBefore: startBefore, endAfter: endAfter, pilotId: AirMap.authSession.userId)
-			
-			return [publicFlights, pilotFlights].zip{ flights in
+
+			return [publicFlights, pilotFlights].zip { flights in
 				return Array(Set(flights.flatMap({$0})))
 			}
-			
+
 		} else {
 			return list(limit, startBefore: startBefore, endAfter: endAfter)
 		}
