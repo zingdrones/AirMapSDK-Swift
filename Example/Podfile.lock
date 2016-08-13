@@ -70,7 +70,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AirMapSDK: e6328c6c3a5e086204330bdfd8ac65d80b4c2da7
+  AirMapSDK: 381e0576570478ad209d0e5a45fe459ac368f54d
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   CryptoSwift: c1ef79f901b86099a6fe8b3c7524cf9f3f3c8c40
