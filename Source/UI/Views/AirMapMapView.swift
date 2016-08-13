@@ -33,7 +33,7 @@ public class AirMapMapView: MGLMapView {
 	}
 	
 	public func configure(layers layers: [AirMapLayerType], theme: AirMapMapTheme) {
-		styleURL = AirMap.getTileSourceUrl([.EssentialAirspace, .TFRs], theme: .Light)
+		styleURL = AirMap.getTileSourceUrl(layers, theme: theme)
 	}
 	
 	private func setupMapView() {
