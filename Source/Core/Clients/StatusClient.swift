@@ -52,7 +52,7 @@ internal class StatusClient: HTTPClient {
 	Check the `AirMapStatus` of a multi-point path-based flight
 
 	- parameter path: Array of lat/lngs along a flight path
-	- parameter width: Path buffer in meters
+	- parameter buffer: Path buffer in meters
 	- parameter takeOffPoint: The take off point along the flight path
 	- parameter types: Array Map Layer types to include in the calculation & response
 	- parameter ignoredTypes: Array Map Layer types to ignore in the calculation & response
@@ -62,7 +62,7 @@ internal class StatusClient: HTTPClient {
 
 	*/
 	func checkFlightPath(path: [CLLocationCoordinate2D],
-	                                  width: Int,
+	                                  buffer: Int,
 	                                  takeOffPoint: CLLocationCoordinate2D,
 	                                  types: [AirMapAirspaceType]? = nil,
 	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
@@ -79,7 +79,7 @@ internal class StatusClient: HTTPClient {
 
 		var params = sharedParams.params()
 		params["geometry"] = "LINESTRING(\(geo))"
-		params["width"] = width
+		params["buffer"] = buffer
 
 		return call(.GET, url: "/path", params: params)
 	}

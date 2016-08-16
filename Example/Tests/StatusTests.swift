@@ -47,7 +47,7 @@ class StatusTests: TestCase {
 				CoordinateFactory.santaMonicaPierCoordinate()
 			]
 
-			AirMap.rx_checkFlightPath(path, width: 100, takeOffPoint: path.first!)
+			AirMap.rx_checkFlightPath(path, buffer: 100, takeOffPoint: path.first!)
 				.doOnNext { status in
 					expect(status.maxSafeDistance).to(equal(0))
 					expect(status.advisories.count).to(equal(19))

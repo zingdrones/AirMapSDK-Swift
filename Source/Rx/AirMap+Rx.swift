@@ -149,7 +149,7 @@ extension RxAirMap_Status {
 	}
 
 	public class func rx_checkFlightPath(path: [CLLocationCoordinate2D],
-	                                  width: Int,
+	                                  buffer: Int,
 	                                  takeOffPoint: CLLocationCoordinate2D,
 	                                  types: [AirMapAirspaceType]? = nil,
 	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
@@ -157,7 +157,7 @@ extension RxAirMap_Status {
 	                                  date: NSDate = NSDate()) -> Observable<AirMapStatus> {
 
 		return statusClient.checkFlightPath(path,
-		                                    width: width,
+		                                    buffer: buffer,
 		                                    takeOffPoint: takeOffPoint,
 		                                    types: types,
 		                                    ignoredTypes: ignoredTypes,

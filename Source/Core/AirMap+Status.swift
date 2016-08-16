@@ -46,7 +46,7 @@ extension AirMap_Status {
 	Check the `AirMapStatus` of a multi-point path-based flight
 	
 	- parameter path: Array of lat/lngs along a flight path
-	- parameter width: Path buffer in meters
+	- parameter buffer: Path buffer in meters
 	- parameter takeOffPoint: The take off point along the flight path
 	- parameter types: Array Map Layer types to include in the calculation & response
 	- parameter ignoredTypes: Array Map Layer types to ignore in the calculation & response
@@ -56,7 +56,7 @@ extension AirMap_Status {
 	
 	*/
 	public class func checkFlightPath(path: [CLLocationCoordinate2D],
-	                                  width: Int,
+	                                  buffer: Int,
 	                                  takeOffPoint: CLLocationCoordinate2D,
 	                                  types: [AirMapAirspaceType]? = nil,
 	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
@@ -66,7 +66,7 @@ extension AirMap_Status {
 		
 		statusClient.checkFlightPath(
 			path,
-			width: width,
+			buffer: buffer,
 			takeOffPoint: takeOffPoint,
 			types: types,
 			ignoredTypes: ignoredTypes,
