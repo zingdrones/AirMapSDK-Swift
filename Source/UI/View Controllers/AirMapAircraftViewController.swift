@@ -69,7 +69,7 @@ class AirMapAircraftViewController: UITableViewController {
 				let cell = sender as! UITableViewCell
 				let indexPath = tableView.indexPathForCell(cell)!
 				let aircraft = try! tableView.rx_modelAtIndexPath(indexPath) as AirMapAircraft
-				let nav = segue.destinationViewController as! AirMapAircraftModelNavController
+				let nav = segue.destinationViewController as! UINavigationController
 				let aircraftVC = nav.viewControllers.last as! AirMapCreateAircraftViewController
 				aircraftVC.aircraft = aircraft
 			
