@@ -4,10 +4,10 @@ Pod::Spec.new do |s|
 	s.name              = 'AirMapSDK'
 	s.module_name       = 'AirMap'
 	s.author            = 'AirMap, Inc.'
-	s.version           = '0.1.1'
-	s.summary           = 'AirMap SDK for iOS'
+	s.version           = '0.1.2'
+	s.summary           = 'AirMap SDK for iOS & macOS'
 	s.description       = 'Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.'
-	s.license           = { :type => 'MIT', :file => 'LICENSE' }
+	s.license           = { :type => 'Custom', :file => 'LICENSE' }
 	s.homepage          = 'https://www.airmap.com/makers/'
 	s.documentation_url = 'https://airmap.readme.io'
 	s.social_media_url  = 'https://twitter.com/AirMapIO'
