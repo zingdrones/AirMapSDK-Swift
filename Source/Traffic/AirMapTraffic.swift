@@ -88,7 +88,7 @@ extension AirMapTraffic {
 			let miles = AirMapTrafficServiceUtils.metersToMiles(distance)
 			let seconds = AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt)
 			let (_, m, s) = seconds.secondsToHoursMinutesSeconds()
-			let trafficTitle = properties.aircraftId != nil ? "Traffic" : "Traffic \(properties.aircraftId)"
+			let trafficTitle = properties.aircraftId == nil ? "Traffic" : "Traffic \(properties.aircraftId)"
 
 			return "\(trafficTitle) \(miles) mi  \(direction) \(m) min \(s) sec"
 		}
