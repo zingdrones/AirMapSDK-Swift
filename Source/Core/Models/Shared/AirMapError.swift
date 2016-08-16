@@ -22,6 +22,11 @@ public class AirMapApiError: Mappable {
 	}
 
 	public func errorDescription() -> String {
+		
+		if messages.count == 0 {
+			return message
+		}
+		
 		return messages
 			.map { $0.name + ":" + $0.message }
 			.joinWithSeparator("\n")
