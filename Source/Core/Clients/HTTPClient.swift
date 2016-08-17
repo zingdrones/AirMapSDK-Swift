@@ -165,6 +165,7 @@ internal class HTTPClient {
 	}
 	
 	private func encoding(method: Alamofire.Method) -> ParameterEncoding {
-		return (method == .GET) ? .URL : .JSON
+		return (method == .GET || method == .DELETE) ? .URL : .JSON
 	}
+	
 }
