@@ -21,7 +21,7 @@ internal class FlightClient: HTTPClient {
 	- returns: `Comm` key for a AirMapFlight
 	*/
 	func getCommKey(flight: AirMapFlight) -> Observable<Comm> {
-		return call(.POST, url: "/\(flight.flightId.urlEncoded)/start-comm")
+		return call(.POST, url: "/\(flight.flightId)/start-comm")
 	}
 
 	/**
@@ -30,7 +30,7 @@ internal class FlightClient: HTTPClient {
 	- returns: Void
 	*/
 	func clearCommKey(flight: AirMapFlight) -> Observable<Void> {
-		return call(.POST, url: "/\(flight.flightId.urlEncoded)/end-comm")
+		return call(.POST, url: "/\(flight.flightId)/end-comm")
 	}
 
 	#endif
@@ -107,7 +107,7 @@ extension FlightClient {
 		AirMap.logger.debug("Get flight", flightId)
 		var params = [String : AnyObject]()
 		params["enhance"] = String(true)
-		return call(.GET, url:"/\(flightId.urlEncoded)", params: params)
+		return call(.GET, url:"/\(flightId)", params: params)
 	}
 
 	func create(flight: AirMapFlight) -> Observable<AirMapFlight> {
@@ -117,11 +117,11 @@ extension FlightClient {
 
 	func end(flight: AirMapFlight) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("End flight", flight)
-		return call(.POST, url:"/\(flight.flightId.urlEncoded)/end", update: flight)
+		return call(.POST, url:"/\(flight.flightId)/end", update: flight)
 	}
 
 	func delete(flight: AirMapFlight) -> Observable<Void> {
 		AirMap.logger.debug("Delete flight", flight)
-		return call(.POST, url:"/\(flight.flightId.urlEncoded)/delete")
+		return call(.POST, url:"/\(flight.flightId)/delete")
 	}
 }
