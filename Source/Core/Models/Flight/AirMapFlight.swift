@@ -57,12 +57,27 @@ import ObjectMapper
 	public var buffer: Double?
 	public var isPublic: Bool = false
 	public var geometry: AirMapGeometry?
-
+	
 	public required init?(_ map: Map) {}
 
 	public override init() {
 		super.init()
-	}	
+	}
+	
+	public func flightType()->FlightType {
+		
+		if self.startTime.lessThanDate(NSDate()) && self.endTime.greaterThanDate(NSDate()) {
+			
+			return .Active
+		}
+		
+		if self.startTime.greaterThanDate(NSDate()) && self.endTime.greaterThanDate(NSDate()) {
+			
+			return .Future
+		}
+		
+		return .Past
+	}
 }
 
 extension AirMapFlight: Mappable {
