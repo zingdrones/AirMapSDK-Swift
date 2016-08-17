@@ -237,7 +237,7 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 			return .ControlledAirspace
 
 		case .Hospitals:
-		     return.Hospitals
+		     return.Hospital
 
 		case .PowerPlants:
 			return .PowerPlant
@@ -259,8 +259,9 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 public enum AirMapAirspaceType: Int {
 
 	case Airport
+	case Heliport
 	case Park
-	case Hospitals
+	case Hospital
 	case PowerPlant
 	case ControlledAirspace
 	case School
@@ -273,6 +274,8 @@ public enum AirMapAirspaceType: Int {
 		switch self {
 		case Airport:
 			return "airport"
+		case Heliport:
+			return "heliport"
 		case Park:
 			return "park"
 		case PowerPlant:
@@ -287,8 +290,8 @@ public enum AirMapAirspaceType: Int {
 			return "tfr"
 		case Wildfires:
 			return "wildfire"
-		case Hospitals:
-			return "wildfire"
+		case Hospital:
+			return "hospital"
 		}
 	}
 
@@ -297,6 +300,8 @@ public enum AirMapAirspaceType: Int {
 		switch self {
 		case Airport:
 			return "Airports"
+		case .Heliport:
+			return "Heliports"
 		case Park:
 			return "Parks"
 		case PowerPlant:
@@ -311,15 +316,16 @@ public enum AirMapAirspaceType: Int {
 			return "Temporary Flight Restrictions"
 		case Wildfires:
 			return "Wildfires"
-		case .Hospitals:
+		case .Hospital:
 			return "Hospitals"
 		}
 	}
 
 	public static let allAirspaceTypes: [AirMapAirspaceType] = [
 		.Airport,
+		.Heliport,
 		.Park,
-		.Hospitals,
+		.Hospital,
 		.PowerPlant,
 		.ControlledAirspace,
 		.School,
@@ -335,8 +341,10 @@ public enum AirMapAirspaceType: Int {
 			return .Airport
 		case AirMapAirspaceType.Park.type:
 			return .Park
-		case AirMapAirspaceType.Hospitals.type:
-			return .Hospitals
+		case AirMapAirspaceType.Heliport.type:
+			return .Heliport
+		case AirMapAirspaceType.Hospital.type:
+			return .Hospital
 		case AirMapAirspaceType.PowerPlant.type:
 			return .PowerPlant
 		case AirMapAirspaceType.ControlledAirspace.type:
