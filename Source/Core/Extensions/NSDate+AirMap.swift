@@ -40,6 +40,14 @@ public extension NSDate {
 		return (self.compare(date) == NSComparisonResult.OrderedAscending)
 	}
 	
+	func isInFuture() -> Bool {
+		return greaterThanDate(NSDate())
+	}
+	
+	func isInPast() -> Bool {
+		return lessThanDate(NSDate())
+	}
+	
 	func equalToDate(date: NSDate) -> Bool {
 		return (self.compare(date) == NSComparisonResult.OrderedSame)
 	}

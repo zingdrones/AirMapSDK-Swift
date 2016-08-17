@@ -36,8 +36,11 @@ import ObjectMapper
 
 	public var flightId: String!
 	public var createdAt: NSDate = NSDate()
-	public var startTime: NSDate!
-	public var endTime: NSDate!
+	public var startTime: NSDate?
+	public var endTime: NSDate? {
+		return startTime?.dateByAddingTimeInterval(duration)
+	}
+	public var duration: NSTimeInterval = 60*60 // 1 hour
 	public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
 	public var maxAltitude: Double?
 	public var city: String!
@@ -64,20 +67,18 @@ import ObjectMapper
 		super.init()
 	}
 	
-	public func flightType()->FlightType {
-		
-		if self.startTime.lessThanDate(NSDate()) && self.endTime.greaterThanDate(NSDate()) {
-			
+	public func flightType() -> FlightType {
+		guard let startTime = startTime, endTime = endTime else { return .Future }
+		switch (startTime, endTime) {
+		case let (start, end) where start.isInPast() && end.isInFuture():
 			return .Active
-		}
-		
-		if self.startTime.greaterThanDate(NSDate()) && self.endTime.greaterThanDate(NSDate()) {
-			
+		case let (start, end) where start.isInFuture() && end.isInFuture():
 			return .Future
+		default:
+			return .Past
 		}
-		
-		return .Past
 	}
+
 }
 
 extension AirMapFlight: Mappable {
@@ -100,7 +101,6 @@ extension AirMapFlight: Mappable {
 		flightId    <-  map["id"]
 		createdAt   <- (map["creation_date"], dateTransform)
 		startTime   <- (map["start_time"], dateTransform)
-		endTime     <- (map["end_time"], dateTransform)
 		maxAltitude <-  map["max_altitude"]
 		city        <-  map["city"]
 		state       <-  map["state"]
@@ -115,6 +115,13 @@ extension AirMapFlight: Mappable {
 		permitsIds  <-  map["permits"]
 		buffer      <-  map["buffer"]
 		geometry    <- (map["geometry"], geoJSONToAirMapGeometryTransform())
+		
+		var endTime: NSDate?
+		endTime     <- (map["end_time"], dateTransform)
+		
+		if let startTime = startTime, endTime = endTime {
+			duration = endTime.timeIntervalSinceDate(startTime)
+		}
 	}
 
 	/**
@@ -132,14 +139,21 @@ extension AirMapFlight: Mappable {
 		params["longitude"   ] = coordinate.longitude
 		params["max_altitude"] = maxAltitude
 		params["aircraft_id" ] = aircraftId
-		params["start_time"  ] = startTime?.ISO8601String()
-		params["end_time"    ] = endTime?.ISO8601String()
 		params["public"      ] = isPublic
 		params["notify"      ] = notify
 		params["geometry"    ] = geometry?.params()
 		params["buffer"      ] = Int(buffer ?? 0)
 		params["permits"     ] = permitsIds
 
+		if let startTime = startTime, endTime = endTime {
+			params["start_time"] = startTime.ISO8601String()
+			params["end_time"  ] = endTime.ISO8601String()
+		} else {
+			let now = NSDate()
+			params["start_time"] = now.ISO8601String()
+			params["end_time"  ] = now.dateByAddingTimeInterval(duration).ISO8601String()
+		}
+		
 		return params
 	}
 
