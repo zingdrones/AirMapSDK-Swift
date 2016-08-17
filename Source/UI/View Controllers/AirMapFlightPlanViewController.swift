@@ -230,7 +230,7 @@ class AirMapFlightPlanViewController: UIViewController {
 		Observable.combineLatest(startsAt.asObservable(), duration.asObservable()) { ($0, $1)}
 			.subscribeNext { start, duration in
 				flight.value.startTime = start
-				flight.value.endTime = start?.dateByAddingTimeInterval(duration)
+				flight.value.duration = duration
 			}
 			.addDisposableTo(disposeBag)
 		}
@@ -261,9 +261,7 @@ class AirMapFlightPlanViewController: UIViewController {
 				.doOnError { [weak self] error in
 					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
 				}
-				.subscribeNext { [weak self] flight in
-					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidCreate(flight)
-				}
+				.subscribeNext(navigationController!.flightPlanDelegate.airMapFlightPlanDidCreate)
 				.addDisposableTo(disposeBag)
 		}
 	}
