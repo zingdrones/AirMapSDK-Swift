@@ -26,6 +26,6 @@ internal class AircraftClient: HTTPClient {
 	
 	func getModel(modelId: String) -> Observable<AirMapAircraftModel> {
 		AirMap.logger.debug("Get Model", modelId)
-		return call(.GET, url:"/model/\(modelId.urlEncoded)")
+		return call(.GET, url:"/model/\(modelId)")
 	}
 }

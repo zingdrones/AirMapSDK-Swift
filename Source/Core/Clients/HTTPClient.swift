@@ -66,9 +66,7 @@ internal class HTTPClient {
 				return NopDisposable.instance
 			}
 
-			let encoding: ParameterEncoding = (method == .GET) ? .URL : .JSON
-
-			let request = self.manager.request(method, self.baseUrl + url, parameters: params, encoding: encoding, headers: self.headers)
+			let request = self.manager.request(method, self.baseUrl + url.urlEncoded, parameters: params, encoding: self.encoding(method), headers: self.headers)
 				.responseObject(keyPath: keyPath, mapToObject: object) { (response: Response<T, NSError>) in
 
 					if let error = response.result.error {
@@ -95,9 +93,7 @@ internal class HTTPClient {
 				return NopDisposable.instance
 			}
 
-			let encoding: ParameterEncoding = (method == Alamofire.Method.GET) ? .URL : .JSON
-
-			let request = self.manager.request(method, self.baseUrl + url, parameters: params, encoding: encoding, headers: self.headers)
+			let request = self.manager.request(method, self.baseUrl + url.urlEncoded, parameters: params, encoding: self.encoding(method), headers: self.headers)
 				.responseObject(keyPath: keyPath, mapToObject: object) { (response: Response<T?, NSError>) in
 					if let error = response.result.error {
 						AirMap.logger.error(method, String(T), url, error)
@@ -124,9 +120,7 @@ internal class HTTPClient {
 				return NopDisposable.instance
 			}
 
-			let encoding: ParameterEncoding = (method == .GET) ? .URL : .JSON
-
-			let request = self.manager.request(method, self.baseUrl + url, parameters: params, encoding: encoding, headers: self.headers)
+			let request = self.manager.request(method, self.baseUrl + url.urlEncoded, parameters: params, encoding: self.encoding(method), headers: self.headers)
 				.responseArray(keyPath: keyPath) { (response: Response<[T], NSError>) in
 					if let error = response.result.error {
 						AirMap.logger.error(method, String(T), url, error)
@@ -154,9 +148,7 @@ internal class HTTPClient {
 				return NopDisposable.instance
 			}
 
-			let encoding: ParameterEncoding = (method == .GET) ? .URL : .JSON
-
-			let request = self.manager.request(method, self.baseUrl + url, parameters: params, encoding: encoding, headers: self.headers)
+			let request = self.manager.request(method, self.baseUrl + url.urlEncoded, parameters: params, encoding: self.encoding(method), headers: self.headers)
 				.response { _, _, _, error in
 					if let error = error {
 						AirMap.logger.error(method, url, error)
@@ -170,5 +162,9 @@ internal class HTTPClient {
 				request.cancel()
 			}
 		}
+	}
+	
+	private func encoding(method: Alamofire.Method) -> ParameterEncoding {
+		return (method == .GET) ? .URL : .JSON
 	}
 }
