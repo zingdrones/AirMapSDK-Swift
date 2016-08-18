@@ -65,6 +65,7 @@ extension AirMap_UI {
 	}
 	
 	/**
+	
 	Returns an aircraft manufacturer and model selection view controller
 
 	- parameter aircraftSelectionDelegate: The delegate to be notified of the selected AirMapAircraftModel on completion
@@ -87,6 +88,7 @@ extension AirMap_UI {
 	}
 
 	/**
+
 	Creates an AirMap authentication view controller
 
 	- parameter airMapAuthDelegate: The delegate to be notified when authentication succeeds or fails

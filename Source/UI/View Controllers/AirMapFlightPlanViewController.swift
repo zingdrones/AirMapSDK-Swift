@@ -113,6 +113,11 @@ class AirMapFlightPlanViewController: UIViewController {
 			let nav = segue.destinationViewController as! UINavigationController
 			let profileVC = nav.viewControllers.last as! AirMapPilotProfileViewController
 			profileVC.pilot = pilot
+			
+		case "modalFAQ":
+			let nav = segue.destinationViewController as! UINavigationController
+			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
+			faqVC.section = .LetOthersKnow
 
 		default:
 			break
