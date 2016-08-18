@@ -65,13 +65,18 @@ class AirMapAircraftViewController: UITableViewController {
 		
 		switch identifier {
 			
-			case "editAircraft":
-				let cell = sender as! UITableViewCell
-				let indexPath = tableView.indexPathForCell(cell)!
-				let aircraft = try! tableView.rx_modelAtIndexPath(indexPath) as AirMapAircraft
-				let nav = segue.destinationViewController as! UINavigationController
-				let aircraftVC = nav.viewControllers.last as! AirMapCreateAircraftViewController
-				aircraftVC.aircraft = aircraft
+		case "createAircraft":
+			let nav = segue.destinationViewController as! AirMapAircraftNavController
+			nav.aircraftDelegate = self
+			
+		case "editAircraft":
+			let cell = sender as! UITableViewCell
+			let indexPath = tableView.indexPathForCell(cell)!
+			let aircraft = try! tableView.rx_modelAtIndexPath(indexPath) as AirMapAircraft
+			let nav = segue.destinationViewController as! AirMapAircraftNavController
+			nav.aircraftDelegate = self
+			let aircraftVC = nav.viewControllers.last as! AirMapCreateAircraftViewController
+			aircraftVC.aircraft = aircraft
 			
 		default:
 			break
@@ -79,4 +84,11 @@ class AirMapAircraftViewController: UITableViewController {
 	}
 	
 	@IBAction func unwindToAircraft(segue: UIStoryboardSegue) { /* unwind hook; keep */ }
+}
+
+extension AirMapAircraftViewController: AirMapAircraftNavControllerDelegate {
+	
+	func aircraftNavController(navController: AirMapAircraftNavController, didCreateOrModify: AirMapAircraft) {
+		navigationController?.dismissViewControllerAnimated(true, completion: nil)
+	}
 }

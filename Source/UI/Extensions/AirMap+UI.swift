@@ -35,9 +35,37 @@ extension AirMap_UI {
 
 		return flightPlanNav
 	}
-
+	
 	/**
-	Creates an aircraft manufacturer and model selection view controller
+	
+	Returns a navigation controller that creates or modifies an AirMapAircraft
+	
+	- parameter aircraft: The aircraft to modify. Pass nil to create a new AirMapAircraft
+	- parameter delegate: The delegate to be notified on completion of the new or modified AirMapAircraft
+	
+	- returns: An AirMapAircraftModelNavController if Pilot is Authenticated, otherwise nil.
+	
+	*/
+	public class func aircraftNavController(aircraft: AirMapAircraft?, delegate: AirMapAircraftNavControllerDelegate) -> AirMapAircraftNavController? {
+		
+		guard AirMap.authSession.hasValidCredentials() else {
+			AirMap.logger.error(AirMap.self, "Cannot create or modify aicraft; user not authenticated")
+			return nil
+		}
+		
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
+		
+		let aircraftNav = storyboard.instantiateViewControllerWithIdentifier(String(AirMapAircraftNavController)) as! AirMapAircraftNavController
+		aircraftNav.aircraftDelegate = delegate
+		
+		let aircraftVC = aircraftNav.viewControllers.first as! AirMapCreateAircraftViewController
+		aircraftVC.aircraft = aircraft ?? AirMapAircraft()
+		
+		return aircraftNav
+	}
+	
+	/**
+	Returns an aircraft manufacturer and model selection view controller
 
 	- parameter aircraftSelectionDelegate: The delegate to be notified of the selected AirMapAircraftModel on completion
 
