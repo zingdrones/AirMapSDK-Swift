@@ -93,8 +93,8 @@ extension FlightClient {
 		AirMap.logger.debug("Get All Public and Authenticated User Flights", now)
 
 		if AirMap.authSession.hasValidCredentials() {
-			let publicFlights = list(limit, startBefore: now, endAfter: now)
-			let pilotFlights = list(startBefore: now, endAfter: now, pilotId: AirMap.authSession.userId)
+			let publicFlights = list(limit, startBefore: now, endAfter: now.dateByAddingTimeInterval(60))
+			let pilotFlights = list(startBefore: now, endAfter: now.dateByAddingTimeInterval(60), pilotId: AirMap.authSession.userId)
 
 			return [publicFlights, pilotFlights].zip { flights in
 				return Array(Set(flights.flatMap({$0})))
