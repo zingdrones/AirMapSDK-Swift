@@ -208,6 +208,7 @@ class AirMapFlightPlanViewController: UIViewController {
 			.bindTo(requiredPermits)
 			.addDisposableTo(disposeBag)
 
+		//FIXME:  locationBufferObsl Does not dealloc
 		locationBufferObsl
 			.doOnNext { location, buffer in
 				flight.value.coordinate = location
@@ -282,6 +283,10 @@ class AirMapFlightPlanViewController: UIViewController {
 	
 	@IBAction func dismiss() {
 		dismissViewControllerAnimated(true, completion: nil)
+	}
+
+	deinit {
+		print("deinit AirMapFlightPlanViewController")
 	}
 }
 

@@ -36,4 +36,8 @@ public class AirMapFlightPlanNavigationController: UINavigationController {
 
 	@IBAction func unwindToFlightPlan(segue: UIStoryboardSegue) { /* unwind segue hook; keep */ }
 
+	deinit {
+		print("deinit AirMapFlightPlanNavigationController")
+	}
+
 }
