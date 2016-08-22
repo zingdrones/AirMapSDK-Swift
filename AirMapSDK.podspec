@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
 	s.description       = 'Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.'
 	s.license           = { :type => 'Custom', :file => 'LICENSE' }
 	s.homepage          = 'https://www.airmap.com/makers/'
-	s.documentation_url = 'https://airmap.readme.io'
+	s.documentation_url = 'https://developers.airmap.com/docs/ios-getting-started'
 	s.social_media_url  = 'https://twitter.com/AirMapIO'
 	s.source = {
 		:git => 'https://github.com/AirMap/AirMapSDK-Swift.git',
