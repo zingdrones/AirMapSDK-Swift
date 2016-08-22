@@ -30,7 +30,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 	private var model = Variable(nil as AirMapAircraftModel?)
 	private let disposeBag = DisposeBag()
 	
-	public override var navigationController: AirMapAircraftNavController? {
+	override var navigationController: AirMapAircraftNavController? {
 		return super.navigationController as? AirMapAircraftNavController
 	}
 	
