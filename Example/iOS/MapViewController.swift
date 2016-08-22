@@ -9,11 +9,14 @@
 import UIKit
 import AirMap
 import Mapbox
+import RxSwift
 
 class MapViewController: UIViewController {
 
 	@IBOutlet weak var mapView: AirMapMapView!
 
+	let disposeBag = DisposeBag()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -31,6 +34,17 @@ class MapViewController: UIViewController {
 		} else {
 			openLoginForm()
 		}
+	}
+	
+	func showActiveFlight() {
+		
+		AirMap.rx_getCurrentAuthenticatedPilotFlight()
+			.unwrap()
+			.subscribeNext { [weak self] (flight) in
+				let nav = AirMap.flightPlanViewController(flight)!
+				self?.presentViewController(nav, animated: true, completion: nil)
+			}
+			.addDisposableTo(disposeBag)
 	}
 
 	func openLoginForm() {
@@ -98,6 +112,13 @@ extension MapViewController: AirMapTrafficObserver {
 }
 
 extension MapViewController: MGLMapViewDelegate {
+	
+	func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
+		if let flight = annotation as? AirMapFlight,
+			flightNav = AirMap.flightPlanViewController(flight) {
+			presentViewController(flightNav, animated: true, completion: nil)
+		}
+	}
 
 	func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
 		
@@ -108,7 +129,6 @@ extension MapViewController: MGLMapViewDelegate {
 			return MGLAnnotationImage(image: image, reuseIdentifier: "flightIcon")
 		
 		case is AirMapTraffic:
-
 			let traffic = annotation as! AirMapTraffic
 			let image = AirMapImage.trafficIcon(traffic.trafficType, heading: traffic.trueHeading)!
 			return MGLAnnotationImage(image: image, reuseIdentifier: traffic.id)

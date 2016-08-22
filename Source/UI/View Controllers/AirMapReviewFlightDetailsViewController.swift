@@ -45,7 +45,7 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 	}
 	
 	private func setupBindings() {
-		flight.asObservable()
+		flight?.asObservable()
 			.map(unowned(self, AirMapReviewFlightDetailsViewController.tableDataFromFlight))
 			.bindTo(tableView.rx_itemsWithDataSource(dataSource))
 			.addDisposableTo(disposeBag)
@@ -97,7 +97,7 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 		let detailsSection = SectionModel(model: "Details", items: items)
 		sections.append(detailsSection)
 		
-		if let aircraft = flight.aircraft {
+		if let aircraft = flight.aircraft where aircraft.aircraftId != nil {
 			let items = [RowData("Aircraft", aircraft.nickname)]
 			let aircraftSection = SectionModel(model: "Aircraft", items: items)
 			sections.append(aircraftSection)

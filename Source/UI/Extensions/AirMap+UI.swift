@@ -38,6 +38,30 @@ extension AirMap_UI {
 	
 	/**
 	
+	Creates a flight plan creation view controller that can be presented to the user based on a specified location. Airspace status, advisories, permiting, and digital notice are handled within the flow.
+	
+	- parameter location: The lat/lon origin of the flight
+	- parameter flightPlanDelegate: The delegate that is notified of the new AirMapFlight after completion of flow
+	
+	- returns: An AirMapFlightPlanNavigationController if Pilot is Authenticated, otherwise nil.
+	
+	*/
+	public class func flightPlanViewController(flight: AirMapFlight) -> UINavigationController? {
+		
+		guard AirMap.authSession.hasValidCredentials() else { return nil }
+		
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
+		let aircraftVC = storyboard.instantiateViewControllerWithIdentifier(String(AirMapReviewFlightPlanViewController)) as! AirMapReviewFlightPlanViewController
+		aircraftVC.existingFlight = Variable(flight)
+		
+		let nav = UINavigationController(navigationBarClass: AirMapNavBar.self, toolbarClass: nil)
+		nav.viewControllers = [aircraftVC]
+		
+		return nav
+	}
+	
+	/**
+	
 	Returns a navigation controller that creates or modifies an AirMapAircraft
 	
 	- parameter aircraft: The aircraft to modify. Pass nil to create a new AirMapAircraft
