@@ -143,8 +143,10 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 		flight
 			.flatMap { AirMap.rx_createFlight($0) }
-			.doOnError { flow.flightPlanDelegate.airMapFlightPlanDidEncounter($0 as NSError) }
-			.subscribeNext(flow.flightPlanDelegate.airMapFlightPlanDidCreate)
+			.doOnError { [weak flow] error in flow?.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError) }
+			.subscribeNext { [weak flow] flight in
+				flow?.flightPlanDelegate.airMapFlightPlanDidCreate(flight)
+			}
 			.addDisposableTo(disposeBag)
 	}
 

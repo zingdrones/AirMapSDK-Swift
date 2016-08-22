@@ -185,7 +185,8 @@ class AirMapFlightPlanViewController: UIViewController {
 			.addDisposableTo(disposeBag)
 		
 		status.asObservable()
-			.doOnNext{ self.mapViewDelegate.status = $0 }
+			.doOnNext { [weak self] status in
+				self?.mapViewDelegate.status = status }
 			.map {
 				let advisories = $0?.advisories ?? []
 				let requirements = advisories.map { $0.requirements }.flatMap { $0 }
