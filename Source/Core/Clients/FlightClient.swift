@@ -21,7 +21,7 @@ internal class FlightClient: HTTPClient {
 	- returns: `Comm` key for a AirMapFlight
 	*/
 	func getCommKey(flight: AirMapFlight) -> Observable<Comm> {
-		return call(.POST, url: "/\(flight.flightId.urlEncoded)/start-comm")
+		return call(.POST, url: "/\(flight.flightId)/start-comm")
 	}
 
 	/**
@@ -30,7 +30,7 @@ internal class FlightClient: HTTPClient {
 	- returns: Void
 	*/
 	func clearCommKey(flight: AirMapFlight) -> Observable<Void> {
-		return call(.POST, url: "/\(flight.flightId.urlEncoded)/end-comm")
+		return call(.POST, url: "/\(flight.flightId)/end-comm")
 	}
 
 	#endif
@@ -86,20 +86,43 @@ extension FlightClient {
 		return call(.GET, params: params, keyPath: "data.results")
 	}
 
-	func listAllPublicAndAuthenticatedPilotFlights(startBefore startBefore: NSDate = NSDate(), endAfter: NSDate = NSDate(), limit: Int? = nil) -> Observable<[AirMapFlight]> {
+	func listActivePublicFlights(limit: Int? = nil) -> Observable<[AirMapFlight]> {
 
-		AirMap.logger.debug("Get All Public and Authenticated User Flights", startBefore, endAfter)
+		let now = NSDate()
+
+		AirMap.logger.debug("Get All Public and Authenticated User Flights", now)
 
 		if AirMap.authSession.hasValidCredentials() {
-			let publicFlights = list(limit, startBefore: startBefore, endAfter: endAfter)
-			let pilotFlights = list(startBefore: startBefore, endAfter: endAfter, pilotId: AirMap.authSession.userId)
+			let publicFlights = list(limit, startBefore: now, endAfter: now.dateByAddingTimeInterval(60))
+			let pilotFlights = list(startBefore: now, endAfter: now.dateByAddingTimeInterval(60), pilotId: AirMap.authSession.userId)
 
 			return [publicFlights, pilotFlights].zip { flights in
 				return Array(Set(flights.flatMap({$0})))
 			}
 
 		} else {
-			return list(limit, startBefore: startBefore, endAfter: endAfter)
+			return list(limit, startBefore: now, endAfter: now)
+		}
+	}
+
+
+	func listFuturePublicFlights(startAfter: NSDate? = nil, endBefore: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
+
+		let startAfter = startAfter ?? NSDate()
+		let endBefore = endBefore ?? startAfter.dateByAddingTimeInterval(3600*4)
+
+		AirMap.logger.debug("Get All Future Flights", startAfter, endBefore)
+
+		if AirMap.authSession.hasValidCredentials() {
+			let publicFlights = list(limit, startAfter: startAfter, endBefore:endBefore )
+			let pilotFlights = list(limit, startAfter: startAfter, pilotId: AirMap.authSession.userId)
+
+			return [publicFlights, pilotFlights].zip { flights in
+				return Array(Set(flights.flatMap({$0})))
+			}
+
+		} else {
+			return list(limit, startAfter: startAfter, endBefore:endBefore )
 		}
 	}
 
@@ -107,7 +130,7 @@ extension FlightClient {
 		AirMap.logger.debug("Get flight", flightId)
 		var params = [String : AnyObject]()
 		params["enhance"] = String(true)
-		return call(.GET, url:"/\(flightId.urlEncoded)", params: params)
+		return call(.GET, url:"/\(flightId)", params: params)
 	}
 
 	func create(flight: AirMapFlight) -> Observable<AirMapFlight> {
@@ -117,11 +140,11 @@ extension FlightClient {
 
 	func end(flight: AirMapFlight) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("End flight", flight)
-		return call(.POST, url:"/\(flight.flightId.urlEncoded)/end", update: flight)
+		return call(.POST, url:"/\(flight.flightId)/end", update: flight)
 	}
 
 	func delete(flight: AirMapFlight) -> Observable<Void> {
 		AirMap.logger.debug("Delete flight", flight)
-		return call(.POST, url:"/\(flight.flightId.urlEncoded)/delete")
+		return call(.POST, url:"/\(flight.flightId)/delete")
 	}
 }

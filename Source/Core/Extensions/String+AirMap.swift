@@ -9,7 +9,7 @@
 extension String {
 	
 	var urlEncoded: String {
-		return stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) ?? self
+		return stringByAddingPercentEncodingWithAllowedCharacters(.URLPathAllowedCharacterSet()) ?? self
 	}
 	
 }

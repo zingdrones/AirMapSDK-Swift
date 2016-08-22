@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="V2h-jW-mVn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="V2h-jW-mVn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -241,6 +241,9 @@
                                                         <constraint firstAttribute="height" constant="42" id="YCv-On-Yb5"/>
                                                     </constraints>
                                                     <state key="normal" image="info_icon"/>
+                                                    <connections>
+                                                        <segue destination="J9h-2S-gd0" kind="presentation" identifier="modalFAQ" id="ib8-4x-GwH"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -314,6 +317,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RJ4-aP-2zs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="389" y="431"/>
+        </scene>
+        <!--FAQNav-->
+        <scene sceneID="lwS-Sy-Sey">
+            <objects>
+                <viewControllerPlaceholder referencedIdentifier="FAQNav" id="J9h-2S-gd0" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LKE-1D-9TT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="389.5" y="856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="R0J-K9-qwi">
@@ -704,10 +715,10 @@ AirMap will send you a text message when your digital notice has been successful
             </objects>
             <point key="canvasLocation" x="2839" y="-1368"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Air Map Aircraft Nav Controller-->
         <scene sceneID="ppv-O4-Uso">
             <objects>
-                <navigationController id="dFP-db-86e" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AirMapAircraftNavController" id="dFP-db-86e" customClass="AirMapAircraftNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="58x-G9-Cm3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1101,7 +1112,7 @@ for this Flight</string>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FtP-Jj-dYx">
                             <connections>
-                                <segue destination="dFP-db-86e" kind="presentation" identifier="addAircraft" id="hz7-Iw-idg"/>
+                                <segue destination="dFP-db-86e" kind="presentation" identifier="createAircraft" id="hz7-Iw-idg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1832,6 +1843,9 @@ for this Flight</string>
                                                         <constraint firstAttribute="height" constant="42" id="lCO-eR-2Eg"/>
                                                     </constraints>
                                                     <state key="normal" image="info_icon"/>
+                                                    <connections>
+                                                        <segue destination="Y65-ak-5eN" kind="presentation" identifier="modalFAQ" id="m3s-Ba-YAC"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2010,6 +2024,14 @@ for this Flight</string>
             </objects>
             <point key="canvasLocation" x="4529" y="-476"/>
         </scene>
+        <!--FAQNav-->
+        <scene sceneID="h5i-6G-1SS">
+            <objects>
+                <viewControllerPlaceholder referencedIdentifier="FAQNav" id="Y65-ak-5eN" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WiH-Gl-YhI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4152.5" y="173"/>
+        </scene>
         <!--AirMapAvailablePermitViewController-->
         <scene sceneID="2nX-bp-hop">
             <objects>
@@ -2187,6 +2209,65 @@ for this Flight</string>
             </objects>
             <point key="canvasLocation" x="-484" y="1170"/>
         </scene>
+        <!--Air MapFAQ View Controller-->
+        <scene sceneID="qbD-mz-Bf5">
+            <objects>
+                <viewController id="aXE-Bk-GP3" customClass="AirMapFAQViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ijd-6X-Gxz"/>
+                        <viewControllerLayoutGuide type="bottom" id="1iA-I9-mU1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Eeu-B1-DiW">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3FZ-4o-60x">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3FZ-4o-60x" firstAttribute="leading" secondItem="Eeu-B1-DiW" secondAttribute="leading" id="5E3-iz-NoG"/>
+                            <constraint firstItem="1iA-I9-mU1" firstAttribute="top" secondItem="3FZ-4o-60x" secondAttribute="bottom" id="ZBp-dt-wmW"/>
+                            <constraint firstAttribute="trailing" secondItem="3FZ-4o-60x" secondAttribute="trailing" id="bYJ-mU-t1G"/>
+                            <constraint firstItem="3FZ-4o-60x" firstAttribute="top" secondItem="ijd-6X-Gxz" secondAttribute="bottom" id="u3Y-jx-RSA"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="W7d-Gh-IMB">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="dE5-Cr-7CY">
+                            <connections>
+                                <action selector="dismiss" destination="aXE-Bk-GP3" id="uC3-xH-Gqj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="3FZ-4o-60x" id="xYi-qL-lpN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="36f-Jv-NG1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="389" y="2268"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="WOP-Sh-xuM">
+            <objects>
+                <navigationController storyboardIdentifier="FAQNav" id="Un5-Qe-RYq" sceneMemberID="viewController">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ncB-Al-mu8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="aXE-Bk-GP3" kind="relationship" relationship="rootViewController" id="QbH-Nw-Ftg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tj5-gM-Wfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-484" y="2268"/>
+        </scene>
     </scenes>
     <resources>
         <image name="airmap_share_logo" width="87" height="20"/>
@@ -2198,8 +2279,8 @@ for this Flight</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6pN-j9-ln7"/>
-        <segue reference="EBb-de-rWY"/>
         <segue reference="GA4-U0-5W2"/>
+        <segue reference="EBb-de-rWY"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
 </document>

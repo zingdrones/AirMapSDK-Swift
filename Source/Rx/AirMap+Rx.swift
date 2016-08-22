@@ -12,8 +12,12 @@ import RxCocoa
 private typealias RxAirMap_Flight = AirMap
 extension RxAirMap_Flight {
 
-	public class func rx_listAllPublicAndAuthenticatedPilotFlights(startBefore: NSDate = NSDate(), endAfter: NSDate = NSDate(), limit: Int? = nil) -> Observable<[AirMapFlight]> {
-		return flightClient.listAllPublicAndAuthenticatedPilotFlights(startBefore: startBefore, endAfter: endAfter, limit: limit)
+	public class func rx_listActivePublicFlights(limit: Int? = nil) -> Observable<[AirMapFlight]> {
+		return flightClient.listActivePublicFlights(limit)
+	}
+
+	public class func rx_listFuturePublicFlights(startAfter: NSDate? = nil, endBefore: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
+		return flightClient.listFuturePublicFlights(startAfter, endBefore: endBefore, limit: limit)
 	}
 
 	public class func rx_getCurrentAuthenticatedPilotFlight() -> Observable<AirMapFlight?> {
@@ -183,23 +187,23 @@ extension RxAirMap_Status {
 }
 
 #if AIRMAP_TRAFFIC
-	
+
 class RxAirMapTrafficDelegateProxy: DelegateProxy, DelegateProxyType {
-	
+
 	static func currentDelegateFor(object: AnyObject) -> AnyObject? {
 		return AirMap.trafficDelegate
 	}
-	
+
 	static func setCurrentDelegate(delegate: AnyObject?, toObject object: AnyObject) {
 		AirMap.trafficDelegate = delegate as? AirMapTrafficObserver
 	}
-	
+
 }
-	
+
 private typealias RxAirMap_Traffic = AirMap
 extension RxAirMap_Traffic {
-	
-	
+
+
 	public static var rx_trafficDelegate: DelegateProxy {
 		return RxAirMapTrafficDelegateProxy.proxyForObject(self)
 	}

@@ -21,13 +21,18 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		case Update
 	}
 	
-	var aircraft = AirMapAircraft() {
-		didSet { self.mode = .Update }
+	var aircraft = AirMapAircraft()
+
+	private var mode: EditMode {
+		return aircraft.aircraftId == nil ? .Create : .Update
 	}
 	
-	private var mode = EditMode.Create
 	private var model = Variable(nil as AirMapAircraftModel?)
 	private let disposeBag = DisposeBag()
+	
+	override var navigationController: AirMapAircraftNavController? {
+		return super.navigationController as? AirMapAircraftNavController
+	}
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +114,8 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		}
 
 		action.doOnCompleted { [weak self] _ in
-				self?.dismissViewControllerAnimated(true, completion: nil)
+				self?.navigationController?.aircraftDelegate
+					.aircraftNavController(self!.navigationController!, didCreateOrModify: self!.aircraft)
 			}
 			.subscribe()
 			.addDisposableTo(disposeBag)

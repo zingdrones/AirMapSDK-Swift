@@ -13,15 +13,27 @@ extension AirMap_Flights {
 	public typealias AirMapFlightCollectionResponseHandler = ([AirMapFlight]?, NSError?) -> Void
 
 	/**
-	Get the all public `AirMapFlight`s including private flights, if available, of the authenticated user.
+	Get the all active public `AirMapFlight`s including private flights, if available, of the authenticated user.
 
-	- parameter startBefore: `NSDate` of when the flights should start
-	- parameter endAfter: `NSDate` of when the flights should end
+	- parameter limit: `Int` the number of items returned.
 	- parameter handler: `(AirMapFlight?, NSError?) -> Void`
 
 	*/
-	public class func listAllPublicAndAuthenticatedUserFlights(startBefore: NSDate = NSDate(), endAfter: NSDate = NSDate(), limit: Int? = nil, handler: AirMapFlightCollectionResponseHandler) {
-		flightClient.listAllPublicAndAuthenticatedPilotFlights(startBefore: startBefore, endAfter: endAfter).subscribe(handler)
+	public class func listActivePublicFlights(limit: Int? = nil, handler: AirMapFlightCollectionResponseHandler) {
+		flightClient.listActivePublicFlights(limit)
+	}
+
+	/**
+	Get the all active public `AirMapFlight`s including private flights, if available, of the authenticated user.
+
+	- parameter startAfter: Optional `NSDate` of when the flights should start
+	- parameter endBefore: Optional `NSDate` before the flights should end.
+	- parameter limit: `Int` the number of items returned.
+	- parameter handler: `(AirMapFlight?, NSError?) -> Void`
+
+	*/
+	public class func listFuturePublicFlights(startAfter: NSDate? = nil, endBefore: NSDate? = nil, limit: Int? = nil, handler: AirMapFlightCollectionResponseHandler) {
+		flightClient.listFuturePublicFlights(startAfter, endBefore: endBefore, limit: limit)
 	}
 
 	/**
@@ -31,7 +43,7 @@ extension AirMap_Flights {
 
 	*/
 	public class func getCurrentAuthenticatedPilotFlight(handler: AirMapFlightResponseHandler) {
-		
+
 		flightClient.list(startBefore: NSDate(), endAfter: NSDate(), pilotId: AirMap.authSession.userId, enhanced: true, authCheck:true).map { $0.first }.subscribe(handler)
 	}
 

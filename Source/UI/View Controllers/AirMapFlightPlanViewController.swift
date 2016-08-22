@@ -113,6 +113,11 @@ class AirMapFlightPlanViewController: UIViewController {
 			let nav = segue.destinationViewController as! UINavigationController
 			let profileVC = nav.viewControllers.last as! AirMapPilotProfileViewController
 			profileVC.pilot = pilot
+			
+		case "modalFAQ":
+			let nav = segue.destinationViewController as! UINavigationController
+			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
+			faqVC.section = .LetOthersKnow
 
 		default:
 			break
@@ -204,6 +209,7 @@ class AirMapFlightPlanViewController: UIViewController {
 			.bindTo(requiredPermits)
 			.addDisposableTo(disposeBag)
 
+		//FIXME:  locationBufferObsl Does not dealloc
 		locationBufferObsl
 			.doOnNext { location, buffer in
 				flight.value.coordinate = location
@@ -278,6 +284,10 @@ class AirMapFlightPlanViewController: UIViewController {
 	
 	@IBAction func dismiss() {
 		dismissViewControllerAnimated(true, completion: nil)
+	}
+
+	deinit {
+		print("deinit AirMapFlightPlanViewController")
 	}
 }
 
