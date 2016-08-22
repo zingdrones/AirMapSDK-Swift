@@ -43,7 +43,7 @@ To integrate the AirMap SDK into your Xcode project, navigate to the directory t
 
 ```ruby
 use_frameworks!
-target 'Your Project's Target Name' do
+target 'Your Project Target Name' do
 	pod 'AirMapSDK'
 end
 ```
