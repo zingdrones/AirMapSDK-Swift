@@ -9,7 +9,7 @@
 import RxSwift
 import RxCocoa
 
-protocol TabSelectorDelegate {
+protocol TabSelectorDelegate: class {
 	func tabSelectorDidSelectItemAtIndex(index: Int)
 }
 
@@ -18,7 +18,7 @@ class TabSelectorView: UIView {
 	var items: [String] = [] {
 		didSet { setupView() }
 	}
-	var delegate: TabSelectorDelegate?
+	weak var delegate: TabSelectorDelegate
 	
 	private var buttons = [UIButton]()
 	private let disposeBag = DisposeBag()
