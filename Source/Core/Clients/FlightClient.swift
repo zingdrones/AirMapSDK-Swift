@@ -94,43 +94,24 @@ extension FlightClient {
 		return call(.GET, params: params, keyPath: "data.results")
 	}
 
-	func listActivePublicFlights(limit: Int? = nil) -> Observable<[AirMapFlight]> {
+	func listPublicFlights(fromDate fromDate: NSDate? = nil, toDate: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
 
-		let now = NSDate()
+		let endAfterNow = fromDate == nil
+		let endAfter = fromDate
+		let startBeforeNow = toDate == nil
+		let startBefore = toDate
 
-		AirMap.logger.debug("Get All Public and Authenticated User Flights", now)
+		AirMap.logger.debug("Get Public Flights", endAfterNow, endAfter, startBefore, startBeforeNow)
+
+		let publicFlights = list(limit, endAfter: endAfter, endAfterNow: endAfterNow, startBefore: startBefore, startBeforeNow: startBeforeNow)
 
 		if AirMap.authSession.hasValidCredentials() {
-			let publicFlights = list(limit, startBefore: now, endAfter: now.dateByAddingTimeInterval(60))
-			let pilotFlights = list(startBefore: now, endAfter: now.dateByAddingTimeInterval(60), pilotId: AirMap.authSession.userId)
-
+			let pilotFlights = list(limit, endAfter: endAfter, endAfterNow: endAfterNow, startBefore: startBefore, startBeforeNow: startBeforeNow, pilotId: AirMap.authSession.userId)
 			return [publicFlights, pilotFlights].zip { flights in
 				return Array(Set(flights.flatMap({$0})))
 			}
-
 		} else {
-			return list(limit, startBefore: now, endAfter: now)
-		}
-	}
-
-
-	func listFuturePublicFlights(startAfter: NSDate? = nil, endBefore: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
-
-		let startAfter = startAfter ?? NSDate()
-		let endBefore = endBefore ?? startAfter.dateByAddingTimeInterval(3600*4)
-
-		AirMap.logger.debug("Get All Future Flights", startAfter, endBefore)
-
-		if AirMap.authSession.hasValidCredentials() {
-			let publicFlights = list(limit, startAfter: startAfter, endBefore:endBefore )
-			let pilotFlights = list(limit, startAfter: startAfter, pilotId: AirMap.authSession.userId)
-
-			return [publicFlights, pilotFlights].zip { flights in
-				return Array(Set(flights.flatMap({$0})))
-			}
-
-		} else {
-			return list(limit, startAfter: startAfter, endBefore:endBefore )
+			return publicFlights
 		}
 	}
 

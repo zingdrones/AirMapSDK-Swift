@@ -12,12 +12,8 @@ import RxCocoa
 private typealias RxAirMap_Flight = AirMap
 extension RxAirMap_Flight {
 
-	public class func rx_listActivePublicFlights(limit: Int? = nil) -> Observable<[AirMapFlight]> {
-		return flightClient.listActivePublicFlights(limit)
-	}
-
-	public class func rx_listFuturePublicFlights(startAfter: NSDate? = nil, endBefore: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
-		return flightClient.listFuturePublicFlights(startAfter, endBefore: endBefore, limit: limit)
+	public class func rx_listPublicFlights(fromDate fromDate: NSDate? = nil, toDate: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
+		return flightClient.listPublicFlights(fromDate: fromDate, toDate: toDate, limit: limit)
 	}
 
 	public class func rx_getCurrentAuthenticatedPilotFlight() -> Observable<AirMapFlight?> {
