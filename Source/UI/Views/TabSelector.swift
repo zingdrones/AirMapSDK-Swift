@@ -18,7 +18,7 @@ class TabSelectorView: UIView {
 	var items: [String] = [] {
 		didSet { setupView() }
 	}
-	weak var delegate: TabSelectorDelegate
+	weak var delegate: TabSelectorDelegate?
 	
 	private var buttons = [UIButton]()
 	private let disposeBag = DisposeBag()

@@ -1588,7 +1588,7 @@ for this Flight</string>
         <!--Delegate-->
         <scene sceneID="08t-4V-GgT">
             <objects>
-                <viewController id="8BE-J7-rU0" customClass="AirMapReviewFlightPlanViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AirMapReviewFlightPlanViewController" id="8BE-J7-rU0" customClass="AirMapReviewFlightPlanViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sv8-Ti-SMI"/>
                         <viewControllerLayoutGuide type="bottom" id="iaZ-4D-Qe2"/>
@@ -1611,27 +1611,6 @@ for this Flight</string>
                                     <outlet property="delegate" destination="8BE-J7-rU0" id="mBG-2r-OgO"/>
                                 </connections>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBL-oR-5j7">
-                                <rect key="frame" x="0.0" y="174" width="600" height="312"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8BE-J7-rU0" id="eoc-xZ-ILC"/>
-                                </connections>
-                            </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YZ-kG-zkZ">
-                                <rect key="frame" x="0.0" y="486" width="600" height="50"/>
-                                <color key="backgroundColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Vja-0G-yrn"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                <state key="normal" title="Submit">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="submitFlightPlan" destination="8BE-J7-rU0" eventType="touchUpInside" id="nJp-Hr-Y8V"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0s-Bd-ARA">
                                 <rect key="frame" x="0.0" y="172" width="200" height="2"/>
                                 <color key="backgroundColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1640,6 +1619,13 @@ for this Flight</string>
                                     <constraint firstAttribute="width" constant="200" id="lh4-XF-LAf"/>
                                 </constraints>
                             </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBL-oR-5j7">
+                                <rect key="frame" x="0.0" y="174" width="600" height="362"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8BE-J7-rU0" id="eoc-xZ-ILC"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1651,25 +1637,30 @@ for this Flight</string>
                             <constraint firstItem="J0s-Bd-ARA" firstAttribute="leading" secondItem="ckc-r1-aRd" secondAttribute="leading" id="OCb-qQ-q72"/>
                             <constraint firstItem="lVj-Bo-JEJ" firstAttribute="height" secondItem="ckc-r1-aRd" secondAttribute="height" multiplier="0.25" id="S8I-bu-vbZ"/>
                             <constraint firstItem="lVj-Bo-JEJ" firstAttribute="top" secondItem="Sv8-Ti-SMI" secondAttribute="bottom" id="ZjF-22-pAf"/>
+                            <constraint firstItem="iaZ-4D-Qe2" firstAttribute="top" secondItem="OBL-oR-5j7" secondAttribute="bottom" id="b8B-La-8oN"/>
                             <constraint firstAttribute="trailing" secondItem="OBL-oR-5j7" secondAttribute="trailing" id="cT7-Ig-enE"/>
-                            <constraint firstItem="4YZ-kG-zkZ" firstAttribute="top" secondItem="OBL-oR-5j7" secondAttribute="bottom" id="mWv-hn-3w8"/>
-                            <constraint firstItem="iaZ-4D-Qe2" firstAttribute="top" secondItem="4YZ-kG-zkZ" secondAttribute="bottom" id="pNC-UY-48E"/>
-                            <constraint firstItem="4YZ-kG-zkZ" firstAttribute="leading" secondItem="ckc-r1-aRd" secondAttribute="leading" id="qPt-gK-npR"/>
                             <constraint firstAttribute="trailing" secondItem="lVj-Bo-JEJ" secondAttribute="trailing" id="srA-oc-M8a"/>
                             <constraint firstItem="Qgt-0v-v4T" firstAttribute="leading" secondItem="ckc-r1-aRd" secondAttribute="leading" id="tgs-Tw-B19"/>
                             <constraint firstAttribute="trailing" secondItem="Qgt-0v-v4T" secondAttribute="trailing" id="vXm-tf-Aiu"/>
-                            <constraint firstAttribute="trailing" secondItem="4YZ-kG-zkZ" secondAttribute="trailing" id="xVD-n9-xSR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Review Flight Plan" id="7qo-VN-M2p">
                         <barButtonItem key="backBarButtonItem" title=" " id="JQT-Y9-QfX"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="HfV-zZ-9Ck">
+                            <connections>
+                                <action selector="dismiss" destination="8BE-J7-rU0" id="1i4-v9-s1N"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="detailsView" destination="pjF-7N-mPh" id="xa0-73-ueY"/>
+                        <outlet property="endFlightButton" destination="2Eq-Fz-bOO" id="cH2-0u-6aL"/>
                         <outlet property="mapView" destination="lVj-Bo-JEJ" id="R19-f0-pYl"/>
                         <outlet property="noticesView" destination="YgE-qL-c8Q" id="E0j-Z6-lvf"/>
                         <outlet property="permitsView" destination="hvG-Fu-3jy" id="G9D-Xa-OAS"/>
                         <outlet property="scrollView" destination="OBL-oR-5j7" id="7uR-Ua-aWm"/>
+                        <outlet property="statusesView" destination="PDI-am-rOS" id="qIS-8a-BbH"/>
+                        <outlet property="submitButton" destination="4YZ-kG-zkZ" id="1SB-88-HhP"/>
                         <outlet property="tabSelectionIndicator" destination="J0s-Bd-ARA" id="cLT-Bm-Kv4"/>
                         <outlet property="tabSelectionIndicatorWidthConstraint" destination="lh4-XF-LAf" id="yxt-RH-qc2"/>
                         <outlet property="tabView" destination="Qgt-0v-v4T" id="KCz-xC-Uhz"/>
@@ -1683,6 +1674,34 @@ for this Flight</string>
                         <segue destination="aUO-CA-mHa" kind="embed" identifier="embedFlightDetails" id="npl-2d-zLm"/>
                     </connections>
                 </containerView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YZ-kG-zkZ">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                    <color key="backgroundColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Vja-0G-yrn"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                    <state key="normal" title="Submit">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="submitFlightPlan" destination="8BE-J7-rU0" eventType="touchUpInside" id="nJp-Hr-Y8V"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Eq-Fz-bOO">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                    <color key="backgroundColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="gGo-md-NTf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                    <state key="normal" title="End Flight">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="endFlight" destination="8BE-J7-rU0" eventType="touchUpInside" id="jwt-dF-iru"/>
+                    </connections>
+                </button>
                 <containerView opaque="NO" contentMode="scaleToFill" id="hvG-Fu-3jy" userLabel="Permits">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -1695,6 +1714,13 @@ for this Flight</string>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <connections>
                         <segue destination="yrL-Wv-bJl" kind="embed" identifier="embedNotice" id="Uag-Bk-73T"/>
+                    </connections>
+                </containerView>
+                <containerView opaque="NO" contentMode="scaleToFill" id="PDI-am-rOS">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <connections>
+                        <segue destination="Gnv-CP-3V7" kind="embed" identifier="embedStatuses" id="vj8-t0-CLq"/>
                     </connections>
                 </containerView>
             </objects>
@@ -1771,11 +1797,11 @@ for this Flight</string>
                         <viewControllerLayoutGuide type="bottom" id="NAF-HU-hys"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1nn-ki-x7n">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="220"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="iHd-9g-dCK">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="220"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="flightDetailsCell" textLabel="5Hx-9E-ZCg" detailTextLabel="nW1-yH-qKX" style="IBUITableViewCellStyleValue2" id="kik-er-LKK">
@@ -1870,14 +1896,14 @@ for this Flight</string>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="200"/>
+                    <size key="freeformSize" width="600" height="220"/>
                     <connections>
                         <outlet property="tableView" destination="iHd-9g-dCK" id="5cH-wY-UJb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="498-nL-lMt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3634" y="173"/>
+            <point key="canvasLocation" x="3661" y="99"/>
         </scene>
         <!--Air Map Review Permits View Controller-->
         <scene sceneID="WN1-vJ-tdP">
@@ -1888,11 +1914,11 @@ for this Flight</string>
                         <viewControllerLayoutGuide type="bottom" id="90e-9h-fUM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bHZ-L8-BtL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="eYw-0A-5Og">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="175"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -1953,14 +1979,14 @@ for this Flight</string>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="200"/>
+                    <size key="freeformSize" width="600" height="175"/>
                     <connections>
                         <outlet property="tableView" destination="eYw-0A-5Og" id="caZ-5I-ZAK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kcD-j4-arc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3634" y="457"/>
+            <point key="canvasLocation" x="3661" y="343.5"/>
         </scene>
         <!--Manufacturers-->
         <scene sceneID="HAh-tC-edV">
@@ -2030,7 +2056,7 @@ for this Flight</string>
                 <viewControllerPlaceholder referencedIdentifier="FAQNav" id="Y65-ak-5eN" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WiH-Gl-YhI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4152.5" y="173"/>
+            <point key="canvasLocation" x="4098" y="99"/>
         </scene>
         <!--AirMapAvailablePermitViewController-->
         <scene sceneID="2nX-bp-hop">
@@ -2038,7 +2064,7 @@ for this Flight</string>
                 <viewControllerPlaceholder referencedIdentifier="AirMapAvailablePermitViewController" id="rzF-7h-jA9" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yl4-8j-fMW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4240" y="431"/>
+            <point key="canvasLocation" x="4188" y="344"/>
         </scene>
         <!--Air Map Review Notice View Controller-->
         <scene sceneID="kHr-R6-X2P">
@@ -2049,11 +2075,11 @@ for this Flight</string>
                         <viewControllerLayoutGuide type="bottom" id="3mM-hP-98p"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="x9b-hG-VR2">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="5FT-9B-mKX">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="175"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="digitalCell" textLabel="7ki-Pk-vZf" style="IBUITableViewCellStyleDefault" id="gfc-Cw-7hw">
@@ -2111,14 +2137,61 @@ for this Flight</string>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="200"/>
+                    <size key="freeformSize" width="600" height="175"/>
                     <connections>
                         <outlet property="tableView" destination="5FT-9B-mKX" id="4iA-bt-BEv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Itc-75-iv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3634" y="743"/>
+            <point key="canvasLocation" x="3661" y="574.5"/>
+        </scene>
+        <!--Air Map Statuses View Controller-->
+        <scene sceneID="spk-oh-DKy">
+            <objects>
+                <tableViewController id="Gnv-CP-3V7" customClass="AirMapStatusesViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="KwK-W8-bW6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="StatusCell" textLabel="ZFO-1v-zD5" detailTextLabel="7jD-R2-IPn" rowHeight="55" style="IBUITableViewCellStyleValue1" id="uK1-JG-iZS">
+                                <rect key="frame" x="0.0" y="49.5" width="600" height="55"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uK1-JG-iZS" id="enq-Ql-1ZY">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="University of Washington" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZFO-1v-zD5">
+                                            <rect key="frame" x="15" y="18" width="190" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Approved" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7jD-R2-IPn">
+                                            <rect key="frame" x="514.5" y="18" width="70.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Gnv-CP-3V7" id="Qwu-vl-7lQ"/>
+                            <outlet property="delegate" destination="Gnv-CP-3V7" id="6EM-V2-Lyv"/>
+                        </connections>
+                    </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="150"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JQJ-z7-xDT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3661" y="795"/>
         </scene>
         <!--Models-->
         <scene sceneID="2Na-ao-xKs">

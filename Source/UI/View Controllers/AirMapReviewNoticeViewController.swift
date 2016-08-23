@@ -23,7 +23,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 	private let disposeBag = DisposeBag()
 	
 	private lazy var advisoryNotices: [RowData] = {
-		return self.status.advisories
+		return self.status?.advisories
 			.sort { $0.0.name < $0.1.name }
 			.map { ($0, $0.requirements?.notice) }
 			.filter { $0.1 != nil }
@@ -32,6 +32,9 @@ class AirMapReviewNoticeViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		tableView.estimatedRowHeight = 44
+		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		dataSource.configureCell = { [weak self] dataSource, tableView, indexPath, rowData in
 			let cell: UITableViewCell

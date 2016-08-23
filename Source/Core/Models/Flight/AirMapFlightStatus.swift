@@ -40,7 +40,7 @@ extension AirMapFlightStatus: Mappable {
 		managerId <- map["manager_id"]
 
 		var statusType = "unknown"
-		statusType  <- map["manager_id"]
+		statusType  <- map["status"]
 		status = statusTypeForString(statusType)
 	}
 

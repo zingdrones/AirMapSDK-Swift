@@ -142,7 +142,7 @@ extension AirMapFlight: Mappable {
 		params["public"      ] = isPublic
 		params["notify"      ] = notify
 		params["geometry"    ] = geometry?.params()
-		params["buffer"      ] = Int(buffer ?? 0)
+		params["buffer"      ] = buffer ?? 0
 		params["permits"     ] = permitsIds
 
 		if let startTime = startTime, endTime = endTime {
