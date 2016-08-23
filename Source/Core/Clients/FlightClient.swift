@@ -46,9 +46,13 @@ extension FlightClient {
 	- parameter limit: Optional, Defines the number of records returned
 	- parameter pilotId: Optional, Filters flights for a particluar Pilot
 	- parameter startAfter: Optional, Search for flights that start after this time
+	- parameter startAfterNow: Search for flights that start after now
 	- parameter startBefore: Optional, Search for flights that start before this time
+	- parameter startBeforeNow: Search for flights that start before now
 	- parameter endAfter: Optional, Search for flights that end after this time
+	- parameter endAfterNow: Search for flights that end after now
 	- parameter endBefore: Optional, Search for flights that end before this time
+	- parameter endBeforeNow: Search for flights that end before now
 	- parameter country: Optional, Search for flights within this country (Length 3, Case Insensitive)
 	- parameter city: Optional, Search for flights within this city
 	- parameter state: Optional, Search for flights within this state
@@ -60,9 +64,13 @@ extension FlightClient {
 	func list(limit: Int? = nil,
 	                pilotId: String? = nil,
 					startAfter: NSDate? = nil,
+					startAfterNow: Bool = false,
 					startBefore: NSDate? = nil,
+					startBeforeNow: Bool = false,
 					endAfter: NSDate? = nil,
+					endAfterNow: Bool = false,
 					endBefore: NSDate? = nil,
+					endBeforeNow: Bool = false,
 					city: String? = nil,
 					state: String? = nil,
 					country: String? = nil,
@@ -73,10 +81,10 @@ extension FlightClient {
 
 		params["limit"       ] = limit
 		params["pilot_id"    ] = pilotId?.isEmpty ?? true ? nil : pilotId
-		params["start_after" ] = startAfter?.ISO8601String()
-		params["start_before"] = startBefore?.ISO8601String()
-		params["end_after"   ] = endAfter?.ISO8601String()
-		params["end_before"  ] = endBefore?.ISO8601String()
+		params["start_after" ] = startAfterNow ? "now" : startAfter?.ISO8601String()
+		params["start_before"] = startBeforeNow ? "now" : startBefore?.ISO8601String()
+		params["end_after"   ] = endAfterNow ? "now" : endAfter?.ISO8601String()
+		params["end_before"  ] = endBeforeNow ? "now" : endBefore?.ISO8601String()
 		params["city"        ] = city
 		params["state"       ] = state
 		params["country"     ] = country
@@ -86,43 +94,24 @@ extension FlightClient {
 		return call(.GET, params: params, keyPath: "data.results")
 	}
 
-	func listActivePublicFlights(limit: Int? = nil) -> Observable<[AirMapFlight]> {
+	func listPublicFlights(fromDate fromDate: NSDate? = nil, toDate: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
 
-		let now = NSDate()
+		let endAfterNow = fromDate == nil
+		let endAfter = fromDate
+		let startBeforeNow = toDate == nil
+		let startBefore = toDate
 
-		AirMap.logger.debug("Get All Public and Authenticated User Flights", now)
+		AirMap.logger.debug("Get Public Flights", endAfterNow, endAfter, startBefore, startBeforeNow)
+
+		let publicFlights = list(limit, endAfter: endAfter, endAfterNow: endAfterNow, startBefore: startBefore, startBeforeNow: startBeforeNow)
 
 		if AirMap.authSession.hasValidCredentials() {
-			let publicFlights = list(limit, startBefore: now, endAfter: now.dateByAddingTimeInterval(60))
-			let pilotFlights = list(startBefore: now, endAfter: now.dateByAddingTimeInterval(60), pilotId: AirMap.authSession.userId)
-
+			let pilotFlights = list(limit, endAfter: endAfter, endAfterNow: endAfterNow, startBefore: startBefore, startBeforeNow: startBeforeNow, pilotId: AirMap.authSession.userId)
 			return [publicFlights, pilotFlights].zip { flights in
 				return Array(Set(flights.flatMap({$0})))
 			}
-
 		} else {
-			return list(limit, startBefore: now, endAfter: now)
-		}
-	}
-
-
-	func listFuturePublicFlights(startAfter: NSDate? = nil, endBefore: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
-
-		let startAfter = startAfter ?? NSDate()
-		let endBefore = endBefore ?? startAfter.dateByAddingTimeInterval(3600*4)
-
-		AirMap.logger.debug("Get All Future Flights", startAfter, endBefore)
-
-		if AirMap.authSession.hasValidCredentials() {
-			let publicFlights = list(limit, startAfter: startAfter, endBefore:endBefore )
-			let pilotFlights = list(limit, startAfter: startAfter, pilotId: AirMap.authSession.userId)
-
-			return [publicFlights, pilotFlights].zip { flights in
-				return Array(Set(flights.flatMap({$0})))
-			}
-
-		} else {
-			return list(limit, startAfter: startAfter, endBefore:endBefore )
+			return publicFlights
 		}
 	}
 
