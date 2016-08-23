@@ -46,9 +46,13 @@ extension FlightClient {
 	- parameter limit: Optional, Defines the number of records returned
 	- parameter pilotId: Optional, Filters flights for a particluar Pilot
 	- parameter startAfter: Optional, Search for flights that start after this time
+	- parameter startAfterNow: Search for flights that start after now
 	- parameter startBefore: Optional, Search for flights that start before this time
+	- parameter startBeforeNow: Search for flights that start before now
 	- parameter endAfter: Optional, Search for flights that end after this time
+	- parameter endAfterNow: Search for flights that end after now
 	- parameter endBefore: Optional, Search for flights that end before this time
+	- parameter endBeforeNow: Search for flights that end before now
 	- parameter country: Optional, Search for flights within this country (Length 3, Case Insensitive)
 	- parameter city: Optional, Search for flights within this city
 	- parameter state: Optional, Search for flights within this state
@@ -60,9 +64,13 @@ extension FlightClient {
 	func list(limit: Int? = nil,
 	                pilotId: String? = nil,
 					startAfter: NSDate? = nil,
+					startAfterNow: Bool = false,
 					startBefore: NSDate? = nil,
+					startBeforeNow: Bool = false,
 					endAfter: NSDate? = nil,
+					endAfterNow: Bool = false,
 					endBefore: NSDate? = nil,
+					endBeforeNow: Bool = false,
 					city: String? = nil,
 					state: String? = nil,
 					country: String? = nil,
@@ -73,10 +81,10 @@ extension FlightClient {
 
 		params["limit"       ] = limit
 		params["pilot_id"    ] = pilotId?.isEmpty ?? true ? nil : pilotId
-		params["start_after" ] = startAfter?.ISO8601String()
-		params["start_before"] = startBefore?.ISO8601String()
-		params["end_after"   ] = endAfter?.ISO8601String()
-		params["end_before"  ] = endBefore?.ISO8601String()
+		params["start_after" ] = startAfterNow ? "now" : startAfter?.ISO8601String()
+		params["start_before"] = startBeforeNow ? "now" : startBefore?.ISO8601String()
+		params["end_after"   ] = endAfterNow ? "now" : endAfter?.ISO8601String()
+		params["end_before"  ] = endBeforeNow ? "now" : endBefore?.ISO8601String()
 		params["city"        ] = city
 		params["state"       ] = state
 		params["country"     ] = country
