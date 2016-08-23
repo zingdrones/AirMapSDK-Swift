@@ -13,27 +13,16 @@ extension AirMap_Flights {
 	public typealias AirMapFlightCollectionResponseHandler = ([AirMapFlight]?, NSError?) -> Void
 
 	/**
-	Get the all active public `AirMapFlight`s including private flights, if available, of the authenticated user.
+	Get all public `AirMapFlight`s, including the authenticated user's private flights, overlapping a date range.
 
-	- parameter limit: `Int` the number of items returned.
+	- parameter fromDate: Optional `NSDate` search range start
+	- parameter toDate: Optional `NSDate` search range end
+	- parameter limit: `Int` the maximum number of items returned.
 	- parameter handler: `(AirMapFlight?, NSError?) -> Void`
 
 	*/
-	public class func listActivePublicFlights(limit: Int? = nil, handler: AirMapFlightCollectionResponseHandler) {
-		flightClient.listActivePublicFlights(limit)
-	}
-
-	/**
-	Get the all active public `AirMapFlight`s including private flights, if available, of the authenticated user.
-
-	- parameter startAfter: Optional `NSDate` of when the flights should start
-	- parameter endBefore: Optional `NSDate` before the flights should end.
-	- parameter limit: `Int` the number of items returned.
-	- parameter handler: `(AirMapFlight?, NSError?) -> Void`
-
-	*/
-	public class func listFuturePublicFlights(startAfter: NSDate? = nil, endBefore: NSDate? = nil, limit: Int? = nil, handler: AirMapFlightCollectionResponseHandler) {
-		flightClient.listFuturePublicFlights(startAfter, endBefore: endBefore, limit: limit)
+	public class func listPublicFlights(fromDate: NSDate? = nil, toDate: NSDate? = nil, limit: Int? = nil, handler: AirMapFlightCollectionResponseHandler) {
+		flightClient.listPublicFlights(fromDate: fromDate, toDate: toDate, limit: limit).subscribe(handler)
 	}
 
 	/**
