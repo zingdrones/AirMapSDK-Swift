@@ -51,13 +51,14 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		mapViewDelegate.status = navigationController?.status.value
 
 		let flight: AirMapFlight
-		
 		if existingFlight != nil {
 			flight = existingFlight.value
+			navigationItem.title = "Flight Plan"
 		} else {
 			flight = navigationController!.flight.value
+			navigationItem.leftBarButtonItem = nil
 		}
-
+		
 		let polygon = AirMapFlightRadiusAnnotation.polygon(flight.coordinate, radius: flight.buffer!)
 		mapView.addAnnotations([flight, polygon])
 	}
@@ -182,7 +183,9 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 		flight
 			.flatMap { AirMap.rx_createFlight($0) }
-			.doOnError { [weak flow] error in flow?.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError) }
+			.doOnError { [weak flow] error in
+				flow?.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
+			}
 			.subscribeNext { [weak flow] flight in
 				flow?.flightPlanDelegate.airMapFlightPlanDidCreate(flight)
 			}
@@ -204,7 +207,6 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 	}
 
 	@IBAction func scrollToTabIndex(index: Int) {
-
 		let offset = CGPoint(x: scrollView.frame.width * CGFloat(index), y: 0)
 		scrollView.setContentOffset(offset, animated: true)
 	}
@@ -212,4 +214,5 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 	func scrollViewDidScroll(scrollView: UIScrollView) {
 		tabSelectionIndicator.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x / CGFloat(embeddedViews.count), 0)
 	}
+		
 }
