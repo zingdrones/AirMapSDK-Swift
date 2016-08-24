@@ -536,7 +536,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <barButtonItem key="backBarButtonItem" title=" " id="jtQ-hn-R8x"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="KsF-aF-qvA">
                             <connections>
-                                <segue destination="HUV-Be-kc0" kind="unwind" unwindAction="unwindToPilotProfile:" id="PTt-UJ-ILx"/>
+                                <action selector="dismiss:" destination="vSg-8e-JzS" id="gB5-7p-6oU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -565,7 +565,6 @@ AirMap will send you a text message when your digital notice has been successful
                         <action selector="submitForm" destination="vSg-8e-JzS" eventType="touchUpInside" id="rYO-wr-KJS"/>
                     </connections>
                 </button>
-                <exit id="HUV-Be-kc0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3661" y="-1368"/>
         </scene>
@@ -697,10 +696,10 @@ AirMap will send you a text message when your digital notice has been successful
             </objects>
             <point key="canvasLocation" x="4529" y="-1368"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Air Map Phone Verification Nav Controller-->
         <scene sceneID="fXr-LJ-5QW">
             <objects>
-                <navigationController id="qCC-Ux-GvH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="VerifyPhoneNumber" id="qCC-Ux-GvH" customClass="AirMapPhoneVerificationNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="7wR-7A-qNT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -986,7 +985,7 @@ for this Flight</string>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="FAA UAS Registration Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ejc-pL-fNb">
                                                     <rect key="frame" x="15" y="2" width="570" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1240,6 +1239,7 @@ for this Flight</string>
                         <outlet property="submitNoticeHeader" destination="1ec-Tt-fR8" id="ZDA-S2-6pi"/>
                         <outlet property="submitNoticeSwitch" destination="dt2-Fs-aOG" id="Lt7-Lh-IiV"/>
                         <outlet property="tableView" destination="118-Pp-49h" id="Lo5-gi-zW9"/>
+                        <segue destination="akc-Tr-Snd" kind="presentation" identifier="modalVerifyId" id="04M-tD-YHG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWw-qQ-461" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1725,6 +1725,14 @@ for this Flight</string>
                 </containerView>
             </objects>
             <point key="canvasLocation" x="2833" y="431"/>
+        </scene>
+        <!--VerifyPhoneNumber-->
+        <scene sceneID="a8u-Ke-LVj">
+            <objects>
+                <viewControllerPlaceholder referencedIdentifier="VerifyPhoneNumber" id="akc-Tr-Snd" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UdU-Ud-Owz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2083.5" y="828"/>
         </scene>
         <!--Message-->
         <scene sceneID="a3Y-4K-xaY">

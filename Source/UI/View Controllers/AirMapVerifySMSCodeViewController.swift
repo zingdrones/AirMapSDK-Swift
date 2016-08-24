@@ -1,9 +1,9 @@
 //
 //  AirMapVerifySMSCodeViewController.swift
-//  Pods
+//  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 8/8/16.
-//
+//  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
 import RxSwift
@@ -44,7 +44,8 @@ class AirMapVerifySMSCodeViewController: UITableViewController {
 		AirMap.rx_verifySMS(smsTextField.text!)
 			.subscribeNext { [weak self] response in
 				if response.verified {
-					self?.performSegueWithIdentifier("unwindToPilotProfile", sender: self)
+					let nav = self?.navigationController as! AirMapPhoneVerificationNavController
+					nav.phoneVerificationDelegate?.phoneVerificationDidVerifyPhoneNumber()
 				} else {
 					//TODO: Handle error
 					self?.navigationController?.popViewControllerAnimated(true)

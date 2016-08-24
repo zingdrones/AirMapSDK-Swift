@@ -91,6 +91,9 @@ class AirMapFlightPlanViewController: UIViewController {
 
 		AirMap.rx_getAuthenticatedPilot()
 			.asOptional()
+			.doOnNext { [weak self] pilot in
+				self?.navigationController?.flight.value.pilot = pilot
+			}
 			.bindTo(pilot)
 			.addDisposableTo(disposeBag)
 	}
@@ -179,8 +182,7 @@ class AirMapFlightPlanViewController: UIViewController {
 			.subscribeNext { flight.value.pilotId = $0.pilotId }
 			.addDisposableTo(disposeBag)
 
-		status.asObservable()
-			.map { $0 != nil}
+		Observable.combineLatest(status.asObservable(), pilot.asObservable()) { $0 != nil && $1 != nil }
 			.bindTo(nextButton.rx_enabled)
 			.addDisposableTo(disposeBag)
 

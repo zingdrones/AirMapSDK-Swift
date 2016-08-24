@@ -109,7 +109,8 @@ class AirMapPilotProfileViewController: UITableViewController {
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "modalUpdatePhoneNumber" {
-			let nav = segue.destinationViewController as! UINavigationController
+			let nav = segue.destinationViewController as! AirMapPhoneVerificationNavController
+			nav.phoneVerificationDelegate = self
 			let phoneVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
 			phoneVC.pilot = pilot.value
 		}
@@ -125,5 +126,12 @@ class AirMapPilotProfileViewController: UITableViewController {
 	
 	@IBAction func unwindToPilotProfile(segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }
 
+}
+
+extension AirMapPilotProfileViewController: AirMapPhoneVerificationDelegate {
+	
+	func phoneVerificationDidVerifyPhoneNumber() {
+		dismissViewControllerAnimated(true, completion: nil)
+	}
 }
 
