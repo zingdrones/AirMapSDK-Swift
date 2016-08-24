@@ -28,6 +28,3 @@ internal class TrafficClient: MQTTSession {
 	}
 	
 }
-
-
-

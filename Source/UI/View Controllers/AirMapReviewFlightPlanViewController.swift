@@ -27,8 +27,9 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 	var existingFlight: Variable<AirMapFlight>!
 	
 	private var embeddedViews = [(title: String, view: UIView)]()
-	private let disposeBag = DisposeBag()
 	private let mapViewDelegate = AirMapMapboxMapViewDelegate()
+	private let activityIndicator = ActivityIndicator()
+	private let disposeBag = DisposeBag()
 
 	override var navigationController: AirMapFlightPlanNavigationController? {
 		return super.navigationController as? AirMapFlightPlanNavigationController
@@ -39,12 +40,12 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		case embedPermits
 		case embedNotice
 		case embedStatuses
-		case modalFAQ
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		setupBindings()
 		setupEmbeddedViews()
 		
 		mapView.delegate = mapViewDelegate
@@ -82,6 +83,15 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		} else {
 			return nil
 		}
+	}
+	
+	private func setupBindings() {
+	
+		activityIndicator.asObservable()
+			.throttle(0.25, scheduler: MainScheduler.instance)
+			.distinctUntilChanged()
+			.bindTo(rx_loading)
+			.addDisposableTo(disposeBag)
 	}
 
 	private func setupEmbeddedViews() {
@@ -134,11 +144,6 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 			if let flight = existingFlight {
 				statusesVC.flight = flight
 			}
-			
-		case .modalFAQ:
-			let nav = segue.destinationViewController as! UINavigationController
-			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
-			faqVC.section = .LetOthersKnow
 		}
 	}
 
@@ -169,7 +174,10 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		let flight: Observable<AirMapFlight>
 
 		if neededPermits.count > 0 {
-			let permitRequests = neededPermits.map { AirMap.rx_applyForPermit($0.availablePermit) }
+			let permitRequests = neededPermits.map {
+				AirMap.rx_applyForPermit($0.availablePermit)
+					.trackActivity(activityIndicator)
+			}
 			let permits = permitRequests.zip { $0 }
 			let permitIds = permits.map { $0.map { $0.id } }
 			flight = permitIds.map { ids -> AirMapFlight in
@@ -182,7 +190,9 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		}
 
 		flight
-			.flatMap { AirMap.rx_createFlight($0) }
+			.flatMap { [unowned self] flight in
+				AirMap.rx_createFlight(flight).trackActivity(self.activityIndicator)
+			}
 			.doOnError { [weak flow] error in
 				flow?.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
 			}
@@ -194,6 +204,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 	
 	@IBAction func endFlight() {
 		AirMap.rx_endFlight(existingFlight.value)
+			.trackActivity(activityIndicator)
 			.doOnCompleted { [unowned self] _ in
 				self.dismiss()
 		}

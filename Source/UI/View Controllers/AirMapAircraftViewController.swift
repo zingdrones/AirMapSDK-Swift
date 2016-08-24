@@ -13,6 +13,7 @@ class AirMapAircraftViewController: UITableViewController {
 	
 	let selectedAircraft = Variable(nil as AirMapAircraft?)
 	
+	private let activityIndicator = ActivityIndicator()
 	private let aircraft = Variable([AirMapAircraft]())
 	private let disposeBag = DisposeBag()
 	
@@ -27,6 +28,7 @@ class AirMapAircraftViewController: UITableViewController {
 		
 		AirMap
 			.rx_listAircraft()
+			.trackActivity(activityIndicator)
 			.bindTo(aircraft)
 			.addDisposableTo(disposeBag)
 	}
@@ -57,6 +59,12 @@ class AirMapAircraftViewController: UITableViewController {
 			}
 			.asOptional()
 			.bindTo(selectedAircraft)
+			.addDisposableTo(disposeBag)
+		
+		activityIndicator.asObservable()
+			.throttle(0.25, scheduler: MainScheduler.instance)
+			.distinctUntilChanged()
+			.bindTo(rx_loading)
 			.addDisposableTo(disposeBag)
 	}
 	
