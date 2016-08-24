@@ -17,7 +17,7 @@ extension RxAirMap_Flight {
 	}
 
 	public class func rx_getCurrentAuthenticatedPilotFlight() -> Observable<AirMapFlight?> {
-		return flightClient.list(startBefore: NSDate(), endAfter: NSDate(), pilotId: AirMap.authSession.userId, authCheck:true ).map { $0.first }
+		return flightClient.list(startBeforeNow: true, endAfterNow: true, pilotId: AirMap.authSession.userId, authCheck:true ).map { $0.first }
 	}
 
 	public class func rx_getFlight(flightId: String) -> Observable<AirMapFlight> {
