@@ -27,6 +27,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		return aircraft.aircraftId == nil ? .Create : .Update
 	}
 	
+	private let activityIndicator = ActivityIndicator()
 	private var model = Variable(nil as AirMapAircraftModel?)
 	private let disposeBag = DisposeBag()
 	
@@ -92,6 +93,12 @@ class AirMapCreateAircraftViewController: UITableViewController {
 			}
 			.bindTo(nextButton.rx_enabled)
 			.addDisposableTo(disposeBag)
+		
+		activityIndicator.asObservable()
+			.throttle(0.25, scheduler: MainScheduler.instance)
+			.distinctUntilChanged()
+			.bindTo(rx_loading)
+			.addDisposableTo(disposeBag)
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -108,9 +115,9 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		let action: Observable<AirMapAircraft>
 		switch mode {
 		case .Create:
-			action = AirMap.rx_createAircraft(aircraft)
+			action = AirMap.rx_createAircraft(aircraft).trackActivity(activityIndicator)
 		case .Update:
-			action = AirMap.rx_updateAircraft(aircraft)
+			action = AirMap.rx_updateAircraft(aircraft).trackActivity(activityIndicator)
 		}
 
 		action.doOnCompleted { [weak self] _ in

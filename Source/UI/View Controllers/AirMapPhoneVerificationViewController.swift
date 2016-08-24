@@ -22,6 +22,7 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 	
 	private var countryCode: String!
 	private let phoneUtil = NBPhoneNumberUtil()
+	private let activityIndicator = ActivityIndicator()
 
 	private var phoneNumber: NBPhoneNumber? {
 		guard let phone =  phone.text, let region = countryCode else { return nil }
@@ -95,6 +96,12 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 			}
 			.bindTo(submitButton.rx_enabled)
 			.addDisposableTo(disposeBag)
+		
+		activityIndicator.asObservable()
+			.throttle(0.25, scheduler: MainScheduler.instance)
+			.distinctUntilChanged()
+			.bindTo(rx_loading)
+			.addDisposableTo(disposeBag)
 	}
 	
 	private func setupDefaultCountryCode() {
@@ -116,14 +123,13 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 			let phoneNumber = phoneNumber,
 			let e164 = try? phoneUtil.format(phoneNumber, numberFormat: .E164) else { return }
 
-		let p = AirMapPilot { pilot in
-			pilot.pilotId = self.pilot.pilotId
-			pilot.phone = e164
-		}
+		pilot.phone = e164
 		
-		AirMap.rx_updatePilot(p)
-			.mapToVoid()
-			.flatMap(AirMap.rx_sendVerificationToken)
+		AirMap.rx_updatePilot(pilot)
+			.trackActivity(activityIndicator)
+			.flatMap { [unowned self] _ in
+				AirMap.rx_sendVerificationToken().trackActivity(self.activityIndicator)
+			}
 			.doOnCompleted(unowned(self, AirMapPhoneVerificationViewController.verifySMSToken))
 			.subscribe()
 			.addDisposableTo(disposeBag)

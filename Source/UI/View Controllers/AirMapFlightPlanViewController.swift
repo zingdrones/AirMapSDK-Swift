@@ -75,6 +75,7 @@ class AirMapFlightPlanViewController: UIViewController {
 	private let mapViewDelegate = AirMapMapboxMapViewDelegate()
 	private var sections = [TableSection]()
 	private let disposeBag = DisposeBag()
+	private let activityIndicator = ActivityIndicator()
 
 	override var navigationController: AirMapFlightPlanNavigationController? {
 		return super.navigationController as? AirMapFlightPlanNavigationController
@@ -90,6 +91,7 @@ class AirMapFlightPlanViewController: UIViewController {
 		setupBindings()
 
 		AirMap.rx_getAuthenticatedPilot()
+			.trackActivity(activityIndicator)
 			.asOptional()
 			.doOnNext { [weak self] pilot in
 				self?.navigationController?.flight.value.pilot = pilot
@@ -156,7 +158,7 @@ class AirMapFlightPlanViewController: UIViewController {
 	}
 
 	private func setupBindings() {
-
+		
 		let flight = navigationController!.flight
 		let status = navigationController!.status
 		let shareFlight = navigationController!.shareFlight
@@ -211,13 +213,15 @@ class AirMapFlightPlanViewController: UIViewController {
 			.bindTo(requiredPermits)
 			.addDisposableTo(disposeBag)
 
-		//FIXME:  locationBufferObsl Does not dealloc
 		locationBufferObsl
 			.doOnNext { location, buffer in
 				flight.value.coordinate = location
 				flight.value.buffer = buffer
 			}
-			.flatMap { AirMap.rx_checkCoordinate($0, buffer: $1) }
+			.flatMap { [unowned self] (coordinate, buffer) in
+				AirMap.rx_checkCoordinate(coordinate, buffer: buffer)
+					.trackActivity(self.activityIndicator)
+			}
 			.asOptional()
 			.bindTo(status)
 			.addDisposableTo(disposeBag)
@@ -242,7 +246,13 @@ class AirMapFlightPlanViewController: UIViewController {
 				flight.value.duration = duration
 			}
 			.addDisposableTo(disposeBag)
-		}
+		
+		activityIndicator.asObservable()
+			.throttle(0.25, scheduler: MainScheduler.instance)
+			.distinctUntilChanged()
+			.bindTo(rx_loading)
+			.addDisposableTo(disposeBag)
+	}
 
 	func updateMapAnnotations(location: CLLocationCoordinate2D, buffer: CLLocationDistance) {
 
@@ -267,6 +277,7 @@ class AirMapFlightPlanViewController: UIViewController {
 			performSegueWithIdentifier("pushNotices", sender: self)
 		} else {
 			AirMap.rx_createFlight(navigationController!.flight.value)
+				.trackActivity(activityIndicator)
 				.doOnError { [weak self] error in
 					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
 				}
