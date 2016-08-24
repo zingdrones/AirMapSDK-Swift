@@ -40,7 +40,6 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		case embedPermits
 		case embedNotice
 		case embedStatuses
-		case modalFAQ
 	}
 
 	override func viewDidLoad() {
@@ -145,11 +144,6 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 			if let flight = existingFlight {
 				statusesVC.flight = flight
 			}
-			
-		case .modalFAQ:
-			let nav = segue.destinationViewController as! UINavigationController
-			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
-			faqVC.section = .LetOthersKnow
 		}
 	}
 
