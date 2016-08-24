@@ -88,11 +88,11 @@ extension AirMapTraffic {
 			let miles = AirMapTrafficServiceUtils.metersToMiles(distance)
 			let seconds = AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt)
 			let (_, m, s) = seconds.secondsToHoursMinutesSeconds()
-			let trafficTitle = properties.aircraftId == nil ? "Traffic" : "Traffic \(properties.aircraftId)"
+			let trafficTitle = properties.aircraftId == nil ? "Traffic" : "\(properties.aircraftId)"
 
-			return "\(trafficTitle) \(miles) mi  \(direction) \(m) min \(s) sec"
+			return "\(trafficTitle) \(miles) mi  \(altitude)m \(direction) \(m) min \(s) sec"
 		}
 
-		return "Traffic \(properties.aircraftId) \(groundSpeedKt)kts (\(coordinate.latitude), \(coordinate.longitude)) \(altitude)m"
+		return "Traffic \(properties.aircraftId) \(groundSpeedKt)kts (\(String.coordinateString(coordinate.latitude, longitude:coordinate.longitude)) \(altitude)m"
 	}
 }
