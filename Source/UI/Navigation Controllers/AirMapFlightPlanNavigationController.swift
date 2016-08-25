@@ -20,7 +20,6 @@ public class AirMapFlightPlanNavigationController: UINavigationController {
 
 	let flight = Variable(AirMapFlight())
 	let status = Variable(nil as AirMapStatus?)
-	let submitDigitalNotice = Variable(true)
 	let shareFlight = Variable(true)
 
 	let requiredPermits = Variable([AirMapAvailablePermit]())

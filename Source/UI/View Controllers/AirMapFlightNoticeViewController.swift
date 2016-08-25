@@ -78,6 +78,12 @@ class AirMapFlightNoticeViewController: UIViewController {
 			cell.advisory = advisory
 			return cell
 		}
+		
+		submitNoticeSwitch.rx_value
+			.subscribeNext { [unowned self] submitNotice in
+				self.navigationController!.flight.value.notify = submitNotice
+			}
+			.addDisposableTo(disposeBag)
 	}
 	
 	@IBAction func unwindToFlightNotice(segue: UIStoryboardSegue) {
