@@ -135,14 +135,19 @@ internal class TrafficService: MQTTSessionDelegate {
 	}
 
 	func connect() {
-		
+
 		if AirMap.hasValidCredentials() && delegate != nil {
+
+			if connectionState.value != .Disconnected {
+				disconnect()
+			}
+
 			AirMap.rx_getCurrentAuthenticatedPilotFlight().bindTo(currentFlight).addDisposableTo(disposeBag)
 		}
 	}
 
 	func disconnect() {
-
+		unsubscribeFromAllChannels()
 		currentFlight.value = nil
 		removeAllTraffic()
 	}
@@ -152,6 +157,7 @@ internal class TrafficService: MQTTSessionDelegate {
 	func connectWithFlight(flight: AirMapFlight) -> Observable<ConnectionState> {
 
 		return Observable.create { (observer: AnyObserver<ConnectionState>) -> Disposable in
+
 
 			observer.onNext(.Connecting)
 
@@ -169,7 +175,6 @@ internal class TrafficService: MQTTSessionDelegate {
 			}
 
 			return AnonymousDisposable {
-				self.client.disconnect()
 			}
 		}
 	}
@@ -434,7 +439,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	func socketErrorOccurred(session: MQTTSession) {
 		AirMap.logger.error(TrafficService.self, "MQTTSession socket error")
-		disconnect()
+//		disconnect()
 	}
 
 	deinit {
