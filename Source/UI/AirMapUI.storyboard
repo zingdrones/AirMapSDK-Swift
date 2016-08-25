@@ -60,7 +60,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <state key="normal" title="Next">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="disabled">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
@@ -1142,6 +1142,9 @@ for this Flight</string>
                                 <state key="normal" title="Review">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="1" green="0.99997437" blue="0.99999129769999995" alpha="0.5" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="8BE-J7-rU0" kind="show" identifier="pushReview" id="d4K-iB-pv6"/>
                                 </connections>
@@ -1684,6 +1687,9 @@ for this Flight</string>
                     <state key="normal" title="Submit">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="0.5" colorSpace="calibratedRGB"/>
+                    </state>
                     <connections>
                         <action selector="submitFlightPlan" destination="8BE-J7-rU0" eventType="touchUpInside" id="nJp-Hr-Y8V"/>
                     </connections>
@@ -1697,6 +1703,9 @@ for this Flight</string>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                     <state key="normal" title="End Flight">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="1" green="0.99997437" blue="0.99999129769999995" alpha="0.5" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="endFlight" destination="8BE-J7-rU0" eventType="touchUpInside" id="jwt-dF-iru"/>
@@ -2359,9 +2368,9 @@ for this Flight</string>
         <image name="selected_cell_option" width="27" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EBb-de-rWY"/>
-        <segue reference="Owu-ph-Mkk"/>
         <segue reference="GA4-U0-5W2"/>
+        <segue reference="6pN-j9-ln7"/>
+        <segue reference="EBb-de-rWY"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
 </document>
