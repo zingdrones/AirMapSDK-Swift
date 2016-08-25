@@ -90,9 +90,9 @@ extension AirMapTraffic {
 			let (_, m, s) = seconds.secondsToHoursMinutesSeconds()
 			let trafficTitle = properties.aircraftId == nil ? "Traffic" : "\(properties.aircraftId)"
 
-			return "\(trafficTitle) \(miles) mi  \(altitude)m \(direction) \(m) min \(s) sec"
+			return "Traffic \(trafficTitle)\n\(miles) mi \(direction) \(m) min \(s) sec"
 		}
 
-		return "Traffic \(properties.aircraftId) \(groundSpeedKt)kts (\(String.coordinateString(coordinate.latitude, longitude:coordinate.longitude)) \(altitude)m"
+		return "Traffic \(properties.aircraftId)\n\(Int(groundSpeedKt))kts \(String.coordinateString(coordinate.latitude, longitude:coordinate.longitude) )"
 	}
 }
