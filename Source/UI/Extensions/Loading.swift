@@ -23,41 +23,52 @@ extension Loading where Self: UIViewController {
 	}
 	
 	private func showLoader() {
-	
-		guard let window = UIApplication.sharedApplication().keyWindow else { return }
 		
-		let loader = LoadingView()
-		loader.indicator.startAnimating()
-		loader.frame = window.bounds
-		
-		UIView.transitionWithView(
-			window,
-			duration: 0.25,
-			options: [.TransitionCrossDissolve, .AllowAnimatedContent],
-			animations: { window.addSubview(loader) },
-			completion: nil)
+		view.inputAccessoryView?.userInteractionEnabled = false
+		view.inputView?.userInteractionEnabled = false
+			
+		LoadingWindow.sharedInstance.makeKeyAndVisible()
+		UIView.animateWithDuration(0.25, delay: 0, options: .BeginFromCurrentState, animations: { 
+			LoadingWindow.sharedInstance.alpha = 1
+			}, completion: nil)
 	}
 	
 	private func hideLoader() {
 		
-		guard let window = UIApplication.sharedApplication().keyWindow else { return }
-
-		UIView.transitionWithView(
-			window,
-			duration: 0.25,
-			options: [.TransitionCrossDissolve, .AllowAnimatedContent],
-			animations: {
-				window.subviews
-					.map { $0 as? LoadingView }
-					.flatMap { $0 }
-					.forEach {
-						$0.indicator.stopAnimating()
-						$0.removeFromSuperview()
-				}
-			},
-			completion: nil)
+		UIView.animateWithDuration(0.25, delay: 0, options: .BeginFromCurrentState, animations: {
+			LoadingWindow.sharedInstance.alpha = 0
+			}, completion: { _ in
+				LoadingWindow.sharedInstance.hidden = true
+				let mainWindow = UIApplication.sharedApplication().windows.first?.makeKeyAndVisible()
+				self.view.inputAccessoryView?.userInteractionEnabled = true
+				self.view.inputView?.userInteractionEnabled = true
+		})
 	}
 	
+}
+
+class LoadingWindow: UIWindow {
+	
+	static let sharedInstance: LoadingWindow = {
+		
+		let window = LoadingWindow()
+		window.frame = UIScreen.mainScreen().bounds
+		window.backgroundColor = UIColor.airMapGray().colorWithAlphaComponent(0.75)
+		window.windowLevel = UIWindowLevelAlert + 1
+		window.addSubview(window.loadingView)
+		window.makeKeyAndVisible()
+		window.alpha = 0.0
+
+		return window
+	}()
+	
+	let loadingView = LoadingView()
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		
+		loadingView.frame = bounds
+	}
 }
 
 class LoadingView: UIView {
@@ -67,7 +78,7 @@ class LoadingView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
-		backgroundColor = UIColor.airMapGray().colorWithAlphaComponent(0.75)
+		indicator.startAnimating()
 		addSubview(indicator)
 	}
 	
@@ -77,7 +88,7 @@ class LoadingView: UIView {
 	
 	override func layoutSubviews() {
 		super.layoutSubviews()
-
+		
 		indicator.center = center
 	}
 	
