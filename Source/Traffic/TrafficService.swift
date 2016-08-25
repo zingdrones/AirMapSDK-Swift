@@ -229,6 +229,11 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	private func addTraffic(traffic: [AirMapTraffic]) {
 
+		guard let currentFlight = currentFlight.value else {
+			disconnect()
+			return
+		}
+
 		var addedTraffic = traffic
 		var updatedTraffic = [AirMapTraffic]()
 
