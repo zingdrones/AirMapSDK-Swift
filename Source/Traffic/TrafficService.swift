@@ -268,17 +268,20 @@ internal class TrafficService: MQTTSessionDelegate {
 				existing.willChangeValueForKey("trafficType")
 
 
-				//FIXME: This is temporary
-				if existing.trafficType != .Alert {
+
+				if existing.trafficType == .Alert {
+					existing.trafficTypeDidChangeToAlert = false
+				} else {
 					existing.trafficType = added.trafficType
 				}
+
 
 				let addedLocation = CLLocation(latitude: added.coordinate.latitude, longitude: added.coordinate.longitude)
 				let trafficLocation = CLLocation(latitude: currentFlight.coordinate.latitude, longitude: currentFlight.coordinate.longitude)
 				let distance = trafficLocation.distanceFromLocation(addedLocation)
 
+				//FIXME: This is temporary
 				if distance > 3000 {
-					print("distance > 3000: \(distance)")
 					existing.trafficType = .SituationalAwareness
 				}
 

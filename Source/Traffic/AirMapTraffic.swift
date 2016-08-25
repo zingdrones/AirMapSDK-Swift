@@ -27,7 +27,19 @@ import CoreLocation
 	public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
 	public var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
 	public var createdAt: NSDate = NSDate()
-	public var trafficType = TrafficType.SituationalAwareness
+	public var trafficType = TrafficType.SituationalAwareness {
+		willSet {
+			trafficTypeDidChangeToAlert =  trafficType == .SituationalAwareness && newValue == .Alert
+		}
+	}
+	public var trafficTypeDidChangeToAlert = false {
+		didSet {
+			if trafficTypeDidChangeToAlert {
+				print("trafficTypeDidChangeToAlert: \(trafficTypeDidChangeToAlert)")
+			}
+		}
+	}
+
 
 	public override init() {
 		super.init()
