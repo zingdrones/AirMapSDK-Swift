@@ -150,6 +150,7 @@ internal class TrafficService: MQTTSessionDelegate {
 		unsubscribeFromAllChannels()
 		currentFlight.value = nil
 		removeAllTraffic()
+		client.disconnect()
 	}
 
 	// MARK: - Observable Methods
@@ -157,7 +158,6 @@ internal class TrafficService: MQTTSessionDelegate {
 	func connectWithFlight(flight: AirMapFlight) -> Observable<ConnectionState> {
 
 		return Observable.create { (observer: AnyObserver<ConnectionState>) -> Disposable in
-
 
 			observer.onNext(.Connecting)
 
