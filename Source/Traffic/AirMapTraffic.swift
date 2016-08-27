@@ -32,14 +32,7 @@ import CoreLocation
 			trafficTypeDidChangeToAlert =  trafficType == .SituationalAwareness && newValue == .Alert
 		}
 	}
-	public var trafficTypeDidChangeToAlert = false {
-		didSet {
-			if trafficTypeDidChangeToAlert {
-				print("trafficTypeDidChangeToAlert: \(trafficTypeDidChangeToAlert)")
-			}
-		}
-	}
-
+	public var trafficTypeDidChangeToAlert = false
 
 	public override init() {
 		super.init()

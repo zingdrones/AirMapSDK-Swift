@@ -272,8 +272,6 @@ internal class TrafficService: MQTTSessionDelegate {
 
 				existing.willChangeValueForKey("trafficType")
 
-
-
 				if existing.trafficType == .Alert {
 					existing.trafficTypeDidChangeToAlert = false
 				} else {
