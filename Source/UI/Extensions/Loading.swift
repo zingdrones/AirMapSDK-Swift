@@ -51,8 +51,15 @@ class LoadingWindow: UIWindow {
 	
 	static let sharedInstance: LoadingWindow = {
 		
+		class LoadingRootViewController: UIViewController {
+			private override func preferredStatusBarStyle() -> UIStatusBarStyle {
+				return .LightContent
+			}
+		}
+		
 		let window = LoadingWindow()
 		window.frame = UIScreen.mainScreen().bounds
+		window.rootViewController = LoadingRootViewController()
 		window.backgroundColor = UIColor.airMapGray().colorWithAlphaComponent(0.75)
 		window.windowLevel = UIWindowLevelAlert + 1
 		window.addSubview(window.loadingView)
