@@ -222,14 +222,16 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 		     .AirportsRecreationalPrivate,
 		     .AirportsCommercialPrivate:
 			return .Airport
+			
+		case .Heliports :
+			return .Heliport
 
 		case .NationalParks,
 		     .NOAA:
 
 			return AirMapAirspaceType.Park
 
-		case .Heliports,
-		     .ClassB,
+		case .ClassB,
 		     .ClassC,
 		     .ClassD,
 		     .ClassE,
