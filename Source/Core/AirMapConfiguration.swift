@@ -20,17 +20,30 @@ public class AirMapConfiguration: NSObject {
 	static func loadConfig() -> AirMapConfiguration {
 		
 		let bundle = NSBundle.mainBundle()
-		let configFile = bundle.pathForResource("airmap.config", ofType: "json")!
-		let json = try? String(contentsOfFile: configFile)
 		
-		guard let config = Mapper<AirMapConfiguration>().map(json) else {
-			fatalError(
-				"The `airmap.config` file required to configure the AirMapSDK is missing. " +
-				"Please reference the documentation for more information")
+		guard let
+			configFile = bundle.pathForResource("airmap.config", ofType: "json"),
+			json = try? String(contentsOfFile: configFile),
+			config = Mapper<AirMapConfiguration>().map(json)
+ 		else {
+ 			fatalError(
+ 				"The `airmap.config.json` file required to configure the AirMapSDK is missing. " +
+				"Please reference the documentation for more information. " +
+				"https://developers.airmap.com/docs/ios-getting-started#section-3-download-an-airmap-configuration-file"
+			)
+ 		}
+
+		if config.airMapApiKey == nil {
+			fatalError("airmap.config.json is missing an AirMap API Key (airmap.api_key)")
 		}
-		assert(config.airMapApiKey != nil, "`airmap.config` is missing the AirMap API Key")
-		assert(config.auth0ClientId != nil, "`airmap.config` is missing the Auth0 Client ID")
-		assert(config.auth0CallbackUrl != nil, "`airmap.config` is missing the Auth0 Callback URL")
+
+		if config.auth0ClientId == nil {
+			AirMap.logger.warning("airmap.config.json is missing an Auth0 Client ID (auth0.client_id)")
+		}
+		
+		if config.auth0CallbackUrl == nil {
+			AirMap.logger.warning("airmap.config.json is missing an Auth0 Callback URL (auth0.callback_url)")
+		}
 		
 		return config
 	}
