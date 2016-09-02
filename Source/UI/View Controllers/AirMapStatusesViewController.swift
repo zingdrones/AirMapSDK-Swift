@@ -40,5 +40,5 @@ class AirMapStatusesViewController: UITableViewController {
 			}
 			.addDisposableTo(disposeBag)
 	}
-	
+		
 }

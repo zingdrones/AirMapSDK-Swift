@@ -36,7 +36,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 
 	private typealias RowData = (advisory: AirMapStatusAdvisory, permit: AirMapPilotPermit?)
 	private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<AirMapStatusAdvisory, RowData>>()
-	
+	private let activityIndicator = ActivityIndicator()
 	private let disposeBag = DisposeBag()
 	
 	// MARK: - View Lifecycle
@@ -134,12 +134,19 @@ class AirMapRequiredPermitsViewController: UIViewController {
 			.map { $0.count == $1.count }
 			.bindTo(nextButton.rx_enabled)
 			.addDisposableTo(disposeBag)
+		
+		activityIndicator.asObservable()
+			.throttle(0.25, scheduler: MainScheduler.instance)
+			.distinctUntilChanged()
+			.bindTo(rx_loading)
+			.addDisposableTo(disposeBag)
 	}
 	
 	private func loadData() {
 		
 		AirMap
 			.rx_listPilotPermits()
+			.trackActivity(activityIndicator)
 			.map(unowned(self, AirMapRequiredPermitsViewController.filterOutInvalidPermits))
 			.bindTo(existingPermits)
 			.addDisposableTo(disposeBag)

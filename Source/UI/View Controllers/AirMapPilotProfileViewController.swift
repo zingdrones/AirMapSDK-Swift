@@ -21,8 +21,9 @@ class AirMapPilotProfileViewController: UITableViewController {
 	@IBOutlet weak var phoneNumber: UITextField!
 	@IBOutlet var saveButton: UIButton!
 	
+	private let numberFormatter = NBAsYouTypeFormatter()
+	private let activityIndicator = ActivityIndicator()
 	private let disposeBag = DisposeBag()
-	private var numberFormatter = NBAsYouTypeFormatter()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -95,6 +96,12 @@ class AirMapPilotProfileViewController: UITableViewController {
 			.combineLatest(fullName)
 			.bindTo(fullName.rx_text)
 			.addDisposableTo(disposeBag)
+		
+		activityIndicator.asObservable()
+			.throttle(0.25, scheduler: MainScheduler.instance)
+			.distinctUntilChanged()
+			.bindTo(rx_loading)
+			.addDisposableTo(disposeBag)
 	}
 	
 	@IBAction func savePilot() {
@@ -102,14 +109,17 @@ class AirMapPilotProfileViewController: UITableViewController {
 		pilot
 			.asObservable()
 			.unwrap()
-			.flatMap(AirMap.rx_updatePilot)
+			.flatMap { [unowned self] pilot in
+				AirMap.rx_updatePilot(pilot).trackActivity(self.activityIndicator)
+			}
 			.subscribe()
 			.addDisposableTo(disposeBag)
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "modalUpdatePhoneNumber" {
-			let nav = segue.destinationViewController as! UINavigationController
+			let nav = segue.destinationViewController as! AirMapPhoneVerificationNavController
+			nav.phoneVerificationDelegate = self
 			let phoneVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
 			phoneVC.pilot = pilot.value
 		}
@@ -125,5 +135,12 @@ class AirMapPilotProfileViewController: UITableViewController {
 	
 	@IBAction func unwindToPilotProfile(segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }
 
+}
+
+extension AirMapPilotProfileViewController: AirMapPhoneVerificationDelegate {
+	
+	func phoneVerificationDidVerifyPhoneNumber() {
+		dismissViewControllerAnimated(true, completion: nil)
+	}
 }
 

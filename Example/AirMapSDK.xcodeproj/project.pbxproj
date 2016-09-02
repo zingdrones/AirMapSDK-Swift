@@ -791,7 +791,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				INFOPLIST_FILE = AirMapSDKTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMapSDKTests;
@@ -805,7 +805,7 @@
 			baseConfigurationReference = 65899E1ACF42AC911BEEB736 /* Pods-AirMapSDKTests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = AirMapSDKTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMapSDKTests;

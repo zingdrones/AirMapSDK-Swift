@@ -60,7 +60,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <state key="normal" title="Next">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="disabled">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
@@ -536,7 +536,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <barButtonItem key="backBarButtonItem" title=" " id="jtQ-hn-R8x"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="KsF-aF-qvA">
                             <connections>
-                                <segue destination="HUV-Be-kc0" kind="unwind" unwindAction="unwindToPilotProfile:" id="PTt-UJ-ILx"/>
+                                <action selector="dismiss:" destination="vSg-8e-JzS" id="gB5-7p-6oU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -565,7 +565,6 @@ AirMap will send you a text message when your digital notice has been successful
                         <action selector="submitForm" destination="vSg-8e-JzS" eventType="touchUpInside" id="rYO-wr-KJS"/>
                     </connections>
                 </button>
-                <exit id="HUV-Be-kc0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3661" y="-1368"/>
         </scene>
@@ -697,10 +696,10 @@ AirMap will send you a text message when your digital notice has been successful
             </objects>
             <point key="canvasLocation" x="4529" y="-1368"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Air Map Phone Verification Nav Controller-->
         <scene sceneID="fXr-LJ-5QW">
             <objects>
-                <navigationController id="qCC-Ux-GvH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="VerifyPhoneNumber" id="qCC-Ux-GvH" customClass="AirMapPhoneVerificationNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="7wR-7A-qNT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -986,7 +985,7 @@ for this Flight</string>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="FAA UAS Registration Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ejc-pL-fNb">
                                                     <rect key="frame" x="15" y="2" width="570" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1143,6 +1142,9 @@ for this Flight</string>
                                 <state key="normal" title="Review">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="1" green="0.99997437" blue="0.99999129769999995" alpha="0.5" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="8BE-J7-rU0" kind="show" identifier="pushReview" id="d4K-iB-pv6"/>
                                 </connections>
@@ -1240,6 +1242,7 @@ for this Flight</string>
                         <outlet property="submitNoticeHeader" destination="1ec-Tt-fR8" id="ZDA-S2-6pi"/>
                         <outlet property="submitNoticeSwitch" destination="dt2-Fs-aOG" id="Lt7-Lh-IiV"/>
                         <outlet property="tableView" destination="118-Pp-49h" id="Lo5-gi-zW9"/>
+                        <segue destination="akc-Tr-Snd" kind="presentation" identifier="modalVerifyId" id="04M-tD-YHG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWw-qQ-461" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1317,7 +1320,7 @@ for this Flight</string>
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How are you afilliated the univeristy?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o36-Z1-z0H">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How are you afilliated the university?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o36-Z1-z0H">
                                 <rect key="frame" x="20" y="60" width="560" height="20"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1684,6 +1687,9 @@ for this Flight</string>
                     <state key="normal" title="Submit">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="0.5" colorSpace="calibratedRGB"/>
+                    </state>
                     <connections>
                         <action selector="submitFlightPlan" destination="8BE-J7-rU0" eventType="touchUpInside" id="nJp-Hr-Y8V"/>
                     </connections>
@@ -1697,6 +1703,9 @@ for this Flight</string>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                     <state key="normal" title="End Flight">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" red="1" green="0.99997437" blue="0.99999129769999995" alpha="0.5" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="endFlight" destination="8BE-J7-rU0" eventType="touchUpInside" id="jwt-dF-iru"/>
@@ -1725,6 +1734,14 @@ for this Flight</string>
                 </containerView>
             </objects>
             <point key="canvasLocation" x="2833" y="431"/>
+        </scene>
+        <!--VerifyPhoneNumber-->
+        <scene sceneID="a8u-Ke-LVj">
+            <objects>
+                <viewControllerPlaceholder referencedIdentifier="VerifyPhoneNumber" id="akc-Tr-Snd" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UdU-Ud-Owz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2083.5" y="828"/>
         </scene>
         <!--Message-->
         <scene sceneID="a3Y-4K-xaY">
@@ -2351,8 +2368,8 @@ for this Flight</string>
         <image name="selected_cell_option" width="27" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6pN-j9-ln7"/>
         <segue reference="GA4-U0-5W2"/>
+        <segue reference="6pN-j9-ln7"/>
         <segue reference="EBb-de-rWY"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>

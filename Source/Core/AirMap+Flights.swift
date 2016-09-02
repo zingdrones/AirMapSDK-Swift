@@ -33,7 +33,7 @@ extension AirMap_Flights {
 	*/
 	public class func getCurrentAuthenticatedPilotFlight(handler: AirMapFlightResponseHandler) {
 
-		flightClient.list(startBefore: NSDate(), endAfter: NSDate(), pilotId: AirMap.authSession.userId, enhanced: true, authCheck:true).map { $0.first }.subscribe(handler)
+		flightClient.list(startBeforeNow: true, endAfterNow: true, pilotId: AirMap.authSession.userId, enhanced: true, authCheck:true).map { $0.first }.subscribe(handler)
 	}
 
 	/**

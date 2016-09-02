@@ -27,7 +27,12 @@ import CoreLocation
 	public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
 	public var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
 	public var createdAt: NSDate = NSDate()
-	public var trafficType = TrafficType.SituationalAwareness
+	public var trafficType = TrafficType.SituationalAwareness {
+		willSet {
+			trafficTypeDidChangeToAlert =  trafficType == .SituationalAwareness && newValue == .Alert
+		}
+	}
+	public var trafficTypeDidChangeToAlert = false
 
 	public override init() {
 		super.init()
@@ -88,11 +93,11 @@ extension AirMapTraffic {
 			let miles = AirMapTrafficServiceUtils.metersToMiles(distance)
 			let seconds = AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt)
 			let (_, m, s) = seconds.secondsToHoursMinutesSeconds()
-			let trafficTitle = properties.aircraftId == nil ? "Traffic" : "Traffic \(properties.aircraftId)"
+			let trafficTitle = properties.aircraftId == nil ? "Traffic" : "\(properties.aircraftId)"
 
-			return "\(trafficTitle) \(miles) mi  \(direction) \(m) min \(s) sec"
+			return "Traffic \(trafficTitle)\n\(miles) mi \(direction) \(m) min \(s) sec"
 		}
 
-		return "Traffic \(properties.aircraftId) \(groundSpeedKt)kts (\(coordinate.latitude), \(coordinate.longitude)) \(altitude)m"
+		return "Traffic \(properties.aircraftId)\n\(Int(groundSpeedKt))kts \(String.coordinateString(coordinate.latitude, longitude:coordinate.longitude) )"
 	}
 }

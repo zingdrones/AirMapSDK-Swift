@@ -9,7 +9,7 @@
 import RxSwift
 
 public protocol AirMapFlightPlanDelegate {
-	
+
 	func airMapFlightPlanDidCreate(flight: AirMapFlight)
 	func airMapFlightPlanDidEncounter(error: NSError)
 }
@@ -20,7 +20,6 @@ public class AirMapFlightPlanNavigationController: UINavigationController {
 
 	let flight = Variable(AirMapFlight())
 	let status = Variable(nil as AirMapStatus?)
-	let submitDigitalNotice = Variable(true)
 	let shareFlight = Variable(true)
 
 	let requiredPermits = Variable([AirMapAvailablePermit]())
@@ -35,9 +34,5 @@ public class AirMapFlightPlanNavigationController: UINavigationController {
 	}
 
 	@IBAction func unwindToFlightPlan(segue: UIStoryboardSegue) { /* unwind segue hook; keep */ }
-
-	deinit {
-		print("deinit AirMapFlightPlanNavigationController")
-	}
 
 }

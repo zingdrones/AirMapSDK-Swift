@@ -42,7 +42,6 @@ class AirMapFlightNoticeViewController: UIViewController {
 			.filter { $0.requirements?.notice?.digital == true }
 			.flatMap { $0 }
 		
-		
 		if digitalNotices.count > 0 {
 			let digitalSection = SectionModel(model: (digital: true, headerView: submitNoticeHeader), items: digitalNotices)
 			sections.append(digitalSection)
@@ -79,6 +78,39 @@ class AirMapFlightNoticeViewController: UIViewController {
 			cell.advisory = advisory
 			return cell
 		}
+		
+		submitNoticeSwitch.rx_value
+			.subscribeNext { [unowned self] submitNotice in
+				self.navigationController!.flight.value.notify = submitNotice
+			}
+			.addDisposableTo(disposeBag)
+	}
+	
+	@IBAction func unwindToFlightNotice(segue: UIStoryboardSegue) {
+		
+	}
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "modalVerifyId" {
+			let nav = segue.destinationViewController as! AirMapPhoneVerificationNavController
+			nav.phoneVerificationDelegate = self
+			let phoneVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
+			phoneVC.pilot = navigationController!.flight.value.pilot
+		}
+	}
+	
+	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+		if identifier == "pushReview" {
+			let verified = navigationController!.flight.value.pilot!.phoneVerified
+			let submitDigitalNotice = submitNoticeSwitch.on
+			if verified {
+				return true
+			} else if submitDigitalNotice && !verified {
+				performSegueWithIdentifier("modalVerifyId", sender: self)
+				return false
+			}
+		}
+		return true
 	}
 }
 
@@ -92,4 +124,14 @@ extension AirMapFlightNoticeViewController: UITableViewDelegate {
 		return dataSource.sectionModels[section].model.headerView.frame.height
 	}
 
+}
+
+extension AirMapFlightNoticeViewController: AirMapPhoneVerificationDelegate {
+	
+	func phoneVerificationDidVerifyPhoneNumber() {
+		dismissViewControllerAnimated(true) {
+			self.navigationController?.flight.value.pilot?.phoneVerified = true
+			self.performSegueWithIdentifier("pushReview", sender: self)
+		}
+	}
 }

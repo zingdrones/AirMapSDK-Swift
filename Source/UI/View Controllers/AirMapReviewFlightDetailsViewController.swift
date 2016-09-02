@@ -112,4 +112,13 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 		return sections
 	}
 	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		
+		if segue.identifier == "modalFAQ" {
+			let nav = segue.destinationViewController as! UINavigationController
+			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
+			faqVC.section = .LetOthersKnow
+		}
+	}
+	
 }

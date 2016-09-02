@@ -135,16 +135,22 @@ internal class TrafficService: MQTTSessionDelegate {
 	}
 
 	func connect() {
-		
+
 		if AirMap.hasValidCredentials() && delegate != nil {
+
+			if connectionState.value != .Disconnected {
+				disconnect()
+			}
+
 			AirMap.rx_getCurrentAuthenticatedPilotFlight().bindTo(currentFlight).addDisposableTo(disposeBag)
 		}
 	}
 
 	func disconnect() {
-
+		unsubscribeFromAllChannels()
 		currentFlight.value = nil
 		removeAllTraffic()
+		client.disconnect()
 	}
 
 	// MARK: - Observable Methods
@@ -169,7 +175,6 @@ internal class TrafficService: MQTTSessionDelegate {
 			}
 
 			return AnonymousDisposable {
-				self.client.disconnect()
 			}
 		}
 	}
@@ -229,6 +234,11 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	private func addTraffic(traffic: [AirMapTraffic]) {
 
+		guard let currentFlight = currentFlight.value else {
+			disconnect()
+			return
+		}
+
 		var addedTraffic = traffic
 		var updatedTraffic = [AirMapTraffic]()
 
@@ -261,7 +271,23 @@ internal class TrafficService: MQTTSessionDelegate {
 				existing.didChangeValueForKey("initialCoordinate")
 
 				existing.willChangeValueForKey("trafficType")
-				existing.trafficType = added.trafficType
+
+				if existing.trafficType == .Alert {
+					existing.trafficTypeDidChangeToAlert = false
+				} else {
+					existing.trafficType = added.trafficType
+				}
+
+
+				let addedLocation = CLLocation(latitude: added.coordinate.latitude, longitude: added.coordinate.longitude)
+				let trafficLocation = CLLocation(latitude: currentFlight.coordinate.latitude, longitude: currentFlight.coordinate.longitude)
+				let distance = trafficLocation.distanceFromLocation(addedLocation)
+
+				//FIXME: This is temporary
+				if distance > 3000 {
+					existing.trafficType = .SituationalAwareness
+				}
+
 				existing.didChangeValueForKey("trafficType")
 
 				updatedTraffic.append(existing)
@@ -411,7 +437,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	func socketErrorOccurred(session: MQTTSession) {
 		AirMap.logger.error(TrafficService.self, "MQTTSession socket error")
-		disconnect()
+//		disconnect()
 	}
 
 	deinit {

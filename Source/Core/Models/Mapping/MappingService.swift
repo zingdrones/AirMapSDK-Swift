@@ -222,14 +222,16 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 		     .AirportsRecreationalPrivate,
 		     .AirportsCommercialPrivate:
 			return .Airport
+			
+		case .Heliports :
+			return .Heliport
 
 		case .NationalParks,
 		     .NOAA:
 
 			return AirMapAirspaceType.Park
 
-		case .Heliports,
-		     .ClassB,
+		case .ClassB,
 		     .ClassC,
 		     .ClassD,
 		     .ClassE,
@@ -245,8 +247,10 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 		case .Schools:
 			return .School
 
-		case .TFRs,
-		     .Restricted,
+		case .TFRs:
+			return .TFR
+
+		case .Restricted,
 		     .Prohibited:
 			return .SpecialUse
 
@@ -395,19 +399,19 @@ public enum AirMapMapTheme: Int {
 internal class MappingService {
 
 	/**
-	
+
 	Generates and returns map tile source url based upon Map Layers & Theme.
 
 	- parameter layers: An array of AirMapMapLayer's.
 	- parameter theme: An AirMapMapTheme.
 
 	- returns: NSURL?
-	
+
 	*/
 	func tileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> NSURL? {
 
 		let apiKey = AirMap.configuration.airMapApiKey
-		let tiles  = layers.count == 0 ? "_-_" : layers.flatMap{$0.type}.joinWithSeparator(",")
+		let tiles  = layers.count == 0 ? "_-_" : layers.flatMap {$0.type}.joinWithSeparator(",")
 		let urlString = Config.AirMapApi.mapTilesUrl + "/\(tiles)?&theme=\(theme.name)&apikey=\(apiKey)&token=\(apiKey)"
 
 		return  NSURL(string: urlString)
