@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 	s.name              = 'AirMapSDK'
 	s.module_name       = 'AirMap'
 	s.author            = 'AirMap, Inc.'
-	s.version           = '0.1.5'
+	s.version           = '0.1.6'
 	s.summary           = 'AirMap SDK for iOS & macOS'
 	s.description       = 'Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.'
 	s.license           = { :type => 'Custom', :file => 'LICENSE' }
@@ -52,7 +52,7 @@ Pod::Spec.new do |s|
 	s.subspec 'Traffic' do |traffic|
 		traffic.xcconfig = { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DAIRMAP_TRAFFIC' }
 		traffic.dependency 'AirMapSDK/Core'
-		traffic.dependency 'SwiftMQTT', '~> 1.0.1'
+		traffic.dependency 'SwiftMQTT', '~> 1.0.2'
 		traffic.source_files = 'Source/Traffic/*'
 	end
 	
