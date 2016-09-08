@@ -12,7 +12,7 @@ extension AirMap {
 	
 	public static let logger = Logger(
 		formatter: Formatter("AirMapSDK %@: %@", .Level, .Message),
-		minLevel: .Error
+		minLevel: .Warning
 	)
 	
 }
