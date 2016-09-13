@@ -250,7 +250,7 @@ class AirMapFlightPlanViewController: UIViewController {
 			AirMap.rx_createFlight(navigationController!.flight.value)
 				.trackActivity(activityIndicator)
 				.doOnError { [weak self] error in
-					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
+					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error as! NSError)
 				}
 				.subscribeNext(navigationController!.flightPlanDelegate.airMapFlightPlanDidCreate)
 				.addDisposableTo(disposeBag)

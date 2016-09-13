@@ -112,6 +112,11 @@ class AirMapCreateFlightTypeViewController: UIViewController {
 		return $0
 	}(NSNumberFormatter())
 	
+	
+	deinit {
+		print("deinit", self)
+	}
+
 }
 
 extension AirMapCreateFlightTypeViewController {
@@ -237,6 +242,8 @@ extension AirMapCreateFlightTypeViewController {
 			.filter { $0.3.valid }
 			.flatMapLatest(unowned(self, $.getStatus))
 			.shareReplayLatestWhileConnected()
+		
+		status
 			.map { Optional.Some($0) }
 			.bindTo(status)
 			.addDisposableTo(disposeBag)
@@ -679,9 +686,15 @@ extension AirMapCreateFlightTypeViewController {
 		case .Red, .Gray:
 			inputViewContainer.backgroundColor = advisoryColor.colorRepresentation
 			inputViewContainer.tintColor = .whiteColor()
+			nextButton.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Disabled)
 		case .Yellow, .Green:
+			nextButton.backgroundColor = UIColor.airMapYellow()
+			nextButton.setTitleColor(UIColor.airMapGray(), forState: .Normal)
+			nextButton.setTitleColor(UIColor.airMapGray().colorWithAlphaComponent(0.5), forState: .Disabled)
+		default:
 			inputViewContainer.backgroundColor = advisoryColor.colorRepresentation
 			inputViewContainer.tintColor = .airMapGray()
+			nextButton.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Disabled)
 		}
 		nextButton.setTitleColor(nextButton.tintColor.colorWithAlphaComponent(0.5), forState: .Disabled)
 	}
@@ -845,6 +858,8 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 	
 	func overlayDidDraw(geometry: [CGPoint]) {
 		
+		let bottomPadding: CGFloat
+		
 		let coordinates = geometry.map { point in
 			mapView.convertPoint(point, toCoordinateFromView: drawingOverlayView)
 		}
@@ -861,6 +876,10 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 			guard SwiftTurf.kinks(polygon)?.features.count <= 5 else { return }
 		case .Point:
 			fatalError("Point-based shapes don't draw freehand geometry")
+		}
+		
+		let coordinates = geometry.map { point in
+			mapView.convertPoint(point, toCoordinateFromView: drawingOverlayView)
 		}
 		
 		let vertexControlPoints: [ControlPoint] = coordinates.map {
@@ -940,6 +959,7 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 		
 		case .Path, .Polygon:
 		
+			let isPath = selectedGeoType.value == .Path
 			let hitPoint = mapView.convertCoordinate(controlPoint.coordinate, toPointToView: mapView)
 			let shouldDeletePoint = canDelete(controlPoint) && actionButton.bounds.contains(hitPoint)
 

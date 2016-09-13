@@ -12,8 +12,13 @@ class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
 	
 	weak var controlPointDelegate: ControlPointDelegate?
 	
+	func mapViewRegionIsChanging(mapView: MGLMapView) {
+		mapView.hideControlPoints(true)
+	}
+	
 	func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
 		mapView.hideObscuredMidPointControls()
+		mapView.hideControlPoints(false)
 	}
 	
 	func mapView(mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
