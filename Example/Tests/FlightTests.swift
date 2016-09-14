@@ -96,7 +96,7 @@ class FlightTests: TestCase {
 		stub(.GET, Config.AirMapApi.flightUrl, with: "flights_get_success.json")
 
 		waitUntil { done in
-			AirMap.rx_listAllPublicAndAuthenticatedPilotFlights()
+			AirMap.rx_listPublicFlights()
 				.doOnNext { allFlights in
 					expect(allFlights).toNot(beNil())
 				}
