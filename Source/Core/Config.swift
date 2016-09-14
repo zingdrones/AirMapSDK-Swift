@@ -28,7 +28,7 @@ struct Config {
 			return AirMapApi.urlForResource("status", version: 2)
 		}
 		static var mapTilesUrl: String {
-			return AirMapApi.urlForResource("maps", version: 2) + "/tilejson"
+			return AirMapApi.urlForResource("maps", version: 4) + "/tilejson"
 		}
 
 		static func urlForResource(named: String, version: Int) -> String {
