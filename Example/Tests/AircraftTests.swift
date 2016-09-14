@@ -74,7 +74,7 @@ class AircraftTests: TestCase {
 
 	func testListAircraftModels() {
 
-		stub(.POST, Config.AirMapApi.aircraftUrl = "model", with: "aircraft_models_success.json")
+		stub(.POST, Config.AirMapApi.aircraftUrl, with: "aircraft_models_success.json")
 
 		waitUntil { done in
 			AirMap.rx_listModels()
