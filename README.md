@@ -10,8 +10,8 @@ Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.
 ### Environment
 * iOS 8.0+, 
 * macOS 10.10+, 
-* Swift 2.2 &  
-* Xcode 7.3+
+* Swift 2.3 &  
+* Xcode 8.0
 
 ### Sign up for an [AirMap Developer Account.](https://dashboard.airmap.io/developer/)
 
@@ -35,7 +35,7 @@ The AirMap SDK is a CocoaPod written in Swift. CocoaPods is a dependency manager
 
 ### Example Project
 
-***You must have Xcode 7.3 to run the example.***
+***You must have Xcode 8.0 to run the example.***
 
 To run the example project, run `pod try AirMapSDK`.  This should install the SDK and launch Xcode.
 
@@ -68,7 +68,7 @@ class ViewController : UIViewController {
   override viewDidLoad(){
     super.viewDidLoad()
 
-    // example of getting the current flight of the authenticatd pilot.
+    // example of getting the current flight of the authenticated pilot.
     AirMap.getCurrentAuthenticatedPilotFlight { (flight, error) in
       ...
     }
