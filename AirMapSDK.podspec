@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 	s.name              = 'AirMapSDK'
 	s.module_name       = 'AirMap'
 	s.author            = 'AirMap, Inc.'
-	s.version           = '0.1.7'
+	s.version           = '0.1.8'
 	s.summary           = 'AirMap SDK for iOS & macOS'
 	s.description       = 'Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.'
 	s.license           = { :type => 'Custom', :file => 'LICENSE' }
@@ -29,12 +29,12 @@ Pod::Spec.new do |s|
 		core.source_files = ['Source/Core/**/{*.h,*.m,*.swift}', 'Source/Rx/*']
 		core.dependency 'SimpleKeychain'
 		core.dependency 'Alamofire', '~> 3.5'
-		core.dependency 'JWTDecode'
-		core.dependency 'Log'
+		core.dependency 'JWTDecode', '~> 1.2'
+		core.dependency 'Log', '0.5'
 		core.dependency 'ObjectMapper', '~> 1.4'
-		core.dependency 'RxCocoa'
-		core.dependency 'RxSwift'
-		core.dependency 'RxSwiftExt'
+		core.dependency 'RxCocoa', '~> 2.6'
+		core.dependency 'RxSwift', '~> 2.6'
+		core.dependency 'RxSwiftExt', '~> 1.1.0'
 		core.resources = ['Source/Resources/*.cer', 'Source/Resources/*.pdf', 'Source/Resources/*.xcassets']
 	end
 	
@@ -42,9 +42,9 @@ Pod::Spec.new do |s|
 		ui.platform = :ios
 		ui.frameworks = 'UIKit'
 		ui.dependency 'AirMapSDK/Core'
-		ui.dependency 'libPhoneNumber-iOS'
+		ui.dependency 'libPhoneNumber-iOS', '~> 0.8.16'
 		ui.dependency 'Mapbox-iOS-SDK', '~> 3.3'
-		ui.dependency 'RxDataSources'
+		ui.dependency 'RxDataSources', '~> 0.9.0'
 		ui.source_files = 'Source/UI/**/{*.swift}'
 		ui.resources = ['Source/UI/**/{*.storyboard,*.xcassets}']
 	end
@@ -59,9 +59,9 @@ Pod::Spec.new do |s|
 	s.subspec 'Telemetry' do |telemetry|
 		telemetry.xcconfig = { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DAIRMAP_TELEMETRY' }
 		telemetry.dependency 'AirMapSDK/Core'
-		telemetry.dependency 'CocoaAsyncSocket'
+		telemetry.dependency 'CocoaAsyncSocket', '~> 7.5.0'
 		telemetry.dependency 'CryptoSwift', '~> 0.5.2'
-		telemetry.dependency 'ProtocolBuffers-Swift'
+		telemetry.dependency 'ProtocolBuffers-Swift', '~> 2.4'
 		telemetry.source_files = 'Source/Telemetry/*'
 	end
 	
