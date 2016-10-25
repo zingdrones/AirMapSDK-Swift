@@ -242,8 +242,6 @@ extension AirMapCreateFlightTypeViewController {
 			.filter { $0.3.valid }
 			.flatMapLatest(unowned(self, $.getStatus))
 			.shareReplayLatestWhileConnected()
-		
-		status
 			.map { Optional.Some($0) }
 			.bindTo(status)
 			.addDisposableTo(disposeBag)
@@ -686,15 +684,9 @@ extension AirMapCreateFlightTypeViewController {
 		case .Red, .Gray:
 			inputViewContainer.backgroundColor = advisoryColor.colorRepresentation
 			inputViewContainer.tintColor = .whiteColor()
-			nextButton.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Disabled)
 		case .Yellow, .Green:
-			nextButton.backgroundColor = UIColor.airMapYellow()
-			nextButton.setTitleColor(UIColor.airMapGray(), forState: .Normal)
-			nextButton.setTitleColor(UIColor.airMapGray().colorWithAlphaComponent(0.5), forState: .Disabled)
-		default:
 			inputViewContainer.backgroundColor = advisoryColor.colorRepresentation
 			inputViewContainer.tintColor = .airMapGray()
-			nextButton.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Disabled)
 		}
 		nextButton.setTitleColor(nextButton.tintColor.colorWithAlphaComponent(0.5), forState: .Disabled)
 	}

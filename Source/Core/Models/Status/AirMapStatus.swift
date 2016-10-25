@@ -29,7 +29,20 @@ import ObjectMapper
 			case .Green, .Gray:
 				return "Informational"
 			}
-		}		
+		}
+		
+		public var colorRepresentation: UIColor {
+			switch self {
+			case .Red:
+				return .airMapRed()
+			case .Yellow:
+				return .airMapYellow()
+			case .Green:
+				return .airMapGreen()
+			case .Gray:
+				return .airMapGray()
+			}
+		}
 	}
 
 	public var maxSafeDistance = 0
