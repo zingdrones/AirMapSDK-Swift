@@ -870,10 +870,6 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 			fatalError("Point-based shapes don't draw freehand geometry")
 		}
 		
-		let coordinates = geometry.map { point in
-			mapView.convertPoint(point, toCoordinateFromView: drawingOverlayView)
-		}
-		
 		let vertexControlPoints: [ControlPoint] = coordinates.map {
 			ControlPoint(type: .Vertex, coordinate: $0)
 		}
