@@ -112,11 +112,6 @@ class AirMapCreateFlightTypeViewController: UIViewController {
 		return $0
 	}(NSNumberFormatter())
 	
-	
-	deinit {
-		print("deinit", self)
-	}
-
 }
 
 extension AirMapCreateFlightTypeViewController {
