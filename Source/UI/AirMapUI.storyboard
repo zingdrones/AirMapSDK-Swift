@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +12,7 @@
             <objects>
                 <navigationController id="V2h-jW-mVn" customClass="AirMapFlightPlanNavigationController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="dCI-yu-ww5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="dCI-yu-ww5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -646,7 +645,7 @@ Line two details would be here.</string>
         <scene sceneID="ajs-kt-gsK">
             <objects>
                 <navigationController id="OcD-bb-4X7" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Esf-20-NJN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="Esf-20-NJN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -664,7 +663,7 @@ Line two details would be here.</string>
         <scene sceneID="R0J-K9-qwi">
             <objects>
                 <navigationController id="EhR-xH-Seh" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="lzy-Bt-lcK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="lzy-Bt-lcK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1025,7 +1024,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="fXr-LJ-5QW">
             <objects>
                 <navigationController storyboardIdentifier="VerifyPhoneNumber" id="qCC-Ux-GvH" customClass="AirMapPhoneVerificationNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="7wR-7A-qNT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="7wR-7A-qNT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1043,7 +1042,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="ppv-O4-Uso">
             <objects>
                 <navigationController storyboardIdentifier="AirMapAircraftNavController" id="dFP-db-86e" customClass="AirMapAircraftNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="58x-G9-Cm3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="58x-G9-Cm3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1106,31 +1105,55 @@ for this Flight</string>
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Fux-J9-byt">
-                                    <rect key="frame" x="0.0" y="246" width="375" height="10"/>
+                                    <rect key="frame" x="0.0" y="272" width="375" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="usePermitCell" textLabel="1jY-Aj-YUv" rowHeight="50" style="IBUITableViewCellStyleDefault" id="kJc-Io-RIh">
-                                        <rect key="frame" x="0.0" y="128" width="375" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="usePermitCell" rowHeight="76" id="kJc-Io-RIh" customClass="AirMapAvailablePermitCell" customModule="AirMap" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="128" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kJc-Io-RIh" id="zyG-ME-xM9">
-                                            <frame key="frameInset" width="375" height="49"/>
+                                            <frame key="frameInset" width="336" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Use Existing Permit" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1jY-Aj-YUv">
-                                                    <frame key="frameInset" minX="15" width="345" height="49"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Existing Permit" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZu-sO-cdt">
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Permit Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtT-AB-6BD">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Issued" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBe-UL-P4j">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="QBe-UL-P4j" firstAttribute="baseline" secondItem="CZu-sO-cdt" secondAttribute="baseline" id="4xf-dv-BhJ"/>
+                                                <constraint firstItem="gtT-AB-6BD" firstAttribute="leading" secondItem="CZu-sO-cdt" secondAttribute="leading" id="Czp-YC-XFs"/>
+                                                <constraint firstAttribute="trailing" secondItem="QBe-UL-P4j" secondAttribute="trailing" constant="5" id="EPw-Ln-qYg"/>
+                                                <constraint firstAttribute="trailing" secondItem="gtT-AB-6BD" secondAttribute="trailing" constant="5" id="HNm-9c-ZCZ"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gtT-AB-6BD" secondAttribute="bottom" constant="15" id="JL1-v0-WJW"/>
+                                                <constraint firstItem="CZu-sO-cdt" firstAttribute="leading" secondItem="zyG-ME-xM9" secondAttribute="leading" constant="15" id="Qov-Ef-1t0"/>
+                                                <constraint firstItem="CZu-sO-cdt" firstAttribute="top" secondItem="zyG-ME-xM9" secondAttribute="top" constant="15" id="Ysd-bq-7bb"/>
+                                                <constraint firstItem="QBe-UL-P4j" firstAttribute="leading" secondItem="CZu-sO-cdt" secondAttribute="trailing" constant="15" id="ddE-yq-6jN"/>
+                                                <constraint firstItem="gtT-AB-6BD" firstAttribute="top" secondItem="CZu-sO-cdt" secondAttribute="bottom" constant="5" id="rbn-Ct-Ks5"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="PermitDescription" destination="gtT-AB-6BD" id="cFR-xl-4Vi"/>
+                                            <outlet property="permitStatus" destination="QBe-UL-P4j" id="hdT-iX-9LM"/>
+                                            <outlet property="permitTitle" destination="CZu-sO-cdt" id="XYg-Qq-4Xd"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="helpMeDecide" textLabel="yCT-dv-lwD" rowHeight="50" style="IBUITableViewCellStyleDefault" id="J4i-AP-BkY">
-                                        <rect key="frame" x="0.0" y="178" width="375" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="selectADifferencePermit" textLabel="yCT-dv-lwD" rowHeight="50" style="IBUITableViewCellStyleDefault" id="J4i-AP-BkY">
+                                        <rect key="frame" x="0.0" y="204" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J4i-AP-BkY" id="g9U-eg-9Vk">
                                             <frame key="frameInset" width="342" height="49"/>
@@ -1147,7 +1170,7 @@ for this Flight</string>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="uW1-5J-4Rc" kind="presentation" identifier="modalPermitQuestionFlow" id="vdy-EZ-G0d"/>
+                                            <segue destination="LkW-Bl-olT" kind="presentation" identifier="modalPermitSelection" id="QBd-nr-KQN"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1175,7 +1198,7 @@ for this Flight</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="esY-Rq-aiS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="431"/>
+            <point key="canvasLocation" x="1263.2" y="430.43478260869568"/>
         </scene>
         <!--Pilot Profile-->
         <scene sceneID="Z3b-El-Vk2">
@@ -1362,7 +1385,7 @@ for this Flight</string>
         <scene sceneID="aQe-Qh-Civ">
             <objects>
                 <navigationController id="Qwf-w4-bR0" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="PdW-vy-Pt4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="PdW-vy-Pt4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1597,161 +1620,50 @@ for this Flight</string>
             </objects>
             <point key="canvasLocation" x="2083" y="431"/>
         </scene>
-        <!--Air Map Permit Decision Nav Controller-->
-        <scene sceneID="TsD-z9-NKg">
+        <!--Root View Controller-->
+        <scene sceneID="83c-Yg-qAk">
             <objects>
-                <navigationController id="uW1-5J-4Rc" customClass="AirMapPermitDecisionNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="mYA-6V-RC0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="GiW-Rt-5GV" kind="relationship" relationship="rootViewController" id="GA4-U0-5W2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MlV-U0-VQt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1264" y="1315"/>
-        </scene>
-        <!--Question-->
-        <scene sceneID="8d0-8Z-9uV">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="GiW-Rt-5GV" customClass="AirMapPermitQuestionViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Kqf-yo-qpk"/>
-                        <viewControllerLayoutGuide type="bottom" id="5tj-KI-eC1"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="nwP-m3-zAM">
+                <tableViewController id="j1n-ub-9gR" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bRU-XQ-8Bl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How are you afilliated the university?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o36-Z1-z0H">
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zf9-Zo-osV">
-                                <color key="backgroundColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="d3S-Eg-JC6"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="y6o-vN-seH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                <state key="normal" title="Next">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="disabled">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="advance" destination="GiW-Rt-5GV" eventType="touchUpInside" id="uj0-lF-sMp"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Zel-H2-u8K">
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="a6Q-3g-ED3">
-                                    <rect key="frame" x="0.0" y="124" width="375" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                </view>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AirMapPermitAnswerCell" rowHeight="50" id="xN8-fZ-zfa" customClass="AirMapPermitAnswerCell" customModule="AirMap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xN8-fZ-zfa" id="QQt-Sm-3tA">
-                                            <frame key="frameInset" width="375" height="49"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="deselected_cell_option" highlightedImage="selected_cell_option" translatesAutoresizingMaskIntoConstraints="NO" id="DdW-5R-tvz">
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="27" id="gp2-AZ-Oa8"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I am a student" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UbB-a4-c98">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="DdW-5R-tvz" secondAttribute="trailing" constant="15" id="5fs-2A-vLI"/>
-                                                <constraint firstItem="DdW-5R-tvz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="QQt-Sm-3tA" secondAttribute="top" constant="12" id="CBi-bO-x5G"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="DdW-5R-tvz" secondAttribute="bottom" constant="11" id="E3i-9C-Dz4"/>
-                                                <constraint firstItem="DdW-5R-tvz" firstAttribute="leading" secondItem="UbB-a4-c98" secondAttribute="trailing" constant="15" id="EKH-oe-azq"/>
-                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="UbB-a4-c98" secondAttribute="bottom" constant="6" id="JBm-y1-HgQ"/>
-                                                <constraint firstItem="UbB-a4-c98" firstAttribute="top" relation="greaterThanOrEqual" secondItem="QQt-Sm-3tA" secondAttribute="topMargin" constant="6" id="Tmx-zO-Hh5"/>
-                                                <constraint firstItem="DdW-5R-tvz" firstAttribute="centerY" secondItem="QQt-Sm-3tA" secondAttribute="centerY" id="aV1-6j-QR1"/>
-                                                <constraint firstItem="UbB-a4-c98" firstAttribute="leading" secondItem="QQt-Sm-3tA" secondAttribute="leading" constant="15" id="aep-47-3JB"/>
-                                                <constraint firstItem="UbB-a4-c98" firstAttribute="centerY" secondItem="QQt-Sm-3tA" secondAttribute="centerY" id="k4d-rx-zOE"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="answerLabel" destination="UbB-a4-c98" id="mxj-Kl-oKE"/>
-                                            <outlet property="selectionIndicator" destination="DdW-5R-tvz" id="sgi-LO-sVe"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IbF-hA-7Fh">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="Kcd-aH-Mp1"/>
-                                </constraints>
-                                <state key="normal" title="&lt;">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="CXP-qu-RXS" kind="unwind" animates="NO" unwindAction="unwindToQuestion:" id="Geq-NJ-NQo"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Zel-H2-u8K" firstAttribute="leading" secondItem="nwP-m3-zAM" secondAttribute="leading" id="GL9-HC-kx4"/>
-                            <constraint firstItem="Zel-H2-u8K" firstAttribute="top" secondItem="o36-Z1-z0H" secondAttribute="bottom" id="Gqr-VR-fgt"/>
-                            <constraint firstItem="5tj-KI-eC1" firstAttribute="top" secondItem="IbF-hA-7Fh" secondAttribute="bottom" id="Hih-qf-Q9p"/>
-                            <constraint firstItem="o36-Z1-z0H" firstAttribute="leading" secondItem="nwP-m3-zAM" secondAttribute="leading" constant="20" id="Hzx-g6-mi2"/>
-                            <constraint firstItem="Zf9-Zo-osV" firstAttribute="leading" secondItem="nwP-m3-zAM" secondAttribute="leading" id="L4d-OM-mPV"/>
-                            <constraint firstItem="5tj-KI-eC1" firstAttribute="top" secondItem="Zf9-Zo-osV" secondAttribute="bottom" id="NPc-0L-cVS"/>
-                            <constraint firstItem="o36-Z1-z0H" firstAttribute="top" secondItem="Kqf-yo-qpk" secondAttribute="bottom" constant="60" id="Q7o-d8-shJ"/>
-                            <constraint firstAttribute="trailing" secondItem="Zf9-Zo-osV" secondAttribute="trailing" id="WgV-9m-anf"/>
-                            <constraint firstItem="IbF-hA-7Fh" firstAttribute="top" secondItem="Zel-H2-u8K" secondAttribute="bottom" id="cle-O4-JZ8"/>
-                            <constraint firstAttribute="trailing" secondItem="o36-Z1-z0H" secondAttribute="trailing" constant="20" id="g2B-gN-Tso"/>
-                            <constraint firstAttribute="trailing" secondItem="Zel-H2-u8K" secondAttribute="trailing" id="uC4-Jw-DXz"/>
-                            <constraint firstItem="IbF-hA-7Fh" firstAttribute="leading" secondItem="nwP-m3-zAM" secondAttribute="leading" id="uCj-FO-d3r"/>
-                            <constraint firstItem="Zf9-Zo-osV" firstAttribute="top" secondItem="Zel-H2-u8K" secondAttribute="bottom" id="vZH-XF-N5C"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Question" id="GCo-d1-GLY">
-                        <barButtonItem key="backBarButtonItem" title=" " id="lwO-ws-J6s"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="xXf-ve-u72">
-                            <connections>
-                                <segue destination="CXP-qu-RXS" kind="unwind" unwindAction="unwindToRequiredPermits:" id="gg9-Kf-aeW"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="backButton" destination="IbF-hA-7Fh" id="vYp-ML-PHE"/>
-                        <outlet property="nextButton" destination="Zf9-Zo-osV" id="X33-wn-5Ex"/>
-                        <outlet property="questionLabel" destination="o36-Z1-z0H" id="e4T-k2-7XJ"/>
-                        <outlet property="tableView" destination="Zel-H2-u8K" id="Yrz-w7-SJS"/>
-                        <segue destination="oqL-2z-eDl" kind="presentation" identifier="modalPermitMessage" id="ZE5-Ky-K87"/>
-                        <segue destination="uZe-FD-reY" kind="show" identifier="pushPermitDetail" id="87g-hc-8mn"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xzg-bN-TRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zBu-lb-bfR">
-                    <rect key="frame" x="0.0" y="0.0" width="268" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="dummy segue placeholder"/>
-                    <connections>
-                        <segue destination="GiW-Rt-5GV" kind="show" identifier="pushNextQuestion" animates="NO" id="lpw-B3-DIh"/>
-                    </connections>
-                </button>
-                <exit id="CXP-qu-RXS" userLabel="Exit" sceneMemberID="exit"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KgY-tn-sAo">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KgY-tn-sAo" id="mca-jj-Ra8">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="j1n-ub-9gR" id="f9Y-j2-6Kt"/>
+                            <outlet property="delegate" destination="j1n-ub-9gR" id="jbV-1u-3xC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="8Df-D1-taT"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hhS-Lz-mh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2083" y="1315"/>
+            <point key="canvasLocation" x="2082" y="1316"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1G0-0b-b0E">
+            <objects>
+                <navigationController id="LkW-Bl-olT" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iyG-Vv-MOC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="j1n-ub-9gR" kind="relationship" relationship="rootViewController" id="G0b-i6-S9r"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5pP-rj-4Z3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1263" y="1316"/>
         </scene>
         <!--Permit-->
         <scene sceneID="xo2-OU-qs4">
@@ -1809,11 +1721,11 @@ for this Flight</string>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="customFieldCell" rowHeight="50" id="d6z-x2-Nt5" customClass="AirMapPermitCustomPropertyCell" customModule="AirMap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="239" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d6z-x2-Nt5" id="DEU-wH-DL9">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="d6z-x2-Nt5" id="DEU-wH-DL9">
                                     <frame key="frameInset" width="375" height="49"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qY3-a1-olP">
+                                        <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qY3-a1-olP">
                                             <frame key="frameInset" width="1000" height="1000"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="jrX-iS-pdi"/>
@@ -1862,7 +1774,6 @@ for this Flight</string>
                         <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
-                        <action selector="advance" destination="GiW-Rt-5GV" eventType="touchUpInside" id="Q7H-96-OhF"/>
                         <action selector="endEditing" destination="uZe-FD-reY" eventType="touchUpInside" id="ixj-GB-qht"/>
                     </connections>
                 </button>
@@ -1879,7 +1790,6 @@ for this Flight</string>
                         <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
-                        <action selector="advance" destination="GiW-Rt-5GV" eventType="touchUpInside" id="Sa5-Gs-Sqz"/>
                         <segue destination="mfl-90-KNq" kind="unwind" identifier="unwindToRequiredPermits" unwindAction="unwindToRequiredPermits:" id="L1l-BM-ds2"/>
                     </connections>
                 </button>
@@ -2041,67 +1951,6 @@ for this Flight</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UdU-Ud-Owz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2082" y="855"/>
-        </scene>
-        <!--Message-->
-        <scene sceneID="a3Y-4K-xaY">
-            <objects>
-                <viewController id="inX-0E-cin" customClass="AirMapPermitMessageViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lUE-nT-WfU"/>
-                        <viewControllerLayoutGuide type="bottom" id="pst-hf-u9O"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VnV-e4-uF7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message from permit authority" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujJ-63-zLw">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="ujJ-63-zLw" firstAttribute="top" secondItem="lUE-nT-WfU" secondAttribute="bottom" constant="30" id="1kU-me-v2D"/>
-                            <constraint firstAttribute="trailing" secondItem="ujJ-63-zLw" secondAttribute="trailing" constant="30" id="4nm-mB-qDN"/>
-                            <constraint firstItem="ujJ-63-zLw" firstAttribute="leading" secondItem="VnV-e4-uF7" secondAttribute="leading" constant="30" id="D1f-cS-piN"/>
-                            <constraint firstItem="pst-hf-u9O" firstAttribute="top" secondItem="ujJ-63-zLw" secondAttribute="bottom" constant="90" id="ybw-DS-zXo"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Message" id="hEB-Si-P68">
-                        <barButtonItem key="backBarButtonItem" title=" " id="MHg-n1-suo"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="VdW-r8-zSt">
-                            <connections>
-                                <segue destination="4IO-B1-Kub" kind="unwind" unwindAction="unwindToRequiredPermits:" id="K1k-yt-HYV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="messageLabel" destination="ujJ-63-zLw" id="Auh-to-mqY"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qws-68-xEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="4IO-B1-Kub" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="2833" y="2262"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="2p6-MG-UsS">
-            <objects>
-                <navigationController id="oqL-2z-eDl" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="iPO-dZ-A6j">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="inX-0E-cin" kind="relationship" relationship="rootViewController" id="iRL-B1-Y4T"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EFj-Vc-gKF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2083" y="2262"/>
         </scene>
         <!--Air Map Review Flight Details View Controller-->
         <scene sceneID="f9M-kw-xxm">
@@ -2303,7 +2152,7 @@ for this Flight</string>
             <objects>
                 <tableViewController id="GLN-Nc-fFM" customClass="AirMapAircraftManufacturerViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jY1-0m-GFn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -2346,7 +2195,7 @@ for this Flight</string>
         <scene sceneID="7TB-GQ-aUS">
             <objects>
                 <navigationController storyboardIdentifier="AirMapAircraftModelNavController" id="g95-Bq-UMI" customClass="AirMapAircraftModelNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="UWC-L3-45E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="UWC-L3-45E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2507,7 +2356,7 @@ for this Flight</string>
             <objects>
                 <tableViewController id="Was-cz-StC" customClass="AirMapAircraftModelViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bOk-bi-V4i">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -2633,7 +2482,7 @@ for this Flight</string>
             <objects>
                 <navigationController storyboardIdentifier="FAQNav" id="Un5-Qe-RYq" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ncB-Al-mu8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="ncB-Al-mu8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2652,7 +2501,6 @@ for this Flight</string>
         <image name="airmap_share_logo" width="87" height="20"/>
         <image name="area_flight_icon_deselected" width="49" height="48"/>
         <image name="area_flight_icon_selected" width="49" height="48"/>
-        <image name="deselected_cell_option" width="27" height="26"/>
         <image name="draw_icon" width="35" height="45"/>
         <image name="info_icon" width="23" height="22"/>
         <image name="info_icon_advisories" width="30" height="30"/>
@@ -2660,12 +2508,10 @@ for this Flight</string>
         <image name="path_flight_icon_selected" width="48" height="48"/>
         <image name="point_flight_icon_deselected" width="48" height="48"/>
         <image name="point_flight_icon_selected" width="48" height="48"/>
-        <image name="selected_cell_option" width="27" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6pN-j9-ln7"/>
-        <segue reference="GA4-U0-5W2"/>
         <segue reference="EBb-de-rWY"/>
+        <segue reference="Owu-ph-Mkk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
