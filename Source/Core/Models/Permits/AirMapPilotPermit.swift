@@ -14,7 +14,7 @@ import ObjectMapper
 		case Accepted	= "accepted"
 		case Rejected	= "rejected"
 		case Pending	= "pending"
-		case Unknown	= "unknown"
+		case Unknown	= "unknown"		
 	}
 
 	public var id = ""

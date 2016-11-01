@@ -10,17 +10,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-/// Displays a list of organizations that require a permit and a selected permit for each
-
-/*
-
-Sections: Advisory
-
-	Selected permit (AvailablePermit, PilotPermit)
-	Other Permit
-*/
-
-
+/// Displays a list of organizations that require a permit and selected permits for each, if any.
 class AirMapRequiredPermitsViewController: UIViewController {
 	
 	@IBOutlet weak var permitComplianceStatus: UILabel!
@@ -32,11 +22,11 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	override var navigationController: AirMapFlightPlanNavigationController? {
 		return super.navigationController as? AirMapFlightPlanNavigationController
 	}
-	/// The permits that are collectively required by all the organizations in the flight area
+	/// The permits that are collectively required by all organizations in the flight area
 	private var requiredPermits: Variable<[AirMapAvailablePermit]> {
 		return navigationController!.requiredPermits
 	}
-	/// The permits that the user already holds
+	/// The valid permits the user already holds
 	private var existingPermits: Variable<[AirMapPilotPermit]> {
 		return navigationController!.existingPermits
 	}
@@ -97,8 +87,8 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, rowData in
 			
-			if let pilotPermit = rowData.pilotPermit {
-				return tableView.cellWith(pilotPermit, at: indexPath) as AirMapPilotPermitCell
+			if let availablePermit = rowData.availablePermit, let pilotPermit = rowData.pilotPermit {
+				return tableView.cellWith((availablePermit, pilotPermit), at: indexPath) as AirMapPilotPermitCell
 			} else {
 				let cell = tableView.dequeueReusableCellWithIdentifier("selectADifferencePermit", forIndexPath: indexPath)
 				cell.textLabel?.text = indexPath.row == 0 ? "Select Permit" : "Select a different Permit"
@@ -137,12 +127,12 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	
 	private func loadData() {
 		
-		AirMap
-			.rx_listPilotPermits()
-			.trackActivity(activityIndicator)
-			.map(unowned(self, AirMapRequiredPermitsViewController.filterOutInvalidPermits))
-			.bindTo(existingPermits)
-			.addDisposableTo(disposeBag)
+//		AirMap
+//			.rx_listPilotPermits()
+//			.trackActivity(activityIndicator)
+//			.map(unowned(self, AirMapRequiredPermitsViewController.filterOutInvalidPermits))
+//			.bindTo(existingPermits)
+//			.addDisposableTo(disposeBag)
 
 		permittableAdvisories.value = navigationController!.status.value!.advisories.filter { advisory in
 			advisory.requirements?.permitsAvailable.count > 0
@@ -169,19 +159,20 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		
 		return advisories.map { advisory in
 			
-			let requiredPermits = advisory.requirements!.permitsAvailable
+			// Existing permits from the user's permit wallet
+			let existingPermitRows: [RowData] = existingPermits
+				.filter { requiredPermits.map{ $0.id }.contains($0.permitId) }
+				.map { (advisory: advisory, availablePermit: availablePermit(from: $0), pilotPermit: $0) }
 			
+			// All new permits that have been drafted during this flow
 			let draftPermitRows: [RowData] = draftPermits
 				.filter { requiredPermits.map{ $0.id }.contains($0.permitId) }
 				.map { (advisory: advisory, availablePermit: availablePermit(from: $0), pilotPermit: $0) }
 			
-			let existingPermitRows: [RowData] = existingPermits
-				.filter { requiredPermits.map{ $0.id }.contains($0.permitId) }
-				.map { (advisory: advisory, availablePermit: availablePermit(from: $0), pilotPermit: $0) }
-
+			// A new row for selecting a permit not perviously drafted or acquired
 			let newPermitRow: RowData = (advisory: advisory, availablePermit: nil, pilotPermit: nil)
 			
-			return SectionModel(model: advisory, items: draftPermitRows + existingPermitRows + [newPermitRow])
+			return SectionModel(model: advisory, items: existingPermitRows + draftPermitRows + [newPermitRow])
 		}
 	}
 	
@@ -239,10 +230,11 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 	
 	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 		
-		guard let row = try? dataSource.modelAtIndexPath(indexPath) as? RowData,
-			rowAdvisory = row?.advisory,
-			availablePermit = row?.availablePermit,
-			pilotPermit = row?.pilotPermit else { return }
+		guard
+			let row = try? dataSource.modelAtIndexPath(indexPath) as? RowData,
+			let rowAdvisory = row?.advisory,
+			let availablePermit = row?.availablePermit,
+			let pilotPermit = row?.pilotPermit else { return }
 		
 		if selectedPermits.value.filter ({$0.permit.id == pilotPermit.permitId && $0.advisory.id == rowAdvisory.id }).first != nil {
 			cell.accessoryType = .Checkmark
@@ -256,9 +248,9 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 		tableView.deselectRowAtIndexPath(indexPath, animated: false)
 		
 		if let row = try? dataSource.modelAtIndexPath(indexPath) as? RowData,
-			rowAdvisory = row?.advisory,
-			availablePermit = row?.availablePermit,
-			pilotPermit = row?.pilotPermit {
+			let rowAdvisory = row?.advisory,
+			let availablePermit = row?.availablePermit,
+			let pilotPermit = row?.pilotPermit {
 			
 			if let alreadySelectedPermit = selectedPermits.value.filter({$0.permit.id == pilotPermit.permitId && $0.advisory.id == rowAdvisory.id}).first {
 				selectedPermits.value = selectedPermits.value.filter { $0 != alreadySelectedPermit }
