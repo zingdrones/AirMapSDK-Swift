@@ -32,7 +32,7 @@ class MapViewController: UIViewController {
 		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self) {
 			presentViewController(flightPlanController, animated: true, completion: nil)
 		} else {
-			openLoginForm()
+			showAuthController()
 		}
 	}
 	
@@ -47,9 +47,36 @@ class MapViewController: UIViewController {
 			.addDisposableTo(disposeBag)
 	}
 
-	func openLoginForm() {
-		let auth = AirMap.authViewController(airMapAuthSessionDelegate: self)
-		presentViewController(auth, animated: true, completion: nil)
+	private func showAuthController() {
+
+		let authViewController = AirMap.authViewController(handleLogin)
+//		login.registerLogo("<YOUR_LOGO_CONNECT_WITH_AIRMAP>", bundle: NSBundle.mainBundle())
+		
+		presentViewController(authViewController, animated: true, completion: nil)
+	}
+	
+	private func handleLogin(pilot: AirMapPilot?, error: NSError?) {
+		
+		guard let pilot = pilot where error == nil else {
+			AirMap.logger.error(error)
+			return
+		}
+		
+		dismissViewControllerAnimated(true, completion: {
+			
+			if pilot.phoneVerified == false {
+				let verification = AirMap.phoneVerificationViewController(pilot, phoneVerificationDelegate: self)
+				self.presentViewController(verification, animated: true, completion: nil)
+			}
+		})
+
+	}
+}
+
+extension MapViewController: AirMapPhoneVerificationDelegate {
+	
+	func phoneVerificationDidVerifyPhoneNumber() {
+		dismissViewControllerAnimated(true, completion: nil)
 	}
 }
 
