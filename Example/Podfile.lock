@@ -14,12 +14,12 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AirMapSDK (0.1.8):
-    - AirMapSDK/Core (= 0.1.8)
-    - AirMapSDK/Telemetry (= 0.1.8)
-    - AirMapSDK/Traffic (= 0.1.8)
-    - AirMapSDK/UI (= 0.1.8)
-  - AirMapSDK/Core (0.1.8):
+  - AirMapSDK (0.1.9):
+    - AirMapSDK/Core (= 0.1.9)
+    - AirMapSDK/Telemetry (= 0.1.9)
+    - AirMapSDK/Traffic (= 0.1.9)
+    - AirMapSDK/UI (= 0.1.9)
+  - AirMapSDK/Core (0.1.9):
     - Alamofire (~> 3.5)
     - JWTDecode (~> 1.2)
     - Log (= 0.5)
@@ -28,20 +28,22 @@ PODS:
     - RxSwift (~> 2.6)
     - RxSwiftExt (~> 1.1.0)
     - SimpleKeychain
-  - AirMapSDK/Telemetry (0.1.8):
+  - AirMapSDK/Telemetry (0.1.9):
     - AirMapSDK/Core
     - CocoaAsyncSocket (~> 7.5.0)
     - CryptoSwift (~> 0.5.2)
     - ProtocolBuffers-Swift (~> 2.4)
-  - AirMapSDK/Traffic (0.1.8):
+  - AirMapSDK/Traffic (0.1.9):
     - AirMapSDK/Core
     - SwiftMQTT (~> 1.0.2)
-  - AirMapSDK/UI (0.1.8):
+  - AirMapSDK/UI (0.1.9):
     - AirMapSDK/Core
     - libPhoneNumber-iOS (~> 0.8.16)
-    - Lock
+    - Lock (~> 1.27.1)
     - Mapbox-iOS-SDK (~> 3.3)
     - RxDataSources (~> 0.9.0)
+    - SwiftSimplify
+    - SwiftTurf
   - Alamofire (3.5.1)
   - CocoaAsyncSocket (7.5.0):
     - CocoaAsyncSocket/GCD (= 7.5.0)
@@ -86,6 +88,8 @@ PODS:
     - RxSwift (~> 2.4)
   - SimpleKeychain (0.7.0)
   - SwiftMQTT (1.0.2)
+  - SwiftSimplify (0.1.2)
+  - SwiftTurf (0.1.0)
   - URITemplate (1.4.0)
 
 DEPENDENCIES:
@@ -94,6 +98,7 @@ DEPENDENCIES:
   - Mockingjay
   - Nimble
   - Quick
+  - SwiftTurf
 
 EXTERNAL SOURCES:
   AirMapSDK:
@@ -101,7 +106,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AirMapSDK: 3af9eee54088e91b923ab6bb144390440788b107
+  AirMapSDK: 6c40c02ef42bbb872ba657083ffdc81c926d58d0
   Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   CryptoSwift: c1ef79f901b86099a6fe8b3c7524cf9f3f3c8c40
@@ -122,8 +127,10 @@ SPEC CHECKSUMS:
   RxSwiftExt: 01c16dd9916215e2d41d5755e2ec9d6119ec2ee8
   SimpleKeychain: b50cef3b87939d480ea1143425c00f5b4b70fe21
   SwiftMQTT: 43d17c8b49c77927530607b9d5fd836d02889cf1
+  SwiftSimplify: 93b4a4504a5c6c549c1c1e1ca6745c0a6670bb04
+  SwiftTurf: 6439e391910890c0aeb0c5003a4a50b20f6251c2
   URITemplate: e2a2a0f9d398834fde67214b491c2c925c9baa06
 
-PODFILE CHECKSUM: b0342449841c9fccb0536676e2f056bb0ee2c809
+PODFILE CHECKSUM: 3b89ac40fead0f3104895af627c170a9ec87b5ad
 
-COCOAPODS: 1.1.0.rc.3
+COCOAPODS: 1.1.1

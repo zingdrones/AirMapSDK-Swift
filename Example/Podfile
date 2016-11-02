@@ -4,6 +4,7 @@ target 'AirMapSDK-Example-iOS' do
 	platform :ios, '8.0'
 	pod 'AirMapSDK', :path => '../'
 	pod 'Mapbox-iOS-SDK'
+	pod 'SwiftTurf'
 end
 
 target 'AirMapSDK-Example-macOS' do

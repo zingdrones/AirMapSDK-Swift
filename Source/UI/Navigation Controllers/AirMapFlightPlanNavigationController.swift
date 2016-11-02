@@ -8,7 +8,7 @@
 
 import RxSwift
 
-public protocol AirMapFlightPlanDelegate {
+public protocol AirMapFlightPlanDelegate: class {
 
 	func airMapFlightPlanDidCreate(flight: AirMapFlight)
 	func airMapFlightPlanDidEncounter(error: NSError)
@@ -16,7 +16,7 @@ public protocol AirMapFlightPlanDelegate {
 
 public class AirMapFlightPlanNavigationController: UINavigationController {
 
-	var flightPlanDelegate: AirMapFlightPlanDelegate!
+	weak var flightPlanDelegate: AirMapFlightPlanDelegate!
 
 	let flight = Variable(AirMapFlight())
 	let status = Variable(nil as AirMapStatus?)
@@ -28,6 +28,13 @@ public class AirMapFlightPlanNavigationController: UINavigationController {
 	let existingPermits = Variable([AirMapPilotPermit]())
 
 	let selectedPermits = Variable([(advisory: AirMapStatusAdvisory, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]())
+	
+	public override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+		navigationBar.shadowImage = UIImage()
+	}
 
 	public override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
