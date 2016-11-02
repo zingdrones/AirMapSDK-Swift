@@ -23,16 +23,22 @@ class MapViewController: UIViewController {
 		AirMap.logger.minLevel = .Debug
 		AirMap.authSessionDelegate = self
 		AirMap.trafficDelegate = self
-
-		mapView.configure(layers: [.EssentialAirspace, .TFRs], theme: .Light)
+		
+		mapView.configure(layers: [.EssentialAirspace, .TFRs], theme: .Standard)
+		
+		Observable<Int>.timer(0, period: 20, scheduler: MainScheduler.instance)
+			.subscribeNext { _ in
+				self.mapView.reloadStyle(self)
+			}
+			.addDisposableTo(disposeBag)
 	}
-
+	
 	@IBAction func addFlight() {
 
 		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self) {
 			presentViewController(flightPlanController, animated: true, completion: nil)
 		} else {
-			openLoginForm()
+			showAuthController()
 		}
 	}
 	
@@ -47,9 +53,37 @@ class MapViewController: UIViewController {
 			.addDisposableTo(disposeBag)
 	}
 
-	func openLoginForm() {
-		let auth = AirMap.authViewController(airMapAuthSessionDelegate: self)
-		presentViewController(auth, animated: true, completion: nil)
+	private func showAuthController() {
+
+		let authViewController = AirMap.authViewController(handleLogin)
+//		authViewController.registerLogo("<YOUR_LOGO_CONNECT_WITH_AIRMAP>", bundle: NSBundle.mainBundle())
+		
+		presentViewController(authViewController, animated: true, completion: nil)
+	}
+	
+	private func handleLogin(pilot: AirMapPilot?, error: NSError?) {
+		
+		guard let pilot = pilot where error == nil else {
+			AirMap.logger.error(error)
+			return
+		}
+		
+		dismissViewControllerAnimated(true, completion: {
+			
+			if pilot.phoneVerified == false {
+				let verification = AirMap.phoneVerificationViewController(pilot, phoneVerificationDelegate: self)
+				self.presentViewController(verification, animated: true, completion: nil)
+			} else {
+				self.addFlight()
+			}
+		})
+	}
+}
+
+extension MapViewController: AirMapPhoneVerificationDelegate {
+	
+	func phoneVerificationDidVerifyPhoneNumber() {
+		dismissViewControllerAnimated(true, completion: nil)
 	}
 }
 
@@ -112,6 +146,11 @@ extension MapViewController: AirMapTrafficObserver {
 }
 
 extension MapViewController: MGLMapViewDelegate {
+	
+	func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+		
+
+	}
 	
 	func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
 		if let flight = annotation as? AirMapFlight,

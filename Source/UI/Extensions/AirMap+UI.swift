@@ -10,7 +10,25 @@ import RxSwift
 
 private typealias AirMap_UI = AirMap
 extension AirMap_UI {
-
+	
+	/**
+	
+	Creates an AirMap pilot phone verification view controller
+	
+	- parameter airMapAuthDelegate: The delegate to be notified when authentication succeeds or fails
+	
+	*/
+	public class func phoneVerificationViewController(pilot: AirMapPilot, phoneVerificationDelegate: AirMapPhoneVerificationDelegate) -> AirMapPhoneVerificationNavController {
+		
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
+		let nav = storyboard.instantiateViewControllerWithIdentifier("VerifyPhoneNumber") as! AirMapPhoneVerificationNavController
+		nav.phoneVerificationDelegate = phoneVerificationDelegate
+		let phoneVerificationVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
+		phoneVerificationVC.pilot = pilot
+		
+		return nav
+	}
+	
 	/**
 	
 	Creates a flight plan creation view controller that can be presented to the user based on a specified location. Airspace status, advisories, permiting, and digital notice are handled within the flow.
@@ -23,15 +41,14 @@ extension AirMap_UI {
 	*/
 	public class func flightPlanViewController(location location: CLLocationCoordinate2D, flightPlanDelegate: AirMapFlightPlanDelegate) -> AirMapFlightPlanNavigationController? {
 
+		// FIXME:
 		guard AirMap.authSession.hasValidCredentials() else { return nil }
 
 		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
 
 		let flightPlanNav = storyboard.instantiateInitialViewController() as! AirMapFlightPlanNavigationController
 		flightPlanNav.flightPlanDelegate = flightPlanDelegate
-
-		let flightVC = flightPlanNav.viewControllers.first as! AirMapFlightPlanViewController
-		flightVC.location = Variable(location)
+		flightPlanNav.flight.value.coordinate = location
 
 		return flightPlanNav
 	}
@@ -110,21 +127,19 @@ extension AirMap_UI {
 
 		return aircraftNav
 	}
-
+	
 	/**
-
-	Creates an AirMap authentication view controller
-
-	- parameter airMapAuthDelegate: The delegate to be notified when authentication succeeds or fails
-
+	
+	Creates an AirMapAuthViewController that can be presented to the user.
+	
+	- parameter authHandler: The block that is called upon completion of login flow
+	
+	- returns: An AirMapAuthViewController
+	
 	*/
-	public class func authViewController(airMapAuthSessionDelegate airMapAuthSessionDelegate: AirMapAuthSessionDelegate) -> AirMapAuthViewController {
-
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
-
-		let authController = storyboard.instantiateViewControllerWithIdentifier(String(AirMapAuthViewController)) as! AirMapAuthViewController
-		authController.authSessionDelegate = airMapAuthSessionDelegate
-
+	
+	public class func authViewController(authHandler: AirMapAuthHandler) -> AirMapAuthViewController {
+		let authController = AirMapAuthViewController(authHandler: authHandler)
 		return authController
 	}
 

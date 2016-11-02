@@ -6,7 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-@objc public protocol AirMapAuthSessionDelegate {
+@objc public protocol AirMapAuthSessionDelegate: class {
 	func airmapSessionShouldAuthenticate()
 	optional func airMapAuthSessionDidAuthenticate(pilot: AirMapPilot)
 	func airMapAuthSessionAuthenticationDidFail(error: NSError)
@@ -31,6 +31,15 @@ extension AirMap_AuthSession {
 	*/
 	public static func refreshAuthToken(handler: AirMapErrorHandler) {
 		authClient.refreshAccessToken().subscribe(handler)
+	}
+	
+	/**
+	
+	Makes a GET call to the resendLink, which re-sends a verification email form to the users email address.
+	
+	*/
+	public static func resendEmailVerificationLink(resendLink:String?){
+		authClient.resendEmailVerification(resendLink)
 	}
 
 }

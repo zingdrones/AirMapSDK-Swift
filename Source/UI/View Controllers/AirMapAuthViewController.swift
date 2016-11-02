@@ -9,100 +9,166 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Lock
 
+public typealias AirMapAuthHandler = (AirMapPilot?, NSError?) -> Void
 
-public class AirMapAuthViewController: UIViewController, UIWebViewDelegate {
+public enum AirMapAuthError: ErrorType {
+	case EmailVerificationNeeded(resendLink:String)
+	case EmailBlacklisted
+	case Error(description:String)
+}
 
-	@IBOutlet weak var webView: UIWebView!
-
-	public var authSessionDelegate: AirMapAuthSessionDelegate?
-	var disposeBag = DisposeBag()
-
-	//MARK: - View LifeCycle
-
-	override public func viewDidLoad() {
-		super.viewDidLoad()
-		loadRequest()
+public class AirMapAuthViewController: A0LockViewController {
+	
+	init(authHandler: AirMapAuthHandler) {
+		let lock = A0Lock.init(clientId: AirMap.configuration.auth0ClientId, domain: "sso.airmap.io", configurationDomain: "sso.airmap.io")
+		super.init(lock: lock)
+		setup(authHandler)
 	}
-
-	//MARK: - Instance Methods
-
-	@IBAction func dismiss(sender: AnyObject) {
-		dismissViewControllerAnimated(true, completion: nil)
+	
+	required public init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
-
-	private func loadRequest() {
+	
+	private func setup(authHandler:AirMapAuthHandler) {
+		registerTheme()
 		
-		let ssoUrl = Config.AirMapApi.Auth.ssoUrl
-		let callbackUrl = AirMap.configuration.auth0CallbackUrl
-		let clientId = AirMap.configuration.auth0ClientId
-		let scope = Config.AirMapApi.Auth.scope
+		loginAfterSignUp = true
+		closable = true
 		
-		let url = NSURL(string: "\(ssoUrl)/authorize?response_type=token&client_id=\(clientId)&redirect_uri=\(callbackUrl)&scope=\(scope)")!
-		
-		webView.loadRequest(NSURLRequest(URL: url))
-	}
-
-	/**
-	Attempts to authenticate the
-
-	- parameter urlString: The url String to parse
-
-	*/
-	private func authenticateWithUrl(url: String) {
-
-		let tokens = parseTokens(url)
-
-		AirMap.authToken = tokens.authToken
-		AirMap.authSession.saveRefreshToken(tokens.refeshToken)
-
-		AirMap.rx_getAuthenticatedPilot()
-			.doOnError {[unowned self] error in
-				self.loadRequest() // reload
-				self.authSessionDelegate?.airMapAuthSessionAuthenticationDidFail(error as NSError)
+		onAuthenticationBlock = { profile, token in
+			guard let authToken = token else {
+				AirMap.logger.error("Unexpectedly failed to acquire token after login"); return
 			}
-			.subscribeNext {[unowned self]  pilot in
-				self.authSessionDelegate?.airMapAuthSessionDidAuthenticate?(pilot)
-			}
-			.addDisposableTo(disposeBag)
+			AirMap.authToken = authToken.idToken
+			AirMap.authSession.saveRefreshToken(authToken.refreshToken)
+			AirMap.rx_getAuthenticatedPilot().subscribe(authHandler)
+		}
 	}
 
-	/**
-	Parses the `id_token` from the query parameters of the url string
-
-	- parameter urlString: The urlString to parse
-
-	*/
-	private func parseTokens(urlString: String) -> (authToken: String?, refeshToken: String?) {
-
-		let urlComponents = NSURLComponents(string: urlString)
-		let queryItems = urlComponents?.queryItems
-		return (queryItems?.filter({$0.name == "id_token"}).first?.value, queryItems?.filter({$0.name == "refresh_token"}).first?.value)
+	public func registerLogo(imageName: String, bundle: NSBundle){
+		A0Theme.sharedInstance().registerImageWithName(imageName, bundle: bundle, forKey: A0ThemeIconImageName)
 	}
-
-	//MARK: - UIWebViewDelegate Methods
-
-	public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-
-		let callbackUrl = NSURL(string: AirMap.configuration.auth0CallbackUrl)!
+	
+	private func registerTheme(){
+		let theme = A0Theme()
 		
-		if let url = request.URL {
+		theme.registerImageWithName("lock_login_image", bundle: NSBundle(forClass: AirMap.self), forKey: A0ThemeIconImageName)
+
+		theme.registerColor(UIColor.airMapGray(), forKey: A0ThemePrimaryButtonNormalColor)
+		theme.registerColor(UIColor.airMapGray(), forKey: A0ThemePrimaryButtonHighlightedColor)
+		A0Theme.sharedInstance().registerTheme(theme)
+	}
+}
+
+import AFNetworking
+
+extension AFJSONResponseSerializer {
+	
+	public override class func initialize() {
+		
+		guard self == NSClassFromString("A0JSONResponseSerializer") else {
+			return
+		}
+		
+		struct Static {
+			static var token: dispatch_once_t = 0
+		}
+		
+		dispatch_once(&Static.token) {
+			let originalSelector = Selector("responseObjectForResponse:data:error:")
+			let swizzledSelector = Selector("airmap_responseObjectForResponse:data:error:")
 			
-			if url.host != nil && url.host! == callbackUrl.host! {
-				
-				let callbackUrl = AirMap.configuration.auth0CallbackUrl
-				
-				let findString = callbackUrl + "#"
-				let replaceString = findString.stringByReplacingOccurrencesOfString("#", withString: "?")
-				
-				if let url = url.absoluteString?.stringByReplacingOccurrencesOfString(findString, withString: replaceString) {
+			let originalMethod = class_getInstanceMethod(self, originalSelector)
+			let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
+			
+			let didAddMethod = class_addMethod(self, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
+			
+			if didAddMethod {
+				class_replaceMethod(self, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
+			} else {
+				method_exchangeImplementations(originalMethod, swizzledMethod)
+			}
+		}
+	}
+	
+	// MARK: - Method Swizzling
+	
+	public func airmap_responseObjectForResponse(response: NSURLResponse?, data: NSData?, error: NSErrorPointer) -> AnyObject? {
+		
+		guard (response as? NSHTTPURLResponse)?.statusCode == 401 else {
+			return airmap_responseObjectForResponse(response, data: data, error: error)
+		}
+		
+		if let payload = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions()),
+			let payloadString = payload["error_description"] as? String {
+			if let payloadData = payloadString.dataUsingEncoding(NSUTF8StringEncoding) {
+				if let errorDict = try? NSJSONSerialization.JSONObjectWithData(payloadData, options: NSJSONReadingOptions()) {
 					
-					authenticateWithUrl(url)
+					if let resendLink = errorDict["resend_link"] as? String{
+						AirMap.resendEmailVerificationLink(resendLink)
+					}
+					
+					if let type = errorDict["type"] as? String {
+						let message: String
+						switch type {
+						case "email_verification":
+							message = "Your email address needs to be verified. Please check your inbox."
+						case "domain_blacklist":
+							message = "Your account has been blacklisted. Please contact security@airmap.com"
+						default:
+							message = "Unauthorized"
+						}
+						let dict = [
+							"error": "unauthorized",
+							"error_description": message
+						]
+						let data = try! NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions())
+						return airmap_responseObjectForResponse(response, data: data, error: error)
+					}
 				}
 			}
-		
 		}
+		
+		return airmap_responseObjectForResponse(response, data: data, error: error)
+	}
+	
+}
 
-		return true
+extension UIAlertController {
+	
+	public override class func initialize() {
+		
+		guard self == NSClassFromString("UIAlertController") else {
+			return
+		}
+		
+		struct Static {
+			static var token: dispatch_once_t = 0
+		}
+		
+		dispatch_once(&Static.token) {
+			let originalSelector = Selector("viewWillAppear:")
+			let swizzledSelector = Selector("airmap_viewWillAppear:")
+			
+			let originalMethod = class_getInstanceMethod(self, originalSelector)
+			let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
+			
+			let didAddMethod = class_addMethod(self, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
+			
+			if didAddMethod {
+				class_replaceMethod(self, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
+			} else {
+				method_exchangeImplementations(originalMethod, swizzledMethod)
+			}
+		}
+	}
+	
+	public func airmap_viewWillAppear(animated: Bool) {
+		// Updating Auth0 Alert Title
+		if title == "There was an error logging in" || title == "There was an error signing up" {
+			title = "Alert"
+		}
 	}
 }
