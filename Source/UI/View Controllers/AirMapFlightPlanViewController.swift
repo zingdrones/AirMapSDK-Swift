@@ -163,7 +163,7 @@ class AirMapFlightPlanViewController: UIViewController {
 		mapView.configure(layers: [], theme: .Light)
 		mapView.delegate = mapViewDelegate
 		
-		if let annotations = navigationController?.flight.value.annotationRepresentations() {
+		if let annotations = flight.annotationRepresentations() {
 			mapView.addAnnotations(annotations)
 			dispatch_async(dispatch_get_main_queue()) {
 				self.mapView.showAnnotations(annotations, edgePadding: UIEdgeInsetsMake(10, 40, 10, 40), animated: true)
@@ -250,7 +250,7 @@ class AirMapFlightPlanViewController: UIViewController {
 			AirMap.rx_createFlight(navigationController!.flight.value)
 				.trackActivity(activityIndicator)
 				.doOnError { [weak self] error in
-					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error as! NSError)
+					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
 				}
 				.subscribeNext(navigationController!.flightPlanDelegate.airMapFlightPlanDidCreate)
 				.addDisposableTo(disposeBag)

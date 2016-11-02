@@ -17,7 +17,7 @@ class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
 	}
 	
 	func mapView(mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
-		return annotation is ControlPointView ? .airMapLightBlue() : .airMapGray()
+		return .airMapGray()
 	}
 	
 	func mapView(mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
@@ -55,7 +55,7 @@ class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
 			}
 		}
 		
-		if let invalidIntersection = annotation as? InvalidIntersection {
+		if annotation is InvalidIntersection {
 			if let invalidIntersectionView = mapView.dequeueReusableAnnotationViewWithIdentifier(String(InvalidIntersectionView)) as? InvalidIntersectionView {
 				return invalidIntersectionView
 			} else {

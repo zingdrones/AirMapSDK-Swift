@@ -239,6 +239,7 @@ extension AirMapCreateFlightTypeViewController {
 			.shareReplayLatestWhileConnected()
 			.map { Optional.Some($0) }
 			.bindTo(status)
+			.addDisposableTo(disposeBag)
 		
 		status
 			.asObservable()
@@ -478,7 +479,7 @@ extension AirMapCreateFlightTypeViewController {
 		let formatter = AirMapCreateFlightTypeViewController.bufferFormatter
 		
 		let ramp = Config.Maps.bufferSliderLinearity
-		var sliderValue = pow(Double(sliderValue), ramp)
+		let sliderValue = pow(Double(sliderValue), ramp)
 
 		let usesMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem)!.boolValue!
 		let distancePerStep: Double
@@ -705,7 +706,7 @@ extension AirMapCreateFlightTypeViewController {
 			state.value = .Editing(centerPoint)
 			let point = Point(geometry: centerPoint.coordinate)
 			let bufferedPoint = SwiftTurf.buffer(point, distance: radius, units: .Meters)
-			var proposedCoords = bufferedPoint?.geometry.first ?? []
+			let proposedCoords = bufferedPoint?.geometry.first ?? []
 			let proposedPoints = proposedCoords.map { mapView.convertCoordinate($0, toPointToView: mapView) }
 			editingOverlayView.drawProposedPath(along: [proposedPoints])
 			
@@ -844,8 +845,6 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 	
 	func overlayDidDraw(geometry: [CGPoint]) {
 		
-		let bottomPadding: CGFloat
-		
 		let coordinates = geometry.map { point in
 			mapView.convertPoint(point, toCoordinateFromView: drawingOverlayView)
 		}
@@ -941,7 +940,6 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 		
 		case .Path, .Polygon:
 		
-			let isPath = selectedGeoType.value == .Path
 			let hitPoint = mapView.convertCoordinate(controlPoint.coordinate, toPointToView: mapView)
 			let shouldDeletePoint = canDelete(controlPoint) && actionButton.bounds.contains(hitPoint)
 

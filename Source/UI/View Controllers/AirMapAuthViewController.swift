@@ -119,7 +119,7 @@ extension AFJSONResponseSerializer {
 			return airmap_responseObjectForResponse(response, data: data, error: error)
 		}
 		
-		if var payload = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions()),
+		if let payload = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions()),
 			let payloadString = payload["error_description"] as? String {
 			if let payloadData = payloadString.dataUsingEncoding(NSUTF8StringEncoding) {
 				if let errorDict = try? NSJSONSerialization.JSONObjectWithData(payloadData, options: NSJSONReadingOptions()) {
