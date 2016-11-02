@@ -27,10 +27,6 @@ public class AirMapAuthViewController: A0LockViewController {
 		setup(authHandler)
 	}
 	
-	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-	}
-	
 	required public init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -38,30 +34,16 @@ public class AirMapAuthViewController: A0LockViewController {
 	private func setup(authHandler:AirMapAuthHandler) {
 		registerTheme()
 		
-		self.loginAfterSignUp = true
-		self.closable = true
+		loginAfterSignUp = true
+		closable = true
 		
-		self.onAuthenticationBlock = { profile, token in
+		onAuthenticationBlock = { profile, token in
 			guard let authToken = token else {
 				AirMap.logger.error("Unexpectedly failed to acquire token after login"); return
 			}
 			AirMap.authToken = authToken.idToken
 			AirMap.authSession.saveRefreshToken(authToken.refreshToken)
 			AirMap.rx_getAuthenticatedPilot().subscribe(authHandler)
-		}
-		
-		let errorSubscription = NSNotificationCenter.defaultCenter()
-			.rx_notification(A0LockNotificationLoginFailed)
-			.doOnNext { notification in
-				if let errorData = notification
-					.userInfo?[A0LockNotificationErrorParameterKey]?
-					.userInfo?[A0JSONResponseSerializerErrorDataKey] {
-				}
-			}
-			.subscribe()
-		
-		self.onUserDismissBlock = { _ in
-			errorSubscription.dispose()
 		}
 	}
 
@@ -185,8 +167,8 @@ extension UIAlertController {
 	
 	public func airmap_viewWillAppear(animated: Bool) {
 		// Updating Auth0 Alert Title
-		if self.title == "There was an error logging in" || self.title == "There was an error signing up" {
-			self.title = "Alert"
+		if title == "There was an error logging in" || title == "There was an error signing up" {
+			title = "Alert"
 		}
 	}
 }
