@@ -24,9 +24,7 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	let requiredPermits = Variable([AirMapAvailablePermit]())
 	let draftPermits = Variable([AirMapPilotPermit]())
 	let pilotPermits = Variable([AirMapPilotPermit]())
-	
-	private let requiredPermits = Variable([AirMapAvailablePermit]())
-	
+		
 	private typealias RowType = (availablePermit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit?)
 	private typealias SectionType = SectionModel<PermitStatus, RowType>
 
