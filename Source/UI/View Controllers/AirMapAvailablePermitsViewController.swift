@@ -16,20 +16,19 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	
 	var advisory: AirMapStatusAdvisory! {
 		didSet {
-			title = advisory.name
+			navigationItem.title = advisory.name
 			requiredPermits.value = advisory.requirements?.permitsAvailable ?? []
 		}
 	}
 
-	let requiredPermits = Variable([AirMapAvailablePermit]())
-	let draftPermits = Variable([AirMapPilotPermit]())
-	let pilotPermits = Variable([AirMapPilotPermit]())
-		
-	private typealias RowType = (availablePermit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit?)
+	var draftPermits: Variable<[AirMapPilotPermit]>!
+	var pilotPermits: Variable<[AirMapPilotPermit]>!
+	private let requiredPermits = Variable([AirMapAvailablePermit]())
+	
+	private typealias RowType = (requiredPermit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit?)
 	private typealias SectionType = SectionModel<PermitStatus, RowType>
 
 	private let dataSource = RxTableViewSectionedReloadDataSource<SectionType>()
-	private let permits = Variable([RowType]())
 	private let disposeBag = DisposeBag()
 	
 	private enum PermitStatus {
@@ -47,12 +46,28 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 		setupBindings()
 	}
 	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		guard let identifier = segue.identifier else { return }
+		switch identifier {
+		case "pushNewPermit", "pushExistingPermit":
+			let cell = sender as! UITableViewCell
+			let indexPath = tableView.indexPathForCell(cell)!
+			let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
+			permitVC.permit = Variable(dataSource.itemAtIndexPath(indexPath).requiredPermit)
+		default:
+			break
+		}
+	}
+	
 	// MARK: - Setup
 
 	private func setupTable() {
 	
 		tableView.delegate = nil
 		tableView.dataSource = nil
+		
+		tableView.estimatedRowHeight = 75
+		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, row in
 			switch dataSource.sectionAtIndex(indexPath.section).model {
@@ -68,25 +83,32 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 			case .Existing:
 				return "Existing Permits"
 			case .Available:
-				return "Other Available Permits"
+				return "Available Permits"
 			case .Unavailable:
-				return "Other Non-Available Permits"
+				return "Unavailable Permits"
 			}
 		}
 	}
 	
 	private func setupBindings() {
 		
-		pilotPermits.asDriver()
-
-		permits
-			.asDriver()
+		Driver.combineLatest(requiredPermits.asDriver(), pilotPermits.asDriver(), draftPermits.asDriver(), resultSelector: permitData)
 			.map(sectionModel)
 			.drive(tableView.rx_itemsWithDataSource(dataSource))
 			.addDisposableTo(disposeBag)
 	}
 	
 	// MARK: - Helper Functions
+	
+	private func permitData(requiredPermits: [AirMapAvailablePermit], pilotPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [RowType] {
+		
+		return requiredPermits
+			.map { requiredPermit in
+				let pilotPermit = (pilotPermits + draftPermits).filter { $0.permitId == requiredPermit.id }.first
+				return RowType(requiredPermit: requiredPermit, pilotPermit: pilotPermit)
+			}
+			.sort { $0.0.requiredPermit.name < $0.1.requiredPermit.name }
+	}
 	
 	private func sectionModel(permits: [RowType]) -> [SectionType] {
 		
@@ -97,20 +119,20 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 		]
 	}
 	
-	private func isIssued(permit: RowType) -> Bool {
-		return permit.pilotPermit != nil
+	private func isIssued(row: RowType) -> Bool {
+		return row.pilotPermit != nil
 	}
 	
-	private func isNotIssued(permit: RowType) -> Bool {
-		return !isIssued(permit)
+	private func isNotIssued(row: RowType) -> Bool {
+		return !isIssued(row)
 	}
 	
-	private func isAvailable(permit: RowType) -> Bool {
+	private func isAvailable(row: RowType) -> Bool {
 		// TODO:
 		return true
 	}
 	
-	private func isUnavailable(permits: RowType) -> Bool {
+	private func isUnavailable(row: RowType) -> Bool {
 		// TODO:
 		return false
 	}

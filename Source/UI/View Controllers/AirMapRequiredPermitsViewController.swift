@@ -71,7 +71,15 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		switch identifier {
 			
 		case "modalPermitSelection":
-			break
+			
+			let cell = sender as! UITableViewCell
+			let indexPath = tableView.indexPathForCell(cell)!
+			let nav = segue.destinationViewController as! UINavigationController
+			let availablePermitsVC = nav.viewControllers.first as! AirMapAvailablePermitsViewController
+			availablePermitsVC.advisory = dataSource.itemAtIndexPath(indexPath).advisory
+			availablePermitsVC.pilotPermits = existingPermits
+			availablePermitsVC.draftPermits = draftPermits
+
 		default:
 			break
 		}
@@ -84,20 +92,21 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	private func setupTableView() {
 		
 		tableView.rx_setDelegate(self)
+		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.estimatedRowHeight = 75
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, rowData in
 			
 			if let availablePermit = rowData.availablePermit, let pilotPermit = rowData.pilotPermit {
-				return tableView.cellWith((availablePermit, pilotPermit), at: indexPath) as AirMapPilotPermitCell
+				let cell = tableView.cellWith((availablePermit, pilotPermit), at: indexPath) as AirMapPilotPermitCell
+				cell.imageView?.image = AirMapImage.image(named: "deselected_cell_option")
+				cell.imageView?.highlightedImage = AirMapImage.image(named: "selected_cell_option")
+				return cell
 			} else {
 				let cell = tableView.dequeueReusableCellWithIdentifier("selectADifferencePermit", forIndexPath: indexPath)
-				cell.textLabel?.text = indexPath.row == 0 ? "Select Permit" : "Select a different Permit"
+				cell.textLabel?.text = indexPath.row == 0 ? "Select permit" : "Select a different permit"
 				return cell
 			}
-		}
-		
-		dataSource.titleForHeaderInSection = { dataSource, section in
-			return dataSource.sectionAtIndex(section).model.name
 		}
 	}
 	
@@ -127,12 +136,12 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	
 	private func loadData() {
 		
-//		AirMap
-//			.rx_listPilotPermits()
-//			.trackActivity(activityIndicator)
-//			.map(unowned(self, AirMapRequiredPermitsViewController.filterOutInvalidPermits))
-//			.bindTo(existingPermits)
-//			.addDisposableTo(disposeBag)
+		AirMap
+			.rx_listPilotPermits()
+			.trackActivity(activityIndicator)
+			.map(unowned(self, AirMapRequiredPermitsViewController.filterOutInvalidPermits))
+			.bindTo(existingPermits)
+			.addDisposableTo(disposeBag)
 
 		permittableAdvisories.value = navigationController!.status.value!.advisories.filter { advisory in
 			advisory.requirements?.permitsAvailable.count > 0
@@ -218,9 +227,9 @@ extension AirMapRequiredPermitsViewController: AirMapPermitDecisionFlowDelegate 
 extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 	
 	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let header = TableHeader(dataSource.sectionAtIndex(section).model.name)!
+		let header = TableHeader(dataSource.sectionAtIndex(section).model.name.uppercaseString)!
 		header.textLabel.textAlignment = .Center
-		header.textLabel.font = UIFont.boldSystemFontOfSize(17)
+		header.textLabel.font = UIFont.systemFontOfSize(17)
 		return header
 	}
 	
@@ -237,9 +246,9 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 			let pilotPermit = row?.pilotPermit else { return }
 		
 		if selectedPermits.value.filter ({$0.permit.id == pilotPermit.permitId && $0.advisory.id == rowAdvisory.id }).first != nil {
-			cell.accessoryType = .Checkmark
+			cell.imageView?.highlighted = true
 		} else {
-			cell.accessoryType = .None
+			cell.imageView?.highlighted = false
 		}
 	}
 	
@@ -252,9 +261,11 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 			let availablePermit = row?.availablePermit,
 			let pilotPermit = row?.pilotPermit {
 			
+			let cell = tableView.cellForRowAtIndexPath(indexPath)
+
 			if let alreadySelectedPermit = selectedPermits.value.filter({$0.permit.id == pilotPermit.permitId && $0.advisory.id == rowAdvisory.id}).first {
 				selectedPermits.value = selectedPermits.value.filter { $0 != alreadySelectedPermit }
-				tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .None
+				cell?.imageView?.highlighted = false
 			} else {
 				uncheckRowsInSection(indexPath.section)
 				if let previousSelectedAdvisoryPermit = selectedPermits.value.filter({$0.advisory.id == rowAdvisory.id}).first {
@@ -263,7 +274,7 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 				
 				let availablePermit = requiredPermits.value.filter {$0.id == pilotPermit.permitId }.first!
 				selectedPermits.value.append((advisory: rowAdvisory, permit: availablePermit, pilotPermit: pilotPermit))
-				tableView.cellForRowAtIndexPath(indexPath)?.accessoryType = .Checkmark
+				cell?.imageView?.highlighted = true
 			}
 		}
 	}

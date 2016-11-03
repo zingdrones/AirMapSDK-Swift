@@ -38,7 +38,7 @@ extension UITableView {
 	
 	func cellWith
 		<T: ObjectAssignable where T: Dequeueable, T: UITableViewCell>
-		(object: T.ObjectType?, at indexPath: NSIndexPath, withIdentifier: String) -> T {
+		(object: T.ObjectType, at indexPath: NSIndexPath, withIdentifier: String) -> T {
 		
 		let cell = dequeueReusableCellWithIdentifier(withIdentifier, forIndexPath: indexPath) as! T
 		cell.setObject(object)
