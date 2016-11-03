@@ -23,9 +23,9 @@ import ObjectMapper
 		public var description: String {
 			switch self {
 			case .Red:
-				return "Restricted"
+				return "Flight Strictly Regulated"
 			case .Yellow:
-				return "Caution/Action Required"
+				return "Advisories"
 			case .Green, .Gray:
 				return "Informational"
 			}
