@@ -70,12 +70,18 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, row in
+			
+			let cell: AirMapPilotPermitCell
 			switch dataSource.sectionAtIndex(indexPath.section).model {
 			case .Existing:
-				return tableView.cellWith(row, at: indexPath, withIdentifier: "availableExistingPermitCell") as AirMapPilotPermitCell
-			case .Available, .Unavailable:
-				return tableView.cellWith(row, at: indexPath, withIdentifier: "availablePermitCell") as AirMapPilotPermitCell
+				cell = tableView.cellWith(row, at: indexPath, withIdentifier: "availableExistingPermitCell")
+			case .Available:
+				cell = tableView.cellWith(row, at: indexPath, withIdentifier: "availablePermitCell")
+			case .Unavailable:
+				cell = tableView.cellWith(row, at: indexPath, withIdentifier: "unavailablePermitCell")
+				cell.alpha = 0.333
 			}
+			return cell
 		}
 		
 		dataSource.titleForHeaderInSection = { dataSource, section in
@@ -134,7 +140,7 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	
 	private func isUnavailable(row: RowType) -> Bool {
 		// TODO:
-		return false
+		return true
 	}
 	
 }

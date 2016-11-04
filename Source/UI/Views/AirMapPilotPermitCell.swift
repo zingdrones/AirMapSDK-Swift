@@ -18,6 +18,7 @@ class AirMapPilotPermitCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	@IBOutlet weak var permitDescription: UILabel!
 	
 	private var permitData: ObjectType!
+	
 	private static let dateFormatter: NSDateFormatter = {
 		let df = NSDateFormatter()
 		df.dateStyle = .MediumStyle
@@ -26,17 +27,21 @@ class AirMapPilotPermitCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	}()
 	
 	func setObject(object: ObjectType?) {
+		
 		permitData = object
 		configure()
 	}
 	
 	private func configure() {
+
 		permitTitle.text = permitData.requiredPermit.name
 		permitDescription.text = permitData.requiredPermit.info
 		permitStatus?.text = permitData.pilotPermit?.status.rawValue.capitalizedString
 		if let expirationDate = permitData.pilotPermit?.expiresAt {
 			permitExpiration?.text = "Expires " + AirMapPilotPermitCell.dateFormatter.stringFromDate(expirationDate)
+		} else {
+			permitExpiration?.text = nil
 		}
 	}
-	
+		
 }

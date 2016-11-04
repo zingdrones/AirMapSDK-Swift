@@ -54,17 +54,6 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		setupTableView()
 	}
 	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		
-//		tableView.indexPathsForSelectedRows?.forEach { indexPath in
-//			if let row = try? tableView.rx_modelAtIndexPath(indexPath) as RowData
-//				where row.pilotPermit == nil {
-//				tableView.deselectRowAtIndexPath(indexPath, animated: true)
-//			}
-//		}
-	}
-	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		guard let identifier = segue.identifier else { return }
 		
@@ -103,7 +92,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 				cell.imageView?.highlightedImage = AirMapImage.image(named: "selected_cell_option")
 				return cell
 			} else {
-				let cell = tableView.dequeueReusableCellWithIdentifier("selectADifferencePermit", forIndexPath: indexPath)
+				let cell = tableView.dequeueReusableCellWithIdentifier("selectADifferenrPermit", forIndexPath: indexPath)
 				cell.textLabel?.text = indexPath.row == 0 ? "Select permit" : "Select a different permit"
 				return cell
 			}
@@ -112,19 +101,17 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	
 	private func setupBindings() {
 		
-		Observable.combineLatest(requiredPermits.asObservable(), existingPermits.asObservable(), draftPermits.asObservable(), permittableAdvisories.asObservable()) { ($0, $1, $2, $3) }
-			.observeOn(MainScheduler.instance)
+		Driver.combineLatest(requiredPermits.asDriver(), existingPermits.asDriver(), draftPermits.asDriver(), permittableAdvisories.asDriver()) { ($0, $1, $2, $3) }
 			.map(unowned(self, AirMapRequiredPermitsViewController.sectionModels))
-			.bindTo(tableView.rx_itemsWithDataSource(dataSource))
+			.drive(tableView.rx_itemsWithDataSource(dataSource))
 			.addDisposableTo(disposeBag)
 		
-		Observable.combineLatest(selectedPermits.asObservable(), permittableAdvisories.asObservable()) { ($0, $1) }
-			.observeOn(MainScheduler.instance)
+		Driver.combineLatest(selectedPermits.asDriver(), permittableAdvisories.asDriver()) { ($0, $1) }
 			.doOnNext { [weak self] selected, advisories in
-				self?.permitComplianceStatus.text = "You have selected \(selected.count) of \(advisories.count) permits required for this flight"
+				self?.permitComplianceStatus.text = "You have satisfied \(selected.count) of \(advisories.count) requirements"
 			}
 			.map { $0.count == $1.count }
-			.bindTo(nextButton.rx_enabled)
+			.drive(nextButton.rx_enabled)
 			.addDisposableTo(disposeBag)
 		
 		activityIndicator.asObservable()
@@ -188,7 +175,8 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	private func uncheckRowsInSection(section: Int) {
 		for index in 0..<dataSource.sectionAtIndex(section).items.count-1 {
 			let ip = NSIndexPath(forRow: index, inSection: section)
-			tableView.cellForRowAtIndexPath(ip)?.accessoryType = .None
+			let cell = tableView.cellForRowAtIndexPath(ip) as? AirMapPilotPermitCell
+			cell?.imageView?.highlighted = false
 		}
 	}
 	
@@ -245,7 +233,7 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 			let availablePermit = row?.availablePermit,
 			let pilotPermit = row?.pilotPermit else { return }
 		
-		if selectedPermits.value.filter ({$0.permit.id == pilotPermit.permitId && $0.advisory.id == rowAdvisory.id }).first != nil {
+		if selectedPermits.value.filter ({$0.pilotPermit === pilotPermit && $0.advisory === rowAdvisory }).first != nil {
 			cell.imageView?.highlighted = true
 		} else {
 			cell.imageView?.highlighted = false
@@ -262,9 +250,9 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 			let pilotPermit = row?.pilotPermit {
 			
 			let cell = tableView.cellForRowAtIndexPath(indexPath)
-
-			if let alreadySelectedPermit = selectedPermits.value.filter({$0.permit.id == pilotPermit.permitId && $0.advisory.id == rowAdvisory.id}).first {
-				selectedPermits.value = selectedPermits.value.filter { $0 != alreadySelectedPermit }
+			
+			if let alreadySelectedPermit = selectedPermits.value.filter({$0.permit === pilotPermit && $0.advisory === rowAdvisory}).first {
+				selectedPermits.value = selectedPermits.value.filter { $0.permit !== alreadySelectedPermit.permit }
 				cell?.imageView?.highlighted = false
 			} else {
 				uncheckRowsInSection(indexPath.section)
