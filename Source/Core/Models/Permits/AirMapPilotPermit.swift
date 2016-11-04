@@ -51,7 +51,7 @@ extension AirMapPilotPermit: Mappable {
 
 		id					<-  map["id"]
 		permitId			<-  map["permit_id"]
-		issuerId			<-  map["description"]
+		issuerId			<-  map["issuer_id"]
 		createdAt			<- (map["created_at"], dateTransform)
 		updatedAt			<- (map["updated_at"], dateTransform)
 		expiresAt			<- (map["expires_at"], dateTransform)
