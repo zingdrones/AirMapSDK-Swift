@@ -48,16 +48,16 @@ extension AirMapAvailablePermit: Mappable {
 
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
-		id					<-  map["id"]
-		organizationId		<-  map["organization_id"]
-		name				<-	map["name"]
-		info				<-	map["description"]
-		infoUrl				<-	map["description_url"]
-		singleUse			<-	map["single_use"]
+		id                  <-  map["id"]
+		organizationId      <-  map["organization_id"]
+		name                <-  map["name"]
+		info                <-  map["description"]
+		infoUrl             <-  map["description_url"]
+		singleUse           <-  map["single_use"]
 		isApplicable        <-  map["applicable"]
-		validForInMinutes	<-	map["valid_for"]
-		validUntil			<- (map["valid_until"], dateTransform)
-		customProperties	<-	map["custom_properties"]
+		validForInMinutes   <-  map["valid_for"]
+		validUntil          <- (map["valid_until"], dateTransform)
+		customProperties    <-  map["custom_properties"]
 	}
 
 	/**
