@@ -60,7 +60,6 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		switch identifier {
 			
 		case "modalPermitSelection":
-			
 			let cell = sender as! UITableViewCell
 			let indexPath = tableView.indexPathForCell(cell)!
 			let nav = segue.destinationViewController as! UINavigationController
@@ -109,7 +108,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		
 		Driver.combineLatest(selectedPermits.asDriver(), permittableAdvisories.asDriver()) { ($0, $1) }
 			.doOnNext { [weak self] selected, advisories in
-				self?.permitComplianceStatus.text = "You have satisfied \(selected.count) of \(advisories.count) requirements"
+				self?.permitComplianceStatus.text = "You have selected \(selected.count) of \(advisories.count) required permits"
 			}
 			.map { $0.count == $1.count }
 			.drive(nextButton.rx_enabled)
@@ -183,6 +182,14 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	
 }
 
+
+// FIXME: Move to appropriate class
+protocol AirMapPermitDecisionFlowDelegate: class {
+	func decisionFlowDidSelectPermit(permit: AirMapAvailablePermit, requiredBy advisory: AirMapStatusAdvisory, with customProperties: [AirMapPilotPermitCustomProperty])
+}
+
+
+
 extension AirMapRequiredPermitsViewController: AirMapPermitDecisionFlowDelegate {
 	
 	func decisionFlowDidSelectPermit(permit: AirMapAvailablePermit, requiredBy advisory: AirMapStatusAdvisory, with customProperties: [AirMapPilotPermitCustomProperty]) {
@@ -217,7 +224,7 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 	
 	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let header = TableHeader(dataSource.sectionAtIndex(section).model.name.uppercaseString)!
-		header.textLabel.textAlignment = .Center
+//		header.textLabel.textAlignment = .Center
 		header.textLabel.font = UIFont.systemFontOfSize(17)
 		return header
 	}
