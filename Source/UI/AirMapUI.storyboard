@@ -2685,7 +2685,7 @@ AirMap will send you a text message when your digital notice has been successful
             </objects>
             <point key="canvasLocation" x="-1439" y="1315"/>
         </scene>
-        <!--Air MapFAQ View Controller-->
+        <!--FAQs-->
         <scene sceneID="qbD-mz-Bf5">
             <objects>
                 <viewController id="aXE-Bk-GP3" customClass="AirMapFAQViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
@@ -2699,7 +2699,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3FZ-4o-60x">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.28958413004875183" green="0.31462949514389038" blue="0.32950475811958313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2710,7 +2710,7 @@ AirMap will send you a text message when your digital notice has been successful
                             <constraint firstItem="3FZ-4o-60x" firstAttribute="top" secondItem="ijd-6X-Gxz" secondAttribute="bottom" id="u3Y-jx-RSA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="W7d-Gh-IMB">
+                    <navigationItem key="navigationItem" title="FAQs" id="W7d-Gh-IMB">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="dE5-Cr-7CY">
                             <connections>
                                 <action selector="dismiss" destination="aXE-Bk-GP3" id="uC3-xH-Gqj"/>
