@@ -209,10 +209,11 @@ class AirMapAvailablePermitViewController: UITableViewController {
 		
 		switch identifier {
 			case "unwindToRequiredPermits":
-				if let nav = navigationController as? AirMapPermitDecisionNavController {
-					let customProperties = textFields.value.map { $0.property }
-					nav.permitDecisionFlowDelegate.decisionFlowDidSelectPermit(permit.value, requiredBy: advisory, with: customProperties)
-				}
+			break
+//				if let nav = navigationController as? AirMapPermitDecisionNavController {
+//					let customProperties = textFields.value.map { $0.property }
+//					nav.permitDecisionFlowDelegate.decisionFlowDidSelectPermit(permit.value, requiredBy: advisory, with: customProperties)
+//				}
 		default:
 			break
 		}
