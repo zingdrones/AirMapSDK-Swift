@@ -50,4 +50,17 @@ extension UITableView {
 			deselectRowAtIndexPath(indexPath, animated: animated)
 		}
 	}
+
+	/// calculate and update tableview's header height using auto layout
+	func layoutAndResizeHeader() {
+		if let header = tableHeaderView {			
+			header.setNeedsLayout()
+			header.layoutIfNeeded()
+			var frame = header.frame
+			frame.size.height = header.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+			header.frame = frame
+			tableHeaderView = header
+		}
+	}
+
 }

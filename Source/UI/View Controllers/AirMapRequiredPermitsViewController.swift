@@ -83,6 +83,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		tableView.rx_setDelegate(self)
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 75
+		tableView.layoutAndResizeHeader()
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, rowData in
 			
