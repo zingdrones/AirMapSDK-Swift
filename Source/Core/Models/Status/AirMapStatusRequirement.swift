@@ -21,5 +21,6 @@ extension AirMapStatusRequirements: Mappable {
 	
 	public func mapping(map: Map) {
 		notice              <-  map["notice"]
+		permitsAvailable    <-  map["permits_available"]
 	}
 }
