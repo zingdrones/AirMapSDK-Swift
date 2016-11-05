@@ -119,9 +119,9 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	private func sectionModel(permits: [RowType]) -> [SectionType] {
 		
 		return [
-			SectionType(model: .Existing, items: permits.filter(isAvailable).filter(isIssued)),
-			SectionType(model: .Available, items: permits.filter(isAvailable).filter(isNotIssued)),
-			SectionType(model: .Unavailable, items: permits.filter(isUnavailable))
+			SectionType(model: .Existing, items: permits.filter(isApplicable).filter(isIssued)),
+			SectionType(model: .Available, items: permits.filter(isApplicable).filter(isNotIssued)),
+			SectionType(model: .Unavailable, items: permits.filter(isUnapplicable))
 		]
 	}
 	
@@ -133,14 +133,12 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 		return !isIssued(row)
 	}
 	
-	private func isAvailable(row: RowType) -> Bool {
-		// TODO:
-		return true
+	private func isApplicable(row: RowType) -> Bool {
+		return row.requiredPermit.isApplicable
 	}
 	
-	private func isUnavailable(row: RowType) -> Bool {
-		// TODO:
-		return true
+	private func isUnapplicable(row: RowType) -> Bool {
+		return !row.requiredPermit.isApplicable
 	}
 	
 }

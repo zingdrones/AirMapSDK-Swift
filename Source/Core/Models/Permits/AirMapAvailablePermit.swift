@@ -16,6 +16,7 @@ import ObjectMapper
 	public var info = ""
 	public var infoUrl = ""
 	public var singleUse: Bool = false
+	public var isApplicable: Bool = false
 	public var validForInMinutes: Int?
 	public var validUntil: NSDate?
 	public var customProperties = [AirMapPilotPermitCustomProperty]()
@@ -53,6 +54,7 @@ extension AirMapAvailablePermit: Mappable {
 		info				<-	map["description"]
 		infoUrl				<-	map["description_url"]
 		singleUse			<-	map["single_use"]
+		isApplicable        <-  map["applicable"]
 		validForInMinutes	<-	map["valid_for"]
 		validUntil			<- (map["valid_until"], dateTransform)
 		customProperties	<-	map["custom_properties"]
