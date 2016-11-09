@@ -19,13 +19,14 @@ import ObjectMapper
 
 	public var id = ""
 	public var permitId = ""
-	public var issuerId = ""
+	public var flightId = ""
 	public var status: PermitStatus = .Unknown
 	public var createdAt: NSDate = NSDate()
 	public var updatedAt: NSDate!
 	public var expiresAt: NSDate!
 	public var customProperties = [AirMapPilotPermitCustomProperty]()
 	public var permitDetails: AirMapPilotPermitShortDetails!
+	public var issuer: AirMapPilotPermitIssuer!
 
 	public required init?(_ map: Map) {}
 
@@ -51,11 +52,12 @@ extension AirMapPilotPermit: Mappable {
 
 		id					<-  map["id"]
 		permitId			<-  map["permit_id"]
-		issuerId			<-  map["issuer_id"]
+		flightId			<-  map["flight_id"]
+		issuer				<-  map["issuer"]
 		createdAt			<- (map["created_at"], dateTransform)
 		updatedAt			<- (map["updated_at"], dateTransform)
-		expiresAt			<- (map["expires_at"], dateTransform)
-		customProperties	<-  map["custom_properties"]
+		expiresAt			<- (map["expiration"], dateTransform)
+		customProperties	<- map["custom_properties"]
 		permitDetails		<- map["permit"]
 
 		var permitStatus = ""
