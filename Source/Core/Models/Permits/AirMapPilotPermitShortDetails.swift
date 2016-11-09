@@ -11,6 +11,7 @@ import ObjectMapper
 @objc public class AirMapPilotPermitShortDetails: NSObject {
 
 	public var name = ""
+	public var permitDescription = ""
 	public var singleUse = false
 
 	internal override init() {
@@ -24,7 +25,8 @@ extension AirMapPilotPermitShortDetails: Mappable {
 
 	public func mapping(map: Map) {
 
-		name		<-  map["name"]
-		singleUse	<-  map["single_use"]
+		name				<-  map["name"]
+		permitDescription	<- map["description"]
+		singleUse			<-  map["single_use"]
 	}
 }
