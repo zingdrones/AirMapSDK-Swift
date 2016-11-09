@@ -48,8 +48,6 @@ extension AirMap_UI {
 
 		let flightPlanNav = storyboard.instantiateInitialViewController() as! AirMapFlightPlanNavigationController
 		flightPlanNav.flightPlanDelegate = flightPlanDelegate
-
-		let flightVC = flightPlanNav.viewControllers.first as! AirMapCreateFlightTypeViewController
 		flightPlanNav.flight.value.coordinate = location
 
 		return flightPlanNav

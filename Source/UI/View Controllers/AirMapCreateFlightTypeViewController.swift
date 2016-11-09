@@ -530,7 +530,7 @@ extension AirMapCreateFlightTypeViewController {
 	
 	// MARK: Actions
 
-	@IBAction func selectFlightMode(_ button: AirMapFlightTypeButton) {
+	@IBAction func selectFlightMode(button: AirMapFlightTypeButton) {
 		
 		flightTypeButtons.forEach { $0.selected = false }
 		button.selected = true
@@ -844,9 +844,7 @@ extension AirMapCreateFlightTypeViewController {
 extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 	
 	func overlayDidDraw(geometry: [CGPoint]) {
-		
-		let bottomPadding: CGFloat
-		
+				
 		let coordinates = geometry.map { point in
 			mapView.convertPoint(point, toCoordinateFromView: drawingOverlayView)
 		}
@@ -942,7 +940,6 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 		
 		case .Path, .Polygon:
 		
-			let isPath = selectedGeoType.value == .Path
 			let hitPoint = mapView.convertCoordinate(controlPoint.coordinate, toPointToView: mapView)
 			let shouldDeletePoint = canDelete(controlPoint) && actionButton.bounds.contains(hitPoint)
 

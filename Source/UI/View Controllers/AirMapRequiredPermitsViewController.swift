@@ -75,6 +75,31 @@ class AirMapRequiredPermitsViewController: UIViewController {
 
 	@IBAction func unwindToRequiredPermits(segue: UIStoryboardSegue) { /* Hook for Interface Builder; keep. */ }
 	
+	@IBAction func unwindFromPermitSelection(segue: UIStoryboardSegue) {
+		
+		let permitVC = segue.sourceViewController as! AirMapAvailablePermitViewController
+//		let advisory = permitVC.advisory
+		let availablePermit = permitVC.permit.value
+		
+		// Create a new draft pilot permit from the available permit and custom properties
+		let draftPermit = AirMapPilotPermit()
+		draftPermit.permitId = availablePermit.id
+		draftPermit.customProperties = permitVC.customProperties
+		
+		// If new permit doesn't already exist in drafts or existing permits, add to drafts
+		if !draftPermits.value.contains(draftPermit) && !existingPermits.value.contains(draftPermit) {
+			draftPermits.value.append(draftPermit)
+		}
+
+		
+//		selectedPermits
+//		if selectedPermits.value.map { $0.permitId }
+//		
+//		let matchingSelectedAdvisoryPermits = selectedPermits.value
+//			.filter { $0.permitId == draftPermit.permitId }
+		
+	}
+	
 	// MARK: - Setup
 	
 	private func setupTableView() {
@@ -182,49 +207,10 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	
 }
 
-
-// FIXME: Move to appropriate class
-protocol AirMapPermitDecisionFlowDelegate: class {
-	func decisionFlowDidSelectPermit(permit: AirMapAvailablePermit, requiredBy advisory: AirMapStatusAdvisory, with customProperties: [AirMapPilotPermitCustomProperty])
-}
-
-
-
-extension AirMapRequiredPermitsViewController: AirMapPermitDecisionFlowDelegate {
-	
-	func decisionFlowDidSelectPermit(permit: AirMapAvailablePermit, requiredBy advisory: AirMapStatusAdvisory, with customProperties: [AirMapPilotPermitCustomProperty]) {
-		
-		let draftPermit = AirMapPilotPermit()
-		draftPermit.permitId = permit.id
-		draftPermit.customProperties = customProperties
-
-		let matchingDraftPermits = draftPermits.value
-			.filter { $0.permitId == draftPermit.permitId }
-		
-		let matchingExistingPermits = existingPermits.value
-			.filter { $0.permitId == draftPermit.permitId }
-
-		let matchingSelectedAdvisoryPermits = selectedPermits.value
-			.filter { $0.advisory.id == advisory.id }
-		
-		if matchingDraftPermits.count == 0 && matchingExistingPermits.count == 0 {
-			draftPermits.value.append(draftPermit)
-		}
-
-		selectedPermits.value = selectedPermits.value.filter {
-			let permitIds = matchingSelectedAdvisoryPermits.map { $0.permit.id }
-			return !permitIds.contains($0.permit.id)
-		}
-		selectedPermits.value.append((advisory: advisory, permit: permit, pilotPermit: draftPermit))
-		tableView.reloadData()
-	}
-}
-
 extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 	
 	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let header = TableHeader(dataSource.sectionAtIndex(section).model.name.uppercaseString)!
-//		header.textLabel.textAlignment = .Center
 		header.textLabel.font = UIFont.systemFontOfSize(17)
 		return header
 	}
@@ -238,7 +224,6 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 		guard
 			let row = try? dataSource.modelAtIndexPath(indexPath) as? RowData,
 			let rowAdvisory = row?.advisory,
-			let availablePermit = row?.availablePermit,
 			let pilotPermit = row?.pilotPermit else { return }
 		
 		if selectedPermits.value.filter ({$0.pilotPermit === pilotPermit && $0.advisory === rowAdvisory }).first != nil {
@@ -254,7 +239,6 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 		
 		if let row = try? dataSource.modelAtIndexPath(indexPath) as? RowData,
 			let rowAdvisory = row?.advisory,
-			let availablePermit = row?.availablePermit,
 			let pilotPermit = row?.pilotPermit {
 			
 			let cell = tableView.cellForRowAtIndexPath(indexPath)

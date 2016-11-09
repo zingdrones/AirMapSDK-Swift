@@ -24,6 +24,10 @@ class AirMapAvailablePermitViewController: UITableViewController {
 	var advisory: AirMapStatusAdvisory!
 	var mode = Mode.Select
 	
+	var customProperties: [AirMapPilotPermitCustomProperty] {
+		return textFields.value.map { $0.property }
+	}
+	
 	private typealias PropertyTextField = (property: AirMapPilotPermitCustomProperty, textField: UITextField)
 	private let textFields = Variable([PropertyTextField]())
 	
@@ -204,18 +208,4 @@ class AirMapAvailablePermitViewController: UITableViewController {
 		tableView.estimatedRowHeight = 50
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		guard let identifier = segue.identifier else { return }
-		
-		switch identifier {
-			case "unwindToRequiredPermits":
-			break
-//				if let nav = navigationController as? AirMapPermitDecisionNavController {
-//					let customProperties = textFields.value.map { $0.property }
-//					nav.permitDecisionFlowDelegate.decisionFlowDidSelectPermit(permit.value, requiredBy: advisory, with: customProperties)
-//				}
-		default:
-			break
-		}
-	}
 }
