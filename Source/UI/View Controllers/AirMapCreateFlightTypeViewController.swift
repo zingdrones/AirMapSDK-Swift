@@ -224,27 +224,25 @@ extension AirMapCreateFlightTypeViewController {
 		validatedInput
 			.driveNext(unowned(self, $.drawFlightArea))
 			.addDisposableTo(disposeBag)
-		
-		validatedInput
-			.map { $0.3.valid }
-			.drive(nextButton.rx_enabled)
-			.addDisposableTo(disposeBag)
 
 		let status = (navigationController as! AirMapFlightPlanNavigationController).status
 		
 		validatedInput
 			.asObservable()
 			.filter { $0.3.valid }
-			.flatMapLatest(unowned(self, $.getStatus))
+			.flatMapLatest {
+				unowned(self, $.getStatus)($0)
+					.map { Optional.Some($0) }
+					.asDriver(onErrorJustReturn: nil)
+			}
 			.shareReplayLatestWhileConnected()
-			.map { Optional.Some($0) }
-			.bindTo(status)
+			.asDriver(onErrorJustReturn: nil)
+			.drive(status)
 			.addDisposableTo(disposeBag)
 		
 		status
-			.asObservable()
+			.asDriver()
 			.map { $0?.advisoryColor ?? .Gray }
-			.asDriver(onErrorJustReturn: .Yellow)
 			.driveNext(unowned(self, $.applyAdvisoryColorToNextButton))
 			.addDisposableTo(disposeBag)
 
@@ -264,10 +262,17 @@ extension AirMapCreateFlightTypeViewController {
 			.driveNext(unowned(self, $.drawRedAdvisoryAirspaces))
 			.addDisposableTo(disposeBag)
 
-		status
-			.asObservable()
-			.map { $0 != nil }
+		let canAdvance = Observable
+			.combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
+				status != nil && input.3.valid
+			}
 			.asDriver(onErrorJustReturn: false)
+		
+		canAdvance
+			.drive(nextButton.rx_enabled)
+			.addDisposableTo(disposeBag)
+		
+		canAdvance
 			.drive(advisoriesInfoButton.rx_enabled)
 			.addDisposableTo(disposeBag)
 		
