@@ -19,9 +19,18 @@ import ObjectMapper
 	public var phone: String?
 	public var phoneVerified: Bool = false
 	public var emailVerified: Bool = false
-	public var userMetadata = [String: AnyObject]()
-	public var appMetadata = [String: AnyObject]()
 	public var statistics: AirMapPilotStats!
+
+	private var _userMetadata = [String: AnyObject]()
+	private var _appMetadata = [String: AnyObject]()
+	
+	public func appMetadata() -> [String: AnyObject] {
+		return _appMetadata
+	}
+	
+	public func setAppMetadata(value: AnyObject?, forKey: String) {
+		_appMetadata[forKey] = value
+	}
 	
 	public override init() {
 		super.init()
@@ -51,8 +60,8 @@ extension AirMapPilot: Mappable {
 		username       <-  map["username"]
 		phoneVerified  <-  map["verification_status.phone"]
 		emailVerified  <-  map["verification_status.email"]
-		userMetadata   <-  map["user_metadata"]
-		appMetadata    <-  map["app_metadata"]
+		_userMetadata  <-  map["user_metadata"]
+		_appMetadata   <-  map["app_metadata"]
 		statistics     <-  map["statistics"]
 	}
 
@@ -68,8 +77,8 @@ extension AirMapPilot: Mappable {
 
 		params["first_name"] = firstName
 		params["last_name"] = lastName
-		params["user_metadata"] = userMetadata
-		params["app_metadata"] = appMetadata
+		params["user_metadata"] = _userMetadata
+		params["app_metadata"] = _appMetadata
 		params["username"] = username
 		params["phone"] = phone
 
