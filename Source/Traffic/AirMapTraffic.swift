@@ -84,20 +84,23 @@ extension AirMapTraffic: Mappable {
 extension AirMapTraffic {
 
 	public override var description: String {
+		
+		let usesMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem)!.boolValue!
+		let alt = usesMetric ? "\(Int(altitude)) m" : "\(Int(AirMapTrafficServiceUtils.metersToFeet(altitude))) ft"
 
 		if let flightLocation = AirMap.trafficService.currentFlightLocation() {
 
 			let trafficLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
 			let direction = flightLocation.initialDirectionToLocation(trafficLocation)
 			let distance = trafficLocation.distanceFromLocation(flightLocation)
-			let miles = AirMapTrafficServiceUtils.metersToMiles(distance)
+			let milesOrMeters = usesMetric ?  "\(distance) m" : "\(AirMapTrafficServiceUtils.metersToMiles(distance)) mi"
 			let seconds = AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt)
 			let (_, m, s) = seconds.secondsToHoursMinutesSeconds()
 			let trafficTitle = properties.aircraftId == nil ? "Traffic" : "\(properties.aircraftId)"
-
-			return "Traffic \(trafficTitle)\n\(miles) mi \(direction) \(m) min \(s) sec"
+			
+			return "Traffic \(trafficTitle)\nAltitude \(alt)\n\(milesOrMeters) \(direction) \(m) min \(s) sec"
 		}
 
-		return "Traffic \(properties.aircraftId)\n\(Int(groundSpeedKt))kts \(String.coordinateString(coordinate.latitude, longitude:coordinate.longitude) )"
+		return "Traffic \(properties.aircraftId)\nAltitude \(alt)\n\(Int(groundSpeedKt))kts \(String.coordinateString(coordinate.latitude, longitude:coordinate.longitude) )"
 	}
 }
