@@ -32,4 +32,13 @@ public class AirMapTrafficServiceUtils {
 
 		return meters * 0.000621369647819236
 	}
+	
+	class func metersToFeet(meters: Double, rounded: Bool = true) -> Double {
+		
+		if rounded {
+			return (round((meters * 0.3048) * 10) / 10)
+		}
+		
+		return meters * 0.3048
+	}
 }
