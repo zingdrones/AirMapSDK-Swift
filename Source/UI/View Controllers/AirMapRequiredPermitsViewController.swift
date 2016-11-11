@@ -172,6 +172,15 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	
 	// MARK: - Instance Methods
 	
+	@IBAction func next() {
+		
+		if status.value!.supportsDigitalNotice {
+			performSegueWithIdentifier("pushFlightNotice", sender: self)
+		} else {
+			performSegueWithIdentifier("pushReview", sender: self)
+		}
+	}
+	
 	private func sectionModels(status: AirMapStatus?, existingPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [SectionData] {
 		
 		guard let status = status else { return [] }
