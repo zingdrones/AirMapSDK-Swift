@@ -15,7 +15,7 @@
             <objects>
                 <navigationController id="V2h-jW-mVn" customClass="AirMapFlightPlanNavigationController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="dCI-yu-ww5" customClass="AirMapNavBar" customModule="AirMap" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="dCI-yu-ww5" customClass="AirMapNavBar" customModule="AirMap" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -691,7 +691,7 @@ Line two details would be here.</string>
         <scene sceneID="R0J-K9-qwi">
             <objects>
                 <navigationController id="EhR-xH-Seh" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="lzy-Bt-lcK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="lzy-Bt-lcK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2730,7 +2730,7 @@ AirMap will send you a text message when your digital notice has been successful
             <objects>
                 <navigationController storyboardIdentifier="FAQNav" id="Un5-Qe-RYq" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="ncB-Al-mu8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ncB-Al-mu8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2766,9 +2766,9 @@ AirMap will send you a text message when your digital notice has been successful
         <image name="point_flight_icon_selected" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Owu-ph-Mkk"/>
-        <segue reference="QYw-DI-GTL"/>
         <segue reference="EBb-de-rWY"/>
+        <segue reference="6pN-j9-ln7"/>
+        <segue reference="QYw-DI-GTL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

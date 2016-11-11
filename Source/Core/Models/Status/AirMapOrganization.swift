@@ -14,6 +14,10 @@ public class AirMapOrganization: NSObject {
 	public private(set) var name: String = ""
 	
 	public required init?(_ map: Map) {}
+	
+	override public var hashValue: Int {
+		return id.hashValue
+	}
 }
 
 extension AirMapOrganization: Mappable {

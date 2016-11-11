@@ -33,6 +33,19 @@ import ObjectMapper
 	internal override init() {
 		super.init()
 	}
+	
+	override public var hashValue: Int {
+		return id.hashValue
+	}
+	
+	override public func isEqual(object: AnyObject?) -> Bool {
+		if let permit = object as? AirMapPilotPermit {
+			return permit == self
+		} else {
+			return false
+		}
+	}
+
 }
 
 public func ==(lhs: AirMapPilotPermit, rhs: AirMapPilotPermit) -> Bool {
@@ -41,10 +54,6 @@ public func ==(lhs: AirMapPilotPermit, rhs: AirMapPilotPermit) -> Bool {
 	} else {
 		return lhs.id == rhs.id
 	}
-}
-
-public func ==(lhs: AirMapAvailablePermit, rhs: AirMapPilotPermit) -> Bool {
-	return lhs.id == rhs.permitId
 }
 
 extension AirMapPilotPermit: Mappable {

@@ -46,7 +46,7 @@ import ObjectMapper
 	}
 	
 	public var numberOfRequiredPermits: Int {
-		return organizations.count
+		return availablePermits.count
 	}
 
 	public var numberOfNoticesRequired: Int {

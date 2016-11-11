@@ -194,7 +194,7 @@ class AirMapFlightPlanViewController: UIViewController {
 			.map {
 				let advisories = $0?.advisories ?? []
 				let requirements = advisories.map { $0.requirements }.flatMap { $0 }
-				let hasNextSteps = requirements.count > 0
+				let hasNextSteps = requirements.count > 0 || $0?.numberOfRequiredPermits > 0
 				return hasNextSteps ? "Next" : "Save"
 			}
 			.subscribeNext { [unowned self] title in
