@@ -100,6 +100,7 @@ class AirMapFlightNoticeViewController: UIViewController {
 	}
 	
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+		
 		if identifier == "pushReview" {
 			let verified = navigationController!.flight.value.pilot!.phoneVerified
 			let submitDigitalNotice = submitNoticeSwitch.on

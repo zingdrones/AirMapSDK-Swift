@@ -49,6 +49,7 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 			let indexPath = tableView.indexPathForCell(cell)!
 			let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
 			permitVC.permit = Variable(dataSource.itemAtIndexPath(indexPath).availablePermit)
+			permitVC.organization = organization
 		default:
 			break
 		}
@@ -105,16 +106,18 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 			.map(rowData(existingPermits + draftPermits))
 			.sort(availablePermitNameAscending)
 		
-		return [
+		let sections = [
 			SectionData(model: .Existing, items: data.filter(isApplicable).filter(isIssued)),
 			SectionData(model: .Available, items: data.filter(isApplicable).filter(isNotIssued)),
 			SectionData(model: .Unavailable, items: data.filter(isUnapplicable))
 		]
+		
+		return sections.filter { $0.items.count > 0 }
 	}
 	
-	private func rowData(pilotPermits: [AirMapPilotPermit]) -> (AirMapAvailablePermit) -> RowData {
+	private func rowData(pilotPermits: [AirMapPilotPermit]) -> AirMapAvailablePermit -> RowData {
 		return { availablePermit in
-			let pilotPermit = pilotPermits.filter { $0 == availablePermit }.first
+			let pilotPermit = pilotPermits.filter { $0.permitId == availablePermit.id }.first
 			return RowData(availablePermit, pilotPermit)
 		}
 	}
@@ -132,7 +135,6 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	}
 	
 	private func isApplicable(row: RowData) -> Bool {
-		
 		return status.applicablePermitsFor(organization)
 			.filter { $0.id == row.availablePermit.id }
 			.count > 0

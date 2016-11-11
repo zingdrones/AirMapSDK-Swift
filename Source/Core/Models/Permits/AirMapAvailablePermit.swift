@@ -40,6 +40,19 @@ import ObjectMapper
 		guard let minutes = validForInMinutes else { return nil }
 		return AirMapAvailablePermit.validityFormatter.stringFromTimeInterval(NSTimeInterval(minutes * 60))
 	}
+	
+	override public var hashValue: Int {
+		return id.hashValue
+	}
+	
+	override public func isEqual(object: AnyObject?) -> Bool {
+		if let permit = object as? AirMapAvailablePermit {
+			return permit == self
+		} else {
+			return false
+		}
+	}
+
 }
 
 extension AirMapAvailablePermit: Mappable {
@@ -72,13 +85,6 @@ extension AirMapAvailablePermit: Mappable {
 		params["id"] = id
 		params["custom_properties"] = customProperties.toJSON()
 		return params
-	}
-}
-
-extension AirMapAvailablePermit {
-	
-	public override var hashValue: Int {
-		return id.hashValue
 	}
 }
 

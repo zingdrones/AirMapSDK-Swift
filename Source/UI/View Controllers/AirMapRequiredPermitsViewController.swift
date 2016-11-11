@@ -80,6 +80,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		
 		let permitVC = segue.sourceViewController as! AirMapAvailablePermitViewController
 		let availablePermit = permitVC.permit.value
+		let organization = permitVC.organization
 		
 		// Create a new draft pilot permit from the available permit and custom properties
 		let draftPermit = AirMapPilotPermit()
@@ -87,9 +88,24 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		draftPermit.customProperties = permitVC.customProperties
 		
 		// If new permit doesn't already exist in drafts or existing permits, add to drafts
-		if !draftPermits.value.contains(draftPermit) && !existingPermits.value.contains(draftPermit) {
+		let isExisting = (existingPermits.value + draftPermits.value)
+			.filter { $0.permitId == draftPermit.permitId }
+			.count > 0
+		
+		if !isExisting {
 			draftPermits.value.append(draftPermit)
 		}
+		
+		// Select permit if it isn't already selected
+		let isSelected = selectedPermits.value
+			.filter { $0.permit.id == draftPermit.permitId }
+			.count > 0
+		
+		if !isSelected {
+			selectedPermits.value.append((organization, availablePermit, draftPermit))
+		}
+		
+		tableView.reloadData()
 	}
 	
 	// MARK: - Setup
@@ -155,6 +171,15 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	}
 	
 	// MARK: - Instance Methods
+	
+	@IBAction func next() {
+		
+		if status.value!.supportsDigitalNotice {
+			performSegueWithIdentifier("pushFlightNotice", sender: self)
+		} else {
+			performSegueWithIdentifier("pushReview", sender: self)
+		}
+	}
 	
 	private func sectionModels(status: AirMapStatus?, existingPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [SectionData] {
 		

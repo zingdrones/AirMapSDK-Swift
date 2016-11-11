@@ -97,10 +97,10 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 		if let status = navigationController?.status.value {
 			
-			if status.numberOfRequiredPermits > 0 {
+			if status.requiresPermits {
 				embeddedViews.append((title: "Permits", view: permitsView))
 			}
-			if status.numberOfNoticesRequired > 0 {
+			if status.supportsDigitalNotice {
 				embeddedViews.append((title: "Notices", view: noticesView))
 			}
 			

@@ -41,16 +41,16 @@ import ObjectMapper
 	
 	public required init(_ map: Map) {}
 
-	public var availablePermits: [AirMapAvailablePermit] {
-		return advisories.flatMap { $0.availablePermits }
+	public var requiresPermits: Bool {
+		return availablePermits.count > 0
 	}
 	
-	public var numberOfRequiredPermits: Int {
-		return organizations.count
+	public var supportsDigitalNotice: Bool {
+		return advisories.flatMap { $0.requirements?.notice }.count > 0
 	}
-
-	public var numberOfNoticesRequired: Int {
-		return advisories.flatMap { $0.requirements?.notice }.count
+	
+	public var availablePermits: [AirMapAvailablePermit] {
+		return Array(Set(advisories.flatMap { $0.availablePermits }))
 	}
 	
 	public func availablePermitsFor(organization: AirMapOrganization) -> [AirMapAvailablePermit] {
