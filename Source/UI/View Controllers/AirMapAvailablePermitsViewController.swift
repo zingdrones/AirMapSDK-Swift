@@ -11,24 +11,20 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-/// Displays a list of exisiting, available, and unavailable permits for a specific organization
+/// Displays a list of existing, available, and unavailable permits for a specific organization
 class AirMapAvailablePermitsViewController: UITableViewController {
 	
-	var advisory: AirMapStatusAdvisory! {
-		didSet {
-			navigationItem.title = advisory.name
-			requiredPermits.value = advisory.requirements?.permitsAvailable ?? []
-		}
+	var status: AirMapStatus!
+	var existingPermits: [AirMapPilotPermit]!
+	var draftPermits: [AirMapPilotPermit]!	
+	var organization: AirMapOrganization! {
+		didSet { navigationItem.title = organization.name }
 	}
-
-	var draftPermits: Variable<[AirMapPilotPermit]>!
-	var pilotPermits: Variable<[AirMapPilotPermit]>!
-	private let requiredPermits = Variable([AirMapAvailablePermit]())
 	
-	private typealias RowType = (requiredPermit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit?)
-	private typealias SectionType = SectionModel<PermitStatus, RowType>
+	private typealias RowData = (availablePermit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit?)
+	private typealias SectionData = SectionModel<PermitStatus, RowData>
 
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionType>()
+	private let dataSource = RxTableViewSectionedReloadDataSource<SectionData>()
 	private let disposeBag = DisposeBag()
 	
 	private enum PermitStatus {
@@ -53,7 +49,7 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 			let cell = sender as! UITableViewCell
 			let indexPath = tableView.indexPathForCell(cell)!
 			let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
-			permitVC.permit = Variable(dataSource.itemAtIndexPath(indexPath).requiredPermit)
+			permitVC.permit = Variable(dataSource.itemAtIndexPath(indexPath).availablePermit)
 		default:
 			break
 		}
@@ -70,7 +66,6 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, row in
-			
 			let cell: AirMapPilotPermitCell
 			switch dataSource.sectionAtIndex(indexPath.section).model {
 			case .Existing:
@@ -98,47 +93,51 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	
 	private func setupBindings() {
 		
-		Driver.combineLatest(requiredPermits.asDriver(), pilotPermits.asDriver(), draftPermits.asDriver(), resultSelector: permitData)
-			.map(sectionModel)
+		Driver.of(sectionModel(status, existingPermits: existingPermits, draftPermits: draftPermits))
 			.drive(tableView.rx_itemsWithDataSource(dataSource))
 			.addDisposableTo(disposeBag)
 	}
 	
 	// MARK: - Helper Functions
 	
-	private func permitData(requiredPermits: [AirMapAvailablePermit], pilotPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [RowType] {
+	private func sectionModel(status: AirMapStatus, existingPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [SectionData] {
 		
-		return requiredPermits
-			.map { requiredPermit in
-				let pilotPermit = (pilotPermits + draftPermits).filter { $0.permitId == requiredPermit.id }.first
-				return RowType(requiredPermit: requiredPermit, pilotPermit: pilotPermit)
-			}
-			.sort { $0.0.requiredPermit.name < $0.1.requiredPermit.name }
-	}
-	
-	private func sectionModel(permits: [RowType]) -> [SectionType] {
+		let data = status.availablePermitsFor(organization)
+			.map(rowData(existingPermits + draftPermits))
+			.sort(availablePermitNameAscending)
 		
 		return [
-			SectionType(model: .Existing, items: permits.filter(isApplicable).filter(isIssued)),
-			SectionType(model: .Available, items: permits.filter(isApplicable).filter(isNotIssued)),
-			SectionType(model: .Unavailable, items: permits.filter(isUnapplicable))
+			SectionData(model: .Existing, items: data.filter(isApplicable).filter(isIssued)),
+			SectionData(model: .Available, items: data.filter(isApplicable).filter(isNotIssued)),
+			SectionData(model: .Unavailable, items: data.filter(isUnapplicable))
 		]
 	}
 	
-	private func isIssued(row: RowType) -> Bool {
+	private func rowData(pilotPermits: [AirMapPilotPermit]) -> (AirMapAvailablePermit) -> RowData {
+		return { availablePermit in
+			let pilotPermit = pilotPermits.filter { $0.permitId == availablePermit.id }.first
+			return RowData(availablePermit, pilotPermit)
+		}
+	}
+	
+	private func availablePermitNameAscending(lhs: RowData, rhs: RowData) -> Bool {
+		return lhs.availablePermit.name < rhs.availablePermit.name
+	}
+	
+	private func isIssued(row: RowData) -> Bool {
 		return row.pilotPermit != nil
 	}
 	
-	private func isNotIssued(row: RowType) -> Bool {
+	private func isNotIssued(row: RowData) -> Bool {
 		return !isIssued(row)
 	}
 	
-	private func isApplicable(row: RowType) -> Bool {
-		return row.requiredPermit.isApplicable
+	private func isApplicable(row: RowData) -> Bool {
+		return status.applicablePermits.contains(row.availablePermit)
 	}
 	
-	private func isUnapplicable(row: RowType) -> Bool {
-		return !row.requiredPermit.isApplicable
+	private func isUnapplicable(row: RowData) -> Bool {
+		return !isApplicable(row)
 	}
 	
 }

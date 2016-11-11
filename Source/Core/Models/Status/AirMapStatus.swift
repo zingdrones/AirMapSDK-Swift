@@ -32,35 +32,50 @@ import ObjectMapper
 		}
 	}
 
-	public var maxSafeDistance = 0
-	public var advisoryColor = StatusColor.Gray
-	public var advisories = [AirMapStatusAdvisory]()
-	public var weather: AirMapStatusWeather?
-
+	public private(set) var maxSafeDistance = 0
+	public private(set) var advisoryColor = StatusColor.Gray
+	public private(set) var advisories = [AirMapStatusAdvisory]()
+	public private(set) var applicablePermits = [AirMapAvailablePermit]()
+	public private(set) var organizations = [AirMapOrganization]()
+	public private(set) var weather: AirMapStatusWeather?
+	
 	public required init(_ map: Map) {}
 
+	public var availablePermits: [AirMapAvailablePermit] {
+		return advisories.flatMap { $0.availablePermits }
+	}
 	public var numberOfRequiredPermits: Int {
-		return advisories
-			.map { $0.requirements?.permitsAvailable ?? [] }
-			.flatMap { $0 }
-			.count
+		return organizations.count
 	}
 
 	public var numberOfNoticesRequired: Int {
-		return advisories
-			.map { $0.requirements?.notice }
-			.flatMap { $0 }
-			.count
+		return advisories.flatMap { $0.requirements?.notice }.count
 	}
-
+	
+	public func availablePermitsFor(organization: AirMapOrganization) -> [AirMapAvailablePermit] {
+		return availablePermits.filter {
+			$0.organizationId == organization.id
+		}
+	}
+	
+	public func applicablePermitsFor(organization: AirMapOrganization) -> [AirMapAvailablePermit] {
+		return applicablePermits.filter {
+			$0.organizationId == organization.id
+		}
+	}
 }
 
 extension AirMapStatus: Mappable {
 
 	public func mapping(map: Map) {
+		organizations   <- map["organizations"]
 		maxSafeDistance <- map["max_safe_distance"]
 		advisories      <- map["advisories"]
 		weather         <- map["weather"]
 		advisoryColor   <- map["advisory_color"]
+		
+		advisories.forEach { advisory in
+			advisory.organization = organizations.filter { $0.id == advisory.organizationId }.first
+		}
 	}
 }

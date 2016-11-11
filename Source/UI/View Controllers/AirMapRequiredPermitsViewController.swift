@@ -17,16 +17,15 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var nextButton: UIButton!
 	
-	private var permittableAdvisories = Variable([AirMapStatusAdvisory]())
+	var status: Variable<AirMapStatus?> {
+		return navigationController!.status
+	}
 	
 	override var navigationController: AirMapFlightPlanNavigationController? {
 		return super.navigationController as? AirMapFlightPlanNavigationController
 	}
-	/// The permits that are collectively required by all organizations in the flight area
-	private var requiredPermits: Variable<[AirMapAvailablePermit]> {
-		return navigationController!.requiredPermits
-	}
-	/// The valid permits the user already holds
+
+	/// Valid permits the user already holds
 	private var existingPermits: Variable<[AirMapPilotPermit]> {
 		return navigationController!.existingPermits
 	}
@@ -35,12 +34,13 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		return navigationController!.draftPermits
 	}
 	/// The permits that user has selected in order to advance to the next step of the flow
-	private var selectedPermits: Variable<[(advisory: AirMapStatusAdvisory, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]> {
+	private var selectedPermits: Variable<[(organization: AirMapOrganization, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]> {
 		return navigationController!.selectedPermits
 	}
 
-	private typealias RowData = (advisory: AirMapStatusAdvisory, availablePermit: AirMapAvailablePermit?, pilotPermit: AirMapPilotPermit?)
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<AirMapStatusAdvisory, RowData>>()
+	private typealias SectionData = SectionModel<AirMapOrganization, RowData>
+	private typealias RowData = (organization: AirMapOrganization, availablePermit: AirMapAvailablePermit?, pilotPermit: AirMapPilotPermit?)
+	private let dataSource = RxTableViewSectionedReloadDataSource<SectionData>()
 	private let activityIndicator = ActivityIndicator()
 	private let disposeBag = DisposeBag()
 	
@@ -64,9 +64,10 @@ class AirMapRequiredPermitsViewController: UIViewController {
 			let indexPath = tableView.indexPathForCell(cell)!
 			let nav = segue.destinationViewController as! UINavigationController
 			let availablePermitsVC = nav.viewControllers.first as! AirMapAvailablePermitsViewController
-			availablePermitsVC.advisory = dataSource.itemAtIndexPath(indexPath).advisory
-			availablePermitsVC.pilotPermits = existingPermits
-			availablePermitsVC.draftPermits = draftPermits
+			availablePermitsVC.status = status.value!
+			availablePermitsVC.organization = dataSource.itemAtIndexPath(indexPath).organization
+			availablePermitsVC.existingPermits = existingPermits.value
+			availablePermitsVC.draftPermits = draftPermits.value
 
 		default:
 			break
@@ -78,7 +79,6 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	@IBAction func unwindFromPermitSelection(segue: UIStoryboardSegue) {
 		
 		let permitVC = segue.sourceViewController as! AirMapAvailablePermitViewController
-//		let advisory = permitVC.advisory
 		let availablePermit = permitVC.permit.value
 		
 		// Create a new draft pilot permit from the available permit and custom properties
@@ -90,14 +90,6 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		if !draftPermits.value.contains(draftPermit) && !existingPermits.value.contains(draftPermit) {
 			draftPermits.value.append(draftPermit)
 		}
-
-		
-//		selectedPermits
-//		if selectedPermits.value.map { $0.permitId }
-//		
-//		let matchingSelectedAdvisoryPermits = selectedPermits.value
-//			.filter { $0.permitId == draftPermit.permitId }
-		
 	}
 	
 	// MARK: - Setup
@@ -126,16 +118,15 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	
 	private func setupBindings() {
 		
-		Driver.combineLatest(requiredPermits.asDriver(), existingPermits.asDriver(), draftPermits.asDriver(), permittableAdvisories.asDriver()) { ($0, $1, $2, $3) }
-			.map(unowned(self, AirMapRequiredPermitsViewController.sectionModels))
+		Driver.combineLatest(status.asDriver(), existingPermits.asDriver(), draftPermits.asDriver(), resultSelector: sectionModels)
 			.drive(tableView.rx_itemsWithDataSource(dataSource))
 			.addDisposableTo(disposeBag)
 		
-		Driver.combineLatest(selectedPermits.asDriver(), permittableAdvisories.asDriver()) { ($0, $1) }
-			.doOnNext { [weak self] selected, advisories in
-				self?.permitComplianceStatus.text = "You have selected \(selected.count) of \(advisories.count) required permits"
+		Driver.combineLatest(selectedPermits.asDriver(), status.asDriver()) { ($0, $1) }
+			.doOnNext { [weak self] selected, status in
+				self?.permitComplianceStatus.text = "You have selected \(selected.count) of \(status!.organizations.count) required permits"
 			}
-			.map { $0.count == $1.count }
+			.map { $0.count == $1?.organizations.count }
 			.drive(nextButton.rx_enabled)
 			.addDisposableTo(disposeBag)
 		
@@ -154,13 +145,6 @@ class AirMapRequiredPermitsViewController: UIViewController {
 			.map(unowned(self, AirMapRequiredPermitsViewController.filterOutInvalidPermits))
 			.bindTo(existingPermits)
 			.addDisposableTo(disposeBag)
-
-		permittableAdvisories.value = navigationController!.status.value!.advisories.filter { advisory in
-			advisory.requirements?.permitsAvailable.count > 0
-		}
-		
-		requiredPermits.value = permittableAdvisories.value
-			.flatMap { $0.requirements!.permitsAvailable }
 	}
 	
 	private func filterOutInvalidPermits(permits: [AirMapPilotPermit]) -> [AirMapPilotPermit] {
@@ -170,30 +154,38 @@ class AirMapRequiredPermitsViewController: UIViewController {
 			.filter { $0.status != .Rejected }
 	}
 	
-	func availablePermit(from permit: AirMapPilotPermit) -> AirMapAvailablePermit? {
-		return requiredPermits.value.filter { $0.id == permit.permitId }.first
-	}
-	
 	// MARK: - Instance Methods
 	
-	private func sectionModels(requiredPermits: [AirMapAvailablePermit], existingPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit], advisories: [AirMapStatusAdvisory]) -> [SectionModel<AirMapStatusAdvisory, RowData>] {
+	private func sectionModels(status: AirMapStatus?, existingPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [SectionData] {
 		
-		return advisories.map { advisory in
+		guard let status = status else { return [] }
+		
+		return status.organizations.map { organization -> SectionData in
+
+			// Get all available permits for organization
+			let availablePermits = status.advisories
+				.filter { $0.organization == organization }
+				.flatMap { $0.availablePermits }
+			
+			// Find a permit
+			func availablePermit(from permit: AirMapPilotPermit) -> AirMapAvailablePermit? {
+				return availablePermits.filter { $0.id == permit.permitId }.first
+			}
 			
 			// Existing permits from the user's permit wallet
 			let existingPermitRows: [RowData] = existingPermits
-				.filter { requiredPermits.map{ $0.id }.contains($0.permitId) }
-				.map { (advisory: advisory, availablePermit: availablePermit(from: $0), pilotPermit: $0) }
+				.filter { availablePermits.map { $0.id }.contains($0.permitId) }
+				.map { pilotPermit in (organization, availablePermit(from: pilotPermit), pilotPermit) }
 			
 			// All new permits that have been drafted during this flow
 			let draftPermitRows: [RowData] = draftPermits
-				.filter { requiredPermits.map{ $0.id }.contains($0.permitId) }
-				.map { (advisory: advisory, availablePermit: availablePermit(from: $0), pilotPermit: $0) }
+				.filter { availablePermits.map{ $0.id }.contains($0.permitId) }
+				.map { pilotPermit in (organization, availablePermit(from: pilotPermit), pilotPermit) }
 			
 			// A new row for selecting a permit not perviously drafted or acquired
-			let newPermitRow: RowData = (advisory: advisory, availablePermit: nil, pilotPermit: nil)
+			let newPermitRow: RowData = (organization: organization, availablePermit: nil, pilotPermit: nil)
 			
-			return SectionModel(model: advisory, items: existingPermitRows + draftPermitRows + [newPermitRow])
+			return SectionData(model: organization, items: existingPermitRows + draftPermitRows + [newPermitRow])
 		}
 	}
 	
@@ -223,10 +215,10 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 		
 		guard
 			let row = try? dataSource.modelAtIndexPath(indexPath) as? RowData,
-			let rowAdvisory = row?.advisory,
+			let rowOrganization = row?.organization,
 			let pilotPermit = row?.pilotPermit else { return }
 		
-		if selectedPermits.value.filter ({$0.pilotPermit === pilotPermit && $0.advisory === rowAdvisory }).first != nil {
+		if selectedPermits.value.filter ({$0.pilotPermit == pilotPermit && $0.organization == rowOrganization }).first != nil {
 			cell.imageView?.highlighted = true
 		} else {
 			cell.imageView?.highlighted = false
@@ -237,23 +229,22 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 				
 		tableView.deselectRowAtIndexPath(indexPath, animated: false)
 		
-		if let row = try? dataSource.modelAtIndexPath(indexPath) as? RowData,
-			let rowAdvisory = row?.advisory,
-			let pilotPermit = row?.pilotPermit {
+		if let model = try? dataSource.modelAtIndexPath(indexPath),
+			let row = model as? RowData,
+			let pilotPermit = row.pilotPermit {
 			
 			let cell = tableView.cellForRowAtIndexPath(indexPath)
 			
-			if let alreadySelectedPermit = selectedPermits.value.filter({$0.permit === pilotPermit && $0.advisory === rowAdvisory}).first {
+			if let alreadySelectedPermit = selectedPermits.value.filter({$0.permit == pilotPermit && $0.organization == row.organization}).first {
 				selectedPermits.value = selectedPermits.value.filter { $0.permit !== alreadySelectedPermit.permit }
 				cell?.imageView?.highlighted = false
 			} else {
 				uncheckRowsInSection(indexPath.section)
-				if let previousSelectedAdvisoryPermit = selectedPermits.value.filter({$0.advisory.id == rowAdvisory.id}).first {
-					selectedPermits.value = selectedPermits.value.filter { $0 != previousSelectedAdvisoryPermit }
+				if let previousSelectedOrgPermit = selectedPermits.value.filter({$0.organization.id == row.organization.id}).first {
+					selectedPermits.value = selectedPermits.value.filter { $0 != previousSelectedOrgPermit }
 				}
 				
-				let availablePermit = requiredPermits.value.filter {$0.id == pilotPermit.permitId }.first!
-				selectedPermits.value.append((advisory: rowAdvisory, permit: availablePermit, pilotPermit: pilotPermit))
+				selectedPermits.value.append((organization: row.organization, permit: row.availablePermit!, pilotPermit: pilotPermit))
 				cell?.imageView?.highlighted = true
 			}
 		}

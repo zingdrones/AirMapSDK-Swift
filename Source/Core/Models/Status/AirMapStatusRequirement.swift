@@ -12,7 +12,6 @@ import ObjectMapper
 	
 	public var id: String!
 	public var notice: AirMapStatusRequirementNotice?
-	public var permitsAvailable = [AirMapAvailablePermit]()
 
 	public required init?(_ map: Map) {}
 }
@@ -21,6 +20,5 @@ extension AirMapStatusRequirements: Mappable {
 	
 	public func mapping(map: Map) {
 		notice              <-  map["notice"]
-		permitsAvailable    <-  map["permits_available"]
 	}
 }

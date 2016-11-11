@@ -176,7 +176,6 @@ class AirMapFlightPlanViewController: UIViewController {
 		let flight = navigationController!.flight
 		let status = navigationController!.status
 		let shareFlight = navigationController!.shareFlight
-		let requiredPermits = navigationController!.requiredPermits
 
 		altitude.asObservable()
 			.subscribeNext { flight.value.maxAltitude = $0 }
@@ -201,17 +200,6 @@ class AirMapFlightPlanViewController: UIViewController {
 			.subscribeNext { [unowned self] title in
 				self.nextButton.setTitle(title, forState: .Normal)
 			}
-			.addDisposableTo(disposeBag)
-
-		status.asObservable()
-			.unwrap()
-			.map { $0.advisories
-				// Bind all required permits
-				.map { $0.requirements?.permitsAvailable }
-				.flatMap { $0 }
-				.flatMap { $0 } ?? []
-			}
-			.bindTo(requiredPermits)
 			.addDisposableTo(disposeBag)
 
 		shareFlight.asObservable()

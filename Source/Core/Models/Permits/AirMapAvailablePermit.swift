@@ -10,16 +10,15 @@ import ObjectMapper
 
 @objc public class AirMapAvailablePermit: NSObject {
 
-	public var id = ""
-	public var organizationId = ""
-	public var name = ""
-	public var info = ""
-	public var infoUrl = ""
-	public var singleUse: Bool = false
-	public var isApplicable: Bool = false
-	public var validForInMinutes: Int?
-	public var validUntil: NSDate?
-	public var customProperties = [AirMapPilotPermitCustomProperty]()
+	public private(set) var id = ""
+	public private(set) var organizationId = ""
+	public private(set) var name = ""
+	public private(set) var info = ""
+	public private(set) var infoUrl = ""
+	public private(set) var singleUse: Bool = false
+	public private(set) var validForInMinutes: Int?
+	public private(set) var validUntil: NSDate?
+	public private(set) var customProperties = [AirMapPilotPermitCustomProperty]()
 	
 	internal override init() {
 		super.init()
@@ -54,7 +53,6 @@ extension AirMapAvailablePermit: Mappable {
 		info                <-  map["description"]
 		infoUrl             <-  map["description_url"]
 		singleUse           <-  map["single_use"]
-		isApplicable        <-  map["applicable"]
 		validForInMinutes   <-  map["valid_for"]
 		validUntil          <- (map["valid_until"], dateTransform)
 		customProperties    <-  map["custom_properties"]

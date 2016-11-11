@@ -12,12 +12,13 @@ import RxDataSources
 
 class AirMapReviewPermitsViewController: UIViewController {
 	
-	let selectedPermits = Variable([(advisory: AirMapStatusAdvisory, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]())
+	let selectedPermits = Variable([(organization: AirMapOrganization, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]())
 	
 	@IBOutlet var tableView: UITableView!
 	
+	private typealias SectionData = SectionModel<AirMapOrganization, RowData>
 	private typealias RowData = (permit: AirMapAvailablePermit?, pilotPermit: AirMapPilotPermit?, name: String, value: String?)
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<AirMapStatusAdvisory,RowData>>()
+	private let dataSource = RxTableViewSectionedReloadDataSource<SectionData>()
 	private let disposeBag = DisposeBag()
 	
 	override func viewDidLoad() {
@@ -62,11 +63,11 @@ class AirMapReviewPermitsViewController: UIViewController {
 			let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
 			permitVC.mode = .Review
 			permitVC.permit = Variable(rowData.permit!)
-			permitVC.advisory = section.model
+			permitVC.organization = section.model
 		}
 	}
 	
-	private func permitsToSectionModels(permits: [(advisory: AirMapStatusAdvisory, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]) -> [SectionModel<AirMapStatusAdvisory, RowData>] {
+	private func permitsToSectionModels(permits: [(organization: AirMapOrganization, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]) -> [SectionData] {
 
 		return permits.map { permit in
 			
@@ -75,7 +76,7 @@ class AirMapReviewPermitsViewController: UIViewController {
 			let customPropertyRows = permit.pilotPermit.customProperties.map { property -> RowData in
 				(nil, nil, property.label, property.value)
 			}
-			return SectionModel(model: permit.advisory, items: [permitRow] + customPropertyRows)
+			return SectionData(model: permit.organization, items: [permitRow] + customPropertyRows)
 		}
 	}
 

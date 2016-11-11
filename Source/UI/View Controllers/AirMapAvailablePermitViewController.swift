@@ -21,7 +21,7 @@ class AirMapAvailablePermitViewController: UITableViewController {
 	@IBOutlet weak var doneButton: UIButton!
 	
 	var permit: Variable<AirMapAvailablePermit>!
-	var advisory: AirMapStatusAdvisory!
+	var organization: AirMapOrganization!
 	var mode = Mode.Select
 	
 	var customProperties: [AirMapPilotPermitCustomProperty] {
