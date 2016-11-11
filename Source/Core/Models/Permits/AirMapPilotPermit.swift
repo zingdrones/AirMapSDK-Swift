@@ -36,13 +36,16 @@ import ObjectMapper
 }
 
 public func ==(lhs: AirMapPilotPermit, rhs: AirMapPilotPermit) -> Bool {
-	if lhs.id.isEmpty && rhs.id.isEmpty {
+	if lhs.id.isEmpty || rhs.id.isEmpty {
 		return lhs.permitId == rhs.permitId
 	} else {
 		return lhs.id == rhs.id
 	}
 }
 
+public func ==(lhs: AirMapAvailablePermit, rhs: AirMapPilotPermit) -> Bool {
+	return lhs.id == rhs.permitId
+}
 
 extension AirMapPilotPermit: Mappable {
 

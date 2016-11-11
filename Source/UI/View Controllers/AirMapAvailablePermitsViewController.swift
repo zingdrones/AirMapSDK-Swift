@@ -17,9 +17,7 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	var status: AirMapStatus!
 	var existingPermits: [AirMapPilotPermit]!
 	var draftPermits: [AirMapPilotPermit]!	
-	var organization: AirMapOrganization! {
-		didSet { navigationItem.title = organization.name }
-	}
+	var organization: AirMapOrganization!
 	
 	private typealias RowData = (availablePermit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit?)
 	private typealias SectionData = SectionModel<PermitStatus, RowData>
@@ -38,6 +36,7 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		
+		navigationItem.title = organization.name
 		setupTable()
 		setupBindings()
 	}
@@ -115,7 +114,7 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	
 	private func rowData(pilotPermits: [AirMapPilotPermit]) -> (AirMapAvailablePermit) -> RowData {
 		return { availablePermit in
-			let pilotPermit = pilotPermits.filter { $0.permitId == availablePermit.id }.first
+			let pilotPermit = pilotPermits.filter { $0 == availablePermit }.first
 			return RowData(availablePermit, pilotPermit)
 		}
 	}
@@ -133,7 +132,10 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 	}
 	
 	private func isApplicable(row: RowData) -> Bool {
-		return status.applicablePermits.contains(row.availablePermit)
+		
+		return status.applicablePermitsFor(organization)
+			.filter { $0.id == row.availablePermit.id }
+			.count > 0
 	}
 	
 	private func isUnapplicable(row: RowData) -> Bool {

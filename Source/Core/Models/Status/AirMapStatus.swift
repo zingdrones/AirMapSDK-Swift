@@ -44,6 +44,7 @@ import ObjectMapper
 	public var availablePermits: [AirMapAvailablePermit] {
 		return advisories.flatMap { $0.availablePermits }
 	}
+	
 	public var numberOfRequiredPermits: Int {
 		return organizations.count
 	}
@@ -68,14 +69,18 @@ import ObjectMapper
 extension AirMapStatus: Mappable {
 
 	public func mapping(map: Map) {
-		organizations   <- map["organizations"]
-		maxSafeDistance <- map["max_safe_distance"]
-		advisories      <- map["advisories"]
-		weather         <- map["weather"]
-		advisoryColor   <- map["advisory_color"]
+		organizations     <- map["organizations"]
+		maxSafeDistance   <- map["max_safe_distance"]
+		advisories        <- map["advisories"]
+		weather           <- map["weather"]
+		advisoryColor     <- map["advisory_color"]
+		applicablePermits <- map["applicable_permits"]
 		
 		advisories.forEach { advisory in
 			advisory.organization = organizations.filter { $0.id == advisory.organizationId }.first
+			advisory.availablePermits.forEach { permit in
+				permit.organizationId = advisory.organizationId!
+			}
 		}
 	}
 }
