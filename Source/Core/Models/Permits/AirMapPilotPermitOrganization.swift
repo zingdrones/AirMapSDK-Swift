@@ -1,5 +1,5 @@
 //
-//  AirMapPilotPermitIssuer.swift
+//  AirMapPilotPermitOrganization.swift
 //  Pods
 //
 //  Created by Rocky Demoff on 11/8/16.
@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-@objc public class AirMapPilotPermitIssuer: NSObject {
+@objc public class AirMapPilotPermitOrganization: NSObject {
 	
 	public var id = ""
 	public var name = ""
@@ -20,7 +20,7 @@ import ObjectMapper
 	public required init?(_ map: Map) {}
 }
 
-extension AirMapPilotPermitIssuer: Mappable {
+extension AirMapPilotPermitOrganization: Mappable {
 	
 	public func mapping(map: Map) {
 		

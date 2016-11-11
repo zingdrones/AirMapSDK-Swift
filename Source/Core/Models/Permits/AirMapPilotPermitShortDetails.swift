@@ -25,8 +25,8 @@ extension AirMapPilotPermitShortDetails: Mappable {
 
 	public func mapping(map: Map) {
 
-		name				<-  map["name"]
+		name				<- map["name"]
 		permitDescription	<- map["description"]
-		singleUse			<-  map["single_use"]
+		singleUse			<- map["single_use"]
 	}
 }

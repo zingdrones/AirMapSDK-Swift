@@ -26,7 +26,7 @@ import ObjectMapper
 	public var expiresAt: NSDate!
 	public var customProperties = [AirMapPilotPermitCustomProperty]()
 	public var permitDetails: AirMapPilotPermitShortDetails!
-	public var issuer: AirMapPilotPermitIssuer!
+	public var organization: AirMapPilotPermitOrganization!
 
 	public required init?(_ map: Map) {}
 
@@ -56,7 +56,7 @@ extension AirMapPilotPermit: Mappable {
 		id					<-  map["id"]
 		permitId			<-  map["permit_id"]
 		flightId			<-  map["flight_id"]
-		issuer				<-  map["issuer"]
+		organization		<-  map["organization"]
 		createdAt			<- (map["created_at"], dateTransform)
 		updatedAt			<- (map["updated_at"], dateTransform)
 		expiresAt			<- (map["expiration"], dateTransform)
