@@ -36,7 +36,13 @@ class AirMapPilotPermitCell: UITableViewCell, Dequeueable, ObjectAssignable {
 
 		permitTitle.text = permitData.availablePermit.name
 		permitDescription.text = permitData.availablePermit.info
-		permitStatus?.text = permitData.pilotPermit?.status.rawValue.capitalizedString
+		
+		if let status = permitData.pilotPermit?.status {
+			permitStatus?.text = status.rawValue.capitalizedString
+		} else {
+			permitStatus?.text = AirMapPilotPermit.PermitStatus.Pending.rawValue.capitalizedString
+		}
+		
 		if let expirationDate = permitData.pilotPermit?.expiresAt {
 			permitExpiration?.text = "Expires " + AirMapPilotPermitCell.dateFormatter.stringFromDate(expirationDate)
 		} else {

@@ -14,12 +14,12 @@ import ObjectMapper
 		case Accepted	= "accepted"
 		case Rejected	= "rejected"
 		case Pending	= "pending"
-		case Unknown	= "unknown"		
+		case Expired	= "expired"
 	}
 
 	public var id = ""
 	public var permitId = ""
-	public var status: PermitStatus = .Unknown
+	public var status: PermitStatus?
 	public var createdAt: NSDate = NSDate()
 	public var updatedAt: NSDate!
 	public var expiresAt: NSDate!
@@ -67,12 +67,9 @@ extension AirMapPilotPermit: Mappable {
 		createdAt			<- (map["created_at"], dateTransform)
 		updatedAt			<- (map["updated_at"], dateTransform)
 		expiresAt			<- (map["expiration"], dateTransform)
-		customProperties	<- map["custom_properties"]
-		permitDetails		<- map["permit"]
-
-		var permitStatus = ""
-		permitStatus		<-	map["status"]
-		status = permitStatusFromStatusString(permitStatus)
+		customProperties	<-  map["custom_properties"]
+		permitDetails		<-  map["permit"]
+		status				<-	map["status"]
 	}
 
 	/**
@@ -90,7 +87,4 @@ extension AirMapPilotPermit: Mappable {
 		return params
 	}
 
-	func permitStatusFromStatusString(status: String) -> PermitStatus {
-		return PermitStatus(rawValue: status) ?? .Unknown
-	}
 }
