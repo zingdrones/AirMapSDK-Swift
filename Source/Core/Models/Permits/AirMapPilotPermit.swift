@@ -25,7 +25,7 @@ import ObjectMapper
 	public var expiresAt: NSDate!
 	public var customProperties = [AirMapPilotPermitCustomProperty]()
 	public var permitDetails: AirMapPilotPermitShortDetails!
-	public var organization: AirMapOrganization!
+	public var organization: AirMapOrganization?
 
 	public required init?(_ map: Map) {}
 
