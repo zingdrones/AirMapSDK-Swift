@@ -18,6 +18,15 @@ public class AirMapOrganization: NSObject {
 	override public var hashValue: Int {
 		return id.hashValue
 	}
+	
+	override public func isEqual(object: AnyObject?) -> Bool {
+		if let org = object as? AirMapOrganization {
+			return org == self
+		} else {
+			return false
+		}
+	}
+
 }
 
 extension AirMapOrganization: Mappable {
@@ -26,4 +35,8 @@ extension AirMapOrganization: Mappable {
 		id       <- map["id"]
 		name     <- map["name"]
 	}
+}
+
+public func ==(lhs: AirMapOrganization, rhs: AirMapOrganization) -> Bool {
+	return lhs.id == rhs.id
 }
