@@ -14,6 +14,8 @@ import RxDataSources
 /// Displays a list of existing, available, and unavailable permits for a specific organization
 class AirMapAvailablePermitsViewController: UITableViewController {
 	
+	@IBOutlet weak var header: UILabel!
+	
 	var status: AirMapStatus!
 	var existingPermits: [AirMapPilotPermit]!
 	var draftPermits: [AirMapPilotPermit]!	
@@ -88,6 +90,10 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 			case .Unavailable:
 				return "Unavailable Permits"
 			}
+		}
+		
+		if status.applicablePermits.count == 0 {
+			header.text = "No single permit satisfies this flight's operating area"
 		}
 	}
 	
