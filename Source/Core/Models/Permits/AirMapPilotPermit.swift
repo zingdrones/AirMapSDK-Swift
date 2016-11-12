@@ -19,7 +19,6 @@ import ObjectMapper
 
 	public var id = ""
 	public var permitId = ""
-	public var flightId = ""
 	public var status: PermitStatus = .Unknown
 	public var createdAt: NSDate = NSDate()
 	public var updatedAt: NSDate!
