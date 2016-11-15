@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import PhoneNumberKit
 import libPhoneNumber_iOS
 
 class AirMapPhoneVerificationViewController: UITableViewController {
@@ -18,18 +19,17 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 	
 	@IBOutlet weak var submitButton: UIButton!
 	@IBOutlet weak var country: UILabel!
-	@IBOutlet weak var phone: UITextField!
+	@IBOutlet weak var phone: PhoneNumberTextField!
 	
 	private var countryCode: String!
 	private let phoneUtil = NBPhoneNumberUtil()
 	private let activityIndicator = ActivityIndicator()
 
-	private var phoneNumber: NBPhoneNumber? {
+	private var phoneNumber: PhoneNumber? {
 		guard let phone =  phone.text, let region = countryCode else { return nil }
-		return try? phoneUtil.parse(phone, defaultRegion: region)
+		return try? PhoneNumber(rawNumber:phone, region: region)
 	}
 	
-	private var numberFormatter = NBAsYouTypeFormatter()
 	private let disposeBag = DisposeBag()
 	
 	// MARK: - View Lifecycle
@@ -41,7 +41,11 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 		setupPhoneNumberField()
 		setupBindings()
 		
-		phone.text = numberFormatter.inputString(pilot.phone)
+		if let p = pilot.phone {
+			print(PartialFormatter().formatPartial(p))
+			phone.text = PartialFormatter().formatPartial(p)
+		}
+		
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -92,7 +96,7 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 		phone.rx_text.asObservable()
 			.map { [unowned self] text in
 				guard let phoneNumber = self.phoneNumber else { return false }
-				return self.phoneUtil.isValidNumberForRegion(phoneNumber, regionCode: self.countryCode)
+				return phoneNumber.isValidNumber
 			}
 			.bindTo(submitButton.rx_enabled)
 			.addDisposableTo(disposeBag)
@@ -105,25 +109,26 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 	}
 	
 	private func setupDefaultCountryCode() {
-		countryCode = AirMapLocale.currentLocale().objectForKey(NSLocaleCountryCode) as? String ?? "US"
+		countryCode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as? String ?? "US"
+		country.text = NSLocale.currentLocale().displayNameForKey(NSLocaleCountryCode, value: countryCode) ?? "United States"
+		phone.defaultRegion = countryCode
 	}
 	
 	private func setupPhoneNumberField() {
+		
 		let samplePhoneNumber = try? phoneUtil.getExampleNumberForType(countryCode, type: .MOBILE)
 		let samplePhoneString = try? phoneUtil.format(samplePhoneNumber, numberFormat: .INTERNATIONAL)
 		phone.placeholder =  samplePhoneString
-		numberFormatter = NBAsYouTypeFormatter(regionCode: countryCode)
+		phone.defaultRegion = countryCode
 	}
 	
 	// MARK: - Instance Methods
 
 	@IBAction func submitForm() {
 
-		guard
-			let phoneNumber = phoneNumber,
-			let e164 = try? phoneUtil.format(phoneNumber, numberFormat: .E164) else { return }
+		guard let phoneNumber = phoneNumber else { return }
 
-		pilot.phone = e164
+		pilot.phone = phoneNumber.toE164()
 		
 		AirMap.rx_updatePilot(pilot)
 			.trackActivity(activityIndicator)
@@ -136,7 +141,7 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 	}
 	
 	private func validateForm() {
-		submitButton?.enabled = phoneUtil.isValidNumberForRegion(phoneNumber, regionCode: countryCode) ?? false
+		submitButton?.enabled = phone.isValidNumber ?? false
 	}
 	
 	private func verifySMSToken() {
@@ -154,7 +159,8 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 extension AirMapPhoneVerificationViewController: AirMapPhoneCountrySelectorDelegate {
 	
 	func phoneCountrySelectorDidSelect(country name: String, country code: String) {
-		if countryCode != code { phone.text = nil }
+		if countryCode != code { phone.text = PartialFormatter().formatPartial(phone.text ?? "") }
+		
 		countryCode = code
 		country.text = name
 		setupPhoneNumberField()
@@ -163,35 +169,6 @@ extension AirMapPhoneVerificationViewController: AirMapPhoneCountrySelectorDeleg
 	
 	func phoneCountrySelectorDidCancel() {
 		navigationController?.popViewControllerAnimated(true)
-	}
-	
-}
-
-extension AirMapPhoneVerificationViewController: UITextFieldDelegate {
-	
-	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-		
-		let newString = (textField.text ?? "" as NSString)
-			.stringByReplacingCharactersInRange(range, withString: string)
-		
-		var shouldChange = false
-		
-		if string.characters.count + range.location < 20 {
-			
-			if range.length == 0 {
-				phone.text = numberFormatter.inputDigit(string)
-			} else if range.length == 1 {
-				phone.text = numberFormatter.removeLastDigit()
-			} else if string.characters.count > 1 {
-				shouldChange = false
-			} else {
-				numberFormatter.inputString(newString)
-				shouldChange = true
-			}
-		}
-		
-		validateForm()
-		return shouldChange
 	}
 	
 }
