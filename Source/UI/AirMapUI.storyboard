@@ -36,11 +36,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Qed-iW-DS5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hXr-0a-21J">
-                        <rect key="frame" x="0.0" y="94" width="375" height="573"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x0U-3U-0tk" customClass="AirMapMapView" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="74" width="375" height="449"/>
+                                <rect key="frame" x="0.0" y="74" width="375" height="479"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
@@ -146,7 +146,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GlT-gh-cZU" userLabel="Radius View">
-                                <rect key="frame" x="0.0" y="473" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="503" width="375" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJa-Es-m77" userLabel="bg view">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -226,13 +226,13 @@ Line two details would be here.</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWh-lS-kpR" userLabel="BottomToolTip">
-                                <rect key="frame" x="0.0" y="411" width="365" height="50"/>
+                                <rect key="frame" x="15" y="441" width="345" height="50"/>
                                 <subviews>
                                     <view userInteractionEnabled="NO" alpha="0.64999997615814209" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vx9-Ve-rGX">
-                                        <rect key="frame" x="0.0" y="0.0" width="365" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgk-wh-wed">
-                                                <rect key="frame" x="20" y="8" width="325" height="34"/>
+                                                <rect key="frame" x="20" y="8" width="305" height="34"/>
                                                 <string key="text">Tooltip informational stuff goes here.
 Line two details would be here.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -286,7 +286,7 @@ Line two details would be here.</string>
                             <constraint firstItem="x0U-3U-0tk" firstAttribute="bottom" secondItem="GlT-gh-cZU" secondAttribute="bottom" id="wAO-lb-7Yx"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Flight" prompt="Your Flight Overlaps with" id="ViV-2h-qM5">
+                    <navigationItem key="navigationItem" title="Create Flight" id="ViV-2h-qM5">
                         <barButtonItem key="backBarButtonItem" title=" " id="57d-1t-eir"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="CLj-gJ-cQ6">
                             <connections>
@@ -642,7 +642,7 @@ Line two details would be here.</string>
             <objects>
                 <tableViewController id="gc2-XS-SaI" customClass="AirMapAdvisoriesViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="55" sectionHeaderHeight="18" sectionFooterHeight="18" id="pXx-s1-GeR">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1207,19 +1207,19 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Existing Permit Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZu-sO-cdt">
-                                                    <rect key="frame" x="58" y="15" width="302" height="21"/>
+                                                    <rect key="frame" x="98" y="15" width="262" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Permit Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtT-AB-6BD">
-                                                    <rect key="frame" x="58" y="42" width="302" height="18"/>
+                                                    <rect key="frame" x="63" y="42" width="297" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Status" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBe-UL-P4j">
-                                                    <rect key="frame" x="58" y="66" width="44" height="18"/>
+                                                    <rect key="frame" x="63" y="66" width="44" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1230,16 +1230,26 @@ AirMap will send you a text message when your digital notice has been successful
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="permit_wallet_icon" translatesAutoresizingMaskIntoConstraints="NO" id="zBA-Qo-3gs">
+                                                    <rect key="frame" x="63" y="14" width="30" height="23"/>
+                                                    <color key="tintColor" red="0.074509803920000006" green="0.64313725489999995" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="B1T-ow-IP3"/>
+                                                        <constraint firstAttribute="height" constant="23" id="SNp-4z-hS4"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="zBA-Qo-3gs" firstAttribute="leading" secondItem="zyG-ME-xM9" secondAttribute="leading" constant="63" id="3Qs-gd-DO0"/>
                                                 <constraint firstAttribute="bottom" secondItem="QBe-UL-P4j" secondAttribute="bottom" constant="15" id="4Kv-bt-Rum"/>
-                                                <constraint firstItem="gtT-AB-6BD" firstAttribute="leading" secondItem="CZu-sO-cdt" secondAttribute="leading" id="Czp-YC-XFs"/>
                                                 <constraint firstItem="d1t-kb-RTW" firstAttribute="baseline" secondItem="QBe-UL-P4j" secondAttribute="baseline" id="G63-qo-7JM"/>
                                                 <constraint firstAttribute="trailing" secondItem="gtT-AB-6BD" secondAttribute="trailing" constant="15" id="HNm-9c-ZCZ"/>
+                                                <constraint firstItem="zBA-Qo-3gs" firstAttribute="centerY" secondItem="CZu-sO-cdt" secondAttribute="centerY" id="M1g-5F-CAE"/>
+                                                <constraint firstItem="gtT-AB-6BD" firstAttribute="leading" secondItem="zBA-Qo-3gs" secondAttribute="leading" id="QeQ-P9-HHS"/>
                                                 <constraint firstAttribute="trailing" secondItem="d1t-kb-RTW" secondAttribute="trailing" constant="20" id="V6e-Rp-leC"/>
                                                 <constraint firstItem="CZu-sO-cdt" firstAttribute="top" secondItem="zyG-ME-xM9" secondAttribute="top" constant="15" id="Ysd-bq-7bb"/>
                                                 <constraint firstAttribute="trailing" secondItem="CZu-sO-cdt" secondAttribute="trailing" constant="15" id="bgK-sk-vNp"/>
-                                                <constraint firstItem="CZu-sO-cdt" firstAttribute="leading" secondItem="zyG-ME-xM9" secondAttribute="leading" constant="58" id="dZd-rZ-A3c"/>
+                                                <constraint firstItem="CZu-sO-cdt" firstAttribute="leading" secondItem="zBA-Qo-3gs" secondAttribute="trailing" constant="5" id="lEb-Uh-9dZ"/>
                                                 <constraint firstItem="gtT-AB-6BD" firstAttribute="top" secondItem="CZu-sO-cdt" secondAttribute="bottom" constant="6" id="rbn-Ct-Ks5"/>
                                                 <constraint firstItem="QBe-UL-P4j" firstAttribute="top" secondItem="gtT-AB-6BD" secondAttribute="bottom" constant="6" id="sxF-LV-ps9"/>
                                                 <constraint firstItem="QBe-UL-P4j" firstAttribute="leading" secondItem="gtT-AB-6BD" secondAttribute="leading" id="uoi-a4-v49"/>
@@ -1292,7 +1302,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <barButtonItem key="backBarButtonItem" title="  " id="Zhn-iE-IQ1"/>
                         <barButtonItem key="rightBarButtonItem" image="info_icon" id="waI-wP-EZg">
                             <connections>
-                                <segue destination="s0Y-eF-iZa" kind="presentation" id="ysS-Cf-M36"/>
+                                <segue destination="s0Y-eF-iZa" kind="presentation" identifier="modalFAQ" id="ysS-Cf-M36"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1773,21 +1783,21 @@ AirMap will send you a text message when your digital notice has been successful
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="availableExistingPermitCell" rowHeight="100" id="sZj-g0-GLi" customClass="AirMapPilotPermitCell" customModule="AirMap" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="availableExistingPermitCell" rowHeight="100" id="sZj-g0-GLi" customClass="AirMapPilotPermitCell" customModule="AirMap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="156" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sZj-g0-GLi" id="mwW-t2-yrV">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Existing Permit Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDi-dr-PQg">
-                                            <rect key="frame" x="15" y="15" width="322" height="21"/>
+                                            <rect key="frame" x="55" y="15" width="320" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Permit Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzq-z0-kAV">
-                                            <rect key="frame" x="15" y="42" width="322" height="18"/>
+                                            <rect key="frame" x="15" y="42" width="355" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1799,23 +1809,32 @@ AirMap will send you a text message when your digital notice has been successful
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-12-31" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuX-KA-s6d">
-                                            <rect key="frame" x="254" y="66" width="80" height="18"/>
+                                            <rect key="frame" x="287" y="66" width="80" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.51196527089999999" green="0.53720663800000001" blue="0.55613766340000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="permit_wallet_icon" translatesAutoresizingMaskIntoConstraints="NO" id="fS6-vm-nHU">
+                                            <rect key="frame" x="15" y="14" width="30" height="23"/>
+                                            <color key="tintColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="v3m-7K-yhz"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="glK-3H-vJ9" secondAttribute="bottom" constant="15" id="2Fb-xG-WCR"/>
                                         <constraint firstItem="vzq-z0-kAV" firstAttribute="top" secondItem="iDi-dr-PQg" secondAttribute="bottom" constant="6" id="5ut-Ut-Z8b"/>
-                                        <constraint firstItem="iDi-dr-PQg" firstAttribute="leading" secondItem="mwW-t2-yrV" secondAttribute="leading" constant="15" id="GRR-7r-Ve8"/>
+                                        <constraint firstItem="iDi-dr-PQg" firstAttribute="leading" secondItem="fS6-vm-nHU" secondAttribute="trailing" constant="10" id="9vo-W5-6es"/>
+                                        <constraint firstItem="vzq-z0-kAV" firstAttribute="leading" secondItem="fS6-vm-nHU" secondAttribute="leading" id="DkQ-qN-k8m"/>
+                                        <constraint firstItem="fS6-vm-nHU" firstAttribute="centerY" secondItem="iDi-dr-PQg" secondAttribute="centerY" id="Igm-ID-Hyc"/>
                                         <constraint firstItem="DuX-KA-s6d" firstAttribute="baseline" secondItem="glK-3H-vJ9" secondAttribute="baseline" id="KfE-7E-mV0"/>
-                                        <constraint firstItem="glK-3H-vJ9" firstAttribute="leading" secondItem="iDi-dr-PQg" secondAttribute="leading" id="ixj-nq-NsV"/>
-                                        <constraint firstItem="vzq-z0-kAV" firstAttribute="leading" secondItem="iDi-dr-PQg" secondAttribute="leading" id="ppw-N8-ylo"/>
                                         <constraint firstItem="iDi-dr-PQg" firstAttribute="top" secondItem="mwW-t2-yrV" secondAttribute="top" constant="15" id="qmf-Q5-igf"/>
+                                        <constraint firstItem="fS6-vm-nHU" firstAttribute="leading" secondItem="mwW-t2-yrV" secondAttribute="leading" constant="15" id="ssE-xl-XXF"/>
                                         <constraint firstAttribute="trailing" secondItem="vzq-z0-kAV" secondAttribute="trailing" constant="5" id="uTz-8g-wa1"/>
-                                        <constraint firstAttribute="trailing" secondItem="iDi-dr-PQg" secondAttribute="trailing" constant="5" id="vIv-4c-5Pf"/>
+                                        <constraint firstAttribute="trailing" secondItem="iDi-dr-PQg" secondAttribute="trailing" id="vIv-4c-5Pf"/>
                                         <constraint firstAttribute="trailing" secondItem="DuX-KA-s6d" secondAttribute="trailing" constant="8" id="yPL-fr-CHj"/>
+                                        <constraint firstItem="glK-3H-vJ9" firstAttribute="leading" secondItem="vzq-z0-kAV" secondAttribute="leading" id="yWm-k9-5HW"/>
                                         <constraint firstItem="glK-3H-vJ9" firstAttribute="top" secondItem="vzq-z0-kAV" secondAttribute="bottom" constant="6" id="ybb-c1-Oai"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -1825,7 +1844,7 @@ AirMap will send you a text message when your digital notice has been successful
                                     <outlet property="permitExpiration" destination="DuX-KA-s6d" id="JIK-z2-JiN"/>
                                     <outlet property="permitStatus" destination="glK-3H-vJ9" id="Ao1-8c-ZWC"/>
                                     <outlet property="permitTitle" destination="iDi-dr-PQg" id="v1y-e7-cqx"/>
-                                    <segue destination="uZe-FD-reY" kind="show" identifier="pushExistingPermit" id="QYw-DI-GTL"/>
+                                    <segue destination="dUt-eY-BTK" kind="unwind" identifier="unwindFromExistingPermit" unwindAction="unwindFromPermitSelection:" id="jbe-Tm-CLS"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="availablePermitCell" rowHeight="75" id="kD4-PN-z70" customClass="AirMapPilotPermitCell" customModule="AirMap" customModuleProvider="target">
@@ -2070,7 +2089,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
-                        <segue destination="mfl-90-KNq" kind="unwind" identifier="unwindFromPermitSelection" unwindAction="unwindFromPermitSelection:" id="8Gv-Fg-zFS"/>
+                        <segue destination="mfl-90-KNq" kind="unwind" identifier="unwindFromNewPermitSelection" unwindAction="unwindFromPermitSelection:" id="8Gv-Fg-zFS"/>
                     </connections>
                 </button>
                 <exit id="mfl-90-KNq" userLabel="Exit" sceneMemberID="exit"/>
@@ -2443,7 +2462,7 @@ AirMap will send you a text message when your digital notice has been successful
             <objects>
                 <tableViewController id="GLN-Nc-fFM" customClass="AirMapAircraftManufacturerViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jY1-0m-GFn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -2648,7 +2667,7 @@ AirMap will send you a text message when your digital notice has been successful
             <objects>
                 <tableViewController id="Was-cz-StC" customClass="AirMapAircraftModelViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bOk-bi-V4i">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -2809,14 +2828,14 @@ AirMap will send you a text message when your digital notice has been successful
         <image name="info_icon_advisories" width="30" height="30"/>
         <image name="path_flight_icon_deselected" width="48" height="48"/>
         <image name="path_flight_icon_selected" width="48" height="48"/>
+        <image name="permit_wallet_icon" width="30" height="23"/>
         <image name="point_flight_icon_deselected" width="48" height="48"/>
         <image name="point_flight_icon_selected" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="iLT-bx-RW6"/>
         <segue reference="EBb-de-rWY"/>
         <segue reference="rz8-aj-XVu"/>
-        <segue reference="iLT-bx-RW6"/>
-        <segue reference="QYw-DI-GTL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
