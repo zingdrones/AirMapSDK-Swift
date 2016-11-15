@@ -134,7 +134,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	
 	private func setupBindings() {
 		
-		Driver.combineLatest(status.asDriver(), existingPermits.asDriver(), draftPermits.asDriver(), resultSelector: sectionModels)
+		Driver.combineLatest(status.asDriver(), existingPermits.asDriver(), draftPermits.asDriver(), resultSelector: unowned(self, AirMapRequiredPermitsViewController.sectionModels))
 			.drive(tableView.rx_itemsWithDataSource(dataSource))
 			.addDisposableTo(disposeBag)
 		
