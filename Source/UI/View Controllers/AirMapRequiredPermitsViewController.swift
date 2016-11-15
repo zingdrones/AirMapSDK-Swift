@@ -34,7 +34,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		return navigationController!.draftPermits
 	}
 	/// The permits that user has selected in order to advance to the next step of the flow
-	private var selectedPermits: Variable<[(organization: AirMapOrganization, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]> {
+	internal var selectedPermits: Variable<[(organization: AirMapOrganization, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]> {
 		return navigationController!.selectedPermits
 	}
 
@@ -68,7 +68,10 @@ class AirMapRequiredPermitsViewController: UIViewController {
 			availablePermitsVC.organization = dataSource.itemAtIndexPath(indexPath).organization
 			availablePermitsVC.existingPermits = existingPermits.value
 			availablePermitsVC.draftPermits = draftPermits.value
-
+		case "modalFAQ" :
+			let nav = segue.destinationViewController as! UINavigationController
+			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
+			faqVC.section = .Permits
 		default:
 			break
 		}
@@ -78,32 +81,38 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	
 	@IBAction func unwindFromPermitSelection(segue: UIStoryboardSegue) {
 		
-		let permitVC = segue.sourceViewController as! AirMapAvailablePermitViewController
-		let availablePermit = permitVC.permit.value
-		let organization = permitVC.organization
-		
-		// Create a new draft pilot permit from the available permit and custom properties
-		let draftPermit = AirMapPilotPermit()
-		draftPermit.permitId = availablePermit.id
-		draftPermit.customProperties = permitVC.customProperties
-		
-		// If new permit doesn't already exist in drafts or existing permits, add to drafts
-		let isExisting = (existingPermits.value + draftPermits.value)
-			.filter { $0.permitId == draftPermit.permitId }
-			.count > 0
-		
-		if !isExisting {
-			draftPermits.value.append(draftPermit)
+		if segue.identifier == "unwindFromNewPermitSelection" {
+			
+			let permitVC = segue.sourceViewController as! AirMapAvailablePermitViewController
+			let availablePermit = permitVC.permit.value
+			let organization = permitVC.organization
+			
+			// Create a new draft pilot permit from the available permit and custom properties
+			let draftPermit = AirMapPilotPermit()
+			draftPermit.permitId = availablePermit.id
+			draftPermit.customProperties = permitVC.customProperties
+			
+			// If new permit doesn't already exist in drafts or existing permits, add to drafts
+			let isExisting = (existingPermits.value + draftPermits.value)
+				.filter { $0.permitId == draftPermit.permitId }
+				.count > 0
+			
+			if !isExisting {
+				draftPermits.value.append(draftPermit)
+			}
+			
+			// Select permit if it isn't already selected
+			let isSelected = selectedPermits.value
+				.filter { $0.permit.id == draftPermit.permitId }
+				.count > 0
+			
+			if !isSelected {
+				selectedPermits.value.append((organization, availablePermit, draftPermit))
+			}
+			
 		}
 		
-		// Select permit if it isn't already selected
-		let isSelected = selectedPermits.value
-			.filter { $0.permit.id == draftPermit.permitId }
-			.count > 0
 		
-		if !isSelected {
-			selectedPermits.value.append((organization, availablePermit, draftPermit))
-		}
 		
 		tableView.reloadData()
 	}

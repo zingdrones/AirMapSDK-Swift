@@ -14,6 +14,7 @@ class AirMapFAQViewController: UIViewController {
 	
 	enum Section: String {
 		case LetOthersKnow = "let-others-know"
+		case Permits = "permit-what"
 	}
 	
 	var section: Section? = nil

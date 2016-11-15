@@ -52,6 +52,19 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 			let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
 			permitVC.permit = Variable(dataSource.itemAtIndexPath(indexPath).availablePermit)
 			permitVC.organization = organization
+		case "unwindFromExistingPermit" :
+			let cell = sender as! UITableViewCell
+			let indexPath = tableView.indexPathForCell(cell)!
+			let permit = dataSource.itemAtIndexPath(indexPath)
+			let permitVC = segue.destinationViewController as! AirMapRequiredPermitsViewController
+		
+			
+			var selectedPermits = permitVC.selectedPermits.value.filter { $0.permit.id != permit.availablePermit.id }
+			selectedPermits.append((organization, permit.availablePermit, permit.pilotPermit!))
+			
+			permitVC.selectedPermits.value = selectedPermits
+
+
 		default:
 			break
 		}
