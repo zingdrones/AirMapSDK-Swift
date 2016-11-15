@@ -111,15 +111,15 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 	private func setupDefaultCountryCode() {
 		countryCode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as? String ?? "US"
 		country.text = NSLocale.currentLocale().displayNameForKey(NSLocaleCountryCode, value: countryCode) ?? "United States"
-		phone.defaultRegion = countryCode
+		phone?.defaultRegion = countryCode
 	}
 	
 	private func setupPhoneNumberField() {
 		
 		let samplePhoneNumber = try? phoneUtil.getExampleNumberForType(countryCode, type: .MOBILE)
 		let samplePhoneString = try? phoneUtil.format(samplePhoneNumber, numberFormat: .INTERNATIONAL)
-		phone.placeholder =  samplePhoneString
-		phone.defaultRegion = countryCode
+		phone?.placeholder =  samplePhoneString
+		phone?.defaultRegion = countryCode
 	}
 	
 	// MARK: - Instance Methods
