@@ -112,8 +112,6 @@ class AirMapRequiredPermitsViewController: UIViewController {
 			
 		}
 		
-		
-		
 		tableView.reloadData()
 	}
 	
@@ -132,6 +130,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 				let cell = tableView.cellWith((availablePermit, pilotPermit), at: indexPath) as AirMapPilotPermitCell
 				cell.imageView?.image = AirMapImage.image(named: "deselected_cell_option")
 				cell.imageView?.highlightedImage = AirMapImage.image(named: "selected_cell_option")
+				
 				return cell
 			} else {
 				let cell = tableView.dequeueReusableCellWithIdentifier("selectADifferenrPermit", forIndexPath: indexPath)
@@ -259,6 +258,12 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 		} else {
 			cell.imageView?.highlighted = false
 		}
+		
+		// if draft, don't show wallet icon
+		let isDraft = self.draftPermits.value.contains(pilotPermit)
+		(cell as! AirMapPilotPermitCell).walletIcon.hidden = isDraft
+		(cell as! AirMapPilotPermitCell).walletIconSpacing.constant = isDraft ? -30 : 5
+		(cell as! AirMapPilotPermitCell).setNeedsLayout()
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

@@ -16,6 +16,8 @@ class AirMapPilotPermitCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	@IBOutlet weak var permitStatus: UILabel?
 	@IBOutlet weak var permitExpiration: UILabel?
 	@IBOutlet weak var permitDescription: UILabel!
+	@IBOutlet weak var walletIcon: UIImageView!
+	@IBOutlet weak var walletIconSpacing: NSLayoutConstraint!
 	
 	private var permitData: ObjectType!
 	
