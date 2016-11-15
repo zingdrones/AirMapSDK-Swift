@@ -15,7 +15,7 @@
             <objects>
                 <navigationController id="V2h-jW-mVn" customClass="AirMapFlightPlanNavigationController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="dCI-yu-ww5" customClass="AirMapNavBar" customModule="AirMap" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="dCI-yu-ww5" customClass="AirMapNavBar" customModule="AirMap" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -36,11 +36,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Qed-iW-DS5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hXr-0a-21J">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="94" width="375" height="573"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x0U-3U-0tk" customClass="AirMapMapView" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="74" width="375" height="479"/>
+                                <rect key="frame" x="0.0" y="74" width="375" height="449"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
@@ -146,7 +146,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GlT-gh-cZU" userLabel="Radius View">
-                                <rect key="frame" x="0.0" y="503" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="473" width="375" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJa-Es-m77" userLabel="bg view">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -187,10 +187,10 @@
                                     <constraint firstAttribute="height" constant="50" id="un0-ec-eaT"/>
                                 </constraints>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYp-vs-Pqb" userLabel="Tooltip">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYp-vs-Pqb" userLabel="InstructionalTooltip">
                                 <rect key="frame" x="76" y="86" width="279" height="50"/>
                                 <subviews>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8pp-Vf-0kA">
+                                    <view userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8pp-Vf-0kA">
                                         <rect key="frame" x="0.0" y="0.0" width="279" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owy-kW-lKA">
@@ -225,10 +225,51 @@ Line two details would be here.</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWh-lS-kpR" userLabel="BottomToolTip">
+                                <rect key="frame" x="0.0" y="411" width="365" height="50"/>
+                                <subviews>
+                                    <view userInteractionEnabled="NO" alpha="0.64999997615814209" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vx9-Ve-rGX">
+                                        <rect key="frame" x="0.0" y="0.0" width="365" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgk-wh-wed">
+                                                <rect key="frame" x="20" y="8" width="325" height="34"/>
+                                                <string key="text">Tooltip informational stuff goes here.
+Line two details would be here.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.70833333330000003" green="0.8736111111" blue="1" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="cgk-wh-wed" secondAttribute="trailing" constant="20" id="TkC-Iu-12m"/>
+                                            <constraint firstItem="cgk-wh-wed" firstAttribute="centerY" secondItem="vx9-Ve-rGX" secondAttribute="centerY" id="fbI-Ch-4eH"/>
+                                            <constraint firstItem="cgk-wh-wed" firstAttribute="leading" secondItem="vx9-Ve-rGX" secondAttribute="leading" constant="20" id="zmZ-bu-LSo"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.24666666670000001" blue="0.28235294119999998" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="vx9-Ve-rGX" secondAttribute="bottom" id="jHq-eo-1pQ"/>
+                                    <constraint firstItem="vx9-Ve-rGX" firstAttribute="leading" secondItem="AWh-lS-kpR" secondAttribute="leading" id="oWW-Q6-Vbw"/>
+                                    <constraint firstAttribute="height" constant="50" id="prS-81-dHS"/>
+                                    <constraint firstItem="vx9-Ve-rGX" firstAttribute="top" secondItem="AWh-lS-kpR" secondAttribute="top" id="qFS-LH-9LE"/>
+                                    <constraint firstAttribute="trailing" secondItem="vx9-Ve-rGX" secondAttribute="trailing" id="rBw-fU-qjr"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="AWh-lS-kpR" secondAttribute="trailing" constant="15" id="4ss-wG-Exp"/>
                             <constraint firstItem="uYp-vs-Pqb" firstAttribute="top" secondItem="nLj-Bq-BpS" secondAttribute="bottom" constant="12" id="6EF-Q2-Z0p"/>
+                            <constraint firstItem="AWh-lS-kpR" firstAttribute="leading" secondItem="hXr-0a-21J" secondAttribute="leading" constant="15" id="7B7-QL-egu"/>
+                            <constraint firstItem="GlT-gh-cZU" firstAttribute="top" secondItem="AWh-lS-kpR" secondAttribute="bottom" constant="12" id="OUy-Gg-eJW"/>
                             <constraint firstAttribute="trailing" secondItem="GlT-gh-cZU" secondAttribute="trailing" id="SDt-1o-81q"/>
                             <constraint firstItem="nLj-Bq-BpS" firstAttribute="top" secondItem="q79-Qs-qj7" secondAttribute="bottom" id="UUm-3m-dJp"/>
                             <constraint firstAttribute="trailing" secondItem="x0U-3U-0tk" secondAttribute="trailing" id="VjA-37-cOu"/>
@@ -245,7 +286,7 @@ Line two details would be here.</string>
                             <constraint firstItem="x0U-3U-0tk" firstAttribute="bottom" secondItem="GlT-gh-cZU" secondAttribute="bottom" id="wAO-lb-7Yx"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Create Flight" id="ViV-2h-qM5">
+                    <navigationItem key="navigationItem" title="Create Flight" prompt="Your Flight Overlaps with" id="ViV-2h-qM5">
                         <barButtonItem key="backBarButtonItem" title=" " id="57d-1t-eir"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="CLj-gJ-cQ6">
                             <connections>
@@ -256,6 +297,7 @@ Line two details would be here.</string>
                     <connections>
                         <outlet property="actionButton" destination="1eA-nR-8lo" id="CgF-d5-KpY"/>
                         <outlet property="advisoriesInfoButton" destination="QV9-dV-Hou" id="kEd-rR-7hU"/>
+                        <outlet property="bottomToolTip" destination="cgk-wh-wed" id="Jd0-Sd-zn1"/>
                         <outlet property="bufferSlider" destination="edb-PY-xVw" id="HWq-s4-pUg"/>
                         <outlet property="bufferTitleLabel" destination="69c-Tr-wUG" id="fXB-qX-cCu"/>
                         <outlet property="bufferValueLabel" destination="uVU-1B-8kY" id="YPU-tE-XZi"/>
@@ -673,7 +715,7 @@ Line two details would be here.</string>
         <scene sceneID="ajs-kt-gsK">
             <objects>
                 <navigationController id="OcD-bb-4X7" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Esf-20-NJN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="Esf-20-NJN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1887,7 +1929,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="1G0-0b-b0E">
             <objects>
                 <navigationController id="LkW-Bl-olT" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="iyG-Vv-MOC" customClass="AirMapNavBar" customModule="AirMap" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="iyG-Vv-MOC" customClass="AirMapNavBar" customModule="AirMap" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
