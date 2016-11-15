@@ -21,6 +21,18 @@ public class AirMapAirspace: NSObject {
 	public var rules = [AirMapAirspaceRule]()
 	
 	public required init?(_ map: Map) {}
+	
+	override public var hashValue:Int {
+		return airspaceId.hashValue
+	}
+	
+	public override func isEqual(object: AnyObject?) -> Bool {
+		if let object = object as? AirMapAirspace {
+			return object.airspaceId == self.airspaceId
+		} else {
+			return false
+		}
+	}
 }
 
 extension AirMapAirspace: Mappable {
@@ -42,4 +54,8 @@ extension AirMapAirspace: Mappable {
 		}
 	}
 	
+}
+
+public func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
+	return lhs.airspaceId == rhs.airspaceId
 }

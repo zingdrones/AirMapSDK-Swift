@@ -25,6 +25,9 @@ func ==(lhs: DrawingUIState, rhs: DrawingUIState) -> Bool {
 }
 
 class RedAdvisory: MGLPolygon {}
+func ==(lhs: PermitAdvisory, rhs: PermitAdvisory) -> Bool {
+	return lhs.airspace.airspaceId == rhs.airspace.airspaceId
+}
 
 class Buffer: MGLPolygon {}
 

@@ -36,6 +36,18 @@ import ObjectMapper
 	internal var organizationId: String?
 
 	public required init?(_ map: Map) {}
+	
+	override public var hashValue: Int {
+		return id.hashValue
+	}
+	
+	public override func isEqual(object: AnyObject?) -> Bool {
+		if let object = object as? AirMapStatusAdvisory {
+			return object.id == self.id
+		} else {
+			return false
+		}
+	}
 }
 
 func ==(lhs: AirMapStatusAdvisory, rhs: AirMapStatusAdvisory) -> Bool {
