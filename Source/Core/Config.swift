@@ -28,7 +28,8 @@ struct Config {
 			return AirMapApi.urlForResource("pilot", version: 2)
 		}
 		static var statusUrl: String {
-			return AirMapApi.urlForResource("status", version: 2)
+            return "\(host)/status/alpha"
+//			return AirMapApi.urlForResource("status", version: 2)
 		}
 		static var mapTilesUrl: String {
 			return AirMapApi.urlForResource("maps", version: 4) + "/tilejson"
