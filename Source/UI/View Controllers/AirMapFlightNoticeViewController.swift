@@ -36,19 +36,27 @@ class AirMapFlightNoticeViewController: UIViewController {
 	private func setupBindings() {
 		
 		let advisories = navigationController!.status.value!.advisories
-		var sections = [SectionModel<SectionData, RowData>]()
+        let organizations = navigationController!.status.value!.organizations
 		
-		let digitalNotices = advisories
-			.filter { $0.requirements?.notice?.digital == true }
-			.flatMap { $0 }
+        var sections = [SectionModel<SectionData, RowData>]()
 		
-		if digitalNotices.count > 0 {
+        var digitalNotices:[AirMapStatusAdvisory] = advisories
+            .filter { $0.requirements?.notice?.digital == true }
+            .flatMap { advisory in
+                if let organization = organizations.filter ({ $0.id == advisory.organizationId }).first {
+                    advisory.organization = organization
+                }
+                return advisory
+            }
+            .filterDuplicates {  $0.organizationId == $1.organizationId }
+        
+        if digitalNotices.count > 0 {
 			let digitalSection = SectionModel(model: (digital: true, headerView: submitNoticeHeader), items: digitalNotices)
 			sections.append(digitalSection)
 		}
 		
 		let notices = advisories
-			.filter { $0.requirements?.notice?.digital == false && $0.requirements?.notice?.phoneNumber != nil }
+			.filter { $0.requirements?.notice?.digital == false && $0 .requirements?.notice?.phoneNumber != nil }
 			.flatMap { $0 }
 		
 		if notices.count > 0 {
@@ -76,7 +84,7 @@ class AirMapFlightNoticeViewController: UIViewController {
 				}
 			}
 			cell.advisory = advisory
-			return cell
+            return cell
 		}
 		
 		submitNoticeSwitch.rx_value
