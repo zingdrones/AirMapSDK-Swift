@@ -14,7 +14,13 @@ class AirMapFlightNoticeCell: UITableViewCell {
 	
 	var advisory: AirMapStatusAdvisory! {
 		didSet {
-			name.text = advisory.name
+            
+            if let organization = advisory.organization {
+                name.text = organization.name
+            } else {
+                name.text = advisory.name
+            }
+            
 			phoneNumber?.setTitle(phoneStringFromE164(advisoryPhoneNumber), forState: .Normal)
 		}
 	}
