@@ -11,9 +11,14 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+public protocol AirMapAdvisoriesViewControllerDelegate: class {
+    func advisoriesViewControllerDidTapDismissButton()
+}
+
 class AirMapAdvisoriesViewController: UITableViewController {
 	
 	var status: Variable<AirMapStatus>!
+    var delegate:AirMapAdvisoriesViewControllerDelegate?
 	
 	private typealias AdvisoriesSectionModel = SectionModel<AirMapStatus.StatusColor, AirMapStatusAdvisory>
 	private let dataSource = RxTableViewSectionedReloadDataSource<AdvisoriesSectionModel>()
@@ -39,7 +44,7 @@ class AirMapAdvisoriesViewController: UITableViewController {
 		
 		dataSource.titleForHeaderInSection = { dataSource, section in
 			dataSource.sectionAtIndex(section).model.description
-		}
+		} 
 	}
 	
 	private func setupBindings() {
@@ -54,12 +59,23 @@ class AirMapAdvisoriesViewController: UITableViewController {
 		
 		return AirMapStatus.StatusColor.allColors
 			.map { color in
-				AdvisoriesSectionModel(model: color, items: status.advisories.filter { $0.color == color } )
-			}
-			.filter { section in
-				section.items.count > 0
-			}
+                AdvisoriesSectionModel(model: color, items: status.advisories
+                    .filter { $0.color == color }
+                    .flatMap { advisory in
+                        if let organization = status.organizations.filter ({ $0.id == advisory.organizationId }).first {
+                            advisory.organization = organization
+                        }
+                        return advisory
+                    }
+                    .filterDuplicates {  $0.organizationId == $1.organizationId } )
+            }.filter { section in
+                section.items.count > 0
+            }
 	}
+    
+    @IBAction func dismiss(sender: AnyObject) {
+        delegate?.advisoriesViewControllerDidTapDismissButton()
+    }
 	
 	deinit {
 		print("deinit")
