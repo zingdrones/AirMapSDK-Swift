@@ -322,16 +322,22 @@ extension AirMapCreateFlightTypeViewController {
 			.addDisposableTo(disposeBag)
 
 		let canAdvance = Observable
-			.combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
-				status != nil && input.3.valid
+            .combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
+				status != nil && status?.advisoryColor != AirMapStatus.StatusColor.Red && input.3.valid
 			}
 			.asDriver(onErrorJustReturn: false)
+        
+        canAdvance
+            .drive(nextButton.rx_enabled)
+            .addDisposableTo(disposeBag)
+        
+        let canAdvanceInfo = Observable
+            .combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
+                status != nil && input.3.valid
+            }
+            .asDriver(onErrorJustReturn: false)
 		
-		canAdvance
-			.drive(nextButton.rx_enabled)
-			.addDisposableTo(disposeBag)
-		
-		canAdvance
+		canAdvanceInfo
 			.drive(advisoriesInfoButton.rx_enabled)
 			.addDisposableTo(disposeBag)
 		
