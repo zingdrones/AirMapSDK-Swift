@@ -46,7 +46,22 @@ import ObjectMapper
 	}
 	
 	public var supportsDigitalNotice: Bool {
-		return advisories.flatMap { $0.requirements?.notice }.count > 0
+		
+        let adv:[AirMapStatusAdvisory] = advisories
+            .map { advisory in
+                if let notice = advisory.requirements?.notice?.digital {
+                    if let organization = organizations.filter ({ $0.id == advisory.organizationId }).first {
+                        advisory.organization = organization
+                        advisory.requirements!.notice!.digital = true
+                    }
+                }
+                return advisory
+            }
+            .filterDuplicates {  $0.organizationId == $1.organizationId }
+    
+        return adv
+            .flatMap { $0.requirements?.notice }
+            .count > 0
 	}
 	
 	public var availablePermits: [AirMapAvailablePermit] {

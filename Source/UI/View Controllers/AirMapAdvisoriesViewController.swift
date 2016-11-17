@@ -62,8 +62,11 @@ class AirMapAdvisoriesViewController: UITableViewController {
                 AdvisoriesSectionModel(model: color, items: status.advisories
                     .filter { $0.color == color }
                     .flatMap { advisory in
-                        if let organization = status.organizations.filter ({ $0.id == advisory.organizationId }).first {
-                            advisory.organization = organization
+                         if let notice = advisory.requirements?.notice?.digital {
+                            if let organization = status.organizations.filter ({ $0.id == advisory.organizationId }).first {
+                                advisory.organization = organization
+                                advisory.requirements!.notice!.digital = true
+                            }
                         }
                         return advisory
                     }
