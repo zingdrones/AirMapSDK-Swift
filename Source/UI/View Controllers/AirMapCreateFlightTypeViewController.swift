@@ -126,7 +126,7 @@ class AirMapCreateFlightTypeViewController: UIViewController {
 	
 }
 
-extension AirMapCreateFlightTypeViewController {
+extension AirMapCreateFlightTypeViewController: AirMapAdvisoriesViewControllerDelegate {
 	
 	// MARK: View Lifecycle
 	
@@ -162,6 +162,7 @@ extension AirMapCreateFlightTypeViewController {
 			let advisoriesVC = nav.viewControllers.first as! AirMapAdvisoriesViewController
 			let status = (navigationController as! AirMapFlightPlanNavigationController).status.value!
 			advisoriesVC.status = Variable(status)
+            advisoriesVC.delegate = self
 		default:
 			break
 		}
@@ -169,6 +170,10 @@ extension AirMapCreateFlightTypeViewController {
 	
 	@IBAction func unwindToFlightPlanMap(segue: UIStoryboardSegue) { /* IB hook; keep */ }
 	
+    func advisoriesViewControllerDidTapDismissButton() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 	override func canBecomeFirstResponder() -> Bool {
 		return true
 	}
