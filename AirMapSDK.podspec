@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
 		ui.dependency 'libPhoneNumber-iOS', '~> 0.8.16'
 		ui.dependency 'PhoneNumberKit', '0.8.5'
 		ui.dependency 'RxDataSources', '~> 0.9.0'
-		ui.dependency 'Mapbox-iOS-SDK', '3.3.4'
+		ui.dependency 'Mapbox-iOS-SDK', '3.3.6'
 		ui.dependency 'Lock', '~> 1.27.1'
 		ui.dependency 'SwiftSimplify'
 		ui.dependency 'SwiftTurf'
