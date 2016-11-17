@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="V2h-jW-mVn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="V2h-jW-mVn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -640,7 +640,7 @@ Line two details would be here.</string>
         <!--Airspace Advisories-->
         <scene sceneID="Mss-hB-Ycd">
             <objects>
-                <tableViewController id="gc2-XS-SaI" customClass="AirMapAdvisoriesViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AirMapAdvisoriesViewController" id="gc2-XS-SaI" customClass="AirMapAdvisoriesViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="55" sectionHeaderHeight="18" sectionFooterHeight="18" id="pXx-s1-GeR">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -701,13 +701,12 @@ Line two details would be here.</string>
                     <navigationItem key="navigationItem" title="Airspace Advisories" id="yk1-9H-q3n">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="JTX-n6-s2o">
                             <connections>
-                                <segue destination="7fo-c0-6Sa" kind="unwind" unwindAction="unwindToFlightPlanMap:" id="8Tl-HW-5FN"/>
+                                <action selector="dismiss:" destination="gc2-XS-SaI" id="Qj9-I6-X0h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkq-pH-7T7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="7fo-c0-6Sa" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="388" y="1315"/>
         </scene>

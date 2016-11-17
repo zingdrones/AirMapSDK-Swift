@@ -24,8 +24,14 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	private var advisory: AirMapStatusAdvisory!
 	
 	private func configure() {
-		name.text = advisory.name
-		type.text = advisory.type?.title
+        
+        if let organization = advisory.organization {
+            name.text = organization.name
+        } else {
+            name.text = advisory.name
+        }
+
+        type.text = advisory.type?.title
 		colorView.backgroundColor = advisory.color.colorRepresentation
 	}
 	
