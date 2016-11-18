@@ -70,7 +70,11 @@ class AirMapAdvisoriesViewController: UITableViewController {
                         }
                         return advisory
                     }
-                    .filterDuplicates {  $0.organizationId == $1.organizationId } )
+                    .filterDuplicates { (left, right) in
+                        let notNil = left.organizationId != nil && right.organizationId != nil
+                        return notNil && left.organizationId == right.organizationId
+                    }
+                )
             }.filter { section in
                 section.items.count > 0
             }

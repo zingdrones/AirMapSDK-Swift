@@ -57,7 +57,10 @@ import ObjectMapper
                 }
                 return advisory
             }
-            .filterDuplicates {  $0.organizationId == $1.organizationId }
+            .filterDuplicates { (left, right) in
+                let notNil = left.organizationId != nil && right.organizationId != nil
+                return notNil && left.organizationId == right.organizationId
+            }
     
         return adv
             .flatMap { $0.requirements?.notice }
