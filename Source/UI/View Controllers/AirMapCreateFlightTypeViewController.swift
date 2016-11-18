@@ -251,8 +251,8 @@ extension AirMapCreateFlightTypeViewController {
 		validatedInput
 			.asObservable()
 			.filter { $0.3.valid }
-			.flatMapLatest {
-				unowned(self, $.getStatus)($0)
+			.flatMapLatest {[unowned self] input in
+				unowned(self, $.getStatus)(input)
 					.map { Optional.Some($0) }
 					.asDriver(onErrorJustReturn: nil)
 			}
@@ -260,7 +260,7 @@ extension AirMapCreateFlightTypeViewController {
 			.asDriver(onErrorJustReturn: nil)
 			.drive(status)
 			.addDisposableTo(disposeBag)
-		
+
 		status
 			.asDriver()
 			.map { $0?.advisoryColor ?? .Gray }
@@ -626,7 +626,7 @@ extension AirMapCreateFlightTypeViewController {
 		}
 		
 		bufferSlider.sendActionsForControlEvents(.ValueChanged)
-		self.selectedGeoType.value = geoType
+		selectedGeoType.value = geoType
 	}
 	
 	@objc private func toggleDrawing() {
