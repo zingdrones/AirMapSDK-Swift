@@ -167,6 +167,7 @@ class AirMapAvailablePermitViewController: UITableViewController {
 				if self.mode == .Review {
 					tf.enabled = false
 					tf.placeholder = nil
+                    tf.text = property.value
 				} else {
 					tf.enabled = true
                     tf.placeholder = property.required ? "* \(property.label)" : property.label
