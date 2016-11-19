@@ -105,9 +105,9 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 			}
 		}
 		
-		if status.applicablePermits.count == 0 {
-			header.text = "No single permit satisfies this flight's operating area"
-		}
+        
+        
+        
 	}
 	
 	private func setupBindings() {
@@ -124,15 +124,44 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 		let data = status.availablePermitsFor(organization)
 			.map(rowData(existingPermits + draftPermits))
 			.sort(availablePermitNameAscending)
-		
+        
+        let existing = data.filter(isApplicable).filter(isIssued)
+        let available = data.filter(isApplicable).filter(isNotIssued)
+        let unavailable = data.filter(isUnapplicable)
+        
+        // update the header copy
+        header.text = headerCopy(available.count, existingPermitCount: existing.count)
+        
 		let sections = [
-			SectionData(model: .Existing, items: data.filter(isApplicable).filter(isIssued)),
-			SectionData(model: .Available, items: data.filter(isApplicable).filter(isNotIssued)),
-			SectionData(model: .Unavailable, items: data.filter(isUnapplicable))
+			SectionData(model: .Existing, items: existing),
+			SectionData(model: .Available, items: available),
+			SectionData(model: .Unavailable, items: unavailable)
 		]
 		
 		return sections.filter { $0.items.count > 0 }
 	}
+    
+    
+    private func headerCopy(availablePermitCount:Int, existingPermitCount:Int)->String {
+    
+        var headerCopy = "The following exsiting & available permits meet the requirments for operation in the flight area."
+        
+        if existingPermitCount > 0 && availablePermitCount == 0 {
+            let plural = existingPermitCount == 1 ? "" : "s"
+            headerCopy = "The following exsiting permit\(plural) meet the requirments for operation in the flight area."
+        }
+        
+        if existingPermitCount == 0 && availablePermitCount > 0 {
+            let plural = availablePermitCount == 1 ? "" : "s"
+            headerCopy = "The following available permit\(plural) meet the requirments for operation in the flight area."
+        }
+        
+        if status.applicablePermits.count == 0 {
+            headerCopy = "Only a single permit can be used to fly in this operating area. Your flight path intercects with multiple areas requiring different permits."
+        }
+        
+       return headerCopy
+    }
 	
 	private func rowData(pilotPermits: [AirMapPilotPermit]) -> AirMapAvailablePermit -> RowData {
 		return { availablePermit in
