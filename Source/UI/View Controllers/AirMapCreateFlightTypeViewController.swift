@@ -284,7 +284,21 @@ extension AirMapCreateFlightTypeViewController {
 				if ids.count == 0 {
 					return .just([])
 				} else {
-					return AirMap.rx_listAirspace(ids)
+                    return AirMap.rx_listAirspace(ids)
+                        .filter { airspaces in
+                            
+                            let airspaceIds = airspaces.map {$0.airspaceId}
+                            var hasId = false
+                            
+                            for id in ids {
+                                
+                                if (airspaceIds.indexOf { $0 == id }) > -1 {
+                                    hasId = true
+                                }
+                            }
+                            
+                            return hasId
+                        }
 				}
 			}
 			.asDriver(onErrorJustReturn: [])
@@ -877,13 +891,20 @@ extension AirMapCreateFlightTypeViewController {
 		mapView.removeOverlays(existingRedAdvisories)
 		
 		let redGeometries: [RedAdvisory] = airspaces
-			.flatMap { $0.propertyBoundary as? AirMapPolygon }
+			.flatMap { $0.geometry as? AirMapPolygon }
 			.map { polygon in
 				var coords = polygon.coordinates as [CLLocationCoordinate2D]
 				return RedAdvisory(coordinates: &coords, count: UInt(coords.count))
 			}
-		
-		mapView.addOverlays(redGeometries)
+        
+        let redPropertyBounderies: [RedAdvisory] = airspaces
+            .flatMap { $0.propertyBoundary as? AirMapPolygon }
+            .map { polygon in
+                var coords = polygon.coordinates as [CLLocationCoordinate2D]
+                return RedAdvisory(coordinates: &coords, count: UInt(coords.count))
+        }
+        
+		mapView.addOverlays(redGeometries + redPropertyBounderies)
 	}
 	
 	private func drawPermitAdvisoryAirspaces(airspacePermits: [AirspacePermitting]) {
