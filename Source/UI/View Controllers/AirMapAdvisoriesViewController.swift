@@ -36,10 +36,29 @@ class AirMapAdvisoriesViewController: UITableViewController {
 		tableView.delegate = nil
 		tableView.dataSource = nil
 		tableView.rowHeight = UITableViewAutomaticDimension
-		tableView.estimatedRowHeight = 50
+		tableView.estimatedRowHeight = 75
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, advisory in
-			tableView.cellWith(advisory, at: indexPath) as AirMapAdvisoryCell
+            
+            var identifier = "AirMapAdvisoryCell"
+            
+            if let type = advisory.type {
+                switch type {
+                case AirMapAirspaceType.TFR, .Wildfires :
+                    identifier = "AirMapAdvisoryTFRCell"
+                    break
+                case AirMapAirspaceType.Wildfires :
+                    identifier = "AirMapAdvisoryWildfireCell"
+                    break
+                case AirMapAirspaceType.Airport :
+                    identifier = "AirMapAdvisoryAirportCell"
+                    break
+
+                default:
+                    break
+                }
+            }
+           return tableView.cellWith(advisory, at: indexPath, withIdentifier: identifier) as AirMapAdvisoryCell
 		}
 		
 		dataSource.titleForHeaderInSection = { dataSource, section in
