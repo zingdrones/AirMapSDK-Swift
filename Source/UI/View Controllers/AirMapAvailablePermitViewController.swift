@@ -119,13 +119,13 @@ class AirMapAvailablePermitViewController: UITableViewController {
 			customProperty: nil,
 			cellIdentifier: permitDetailsCell)
 		
-		let price: RowData = (
-			title: "Price",
-			subtitle: "Free",
-			customProperty: nil,
-			cellIdentifier: permitDetailsCell)
+//		let price: RowData = (
+//			title: "Price",
+//			subtitle: "Free",
+//			customProperty: nil,
+//			cellIdentifier: permitDetailsCell)
 		
-		let items = [validity, singleUse, price].filter {$0.subtitle != nil}
+		let items = [validity, singleUse].filter {$0.subtitle != nil}
 		let detailsSection = SectionModel(model: "Details", items: items)
 		sections.append(detailsSection)
 		
@@ -134,7 +134,7 @@ class AirMapAvailablePermitViewController: UITableViewController {
 		}
 		
 		if customPropertyData.count > 0 {
-			let customPropertiesSection = SectionModel(model: "Required Fields", items: customPropertyData)
+			let customPropertiesSection = SectionModel(model: "Form Fields (* Required)", items: customPropertyData)
 			sections.append(customPropertiesSection)
 		}
 	
@@ -144,7 +144,8 @@ class AirMapAvailablePermitViewController: UITableViewController {
 	private func textFieldsAreValid() -> Bool {
 		
 		return textFields.value
-			.map { !($0.textField.text?.isEmpty ?? false) }
+            .filter { $0.property.required == true }
+            .map { !($0.textField.text?.isEmpty ?? false) }
 			.reduce(true) { current, next in
 				current && next
 		}
@@ -168,7 +169,7 @@ class AirMapAvailablePermitViewController: UITableViewController {
 					tf.placeholder = nil
 				} else {
 					tf.enabled = true
-					tf.placeholder = property.label
+                    tf.placeholder = property.required ? "* \(property.label)" : property.label
 				}
 	
 				if property.label.lowercaseString == "email" {
