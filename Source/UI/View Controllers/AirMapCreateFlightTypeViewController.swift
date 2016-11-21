@@ -309,7 +309,10 @@ extension AirMapCreateFlightTypeViewController {
 			.combineLatest(status.asObservable().unwrap(), userPermits.asObservable()) { status, permits in
 				let permitableAdvisories = Array(Set(status.advisories.filter { $0.availablePermits.count > 0  }))
 				let airspaceIds = Array(Set(permitableAdvisories.map { $0.id as String }))
-				return (status, permits, permitableAdvisories, airspaceIds)
+                let userPermits = permits
+                    .filter { $0.expiresAt == nil || $0.expiresAt.greaterThanDate(NSDate()) }
+                    .map { $0 }
+				return (status, userPermits, permitableAdvisories, airspaceIds)
 			}
 			.distinctUntilChanged () { lhs, rhs in
 				lhs.3.sort().joinWithSeparator("") == rhs.3.sort().joinWithSeparator("")
