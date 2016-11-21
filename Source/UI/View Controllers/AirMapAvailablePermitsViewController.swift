@@ -144,16 +144,18 @@ class AirMapAvailablePermitsViewController: UITableViewController {
     
     private func headerCopy(availablePermitCount:Int, existingPermitCount:Int)->String {
     
-        var headerCopy = "The following exsiting & available permits meet the requirments for operation in the flight area."
+        var headerCopy = "The following exsiting & available permits meets the requirments for operation in the flight area."
         
         if existingPermitCount > 0 && availablePermitCount == 0 {
-            let plural = existingPermitCount == 1 ? "" : "s"
-            headerCopy = "The following exsiting permit\(plural) meet the requirments for operation in the flight area."
+            let plural1 = existingPermitCount == 1 ? "" : "s"
+            let plural2 = existingPermitCount == 1 ? "s" : ""
+            headerCopy = "The following exsiting permit\(plural1) meet\(plural2) the requirments for operation in the flight area."
         }
         
         if existingPermitCount == 0 && availablePermitCount > 0 {
-            let plural = availablePermitCount == 1 ? "" : "s"
-            headerCopy = "The following available permit\(plural) meet the requirments for operation in the flight area."
+            let plural1 = availablePermitCount == 1 ? "" : "s"
+            let plural2 = availablePermitCount == 1 ? "s" : ""
+            headerCopy = "The following available permit\(plural1) meet\(plural2) the requirments for operation in the flight area."
         }
         
         if status.applicablePermits.count == 0 {
