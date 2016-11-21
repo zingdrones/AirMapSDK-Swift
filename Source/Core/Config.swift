@@ -13,30 +13,29 @@ struct Config {
 		static let host = "https://api.airmap.com"
 
 		static var aircraftUrl: String {
-			return AirMapApi.urlForResource("aircraft", version: 2)
+            return AirMapApi.urlForResource("aircraft", version: "v2")
 		}
 		static var airspaceUrl: String {
-			return AirMapApi.urlForResource("airspace", version: 2)
+			return AirMapApi.urlForResource("airspace", version: "v2")
 		}
 		static var flightUrl: String {
-			return AirMapApi.urlForResource("flight", version: 2)
+            return AirMapApi.urlForResource("flight", version: "v2")
 		}
 		static var permitUrl: String {
-			return AirMapApi.urlForResource("permit", version: 2)
+			return AirMapApi.urlForResource("permit", version: "v2")
 		}
 		static var pilotUrl: String {
-			return AirMapApi.urlForResource("pilot", version: 2)
+			return AirMapApi.urlForResource("pilot", version: "v2")
 		}
 		static var statusUrl: String {
-            return "\(host)/status/alpha"
-//			return AirMapApi.urlForResource("status", version: 2)
+			return AirMapApi.urlForResource("status", version: "alpha")
 		}
 		static var mapTilesUrl: String {
-			return AirMapApi.urlForResource("maps", version: 4) + "/tilejson"
+			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
 		}
 
-		static func urlForResource(named: String, version: Int) -> String {
-			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "v\(version)")
+		static func urlForResource(named: String, version: String) -> String {
+			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "\(version)")
 		}
 
 		struct Auth {
