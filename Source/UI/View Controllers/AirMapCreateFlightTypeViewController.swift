@@ -345,7 +345,7 @@ extension AirMapCreateFlightTypeViewController {
 
 		let canAdvance = Observable
             .combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
-				status != nil && status?.advisoryColor != AirMapStatus.StatusColor.Red && input.3.valid
+				status != nil && input.3.valid
 			}
 			.asDriver(onErrorJustReturn: false)
         
