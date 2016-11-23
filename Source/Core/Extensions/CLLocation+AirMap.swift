@@ -7,7 +7,6 @@
 //
 
 import CoreLocation
-import SwiftTurf
 
 extension CLLocation {
 	
