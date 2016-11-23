@@ -36,9 +36,31 @@ extension UITableView {
 		return cell
 	}
 	
+	func cellWith
+		<T: ObjectAssignable where T: Dequeueable, T: UITableViewCell>
+		(object: T.ObjectType, at indexPath: NSIndexPath, withIdentifier: String) -> T {
+		
+		let cell = dequeueReusableCellWithIdentifier(withIdentifier, forIndexPath: indexPath) as! T
+		cell.setObject(object)
+		return cell
+	}
+	
 	func deselectSelectedRows(animated: Bool) {
 		for indexPath in indexPathsForSelectedRows ?? [] {
 			deselectRowAtIndexPath(indexPath, animated: animated)
 		}
 	}
+
+	/// calculate and update tableview's header height using auto layout
+	func layoutAndResizeHeader() {
+		if let header = tableHeaderView {			
+			header.setNeedsLayout()
+			header.layoutIfNeeded()
+			var frame = header.frame
+			frame.size.height = header.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+			header.frame = frame
+			tableHeaderView = header
+		}
+	}
+
 }

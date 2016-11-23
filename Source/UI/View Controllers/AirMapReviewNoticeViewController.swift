@@ -23,7 +23,27 @@ class AirMapReviewNoticeViewController: UIViewController {
 	private let disposeBag = DisposeBag()
 	
 	private lazy var advisoryNotices: [RowData] = {
-		return self.status?.advisories
+        
+        let advisories:[AirMapStatusAdvisory] = self.status?.advisories
+            .flatMap { advisory in
+                if let notice = advisory.requirements?.notice?.digital {
+                        if let organization:AirMapOrganization = self.status?.organizations.filter ({ $0.id == advisory.organizationId }).first {
+                            // exlude airports
+                            if advisory.type != .Airport {
+                                advisory.organization = organization
+                                advisory.requirements!.notice!.digital = true
+                            }
+                    }
+                }
+                return advisory
+            }
+            .filterDuplicates { (left, right) in
+                let notNil = left.organizationId != nil && right.organizationId != nil
+                let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport
+                return notNil && notAirport && left.organizationId == right.organizationId
+            } ?? []
+        
+		return advisories
 			.sort { $0.0.name < $0.1.name }
 			.map { ($0, $0.requirements?.notice) }
 			.filter { $0.1 != nil }
@@ -32,6 +52,9 @@ class AirMapReviewNoticeViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        
+        let digitalNotices:[RowData] = advisoryNotices.filter { $0.notice.digital == true }
+        let regularNotices:[RowData] = advisoryNotices.filter { $0.notice.digital == false }
 		
 		tableView.estimatedRowHeight = 44
 		tableView.rowHeight = UITableViewAutomaticDimension
@@ -43,24 +66,35 @@ class AirMapReviewNoticeViewController: UIViewController {
 			} else {
 				cell = tableView.dequeueReusableCellWithIdentifier("noDigitalCell")!
 			}
-			cell.textLabel?.text = rowData.advisory.name
+            
+            if let organization = rowData.advisory.organization {
+                cell.textLabel?.text = (rowData.advisory.type != .Airport) ? organization.name : rowData.advisory.name
+            } else {
+                cell.textLabel?.text = rowData.advisory.name
+            }
+            
 			cell.detailTextLabel?.text = self?.phoneStringFromE164(rowData.notice.phoneNumber ?? "")
 			return cell
 		}
 		
 		dataSource.titleForHeaderInSection = { sections, index -> String? in
+            
+            if digitalNotices.count == 0 && regularNotices.count == 0 {
+                return "There are no notices for this flight."
+            }
+            
 			let digitalNotice = sections.sectionModels[index].model.boolValue
 			return digitalNotice ? "Digital Notice" : "The following authorities in this area do not accept digital notice"
 		}
-		
-		let digitalNotices = advisoryNotices.filter { $0.notice.digital == true }
-		let regularNotices = advisoryNotices.filter { $0.notice.digital == false && $0.notice.phoneNumber != nil }
-		
+        
 		let digitalSection = SectionModel(model: true, items: digitalNotices)
 		let regularSection = SectionModel(model: false, items: regularNotices)
+        var sections = [digitalSection, regularSection].filter { $0.items.count > 0 }
 		
-		let sections = [digitalSection, regularSection].filter { $0.items.count > 0 }
-		
+        if digitalNotices.count == 0 && regularNotices.count == 0 {
+            sections = [SectionModel(model: false, items: [])]
+        }
+        
 		Observable
 			.just(sections)
 			.bindTo(tableView.rx_itemsWithDataSource(dataSource))

@@ -19,4 +19,19 @@ extension Array where Element: Equatable {
 			self.removeObject(object)
 		}
 	}
-}
+    
+    
+    func filterDuplicates(@noescape includeElement: (lhs:Element, rhs:Element) -> Bool) -> [Element]{
+        var results = [Element]()
+        
+        forEach { (element) in
+            let existingElements = results.filter {
+                return includeElement(lhs: element, rhs: $0)
+            }
+            if existingElements.count == 0 {
+                results.append(element)
+            }
+        }
+        
+        return results
+    }}

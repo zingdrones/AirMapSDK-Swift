@@ -14,7 +14,13 @@ class AirMapFlightNoticeCell: UITableViewCell {
 	
 	var advisory: AirMapStatusAdvisory! {
 		didSet {
-			name.text = advisory.name
+            
+            if let organization = advisory.organization {
+                name.text = (advisory.type != .Airport) ? organization.name : advisory.name
+            } else {
+                name.text = advisory.name
+            }
+            
 			phoneNumber?.setTitle(phoneStringFromE164(advisoryPhoneNumber), forState: .Normal)
 		}
 	}
@@ -29,13 +35,15 @@ class AirMapFlightNoticeCell: UITableViewCell {
 	@IBAction func callAdvisoryAuthority() {
 		
 		let application = UIApplication.sharedApplication()
-		
-		guard
-			let url = NSURL(string: "telprompt://\(advisoryPhoneNumber)")
-			where application.canOpenURL(url)
-			else { return }
-		
-		application.openURL(url)
+        
+        if let phoneNumberString = advisoryPhoneNumber {
+            guard
+                let url = NSURL(string: "telprompt://\(phoneNumberString)")
+                where application.canOpenURL(url)
+                else { return }
+            
+            application.openURL(url)
+        }
 	}
 
 	private func phoneStringFromE164(number: String?) -> String? {

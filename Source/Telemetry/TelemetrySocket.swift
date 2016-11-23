@@ -68,7 +68,7 @@ extension TelemetrySocket: GCDAsyncUdpSocketDelegate {
 		AirMap.logger.debug("AirMapTelemetrySocket DidConnect")
 	}
 
-	@objc func udpSocket(sock: GCDAsyncUdpSocket, didNotConnect error: NSError) {
-		AirMap.logger.error("AirMapTelemetrySocket DidNotConnect \(error.localizedDescription)")
+	@objc func udpSocket(sock: GCDAsyncUdpSocket, didNotConnect error: NSError?) {
+		AirMap.logger.error("AirMapTelemetrySocket DidNotConnect", error?.localizedDescription ?? "")
 	}
 }
