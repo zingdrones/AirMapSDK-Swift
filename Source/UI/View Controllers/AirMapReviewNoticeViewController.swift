@@ -27,16 +27,20 @@ class AirMapReviewNoticeViewController: UIViewController {
         let advisories:[AirMapStatusAdvisory] = self.status?.advisories
             .flatMap { advisory in
                 if let notice = advisory.requirements?.notice?.digital {
-                    if let organization:AirMapOrganization = self.status?.organizations.filter ({ $0.id == advisory.organizationId }).first {
-                        advisory.organization = organization
-                        advisory.requirements!.notice!.digital = true
+                        if let organization:AirMapOrganization = self.status?.organizations.filter ({ $0.id == advisory.organizationId }).first {
+                            // exlude airports
+                            if advisory.type != .Airport {
+                                advisory.organization = organization
+                                advisory.requirements!.notice!.digital = true
+                            }
                     }
                 }
                 return advisory
             }
             .filterDuplicates { (left, right) in
                 let notNil = left.organizationId != nil && right.organizationId != nil
-                return notNil && left.organizationId == right.organizationId
+                let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport
+                return notNil && notAirport && left.organizationId == right.organizationId
             } ?? []
         
 		return advisories
@@ -64,7 +68,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 			}
             
             if let organization = rowData.advisory.organization {
-                cell.textLabel?.text = organization.name
+                cell.textLabel?.text = (rowData.advisory.type != .Airport) ? organization.name : rowData.advisory.name
             } else {
                 cell.textLabel?.text = rowData.advisory.name
             }
@@ -82,11 +86,9 @@ class AirMapReviewNoticeViewController: UIViewController {
 			let digitalNotice = sections.sectionModels[index].model.boolValue
 			return digitalNotice ? "Digital Notice" : "The following authorities in this area do not accept digital notice"
 		}
-       
         
 		let digitalSection = SectionModel(model: true, items: digitalNotices)
 		let regularSection = SectionModel(model: false, items: regularNotices)
-        
         var sections = [digitalSection, regularSection].filter { $0.items.count > 0 }
 		
         if digitalNotices.count == 0 && regularNotices.count == 0 {

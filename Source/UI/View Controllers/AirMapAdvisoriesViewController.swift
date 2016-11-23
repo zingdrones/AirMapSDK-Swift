@@ -99,15 +99,19 @@ class AirMapAdvisoriesViewController: UITableViewController {
                     .flatMap { advisory in
                          if let notice = advisory.requirements?.notice?.digital {
                             if let organization = status.organizations.filter ({ $0.id == advisory.organizationId }).first {
-                                advisory.organization = organization
-                                advisory.requirements!.notice!.digital = true
+                                // exlude airports
+                                if advisory.type != .Airport {
+                                    advisory.organization = organization
+                                    advisory.requirements!.notice!.digital = true
+                                }
                             }
                         }
                         return advisory
                     }
                     .filterDuplicates { (left, right) in
                         let notNil = left.organizationId != nil && right.organizationId != nil
-                        return notNil && left.organizationId == right.organizationId
+                        let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport
+                        return notNil && notAirport && left.organizationId == right.organizationId
                     }
                 )
             }.filter { section in

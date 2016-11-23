@@ -30,7 +30,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	private func configure() {
         
         if let organization = advisory.organization {
-            name.text = organization.name
+            name.text = (advisory.type != .Airport) ? organization.name : advisory.name
         } else {
             name.text = advisory.name
         }
@@ -69,7 +69,6 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         }
         
         // Airport
-
         if let properties = advisory.airportProperties {
             if let phoneTxt = properties.phone {
                 phone?.text = (phoneTxt.characters.count > 0) ? phoneStringFromE164(phoneTxt) : "PHONE NUMBER NOT PROVIDED"
