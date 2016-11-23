@@ -70,9 +70,14 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         
         // Airport
         if let properties = advisory.airportProperties {
-            if let phoneTxt = properties.phone {
-                phone?.text = (phoneTxt.characters.count > 0) ? phoneStringFromE164(phoneTxt) : "PHONE NUMBER NOT PROVIDED"
+           
+            let noPhoneCopy = "PHONE NUMBER NOT PROVIDED"
+            guard let phoneTxt = properties.phone else {
+                phone?.text = noPhoneCopy
+                return
             }
+            
+            phone?.text = (phoneTxt.characters.count > 0) ? phoneStringFromE164(phoneTxt) : noPhoneCopy
         }
 	}
     
