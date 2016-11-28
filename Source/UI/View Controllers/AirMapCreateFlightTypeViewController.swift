@@ -274,6 +274,7 @@ extension AirMapCreateFlightTypeViewController {
 				self.bottomToolTip.superview!.superview!.hidden = !required
 				self.bottomToolTip.text = "Flight area cannot overlap with conflicting permit requirements."
 			}
+			.addDisposableTo(disposeBag)
 		
 		status
 			.asObservable()
