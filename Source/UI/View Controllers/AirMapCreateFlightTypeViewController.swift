@@ -281,7 +281,7 @@ extension AirMapCreateFlightTypeViewController {
 			.asObservable()
 			.unwrap()
 			.map { $0.advisories.filter { $0.color == .Red } }
-			.map { $0.map { $0.id as String } }
+			.map { $0.flatMap { $0.id as? String } }
 			.flatMapLatest { ids -> Observable<[AirMapAirspace]> in
 				if ids.count == 0 {
 					return .just([])
@@ -309,12 +309,10 @@ extension AirMapCreateFlightTypeViewController {
 		
 		Observable
 			.combineLatest(status.asObservable().unwrap(), userPermits.asObservable()) { status, permits in
-				let permitableAdvisories = Array(Set(status.advisories.filter { $0.availablePermits.count > 0  }))
-				let airspaceIds = Array(Set(permitableAdvisories.map { $0.id as String }))
-                let userPermits = permits
-                    .filter { $0.expiresAt == nil || $0.expiresAt.greaterThanDate(NSDate()) }
-                    .map { $0 }
-				return (status, userPermits, permitableAdvisories, airspaceIds)
+				let permitableAdvisories = Set(status.advisories.filter { $0.availablePermits.count > 0  })
+				let airspaceIds = Set(permitableAdvisories.map { $0.id as String })
+                let userPermits = permits.filter { $0.expiresAt == nil || $0.expiresAt.greaterThanDate(NSDate()) }
+				return (status, userPermits, Array(permitableAdvisories), Array(airspaceIds))
 			}
 			.distinctUntilChanged () { [unowned self] lhs, rhs in
 				lhs.3.sort() == rhs.3.sort() &&
@@ -329,7 +327,7 @@ extension AirMapCreateFlightTypeViewController {
 				
 				return AirMap.rx_listAirspace(airspaceIds)
 					.map { airspaces in
-						Array(Set(airspaces)).flatMap { airspace in
+						Set(airspaces).flatMap { airspace in
 							
 							guard let permitableAdvisory = advisories.filter({ $0.id == airspace.id }).first else {
 								return nil
@@ -341,7 +339,6 @@ extension AirMapCreateFlightTypeViewController {
 							return (airspace, hasPermit)
 						}
 				}
-				
 			}
 			.asDriver(onErrorJustReturn: [AirspacePermitting]())
 			.driveNext(unowned(self, $.drawPermitAdvisoryAirspaces))

@@ -102,22 +102,14 @@ class AirMapAdvisoriesViewController: UITableViewController {
     @IBAction func dismiss(sender: AnyObject) {
         delegate?.advisoriesViewControllerDidTapDismissButton()
     }
-    
-    /**
-     
-     Opens a SFSafariViewController or MobileSafari
-     
-     - parameter url:String
-     - returns: Void
-     */
-    
+	
     func openWebView(url:String) {
        
         if let nsurl = NSURL(string: url) {
             if #available(iOS 9.0, *) {
                 let svc = SFSafariViewController(URL: nsurl)
                 svc.view.tintColor = UIColor.airMapLightBlue()
-                self.presentViewController(svc, animated: true, completion: nil)
+                presentViewController(svc, animated: true, completion: nil)
             } else {
                UIApplication.sharedApplication().openURL(nsurl)
             }
