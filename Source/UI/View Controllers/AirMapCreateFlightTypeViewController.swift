@@ -281,7 +281,7 @@ extension AirMapCreateFlightTypeViewController {
 			.asObservable()
 			.unwrap()
 			.map { $0.advisories.filter { $0.color == .Red } }
-			.map { $0.flatMap { $0.id as? String } }
+			.map { $0.flatMap { $0.id as String? } }
 			.flatMapLatest { ids -> Observable<[AirMapAirspace]> in
 				if ids.count == 0 {
 					return .just([])

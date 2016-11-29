@@ -35,7 +35,6 @@ class AirMapFlightNoticeViewController: UIViewController {
 	
 	private func setupBindings() {
 		
-        let organizations:[AirMapOrganization] = navigationController!.status.value!.organizations
         let advisories:[AirMapStatusAdvisory] = navigationController!.status.value!.advisories
             .filterDuplicates { (left, right) in
                 let notNil = left.organizationId != nil && right.organizationId != nil
@@ -45,7 +44,7 @@ class AirMapFlightNoticeViewController: UIViewController {
 		
         var sections = [SectionModel<SectionData, RowData>]()
 		
-        var digitalNotices:[AirMapStatusAdvisory] = advisories
+        let digitalNotices: [AirMapStatusAdvisory] = advisories
             .filter { $0.requirements?.notice?.digital == true }
         
         
