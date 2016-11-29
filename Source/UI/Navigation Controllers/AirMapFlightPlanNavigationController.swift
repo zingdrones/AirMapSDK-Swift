@@ -22,12 +22,9 @@ public class AirMapFlightPlanNavigationController: UINavigationController {
 	let status = Variable(nil as AirMapStatus?)
 	let shareFlight = Variable(true)
 
-	let requiredPermits = Variable([AirMapAvailablePermit]())
-
 	let draftPermits    = Variable([AirMapPilotPermit]())
 	let existingPermits = Variable([AirMapPilotPermit]())
-
-	let selectedPermits = Variable([(advisory: AirMapStatusAdvisory, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]())
+	let selectedPermits = Variable([(organization: AirMapOrganization, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]())
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()

@@ -176,7 +176,6 @@ class AirMapFlightPlanViewController: UIViewController {
 		let flight = navigationController!.flight
 		let status = navigationController!.status
 		let shareFlight = navigationController!.shareFlight
-		let requiredPermits = navigationController!.requiredPermits
 
 		altitude.asObservable()
 			.subscribeNext { flight.value.maxAltitude = $0 }
@@ -193,25 +192,12 @@ class AirMapFlightPlanViewController: UIViewController {
 
 		status.asObservable()
 			.map {
-				let advisories = $0?.advisories ?? []
-				let requirements = advisories.map { $0.requirements }.flatMap { $0 }
-				let hasNextSteps = requirements.count > 0
+				let hasNextSteps = $0?.supportsDigitalNotice ?? true || $0?.requiresPermits ?? true
 				return hasNextSteps ? "Next" : "Save"
 			}
 			.subscribeNext { [unowned self] title in
 				self.nextButton.setTitle(title, forState: .Normal)
 			}
-			.addDisposableTo(disposeBag)
-
-		status.asObservable()
-			.unwrap()
-			.map { $0.advisories
-				// Bind all required permits
-				.map { $0.requirements?.permitsAvailable }
-				.flatMap { $0 }
-				.flatMap { $0 } ?? []
-			}
-			.bindTo(requiredPermits)
 			.addDisposableTo(disposeBag)
 
 		shareFlight.asObservable()
@@ -242,9 +228,9 @@ class AirMapFlightPlanViewController: UIViewController {
 
 		let status = navigationController!.status.value!
 
-		if status.numberOfRequiredPermits > 0 {
+		if status.requiresPermits {
 			performSegueWithIdentifier("pushPermits", sender: self)
-		} else if status.numberOfNoticesRequired > 0 {
+		} else if status.supportsDigitalNotice {
 			performSegueWithIdentifier("pushNotices", sender: self)
 		} else {
 			AirMap.rx_createFlight(navigationController!.flight.value)

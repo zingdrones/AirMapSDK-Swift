@@ -35,26 +35,45 @@ class AirMapFlightNoticeViewController: UIViewController {
 	
 	private func setupBindings() {
 		
-		let advisories = navigationController!.status.value!.advisories
-		var sections = [SectionModel<SectionData, RowData>]()
+        let organizations:[AirMapOrganization] = navigationController!.status.value!.organizations
+        let advisories:[AirMapStatusAdvisory] = navigationController!.status.value!.advisories
+            .flatMap { advisory in
+                 if let notice = advisory.requirements?.notice?.digital {
+                    if let organization = organizations.filter ({ $0.id == advisory.organizationId }).first {
+                        // exlude airports
+                        if advisory.type != .Airport {
+                            advisory.organization = organization
+                            advisory.requirements!.notice!.digital = true
+                        }
+                    }
+                }
+            return advisory
+            }
+            .filterDuplicates { (left, right) in
+                let notNil = left.organizationId != nil && right.organizationId != nil
+                let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport
+                return notNil && notAirport && left.organizationId == right.organizationId
+            }
 		
-		let digitalNotices = advisories
-			.filter { $0.requirements?.notice?.digital == true }
-			.flatMap { $0 }
+        var sections = [SectionModel<SectionData, RowData>]()
 		
-		if digitalNotices.count > 0 {
+        var digitalNotices:[AirMapStatusAdvisory] = advisories
+            .filter { $0.requirements?.notice?.digital == true }
+        
+        
+        if digitalNotices.count > 0 {
 			let digitalSection = SectionModel(model: (digital: true, headerView: submitNoticeHeader), items: digitalNotices)
 			sections.append(digitalSection)
 		}
 		
 		let notices = advisories
-			.filter { $0.requirements?.notice?.digital == false && $0.requirements?.notice?.phoneNumber != nil }
+			.filter { $0.requirements?.notice?.digital == false }
 			.flatMap { $0 }
 		
 		if notices.count > 0 {
 			let section = SectionModel(model: (digital: false, headerView: noticeUnavailableHeader), items: notices)
 			sections.append(section)
-		}
+        }
 		
 		Observable
 			.just(sections)
@@ -76,14 +95,16 @@ class AirMapFlightNoticeViewController: UIViewController {
 				}
 			}
 			cell.advisory = advisory
-			return cell
+            return cell
 		}
+        
+        self.navigationController!.flight.value.notify = true
 		
-		submitNoticeSwitch.rx_value
-			.subscribeNext { [unowned self] submitNotice in
-				self.navigationController!.flight.value.notify = submitNotice
-			}
-			.addDisposableTo(disposeBag)
+//		submitNoticeSwitch.rx_value
+//			.subscribeNext { [unowned self] submitNotice in
+//				self.navigationController!.flight.value.notify = submitNotice
+//			}
+//			.addDisposableTo(disposeBag)
 	}
 	
 	@IBAction func unwindToFlightNotice(segue: UIStoryboardSegue) {
@@ -100,9 +121,10 @@ class AirMapFlightNoticeViewController: UIViewController {
 	}
 	
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+		
 		if identifier == "pushReview" {
 			let verified = navigationController!.flight.value.pilot!.phoneVerified
-			let submitDigitalNotice = submitNoticeSwitch.on
+			let submitDigitalNotice = true//submitNoticeSwitch.on
 			if verified {
 				return true
 			} else if submitDigitalNotice && !verified {

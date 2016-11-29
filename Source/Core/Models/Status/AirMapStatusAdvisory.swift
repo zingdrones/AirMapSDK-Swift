@@ -10,28 +10,44 @@ import ObjectMapper
 
 @objc public class AirMapStatusAdvisory: NSObject {
 
-	public var id: String!
-	public var name: String = ""
-	public var type: AirMapAirspaceType?
-	public var city: String = ""
-	public var state: String = ""
-	public var country: String = ""
-	public var lastUpdated: NSDate = NSDate()
-	public var color = AirMapStatus.StatusColor.Gray
-	public var distance: Int = 0
-	public var latitude: Double = 0
-	public var longitude: Double = 0
-	public var requirements: AirMapStatusRequirements?
-	public var airportProperties: AirMapStatusAdvisoryAirportProperties?
-	public var parkProperties: AirMapStatusAdvisoryParkProperties?
-	public var powerPlantProperties: AirMapStatusAdvisoryPowerPlantProperties?
-	public var specialUseProperties: AirMapStatusAdvisorySpecialUseProperties?
-	public var schoolProperties: AirMapStatusAdvisorySchoolProperties?
-	public var tfrProperties: AirMapStatusAdvisoryTFRProperties?
-	public var controlledAirspaceProperties: AirMapStatusAdvisoryControlledAirspaceProperties?
-	public var wildfireProperties : AirMapStatusAdvisoryWildfireProperties?
+	public private(set) var id: String!
+	public private(set) var name: String = ""
+	public private(set) var type: AirMapAirspaceType?
+	public private(set) var city: String = ""
+	public private(set) var state: String = ""
+	public private(set) var country: String = ""
+	public private(set) var lastUpdated: NSDate = NSDate()
+	public private(set) var color = AirMapStatus.StatusColor.Gray
+	public private(set) var distance: Int = 0
+	public private(set) var latitude: Double = 0
+	public private(set) var longitude: Double = 0
+	public private(set) var requirements: AirMapStatusRequirements?
+	public private(set) var airportProperties: AirMapStatusAdvisoryAirportProperties?
+	public private(set) var parkProperties: AirMapStatusAdvisoryParkProperties?
+	public private(set) var powerPlantProperties: AirMapStatusAdvisoryPowerPlantProperties?
+	public private(set) var specialUseProperties: AirMapStatusAdvisorySpecialUseProperties?
+	public private(set) var schoolProperties: AirMapStatusAdvisorySchoolProperties?
+	public private(set) var tfrProperties: AirMapStatusAdvisoryTFRProperties?
+	public private(set) var controlledAirspaceProperties: AirMapStatusAdvisoryControlledAirspaceProperties?
+	public private(set) var wildfireProperties : AirMapStatusAdvisoryWildfireProperties?
+	public private(set) var availablePermits = [AirMapAvailablePermit]()
+	public internal(set) var organization: AirMapOrganization?
+	
+	internal var organizationId: String?
 
 	public required init?(_ map: Map) {}
+	
+	override public var hashValue: Int {
+		return id.hashValue
+	}
+	
+	public override func isEqual(object: AnyObject?) -> Bool {
+		if let object = object as? AirMapStatusAdvisory {
+			return object.id == self.id
+		} else {
+			return false
+		}
+	}
 }
 
 func ==(lhs: AirMapStatusAdvisory, rhs: AirMapStatusAdvisory) -> Bool {
@@ -44,17 +60,19 @@ extension AirMapStatusAdvisory: Mappable {
 
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
-		id              <-  map["id"]
-		name            <-  map["name"]
-		color           <-  map["color"]
-		city            <-  map["city"]
-		state           <-  map["state"]
-		country         <-  map["country"]
-		distance        <-  map["distance"]
-		latitude        <-  map["latitude"]
-		longitude       <-  map["longitude"]
-		lastUpdated     <- (map["last_updated"], dateTransform)
-		requirements    <-  map["requirements"]
+		id               <-  map["id"]
+		organizationId   <-  map["organization_id"]
+		name             <-  map["name"]
+		color            <-  map["color"]
+		city             <-  map["city"]
+		state            <-  map["state"]
+		country          <-  map["country"]
+		distance         <-  map["distance"]
+		latitude         <-  map["latitude"]
+		longitude        <-  map["longitude"]
+		lastUpdated      <- (map["last_updated"], dateTransform)
+		requirements     <-  map["requirements"]
+		availablePermits <-  map["available_permits"]
 		
 		var typeString = ""; typeString <- map["type"]
 		type = AirMapAirspaceType.airspaceTypeFromName(typeString)

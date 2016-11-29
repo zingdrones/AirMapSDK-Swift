@@ -81,8 +81,8 @@ extension AFJSONResponseSerializer {
 		}
 		
 		dispatch_once(&Static.token) {
-			let originalSelector = Selector("responseObjectForResponse:data:error:")
-			let swizzledSelector = Selector("airmap_responseObjectForResponse:data:error:")
+			let originalSelector = #selector(AFJSONResponseSerializer.responseObjectForResponse(_:data:error:))
+			let swizzledSelector = #selector(AFJSONResponseSerializer.airmap_responseObjectForResponse(_:data:error:))
 			
 			let originalMethod = class_getInstanceMethod(self, originalSelector)
 			let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
@@ -153,8 +153,8 @@ extension UIAlertController {
 		}
 		
 		dispatch_once(&Static.token) {
-			let originalSelector = Selector("viewWillAppear:")
-			let swizzledSelector = Selector("airmap_viewWillAppear:")
+			let originalSelector = #selector(UIAlertController.viewWillAppear(_:))
+			let swizzledSelector = #selector(UIAlertController.airmap_viewWillAppear(_:))
 			
 			let originalMethod = class_getInstanceMethod(self, originalSelector)
 			let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)

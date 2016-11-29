@@ -3,7 +3,7 @@
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 10/7/16.
-//
+//  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
 import Mapbox
@@ -19,7 +19,7 @@ extension MGLMapView {
 			.flatMap { $0 as? ControlPointView } ?? []
 	}
 	
-	func hideControlPoints(_ hidden: Bool) {
+	func hideControlPoints(hidden: Bool) {
 		
 		let animations = { self.controlPointViews().forEach { $0.alpha = hidden ? 0 : 1 } }
 		UIView.animateWithDuration(0.15, delay: 0, options: [.BeginFromCurrentState, .AllowUserInteraction], animations: animations, completion: nil)

@@ -74,7 +74,7 @@ public class ActivityIndicator : DriverConvertibleType {
 }
 
 public extension ObservableConvertibleType {
-	public func trackActivity(_ activityIndicator: ActivityIndicator) -> Observable<E> {
+	public func trackActivity(activityIndicator: ActivityIndicator) -> Observable<E> {
 		return activityIndicator.trackActivityOfObservable(self)
 	}
 }

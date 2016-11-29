@@ -10,15 +10,15 @@ import ObjectMapper
 
 @objc public class AirMapAvailablePermit: NSObject {
 
-	public var id = ""
-	public var organizationId = ""
-	public var name = ""
-	public var info = ""
-	public var infoUrl = ""
-	public var singleUse: Bool = false
-	public var validForInMinutes: Int?
-	public var validUntil: NSDate?
-	public var customProperties = [AirMapPilotPermitCustomProperty]()
+	public private(set) var id = ""
+	public private(set) var name = ""
+	public private(set) var info = ""
+	public private(set) var infoUrl = ""
+	public private(set) var singleUse: Bool = false
+	public private(set) var validForInMinutes: Int?
+	public private(set) var validUntil: NSDate?
+	public private(set) var customProperties = [AirMapPilotPermitCustomProperty]()
+	public internal(set) var organizationId = ""
 	
 	internal override init() {
 		super.init()
@@ -27,18 +27,32 @@ import ObjectMapper
 	public required init?(_ map: Map) {}
 	
 	private static let validityFormatter: NSDateComponentsFormatter = {
-		$0.allowedUnits = [.Year, .Month, .Day, .Hour, .Minute]
-		$0.zeroFormattingBehavior = .DropAll
-		$0.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-		$0.allowsFractionalUnits = false
-		$0.unitsStyle = .Full
-		return $0
-	}(NSDateComponentsFormatter())
+		let f = NSDateComponentsFormatter()
+		f.allowedUnits = [.Year, .Month, .Day, .Hour, .Minute]
+		f.zeroFormattingBehavior = .DropAll
+		f.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+		f.allowsFractionalUnits = false
+		f.unitsStyle = .Full
+		return f
+	}()
 
 	public func validityString() -> String? {
 		guard let minutes = validForInMinutes else { return nil }
 		return AirMapAvailablePermit.validityFormatter.stringFromTimeInterval(NSTimeInterval(minutes * 60))
 	}
+	
+	override public var hashValue: Int {
+		return id.hashValue
+	}
+	
+	override public func isEqual(object: AnyObject?) -> Bool {
+		if let permit = object as? AirMapAvailablePermit {
+			return permit == self
+		} else {
+			return false
+		}
+	}
+
 }
 
 extension AirMapAvailablePermit: Mappable {
@@ -47,15 +61,15 @@ extension AirMapAvailablePermit: Mappable {
 
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
-		id					<-  map["id"]
-		organizationId		<-  map["organization_id"]
-		name				<-	map["name"]
-		info				<-	map["description"]
-		infoUrl				<-	map["description_url"]
-		singleUse			<-	map["single_use"]
-		validForInMinutes	<-	map["valid_for"]
-		validUntil			<- (map["valid_until"], dateTransform)
-		customProperties	<-	map["custom_properties"]
+		id                  <-  map["id"]
+		organizationId      <-  map["organization_id"]
+		name                <-  map["name"]
+		info                <-  map["description"]
+		infoUrl             <-  map["description_url"]
+		singleUse           <-  map["single_use"]
+		validForInMinutes   <-  map["valid_for"]
+		validUntil          <- (map["valid_until"], dateTransform)
+		customProperties    <-  map["custom_properties"]
 	}
 
 	/**
@@ -71,13 +85,6 @@ extension AirMapAvailablePermit: Mappable {
 		params["id"] = id
 		params["custom_properties"] = customProperties.toJSON()
 		return params
-	}
-}
-
-extension AirMapAvailablePermit {
-	
-	public override var hashValue: Int {
-		return id.hashValue
 	}
 }
 

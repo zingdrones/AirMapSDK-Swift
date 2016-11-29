@@ -14,34 +14,46 @@ import ObjectMapper
 		case Accepted	= "accepted"
 		case Rejected	= "rejected"
 		case Pending	= "pending"
-		case Unknown	= "unknown"
+		case Expired	= "expired"
 	}
 
 	public var id = ""
 	public var permitId = ""
-	public var issuerId = ""
-	public var status: PermitStatus = .Unknown
+	public var status: PermitStatus?
 	public var createdAt: NSDate = NSDate()
 	public var updatedAt: NSDate!
 	public var expiresAt: NSDate!
 	public var customProperties = [AirMapPilotPermitCustomProperty]()
 	public var permitDetails: AirMapPilotPermitShortDetails!
+	public var organization: AirMapOrganization?
 
 	public required init?(_ map: Map) {}
 
 	internal override init() {
 		super.init()
 	}
+	
+	override public var hashValue: Int {
+		return id.hashValue
+	}
+	
+	override public func isEqual(object: AnyObject?) -> Bool {
+		if let permit = object as? AirMapPilotPermit {
+			return permit == self
+		} else {
+			return false
+		}
+	}
+
 }
 
 public func ==(lhs: AirMapPilotPermit, rhs: AirMapPilotPermit) -> Bool {
-	if lhs.id.isEmpty && rhs.id.isEmpty {
+	if lhs.id.isEmpty || rhs.id.isEmpty {
 		return lhs.permitId == rhs.permitId
 	} else {
 		return lhs.id == rhs.id
 	}
 }
-
 
 extension AirMapPilotPermit: Mappable {
 
@@ -50,17 +62,14 @@ extension AirMapPilotPermit: Mappable {
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
 		id					<-  map["id"]
-		permitId			<-  map["permit_id"]
-		issuerId			<-  map["description"]
+		permitId			<-  map["permit.id"]
+		organization		<-  map["organization"]
 		createdAt			<- (map["created_at"], dateTransform)
 		updatedAt			<- (map["updated_at"], dateTransform)
-		expiresAt			<- (map["expires_at"], dateTransform)
+		expiresAt			<- (map["expiration"], dateTransform)
 		customProperties	<-  map["custom_properties"]
-		permitDetails		<- map["permit"]
-
-		var permitStatus = ""
-		permitStatus		<-	map["status"]
-		status = permitStatusFromStatusString(permitStatus)
+		permitDetails		<-  map["permit"]
+		status				<-	map["status"]
 	}
 
 	/**
@@ -78,7 +87,4 @@ extension AirMapPilotPermit: Mappable {
 		return params
 	}
 
-	func permitStatusFromStatusString(status: String) -> PermitStatus {
-		return PermitStatus(rawValue: status) ?? .Unknown
-	}
 }

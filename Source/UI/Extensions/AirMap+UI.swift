@@ -142,5 +142,28 @@ extension AirMap_UI {
 		let authController = AirMapAuthViewController(authHandler: authHandler)
 		return authController
 	}
+    
+    /**
+     
+     Creates an AirMapAdvisoriesViewController that can be presented to the user.
+     
+     - parameter status: AirMapStatus Object
+     
+     - returns: UINavigationController
+     
+     */
+    public class func statusAdvisoriesViewController(status: AirMapStatus, delegate:AirMapAdvisoriesViewControllerDelegate?) -> UINavigationController? {
+        
+        let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
+        let statusVC = storyboard.instantiateViewControllerWithIdentifier(String(AirMapAdvisoriesViewController)) as! AirMapAdvisoriesViewController
+        statusVC.status = Variable(status)
+        statusVC.delegate = delegate
+        
+        let nav = UINavigationController(navigationBarClass: AirMapNavBar.self, toolbarClass: nil)
+        nav.viewControllers = [statusVC]
+        
+        
+        return nav
+    }
 
 }

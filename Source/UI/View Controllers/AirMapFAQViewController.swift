@@ -14,6 +14,7 @@ class AirMapFAQViewController: UIViewController {
 	
 	enum Section: String {
 		case LetOthersKnow = "let-others-know"
+		case Permits = "permit-what"
 	}
 	
 	var section: Section? = nil
@@ -24,10 +25,24 @@ class AirMapFAQViewController: UIViewController {
 		let url = "https://cdn.airmap.io/static/webviews/faq.html#\(section?.rawValue ?? "")"
 		let request = NSURLRequest(URL: NSURL(string: url)!)
 		webView.loadRequest(request)
+		webView.delegate = self
 	}
 	
 	@IBAction func dismiss() {
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
+}
+
+extension AirMapFAQViewController: UIWebViewDelegate {
+	
+	func webViewDidFinishLoad(webView: UIWebView) {
+		webView.stringByEvaluatingJavaScriptFromString(
+			"var h3Tags = document.getElementsByTagName('h3');" +
+			"for (var i = h3Tags.length; i--;) {" +
+			"  var h3 = h3Tags[i];" +
+			"  h3.parentNode.removeChild(h3);" +
+			"}"
+		)
+	}
 }
