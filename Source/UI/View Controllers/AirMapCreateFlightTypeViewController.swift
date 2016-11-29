@@ -28,11 +28,11 @@ class RedAdvisory: MGLPolygon {}
 class PermitAdvisory: MGLPolygon {
 	var hasPermit = false
 	var airspace: AirMapAirspace!
-	var hasValue: Int { return airspace.airspaceId.hashValue }
+	var hasValue: Int { return airspace.id.hashValue }
 }
 
 func ==(lhs: PermitAdvisory, rhs: PermitAdvisory) -> Bool {
-	return lhs.airspace.airspaceId == rhs.airspace.airspaceId
+	return lhs.airspace.id == rhs.airspace.id
 }
 
 class Buffer: MGLPolygon {}
@@ -328,7 +328,7 @@ extension AirMapCreateFlightTypeViewController {
 					.map { airspaces in
 						Array(Set(airspaces)).flatMap { airspace in
 							
-							guard let permitableAdvisory = advisories.filter({ $0.id == airspace.airspaceId }).first else {
+							guard let permitableAdvisory = advisories.filter({ $0.id == airspace.id }).first else {
 								return nil
 							}
 							
