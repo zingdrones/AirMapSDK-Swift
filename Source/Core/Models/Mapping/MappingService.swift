@@ -299,6 +299,7 @@ public enum AirMapAirspaceType: Int {
 	case Wildfires
 	case HazardArea
 	case RecreationalArea
+	case Stadium
 	
 	public var type: String {
 		
@@ -327,6 +328,8 @@ public enum AirMapAirspaceType: Int {
 			return "hazard_area"
 		case RecreationalArea:
 			return "recreational_area"
+		case .Stadium:
+			return "stadium"
 		}
 	}
 	
@@ -357,6 +360,8 @@ public enum AirMapAirspaceType: Int {
 			return "Hazard Area"
 		case .RecreationalArea:
 			return "Recreational Area"
+		case .Stadium:
+			return "Stadium"
 		}
 	}
 	
@@ -372,7 +377,8 @@ public enum AirMapAirspaceType: Int {
 		.TFR,
 		.Wildfires,
 		.HazardArea,
-		.RecreationalArea
+		.RecreationalArea,
+		.Stadium
 	]
 	
 	public static func airspaceTypeFromName(name: String) -> AirMapAirspaceType? {
@@ -404,6 +410,8 @@ public enum AirMapAirspaceType: Int {
 			return .HazardArea
 		case AirMapAirspaceType.RecreationalArea.type:
 			return .RecreationalArea
+		case AirMapAirspaceType.Stadium.type:
+			return .Stadium
 		default:
 			return nil
 		}
