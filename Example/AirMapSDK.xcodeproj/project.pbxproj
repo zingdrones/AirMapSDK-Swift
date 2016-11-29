@@ -50,7 +50,7 @@
 		91F849BC1D5D8AEB00550D69 /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 912A5BDA1D5B9DCC004B359B /* airmap.config.json */; };
 		91F9006D1D37448C005B1084 /* StatusAdvisoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */; };
 		91F9006F1D3744CD005B1084 /* status_advisories_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91F9006E1D3744CD005B1084 /* status_advisories_success.json */; };
-		94A522583C1163E659EC3D5F /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785A46D26D66A2BCEB304C05 /* Pods_AirMapSDK_Example_iOS.framework */; };
+		94A522583C1163E659EC3D5F /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785A46D26D66A2BCEB304C05 /* Pods_AirMapSDK_Example_iOS.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		AF915457905C8023DB3DD0F2 /* Pods_AirMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 959CF7AD16492755A8E1F3C0 /* Pods_AirMapSDKTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -774,7 +774,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA1A7D748DBEA6AF984F6625 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "AirMapSDK-Example-iOS.entitlements";
 				DEVELOPMENT_TEAM = 9P9UW98328;
@@ -793,7 +792,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C4EEF6AA97E96ACBB3FDFA42 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "AirMapSDK-Example-iOS.entitlements";
 				DEVELOPMENT_TEAM = 9P9UW98328;
