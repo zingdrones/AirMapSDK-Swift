@@ -766,7 +766,8 @@ extension AirMapCreateFlightTypeViewController {
 		case .Polygon:
 			return AirMap.rx_checkPolygon(coordinates, takeOffPoint: coordinates.first!)
 		case .Path:
-			return AirMap.rx_checkFlightPath(coordinates, buffer: Int(round(buffer)), takeOffPoint: coordinates.first!)
+			// Divide the width by 2 to get the left/right buffer
+			return AirMap.rx_checkFlightPath(coordinates, buffer: Int(round(buffer/2)), takeOffPoint: coordinates.first!)
 		}
 	}
 	
