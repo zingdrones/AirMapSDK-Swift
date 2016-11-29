@@ -33,7 +33,7 @@ import ObjectMapper
 	public private(set) var availablePermits = [AirMapAvailablePermit]()
 	public internal(set) var organization: AirMapOrganization?
 	
-	internal var organizationId: String?
+	internal private(set) var organizationId: String?
 
 	public required init?(_ map: Map) {}
 	
