@@ -25,18 +25,6 @@ class AirMapReviewNoticeViewController: UIViewController {
 	private lazy var advisoryNotices: [RowData] = {
         
         let advisories:[AirMapStatusAdvisory] = self.status?.advisories
-            .flatMap { advisory in
-                if let notice = advisory.requirements?.notice?.digital {
-                        if let organization:AirMapOrganization = self.status?.organizations.filter ({ $0.id == advisory.organizationId }).first {
-                            // exlude airports
-                            if advisory.type != .Airport {
-                                advisory.organization = organization
-                                advisory.requirements!.notice!.digital = true
-                            }
-                    }
-                }
-                return advisory
-            }
             .filterDuplicates { (left, right) in
                 let notNil = left.organizationId != nil && right.organizationId != nil
                 let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport

@@ -37,18 +37,6 @@ class AirMapFlightNoticeViewController: UIViewController {
 		
         let organizations:[AirMapOrganization] = navigationController!.status.value!.organizations
         let advisories:[AirMapStatusAdvisory] = navigationController!.status.value!.advisories
-            .flatMap { advisory in
-                 if let notice = advisory.requirements?.notice?.digital {
-                    if let organization = organizations.filter ({ $0.id == advisory.organizationId }).first {
-                        // exlude airports
-                        if advisory.type != .Airport {
-                            advisory.organization = organization
-                            advisory.requirements!.notice!.digital = true
-                        }
-                    }
-                }
-            return advisory
-            }
             .filterDuplicates { (left, right) in
                 let notNil = left.organizationId != nil && right.organizationId != nil
                 let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport
