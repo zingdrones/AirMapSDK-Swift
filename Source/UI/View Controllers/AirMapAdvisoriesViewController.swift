@@ -19,7 +19,7 @@ public protocol AirMapAdvisoriesViewControllerDelegate: class {
 class AirMapAdvisoriesViewController: UITableViewController {
 	
 	var status: Variable<AirMapStatus>!
-    var delegate:AirMapAdvisoriesViewControllerDelegate?
+    weak var delegate: AirMapAdvisoriesViewControllerDelegate?
 	
 	private typealias AdvisoriesSectionModel = SectionModel<AirMapStatus.StatusColor, AirMapStatusAdvisory>
 	private let dataSource = RxTableViewSectionedReloadDataSource<AdvisoriesSectionModel>()
@@ -69,7 +69,7 @@ class AirMapAdvisoriesViewController: UITableViewController {
 	private func setupBindings() {
 		
 		status.asDriver()
-			.map(sectionModel)
+			.map(unowned(self, AirMapAdvisoriesViewController.sectionModel))
 			.drive(tableView.rx_itemsWithDataSource(dataSource))
 			.addDisposableTo(disposeBag)
 		
@@ -142,7 +142,4 @@ class AirMapAdvisoriesViewController: UITableViewController {
         }
     }
 	
-	deinit {
-		print("deinit")
-	}
 }
