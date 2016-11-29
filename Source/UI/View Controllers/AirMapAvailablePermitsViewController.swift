@@ -159,7 +159,7 @@ class AirMapAvailablePermitsViewController: UITableViewController {
         }
         
         if status.applicablePermits.count == 0 {
-            headerCopy = "Only a single permit can be used to fly in this operating area. Your flight path intercects with multiple areas requiring different permits."
+            headerCopy = "Only a single permit can be used to fly in this operating area. Your flight path intersects with multiple areas requiring different permits."
         }
         
        return headerCopy
