@@ -315,8 +315,10 @@ extension AirMapCreateFlightTypeViewController {
                     .map { $0 }
 				return (status, userPermits, permitableAdvisories, airspaceIds)
 			}
-			.distinctUntilChanged () { lhs, rhs in
-				lhs.3.sort().joinWithSeparator("") == rhs.3.sort().joinWithSeparator("")
+			.distinctUntilChanged () { [unowned self] lhs, rhs in
+				lhs.3.sort() == rhs.3.sort() &&
+					// always refetch airspace when permit advisories have been cleared
+					self.mapView.annotations?.filter { $0 is PermitAdvisory }.count > 0
 			}
 			.flatMapLatest { (status: AirMapStatus, permits: [AirMapPilotPermit], advisories: [AirMapStatusAdvisory], airspaceIds: [String]) -> Observable<[AirspacePermitting]> in
 
