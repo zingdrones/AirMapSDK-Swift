@@ -272,7 +272,8 @@ extension AirMapCreateFlightTypeViewController {
 			.map { ($0?.requiresPermits ?? false) && ($0?.applicablePermits.count ?? 0) == 0 }
 			.driveNext {[unowned self] required in
 				self.bottomToolTip.superview!.superview!.hidden = !required
-				self.bottomToolTip.text = "Flight area cannot overlap with conflicting permit requirements."
+				self.bottomToolTip.superview!.backgroundColor = UIColor.airMapRed()
+				self.bottomToolTip.text = "Flight area cannot overlap with conflicting permit requirement zones."
 			}
 			.addDisposableTo(disposeBag)
 		
@@ -458,6 +459,7 @@ extension AirMapCreateFlightTypeViewController {
 			self.mapView.attributionButton.transform = radiusSliderTransform
 			self.bufferSlider.superview?.transform = CGAffineTransformConcat(radiusSliderTransform, CGAffineTransformMakeTranslation(0, radiusSliderOffset))
 			self.bufferSlider.superview?.alpha = radiusSliderAlpha
+			self.bottomToolTip.superview?.superview?.transform = self.bufferSlider.superview!.transform
 		}
 
 		UIView.animateWithDuration(0.3, delay: 0, options: [.BeginFromCurrentState], animations: animations, completion: nil)
@@ -476,7 +478,6 @@ extension AirMapCreateFlightTypeViewController {
 		let trashIconHighlighted = UIImage(named: "trash_icon_highlighted", inBundle: bundle, compatibleWithTraitCollection: nil)
 		let toolTipBgColor = UIColor.airMapGray().colorWithAlphaComponent(0.25)
 		toolTip.superview?.backgroundColor = toolTipBgColor
-		bottomToolTip.superview?.backgroundColor = toolTipBgColor
 		
 		switch state {
 		
