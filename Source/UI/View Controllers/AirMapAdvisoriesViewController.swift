@@ -38,44 +38,28 @@ class AirMapAdvisoriesViewController: UITableViewController {
 		tableView.dataSource = nil
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 75
-       
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, advisory in
-            
-            var identifier = "AirMapAdvisoryCell"
-            
-            if let type = advisory.type {
-                switch type {
-                case AirMapAirspaceType.TFR, .Wildfires :
-                    identifier = "AirMapAdvisoryTFRCell"
-                    break
-                case AirMapAirspaceType.Wildfires :
-                    identifier = "AirMapAdvisoryWildfireCell"
-                    break
-                case AirMapAirspaceType.Airport :
-                    identifier = "AirMapAdvisoryAirportCell"
-                    break
-
-                default:
-                    break
-                }
-            }
-           return tableView.cellWith(advisory, at: indexPath, withIdentifier: identifier) as AirMapAdvisoryCell
+			
+			let identifier: String
+			
+			switch advisory.type {
+			case .TFR?:
+				identifier = "TFRCell"
+			case .Wildfires?:
+				identifier = "WildfireCell"
+			case .Airport?:
+				identifier = "AirportCell"
+			default:
+				if advisory.organization != nil && advisory.organization!.name != advisory.name {
+					identifier = "OrganizationAdvisoryCell"
+				} else {
+					identifier = "AdvisoryCell"
+				}
+			}
+			
+			return tableView.cellWith(advisory, at: indexPath, withIdentifier: identifier) as AirMapAdvisoryCell
 		}
-        
-        tableView.rx_itemSelected
-            .map(tableView.rx_modelAtIndexPath)
-            .subscribeNext {[unowned self] (advisory: AirMapStatusAdvisory) in
-                
-                if let url = advisory.tfrProperties?.url {
-                    self.openWebView(url)
-                }
-                
-                if let indexPath = self.tableView.indexPathForSelectedRow {
-                    self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-                }
-            }
-            .addDisposableTo(disposeBag)
 		
 		dataSource.titleForHeaderInSection = { dataSource, section in
 			dataSource.sectionAtIndex(section).model.description
@@ -87,6 +71,20 @@ class AirMapAdvisoriesViewController: UITableViewController {
 		status.asDriver()
 			.map(sectionModel)
 			.drive(tableView.rx_itemsWithDataSource(dataSource))
+			.addDisposableTo(disposeBag)
+		
+		tableView.rx_itemSelected
+			.map(tableView.rx_modelAtIndexPath)
+			.subscribeNext { [unowned self] (advisory: AirMapStatusAdvisory) in
+				
+				if let url = advisory.tfrProperties?.url {
+					self.openWebView(url)
+				}
+				
+				if let indexPath = self.tableView.indexPathForSelectedRow {
+					self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+				}
+			}
 			.addDisposableTo(disposeBag)
 	}
 	

@@ -13,8 +13,9 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 
 	typealias ObjectType = AirMapStatusAdvisory
 	
-	@IBOutlet weak var name: UILabel!
-	@IBOutlet weak var type: UILabel!
+	@IBOutlet weak var organizationName: UILabel?
+	@IBOutlet weak var advisoryName: UILabel!
+	@IBOutlet weak var type: UILabel?
 	@IBOutlet weak var colorView: UIView!
     @IBOutlet weak var phone: UITextView!
     @IBOutlet weak var starts: UILabel!
@@ -28,17 +29,13 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	private var advisory: AirMapStatusAdvisory!
 	
 	private func configure() {
-        
-        if let organization = advisory.organization {
-            name.text = (advisory.type != .Airport) ? organization.name : advisory.name
-        } else {
-            name.text = advisory.name
-        }
-        
-        type.text = advisory.type?.title
+		
+		organizationName?.text = advisory.organization?.name
+		advisoryName.text = advisory.name
+        type?.text = advisory.type?.title
         starts?.text = ""
         ends?.text = ""
-        phone?.text = ""
+        phone?.text = "PHONE NUMBER NOT PROVIDED"
         colorView.backgroundColor = advisory.color.colorRepresentation
         
         // TFRS
@@ -50,12 +47,12 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             if let expireDate = trfs.endTime {
                 ends?.text = "Ends: \(expireDate.shortDateString())"
             } else {
-                ends?.text = "Ends: Permanent"
+                ends?.text = "Permanent"
             }
         }
         
         // Wildfires
-        if let wildfires = advisory.wildfireProperties {
+        else if let wildfires = advisory.wildfireProperties {
             
             if let dateEffective = wildfires.dateEffective {
                 starts?.text = dateEffective.shortDateString()
@@ -64,20 +61,16 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             if let size = wildfires.size {
                 ends?.text = "\(size) Acres"
             } else {
-                ends?.text = "Unknown"
+                ends?.text = "Size Unknown"
             }
         }
         
         // Airport
-        if let properties = advisory.airportProperties {
-           
-            let noPhoneCopy = "PHONE NUMBER NOT PROVIDED"
-            guard let phoneTxt = properties.phone else {
-                phone?.text = noPhoneCopy
-                return
+        else if let properties = advisory.airportProperties {
+			
+			if let phoneTxt = properties.phone where !phoneTxt.isEmpty {
+				phone?.text = phoneStringFromE164(phoneTxt)
             }
-            
-            phone?.text = (phoneTxt.characters.count > 0) ? phoneStringFromE164(phoneTxt) : noPhoneCopy
         }
 	}
     
@@ -91,8 +84,4 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         }
     }
 	
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
 }
