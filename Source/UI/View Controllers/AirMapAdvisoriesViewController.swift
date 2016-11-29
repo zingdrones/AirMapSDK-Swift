@@ -92,27 +92,9 @@ class AirMapAdvisoriesViewController: UITableViewController {
 		
 		return AirMapStatus.StatusColor.allColors
 			.map { color in
-                AdvisoriesSectionModel(model: color, items: status.advisories
-                    .filter { $0.color == color }
-                    .flatMap { advisory in
-                         if let notice = advisory.requirements?.notice?.digital {
-                            if let organization = status.organizations.filter ({ $0.id == advisory.organizationId }).first {
-                                // exlude airports
-                                if advisory.type != .Airport {
-                                    advisory.organization = organization
-                                    advisory.requirements!.notice!.digital = true
-                                }
-                            }
-                        }
-                        return advisory
-                    }
-                    .filterDuplicates { (left, right) in
-                        let notNil = left.organizationId != nil && right.organizationId != nil
-                        let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport
-                        return notNil && notAirport && left.organizationId == right.organizationId
-                    }
-                )
-            }.filter { section in
+                AdvisoriesSectionModel(model: color, items: status.advisories.filter { $0.color == color })
+            }
+			.filter { section in
                 section.items.count > 0
             }
 	}
