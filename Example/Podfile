@@ -15,9 +15,9 @@ end
 target 'AirMapSDKTests' do
 	platform :ios, '8.0'
 	pod 'AirMapSDK', :path => '../'
-	pod 'Mockingjay'
-	pod 'Quick'
-	pod 'Nimble'
+	pod 'Mockingjay', '~> 1.0'
+	pod 'Quick', '< 0.10'
+	pod 'Nimble', '< 5'
 end
 
 post_install do |installer|
