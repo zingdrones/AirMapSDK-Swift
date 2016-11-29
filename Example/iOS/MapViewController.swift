@@ -25,12 +25,6 @@ class MapViewController: UIViewController {
 		AirMap.trafficDelegate = self
 		
 		mapView.configure(layers: [.EssentialAirspace, .TFRs], theme: .Standard)
-		
-		Observable<Int>.timer(0, period: 20, scheduler: MainScheduler.instance)
-			.subscribeNext { _ in
-				self.mapView.reloadStyle(self)
-			}
-			.addDisposableTo(disposeBag)
 	}
 	
 	@IBAction func addFlight() {
