@@ -287,20 +287,6 @@ extension AirMapCreateFlightTypeViewController {
 					return .just([])
 				} else {
                     return AirMap.rx_listAirspace(ids)
-                        .filter { airspaces in
-                            
-                            let airspaceIds = airspaces.map {$0.airspaceId}
-                            var hasId = false
-                            
-                            for id in ids {
-                                
-                                if (airspaceIds.indexOf { $0 == id }) > -1 {
-                                    hasId = true
-                                }
-                            }
-                            
-                            return hasId
-                        }
 				}
 			}
 			.asDriver(onErrorJustReturn: [])
