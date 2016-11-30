@@ -1,18 +1,17 @@
 {
 	"status": "success",
 	"data": {
-		"id": "permit_application|abc123",
-		"permit_id": "permit|abc123",
+		"id": "permit_application|1234",
 		"status": "pending",
-		"pilot_id": "auth0|abc123",
-		"created_at": "2016-07-05T10:51:19Z",
-		"custom_properties": [
-							  {
-							  "id": "student_id",
-							  "value": "UW2345aw",
-							  "label": "Student ID number"
-							  }
-							  ],
-		"expires_at": "2017-07-05T10:51:19Z"
+		"created_at": "2016-11-30T23:39:02.706Z",
+		"pilot_id": "pilot|1234",
+		"custom_properties": [{
+			"label": "Student ID",
+			"required": true,
+			"value": "12345678",
+			"id": "permit_custom_property|1234",
+			"type": "text"
+		}],
+		"permit_id": "permit|1234"
 	}
 }

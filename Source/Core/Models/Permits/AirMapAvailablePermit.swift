@@ -10,14 +10,14 @@ import ObjectMapper
 
 @objc public class AirMapAvailablePermit: NSObject {
 
-	public private(set) var id = ""
+	public internal(set) var id = ""
 	public private(set) var name = ""
 	public private(set) var info = ""
 	public private(set) var infoUrl = ""
 	public private(set) var singleUse: Bool = false
 	public private(set) var validForInMinutes: Int?
 	public private(set) var validUntil: NSDate?
-	public private(set) var customProperties = [AirMapPilotPermitCustomProperty]()
+	public internal(set) var customProperties = [AirMapPilotPermitCustomProperty]()
 	public internal(set) var organizationId = ""
 	
 	internal override init() {

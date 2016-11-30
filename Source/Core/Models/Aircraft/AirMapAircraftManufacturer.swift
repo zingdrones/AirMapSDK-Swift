@@ -12,7 +12,6 @@ import ObjectMapper
 
 	public var id: String!
 	public var name: String!
-	public var url: String?
 
 	internal override init() {
 		super.init()
@@ -26,6 +25,5 @@ extension AirMapAircraftManufacturer: Mappable {
 	public func mapping(map: Map) {
 		id   <- map["id"]
 		name <- map["name"]
-		url <- map["url"]
 	}
 }

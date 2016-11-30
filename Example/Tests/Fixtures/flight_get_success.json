@@ -1,61 +1,183 @@
 {
-	"data": {
-		"results": [
-					{
-					"aircraft": {
-					"id": "23ce631b-6e0d-453b-9198-9232829bd266",
-					"manufacturer": {
-					"id": "17de75cd-ece0-4ab2-8385-ceaaddc6615f",
-					"name": "DJI"
-					},
-					"metadata": {},
-					"name": "Phantom 3",
-					"nickname": "Ghost Rider"
-					},
-					"aircraft_id": "aircraft|zyx123",
-					"buffer": 100,
-					"city": "Santa Monica",
-					"country": "USA",
-					"created_at": "2016-06-21T12:49:450Z",
-					"end_time": "2016-06-21T12:52:450Z",
-					"geometry": "",
-					"id": "flight|abc123",
-					"latitude": "33.123456",
-					"longitude": "110.123456",
-					"max_altitude": 100,
-					"notify": true,
-					"permits": [
-								"permit|abc123"
-								],
-					"pilot": {
-					"email": "r2d2@airmap.com",
-					"first_name": "R2D2",
-					"id": "auth0|abc123",
-					"last_name": "Skywalker",
-					"phone": "+15557779999",
-					"picture_url": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-					"username": "R2theD2"
-					},
-					"pilot_id": "auth0|zyx321",
-					"public": false,
-					"start_time": "2016-06-21T12:49:45Z",
-					"state": "California",
-					"statuses": [
-								 {
-								 "manager_id": "airport|klax",
-								 "status": "accepted"
-								 },
-								 {
-								 "manager_id": "university|abc123",
-								 "status": "pending"
-								 },
-								 {
-								 "manager_id": "city|xyz789",
-								 "status": "rejected"
-								 }
-								 ]
-					}
-					],
-		"status": "success"
-	}
+    "data": {
+        "paging": {
+            "limit": 1000,
+            "total": 3
+        },
+        "results": [
+            {
+                "id": "flight|1234",
+                "pilot_id": "pilot|1234",
+                "latitude": 40.518442,
+                "longitude": -85.6646,
+                "aircraft_id": "aircraft|1234",
+                "created_at": "2016-11-30T21:53:11.771Z",
+                "start_time": "2016-11-30T21:52:38.189Z",
+                "end_time": "2016-12-01T01:52:38.189Z",
+                "country": "USA",
+                "state": "Indiana",
+                "city": "Marion",
+                "public": true,
+                "permits": [],
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                -85.6618600035139,
+                                40.5184424539189
+                            ],
+                            [
+                                -85.6619126577315,
+                                40.5179078466757
+                            ],
+                            [
+                                -85.6620685969123,
+                                40.5173937840891
+                            ],
+                            [
+                                -85.6623218284011,
+                                40.516920021296
+                            ],
+                            [
+                                -85.6626626206536,
+                                40.5165047647347
+                            ],
+                            [
+                                -85.6630778772148,
+                                40.5161639724822
+                            ],
+                            [
+                                -85.663551640008,
+                                40.5159107409935
+                            ],
+                            [
+                                -85.6640657025946,
+                                40.5157548018126
+                            ],
+                            [
+                                -85.6646003098377,
+                                40.515702147595
+                            ],
+                            [
+                                -85.6651349170809,
+                                40.5157548018126
+                            ],
+                            [
+                                -85.6656489796675,
+                                40.5159107409935
+                            ],
+                            [
+                                -85.6661227424606,
+                                40.5161639724822
+                            ],
+                            [
+                                -85.6665379990219,
+                                40.5165047647347
+                            ],
+                            [
+                                -85.6668787912744,
+                                40.516920021296
+                            ],
+                            [
+                                -85.6671320227632,
+                                40.5173937840891
+                            ],
+                            [
+                                -85.667287961944,
+                                40.5179078466757
+                            ],
+                            [
+                                -85.6673406161616,
+                                40.5184424539189
+                            ],
+                            [
+                                -85.667287961944,
+                                40.518977061162
+                            ],
+                            [
+                                -85.6671320227632,
+                                40.5194911237486
+                            ],
+                            [
+                                -85.6668787912744,
+                                40.5199648865418
+                            ],
+                            [
+                                -85.6665379990219,
+                                40.520380143103
+                            ],
+                            [
+                                -85.6661227424606,
+                                40.5207209353556
+                            ],
+                            [
+                                -85.6656489796675,
+                                40.5209741668443
+                            ],
+                            [
+                                -85.6651349170809,
+                                40.5211301060251
+                            ],
+                            [
+                                -85.6646003098377,
+                                40.5211827602427
+                            ],
+                            [
+                                -85.6640657025946,
+                                40.5211301060251
+                            ],
+                            [
+                                -85.663551640008,
+                                40.5209741668443
+                            ],
+                            [
+                                -85.6630778772148,
+                                40.5207209353556
+                            ],
+                            [
+                                -85.6626626206536,
+                                40.520380143103
+                            ],
+                            [
+                                -85.6623218284011,
+                                40.5199648865418
+                            ],
+                            [
+                                -85.6620685969123,
+                                40.5194911237486
+                            ],
+                            [
+                                -85.6619126577315,
+                                40.518977061162
+                            ],
+                            [
+                                -85.6618600035139,
+                                40.5184424539189
+                            ]
+                        ]
+                    ]
+                },
+                "buffer": 304.8,
+                "pilot": {
+                    "id": "google-oauth2|102924917643554181745",
+                    "picture_url": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
+                    "username": "zhentao"
+                },
+                "aircraft": {
+                    "id": "aircraft|Qxz4GRQsbJY507FbaRDvHOZRPpJ",
+                    "model": {
+                        "id": "e3cb9c77-b193-47e3-be2f-5d8b9222ced9",
+                        "name": "GEMINI",
+                        "manufacturer": {
+                            "id": "8d0cf81a-2709-47d2-945d-56e120f61626",
+                            "name": "TBS"
+                        }
+                    }
+                },
+                "max_altitude": 60.96
+            }
+        ]
+    },
+    "status": "success"
 }

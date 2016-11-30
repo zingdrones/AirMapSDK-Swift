@@ -1,15 +1,13 @@
 {
-	"status": "success",
-	"data": [
-    {
-			 "id": "17de75cd-ece0-4ab2-8385-ceaaddc6615f",
-			 "name": "DJI",
-			 "url": "https://dji.com"
-    },
-    {
-			 "id": "92d47ee7-de40-4f4a-b91e-b63030acd0b0",
-			 "name": "3D Robotics",
-			 "url": "https://www.3dr.com"
-    }
-			 ]
+    "status": "success",
+    "data": [
+        {
+            "id": "manufacturer|1234",
+            "name": "ACME, Inc."
+        },
+        {
+            "id": "manufacturer|5678",
+            "name": "EMCA, Inc."
+        }
+    ]
 }

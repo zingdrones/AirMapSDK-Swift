@@ -1,22 +1,22 @@
 {
 	"status": "success",
 	"data": {
-		"id": "auth0|abc123",
-		"email": "r2d2@airmap.com",
-		"first_name": "R2D2",
-		"last_name": "Skywalker",
-		"username": "R2theD2",
-		"picture_url": "https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg",
-		"phone": "+15557779999",
+		"id": "pilot|1234",
+		"email": "davey@airmap.com",
+		"first_name": "Davey",
+		"last_name": "Dronehead",
+		"username": "daveyd",
+		"picture_url": "http://cdn.airmap.com/users/photo.jpg",
+		"phone": "+13105551212",
 		"verification_status": {
-			"phone": false,
-			"email": true
+			"phone": true,
+			"email": false
 		},
 		"user_metadata": {
-			"faa_registration_number": "123B22434"
+			"faa_registration_number": "faa|1234"
 		},
 		"app_metadata": {
-			"foo" : "bar"
+			"app_meta_foo" : "bar"
 		},
 		"statistics": {
 			"flight": {

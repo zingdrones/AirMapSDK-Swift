@@ -13,6 +13,7 @@ import ObjectMapper
 	public var id = ""
 	public var value = ""
 	public var label = ""
+	public var type = ""
     public var required = true
 
 	public required init?(_ map: Map) {}
@@ -26,10 +27,11 @@ extension AirMapPilotPermitCustomProperty: Mappable {
 
 	public func mapping(map: Map) {
 
-		id          <-  map["id"]
-		value       <-  map["value"]
-		label       <-	map["label"]
-        required    <-  map["required"]
+		id        <-  map["id"]
+		type      <-  map["type"]
+		value     <-  map["value"]
+		label     <-  map["label"]
+        required  <-  map["required"]
 	}
 
 	/**

@@ -13,14 +13,17 @@ class FlightFactory {
 	static func defaultFlight() -> AirMapFlight {
 
 		let flight = AirMapFlight()
-		flight.flightId = "abcd1234"
-		flight.coordinate = CLLocationCoordinate2D(latitude: 31.5, longitude: -118.0)
-		flight.startTime = NSDate.dateFromISO8601String("2016-07-01T22:32:11.123Z")
-		flight.isPublic = true
-		flight.maxAltitude = 100
-		flight.buffer = 500
-		flight.notify = false
-
+		flight.flightId = "flight|1234"
+		flight.pilotId = "pilot|1234"
+		flight.aircraftId = "aircraft|1234"
+		flight.coordinate = CLLocationCoordinate2D(latitude: 33.123456, longitude: -110.123456)
+		flight.startTime = NSDate.dateFromISO8601String("2016-11-30T01:58:10.459Z")
+		flight.duration = 45 * 60
+		flight.isPublic = false
+		flight.maxAltitude = 60.96
+		flight.buffer = 150.5
+		flight.notify = true
+		
 		return flight
 	}
 }

@@ -1,5 +1,5 @@
 //
-//  AirMapPermit.swift
+//  AirMapPilotPermit.swift
 //  AirMapSDK
 //
 //  Created by Rocky Demoff on 7/19/16.

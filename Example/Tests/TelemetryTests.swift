@@ -7,7 +7,6 @@
 //
 
 @testable import AirMap
-import Mockingjay
 import Nimble
 import CocoaAsyncSocket
 
@@ -90,8 +89,8 @@ class TelemetryTests: TestCase, GCDAsyncUdpSocketDelegate {
 
 			let payload = try SecretMessage.parseFromData(decryptedPayload)
 
-			expect(Double(payload.latitude)).to(equal(flight.coordinate.latitude))
-			expect(Double(payload.longitude)).to(equal(flight.coordinate.longitude))
+			expect(Double(payload.latitude)).to(beCloseTo(flight.coordinate.latitude))
+			expect(Double(payload.longitude)).to(beCloseTo(flight.coordinate.longitude))
 			expect(Int(payload.altitude)).to(equal(altitude))
 			expect(Int(payload.groundSpeedMs)).to(equal(groundSpeedMs))
 			expect(Int(payload.trueHeading)).to(equal(trueHeading))
