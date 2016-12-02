@@ -883,7 +883,14 @@ extension AirMapCreateFlightTypeViewController {
 		mapView.removeOverlays(existingRedAdvisories)
 		
 		let redGeometries: [RedAdvisory] = airspaces
-			.flatMap { $0.geometry as? AirMapPolygon }
+			.flatMap { advisory -> AirMapPolygon? in
+                switch advisory.type {
+                case .Airport? :
+                     return advisory.propertyBoundary as? AirMapPolygon
+                default:
+                    return advisory.geometry as? AirMapPolygon
+                }
+            }
 			.map { polygon in
 				var coords = polygon.coordinates as [CLLocationCoordinate2D]
 				return RedAdvisory(coordinates: &coords, count: UInt(coords.count))
