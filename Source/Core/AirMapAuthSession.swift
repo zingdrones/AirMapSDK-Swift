@@ -19,6 +19,7 @@ class AirMapAuthSession {
 				decodeToken(authToken)
 			} else {
 				userId = ""
+                saveRefreshToken(nil)
 			}
 		}
 	}

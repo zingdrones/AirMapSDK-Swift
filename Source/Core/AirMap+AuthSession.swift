@@ -32,6 +32,15 @@ extension AirMap_AuthSession {
 	public static func refreshAuthToken(handler: AirMapErrorHandler) {
 		authClient.refreshAccessToken().subscribe(handler)
 	}
+    
+    /**
+     
+     Logs out the Authenticated User
+     
+     */
+    public static func logout() {
+        authClient.logout()
+    }
 	
 	/**
 	
