@@ -72,6 +72,15 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 				phone?.text = phoneStringFromE164(phoneTxt)
             }
         }
+        
+        
+        // Phone
+        else if let properties = advisory.requirements?.notice {
+            
+            if let phoneTxt = properties.phoneNumber where !phoneTxt.isEmpty {
+                phone?.text = phoneStringFromE164(phoneTxt)
+            }
+        }
 	}
     
    private func phoneStringFromE164(number: String) -> String? {
