@@ -192,7 +192,7 @@ class AirMapFlightPlanViewController: UIViewController {
 
 		status.asObservable()
 			.map {
-				let hasNextSteps = $0?.supportsDigitalNotice ?? true || $0?.requiresPermits ?? true
+				let hasNextSteps = $0?.supportsNotice ?? true || $0?.requiresPermits ?? true
 				return hasNextSteps ? "Next" : "Save"
 			}
 			.subscribeNext { [unowned self] title in
@@ -230,7 +230,7 @@ class AirMapFlightPlanViewController: UIViewController {
 
 		if status.requiresPermits {
 			performSegueWithIdentifier("pushPermits", sender: self)
-		} else if status.supportsDigitalNotice {
+		} else if status.supportsNotice {
 			performSegueWithIdentifier("pushNotices", sender: self)
 		} else {
 			AirMap.rx_createFlight(navigationController!.flight.value)

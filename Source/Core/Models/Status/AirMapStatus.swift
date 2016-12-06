@@ -47,10 +47,17 @@ import ObjectMapper
 	
 	public var supportsDigitalNotice: Bool {
         return advisories
-			.filter { $0.organizationId != nil }
+			.filter { $0.requirements?.notice?.digital == true }
             .flatMap { $0.requirements?.notice }
             .count > 0
 	}
+    
+    public var supportsNotice: Bool {
+        return advisories
+            .filter { $0.requirements?.notice?.phoneNumber != nil }
+            .flatMap { $0.requirements?.notice }
+            .count > 0
+    }
 	
 	public var availablePermits: [AirMapAvailablePermit] {
 		return Array(Set(advisories.flatMap { $0.availablePermits }))
