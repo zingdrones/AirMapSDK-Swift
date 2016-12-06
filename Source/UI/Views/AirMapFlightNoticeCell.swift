@@ -21,31 +21,17 @@ class AirMapFlightNoticeCell: UITableViewCell {
                 name.text = advisory.name
             }
             
-			phoneNumber?.setTitle(phoneStringFromE164(advisoryPhoneNumber), forState: .Normal)
+			phoneNumber?.text = phoneStringFromE164(advisoryPhoneNumber)
 		}
 	}
 
 	@IBOutlet weak var name: UILabel!
-	@IBOutlet weak var phoneNumber: UIButton?
+	@IBOutlet weak var phoneNumber: UITextView?
 	
 	private var advisoryPhoneNumber: String? {
 		return advisory.requirements?.notice?.phoneNumber
 	}
 	
-	@IBAction func callAdvisoryAuthority() {
-		
-		let application = UIApplication.sharedApplication()
-        
-        if let phoneNumberString = advisoryPhoneNumber {
-            guard
-                let url = NSURL(string: "telprompt://\(phoneNumberString)")
-                where application.canOpenURL(url)
-                else { return }
-            
-            application.openURL(url)
-        }
-	}
-
 	private func phoneStringFromE164(number: String?) -> String? {
 		
 		let util = AirMapFlightNoticeCell.phoneUtil

@@ -48,7 +48,7 @@ class AirMapAdvisoriesViewController: UITableViewController {
 				identifier = "TFRCell"
 			case .Wildfires?:
 				identifier = "WildfireCell"
-			case .Airport?:
+			case .Airport?, .Heliport?:
 				identifier = "AirportCell"
 			default:
 				if advisory.organization != nil && advisory.organization!.name != advisory.name {
