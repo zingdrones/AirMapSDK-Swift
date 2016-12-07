@@ -54,7 +54,7 @@ import ObjectMapper
     
     public var supportsNotice: Bool {
         return advisories
-            .filter { $0.requirements?.notice?.phoneNumber != nil }
+            .filter { $0.requirements?.notice != nil }
             .flatMap { $0.requirements?.notice }
             .count > 0
     }

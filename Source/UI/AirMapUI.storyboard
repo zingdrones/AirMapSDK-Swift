@@ -960,7 +960,7 @@ Line two details would be here.</string>
         <scene sceneID="ajs-kt-gsK">
             <objects>
                 <navigationController id="OcD-bb-4X7" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Esf-20-NJN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="Esf-20-NJN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1348,7 +1348,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="fXr-LJ-5QW">
             <objects>
                 <navigationController storyboardIdentifier="VerifyPhoneNumber" id="qCC-Ux-GvH" customClass="AirMapPhoneVerificationNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="7wR-7A-qNT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="7wR-7A-qNT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1959,8 +1959,8 @@ AirMap will send you a text message when your digital notice has been successful
                     <rect key="frame" x="0.0" y="0.0" width="594" height="75"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Submit Digital Notice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39m-XX-eZ2">
-                            <rect key="frame" x="15" y="28" width="160" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Digital Notice Accepted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39m-XX-eZ2">
+                            <rect key="frame" x="15" y="28" width="178.5" height="20"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -2749,7 +2749,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="7TB-GQ-aUS">
             <objects>
                 <navigationController storyboardIdentifier="AirMapAircraftModelNavController" id="g95-Bq-UMI" customClass="AirMapAircraftModelNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="UWC-L3-45E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="UWC-L3-45E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2795,48 +2795,69 @@ AirMap will send you a text message when your digital notice has been successful
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="175"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="digitalCell" textLabel="7ki-Pk-vZf" style="IBUITableViewCellStyleDefault" id="gfc-Cw-7hw">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="digitalCell" rowHeight="44" id="paG-c4-yBa" customClass="AirMapFlightNoticeCell" customModule="AirMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gfc-Cw-7hw" id="gpq-4A-BBZ">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="paG-c4-yBa" id="ZHg-ik-rPF">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Authority Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7ki-Pk-vZf">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Boeing Field" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpk-5A-j54">
+                                                    <rect key="frame" x="15" y="12" width="345" height="19"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="top" secondItem="ZHg-ik-rPF" secondAttribute="top" constant="12" id="2ZH-fN-VpE"/>
+                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="trailing" secondItem="ZHg-ik-rPF" secondAttribute="trailing" constant="-15" id="4pA-j5-Cbs"/>
+                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="leading" secondItem="ZHg-ik-rPF" secondAttribute="leading" constant="15" id="ccg-8p-ybA"/>
+                                                <constraint firstAttribute="bottom" secondItem="Gpk-5A-j54" secondAttribute="bottom" constant="12" id="ruS-wE-Dlw"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="name" destination="Gpk-5A-j54" id="UTp-W0-JJm"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="noDigitalCell" textLabel="sOI-To-hV4" detailTextLabel="bcF-gu-B7s" rowHeight="55" style="IBUITableViewCellStyleSubtitle" id="T3p-bb-YLE">
-                                        <rect key="frame" x="0.0" y="100" width="375" height="55"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="noDigitalCell" rowHeight="70" id="Xze-tT-CFL" customClass="AirMapFlightNoticeCell" customModule="AirMap" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="100" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T3p-bb-YLE" id="IMm-74-B9d">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xze-tT-CFL" id="dMv-O4-L2F">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Authority Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sOI-To-hV4">
-                                                    <rect key="frame" x="15" y="8" width="119" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gasworks Park" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPi-lH-bxt">
+                                                    <rect key="frame" x="15" y="12" width="345" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bcF-gu-B7s">
-                                                    <rect key="frame" x="15" y="28" width="40" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="310-555-1212" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bBK-bB-q3L">
+                                                    <rect key="frame" x="19" y="29" width="337" height="29.5"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES"/>
+                                                </textView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="bBK-bB-q3L" secondAttribute="bottom" constant="10.5" id="1E6-1A-g0S"/>
+                                                <constraint firstItem="bBK-bB-q3L" firstAttribute="top" secondItem="rPi-lH-bxt" secondAttribute="bottom" constant="-4" id="NTX-Px-SGH"/>
+                                                <constraint firstAttribute="trailing" secondItem="bBK-bB-q3L" secondAttribute="trailing" constant="19" id="RBu-6l-PdU"/>
+                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="top" secondItem="dMv-O4-L2F" secondAttribute="top" constant="12" id="aKd-iE-4Qk"/>
+                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="leading" secondItem="dMv-O4-L2F" secondAttribute="leading" constant="15" id="baQ-JA-yha"/>
+                                                <constraint firstItem="bBK-bB-q3L" firstAttribute="leading" secondItem="dMv-O4-L2F" secondAttribute="leading" constant="19" id="uVk-ht-xKe"/>
+                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="trailing" secondItem="dMv-O4-L2F" secondAttribute="trailing" constant="-15" id="vCO-Ka-9pw"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="name" destination="rPi-lH-bxt" id="9aa-aJ-ZUb"/>
+                                            <outlet property="phoneNumber" destination="bBK-bB-q3L" id="KMP-Zf-ddJ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

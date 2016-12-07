@@ -35,7 +35,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         type?.text = advisory.type?.title
         starts?.text = ""
         ends?.text = ""
-        phone?.text = "PHONE NUMBER NOT PROVIDED"
+        phone?.text = UIConstants.Instructions.noPhoneNumberProvided
         colorView.backgroundColor = advisory.color.colorRepresentation
         
         // TFRS

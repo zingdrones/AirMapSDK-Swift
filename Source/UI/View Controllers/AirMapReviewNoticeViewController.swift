@@ -48,20 +48,10 @@ class AirMapReviewNoticeViewController: UIViewController {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		dataSource.configureCell = { [weak self] dataSource, tableView, indexPath, rowData in
-			let cell: UITableViewCell
-			if rowData.notice.digital {
-				cell = tableView.dequeueReusableCellWithIdentifier("digitalCell")!
-			} else {
-				cell = tableView.dequeueReusableCellWithIdentifier("noDigitalCell")!
-			}
+            let cellIdentifier = rowData.notice.digital ? "digitalCell" : "noDigitalCell"
+		    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! AirMapFlightNoticeCell
+            cell.advisory = rowData.advisory
             
-            if let organization = rowData.advisory.organization {
-                cell.textLabel?.text = (rowData.advisory.type != .Airport) ? organization.name : rowData.advisory.name
-            } else {
-                cell.textLabel?.text = rowData.advisory.name
-            }
-            
-			cell.detailTextLabel?.text = self?.phoneStringFromE164(rowData.notice.phoneNumber ?? "")
 			return cell
 		}
 		
@@ -72,7 +62,7 @@ class AirMapReviewNoticeViewController: UIViewController {
             }
             
 			let digitalNotice = sections.sectionModels[index].model.boolValue
-			return digitalNotice ? "Digital Notice" : "The following authorities in this area do not accept digital notice"
+			return digitalNotice ? "Accepts Digital Notice" : "The following authorities in this area do not accept digital notice"
 		}
         
 		let digitalSection = SectionModel(model: true, items: digitalNotices)

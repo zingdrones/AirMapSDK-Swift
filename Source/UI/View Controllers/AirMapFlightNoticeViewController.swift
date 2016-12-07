@@ -75,12 +75,7 @@ class AirMapFlightNoticeViewController: UIViewController {
 			if notice.digital {
 				cell = tableView.dequeueReusableCellWithIdentifier("noticeCell") as! AirMapFlightNoticeCell
 			} else {
-				if let phoneNumber = advisory.requirements?.notice?.phoneNumber where !phoneNumber.isEmpty {
-					cell = tableView.dequeueReusableCellWithIdentifier("noticePhoneNumberCell") as! AirMapFlightNoticeCell
-				} else {
-					cell = tableView.dequeueReusableCellWithIdentifier("noticeCell") as! AirMapFlightNoticeCell
-				}
-			}
+				cell = tableView.dequeueReusableCellWithIdentifier("noticePhoneNumberCell") as! AirMapFlightNoticeCell			}
 			cell.advisory = advisory
             return cell
 		}
