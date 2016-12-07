@@ -79,7 +79,7 @@ extension AirMapStatusAdvisory: Mappable {
 		
 		if let type = type {
 			switch type {
-			case .Airport:            airportProperties            <- map["properties"]
+			case .Airport, .Heliport: airportProperties            <- map["properties"]
 			case .Park:               parkProperties               <- map["properties"]
 			case .SpecialUse:         specialUseProperties         <- map["properties"]
 			case .PowerPlant:         powerPlantProperties         <- map["properties"]
