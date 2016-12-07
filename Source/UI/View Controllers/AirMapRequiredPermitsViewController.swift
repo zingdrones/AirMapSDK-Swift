@@ -177,7 +177,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 			// Only return available permits that are applicable and not expired
 			.filter { status.value?.applicablePermits.map { $0.id }.contains($0.permitId) ?? false }
 			.filter { $0.permitDetails.singleUse != true }
-            .filter { $0.expiresAt.greaterThanDate(NSDate()) }
+            .filter { $0.expiresAt != nil && $0.expiresAt.greaterThanDate(NSDate()) }
 			.filter { $0.status != .Rejected }
 	}
 	
