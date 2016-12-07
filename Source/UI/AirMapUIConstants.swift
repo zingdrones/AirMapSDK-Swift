@@ -9,6 +9,10 @@
 struct UIConstants {
 	
 	static let metersPerFoot: CLLocationDistance = 0.3048
+    
+    struct Instructions {
+        static let noPhoneNumberProvided = "No Phone Number Provided"
+    }
 	
 	static let bufferPresets: [(title: String, value: CLLocationDistance)] = [
 		("50 ft", metersPerFoot * 50),
