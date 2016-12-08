@@ -2,114 +2,218 @@
 //  TelemetryTests.swift
 //  AirMapSDK
 //
-//  Created by Adolfo Martinelli on 7/5/16.
+//  Created by Adolfo Martinelli on 12/1/16.
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
+
+import XCTest
 
 @testable import AirMap
 import Nimble
 import CocoaAsyncSocket
 
-class TelemetryTests: TestCase, GCDAsyncUdpSocketDelegate {
-
+class TelemetryTests: TestCase {
+	
 	let iv = AirMapTelemetry.generateIV()
 	let key: [UInt8] = [201, 49, 58, 234, 67, 135, 252, 215, 251, 132, 90, 119, 192, 127, 77, 39,
 	                    234, 70, 138, 229, 75, 193, 234, 177, 147, 236, 126, 245, 219, 47, 242, 86]
+	
 
-	class MockTelemetryServerSocket: TelemetrySocket {
+	let position: Airmap.Telemetry.Position = {
 
+		let position = Airmap.Telemetry.Position.Builder()
+		position.setAltitude(150)
+		position.setLatitude(41.5)
+		position.setLongitude(-118.7)
+		position.setTimestamp(UInt64(NSDate().timeIntervalSince1970*1000))
+		
+		return try! position.build()
+	}()
+	
+	class MockTelemetryServerSocket: GCDAsyncUdpSocket, GCDAsyncUdpSocketDelegate {
+		
 		var messageHandler: (NSData -> Void)!
-
-		override func connect() -> Bool {
-			if socket.isConnected() { return true }
-			try! socket.bindToPort(Config.AirMapTelemetry.port, interface: "loopback")
-			try! socket.beginReceiving()
-			return true
+		
+		func bind() {
+			try! bindToPort(Config.AirMapTelemetry.port, interface: "loopback")
+			try! beginReceiving()
 		}
-
-		func udpSocket(sock: GCDAsyncUdpSocket!, didReceiveData data: NSData!, fromAddress address: NSData!, withFilterContext filterContext: AnyObject!) {
+		
+		@objc func udpSocket(sock: GCDAsyncUdpSocket, didReceiveData data: NSData, fromAddress address: NSData, withFilterContext filterContext: AnyObject?) {
 			messageHandler(data)
 		}
 	}
-
-	class MockTelemetryClientSocket: TelemetrySocket {
-
-		override func connect() -> Bool {
-			if socket.isConnected() { return true }
-			try! socket.connectToHost("loopback", onPort: Config.AirMapTelemetry.port)
-			try! socket.beginReceiving()
-			return true
+	
+	class MockTelemetryClientSocket: AirMapTelemetry.Socket, GCDAsyncUdpSocketDelegate {
+		
+		override func sendData(data: NSData) {
+			sendData(data, toHost: "loopback", port: Config.AirMapTelemetry.port, withTimeout: 10, tag: 0)
 		}
 	}
+	
+	func testSendingData() {
+		
+		let serverSocket = MockTelemetryServerSocket()
+		serverSocket.setDelegate(serverSocket)
+		serverSocket.setDelegateQueue(AirMapTelemetry.serialQueue)
+		serverSocket.bind()
 
-	let serverSocket = MockTelemetryServerSocket()
-	let clientSocket = MockTelemetryClientSocket()
-
-	func testSendingArbitraryData() {
-
-		serverSocket.connect()
-		clientSocket.connect()
-
+		let clientSocket = MockTelemetryClientSocket()
+		
+		let payload = position.telemetryData().AES256CBCEncrypt(key: key, iv: iv)!
+		let packet = AirMapTelemetry.Packet(serial: 1, flightId: NSUUID(), payload: payload, encryption: .AES256CBC, encryptionData: NSData(bytes: iv))
+		let packetData = packet.data()
+		
 		waitUntil { done in
-
-			let message = "I <3 Drones".dataUsingEncoding(NSUTF8StringEncoding)!
-
-			self.serverSocket.messageHandler = { data in
-				expect(data).to(equal(message))
+			
+			serverSocket.messageHandler = { receivedData in
+				expect(receivedData).to(equal(packetData))
+				serverSocket.close()
+				clientSocket.close()
 				done()
 			}
-			self.clientSocket.sendMessage(message)
+			clientSocket.sendData(packetData)
 		}
 	}
-
-	func testTelemetryEncoding() {
-
-		do {
-			let flight = FlightFactory.defaultFlight()
-			let altitude = 100
-			let groundSpeedMs = 5
-			let trueHeading = 090
-			let baro = 1_013.21
-			let timestamp = NSDate()
-
-			guard let encodedData = AirMapTelemetry.encodedTelemetryData(
-				iv: iv, key: key, flightId: flight.flightId, coordinate: flight.coordinate,
-				altitude: altitude, groundSpeedMs: groundSpeedMs, trueHeading: trueHeading, baro: baro,
-				timestamp: timestamp) else {
-					fail("Could not encode telemetry data")
-					return
-			}
-
-			let message = try OpenMessage.parseFromData(encodedData)
-			expect(message.flightId).to(equal(flight.flightId))
-			expect(message.iv).to(equal(AirMapTelemetry.dataFromIV(iv)))
-
-			guard let decryptedPayload = AirMapTelemetry.decryptMessage(message.payload, iv: iv, key: key)
-				else { fail("Could not decrypt message payload"); return }
-
-			let payload = try SecretMessage.parseFromData(decryptedPayload)
-
-			expect(Double(payload.latitude)).to(beCloseTo(flight.coordinate.latitude))
-			expect(Double(payload.longitude)).to(beCloseTo(flight.coordinate.longitude))
-			expect(Int(payload.altitude)).to(equal(altitude))
-			expect(Int(payload.groundSpeedMs)).to(equal(groundSpeedMs))
-			expect(Int(payload.trueHeading)).to(equal(trueHeading))
-			expect(Double(payload.baro)).to(beCloseTo(baro))
-			// This test will fail because of a loss in sub-second precision. The protobufs should be updated
-			// to use Double instead of UInt64 in order to capture milliseconds. ^AM
-			expect(NSTimeInterval(payload.timestamp)).to(beCloseTo(timestamp.timeIntervalSince1970))
-
-		} catch {
-			fail("Could not parse message from encoded data")
-		}
+	
+	func testMessageType() {
+		
+		expect(Airmap.Telemetry.Position().messageType)
+			.to(equal(ProtoBufMessage.MessageType.Position))
+		
+		expect(Airmap.Telemetry.Speed().messageType)
+			.to(equal(ProtoBufMessage.MessageType.Speed))
+		
+		expect(Airmap.Telemetry.Barometer().messageType)
+			.to(equal(ProtoBufMessage.MessageType.Barometer))
 	}
+	
+	func testMessageSerialization() {
+		
+		let messageData = position.telemetryData()
 
+		var range = NSRange()
+		
+		var messageType: UInt16 = 0
+		range.length = sizeofValue(messageType)
+		messageData.getBytes(&messageType, range: range)
+		range.location += range.length
+		expect(messageType).to(equal(ProtoBufMessage.MessageType.Position.rawValue))
+		
+		var payloadLength: UInt16 = 0
+		range.length = sizeofValue(payloadLength)
+		messageData.getBytes(&payloadLength, range: range)
+		range.location += range.length
+		expect(Int(payloadLength)).to(equal(position.data().length))
+
+		range.length = Int(payloadLength)
+		let telemetryPayload = messageData.subdataWithRange(range)
+		expect(telemetryPayload).to(equal(position.data()))
+	}
+	
+	func testPacketSerialization() {
+		
+		let payload = position.telemetryData().AES256CBCEncrypt(key: key, iv: iv)!
+
+		let flightId = NSUUID()
+		let ivData = NSData(bytes: iv)
+		let packet = AirMapTelemetry.Packet(serial: 123, flightId: flightId, payload: payload, encryption: .AES256CBC, encryptionData: ivData)
+		let packetData = packet.data()
+		
+		var range = NSRange()
+		
+		var serial: UInt32 = 0
+		range.length = sizeofValue(serial)
+		packetData.getBytes(&serial, range: range)
+		range.location += range.length
+		expect(serial).to(equal(123))
+		
+		var uuid = [UInt8](count: 16, repeatedValue: 0)
+		range.length = uuid.count
+		packetData.getBytes(&uuid, range: range)
+		range.location += range.length
+		expect(NSUUID(UUIDBytes: uuid)).to(equal(flightId))
+		
+		var encryption: UInt8 = 0
+		range.length = sizeofValue(encryption)
+		packetData.getBytes(&encryption, range: range)
+		range.location += range.length
+		expect(encryption).to(equal(AirMapTelemetry.Packet.EncryptionType.AES256CBC.rawValue))
+		
+		var ivBytes = [UInt8](count: 16, repeatedValue: 0)
+		range.length = ivBytes.count
+		packetData.getBytes(&ivBytes, range: range)
+		range.location += range.length
+		expect(ivBytes).to(equal(iv))
+		
+		range.length = packetData.length - range.location
+		let packetPayload = packetData.subdataWithRange(range)
+		expect(packetPayload).to(equal(payload))
+	}
+	
 	func testEncryption() {
-
-		let secret = "passw0rd".dataUsingEncoding(NSUTF8StringEncoding)!
-		let encypted = AirMapTelemetry.encryptMessage(secret, iv: iv, key: key)!
-		let decrypted = AirMapTelemetry.decryptMessage(encypted, iv: iv, key: key)!
+		
+		let secret = "s3cr3t".utf8Data
+		let encypted = secret.AES256CBCEncrypt(key: key, iv: iv)
+		let decrypted = encypted?.AES256CBCDecrypt(key: key, iv: iv)
 		expect(decrypted).to(equal(secret))
 	}
+	
+	func testSendingTelemetry() {
+		
+		let serverSocket = MockTelemetryServerSocket()
+		serverSocket.setDelegate(serverSocket)
+		serverSocket.setDelegateQueue(AirMapTelemetry.serialQueue)
+		serverSocket.bind()
+//		serverSocket.close()
 
+		let clientSocket = MockTelemetryClientSocket()
+		AirMapTelemetry.Session.socket = clientSocket
+		
+		let payload = position.telemetryData().AES256CBCEncrypt(key: key, iv: iv)!
+		
+		let flightId = NSUUID()
+		let ivData = NSData(bytes: iv)
+		let packet = AirMapTelemetry.Packet(serial: 123, flightId: flightId, payload: payload, encryption: .AES256CBC, encryptionData: ivData)
+		let packetData = packet.data()
+
+		let flight = AirMapFlight()
+		flight.flightId = flightId.UUIDString
+		
+		serverSocket.messageHandler = { receivedData in
+			expect(receivedData).to(equal(packetData))
+		}
+		
+		let coordinate = CLLocationCoordinate2D(latitude: position.latitude, longitude: position.longitude)
+		try! AirMap.sendTelemetryData(flight, coordinate: coordinate, altitude: position.altitude)
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

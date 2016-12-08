@@ -20,7 +20,7 @@ internal class FlightClient: HTTPClient {
 	- parameter flight: The `AirMapFlight` for which to retreive a comm key
 	- returns: `Comm` key for a AirMapFlight
 	*/
-	func getCommKey(flight: AirMapFlight) -> Observable<Comm> {
+	func getCommKey(flight: AirMapFlight) -> Observable<CommKey> {
 		return call(.POST, url: "/\(flight.flightId)/start-comm")
 	}
 

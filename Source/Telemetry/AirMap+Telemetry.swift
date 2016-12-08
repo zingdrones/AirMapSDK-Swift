@@ -6,63 +6,93 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import RxSwift
+import AirMap
+import ProtocolBuffers
 
 private typealias AirMapTelemetryServices = AirMap
 extension AirMapTelemetryServices {
-
+	
+	public enum TelemetryError: ErrorType {
+		case InvalidCredentials
+		case InvalidFlight
+	}
+	
 	/**
-
-	Send aircraft telemetry data to AirMap
-
+	
+	Send aircraft position telemetry data to AirMap
+	
 	- parameter flight: The `AirMapFlight` to report telemetry data for
 	- parameter coordinate: The latitude & longitude of the aircraft
-	- parameter altitude: The altitude of the aircraft AGL
-	- parameter trueHeading: Optional, a direction that is measured in degrees relative to true north
-	- parameter groundSpeedMs: Optional, the speed at which the aircraft is moving in meters per second
-	- parameter baro: Optional, the barometric pressure
-
+	- parameter altitude: The altitude of the aircraft in meters MSL
+	
 	*/
-	public static func sendTelemetryData(flight: AirMapFlight,
-	                                     coordinate: CLLocationCoordinate2D,
-	                                     altitude: Int,
-	                                     groundSpeed: Int?,
-	                                     trueHeading: Int?,
-	                                     baro: Double?) {
-
-		guard AirMap.hasValidCredentials() else {
-			logger.error(AirMap.self, "Please login before sending telemetry data.")
-			return
-		}
-
-		guard flight.flightId != nil  else {
-			logger.error(AirMap.self, "Flight must exist before sending telemetry data. Call \(#selector(AirMap.createFlight(flight:handler:))) AirMap.createFlight(: ...) before sending data.")
-			return
-		}
-
-		guard CLLocationCoordinate2DIsValid(coordinate) else { return }
-
-		guard telemetrySocket.keyState != .Retreiving else { return }
-
-		telemetrySocket.retreiveCommunicationKey(flight)
-			.doOnNext { comm in
-				if let telemetryData = AirMapTelemetry.encodedTelemetryData(
-					iv: AirMapTelemetry.generateIV(),
-					key: comm.binaryKey(),
-					flightId: flight.flightId,
-					coordinate: coordinate,
-					altitude: altitude,
-					groundSpeedMs: groundSpeed,
-					trueHeading: trueHeading,
-					baro: baro) {
-					telemetrySocket.sendMessage(telemetryData)
-				}
-			}
-			.doOnError { error in
-				logger.error("Error retreiving comm key for flight", (error as NSError).localizedDescription)
-			}
-			.subscribe()
-			.addDisposableTo(disposeBag)
+	public static func sendTelemetryData(flight: AirMapFlight, coordinate: CLLocationCoordinate2D, altitude: Float) throws {
+		
+		try canSendTelemetryFor(flight)
+		
+		let position = Airmap.Telemetry.Position.Builder()
+		position.setLatitude(coordinate.latitude)
+		position.setLongitude(coordinate.longitude)
+		position.setAltitude(altitude)
+		
+		let positionMessage = try position.build()
+		telemetryClient.sendTelemetry(flight, message: positionMessage)
 	}
-
+	
+	/**
+	
+	Send aircraft speed telemetry data to AirMap
+	
+	- parameter flight: The `AirMapFlight` to report telemetry data for
+	- parameter trueHeading: A direction that is measured in degrees relative to true north (0-360)
+	- parameter groundSpeedMs: The speed at which the aircraft is moving in meters per second
+	
+	*/
+	public static func sendTelemetryData(flight: AirMapFlight, groundSpeed: Float, trueHeading: Float) throws {
+		
+		try canSendTelemetryFor(flight)
+		
+		let speed = Airmap.Telemetry.Speed.Builder()
+		speed.setGroundSpeed(groundSpeed)
+		speed.setTrueHeading(trueHeading)
+		let speedMessage = try speed.build()
+		telemetryClient.sendTelemetry(flight, message: speedMessage)
+	}
+	
+	/**
+	
+	Send barometer telemetry data to AirMap
+	
+	- parameter flight: The `AirMapFlight` to report telemetry data for
+	- parameter baro: The barometric pressure in kPa (~1000)
+	
+	*/
+	public static func sendTelemetryData(flight: AirMapFlight, baro: Float) throws {
+		
+		try canSendTelemetryFor(flight)
+		
+		let barometer = Airmap.Telemetry.Barometer.Builder()
+		barometer.setBarometer(baro)
+		let barometerMessage = try barometer.build()
+		telemetryClient.sendTelemetry(flight, message: barometerMessage)
+	}
+	
+	/**
+	
+	Verify the user can send telemetry data
+	
+	*/
+	private static func canSendTelemetryFor(flight: AirMapFlight) throws {
+	
+		guard AirMap.hasValidCredentials() else {
+			logger.error(self, "Please login before sending telemetry data.")
+			throw TelemetryError.InvalidCredentials
+		}
+		
+		guard flight.flightId != nil else {
+			logger.error(self, "Flight must exist before sending telemetry data. Call \(#selector(AirMap.createFlight(flight:handler:))) before sending data.")
+			throw TelemetryError.InvalidFlight
+		}
+	}
+	
 }
