@@ -173,7 +173,7 @@ class AirMapAvailablePermitViewController: UITableViewController {
                     tf.placeholder = property.required ? "* \(property.label)" : property.label
 				}
 	
-				if property.label.lowercaseString == "email" {
+				if property.label.lowercaseString.rangeOfString("email") != nil {
 					tf.keyboardType = .EmailAddress
 					tf.autocapitalizationType = .None
 				} else {
