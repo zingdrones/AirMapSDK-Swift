@@ -85,7 +85,8 @@ struct AirMapTelemetry {
 		
 		static var socket = Socket(socketQueue: serialQueue)
 		
-		private let encryption = Packet.EncryptionType.AES256CBC
+//		private let encryption = Packet.EncryptionType.AES256CBC
+		private let encryption = Packet.EncryptionType.None
 		private var serialNumber: UInt32 = 0
 				
 		init(flight: AirMapFlight, commKey: CommKey) {
@@ -135,6 +136,7 @@ struct AirMapTelemetry {
 		
 		enum EncryptionType: UInt8 {
 			case AES256CBC = 0
+			case None = 255
 		}
 
 		let serial: UInt32
@@ -154,6 +156,8 @@ struct AirMapTelemetry {
 			case .AES256CBC:
 				assert(encryptionData.length == 16)
 				header.appendData(encryptionData)
+			case .None:
+				break
 			}
 			
 			return [header, payload].data()
