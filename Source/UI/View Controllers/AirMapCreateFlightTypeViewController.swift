@@ -222,7 +222,9 @@ extension AirMapCreateFlightTypeViewController {
 			.addDisposableTo(disposeBag)
 	
 		let snappedBuffer = bufferSlider.rx_value.asDriver()
-			.map(unowned(self, $.sliderValueToBuffer))
+            .skip(1)
+            .distinctUntilChanged()
+            .map(unowned(self, $.sliderValueToBuffer))
 
 		snappedBuffer.map { $0.displayString }
 			.drive(bufferValueLabel.rx_text)
@@ -250,9 +252,9 @@ extension AirMapCreateFlightTypeViewController {
 		
 		validatedInput
 			.asObservable()
-			.filter { $0.3.valid }
+            .filter { $0.3.valid }
 			.flatMapLatest {[unowned self] input in
-				unowned(self, $.getStatus)(input)
+                unowned(self, $.getStatus)(input)
 					.map { Optional.Some($0) }
 					.asDriver(onErrorJustReturn: nil)
 			}
