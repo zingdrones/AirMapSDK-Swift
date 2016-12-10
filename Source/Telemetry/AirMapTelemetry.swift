@@ -96,7 +96,14 @@ struct AirMapTelemetry {
 		
 		func send(messages: [ProtoBufMessage]) {
 			
-			let encryptionData = AirMapTelemetry.generateIV()
+			let encryptionData: [UInt8]
+				
+			switch encryption {
+			case .AES256CBC:
+				encryptionData = AirMapTelemetry.generateIV()
+			case .None:
+				encryptionData = []
+			}
 
 			let payload = messages
 				.map { msg in msg.telemetryData() }.data()
