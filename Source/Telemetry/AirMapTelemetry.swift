@@ -95,24 +95,26 @@ struct AirMapTelemetry {
 		}
 		
 		func send(messages: [ProtoBufMessage]) {
+
+			let payload = messages.map { msg in msg.telemetryData() }.data()
+			let packet: Packet
+			let serial = nextPacketId()
+			let flightId = flight.flightId
 			
-			let encryptionData: [UInt8]
-				
 			switch encryption {
 			case .AES256CBC:
-				encryptionData = AirMapTelemetry.generateIV()
+				let iv = AirMapTelemetry.generateIV()
+				let encryptedPayload = payload.AES256CBCEncrypt(key: commKey.binaryKey(), iv: iv)!
+				packet = Packet(
+					serial: serial, flightId: flightId, payload: encryptedPayload,
+					encryption: encryption, encryptionData: NSData(bytes: iv)
+				)
 			case .None:
-				encryptionData = []
+				packet = Packet(
+					serial: serial, flightId: flightId, payload: payload,
+					encryption: encryption, encryptionData: NSData()
+				)
 			}
-
-			let payload = messages
-				.map { msg in msg.telemetryData() }.data()
-				.AES256CBCEncrypt(key: commKey.binaryKey(), iv: encryptionData)!
-			
-			let packet = Packet(
-				serial: nextPacketId(), flightId: flight.flightId, payload: payload,
-				encryption: encryption, encryptionData: NSData(bytes: encryptionData)
-			)
 
 			Session.socket.sendData(packet.data())
 		}
