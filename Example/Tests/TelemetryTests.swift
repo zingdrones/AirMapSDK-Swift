@@ -61,7 +61,8 @@ class TelemetryTests: TestCase {
 		let clientSocket = MockTelemetryClientSocket()
 		
 		let payload = position.telemetryData().AES256CBCEncrypt(key: key, iv: iv)!
-		let packet = AirMapTelemetry.Packet(serial: 1, flightId: NSUUID(), payload: payload, encryption: .AES256CBC, encryptionData: NSData(bytes: iv))
+		let flightId = "flight|1234567890abcdef"
+		let packet = AirMapTelemetry.Packet(serial: 1, flightId: flightId, payload: payload, encryption: .AES256CBC, encryptionData: NSData(bytes: iv))
 		let packetData = packet.data()
 		
 		waitUntil { done in
@@ -115,7 +116,7 @@ class TelemetryTests: TestCase {
 		
 		let payload = position.telemetryData().AES256CBCEncrypt(key: key, iv: iv)!
 
-		let flightId = NSUUID()
+		let flightId = "flight|1234567890abcdef"
 		let ivData = NSData(bytes: iv)
 		let packet = AirMapTelemetry.Packet(serial: 123, flightId: flightId, payload: payload, encryption: .AES256CBC, encryptionData: ivData)
 		let packetData = packet.data()
@@ -128,11 +129,16 @@ class TelemetryTests: TestCase {
 		range.location += range.length
 		expect(serial).to(equal(123))
 		
-		var uuid = [UInt8](count: 16, repeatedValue: 0)
-		range.length = uuid.count
-		packetData.getBytes(&uuid, range: range)
+		var flightIdLength: UInt8 = 0
+		range.length = sizeofValue(flightIdLength)
+		packetData.getBytes(&flightIdLength, range: range)
 		range.location += range.length
-		expect(NSUUID(UUIDBytes: uuid)).to(equal(flightId))
+		
+		var flightIdData = [UInt8](count: Int(flightIdLength), repeatedValue: 0)
+		range.length = flightIdData.count
+		packetData.getBytes(&flightIdData, range: range)
+		range.location += range.length
+		expect(String(bytes: flightIdData, encoding: NSUTF8StringEncoding)).to(equal(flightId))
 		
 		var encryption: UInt8 = 0
 		range.length = sizeofValue(encryption)
@@ -172,13 +178,13 @@ class TelemetryTests: TestCase {
 		
 		let payload = position.telemetryData().AES256CBCEncrypt(key: key, iv: iv)!
 		
-		let flightId = NSUUID()
+		let flightId = "flight|1234567890abcdef"
 		let ivData = NSData(bytes: iv)
 		let packet = AirMapTelemetry.Packet(serial: 123, flightId: flightId, payload: payload, encryption: .AES256CBC, encryptionData: ivData)
 		let packetData = packet.data()
 
 		let flight = AirMapFlight()
-		flight.flightId = flightId.UUIDString
+		flight.flightId = flightId
 		
 		serverSocket.messageHandler = { receivedData in
 			expect(receivedData).to(equal(packetData))

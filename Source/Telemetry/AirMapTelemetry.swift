@@ -96,10 +96,6 @@ struct AirMapTelemetry {
 		
 		func send(messages: [ProtoBufMessage]) {
 			
-			guard let id = NSUUID(UUIDString: flight.flightId) else {
-				return AirMap.logger.error(self, "Invalid Flight ID")
-			}
-			
 			let encryptionData = AirMapTelemetry.generateIV()
 
 			let payload = messages
@@ -107,7 +103,7 @@ struct AirMapTelemetry {
 				.AES256CBCEncrypt(key: commKey.binaryKey(), iv: encryptionData)!
 			
 			let packet = Packet(
-				serial: nextPacketId(), flightId: id, payload: payload,
+				serial: nextPacketId(), flightId: flight.flightId, payload: payload,
 				encryption: encryption, encryptionData: NSData(bytes: encryptionData)
 			)
 
@@ -140,16 +136,18 @@ struct AirMapTelemetry {
 		}
 
 		let serial: UInt32
-		let flightId: NSUUID
+		let flightId: String
 		let payload: NSData
 		let encryption: EncryptionType
 		let encryptionData: NSData
 		
 		func data() -> NSData {
 			
+			let id = flightId.dataUsingEncoding(NSUTF8StringEncoding)!
 			let header = NSMutableData()
 			header.appendData(serial.data)
-			header.appendData(flightId.data)
+			header.appendData(UInt8(id.length).data)
+			header.appendData(id)
 			header.appendData(encryption.rawValue.data)
 			
 			switch encryption {
