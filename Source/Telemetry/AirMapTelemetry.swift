@@ -145,8 +145,8 @@ struct AirMapTelemetry {
 	struct Packet {
 		
 		enum EncryptionType: UInt8 {
-			case AES256CBC = 0
-			case None = 255
+			case None = 0
+			case AES256CBC = 1
 		}
 
 		let serial: UInt32
