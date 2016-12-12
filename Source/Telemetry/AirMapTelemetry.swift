@@ -37,7 +37,7 @@ struct AirMapTelemetry {
 			let session = telemetry
 				.map { $0.flight }
 				.distinctUntilChanged()
-				.flatMapLatest { flight in
+				.flatMap { flight in
 					AirMap.flightClient
 						.getCommKey(flight)
 						.map { Session(flight: flight, commKey: $0) }
