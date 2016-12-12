@@ -71,6 +71,11 @@ struct AirMapTelemetry {
 		}
 		
 		private static func sendMessages(telemetry: [(session: Session, message: ProtoBufMessage)]) {
+            
+            guard telemetry.count > 0 else {
+                return
+            }
+            
 			let session = telemetry.first!.session
 			let messages = telemetry.map { $0.message }
 			session.send(messages)
