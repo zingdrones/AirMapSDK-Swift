@@ -54,15 +54,15 @@ struct AirMapTelemetry {
 			
 			let position = flightMessages
 				.filter { $0.1 is Airmap.Telemetry.Position }
-				.throttle(Config.AirMapTelemetry.RateLimit.position, scheduler: scheduler)
+				.sample(Observable<Int>.timer(0, period: Config.AirMapTelemetry.RateLimit.position, scheduler: scheduler))
 			
 			let speed = flightMessages
 				.filter { $0.1 is Airmap.Telemetry.Speed }
-				.throttle(Config.AirMapTelemetry.RateLimit.speed, scheduler: scheduler)
+				.sample(Observable<Int>.timer(0, period: Config.AirMapTelemetry.RateLimit.speed, scheduler: scheduler))
 			
 			let barometer = flightMessages
 				.filter { $0.1 is Airmap.Telemetry.Barometer }
-				.throttle(Config.AirMapTelemetry.RateLimit.barometer, scheduler: scheduler)
+				.sample(Observable<Int>.timer(0, period: Config.AirMapTelemetry.RateLimit.barometer, scheduler: scheduler))
 			
 			let latestMessages = [position, speed, barometer].toObservable().merge()
 				.buffer(timeSpan: 1, count: 20, scheduler: scheduler)
