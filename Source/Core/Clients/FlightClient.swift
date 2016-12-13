@@ -91,7 +91,7 @@ extension FlightClient {
 		params["enhance"     ] = String(enhanced ?? false)
 
 		AirMap.logger.debug("Get Flights", params)
-		return call(.GET, params: params, keyPath: "data.results")
+        return call(.GET, params: params, keyPath: "data.results", authCheck: authCheck ?? false)
 	}
 
 	func listPublicFlights(fromDate fromDate: NSDate? = nil, toDate: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
