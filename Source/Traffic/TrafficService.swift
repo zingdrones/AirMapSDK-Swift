@@ -115,7 +115,7 @@ internal class TrafficService: MQTTSessionDelegate {
 		let refreshCurrentFlight = Observable<Int>.timer(0, period: 15, scheduler: MainScheduler.instance).mapToVoid()
 
 		refreshCurrentFlight
-			.skipWhile({[unowned self] _ in !AirMap.hasValidCredentials() && self.delegate == nil})
+			.skipWhile({[unowned self] _ in !AirMap.hasValidCredentials() || self.delegate == nil})
 			.flatMap(AirMap.rx_getCurrentAuthenticatedPilotFlight)
 			.bindTo(currentFlight)
 			.addDisposableTo(disposeBag)
