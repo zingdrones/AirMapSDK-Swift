@@ -66,17 +66,35 @@ extension AirMapFlight: MGLAnnotation {
 		case .Polygon:
 			
 			guard
-				var coordinates = (geometry as? AirMapPolygon)?.coordinates
+				var polygons = (geometry as? AirMapPolygon)?.coordinates
 			where
-				coordinates.count >= 3
-			else { return nil }
+				polygons.count > 0 &&
+				polygons.first?.count >= 3
+			else {
+				return nil
+			}
 			
-			coordinates.append(coordinates.first!)
+			var outer = polygons.first!
+			outer.append(outer.first!)
 			
-			let polygon = MGLPolygon(coordinates: &coordinates, count: UInt(coordinates.count))
-			let polyline = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
+			let fill: MGLAnnotation
+			let strokes: [MGLAnnotation]
 			
-			return [polygon, polyline]
+			if polygons.count == 1 {
+				fill = MGLPolygon(coordinates: &outer, count: UInt(outer.count))
+				strokes = [MGLPolyline(coordinates: &outer, count: UInt(outer.count))]
+			} else {
+				var interiorPolygons: [MGLPolygon] = polygons[1..<polygons.count].map {
+					var coords = $0
+					return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
+				}
+				fill = MGLPolygon(coordinates: &outer, count: UInt(outer.count), interiorPolygons: interiorPolygons)
+				strokes = interiorPolygons.map { polygon in
+					MGLPolyline(coordinates: polygon.coordinates, count: UInt(interiorPolygons.count))
+				}
+			}
+			
+			return [fill] + strokes
 		}
 	
 	}

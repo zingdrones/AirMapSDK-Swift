@@ -10,7 +10,7 @@ import ObjectMapper
 
 public class AirMapPolygon: AirMapGeometry, Mappable {
 
-	public var coordinates: [CLLocationCoordinate2D]!
+	public var coordinates: [[CLLocationCoordinate2D]]!
 	
 	/**
 	Returns key value parameters
@@ -24,18 +24,21 @@ public class AirMapPolygon: AirMapGeometry, Mappable {
 		if var coords = coordinates where coords.count >= 3 {
 			coords.append(coords.first!)
 			params["type"] = "Polygon"
-			params["coordinates"] = [coords.map { [$0.longitude, $0.latitude] } as [[Double]]]
+			params["coordinates"] = coords.map { $0.map { [$0.longitude, $0.latitude] } } as [[[Double]]]
 		}
 		
 		return params
 	}
 
 	public func mapping(map: Map) {
-		var coords: [[Double]] = []
+		var coords: [[[Double]]] = []
 		coords      <-  map["coordinates"]
 		coordinates = coords
-			.map { ($0[1], $0[0]) }
-			.map(CLLocationCoordinate2D.init)
+			.map { polygon in
+				polygon
+					.map { ($0[1], $0[0]) }
+					.map(CLLocationCoordinate2D.init)
+			}
 	}
 	
 	public override init() {

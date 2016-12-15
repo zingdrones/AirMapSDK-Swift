@@ -854,7 +854,7 @@ extension AirMapCreateFlightTypeViewController {
 			guard coordinates.count >= 3 else { return }
 			
 			let polygonGeometry = AirMapPolygon()
-			polygonGeometry.coordinates = coordinates
+			polygonGeometry.coordinates = [coordinates]
 			
 			flight.geometry = polygonGeometry
 			flight.coordinate = coordinates.first!
@@ -884,6 +884,22 @@ extension AirMapCreateFlightTypeViewController {
 		let existingRedAdvisories = mapView.annotations?.flatMap { $0 as? RedAdvisory} ?? []
 		mapView.removeOverlays(existingRedAdvisories)
 		
+		let polygonMapper = { (polygon: AirMapPolygon) -> RedAdvisory in
+			var coords = polygon.coordinates as [[CLLocationCoordinate2D]]
+			var outerCoords = coords.first!
+			
+			if coords.count > 1 {
+				let innerCoords = coords[1..<coords.count]
+				let innerPolygons = innerCoords.map { coords -> MGLPolygon in
+					var coords = coords
+					return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
+				}
+				return RedAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count), interiorPolygons: innerPolygons)
+			} else {
+				return RedAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count))
+			}
+		}
+		
 		let redGeometries: [RedAdvisory] = airspaces
 			.flatMap { advisory -> AirMapPolygon? in
                 switch advisory.type {
@@ -893,18 +909,12 @@ extension AirMapCreateFlightTypeViewController {
                     return advisory.geometry as? AirMapPolygon
                 }
             }
-			.map { polygon in
-				var coords = polygon.coordinates as [CLLocationCoordinate2D]
-				return RedAdvisory(coordinates: &coords, count: UInt(coords.count))
-			}
-        
+			.map(polygonMapper)
+		
         let redPropertyBounderies: [RedAdvisory] = airspaces
             .flatMap { $0.propertyBoundary as? AirMapPolygon }
-            .map { polygon in
-                var coords = polygon.coordinates as [CLLocationCoordinate2D]
-                return RedAdvisory(coordinates: &coords, count: UInt(coords.count))
-        }
-        
+			.map(polygonMapper)
+		
 		mapView.addOverlays(redGeometries + redPropertyBounderies)
 	}
 	
@@ -915,12 +925,25 @@ extension AirMapCreateFlightTypeViewController {
 		let newAdvisories: [PermitAdvisory] = airspacePermits
 			.filter { $0.airspace.geometry as? AirMapPolygon != nil }
 			.map { airspacePermit in
+
 				let polygon = airspacePermit.airspace.geometry as! AirMapPolygon
-				var coords = polygon.coordinates as [CLLocationCoordinate2D]
-				let advisory = PermitAdvisory(coordinates: &coords, count: UInt(coords.count))
-				advisory.airspace = airspacePermit.airspace
-				advisory.hasPermit = airspacePermit.hasPermit
-				return advisory
+				var coords = polygon.coordinates as [[CLLocationCoordinate2D]]
+				var outerCoords = coords.first!
+				
+				if coords.count > 1 {
+					let innerCoords = coords[1..<coords.count]
+					let innerPolygons = innerCoords.map { coords -> MGLPolygon in
+						var coords = coords
+						return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
+					}
+					let advisory = PermitAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count), interiorPolygons: innerPolygons)
+					advisory.airspace = airspacePermit.airspace
+					advisory.hasPermit = airspacePermit.hasPermit
+					return advisory
+				} else {
+					let advisory = PermitAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count))
+					return advisory
+				}
 			}
 		
 		let orphans = Set(existingPermitAdvisories).subtract(Set(newAdvisories))
