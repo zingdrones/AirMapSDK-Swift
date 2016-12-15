@@ -34,6 +34,7 @@ extension AirMapTelemetryServices {
 		position.setLatitude(coordinate.latitude)
 		position.setLongitude(coordinate.longitude)
 		position.setAltitude(altitude)
+		position.setTimestamp(UInt64(NSDate().timeIntervalSince1970*1000))
 		
 		let positionMessage = try position.build()
 		telemetryClient.sendTelemetry(flight, message: positionMessage)
