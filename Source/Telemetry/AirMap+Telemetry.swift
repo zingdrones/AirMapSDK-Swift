@@ -33,7 +33,7 @@ extension AirMapTelemetryServices {
 		let position = Airmap.Telemetry.Position.Builder()
 		position.setLatitude(coordinate.latitude)
 		position.setLongitude(coordinate.longitude)
-		position.setAltitude(altitude)
+		position.setAltitudeMMsl(altitude)
 		position.setTimestamp(UInt64(NSDate().timeIntervalSince1970*1000))
 		
 		let positionMessage = try position.build()
@@ -54,8 +54,10 @@ extension AirMapTelemetryServices {
 		try canSendTelemetryFor(flight)
 		
 		let speed = Airmap.Telemetry.Speed.Builder()
-		speed.setGroundSpeed(groundSpeed)
+		speed.setGroundSpeedMs(groundSpeed)
 		speed.setTrueHeading(trueHeading)
+		speed.setTimestamp(UInt64(NSDate().timeIntervalSince1970*1000))
+
 		let speedMessage = try speed.build()
 		telemetryClient.sendTelemetry(flight, message: speedMessage)
 	}
@@ -73,7 +75,9 @@ extension AirMapTelemetryServices {
 		try canSendTelemetryFor(flight)
 		
 		let barometer = Airmap.Telemetry.Barometer.Builder()
-		barometer.setBarometer(baro)
+		barometer.setBarometerHpa(baro)
+		barometer.setTimestamp(UInt64(NSDate().timeIntervalSince1970*1000))
+
 		let barometerMessage = try barometer.build()
 		telemetryClient.sendTelemetry(flight, message: barometerMessage)
 	}
