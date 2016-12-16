@@ -214,6 +214,7 @@ extension AirMapCreateFlightTypeViewController {
 			.addDisposableTo(disposeBag)
 
 		state.asDriver()
+			.throttle(0.01)
 			.driveNext(unowned(self, $.configureForState))
 			.addDisposableTo(disposeBag)
 		
@@ -422,6 +423,7 @@ extension AirMapCreateFlightTypeViewController {
 			actionButton.hidden = false
 			bufferTitleLabel.text = "Width"
 			controlPoints.value = []
+			state.value = .Drawing
 
 		case .Point:
 			actionButton.hidden = true
@@ -430,6 +432,7 @@ extension AirMapCreateFlightTypeViewController {
 			controlPoints.value = [
 				ControlPoint(type: .Vertex, coordinate: mapView.centerCoordinate)
 			]
+			state.value = .Panning
 
 		case .Polygon:
 			drawingOverlayView.discardsDuplicateClosingPoint = true
@@ -437,6 +440,7 @@ extension AirMapCreateFlightTypeViewController {
 			controlPoints.value = []
 			radiusSliderTransform = CGAffineTransformIdentity
 			radiusSliderAlpha = 0
+			state.value = .Drawing
 		}
 		
 		let animations = {
@@ -448,7 +452,6 @@ extension AirMapCreateFlightTypeViewController {
 		}
 
 		UIView.animateWithDuration(0.3, delay: 0, options: [.BeginFromCurrentState], animations: animations, completion: nil)
-		state.value = .Panning
 	}
 	
 	func configureForState(state: DrawingUIState) {
@@ -468,6 +471,8 @@ extension AirMapCreateFlightTypeViewController {
 		
 		case .Panning:
 			
+			editingOverlayView.clearPath()
+
 			// No existing shape
 			if controlPoints.value.count == 0 {
 				
@@ -518,6 +523,8 @@ extension AirMapCreateFlightTypeViewController {
 
 		case .Drawing:
 			
+			editingOverlayView.clearPath()
+
 			switch selectedGeoType.value {
 			case .Path:
 				toolTip.text = "Draw a freehand path"
@@ -649,7 +656,6 @@ extension AirMapCreateFlightTypeViewController {
 	@IBAction func deleteShape() {
 		
 		controlPoints.value = []
-		state.value = .Panning
 		(navigationController as! AirMapFlightPlanNavigationController).status.value = nil
 	}
 		
