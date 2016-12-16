@@ -22,7 +22,7 @@ class TelemetryTests: TestCase {
 	let position: Airmap.Telemetry.Position = {
 
 		let position = Airmap.Telemetry.Position.Builder()
-		position.setAltitude(150)
+		position.setAltitudeMMsl(150)
 		position.setLatitude(41.5)
 		position.setLongitude(-118.7)
 		position.setTimestamp(NSDate().timeIntervalSince1970.milliseconds)
@@ -191,7 +191,7 @@ class TelemetryTests: TestCase {
 		}
 		
 		let coordinate = CLLocationCoordinate2D(latitude: position.latitude, longitude: position.longitude)
-		try! AirMap.sendTelemetryData(flight, coordinate: coordinate, altitude: position.altitude)
+		try! AirMap.sendTelemetryData(flight, coordinate: coordinate, altitude: position.altitudeMMsl)
 	}
 	
 }
