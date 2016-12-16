@@ -192,7 +192,7 @@ extension AirMapCreateFlightTypeViewController {
 			.bindTo(userPermits)
 			.addDisposableTo(disposeBag)
 		
-		let geoType = selectedGeoType.asDriver()
+		let geoType = selectedGeoType.asDriver().distinctUntilChanged()
 		let coordinates = controlPoints.asDriver()
 			.map { $0.filter { $0.type == ControlPointType.Vertex }.map { $0.coordinate } }
 
