@@ -1010,6 +1010,8 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 		switch selectedGeoType.value {
 		case .Path:
 			guard coordinates.count > 1 && coordinates.count <= 25 else { return }
+			// Ensure points first two points are at least 25m apart. This catches paths created when double tapping the map.
+			guard CLLocation(coordinate: coordinates[0]).distanceFromLocation(CLLocation(coordinate: coordinates[1])) > 25 else { return }
 		case .Polygon:
 			guard coordinates.count > 2 else { return }
 			// Discard polygons with too many self-intersections
