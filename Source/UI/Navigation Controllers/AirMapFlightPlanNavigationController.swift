@@ -17,6 +17,9 @@ public protocol AirMapFlightPlanDelegate: class {
 public class AirMapFlightPlanNavigationController: UINavigationController {
 
 	weak var flightPlanDelegate: AirMapFlightPlanDelegate!
+	
+	var mapTheme: AirMapMapTheme = .Standard
+	var mapLayers: [AirMapLayerType] = []
 
 	let flight = Variable(AirMapFlight())
 	let status = Variable(nil as AirMapStatus?)

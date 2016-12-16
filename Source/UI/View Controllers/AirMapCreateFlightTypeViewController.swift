@@ -108,8 +108,12 @@ class AirMapCreateFlightTypeViewController: UIViewController {
 	
 	private let controlPointsHidden = Variable(false)
 	
+	override var navigationController: AirMapFlightPlanNavigationController {
+		return super.navigationController as! AirMapFlightPlanNavigationController
+	}
+	
 	private var flight: AirMapFlight {
-		return (navigationController as! AirMapFlightPlanNavigationController).flight.value
+		return navigationController.flight.value
 	}
 	
 	private let disposeBag = DisposeBag()
@@ -362,7 +366,7 @@ extension AirMapCreateFlightTypeViewController {
 	private func setupMap() {
 		
 		mapView.centerCoordinate = flight.coordinate
-		mapView.configure(layers: [], theme: .Standard)
+		mapView.configure(layers: navigationController.mapLayers, theme: navigationController.mapTheme)
 		mapView.minimumZoomLevel = 8
 		mapView.maximumZoomLevel = 22
 		mapView.delegate = mapViewDelegate

@@ -160,7 +160,7 @@ class AirMapFlightPlanViewController: UIViewController {
 	private func setupMap() {
 		
 		let flight = navigationController!.flight.value
-		mapView.configure(layers: [], theme: .Light)
+		mapView.configure(layers: navigationController!.mapLayers, theme: navigationController!.mapTheme)
 		mapView.delegate = mapViewDelegate
 		
 		if let annotations = flight.annotationRepresentations() {

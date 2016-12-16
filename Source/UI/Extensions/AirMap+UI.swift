@@ -39,7 +39,7 @@ extension AirMap_UI {
 	- returns: An AirMapFlightPlanNavigationController if Pilot is Authenticated, otherwise nil.
 
 	*/
-	public class func flightPlanViewController(location location: CLLocationCoordinate2D, flightPlanDelegate: AirMapFlightPlanDelegate) -> AirMapFlightPlanNavigationController? {
+	public class func flightPlanViewController(location location: CLLocationCoordinate2D, flightPlanDelegate: AirMapFlightPlanDelegate, mapTheme: AirMapMapTheme = .Standard, mapLayers: [AirMapLayerType] = []) -> AirMapFlightPlanNavigationController? {
 
 		// FIXME:
 		guard AirMap.authSession.hasValidCredentials() else { return nil }
@@ -49,6 +49,8 @@ extension AirMap_UI {
 		let flightPlanNav = storyboard.instantiateInitialViewController() as! AirMapFlightPlanNavigationController
 		flightPlanNav.flightPlanDelegate = flightPlanDelegate
 		flightPlanNav.flight.value.coordinate = location
+		flightPlanNav.mapTheme = mapTheme
+		flightPlanNav.mapLayers = mapLayers
 
 		return flightPlanNav
 	}

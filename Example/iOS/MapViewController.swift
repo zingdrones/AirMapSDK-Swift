@@ -29,7 +29,7 @@ class MapViewController: UIViewController {
 	
 	@IBAction func addFlight() {
 
-		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self) {
+		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self, mapTheme: .Light, mapLayers: [.TFRs, .EssentialAirspace]) {
 			presentViewController(flightPlanController, animated: true, completion: nil)
 		} else {
 			showAuthController()
