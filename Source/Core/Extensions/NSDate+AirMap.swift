@@ -140,3 +140,10 @@ public extension NSDate {
 	}
 	
 }
+
+extension NSTimeInterval {
+	
+	var milliseconds: UInt64 {
+		return UInt64(self * 1000)
+	}
+}

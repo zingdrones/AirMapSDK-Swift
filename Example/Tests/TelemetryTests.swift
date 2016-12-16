@@ -25,7 +25,7 @@ class TelemetryTests: TestCase {
 		position.setAltitude(150)
 		position.setLatitude(41.5)
 		position.setLongitude(-118.7)
-		position.setTimestamp(UInt64(NSDate().timeIntervalSince1970*1000))
+		position.setTimestamp(NSDate().timeIntervalSince1970.milliseconds)
 		
 		return try! position.build()
 	}()
