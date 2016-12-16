@@ -776,9 +776,14 @@ extension AirMapCreateFlightTypeViewController {
 	
 	private func drawControlPoints(points: [ControlPoint]) {
 		
-		let existingControlPoints = mapView.annotations?.filter { $0 is ControlPoint } ?? []
-		mapView.removeAnnotations(existingControlPoints)
-		mapView.addAnnotations(points)
+		let drawnPoints = Set(points)
+		let existingPoints = Set(mapView.annotations?.flatMap({ $0 as? ControlPoint }) ?? [])
+		
+		let oldPoints = existingPoints.subtract(drawnPoints)
+		mapView.removeAnnotations(Array(oldPoints))
+		
+		let newPoints = drawnPoints.subtract(existingPoints)
+		mapView.addAnnotations(Array(newPoints))
 	}
 	
 	private func drawNewProposedRadius(radius: Meters = 0) {
@@ -1118,6 +1123,8 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 			case .MidPoint:
 				
 				controlPoint.type = .Vertex
+				
+				mapView.removeAnnotation(controlPoint)
 				
 				let left = ControlPoint(type: .MidPoint)
 				let right = ControlPoint(type: .MidPoint)
