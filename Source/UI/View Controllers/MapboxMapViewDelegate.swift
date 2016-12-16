@@ -42,7 +42,7 @@ class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
 		case is MGLPolyline:
 			return 1.0
 		case is RedAdvisory:
-			return 0.25
+			return 0.333
 		default:
 			return 0.5
 		}
