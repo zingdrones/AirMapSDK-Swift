@@ -19,6 +19,10 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 	case RecreationalAreas
 	case Prohibited
 	case Restricted
+    case Cities
+    case Custom
+    case Universities
+    case Prisons
 	case NationalParks
 	case NOAA
 	case Schools
@@ -42,6 +46,10 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 		RecreationalAreas,
 		Prohibited,
 		Restricted,
+		Cities,
+        Custom,
+        Universities,
+        Prisons,
 		NationalParks,
 		NOAA,
 		Schools,
@@ -73,6 +81,14 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 			return "sua_prohibited"
 		case .Restricted:
 			return "sua_restricted"
+        case .Cities:
+            return "cities"
+        case .Custom:
+            return "customs"
+        case .Universities:
+            return "universities"
+        case .Prisons:
+            return "prisons"
 		case .NationalParks:
 			return "national_parks"
 		case .NOAA:
