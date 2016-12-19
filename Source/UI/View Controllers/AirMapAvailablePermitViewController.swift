@@ -82,6 +82,7 @@ class AirMapAvailablePermitViewController: UITableViewController {
 				permit.customProperties.map { property in
 					let textField = UITextField()
 					textField.placeholder = property.label
+                    textField.text = property.value
 					return (property, textField)
 				}
 		}

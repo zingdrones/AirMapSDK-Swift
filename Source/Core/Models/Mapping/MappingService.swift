@@ -19,6 +19,10 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 	case RecreationalAreas
 	case Prohibited
 	case Restricted
+    case Cities
+    case Custom
+    case Universities
+    case Prisons
 	case NationalParks
 	case NOAA
 	case Schools
@@ -42,6 +46,10 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 		RecreationalAreas,
 		Prohibited,
 		Restricted,
+		Cities,
+        Custom,
+        Universities,
+        Prisons,
 		NationalParks,
 		NOAA,
 		Schools,
@@ -73,6 +81,14 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 			return "sua_prohibited"
 		case .Restricted:
 			return "sua_restricted"
+        case .Cities:
+            return "cities"
+        case .Custom:
+            return "custom"
+        case .Universities:
+            return "universities"
+        case .Prisons:
+            return "prisons"
 		case .NationalParks:
 			return "national_parks"
 		case .NOAA:
@@ -115,6 +131,14 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 			return "Wildfires"
 		case .HazardAreas:
 			return "Hazard Areas"
+        case .Cities:
+            return "Cities"
+        case .Custom:
+            return "Custom"
+        case .Universities:
+            return "Universities"
+        case .Prisons:
+            return "Prisons"
 		case .RecreationalAreas:
 			return "Aerial Recreational Areas"
 		case .Prohibited, .Restricted:
@@ -150,6 +174,14 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 			return "Hazard Areas"
 		case .RecreationalAreas:
 			return "Aerial Recreational Areas"
+        case .Cities:
+            return "Cities"
+        case .Custom:
+            return "Custom"
+        case .Universities:
+            return "Universities"
+        case .Prisons:
+            return "Prisons"
 		case .Prohibited:
 			return "Prohibited Area"
 		case .Restricted:
@@ -198,6 +230,14 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 			return "Hazard Areas"
 		case .RecreationalAreas:
 			return "Aerial Recreational Areas"
+        case .Cities:
+            return "Cities"
+        case .Custom:
+            return "Custom"
+        case .Universities:
+            return "Universities"
+        case .Prisons:
+            return "Prisons"
 		case .Prohibited:
 			return "Prohibited airspace"
 		case .Restricted:
@@ -267,7 +307,19 @@ public enum AirMapLayerType: Int, CustomStringConvertible {
 			
 		case .Schools:
 			return .School
-			
+        
+        case .Prisons:
+            return .Prison
+            
+        case .Cities:
+            return .City
+		
+        case .Universities:
+            return .University
+
+        case .Custom:
+            return .Custom
+            
 		case .TFRs:
 			return .TFR
 			
@@ -296,7 +348,11 @@ public enum AirMapAirspaceType: Int {
 	case School
 	case SpecialUse
 	case TFR
-	case Wildfires
+    case City
+    case Custom
+    case University
+    case Prison
+    case Wildfires
 	case HazardArea
 	case RecreationalArea
 	case Stadium
@@ -328,7 +384,15 @@ public enum AirMapAirspaceType: Int {
 			return "hazard_area"
 		case RecreationalArea:
 			return "recreational_area"
-		case .Stadium:
+        case .City:
+            return "cities"
+        case .Custom:
+            return "custom"
+        case .University:
+            return "universities"
+        case .Prison:
+            return "prisons"
+        case .Stadium:
 			return "stadium"
 		}
 	}
@@ -360,7 +424,17 @@ public enum AirMapAirspaceType: Int {
 			return "Hazard Area"
 		case .RecreationalArea:
 			return "Recreational Area"
-		case .Stadium:
+        case .City:
+            return "City"
+        case .University:
+            return "University"
+        case .Custom:
+            return "Custom"
+        case .Prison:
+            return "Prison"
+        case .RecreationalArea:
+            return "Recreational Area"
+        case .Stadium:
 			return "Stadium"
 		}
 	}
@@ -408,6 +482,14 @@ public enum AirMapAirspaceType: Int {
 			return .Wildfires
 		case AirMapAirspaceType.HazardArea.type:
 			return .HazardArea
+        case AirMapAirspaceType.Prison.type:
+            return .Prison
+        case AirMapAirspaceType.Custom.type:
+            return .Custom
+        case AirMapAirspaceType.City.type:
+            return .City
+        case AirMapAirspaceType.University.type:
+            return .University
 		case AirMapAirspaceType.RecreationalArea.type:
 			return .RecreationalArea
 		case AirMapAirspaceType.Stadium.type:
