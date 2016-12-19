@@ -57,12 +57,11 @@ extension AirMap_UI {
 	
 	/**
 	
-	Creates a flight plan creation view controller that can be presented to the user based on a specified location. Airspace status, advisories, permiting, and digital notice are handled within the flow.
+	Creates a flight plan creation view controller that can be presented to the user.
 	
-	- parameter location: The lat/lon origin of the flight
-	- parameter flightPlanDelegate: The delegate that is notified of the new AirMapFlight after completion of flow
+	- parameter flight: The flight to display
 	
-	- returns: An AirMapFlightPlanNavigationController if Pilot is Authenticated, otherwise nil.
+	- returns: An UINavigationController if Pilot is Authenticated, otherwise nil.
 	
 	*/
 	public class func flightPlanViewController(flight: AirMapFlight) -> UINavigationController? {
