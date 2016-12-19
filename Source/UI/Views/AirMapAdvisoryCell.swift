@@ -17,7 +17,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	@IBOutlet weak var advisoryName: UILabel!
 	@IBOutlet weak var type: UILabel?
 	@IBOutlet weak var colorView: UIView!
-    @IBOutlet weak var phone: UITextView!
+    @IBOutlet weak var phone: AirMapPhoneTextView?
     @IBOutlet weak var starts: UILabel!
     @IBOutlet weak var ends: UILabel!
     
@@ -36,6 +36,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         starts?.text = ""
         ends?.text = ""
         phone?.text = UIConstants.Instructions.noPhoneNumberProvided
+		phone?.userInteractionEnabled = false
         colorView.backgroundColor = advisory.color.colorRepresentation
         
         // TFRS
@@ -70,6 +71,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 			
 			if let phoneTxt = properties.phone where !phoneTxt.isEmpty {
 				phone?.text = phoneStringFromE164(phoneTxt)
+				phone?.userInteractionEnabled = true
             }
         }
         
@@ -78,6 +80,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             
             if let phoneTxt = properties.phoneNumber {
                 phone?.text = phoneStringFromE164(phoneTxt)
+				phone?.userInteractionEnabled = true
             }
             
             if properties.digital  {
