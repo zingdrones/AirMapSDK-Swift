@@ -10,6 +10,19 @@ import ObjectMapper
 
 public class AirMapConfiguration: NSObject {
 	
+	public enum DistanceUnits {
+		case Meters
+		case Feet
+	}
+	
+	public enum TemperatureUnits {
+		case Celcius
+		case Fahrenheit
+	}
+	
+	public var distanceUnits = DistanceUnits.Meters
+	public var temperatureUnits = TemperatureUnits.Celcius
+	
 	public var environment: String?
 	public var airMapApiKey: String!
 	public var mapboxAccessToken: String?
@@ -43,6 +56,16 @@ public class AirMapConfiguration: NSObject {
 		
 		if config.auth0CallbackUrl == nil {
 			AirMap.logger.warning("airmap.config.json is missing an Auth0 Callback URL (auth0.callback_url)")
+		}
+		
+		let usesMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem)!.boolValue!
+		
+		if usesMetric {
+			config.temperatureUnits = .Celcius
+			config.distanceUnits = .Meters
+		} else {
+			config.temperatureUnits = .Fahrenheit
+			config.distanceUnits = .Feet
 		}
 		
 		return config

@@ -80,8 +80,18 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 
 		let df = dateFormatter
 		
-		let radius = Int(flight.buffer! / UIConstants.metersPerFoot).description + "ft"
-		let altitude = Int(flight.maxAltitude! / UIConstants.metersPerFoot).description + "ft"
+		let radius: String
+		let altitude: String
+
+		switch AirMap.configuration.distanceUnits {
+		case .Feet:
+			radius = Int(flight.buffer! / UIConstants.metersPerFoot).description + " ft"
+			altitude = Int(flight.maxAltitude! / UIConstants.metersPerFoot).description + " ft"
+		case .Meters:
+			radius = Int(flight.buffer!).description + " m"
+			altitude = Int(flight.maxAltitude!).description + " m"
+		}
+		
 		let startTime = flight.startTime == nil ? "Now" : df.stringFromDate(flight.startTime!)
 		let endTime = flight.endTime == nil ? (nil as String?) : df.stringFromDate(flight.endTime!)
 		let duration = durationFormatter.stringFromTimeInterval(flight.duration)

@@ -227,7 +227,6 @@ extension AirMapCreateFlightTypeViewController {
 			.addDisposableTo(disposeBag)
 	
 		let snappedBuffer = bufferSlider.rx_value.asDriver()
-            .skip(1)
             .distinctUntilChanged()
             .map(unowned(self, $.sliderValueToBuffer))
 
@@ -577,7 +576,7 @@ extension AirMapCreateFlightTypeViewController {
 		let ramp = Config.Maps.bufferSliderLinearity
 		let sliderValue = pow(Double(sliderValue), ramp)
 
-		let usesMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem)!.boolValue!
+		let usesMetric = AirMap.configuration.distanceUnits == .Meters
 		let distancePerStep: Double
 		
 		if usesMetric {

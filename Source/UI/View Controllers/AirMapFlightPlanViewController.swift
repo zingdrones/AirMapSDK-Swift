@@ -64,7 +64,7 @@ class AirMapFlightPlanViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var nextButton: UIButton!
 	
-	private let altitude = Variable(UIConstants.defaultAltitudePreset.value)
+	private let altitude = Variable(0 as Double)
 	private var startsAt = Variable(nil as NSDate?)
 	private let duration = Variable(UIConstants.defaultDurationPreset.value)
 	private let pilot    = Variable(nil as AirMapPilot?)
@@ -82,7 +82,14 @@ class AirMapFlightPlanViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
+		switch AirMap.configuration.distanceUnits {
+		case .Feet:
+			altitude.value = UIConstants.defaultAltitudePresetFeet.value
+		case .Meters:
+			altitude.value = UIConstants.defaultAltitudePresetMeters.value
+		}
+		
 		setupTable()
 		setupMap()
 		setupBindings()
@@ -129,9 +136,17 @@ class AirMapFlightPlanViewController: UIViewController {
 	@IBAction func unwindToFlightPlan(segue: UIStoryboardSegue) { /* unwind segue hook; keep */ }
 
 	private func setupTable() {
+		
+		let altitudeValues: [(title: String, value: CLLocationDistance)]
+		switch AirMap.configuration.distanceUnits {
+		case .Meters:
+			altitudeValues = UIConstants.altitudePresetsInMeters
+		case .Feet:
+			altitudeValues = UIConstants.altitudePresetsInFeet
+		}
 
 		let flightDataSection =  DataSection(title: "Flight", rows: [
-			FlightPlanDataTableRow(title: Variable("Altitude"), value: altitude, values: UIConstants.altitudePresets),
+			FlightPlanDataTableRow(title: Variable("Altitude"), value: altitude, values: altitudeValues),
 			])
 		sections.append(flightDataSection)
 

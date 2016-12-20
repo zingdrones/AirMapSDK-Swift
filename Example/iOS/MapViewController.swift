@@ -23,6 +23,8 @@ class MapViewController: UIViewController {
 		AirMap.logger.minLevel = .Debug
 		AirMap.authSessionDelegate = self
 		AirMap.trafficDelegate = self
+//		AirMap.configuration.distanceUnits = .Meters
+//		AirMap.configuration.temperatureUnits = .Celcius
 		
 		mapView.configure(layers: [.EssentialAirspace, .TFRs], theme: .Standard)
 	}
