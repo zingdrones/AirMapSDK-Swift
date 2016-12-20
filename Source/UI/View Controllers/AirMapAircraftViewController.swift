@@ -96,7 +96,8 @@ class AirMapAircraftViewController: UITableViewController {
 
 extension AirMapAircraftViewController: AirMapAircraftNavControllerDelegate {
 	
-	func aircraftNavController(navController: AirMapAircraftNavController, didCreateOrModify: AirMapAircraft) {
+	func aircraftNavController(navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
+		selectedAircraft.value = aircraft
 		navigationController?.dismissViewControllerAnimated(true, completion: nil)
 	}
 }
