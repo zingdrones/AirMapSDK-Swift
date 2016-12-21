@@ -32,6 +32,12 @@ class AirMapAdvisoriesViewController: UITableViewController {
 		setupBindings()
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		AirMapAnalytics.trackView(StatusAdvisories)
+	}
+	
 	private func setupTable() {
 		
 		tableView.delegate = nil

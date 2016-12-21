@@ -142,6 +142,12 @@ extension AirMapCreateFlightTypeViewController: AirMapAdvisoriesViewControllerDe
 		setupEditingOverlay()
 		setupBindings()
 	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		AirMapAnalytics.trackView(CreateFlight.GeoType.self)
+	}
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -161,12 +167,14 @@ extension AirMapCreateFlightTypeViewController: AirMapAdvisoriesViewControllerDe
 		case "pushFlightDetails":
 			let flightDetails = segue.destinationViewController as! AirMapFlightPlanViewController
 			flightDetails.location = Variable(flight.coordinate)
+			AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .SaveFlightType))
 		case "modalAdvisories":
 			let nav = segue.destinationViewController as! UINavigationController
 			let advisoriesVC = nav.viewControllers.first as! AirMapAdvisoriesViewController
 			let status = navigationController.status.value!
 			advisoriesVC.status = Variable(status)
             advisoriesVC.delegate = self
+			AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .ViewAdvisories))
 		default:
 			break
 		}
@@ -241,6 +249,13 @@ extension AirMapCreateFlightTypeViewController {
 		snappedBuffer.map { $0.buffer }
 			.throttle(0.25)
 			.drive(buffer)
+			.addDisposableTo(disposeBag)
+		
+		snappedBuffer.map { $0.buffer }
+			.distinctUntilChanged()
+			.driveNext { meters in
+				AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .AdjustedRadius(value: meters)))
+			}
 			.addDisposableTo(disposeBag)
 
 		let validatedInput = Driver
@@ -579,6 +594,8 @@ extension AirMapCreateFlightTypeViewController {
 		let usesMetric = AirMap.configuration.distanceUnits == .Meters
 		let distancePerStep: Double
 		
+		let bufferValue: (buffer: Meters, displayString: String)
+		
 		if usesMetric {
 
 			let minRadius = 5.0
@@ -596,7 +613,7 @@ extension AirMapCreateFlightTypeViewController {
 			}
 			meters = ceil(meters / distancePerStep) * distancePerStep
 		
-			return (meters, formatter.stringFromNumber(meters)! + " m")
+			bufferValue = (meters, formatter.stringFromNumber(meters)! + " m")
 
 		} else {
 			
@@ -619,8 +636,10 @@ extension AirMapCreateFlightTypeViewController {
 			feet = ceil(feet / distancePerStep) * distancePerStep
 			meters = feet / Config.Maps.feetPerMeters
 			
-			return (meters, formatter.stringFromNumber(feet)! + " ft")
+			bufferValue = (meters, formatter.stringFromNumber(meters)! + " m")
 		}
+		
+		return bufferValue
 	}
 	
 	// MARK: Actions
@@ -644,6 +663,8 @@ extension AirMapCreateFlightTypeViewController {
 		
 		bufferSlider.sendActionsForControlEvents(.ValueChanged)
 		selectedGeoType.value = geoType
+		
+		AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .ToggledFlightType(type: geoType)))
 	}
 	
 	@objc private func toggleDrawing() {
@@ -660,6 +681,8 @@ extension AirMapCreateFlightTypeViewController {
 		
 		controlPoints.value = []
 		navigationController.status.value = nil
+		
+		AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .DeletedShape))
 	}
 		
 	@IBAction func dismiss() {
@@ -1041,6 +1064,8 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 		state.value = .Panning
 
 		centerFlightPlan()
+		
+		AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .DrewCustomShape))
 	}
 }
 

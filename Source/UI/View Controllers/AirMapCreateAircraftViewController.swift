@@ -56,6 +56,13 @@ class AirMapCreateAircraftViewController: UITableViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
+		switch mode {
+		case .Create:
+			AirMapAnalytics.trackView(AircraftCreateScreen)
+		case .Update:
+			AirMapAnalytics.trackView(AircraftUpdateScreen)
+		}
+		
 		if (nickName.text ?? "").isEmpty || mode == .Update {
 			nickName.becomeFirstResponder()
 		} else {
@@ -116,11 +123,14 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		switch mode {
 		case .Create:
 			action = AirMap.rx_createAircraft(aircraft).trackActivity(activityIndicator)
+				.doOnNext { _ in AirMapAnalytics.trackEvent(AircraftCreateScreen(action: .SaveAircraft)) }
 		case .Update:
 			action = AirMap.rx_updateAircraft(aircraft).trackActivity(activityIndicator)
+				.doOnNext { _ in AirMapAnalytics.trackEvent(AircraftUpdateScreen(action: .SaveAircraft)) }
 		}
 
-		action.doOnCompleted { [weak self] _ in
+		action
+			.doOnCompleted { [weak self] _ in
 				self?.navigationController?.aircraftDelegate?
 					.aircraftNavController(self!.navigationController!, didCreateOrModify: self!.aircraft)
 			}

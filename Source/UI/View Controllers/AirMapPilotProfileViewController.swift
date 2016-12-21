@@ -79,6 +79,27 @@ class AirMapPilotProfileViewController: UITableViewController {
 		setupTableView()
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		guard pilot.value == nil else { return }
+		
+		AirMap.rx_getAuthenticatedPilot().asOptional()
+			.trackActivity(activityIndicator)
+			.bindTo(pilot)
+			.addDisposableTo(disposeBag)
+		
+		AirMapAnalytics.trackView(PilotProfileScreen)
+	}
+	
+	override func canBecomeFirstResponder() -> Bool {
+		return true
+	}
+	
+	override var inputAccessoryView: UIView? {
+		return saveButton
+	}
+	
 	private func sectionModel(pilot: AirMapPilot) -> [Model] {
 		
 		let firstNameField = AirMapPilotProfileField(label: "First Name", key: "firstName")
@@ -160,25 +181,6 @@ class AirMapPilotProfileViewController: UITableViewController {
 		}
 	}
 	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-
-		guard pilot.value == nil else { return }
-
-		AirMap.rx_getAuthenticatedPilot().asOptional()
-			.trackActivity(activityIndicator)
-			.bindTo(pilot)
-			.addDisposableTo(disposeBag)
-	}
-	
-	override func canBecomeFirstResponder() -> Bool {
-		return true
-	}
-	
-	override var inputAccessoryView: UIView? {
-		return saveButton
-	}
-	
 	private func setupBindings() {
 		
 		pilot.asObservable()
@@ -207,9 +209,13 @@ class AirMapPilotProfileViewController: UITableViewController {
 
 		AirMap.rx_updatePilot(pilot)
 			.trackActivity(activityIndicator)
+			.doOnError { error in
+				AirMapAnalytics.trackException(String(error), fatal: false)
+			}
 			.doOnCompleted { [unowned self] in
 				self.view.endEditing(true)
 				self.dismissViewControllerAnimated(true, completion: nil)
+				AirMapAnalytics.trackEvent(PilotProfileScreen(action: .EditProfile))
 			}
 			.subscribe()
 			.addDisposableTo(disposeBag)
@@ -221,6 +227,7 @@ class AirMapPilotProfileViewController: UITableViewController {
 			nav.phoneVerificationDelegate = self
 			let phoneVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
 			phoneVC.pilot = pilot.value
+			AirMapAnalytics.trackEvent(PilotProfileScreen(action: .VerifyPhoneNumber))
 		}
 	}
 	

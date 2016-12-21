@@ -104,6 +104,12 @@ class AirMapFlightPlanViewController: UIViewController {
 			.addDisposableTo(disposeBag)
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		AirMapAnalytics.trackView(CreateFlight.Details.self)
+	}
+	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		guard let identifier = segue.identifier else { return }
 
@@ -117,16 +123,19 @@ class AirMapFlightPlanViewController: UIViewController {
 			selectedAircraft.delaySubscription(1.0, scheduler: MainScheduler.instance).bindTo(cell.aircraft).addDisposableTo(disposeBag)
 			selectedAircraft.bindTo(aircraft).addDisposableTo(disposeBag)
 			aircraftVC.selectedAircraft.value = aircraft.value
+			AirMapAnalytics.trackEvent(CreateFlight.Details(action: .SelectAircraft))
 
 		case "modalProfile":
 			let nav = segue.destinationViewController as! UINavigationController
 			let profileVC = nav.viewControllers.last as! AirMapPilotProfileViewController
 			profileVC.pilot = pilot
+			AirMapAnalytics.trackEvent(CreateFlight.Details(action: .ViewPilotInfo))
 
 		case "modalFAQ":
 			let nav = segue.destinationViewController as! UINavigationController
 			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
 			faqVC.section = .LetOthersKnow
+			AirMapAnalytics.trackEvent(CreateFlight.Details(action: .ReadFAQ))
 
 		default:
 			break
@@ -193,7 +202,16 @@ class AirMapFlightPlanViewController: UIViewController {
 		let shareFlight = navigationController!.shareFlight
 
 		altitude.asObservable()
-			.subscribeNext { flight.value.maxAltitude = $0 }
+			.subscribeNext {
+				flight.value.maxAltitude = $0
+			}
+			.addDisposableTo(disposeBag)
+		
+		altitude.asObservable()
+			.skip(1)
+			.subscribeNext {
+				AirMapAnalytics.trackEvent(CreateFlight.Details(action: .ChangedAltitude(value: $0)))
+			}
 			.addDisposableTo(disposeBag)
 
 		aircraft.asObservable()
@@ -218,15 +236,15 @@ class AirMapFlightPlanViewController: UIViewController {
 		shareFlight.asObservable()
 			.subscribeNext { flight.value.isPublic = $0 }
 			.addDisposableTo(disposeBag)
-
+		
 		tableView.rx_itemSelected.subscribeNext { [unowned self] indexPath in
 			self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
 			self.tableView.cellForRowAtIndexPath(indexPath)?.becomeFirstResponder()
 			}
 			.addDisposableTo(disposeBag)
 
-		Observable.combineLatest(startsAt.asObservable(), duration.asObservable()) { ($0, $1)}
-			.subscribeNext { start, duration in
+		Driver.combineLatest(startsAt.asDriver(), duration.asDriver()) { ($0, $1)}
+			.driveNext { start, duration in
 				flight.value.startTime = start
 				flight.value.duration = duration
 			}
@@ -237,9 +255,32 @@ class AirMapFlightPlanViewController: UIViewController {
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
 			.addDisposableTo(disposeBag)
+		
+		shareFlight.asObservable()
+			.skip(1)
+			.subscribeNext { bool in
+				AirMapAnalytics.trackEvent(CreateFlight.Details(action: .ToggledPublicFlight(value: bool)))
+			}
+			.addDisposableTo(disposeBag)
+		
+		startsAt.asDriver()
+			.skip(1)
+			.driveNext { date in
+				AirMapAnalytics.trackEvent(CreateFlight.Details(action: .ChangeStartTime))
+			}
+			.addDisposableTo(disposeBag)
+		
+		duration.asDriver()
+			.skip(1)
+			.driveNext { duration in
+				AirMapAnalytics.trackEvent(CreateFlight.Details(action: .ChangedDuration(value: duration)))
+			}
+			.addDisposableTo(disposeBag)
 	}
 
 	@IBAction func next() {
+
+		AirMapAnalytics.trackEvent(CreateFlight.Details(action: .SaveFlightDetails))
 
 		let status = navigationController!.status.value!
 
@@ -248,6 +289,7 @@ class AirMapFlightPlanViewController: UIViewController {
 		} else if status.supportsNotice {
 			performSegueWithIdentifier("pushNotices", sender: self)
 		} else {
+			AirMapAnalytics.trackEvent(CreateFlight.Details(action: .CreateFlight))
 			AirMap.rx_createFlight(navigationController!.flight.value)
 				.trackActivity(activityIndicator)
 				.doOnError { [weak self] error in
@@ -314,6 +356,7 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 			}
 
 		case is SocialSection:
+			
 			let cell = tableView.dequeueCell(at: indexPath) as AirMapFlightSocialCell
 			let row = row as! SocialSharingRow
 			cell.model = row

@@ -83,6 +83,7 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 			countryVC.selectionDelegate = self
 			countryVC.selectedCountryIdentifier = countryCode
 			countryVC.locale = AirMapLocale.currentLocale()
+			AirMapAnalytics.trackEvent(VerifyPhoneNumber(action: .SelectCountry))
 		
 		case .pushVerifySMS:
 			break
@@ -127,6 +128,8 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 	@IBAction func submitForm() {
 
 		guard let phoneNumber = phoneNumber else { return }
+		
+		AirMapAnalytics.trackEvent(VerifyPhoneNumber(action: .SavePhoneNumber))
 
 		pilot.phone = phoneNumber.toE164()
 		
