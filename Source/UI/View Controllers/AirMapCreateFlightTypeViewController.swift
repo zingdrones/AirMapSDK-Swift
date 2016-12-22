@@ -956,6 +956,8 @@ extension AirMapCreateFlightTypeViewController {
 					return advisory
 				} else {
 					let advisory = PermitAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count))
+                    advisory.airspace = airspacePermit.airspace
+                    advisory.hasPermit = airspacePermit.hasPermit
 					return advisory
 				}
 			}
