@@ -432,8 +432,6 @@ public enum AirMapAirspaceType: Int {
             return "Custom"
         case .Prison:
             return "Prison"
-        case .RecreationalArea:
-            return "Recreational Area"
         case .Stadium:
 			return "Stadium"
 		}
