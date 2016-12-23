@@ -21,6 +21,7 @@ class AirMapAvailablePermitViewController: UITableViewController {
 	@IBOutlet weak var doneButton: UIButton!
 	
 	var permit: Variable<AirMapAvailablePermit>!
+    var pilotPermit =  Variable(nil as AirMapPilotPermit?)
 	var organization: AirMapOrganization!
 	var mode = Mode.Select
 	
@@ -74,19 +75,40 @@ class AirMapAvailablePermitViewController: UITableViewController {
 	private func setupBindings() {
 		
 		tableView.dataSource = nil
-		
-		permit
-			.asObservable()
-			.subscribeOn(MainScheduler.instance)
-			.map { permit in
-				permit.customProperties.map { property in
-					let textField = UITextField()
-					textField.placeholder = property.label
-					return (property, textField)
-				}
-		}
-		.bindTo(textFields)
-		.addDisposableTo(disposeBag)
+        
+        permit
+            .asObservable()
+            .subscribeOn(MainScheduler.instance)
+            .map { permit in
+                permit.customProperties.map { property in
+                    let textField = UITextField()
+                    textField.placeholder = property.label
+                    return (property, textField)
+                }
+            }
+            .bindTo(textFields)
+            .addDisposableTo(disposeBag)
+        
+       
+        pilotPermit
+            .asObservable()
+            .subscribeOn(MainScheduler.instance)
+            .unwrap()
+            .map { permit in
+                permit.customProperties.map {[unowned self] property in
+                    let textField = UITextField()
+                    textField.placeholder = property.label
+                    
+                    if self.mode == .Review {
+                        textField.text = property.value
+                        textField.enabled = false
+                    }
+                    
+                    return (property, textField)
+                }
+            }
+            .bindTo(textFields)
+            .addDisposableTo(disposeBag)
 		
 		Observable
 			.combineLatest(permit.asObservable(), textFields.asObservable()) { ($0, $1) }
@@ -173,7 +195,7 @@ class AirMapAvailablePermitViewController: UITableViewController {
                     tf.placeholder = property.required ? "* \(property.label)" : property.label
 				}
 	
-				if property.label.lowercaseString == "email" {
+				if property.label.lowercaseString.rangeOfString("email") != nil {
 					tf.keyboardType = .EmailAddress
 					tf.autocapitalizationType = .None
 				} else {

@@ -61,6 +61,16 @@ class AirMapAircraftViewController: UITableViewController {
 			.bindTo(selectedAircraft)
 			.addDisposableTo(disposeBag)
 		
+		tableView
+			.rx_itemDeleted
+			.map(tableView.rx_modelAtIndexPath)
+			.flatMap(AirMap.rx_deleteAircraft)
+			.flatMap(AirMap.rx_listAircraft)
+			.doOnError { AirMap.logger.error($0) }
+			.ignoreErrors()
+			.bindTo(aircraft)
+			.addDisposableTo(disposeBag)
+		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
@@ -96,7 +106,8 @@ class AirMapAircraftViewController: UITableViewController {
 
 extension AirMapAircraftViewController: AirMapAircraftNavControllerDelegate {
 	
-	func aircraftNavController(navController: AirMapAircraftNavController, didCreateOrModify: AirMapAircraft) {
+	func aircraftNavController(navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
+		selectedAircraft.value = aircraft
 		navigationController?.dismissViewControllerAnimated(true, completion: nil)
 	}
 }

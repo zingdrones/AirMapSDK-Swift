@@ -23,6 +23,10 @@ class ControlPoint: MGLPointAnnotation {
 		super.init()
 		self.coordinate = coordinate
 	}
+	
+	override var hashValue: Int {
+		return coordinate.latitude.hashValue & coordinate.longitude.hashValue & type.hashValue
+	}
 }
 
 protocol ControlPointDelegate: class {

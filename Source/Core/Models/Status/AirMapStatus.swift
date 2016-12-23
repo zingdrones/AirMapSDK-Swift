@@ -46,26 +46,18 @@ import ObjectMapper
 	}
 	
 	public var supportsDigitalNotice: Bool {
-		
-        let adv:[AirMapStatusAdvisory] = advisories
-            .map { advisory in
-                if let notice = advisory.requirements?.notice?.digital {
-                    if let organization = organizations.filter ({ $0.id == advisory.organizationId }).first {
-                        advisory.organization = organization
-                        advisory.requirements!.notice!.digital = true
-                    }
-                }
-                return advisory
-            }
-            .filterDuplicates { (left, right) in
-                let notNil = left.organizationId != nil && right.organizationId != nil
-                return notNil && left.organizationId == right.organizationId
-            }
-    
-        return adv
+        return advisories
+			.filter { $0.requirements?.notice?.digital == true }
             .flatMap { $0.requirements?.notice }
             .count > 0
 	}
+    
+    public var supportsNotice: Bool {
+        return advisories
+            .filter { $0.requirements?.notice != nil }
+            .flatMap { $0.requirements?.notice }
+            .count > 0
+    }
 	
 	public var availablePermits: [AirMapAvailablePermit] {
 		return Array(Set(advisories.flatMap { $0.availablePermits }))
@@ -100,5 +92,7 @@ extension AirMapStatus: Mappable {
 				permit.organizationId = advisory.organizationId!
 			}
 		}
+		
+
 	}
 }

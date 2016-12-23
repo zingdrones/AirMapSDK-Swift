@@ -6,29 +6,71 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Mockingjay
 import XCTest
+import OHHTTPStubs
+import Alamofire
+
 @testable import AirMap
 
 class TestCase: XCTestCase {
-
-	func setup() {
+	
+	enum HTTPMethod {
+		case GET, POST, PUT, PATCH, DELETE
+	}
+	
+	override func setUp() {
 		super.setUp()
 
 		AirMap.authToken = nil
-		XCTAssert(AirMap.authSession.hasValidCredentials())
+		AirMap.authSession.userId = "1234"
 	}
-
-	func stub(method: HTTPMethod, _ uri: String, with fixtureNamed: String) {
-		stub(http(method, uri: uri), builder: fixture(fixtureNamed))
-	}
-
-	func fixture(named: String, status: Int = 200, headers: [String: String]? = nil) -> Builder {
-		return { (request: NSURLRequest) in
-			let bundle = NSBundle(forClass: self.dynamicType)
-			let path = bundle.pathForResource(named, ofType: nil)!
-			let data = NSData(contentsOfFile: path)!
-			return jsonData(data, status: status)(request: request)
+	
+	func stub(method: HTTPMethod, _ uri: String, with fixture: String, onRequest: ((NSURLRequest) -> Void)? = nil) {
+		
+		let requestTest = { (request: NSURLRequest) -> Bool in
+			let url = NSURL(string: uri.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)!
+			return request.HTTPMethod == String(method)
+				&& request.URL?.host == url.host
+				&& request.URL?.path == url.path
 		}
+		
+		let responseBlock = { (request: NSURLRequest) -> OHHTTPStubsResponse in
+			let bundle = NSBundle(forClass: self.dynamicType)
+			let path = bundle.pathForResource(fixture, ofType: nil)!
+			return OHHTTPStubsResponse(fileAtPath: path, statusCode: 200, headers: ["Content-Type":"application/json"])
+		}
+		
+		OHHTTPStubs.stubRequestsPassingTest(requestTest, withStubResponse: responseBlock)
+		OHHTTPStubs.onStubActivation { request, descriptor, response in
+			onRequest?(request)
+		}
+	}
+	
+}
+
+extension NSURLRequest {
+	
+	func bodyJson() -> [String: AnyObject] {
+		
+		if let requestBody = OHHTTPStubs_HTTPBody(), json = try? NSJSONSerialization.JSONObjectWithData(requestBody, options: .AllowFragments) as? [String: AnyObject] {
+			return json ?? [:]
+		} else {
+			return [:]
+		}
+	}
+	
+	func queryParams() -> [String: AnyObject] {
+		
+		guard let components = NSURLComponents(URL: URL!, resolvingAgainstBaseURL: false) else {
+			return [:]
+		}
+		
+		let items = components.queryItems ?? []
+		let query = items.reduce([:], combine: { ( dict: [String: AnyObject], item: NSURLQueryItem) -> [String: AnyObject] in
+			var dict = dict
+			dict[item.name] = item.value
+			return dict
+		})
+		return query
 	}
 }

@@ -49,7 +49,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		setupEmbeddedViews()
 		
 		mapView.delegate = mapViewDelegate
-		mapView.configure(layers: [], theme: .Light)
+		mapView.configure(layers: navigationController?.mapLayers ?? [], theme: navigationController?.mapTheme ?? .Light)
 		
 		let flight: AirMapFlight
 		if existingFlight != nil {

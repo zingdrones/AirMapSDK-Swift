@@ -1,510 +1,677 @@
 {
 	"status": "success",
 	"data": {
-		"max_safe_radius": 0,
+		"max_safe_distance": 0,
 		"advisory_color": "red",
 		"advisories": [{
-					   "id": "ae8c0e6c-91a9-4d6e-9c9a-360fda2ff57b",
-					   "name": "National Capital Parks",
-					   "latitude": "38.980965",
-					   "last_updated": "2016-07-20T20:56:47.000Z",
-					   "longitude": "-76.903632",
-					   "distance": 108,
-					   "properties": {},
-					   "type": "park",
-					   "city": "",
-					   "state": "Maryland",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "abaffb6c-7107-49c4-ad77-5b4688fb1d99",
-					   "name": "White House",
-					   "latitude": "38.897084",
-					   "last_updated": "2016-07-20T20:56:47.000Z",
-					   "longitude": "-77.036749",
-					   "distance": 0,
-					   "properties": {},
-					   "type": "park",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "6ba47b7d-23b1-48e2-8df2-8493c0764514",
-					   "name": "Washington",
-					   "latitude": "38.897918",
-					   "last_updated": "2016-07-21T18:47:07.000Z",
-					   "longitude": "-77.017647",
-					   "distance": 0,
-					   "properties": {
-					   "radius": 14557.202369053442,
-					   "boundary": "administrative",
-					   "admin_level": "8",
-					   "border_type": null,
-					   "country_code": 840,
-					   "derived_center": true
-					   },
-					   "type": "city",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "24def828-968c-40a6-849f-dbfb35879bf7",
-					   "name": "P56A (DISTRICT OF COLUMBIA)",
-					   "latitude": "38.894444",
-					   "last_updated": "2016-07-22T17:26:32.000Z",
-					   "longitude": "-77.027639",
-					   "distance": 0,
-					   "properties": {
-					   "type": "Prohibited",
-					   "limits": [{
-								  "class": null,
-								  "lower_limit": "Ground",
-								  "upper_limit": "18000",
-								  "upper_limit_unit": "ft",
-								  "upper_limit_altimeter": "QNH"
-								  }],
-					   "lowest_limit": 0
-					   },
-					   "type": "special_use_airspace",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "0770285f-8406-4449-94fa-62ca64b18e1a",
-					   "name": "FRZ C (WASHINGTON D.C.AREA C)",
-					   "latitude": "38.895948",
-					   "last_updated": "2016-07-22T17:26:32.000Z",
-					   "longitude": "-77.041024",
-					   "distance": 0,
-					   "properties": {
-					   "type": "Restricted",
-					   "limits": [{
-								  "class": null,
-								  "lower_limit": "Ground",
-								  "upper_limit": "17999",
-								  "upper_limit_unit": "ft",
-								  "upper_limit_altimeter": "QNH"
-								  }],
-					   "lowest_limit": 0
-					   },
-					   "type": "special_use_airspace",
-					   "city": "",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "d7d5b37b-fe55-45e3-8153-23c3061b3ffd",
-					   "name": "GTOWN vs. BUC",
-					   "latitude": "38.907608",
-					   "last_updated": "2016-07-22T22:58:37.000Z",
-					   "longitude": "-77.072115",
-					   "distance": 0,
-					   "properties": {
-					   "url": "http://tfr.faa.gov/save_pages/detail_4_3621.html",
-					   "type": "sporting event TFR",
-					   "sport": "football",
-					   "venue_name": "Cooper Field",
-					   "effective_start": "2016-11-12T17:00:00.000Z",
-					   "effective_end": "2016-11-12T23:00:00.000Z"
-					   },
-					   "type": "tfr",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "81a7d338-9c45-41fa-b92c-58314ea1ef1f",
-					   "name": "HOW vs. DLS",
-					   "latitude": "38.922427",
-					   "last_updated": "2016-07-22T22:58:37.000Z",
-					   "longitude": "-77.021097",
-					   "distance": 0,
-					   "properties": {
-					   "url": "http://tfr.faa.gov/save_pages/detail_4_3621.html",
-					   "type": "sporting event TFR",
-					   "sport": "football",
-					   "venue_name": "William H. Greene Stadium",
-					   "effective_start": "2016-11-19T17:00:00.000Z",
-					   "effective_end": "2016-11-19T23:00:00.000Z"
-					   },
-					   "type": "tfr",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "06947707-6cc1-4d03-8551-420284de2611",
-					   "name": "Nationals vs. Phillies",
-					   "latitude": "38.872867",
-					   "last_updated": "2016-07-22T22:58:37.000Z",
-					   "longitude": "-77.007443",
-					   "distance": 0,
-					   "properties": {
-					   "url": "http://tfr.faa.gov/save_pages/detail_4_3621.html",
-					   "type": "sporting event TFR",
-					   "sport": "mlb",
-					   "venue_name": "Nationals Park",
-					   "effective_start": "2016-04-27T22:05:00.000Z",
-					   "effective_end": "2016-04-28T04:05:00.000Z"
-					   },
-					   "type": "tfr",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "red"
-					   }, {
-					   "id": "2fbaa236-f1f7-48cb-8a3c-e173fd006a55",
-					   "name": "1/1155",
-					   "latitude": "38.85769",
-					   "last_updated": "2016-07-23T04:06:59.000Z",
-					   "longitude": "-77.036389",
-					   "distance": 0,
-					   "properties": {
-					   "url": "http://tfr.faa.gov/save_pages/detail_1_1155.html",
-					   "type": "Security",
-					   "reason": "Temporary flight restrictions for Special Security Reasons",
-					   "lower_alt_type": "HEI",
-					   "lower_alt_unit": "FT",
-					   "upper_alt_type": "HEI",
-					   "upper_alt_unit": "FT",
-					   "lower_alt_limit": "0",
-					   "upper_alt_limit": "0"
-					   },
-					   "type": "tfr",
-					   "city": "DISTRICT OF COLUMBIA",
-					   "state": "DISTRICT OF COLUMBIA",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "07bab4db-6d7b-4b85-994e-a19258c16c14",
-					   "name": "Temporary flight restrictions for Special Security Reasons Area A",
-					   "latitude": "38.897497",
-					   "last_updated": "2016-07-23T04:06:59.000Z",
-					   "longitude": "-77.038494",
-					   "distance": 0,
-					   "properties": {
-					   "url": "http://tfr.faa.gov/save_pages/detail_0_8326.html",
-					   "date_expire": "9999-12-31 23:59:59.999999",
-					   "date_issued": "2010-12-01 04:01:00",
-					   "country_code": 840,
-					   "date_effective": "2010-12-01 04:01:00",
-					   "lower_alt_type": "HEI",
-					   "lower_alt_unit": "FT",
-					   "upper_alt_type": "HEI",
-					   "upper_alt_unit": "FT",
-					   "lower_alt_limit": "0",
-					   "upper_alt_limit": "2000"
-					   },
-					   "type": "tfr",
-					   "city": "Washington DC",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "f24aac56-1a94-45b3-a8e3-19f5e3a18e72",
-					   "name": "George Washington University",
-					   "latitude": "38.897991",
-					   "last_updated": "2016-07-23T04:09:26.000Z",
-					   "longitude": "-77.041295",
-					   "distance": 379,
-					   "properties": {
-					   "amenity": "university",
-					   "building": false,
-					   "operator": null,
-					   "way_area": 8355.76
-					   },
-					   "type": "university",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "bfa21eaa-9db8-4656-9466-7b2fee5c0042",
-					   "name": "CHILDREN'S HOSPITAL",
-					   "latitude": "38.927326",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.014142",
-					   "distance": 125,
-					   "properties": {
-					   "ownership": "PR"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "132e734b-9767-4de3-b1c1-fae36f749594",
-					   "name": "GEORGETOWN UNIV HOSP HELISTOP",
-					   "latitude": "38.911492",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.076366",
-					   "distance": 91,
-					   "properties": {
-					   "ownership": "PR"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "31cf144f-c502-4cd3-ad9d-2ce658312cfc",
-					   "name": "MPD 2ND",
-					   "latitude": "38.934518",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.074418",
-					   "distance": 0,
-					   "properties": {
-					   "ownership": "PU"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "48ee91a9-667b-4b76-8138-c724e83e7a43",
-					   "name": "MPD 3RD DISTRICT",
-					   "latitude": "38.917048",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.036365",
-					   "distance": 0,
-					   "properties": {
-					   "ownership": "PU"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "beaefdd3-31df-4a44-9cfa-b8c02f1d41b8",
-					   "name": "MPD 5TH",
-					   "latitude": "38.915075",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-76.973305",
-					   "distance": 0,
-					   "properties": {
-					   "ownership": "PU"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "98b0c220-ce01-40ec-a6e1-0d18882b95b5",
-					   "name": "PENTAGON AHP",
-					   "latitude": "38.874048",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.057499",
-					   "distance": 0,
-					   "properties": {
-					   "icao": "KJPN",
-					   "ownership": "MR"
-					   },
-					   "type": "heliport",
-					   "city": "Arlington",
-					   "state": "Virginia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "09f97253-4879-418f-82db-36833526bf4d",
-					   "name": "SIBLEY MEMORIAL HOSPITAL",
-					   "latitude": "38.936908",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.110552",
-					   "distance": 0,
-					   "properties": {
-					   "ownership": "PR"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "334b6f69-34d6-406c-b783-1d67289bcaf9",
-					   "name": "SOUTH CAPITOL STREET",
-					   "latitude": "38.868716",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.007475",
-					   "distance": 395,
-					   "properties": {
-					   "ownership": "PR"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "1f22c24a-30e4-42bf-93ef-d7e300701327",
-					   "name": "SPIRIT OF WASHINGTON",
-					   "latitude": "38.874271",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.021364",
-					   "distance": 0,
-					   "properties": {
-					   "ownership": "PR"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "637e0116-c5b0-4626-8d76-a7da7a0dab80",
-					   "name": "US PARK POLICE EAGLE'S NEST",
-					   "latitude": "38.866464",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-76.99275",
-					   "distance": 0,
-					   "properties": {
-					   "ownership": "PU"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "ff2a3830-c336-4566-9a5d-7602ae31ab0f",
-					   "name": "WASHINGTON POST",
-					   "latitude": "38.904271",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.03442",
-					   "distance": 0,
-					   "properties": {
-					   "ownership": "PR"
-					   },
-					   "type": "heliport",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "red"
-					   }, {
-					   "id": "e0d92ed6-c71f-4377-9268-b33d2190d7a8",
-					   "name": "WASHINGTON-TRI AREA CLASS B AREA A",
-					   "latitude": "38.833231",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-76.951521",
-					   "distance": 0,
-					   "properties": {
-					   "low_alt": "SFC",
-					   "high_alt": "10000",
-					   "lowest_limit": 0
-					   },
-					   "type": "controlled_airspace",
-					   "city": "Chantilly",
-					   "state": "Virginia",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "c0f99bbe-eba6-4b4c-a137-72c94cd771d0",
-					   "name": "Ronald Reagan Washington Natl",
-					   "latitude": "38.851396",
-					   "last_updated": "2016-07-22T03:54:37.000Z",
-					   "longitude": "-77.037717",
-					   "distance": 0,
-					   "properties": {
-					   "icao": "KDCA",
-					   "phone": "703-417-8600",
-					   "ownership": "PU",
-					   "ifr": true,
-					   "iata": "DCA",
-					   "paved": true,
-					   "tower": true,
-					   "runways": [{
-								   "name": "01",
-								   "length": "7170",
-								   "bearing": "4"
-								   }, {
-								   "name": "04",
-								   "length": "5000",
-								   "bearing": "35"
-								   }, {
-								   "name": "15",
-								   "length": "5204",
-								   "bearing": "152"
-								   }, {
-								   "name": "19",
-								   "length": "7170",
-								   "bearing": "184"
-								   }, {
-								   "name": "22",
-								   "length": "5000",
-								   "bearing": "215"
-								   }, {
-								   "name": "33",
-								   "length": "5204",
-								   "bearing": "332"
-								   }],
-					   "elevation": "14",
-					   "icao_country": "K6",
-					   "longest_runway": 7170
-					   },
-					   "type": "airport",
-					   "city": "Arlington",
-					   "state": "Virginia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }, {
-					   "id": "f209a7f5-daac-44ce-b886-c0df86563ba9",
-					   "name": "Corcoran College of Art and Design",
-					   "latitude": "38.895757",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.039812",
-					   "distance": 283,
-					   "properties": {},
-					   "type": "school",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "f3994bf9-efe3-44de-ba24-85bbe9a77a0e",
-					   "name": "Sanz School",
-					   "latitude": "38.897065",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.031942",
-					   "distance": 325,
-					   "properties": {},
-					   "type": "school",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "d86aa844-1ec0-445c-b003-958d70ad8516",
-					   "name": "SCHOOL FOR ARTS IN LEARNING MIDDLE SCHOOL PCS",
-					   "latitude": "38.900454",
-					   "last_updated": "2016-07-20T17:46:08.000Z",
-					   "longitude": "-77.04002",
-					   "distance": 356,
-					   "properties": {},
-					   "type": "school",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "green"
-					   }, {
-					   "id": "bbbda06a-1c39-4644-b590-31625fd4e874",
-					   "name": "Pennsylvania Avenue",
-					   "latitude": "38.893986",
-					   "last_updated": "2016-07-20T20:56:47.000Z",
-					   "longitude": "-77.024421",
-					   "distance": 279,
-					   "properties": {},
-					   "type": "park",
-					   "city": "Washington",
-					   "state": "District of Columbia",
-					   "country": "USA",
-					   "color": "yellow"
-					   }]
+			"id": "27481b85-65c6-41b6-b1c5-5e49eccb4c58",
+			"name": "WASHINGTON-TRI AREA CLASS B AREA A",
+			"last_updated": "2016-11-22T19:53:57.000Z",
+			"latitude": 38.8332311,
+			"longitude": -76.9515216,
+			"distance": 0,
+			"properties": {
+				"airspace_class": "b"
+			},
+			"type": "controlled_airspace",
+			"city": "Temple Hills",
+			"state": "Maryland",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "abaffb6c-7107-49c4-ad77-5b4688fb1d99",
+			"name": "White House",
+			"last_updated": "2016-10-12T17:26:10.000Z",
+			"latitude": 38.8970847,
+			"longitude": -77.0367493,
+			"distance": 0,
+			"properties": {
+				"type": "national_park"
+			},
+			"type": "park",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"available_permits": [],
+			"color": "red"
+		}, {
+			"id": "13cbc141-b721-41b0-a05a-aa4bde813151",
+			"name": "FRZ C (WASHINGTON D.C.AREA C)",
+			"last_updated": "2016-11-22T19:53:57.000Z",
+			"latitude": 38.8959484,
+			"longitude": -77.0410245,
+			"distance": 0,
+			"properties": {
+				"type": "restricted"
+			},
+			"type": "special_use_airspace",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 3,
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "07bab4db-6d7b-4b85-994e-a19258c16c14",
+			"name": "Temporary flight restrictions for Special Security Reasons Area A",
+			"last_updated": "2016-12-01T00:22:14.000Z",
+			"latitude": 38.8974975,
+			"longitude": -77.0384942,
+			"distance": 0,
+			"properties": {
+				"url": "http://tfr.faa.gov/save_pages/detail_0_8326.html",
+				"date_expire": null,
+				"date_issued": "2010-12-01 04:01:00",
+				"date_effective": "2010-12-01T04:01:00.000Z",
+				"effective_start": "2016-10-07T00:00:00.000Z"
+			},
+			"type": "tfr",
+			"city": "Washington DC",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"available_permits": [],
+			"color": "red"
+		}, {
+			"id": "4a7e8033-9485-447e-96da-9a996ecdf47b",
+			"name": "P56A (DISTRICT OF COLUMBIA)",
+			"last_updated": "2016-11-22T19:53:57.000Z",
+			"latitude": 38.8944444,
+			"longitude": -77.0276391,
+			"distance": 0,
+			"properties": {
+				"type": "prohibited"
+			},
+			"type": "special_use_airspace",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"available_permits": [],
+			"color": "red"
+		}, {
+			"id": "ae8c0e6c-91a9-4d6e-9c9a-360fda2ff57b",
+			"name": "National Capital Parks",
+			"last_updated": "2016-10-12T17:26:10.000Z",
+			"latitude": 38.9809658,
+			"longitude": -76.9036326,
+			"distance": 108,
+			"properties": {
+				"type": "national_park"
+			},
+			"type": "park",
+			"city": "",
+			"state": "Maryland",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"available_permits": [],
+			"color": "red"
+		}, {
+			"id": "bbbda06a-1c39-4644-b590-31625fd4e874",
+			"name": "Pennsylvania Avenue",
+			"last_updated": "2016-10-12T17:26:10.000Z",
+			"latitude": 38.8939864,
+			"longitude": -77.0244217,
+			"distance": 279,
+			"properties": {
+				"type": "national_park"
+			},
+			"type": "park",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"available_permits": [],
+			"color": "red"
+		}, {
+			"id": "567f7ead-7b71-4fc6-92ae-ba56a3713f40",
+			"name": "George Washington University",
+			"last_updated": "2016-10-12T17:26:10.000Z",
+			"latitude": 38.8959125,
+			"longitude": -77.0401896,
+			"distance": 306,
+			"properties": {
+				"area": 16410.2,
+				"type": "university"
+			},
+			"type": "school",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"available_permits": [],
+			"color": "green"
+		}, {
+			"id": "f24aac56-1a94-45b3-a8e3-19f5e3a18e72",
+			"name": "George Washington University",
+			"last_updated": "2016-10-12T17:26:10.000Z",
+			"latitude": 38.8979914,
+			"longitude": -77.0412955,
+			"distance": 379,
+			"properties": {
+				"area": 8355.76,
+				"type": "university"
+			},
+			"type": "school",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"available_permits": [],
+			"color": "green"
+		}, {
+			"id": "d86aa844-1ec0-445c-b003-958d70ad8516",
+			"name": "SCHOOL FOR ARTS IN LEARNING MIDDLE SCHOOL PCS",
+			"last_updated": "2016-11-14T19:18:27.000Z",
+			"latitude": 38.9004532,
+			"longitude": -77.04002,
+			"distance": 432,
+			"properties": {},
+			"type": "school",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 2,
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "b2cc5d62-002e-4fad-8e64-debf6d899f21",
+			"name": "WASHINGTON POST",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.9042781,
+			"longitude": -77.0344218,
+			"distance": 753,
+			"properties": {
+				"faa": "'DC01",
+				"paved": false,
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.9042777777778",
+					"longitude": "-77.0344222222222",
+					"HelipadDbId": "3985"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": null
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "d46b8805-63fb-497b-8bd2-a96201177497",
+			"name": "MPD 3RD DISTRICT",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.9170558,
+			"longitude": -77.0363657,
+			"distance": 2152,
+			"properties": {
+				"faa": "'DC16",
+				"paved": false,
+				"phone": "+12027274368",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.9170555555556",
+					"longitude": "-77.0363666666667",
+					"HelipadDbId": "4000"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "public"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12027274368"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "f7fe8f2f-0a47-48a7-bb1c-2f1237a95523",
+			"name": "SPIRIT OF WASHINGTON",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.8742787,
+			"longitude": -77.0213651,
+			"distance": 2915,
+			"properties": {
+				"faa": "'DC04",
+				"paved": false,
+				"phone": "+12024842320",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.8742777777778",
+					"longitude": "-77.0213666666667",
+					"HelipadDbId": "3989"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12024842320"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "346c0342-2484-4d01-b036-22f9d51415a5",
+			"name": "PENTAGON AHP",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.874055,
+			"longitude": -77.0575001,
+			"distance": 3196,
+			"properties": {
+				"faa": "'JPN",
+				"icao": "KJPN",
+				"paved": false,
+				"phone": "+17036641201",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.8740555555556",
+					"longitude": "-77.0575",
+					"HelipadDbId": "16823"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "military"
+			},
+			"type": "heliport",
+			"city": "Arlington",
+			"state": "Virginia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+17036641201"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "bd1dd085-ca35-460f-86d2-f2bab9b5b1e4",
+			"name": "CHILDREN'S HOSPITAL",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.9273338,
+			"longitude": -77.0141426,
+			"distance": 3821,
+			"properties": {
+				"faa": "'DC17",
+				"paved": false,
+				"phone": "+12024765433",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.9276472222222",
+					"longitude": "-77.014475",
+					"HelipadDbId": "20831"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12024765433"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "a1f84464-29ba-4034-bee1-ed29ba3f7d38",
+			"name": "Georgetown Universiti Hospital Helistop",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.9105781,
+			"longitude": -77.0777117,
+			"distance": 3843,
+			"properties": {
+				"icao": "DC09",
+				"paved": false,
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.9105777777778",
+					"longitude": "-77.0777111111111",
+					"HelipadDbId": "20832"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": null
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "00b38b56-52b8-42f4-8d3d-e3929e892f77",
+			"name": "SOUTH CAPITOL STREET",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.8687235,
+			"longitude": -77.0074757,
+			"distance": 4086,
+			"properties": {
+				"faa": "'09W",
+				"paved": false,
+				"phone": "+12024848616",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.8687222222222",
+					"longitude": "-77.007475",
+					"HelipadDbId": "13308"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12024848616"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "b82bdc23-3208-418b-a23b-680eaec20b60",
+			"name": "US PARK POLICE EAGLE'S NEST",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.8665017,
+			"longitude": -76.9927538,
+			"distance": 5136,
+			"properties": {
+				"faa": "'DC03",
+				"paved": false,
+				"phone": "+12026900738",
+				"tower": false,
+				"helipads": [{
+					"name": "H2",
+					"latitude": "38.8665",
+					"longitude": "-76.9927527777778",
+					"HelipadDbId": "3987"
+				}, {
+					"name": "H1",
+					"latitude": "38.8665",
+					"longitude": "-76.9927527777778",
+					"HelipadDbId": "3988"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "public"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12026900738"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "392496b9-68b9-48b4-a566-015c4363d5bc",
+			"name": "RONALD REAGAN WASHINGTON NATIONAL",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.8514447,
+			"longitude": -77.0377225,
+			"distance": 5144,
+			"properties": {
+				"faa": "'DCA",
+				"iata": "DCA",
+				"icao": "KDCA",
+				"paved": true,
+				"phone": "+17034178050",
+				"tower": true,
+				"runways": [{
+					"name": "01",
+					"length": 7170,
+					"RwyDbId": "2133",
+					"RwyThrLat": "N38502965",
+					"RwyThrLon": "W077021229",
+					"TrueBearing": "355.49",
+					"bearing": null
+				}, {
+					"name": "04",
+					"length": 5000,
+					"RwyDbId": "2134",
+					"RwyThrLat": "N38502984",
+					"RwyThrLon": "W077022815",
+					"TrueBearing": "25.47",
+					"bearing": null
+				}, {
+					"name": "15",
+					"length": 5204,
+					"RwyDbId": "2135",
+					"RwyThrLat": "N38514018",
+					"RwyThrLon": "W077023587",
+					"TrueBearing": "142.75",
+					"bearing": null
+				}, {
+					"name": "19",
+					"length": 7170,
+					"RwyDbId": "2136",
+					"RwyThrLat": "N38514029",
+					"RwyThrLon": "W077021941",
+					"TrueBearing": "175.49",
+					"bearing": null
+				}, {
+					"name": "22",
+					"length": 5000,
+					"RwyDbId": "2137",
+					"RwyThrLat": "N38511264",
+					"RwyThrLon": "W077020197",
+					"TrueBearing": "205.47",
+					"bearing": null
+				}, {
+					"name": "33",
+					"length": 5204,
+					"RwyDbId": "2138",
+					"RwyThrLat": "N38505929",
+					"RwyThrLon": "W077015595",
+					"TrueBearing": "322.76",
+					"bearing": null
+				}],
+				"elevation": 14,
+				"longest_runway": 7170,
+				"instrument_approach_procedure": true,
+				"use": "public"
+			},
+			"type": "airport",
+			"city": "Arlington",
+			"state": "Virginia",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+17034178050"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "49e3d438-d1ae-4b8e-afe8-81288ff9f696",
+			"name": "MPD 2ND",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.9345552,
+			"longitude": -77.0744212,
+			"distance": 5250,
+			"properties": {
+				"faa": "'DC06",
+				"paved": false,
+				"phone": "+12027274368",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.9345555555556",
+					"longitude": "-77.0744222222222",
+					"HelipadDbId": "3990"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "public"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12027274368"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "79e327cd-a811-48ce-8bf7-62d304dec433",
+			"name": "MPD 5TH",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.9151119,
+			"longitude": -76.9733083,
+			"distance": 5801,
+			"properties": {
+				"faa": "'DC07",
+				"paved": false,
+				"phone": "+12027274368",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.9151111111111",
+					"longitude": "-76.9733083333333",
+					"HelipadDbId": "3991"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "public"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12027274368"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "ddbd5ea1-b242-4458-b56c-3208abceffde",
+			"name": "BOLLING AFB",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.8428902,
+			"longitude": -77.0160876,
+			"distance": 6346,
+			"properties": {
+				"faa": "'BOF",
+				"icao": "KBOF",
+				"paved": false,
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.8428916666667",
+					"longitude": "-77.0160861111111",
+					"HelipadDbId": "18580"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "military"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": null
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "797aa1fd-68c0-4446-ad74-dfa4e9e4531f",
+			"name": "SIBLEY MEMORIAL HOSPITAL",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 38.9369446,
+			"longitude": -77.1105551,
+			"distance": 7752,
+			"properties": {
+				"faa": "'DC52",
+				"paved": false,
+				"phone": "+12022434677",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "38.9369444444444",
+					"longitude": "-77.1105555555556",
+					"HelipadDbId": "20833"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Washington",
+			"state": "District of Columbia",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12022434677"
+				}
+			},
+			"available_permits": [],
+			"color": "green"
+		}],
+		"organizations": [],
+		"applicable_permits": []
 	}
 }

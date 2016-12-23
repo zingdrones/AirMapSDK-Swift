@@ -38,6 +38,7 @@
 		910F11811D275CB80053CEA2 /* status_get_point_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 910F117D1D275CB80053CEA2 /* status_get_point_success.json */; };
 		9120A3B11D5E6B0500262F08 /* ATTRIBUTION in Resources */ = {isa = PBXBuildFile; fileRef = 9120A3B01D5E6B0500262F08 /* ATTRIBUTION */; };
 		912A5BDB1D5B9DCC004B359B /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 912A5BDA1D5B9DCC004B359B /* airmap.config.json */; };
+		915CFFD41DEF6A76002E6623 /* AircraftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915CFFD21DEF6A00002E6623 /* AircraftFactory.swift */; };
 		916956EF1D356821006F97B8 /* status_weather_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916956EE1D356821006F97B8 /* status_weather_success.json */; };
 		916A9B421D2D991B00322CDB /* flight_comm_key_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916A9B411D2D991B00322CDB /* flight_comm_key_success.json */; };
 		91763D391D2C228F00E825DA /* TelemetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91763D381D2C228F00E825DA /* TelemetryTests.swift */; };
@@ -50,7 +51,7 @@
 		91F849BC1D5D8AEB00550D69 /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 912A5BDA1D5B9DCC004B359B /* airmap.config.json */; };
 		91F9006D1D37448C005B1084 /* StatusAdvisoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */; };
 		91F9006F1D3744CD005B1084 /* status_advisories_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91F9006E1D3744CD005B1084 /* status_advisories_success.json */; };
-		94A522583C1163E659EC3D5F /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785A46D26D66A2BCEB304C05 /* Pods_AirMapSDK_Example_iOS.framework */; };
+		94A522583C1163E659EC3D5F /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785A46D26D66A2BCEB304C05 /* Pods_AirMapSDK_Example_iOS.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		AF915457905C8023DB3DD0F2 /* Pods_AirMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 959CF7AD16492755A8E1F3C0 /* Pods_AirMapSDKTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,7 @@
 		910F117D1D275CB80053CEA2 /* status_get_point_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_point_success.json; path = Fixtures/status_get_point_success.json; sourceTree = "<group>"; };
 		9120A3B01D5E6B0500262F08 /* ATTRIBUTION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ATTRIBUTION; path = ../ATTRIBUTION; sourceTree = "<group>"; };
 		912A5BDA1D5B9DCC004B359B /* airmap.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = airmap.config.json; path = iOS/airmap.config.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
+		915CFFD21DEF6A00002E6623 /* AircraftFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AircraftFactory.swift; sourceTree = "<group>"; };
 		916956EE1D356821006F97B8 /* status_weather_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_weather_success.json; path = Fixtures/status_weather_success.json; sourceTree = "<group>"; };
 		916A9B411D2D991B00322CDB /* flight_comm_key_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_comm_key_success.json; path = Fixtures/flight_comm_key_success.json; sourceTree = "<group>"; };
 		91763D381D2C228F00E825DA /* TelemetryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelemetryTests.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			children = (
 				910F11781D275AF10053CEA2 /* CoordinateFactory.swift */,
 				910F11741D274BF80053CEA2 /* FlightFactory.swift */,
+				915CFFD21DEF6A00002E6623 /* AircraftFactory.swift */,
 			);
 			name = "Object Factories";
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 			files = (
 				910F11751D274BF80053CEA2 /* FlightFactory.swift in Sources */,
 				918451121D270C64003B3D26 /* FlightTests.swift in Sources */,
+				915CFFD41DEF6A76002E6623 /* AircraftFactory.swift in Sources */,
 				910F11791D275AF10053CEA2 /* CoordinateFactory.swift in Sources */,
 				910F11711D274A450053CEA2 /* TestCase.swift in Sources */,
 				910F11771D27546E0053CEA2 /* StatusTests.swift in Sources */,
@@ -774,7 +778,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA1A7D748DBEA6AF984F6625 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "AirMapSDK-Example-iOS.entitlements";
 				DEVELOPMENT_TEAM = 9P9UW98328;
@@ -793,7 +796,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C4EEF6AA97E96ACBB3FDFA42 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "AirMapSDK-Example-iOS.entitlements";
 				DEVELOPMENT_TEAM = 9P9UW98328;

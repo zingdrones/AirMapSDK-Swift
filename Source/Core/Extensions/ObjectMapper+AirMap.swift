@@ -84,13 +84,13 @@ class GeoJSONToAirMapGeometryTransform: TransformType {
 			if let coordinates = geometry["coordinates"] as? [[[Double]]] {
 				
 				let polygon = AirMapPolygon()
-				let coords: [CLLocationCoordinate2D] = (coordinates.first ?? [])
-					.map { ($0[1], $0[0]) }
-					.map(CLLocationCoordinate2D.init)
+				let coords: [[CLLocationCoordinate2D]] = coordinates
+					.map { poly in poly.map { ($0[1], $0[0]) }
+						.map(CLLocationCoordinate2D.init)
+					}
 				
 				polygon.coordinates = coords
 
-				
 				return polygon
 			}
 		case "Point":

@@ -1,211 +1,578 @@
 {
-	"status": "Success",
+	"status": "success",
 	"data": {
-		"color": "green",
-		"safe_radius": 0,
+		"advisory_color": "red",
 		"advisories": [{
-			"uuid": "",
-			"name": "Santa Monica Mountains National Recreation Area",
-			"type": "national_parks",
-			"state": "",
-			"last_updated": "2016-03-21T21:47:00.000Z",
-			"color": "green",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "JOHN ADAMS MIDDLE",
-			"type": "schools",
-			"city": "Santa Monica",
-			"state": "",
-			"country": "USA",
-			"last_updated": "2016-03-08T03:02:42.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "SANTA MONICA MUNI",
-			"type": "airports_recreational",
-			"city": "SANTA MONICA",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T22:52:23.000Z",
-			"color": "red",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "OCA HELIPORT",
-			"type": "heliports",
-			"city": "LOS ANGELES",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "VA GREATER LOS ANGELES HEALTH CARE CENTER",
-			"type": "heliports",
-			"city": "WEST LOS ANGELES",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "OCCIDENTAL PETROLEUM",
-			"type": "heliports",
-			"city": "LOS ANGELES",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "PLAYA VISTA 2",
-			"type": "heliports",
-			"city": "CULVER CITY",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "SANTA MONICA HIGH",
-			"type": "schools",
-			"city": "Santa Monica",
-			"state": "",
-			"country": "USA",
-			"last_updated": "2016-03-08T03:02:42.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "WESTWOOD GATEWAY",
-			"type": "heliports",
-			"city": "LOS ANGELES",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
+			"id": "87ed8bdc-f140-422e-9802-b4427e440c2e",
 			"name": "SANTA MONICA CLASS D",
-			"type": "class_d",
-			"city": "SANTA MONICA",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-03-07T18:32:45.000Z",
-			"color": "green",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "CENTURY CITY",
-			"type": "heliports",
-			"city": "LOS ANGELES",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "THE RITZ-CARLTON HOTEL COMPANY",
-			"type": "heliports",
-			"city": "MARINA DEL REY",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "THE WILSHIRE THAYER",
-			"type": "heliports",
-			"city": "LOS ANGELES",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "EVEREST & JENNINGS HELISTOP NR 1",
-			"type": "heliports",
-			"city": "LOS ANGELES",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "PACIFIC BELL-2300 IMPERIAL HWY",
-			"type": "heliports",
-			"city": "EL SEGUNDO",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "HUGHES/CORPORATE",
-			"type": "heliports",
-			"city": "LOS ANGELES",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "WESTSIDE TOWERS",
-			"type": "heliports",
-			"city": "LOS ANGELES",
-			"state": "",
-			"country": "US",
-			"last_updated": "2016-02-25T23:10:58.000Z",
-			"color": "yellow",
-			"distance": 0
-		}, {
-			"uuid": "",
-			"name": "Pardee Rand Graduate School of Policy Studies",
-			"type": "schools",
-			"city": "Santa Monica",
-			"state": "",
-			"country": "USA",
-			"last_updated": "2016-03-08T03:02:42.000Z",
-			"color": "yellow",
-			"distance": 3
-		}, {
-			"uuid": "",
-			"name": "WILL ROGERS ELEMENTARY",
-			"type": "schools",
-			"city": "Santa Monica",
-			"state": "",
-			"country": "USA",
-			"last_updated": "2016-03-08T03:02:42.000Z",
-			"color": "yellow",
-			"distance": 56
-		}],
-		"requirements": [{
-			"name": "Santa Monica",
-			"type": "city_boundaries",
-			"notice": {
-				"digital": true
+			"last_updated": "2016-11-22T19:53:57.000Z",
+			"latitude": 34.0247549,
+			"longitude": -118.446259,
+			"distance": 0,
+			"properties": {
+				"airspace_class": "d"
 			},
-			"id": "city|kZ2nb"
+			"type": "controlled_airspace",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 3,
+			"available_permits": [],
+			"color": "yellow"
 		}, {
+			"id": "d537fb86-2b15-48ec-ae33-4e5771dba7a9",
 			"name": "SANTA MONICA MUNI",
-			"type": "airports_recreational",
-			"notice": {
-				"phone": "310-458-8591",
-				"digital": true
-			}
-		}]
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 34.0158337,
+			"longitude": -118.4513058,
+			"distance": 34,
+			"properties": {
+				"faa": "'SMO",
+				"iata": "SMO",
+				"icao": "KSMO",
+				"paved": true,
+				"phone": "+13104588591",
+				"tower": true,
+				"runways": [{
+					"name": "03",
+					"length": 4973,
+					"RwyDbId": "3673",
+					"RwyThrLat": "N34003944",
+					"RwyThrLon": "W118272543",
+					"TrueBearing": "44.45",
+					"bearing": null
+				}, {
+					"name": "21",
+					"length": 4973,
+					"RwyDbId": "3674",
+					"RwyThrLat": "N34011448",
+					"RwyThrLon": "W118264396",
+					"TrueBearing": "224.45",
+					"bearing": null
+				}],
+				"elevation": 177,
+				"longest_runway": 4973,
+				"instrument_approach_procedure": true,
+				"use": "public"
+			},
+			"type": "airport",
+			"city": "Santa Monica",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+13104588591"
+				}
+			},
+			"available_permits": [],
+			"color": "red"
+		}, {
+			"id": "301ccd95-f8d4-4012-9cf2-92b99477d61c",
+			"name": "John Adams Middle School",
+			"last_updated": "2016-11-14T19:18:27.000Z",
+			"latitude": 34.0135905,
+			"longitude": -118.4703497,
+			"distance": 1803,
+			"properties": {},
+			"type": "school",
+			"city": "Santa Monica",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 2,
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "75c14ce7-dc2a-4519-bb8f-684ceb912d22",
+			"name": "WESTSIDE TOWERS",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 34.0330654,
+			"longitude": -118.4525792,
+			"distance": 1903,
+			"properties": {
+				"faa": "'CL54",
+				"paved": false,
+				"phone": "+13103128630",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "34.0330666666667",
+					"longitude": "-118.452580555556",
+					"HelipadDbId": "13852"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+13103128630"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "bdbba5d4-3e27-494a-81f3-693a7948a3d7",
+			"name": "Rogers (will) Elementary School",
+			"last_updated": "2016-11-14T19:18:27.000Z",
+			"latitude": 34.0118007,
+			"longitude": -118.4712598,
+			"distance": 1925,
+			"properties": {},
+			"type": "school",
+			"city": "Santa Monica",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 2,
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "08b34ef0-d42d-4b2e-9490-d92a94e2912d",
+			"name": "OCA HELIPORT",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 34.036121,
+			"longitude": -118.4420235,
+			"distance": 2385,
+			"properties": {
+				"faa": "'3CL7",
+				"paved": false,
+				"phone": "+13109665705",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "34.0361222222222",
+					"longitude": "-118.442025",
+					"HelipadDbId": "15870"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+13109665705"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "a41e69fc-5883-4c21-bf50-e335783d6c17",
+			"name": "SANTA MONICA HIGH",
+			"last_updated": "2016-11-14T19:18:27.000Z",
+			"latitude": 34.0114003,
+			"longitude": -118.4851008,
+			"distance": 3184,
+			"properties": {},
+			"type": "school",
+			"city": "Santa Monica",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 2,
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "733d4ffd-1645-4117-86b2-62381ee2a7ff",
+			"name": "EVEREST & JENNINGS HELISTOP NR 1",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 34.0447316,
+			"longitude": -118.4448011,
+			"distance": 3246,
+			"properties": {
+				"faa": "'98CA",
+				"paved": false,
+				"phone": "+13104779899",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "34.0447333333333",
+					"longitude": "-118.444802777778",
+					"HelipadDbId": "3316"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+13104779899"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "6809f224-7ae4-46a0-aec5-1da99a500e07",
+			"name": "THE RITZ-CARLTON HOTEL COMPANY",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 33.9844551,
+			"longitude": -118.4500784,
+			"distance": 3509,
+			"properties": {
+				"faa": "'CA79",
+				"paved": false,
+				"phone": "+12138231700",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "33.9844555555556",
+					"longitude": "-118.450077777778",
+					"HelipadDbId": "13604"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Marina Del Rey",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12138231700"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "194b2810-a5d8-4f94-a001-ba7a88ed4e77",
+			"name": "Santa Monica Mountains",
+			"last_updated": "2016-10-12T17:26:10.000Z",
+			"latitude": 34.1114969,
+			"longitude": -118.7201808,
+			"distance": 3646,
+			"properties": {
+				"type": "national_park"
+			},
+			"type": "park",
+			"city": "Agoura Hills",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"available_permits": [],
+			"color": "red"
+		}, {
+			"id": "989ad9ba-5d61-4f6e-be5c-785a1fb0f09e",
+			"name": "VA GREATER LOS ANGELES HEALTH CARE CENTER",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 34.049785,
+			"longitude": -118.4562467,
+			"distance": 3788,
+			"properties": {
+				"faa": "'0CA2",
+				"paved": false,
+				"phone": "+13102683099",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "34.0497861111111",
+					"longitude": "-118.456247222222",
+					"HelipadDbId": "10308"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "public"
+			},
+			"type": "heliport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+13102683099"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "32b860f5-8381-4b7e-8faf-f6ce18454988",
+			"name": "OCCIDENTAL PETROLEUM",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 34.0588985,
+			"longitude": -118.4436906,
+			"distance": 4817,
+			"properties": {
+				"faa": "'44CN",
+				"paved": false,
+				"phone": "+12134436034",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "34.0588972222222",
+					"longitude": "-118.443691666667",
+					"HelipadDbId": "1908"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+12134436034"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "26587fc3-c9f6-4edc-a06e-06b05626c560",
+			"name": "THE WILSHIRE THAYER",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 34.0625099,
+			"longitude": -118.432579,
+			"distance": 5443,
+			"properties": {
+				"faa": "'70CA",
+				"paved": false,
+				"phone": "+18189076622",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "34.0625083333333",
+					"longitude": "-118.432580555556",
+					"HelipadDbId": "2703"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+18189076622"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "cd292653-21b6-49e4-aaf6-a66328a11a85",
+			"name": "CENTURY CITY",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 34.0608427,
+			"longitude": -118.4175793,
+			"distance": 5861,
+			"properties": {
+				"faa": "'84CL",
+				"paved": false,
+				"phone": "+13102039199",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "34.0608416666667",
+					"longitude": "-118.417580555556",
+					"HelipadDbId": "3021"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+13102039199"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "df26f619-7edc-4ed5-bea1-e3712773539f",
+			"name": "HUGHES/CORPORATE",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 33.9661233,
+			"longitude": -118.4242439,
+			"distance": 6070,
+			"properties": {
+				"faa": "'CL71",
+				"paved": false,
+				"phone": "+13103382894",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "33.9661222222222",
+					"longitude": "-118.424244444444",
+					"HelipadDbId": "13864"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+13103382894"
+				}
+			},
+			"available_permits": [],
+			"color": "yellow"
+		}, {
+			"id": "0a93b86f-465e-46eb-903b-55b37fd94ba0",
+			"name": "PACIFIC BELL-2300 IMPERIAL HWY",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 33.9800126,
+			"longitude": -118.3822982,
+			"distance": 7492,
+			"properties": {
+				"faa": "'32CN",
+				"paved": false,
+				"phone": "+18185782922",
+				"tower": false,
+				"helipads": [{
+					"name": "H1",
+					"latitude": "33.9800138888889",
+					"longitude": "-118.3823",
+					"HelipadDbId": "1584"
+				}],
+				"instrument_approach_procedure": false,
+				"use": "private"
+			},
+			"type": "heliport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 5,
+			"requirements": {
+				"notice": {
+					"digital": false,
+					"phone": "+18185782922"
+				}
+			},
+			"available_permits": [],
+			"color": "green"
+		}, {
+			"id": "5c51876b-403d-4a6b-b49d-113acac985dc",
+			"name": "LOS ANGELES INTL",
+			"last_updated": "2016-11-16T17:10:29.000Z",
+			"latitude": 33.942504,
+			"longitude": -118.4071125,
+			"distance": 9119,
+			"properties": {
+				"faa": "'LAX",
+				"iata": "LAX",
+				"icao": "KLAX",
+				"paved": true,
+				"phone": "+14246465060",
+				"tower": true,
+				"runways": [{
+					"name": "06L",
+					"length": 8926,
+					"RwyDbId": "2787",
+					"RwyThrLat": "N33565680",
+					"RwyThrLon": "W118255218",
+					"TrueBearing": "82.99",
+					"bearing": null
+				}, {
+					"name": "06R",
+					"length": 10885,
+					"RwyDbId": "2788",
+					"RwyThrLat": "N33564918",
+					"RwyThrLon": "W118255847",
+					"TrueBearing": "82.98",
+					"bearing": null
+				}, {
+					"name": "07L",
+					"length": 12091,
+					"RwyDbId": "2789",
+					"RwyThrLat": "N33560899",
+					"RwyThrLon": "W118250963",
+					"TrueBearing": "82.99",
+					"bearing": null
+				}, {
+					"name": "07R",
+					"length": 11095,
+					"RwyDbId": "2790",
+					"RwyThrLat": "N33560114",
+					"RwyThrLon": "W118250847",
+					"TrueBearing": "82.99",
+					"bearing": null
+				}, {
+					"name": "24L",
+					"length": 10885,
+					"RwyDbId": "2791",
+					"RwyThrLat": "N33570070",
+					"RwyThrLon": "W118240601",
+					"TrueBearing": "263",
+					"bearing": null
+				}, {
+					"name": "24R",
+					"length": 8926,
+					"RwyDbId": "2792",
+					"RwyThrLat": "N33570757",
+					"RwyThrLon": "W118240702",
+					"TrueBearing": "263",
+					"bearing": null
+				}, {
+					"name": "25L",
+					"length": 11095,
+					"RwyDbId": "2793",
+					"RwyThrLat": "N33561451",
+					"RwyThrLon": "W118225777",
+					"TrueBearing": "263.01",
+					"bearing": null
+				}, {
+					"name": "25R",
+					"length": 12091,
+					"RwyDbId": "2794",
+					"RwyThrLat": "N33562241",
+					"RwyThrLon": "W118225847",
+					"TrueBearing": "263.01",
+					"bearing": null
+				}],
+				"elevation": 128,
+				"longest_runway": 12091,
+				"instrument_approach_procedure": true,
+				"use": "public"
+			},
+			"type": "airport",
+			"city": "Los Angeles",
+			"state": "California",
+			"country": "USA",
+			"restriction_type_id": 4,
+			"requirements": {
+				"notice": {
+					"digital": true,
+					"phone": "+14246465060"
+				}
+			},
+			"available_permits": [],
+			"color": "green",
+			"organization_id": "organization|PvOvE3xS30Q4PYfBRMzbefoWNAdJ"
+		}],
+		"organizations": [{
+			"id": "organization|PvOvE3xS30Q4PYfBRMzbefoWNAdJ",
+			"name": "LAWA"
+		}],
+		"applicable_permits": []
 	}
 }

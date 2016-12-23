@@ -9,6 +9,10 @@
 struct UIConstants {
 	
 	static let metersPerFoot: CLLocationDistance = 0.3048
+    
+    struct Instructions {
+        static let noPhoneNumberProvided = "No Phone Number Provided"
+    }
 	
 	static let bufferPresets: [(title: String, value: CLLocationDistance)] = [
 		("50 ft", metersPerFoot * 50),
@@ -27,16 +31,25 @@ struct UIConstants {
 	
 	static let defaultBufferPreset = bufferPresets[7]
 
-	static let altitudePresets: [(title: String, value: CLLocationDistance)] = [
+	static let altitudePresetsInFeet: [(title: String, value: CLLocationDistance)] = [
 		("50 ft", 15.24),
 		("100 ft", 30.48),
 		("200 ft", 60.96),
 		("300 ft", 91.44),
 		("400 ft", 121.92),
-		("500 ft", 152.4),
+		("500 ft", 152.4)
 		]
-	
-	static let defaultAltitudePreset = altitudePresets[3]
+	static let defaultAltitudePresetFeet = altitudePresetsInFeet[3]
+
+	static let altitudePresetsInMeters: [(title: String, value: CLLocationDistance)] = [
+		("25 m", 25),
+		("50 m", 50),
+		("75 m", 75),
+		("100 m", 100),
+		("150 m", 150)
+		]
+
+	static let defaultAltitudePresetMeters = altitudePresetsInMeters[3]
 	
 	static let durationPresets: [(title: String, value: NSTimeInterval)] = [
 		("5 min", 5 * 60),

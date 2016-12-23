@@ -35,20 +35,7 @@ class AirMapFlightNoticeViewController: UIViewController {
 	
 	private func setupBindings() {
 		
-        let organizations:[AirMapOrganization] = navigationController!.status.value!.organizations
         let advisories:[AirMapStatusAdvisory] = navigationController!.status.value!.advisories
-            .flatMap { advisory in
-                 if let notice = advisory.requirements?.notice?.digital {
-                    if let organization = organizations.filter ({ $0.id == advisory.organizationId }).first {
-                        // exlude airports
-                        if advisory.type != .Airport {
-                            advisory.organization = organization
-                            advisory.requirements!.notice!.digital = true
-                        }
-                    }
-                }
-            return advisory
-            }
             .filterDuplicates { (left, right) in
                 let notNil = left.organizationId != nil && right.organizationId != nil
                 let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport
@@ -57,7 +44,7 @@ class AirMapFlightNoticeViewController: UIViewController {
 		
         var sections = [SectionModel<SectionData, RowData>]()
 		
-        var digitalNotices:[AirMapStatusAdvisory] = advisories
+        let digitalNotices: [AirMapStatusAdvisory] = advisories
             .filter { $0.requirements?.notice?.digital == true }
         
         
@@ -88,12 +75,7 @@ class AirMapFlightNoticeViewController: UIViewController {
 			if notice.digital {
 				cell = tableView.dequeueReusableCellWithIdentifier("noticeCell") as! AirMapFlightNoticeCell
 			} else {
-				if let phoneNumber = advisory.requirements?.notice?.phoneNumber where !phoneNumber.isEmpty {
-					cell = tableView.dequeueReusableCellWithIdentifier("noticePhoneNumberCell") as! AirMapFlightNoticeCell
-				} else {
-					cell = tableView.dequeueReusableCellWithIdentifier("noticeCell") as! AirMapFlightNoticeCell
-				}
-			}
+				cell = tableView.dequeueReusableCellWithIdentifier("noticePhoneNumberCell") as! AirMapFlightNoticeCell			}
 			cell.advisory = advisory
             return cell
 		}

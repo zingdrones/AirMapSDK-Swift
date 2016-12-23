@@ -191,7 +191,9 @@ extension RxAirMap_Airspace {
 	
 	class func rx_listAirspace(airspaceIds: [String]) -> Observable<[AirMapAirspace]> {
 		return airspaceClient.listAirspace(airspaceIds)
-	}	
+			// Unlikely, but remove nil or empty airspace ids
+			.map { $0.filter { airspace in airspace.id != nil && !airspace.id!.isEmpty } }
+	}
 
 }
 

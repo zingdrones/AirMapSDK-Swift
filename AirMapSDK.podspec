@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 	s.name              = 'AirMapSDK'
 	s.module_name       = 'AirMap'
 	s.author            = 'AirMap, Inc.'
-	s.version           = '0.2.0'
+	s.version           = '0.2.1'
 	s.summary           = 'AirMap SDK for iOS & macOS'
 	s.description       = 'Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.'
 	s.license           = { :type => 'Custom', :file => 'LICENSE' }
@@ -47,7 +47,7 @@ Pod::Spec.new do |s|
 		ui.dependency 'RxDataSources', '~> 0.9.0'
 		ui.dependency 'Mapbox-iOS-SDK', '3.3.6'
 		ui.dependency 'Lock', '~> 1.27.1'
-		ui.dependency 'SwiftSimplify'
+		ui.dependency 'SwiftSimplify', '< 0.2.0'
 		ui.dependency 'SwiftTurf'
 		ui.source_files = 'Source/UI/**/{*.swift}'
 		ui.resources = ['Source/UI/**/{*.storyboard,*.xcassets}']

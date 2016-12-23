@@ -41,4 +41,8 @@ internal class AirMapAuthClient: HTTPClient {
 			}
 		}
 	}
+    
+    func logout(){
+        AirMap.authToken = nil
+    }
 }

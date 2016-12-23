@@ -10,7 +10,7 @@ import ObjectMapper
 
 public class AirMapAirspace: NSObject {
 	
-	public var airspaceId: String!
+	public var id: String!
 	public var name: String!
 	public var type: AirMapAirspaceType!
 	public var country: String!
@@ -23,12 +23,12 @@ public class AirMapAirspace: NSObject {
 	public required init?(_ map: Map) {}
 	
 	override public var hashValue:Int {
-		return airspaceId.hashValue
+		return id.hashValue
 	}
 	
 	public override func isEqual(object: AnyObject?) -> Bool {
 		if let object = object as? AirMapAirspace {
-			return object.airspaceId == self.airspaceId
+			return object.id == self.id
 		} else {
 			return false
 		}
@@ -38,7 +38,7 @@ public class AirMapAirspace: NSObject {
 extension AirMapAirspace: Mappable {
 	
 	public func mapping(map: Map) {
-		airspaceId       <-  map["id"]
+		id               <-  map["id"]
 		name             <-  map["name"]
 		country          <-  map["country"]
 		state            <-  map["state"]
@@ -57,5 +57,5 @@ extension AirMapAirspace: Mappable {
 }
 
 public func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
-	return lhs.airspaceId == rhs.airspaceId
+	return lhs.id == rhs.id
 }

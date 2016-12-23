@@ -1,17 +1,15 @@
 {
 	"status": "success",
-	"data":
-    {
-			 "id": "76d29840-1bc5-469c-ba92-3f637a100c1d",
-			 "name": "Solo",
-			 "metadata": {
-			 "image": "https://cdn.airmap.io/static/drones/3dr-solo.jpg",
-			 "weight": null,
-			 "flight_time": 20
-			 },
-			 "manufacturer": {
-			 "id": "d280ceed-2a64-4076-9479-7b91038678d9",
-			 "name": "3D Robotics"
-			 }
-    }
+	"data": {
+		"id": "model|1234",
+		"name": "SuperDrone 5000",
+		"metadata": {
+			"image": "http://cdn.airmap.io/acme-superdrone5000.jpg",
+			"flight_time": 20
+		},
+		"manufacturer": {
+			"id": "manufacturer|1234",
+			"name": "ACME, Inc."
+		}
+	}
 }

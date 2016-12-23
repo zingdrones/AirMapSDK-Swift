@@ -64,7 +64,7 @@ class AirMapFlightPlanViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var nextButton: UIButton!
 	
-	private let altitude = Variable(UIConstants.defaultAltitudePreset.value)
+	private let altitude = Variable(0 as Double)
 	private var startsAt = Variable(nil as NSDate?)
 	private let duration = Variable(UIConstants.defaultDurationPreset.value)
 	private let pilot    = Variable(nil as AirMapPilot?)
@@ -82,7 +82,14 @@ class AirMapFlightPlanViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
+		switch AirMap.configuration.distanceUnits {
+		case .Feet:
+			altitude.value = UIConstants.defaultAltitudePresetFeet.value
+		case .Meters:
+			altitude.value = UIConstants.defaultAltitudePresetMeters.value
+		}
+		
 		setupTable()
 		setupMap()
 		setupBindings()
@@ -129,9 +136,17 @@ class AirMapFlightPlanViewController: UIViewController {
 	@IBAction func unwindToFlightPlan(segue: UIStoryboardSegue) { /* unwind segue hook; keep */ }
 
 	private func setupTable() {
+		
+		let altitudeValues: [(title: String, value: CLLocationDistance)]
+		switch AirMap.configuration.distanceUnits {
+		case .Meters:
+			altitudeValues = UIConstants.altitudePresetsInMeters
+		case .Feet:
+			altitudeValues = UIConstants.altitudePresetsInFeet
+		}
 
 		let flightDataSection =  DataSection(title: "Flight", rows: [
-			FlightPlanDataTableRow(title: Variable("Altitude"), value: altitude, values: UIConstants.altitudePresets),
+			FlightPlanDataTableRow(title: Variable("Altitude"), value: altitude, values: altitudeValues),
 			])
 		sections.append(flightDataSection)
 
@@ -160,7 +175,7 @@ class AirMapFlightPlanViewController: UIViewController {
 	private func setupMap() {
 		
 		let flight = navigationController!.flight.value
-		mapView.configure(layers: [], theme: .Light)
+		mapView.configure(layers: navigationController!.mapLayers, theme: navigationController!.mapTheme)
 		mapView.delegate = mapViewDelegate
 		
 		if let annotations = flight.annotationRepresentations() {
@@ -192,7 +207,7 @@ class AirMapFlightPlanViewController: UIViewController {
 
 		status.asObservable()
 			.map {
-				let hasNextSteps = $0?.supportsDigitalNotice ?? true || $0?.requiresPermits ?? true
+				let hasNextSteps = $0?.supportsNotice ?? true || $0?.requiresPermits ?? true
 				return hasNextSteps ? "Next" : "Save"
 			}
 			.subscribeNext { [unowned self] title in
@@ -230,7 +245,7 @@ class AirMapFlightPlanViewController: UIViewController {
 
 		if status.requiresPermits {
 			performSegueWithIdentifier("pushPermits", sender: self)
-		} else if status.supportsDigitalNotice {
+		} else if status.supportsNotice {
 			performSegueWithIdentifier("pushNotices", sender: self)
 		} else {
 			AirMap.rx_createFlight(navigationController!.flight.value)

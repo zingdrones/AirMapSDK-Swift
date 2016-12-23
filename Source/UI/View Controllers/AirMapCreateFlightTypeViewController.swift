@@ -28,11 +28,11 @@ class RedAdvisory: MGLPolygon {}
 class PermitAdvisory: MGLPolygon {
 	var hasPermit = false
 	var airspace: AirMapAirspace!
-	var hasValue: Int { return airspace.airspaceId.hashValue }
+	var hasValue: Int { return airspace.id.hashValue }
 }
 
 func ==(lhs: PermitAdvisory, rhs: PermitAdvisory) -> Bool {
-	return lhs.airspace.airspaceId == rhs.airspace.airspaceId
+	return lhs.airspace.id == rhs.airspace.id
 }
 
 class Buffer: MGLPolygon {}
@@ -108,8 +108,12 @@ class AirMapCreateFlightTypeViewController: UIViewController {
 	
 	private let controlPointsHidden = Variable(false)
 	
+	override var navigationController: AirMapFlightPlanNavigationController {
+		return super.navigationController as! AirMapFlightPlanNavigationController
+	}
+	
 	private var flight: AirMapFlight {
-		return (navigationController as! AirMapFlightPlanNavigationController).flight.value
+		return navigationController.flight.value
 	}
 	
 	private let disposeBag = DisposeBag()
@@ -160,7 +164,7 @@ extension AirMapCreateFlightTypeViewController: AirMapAdvisoriesViewControllerDe
 		case "modalAdvisories":
 			let nav = segue.destinationViewController as! UINavigationController
 			let advisoriesVC = nav.viewControllers.first as! AirMapAdvisoriesViewController
-			let status = (navigationController as! AirMapFlightPlanNavigationController).status.value!
+			let status = navigationController.status.value!
 			advisoriesVC.status = Variable(status)
             advisoriesVC.delegate = self
 		default:
@@ -192,7 +196,7 @@ extension AirMapCreateFlightTypeViewController {
 			.bindTo(userPermits)
 			.addDisposableTo(disposeBag)
 		
-		let geoType = selectedGeoType.asDriver()
+		let geoType = selectedGeoType.asDriver().distinctUntilChanged()
 		let coordinates = controlPoints.asDriver()
 			.map { $0.filter { $0.type == ControlPointType.Vertex }.map { $0.coordinate } }
 
@@ -214,6 +218,7 @@ extension AirMapCreateFlightTypeViewController {
 			.addDisposableTo(disposeBag)
 
 		state.asDriver()
+			.throttle(0.01)
 			.driveNext(unowned(self, $.configureForState))
 			.addDisposableTo(disposeBag)
 		
@@ -222,7 +227,8 @@ extension AirMapCreateFlightTypeViewController {
 			.addDisposableTo(disposeBag)
 	
 		let snappedBuffer = bufferSlider.rx_value.asDriver()
-			.map(unowned(self, $.sliderValueToBuffer))
+            .distinctUntilChanged()
+            .map(unowned(self, $.sliderValueToBuffer))
 
 		snappedBuffer.map { $0.displayString }
 			.drive(bufferValueLabel.rx_text)
@@ -246,13 +252,13 @@ extension AirMapCreateFlightTypeViewController {
 			.driveNext(unowned(self, $.drawFlightArea))
 			.addDisposableTo(disposeBag)
 
-		let status = (navigationController as! AirMapFlightPlanNavigationController).status
+		let status = navigationController.status
 		
 		validatedInput
 			.asObservable()
-			.filter { $0.3.valid }
+            .filter { $0.3.valid }
 			.flatMapLatest {[unowned self] input in
-				unowned(self, $.getStatus)(input)
+                unowned(self, $.getStatus)(input)
 					.map { Optional.Some($0) }
 					.asDriver(onErrorJustReturn: nil)
 			}
@@ -272,33 +278,21 @@ extension AirMapCreateFlightTypeViewController {
 			.map { ($0?.requiresPermits ?? false) && ($0?.applicablePermits.count ?? 0) == 0 }
 			.driveNext {[unowned self] required in
 				self.bottomToolTip.superview!.superview!.hidden = !required
-				self.bottomToolTip.text = "Flight area cannot overlap with conflicting permit requirements."
+				self.bottomToolTip.superview!.backgroundColor = UIColor.airMapRed()
+				self.bottomToolTip.text = "Flight area cannot overlap with conflicting permit requirement zones."
 			}
+			.addDisposableTo(disposeBag)
 		
 		status
 			.asObservable()
 			.unwrap()
 			.map { $0.advisories.filter { $0.color == .Red } }
-			.map { $0.map { $0.id as String } }
+			.map { $0.flatMap { $0.id as String? } }
 			.flatMapLatest { ids -> Observable<[AirMapAirspace]> in
 				if ids.count == 0 {
 					return .just([])
 				} else {
                     return AirMap.rx_listAirspace(ids)
-                        .filter { airspaces in
-                            
-                            let airspaceIds = airspaces.map {$0.airspaceId}
-                            var hasId = false
-                            
-                            for id in ids {
-                                
-                                if (airspaceIds.indexOf { $0 == id }) > -1 {
-                                    hasId = true
-                                }
-                            }
-                            
-                            return hasId
-                        }
 				}
 			}
 			.asDriver(onErrorJustReturn: [])
@@ -307,15 +301,15 @@ extension AirMapCreateFlightTypeViewController {
 		
 		Observable
 			.combineLatest(status.asObservable().unwrap(), userPermits.asObservable()) { status, permits in
-				let permitableAdvisories = Array(Set(status.advisories.filter { $0.availablePermits.count > 0  }))
-				let airspaceIds = Array(Set(permitableAdvisories.map { $0.id as String }))
-                let userPermits = permits
-                    .filter { $0.expiresAt == nil || $0.expiresAt.greaterThanDate(NSDate()) }
-                    .map { $0 }
-				return (status, userPermits, permitableAdvisories, airspaceIds)
+				let permitableAdvisories = Set(status.advisories.filter { $0.availablePermits.count > 0  })
+				let airspaceIds = Set(permitableAdvisories.map { $0.id as String })
+                let userPermits = permits.filter { $0.expiresAt == nil || $0.expiresAt.greaterThanDate(NSDate()) }
+				return (status, userPermits, Array(permitableAdvisories), Array(airspaceIds))
 			}
-			.distinctUntilChanged () { lhs, rhs in
-				lhs.3.sort().joinWithSeparator("") == rhs.3.sort().joinWithSeparator("")
+			.distinctUntilChanged () { [unowned self] lhs, rhs in
+				lhs.3.sort() == rhs.3.sort() &&
+					// always refetch airspace when permit advisories have been cleared
+					self.mapView.annotations?.filter { $0 is PermitAdvisory }.count > 0
 			}
 			.flatMapLatest { (status: AirMapStatus, permits: [AirMapPilotPermit], advisories: [AirMapStatusAdvisory], airspaceIds: [String]) -> Observable<[AirspacePermitting]> in
 
@@ -325,9 +319,9 @@ extension AirMapCreateFlightTypeViewController {
 				
 				return AirMap.rx_listAirspace(airspaceIds)
 					.map { airspaces in
-						Array(Set(airspaces)).flatMap { airspace in
+						Set(airspaces).flatMap { airspace in
 							
-							guard let permitableAdvisory = advisories.filter({ $0.id == airspace.airspaceId }).first else {
+							guard let permitableAdvisory = advisories.filter({ $0.id == airspace.id }).first else {
 								return nil
 							}
 							
@@ -337,7 +331,6 @@ extension AirMapCreateFlightTypeViewController {
 							return (airspace, hasPermit)
 						}
 				}
-				
 			}
 			.asDriver(onErrorJustReturn: [AirspacePermitting]())
 			.driveNext(unowned(self, $.drawPermitAdvisoryAirspaces))
@@ -346,6 +339,7 @@ extension AirMapCreateFlightTypeViewController {
 		let canAdvance = Observable
             .combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
 				status != nil && input.3.valid
+					&& ((status!.requiresPermits && status!.applicablePermits.count > 0) || !status!.requiresPermits)
 			}
 			.asDriver(onErrorJustReturn: false)
         
@@ -371,7 +365,7 @@ extension AirMapCreateFlightTypeViewController {
 	private func setupMap() {
 		
 		mapView.centerCoordinate = flight.coordinate
-		mapView.configure(layers: [], theme: .Standard)
+		mapView.configure(layers: navigationController.mapLayers, theme: navigationController.mapTheme)
 		mapView.minimumZoomLevel = 8
 		mapView.maximumZoomLevel = 22
 		mapView.delegate = mapViewDelegate
@@ -412,7 +406,7 @@ extension AirMapCreateFlightTypeViewController {
 
 	func configureForType(type: AirMapFlight.FlightGeometryType) {
 		
-		(navigationController as! AirMapFlightPlanNavigationController).status.value = nil
+		navigationController.status.value = nil
 		
 		if let annotations = mapView.annotations {
 			mapView.removeAnnotations(annotations)
@@ -432,6 +426,7 @@ extension AirMapCreateFlightTypeViewController {
 			actionButton.hidden = false
 			bufferTitleLabel.text = "Width"
 			controlPoints.value = []
+			state.value = .Drawing
 
 		case .Point:
 			actionButton.hidden = true
@@ -440,6 +435,7 @@ extension AirMapCreateFlightTypeViewController {
 			controlPoints.value = [
 				ControlPoint(type: .Vertex, coordinate: mapView.centerCoordinate)
 			]
+			state.value = .Panning
 
 		case .Polygon:
 			drawingOverlayView.discardsDuplicateClosingPoint = true
@@ -447,6 +443,7 @@ extension AirMapCreateFlightTypeViewController {
 			controlPoints.value = []
 			radiusSliderTransform = CGAffineTransformIdentity
 			radiusSliderAlpha = 0
+			state.value = .Drawing
 		}
 		
 		let animations = {
@@ -454,10 +451,10 @@ extension AirMapCreateFlightTypeViewController {
 			self.mapView.attributionButton.transform = radiusSliderTransform
 			self.bufferSlider.superview?.transform = CGAffineTransformConcat(radiusSliderTransform, CGAffineTransformMakeTranslation(0, radiusSliderOffset))
 			self.bufferSlider.superview?.alpha = radiusSliderAlpha
+			self.bottomToolTip.superview?.superview?.transform = self.bufferSlider.superview!.transform
 		}
 
 		UIView.animateWithDuration(0.3, delay: 0, options: [.BeginFromCurrentState], animations: animations, completion: nil)
-		state.value = .Panning
 	}
 	
 	func configureForState(state: DrawingUIState) {
@@ -472,12 +469,13 @@ extension AirMapCreateFlightTypeViewController {
 		let trashIconHighlighted = UIImage(named: "trash_icon_highlighted", inBundle: bundle, compatibleWithTraitCollection: nil)
 		let toolTipBgColor = UIColor.airMapGray().colorWithAlphaComponent(0.25)
 		toolTip.superview?.backgroundColor = toolTipBgColor
-		bottomToolTip.superview?.backgroundColor = toolTipBgColor
 		
 		switch state {
 		
 		case .Panning:
 			
+			editingOverlayView.clearPath()
+
 			// No existing shape
 			if controlPoints.value.count == 0 {
 				
@@ -528,6 +526,8 @@ extension AirMapCreateFlightTypeViewController {
 
 		case .Drawing:
 			
+			editingOverlayView.clearPath()
+
 			switch selectedGeoType.value {
 			case .Path:
 				toolTip.text = "Draw a freehand path"
@@ -576,7 +576,7 @@ extension AirMapCreateFlightTypeViewController {
 		let ramp = Config.Maps.bufferSliderLinearity
 		let sliderValue = pow(Double(sliderValue), ramp)
 
-		let usesMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem)!.boolValue!
+		let usesMetric = AirMap.configuration.distanceUnits == .Meters
 		let distancePerStep: Double
 		
 		if usesMetric {
@@ -659,8 +659,7 @@ extension AirMapCreateFlightTypeViewController {
 	@IBAction func deleteShape() {
 		
 		controlPoints.value = []
-		state.value = .Panning
-		(navigationController as! AirMapFlightPlanNavigationController).status.value = nil
+		navigationController.status.value = nil
 	}
 		
 	@IBAction func dismiss() {
@@ -764,7 +763,8 @@ extension AirMapCreateFlightTypeViewController {
 		case .Polygon:
 			return AirMap.rx_checkPolygon(coordinates, takeOffPoint: coordinates.first!)
 		case .Path:
-			return AirMap.rx_checkFlightPath(coordinates, buffer: Int(round(buffer)), takeOffPoint: coordinates.first!)
+			// Divide the width by 2 to get the left/right buffer
+			return AirMap.rx_checkFlightPath(coordinates, buffer: Int(round(buffer/2)), takeOffPoint: coordinates.first!)
 		}
 	}
 	
@@ -785,9 +785,14 @@ extension AirMapCreateFlightTypeViewController {
 	
 	private func drawControlPoints(points: [ControlPoint]) {
 		
-		let existingControlPoints = mapView.annotations?.filter { $0 is ControlPoint } ?? []
-		mapView.removeAnnotations(existingControlPoints)
-		mapView.addAnnotations(points)
+		let drawnPoints = Set(points)
+		let existingPoints = Set(mapView.annotations?.flatMap({ $0 as? ControlPoint }) ?? [])
+		
+		let oldPoints = existingPoints.subtract(drawnPoints)
+		mapView.removeAnnotations(Array(oldPoints))
+		
+		let newPoints = drawnPoints.subtract(existingPoints)
+		mapView.addAnnotations(Array(newPoints))
 	}
 	
 	private func drawNewProposedRadius(radius: Meters = 0) {
@@ -863,7 +868,7 @@ extension AirMapCreateFlightTypeViewController {
 			guard coordinates.count >= 3 else { return }
 			
 			let polygonGeometry = AirMapPolygon()
-			polygonGeometry.coordinates = coordinates
+			polygonGeometry.coordinates = [coordinates]
 			
 			flight.geometry = polygonGeometry
 			flight.coordinate = coordinates.first!
@@ -893,20 +898,37 @@ extension AirMapCreateFlightTypeViewController {
 		let existingRedAdvisories = mapView.annotations?.flatMap { $0 as? RedAdvisory} ?? []
 		mapView.removeOverlays(existingRedAdvisories)
 		
-		let redGeometries: [RedAdvisory] = airspaces
-			.flatMap { $0.geometry as? AirMapPolygon }
-			.map { polygon in
-				var coords = polygon.coordinates as [CLLocationCoordinate2D]
-				return RedAdvisory(coordinates: &coords, count: UInt(coords.count))
+		let polygonMapper = { (polygon: AirMapPolygon) -> RedAdvisory in
+			var coords = polygon.coordinates as [[CLLocationCoordinate2D]]
+			var outerCoords = coords.first!
+			
+			if coords.count > 1 {
+				let innerCoords = coords[1..<coords.count]
+				let innerPolygons = innerCoords.map { coords -> MGLPolygon in
+					var coords = coords
+					return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
+				}
+				return RedAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count), interiorPolygons: innerPolygons)
+			} else {
+				return RedAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count))
 			}
-        
+		}
+		
+		let redGeometries: [RedAdvisory] = airspaces
+			.flatMap { advisory -> AirMapPolygon? in
+                switch advisory.type {
+                case .Airport? :
+                     return advisory.propertyBoundary as? AirMapPolygon
+                default:
+                    return advisory.geometry as? AirMapPolygon
+                }
+            }
+			.map(polygonMapper)
+		
         let redPropertyBounderies: [RedAdvisory] = airspaces
             .flatMap { $0.propertyBoundary as? AirMapPolygon }
-            .map { polygon in
-                var coords = polygon.coordinates as [CLLocationCoordinate2D]
-                return RedAdvisory(coordinates: &coords, count: UInt(coords.count))
-        }
-        
+			.map(polygonMapper)
+		
 		mapView.addOverlays(redGeometries + redPropertyBounderies)
 	}
 	
@@ -917,12 +939,27 @@ extension AirMapCreateFlightTypeViewController {
 		let newAdvisories: [PermitAdvisory] = airspacePermits
 			.filter { $0.airspace.geometry as? AirMapPolygon != nil }
 			.map { airspacePermit in
+
 				let polygon = airspacePermit.airspace.geometry as! AirMapPolygon
-				var coords = polygon.coordinates as [CLLocationCoordinate2D]
-				let advisory = PermitAdvisory(coordinates: &coords, count: UInt(coords.count))
-				advisory.airspace = airspacePermit.airspace
-				advisory.hasPermit = airspacePermit.hasPermit
-				return advisory
+				var coords = polygon.coordinates as [[CLLocationCoordinate2D]]
+				var outerCoords = coords.first!
+				
+				if coords.count > 1 {
+					let innerCoords = coords[1..<coords.count]
+					let innerPolygons = innerCoords.map { coords -> MGLPolygon in
+						var coords = coords
+						return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
+					}
+					let advisory = PermitAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count), interiorPolygons: innerPolygons)
+					advisory.airspace = airspacePermit.airspace
+					advisory.hasPermit = airspacePermit.hasPermit
+					return advisory
+				} else {
+					let advisory = PermitAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count))
+                    advisory.airspace = airspacePermit.airspace
+                    advisory.hasPermit = airspacePermit.hasPermit
+					return advisory
+				}
 			}
 		
 		let orphans = Set(existingPermitAdvisories).subtract(Set(newAdvisories))
@@ -978,6 +1015,8 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 		switch selectedGeoType.value {
 		case .Path:
 			guard coordinates.count > 1 && coordinates.count <= 25 else { return }
+			// Ensure points first two points are at least 25m apart. This catches paths created when double tapping the map.
+			guard CLLocation(coordinate: coordinates[0]).distanceFromLocation(CLLocation(coordinate: coordinates[1])) > 25 else { return }
 		case .Polygon:
 			guard coordinates.count > 2 else { return }
 			// Discard polygons with too many self-intersections
@@ -1097,6 +1136,8 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 			case .MidPoint:
 				
 				controlPoint.type = .Vertex
+				
+				mapView.removeAnnotation(controlPoint)
 				
 				let left = ControlPoint(type: .MidPoint)
 				let right = ControlPoint(type: .MidPoint)

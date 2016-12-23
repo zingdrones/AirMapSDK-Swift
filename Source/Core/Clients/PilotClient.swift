@@ -43,7 +43,7 @@ internal class PilotClient: HTTPClient {
 }
 
 typealias PilotClient_Aircraft = PilotClient
-extension PilotClient {
+extension PilotClient_Aircraft {
 
 	func listAircraft() -> Observable<[AirMapAircraft]> {
 		AirMap.logger.debug("List Aircraft")
@@ -74,7 +74,7 @@ extension PilotClient {
 }
 
 typealias PilotClient_Permit = PilotClient
-extension PilotClient {
+extension PilotClient_Permit {
 
 	func listPilotPermits() -> Observable<[AirMapPilotPermit]> {
 		AirMap.logger.debug("List Pilot Permits")

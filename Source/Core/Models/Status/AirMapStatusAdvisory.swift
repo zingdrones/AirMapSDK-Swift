@@ -33,7 +33,7 @@ import ObjectMapper
 	public private(set) var availablePermits = [AirMapAvailablePermit]()
 	public internal(set) var organization: AirMapOrganization?
 	
-	internal var organizationId: String?
+	internal private(set) var organizationId: String?
 
 	public required init?(_ map: Map) {}
 	
@@ -79,7 +79,7 @@ extension AirMapStatusAdvisory: Mappable {
 		
 		if let type = type {
 			switch type {
-			case .Airport:            airportProperties            <- map["properties"]
+			case .Airport, .Heliport: airportProperties            <- map["properties"]
 			case .Park:               parkProperties               <- map["properties"]
 			case .SpecialUse:         specialUseProperties         <- map["properties"]
 			case .PowerPlant:         powerPlantProperties         <- map["properties"]

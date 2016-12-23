@@ -1,23 +1,17 @@
 {
 	"status": "success",
-	"data": [
-    {
-			 "id": "permit|abc123",
-			 "organization_id": "organization|xyz789",
-			 "name": "Recreational",
-			 "description": "Permit for non-commercial use.",
-			 "description_url": "https://www.santamonica.ca.gov/permits",
-			 "single_use": false,
-			 "valid_for": 60,
-			 "valid_until": "2017-07-05T10:51:19Z",
-			 "custom_properties": [
-								   {
-								   "id": "student_id",
-								   "type": "text",
-								   "required": true,
-								   "label": "Student ID number"
-								   }
-								   ]
-    }
-			 ]
+	"data": [{
+		"id": "permit|1234",
+		"organization_id": "organization|1234",
+		"name": "Recreational Permit",
+		"description": "A permit for recreational operators",
+		"single_use": false,
+		"valid_until": "2017-01-01T00:00:00.000Z",
+		"custom_properties": [{
+			"id": "permit_custom_property|1234",
+			"type": "text",
+			"label": "Name",
+			"required": false
+		}]
+	}]
 }

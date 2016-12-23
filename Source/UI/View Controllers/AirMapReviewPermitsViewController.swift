@@ -56,14 +56,15 @@ class AirMapReviewPermitsViewController: UIViewController {
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		
 		if segue.identifier == "pushPermit" {
-			let cell = sender as! UITableViewCell
-			let indexPath = tableView.indexPathForCell(cell)!
-			let section = dataSource.sectionAtIndex(indexPath.section)
-			let rowData = try! tableView.rx_modelAtIndexPath(indexPath) as RowData
-			let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
-			permitVC.mode = .Review
-			permitVC.permit = Variable(rowData.permit!)
-			permitVC.organization = section.model
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPathForCell(cell)!
+            let section = dataSource.sectionAtIndex(indexPath.section)
+            let rowData = section.items[indexPath.row]
+            let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
+            permitVC.mode = .Review
+            permitVC.permit = Variable(rowData.permit!)
+            permitVC.pilotPermit = Variable(rowData.pilotPermit)
+            permitVC.organization = section.model
 		}
 	}
 	

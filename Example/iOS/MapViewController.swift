@@ -23,19 +23,15 @@ class MapViewController: UIViewController {
 		AirMap.logger.minLevel = .Debug
 		AirMap.authSessionDelegate = self
 		AirMap.trafficDelegate = self
+//		AirMap.configuration.distanceUnits = .Meters
+//		AirMap.configuration.temperatureUnits = .Celcius
 		
 		mapView.configure(layers: [.EssentialAirspace, .TFRs], theme: .Standard)
-		
-		Observable<Int>.timer(0, period: 20, scheduler: MainScheduler.instance)
-			.subscribeNext { _ in
-				self.mapView.reloadStyle(self)
-			}
-			.addDisposableTo(disposeBag)
 	}
 	
 	@IBAction func addFlight() {
 
-		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self) {
+		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self, mapTheme: .Light, mapLayers: [.TFRs, .EssentialAirspace]) {
 			presentViewController(flightPlanController, animated: true, completion: nil)
 		} else {
 			showAuthController()

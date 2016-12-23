@@ -39,7 +39,7 @@ extension AirMap_UI {
 	- returns: An AirMapFlightPlanNavigationController if Pilot is Authenticated, otherwise nil.
 
 	*/
-	public class func flightPlanViewController(location location: CLLocationCoordinate2D, flightPlanDelegate: AirMapFlightPlanDelegate) -> AirMapFlightPlanNavigationController? {
+	public class func flightPlanViewController(location location: CLLocationCoordinate2D, flightPlanDelegate: AirMapFlightPlanDelegate, mapTheme: AirMapMapTheme = .Standard, mapLayers: [AirMapLayerType] = []) -> AirMapFlightPlanNavigationController? {
 
 		// FIXME:
 		guard AirMap.authSession.hasValidCredentials() else { return nil }
@@ -49,18 +49,19 @@ extension AirMap_UI {
 		let flightPlanNav = storyboard.instantiateInitialViewController() as! AirMapFlightPlanNavigationController
 		flightPlanNav.flightPlanDelegate = flightPlanDelegate
 		flightPlanNav.flight.value.coordinate = location
+		flightPlanNav.mapTheme = mapTheme
+		flightPlanNav.mapLayers = mapLayers
 
 		return flightPlanNav
 	}
 	
 	/**
 	
-	Creates a flight plan creation view controller that can be presented to the user based on a specified location. Airspace status, advisories, permiting, and digital notice are handled within the flow.
+	Creates a flight plan creation view controller that can be presented to the user.
 	
-	- parameter location: The lat/lon origin of the flight
-	- parameter flightPlanDelegate: The delegate that is notified of the new AirMapFlight after completion of flow
+	- parameter flight: The flight to display
 	
-	- returns: An AirMapFlightPlanNavigationController if Pilot is Authenticated, otherwise nil.
+	- returns: An UINavigationController if Pilot is Authenticated, otherwise nil.
 	
 	*/
 	public class func flightPlanViewController(flight: AirMapFlight) -> UINavigationController? {
