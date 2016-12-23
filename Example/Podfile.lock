@@ -43,7 +43,7 @@ PODS:
     - Mapbox-iOS-SDK (= 3.3.6)
     - PhoneNumberKit (= 0.8.5)
     - RxDataSources (~> 0.9.0)
-    - SwiftSimplify
+    - SwiftSimplify (< 0.2.0)
     - SwiftTurf
   - Alamofire (3.5.1)
   - CocoaAsyncSocket (7.5.1):
@@ -121,7 +121,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AirMapSDK: 413b226e4a182f87d8b68d0f62d5e41e9863abca
+  AirMapSDK: 8ffb76f9be9539b675f8870fb9cb54c1b4c19dc9
   Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
   CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
   CryptoSwift: c1ef79f901b86099a6fe8b3c7524cf9f3f3c8c40
