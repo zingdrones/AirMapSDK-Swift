@@ -80,7 +80,7 @@ class AirMapAvailablePermitViewController: UITableViewController {
             .asObservable()
             .subscribeOn(MainScheduler.instance)
             .map { permit in
-                permit.customProperties.map {[unowned self] property in
+                permit.customProperties.map { property in
                     let textField = UITextField()
                     textField.placeholder = property.label
                     return (property, textField)

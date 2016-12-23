@@ -84,7 +84,7 @@ extension AirMapFlight: MGLAnnotation {
 				fill = MGLPolygon(coordinates: &outer, count: UInt(outer.count))
 				strokes = [MGLPolyline(coordinates: &outer, count: UInt(outer.count))]
 			} else {
-				var interiorPolygons: [MGLPolygon] = polygons[1..<polygons.count].map {
+				let interiorPolygons: [MGLPolygon] = polygons[1..<polygons.count].map {
 					var coords = $0
 					return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
 				}

@@ -164,7 +164,7 @@ extension AirMapCreateFlightTypeViewController: AirMapAdvisoriesViewControllerDe
 		case "modalAdvisories":
 			let nav = segue.destinationViewController as! UINavigationController
 			let advisoriesVC = nav.viewControllers.first as! AirMapAdvisoriesViewController
-			let status = (navigationController as! AirMapFlightPlanNavigationController).status.value!
+			let status = navigationController.status.value!
 			advisoriesVC.status = Variable(status)
             advisoriesVC.delegate = self
 		default:
@@ -252,7 +252,7 @@ extension AirMapCreateFlightTypeViewController {
 			.driveNext(unowned(self, $.drawFlightArea))
 			.addDisposableTo(disposeBag)
 
-		let status = (navigationController as! AirMapFlightPlanNavigationController).status
+		let status = navigationController.status
 		
 		validatedInput
 			.asObservable()
@@ -406,7 +406,7 @@ extension AirMapCreateFlightTypeViewController {
 
 	func configureForType(type: AirMapFlight.FlightGeometryType) {
 		
-		(navigationController as! AirMapFlightPlanNavigationController).status.value = nil
+		navigationController.status.value = nil
 		
 		if let annotations = mapView.annotations {
 			mapView.removeAnnotations(annotations)
@@ -659,7 +659,7 @@ extension AirMapCreateFlightTypeViewController {
 	@IBAction func deleteShape() {
 		
 		controlPoints.value = []
-		(navigationController as! AirMapFlightPlanNavigationController).status.value = nil
+		navigationController.status.value = nil
 	}
 		
 	@IBAction func dismiss() {

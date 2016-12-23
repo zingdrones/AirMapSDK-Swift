@@ -59,7 +59,7 @@ class AirMapReviewPermitsViewController: UIViewController {
             let cell = sender as! UITableViewCell
             let indexPath = tableView.indexPathForCell(cell)!
             let section = dataSource.sectionAtIndex(indexPath.section)
-            let rowData = try! tableView.rx_modelAtIndexPath(indexPath) as! RowData
+            let rowData = section.items[indexPath.row]
             let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
             permitVC.mode = .Review
             permitVC.permit = Variable(rowData.permit!)

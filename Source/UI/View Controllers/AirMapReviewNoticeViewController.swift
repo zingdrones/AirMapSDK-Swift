@@ -47,7 +47,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 		tableView.estimatedRowHeight = 44
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
-		dataSource.configureCell = { [weak self] dataSource, tableView, indexPath, rowData in
+		dataSource.configureCell = { dataSource, tableView, indexPath, rowData in
             let cellIdentifier = rowData.notice.digital ? "digitalCell" : "noDigitalCell"
 		    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! AirMapFlightNoticeCell
             cell.advisory = rowData.advisory

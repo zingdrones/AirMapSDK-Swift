@@ -48,7 +48,7 @@ class AirMapFormTextField: UITableViewCell {
 
 class AirMapPilotProfileViewController: UITableViewController {
 	
-	public var customFields = [AirMapPilotProfileField]()
+	var customFields = [AirMapPilotProfileField]()
 
 	var pilot: Variable<AirMapPilot?>!
 	
@@ -119,7 +119,7 @@ class AirMapPilotProfileViewController: UITableViewController {
 		tableView.estimatedRowHeight = 50
 		tableView.rowHeight = UITableViewAutomaticDimension
 
-		dataSource.configureCell = { [weak self] dataSource, tableView, indexPath, field in
+		dataSource.configureCell = { [unowned self] dataSource, tableView, indexPath, field in
 			let cell: AirMapFormTextField
 			
 			let cellIdentifier: String
@@ -135,7 +135,7 @@ class AirMapPilotProfileViewController: UITableViewController {
 			cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! AirMapFormTextField
 			cell.label.text = field.label
 
-			let pilot = self?.pilot.value
+			let pilot = self.pilot.value
 			
 			switch Section(rawValue: indexPath.section)! {
 			case .PilotInfo:
@@ -148,7 +148,9 @@ class AirMapPilotProfileViewController: UITableViewController {
 				}
 			}
 
-			cell.textField.rx_text.asOptional().bindTo(field.rx_value)
+			cell.textField.rx_text.asOptional()
+				.bindTo(field.rx_value)
+				.addDisposableTo(self.disposeBag)
 			
 			return cell
 		}
