@@ -1053,11 +1053,12 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 		switch selectedGeoType.value {
 		case .Path:
 			guard coordinates.count > 1 && coordinates.count <= 25 else { return }
+			trackEvent(.draw, label: "Draw Path", value: coordinates.count)
 			// Ensure points first two points are at least 25m apart. This catches paths created when double tapping the map.
 			guard CLLocation(coordinate: coordinates[0]).distanceFromLocation(CLLocation(coordinate: coordinates[1])) > 25 else { return }
-			trackEvent(.draw, label: "Draw Path", value: coordinates.count)
 		case .Polygon:
 			guard coordinates.count > 2 else { return }
+			trackEvent(.draw, label: "Draw Polygon", value: coordinates.count)
 			// Discard polygons with too many self-intersections
 			let polygon = Polygon(geometry: [coordinates])
 			guard SwiftTurf.kinks(polygon)?.features.count <= 5 else { return }
@@ -1079,9 +1080,7 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 		
 		state.value = .Panning
 
-		centerFlightPlan()
-		
-		AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .DrewCustomShape))
+		centerFlightPlan()		
 	}
 }
 
@@ -1117,15 +1116,7 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 			editingOverlayView.drawProposedPath(along: [points])
 
 		case .Polygon, .Path:
-			
-			if selectedGeoType.value == .Polygon {
-				trackEvent(.drag, label: "Drag Polygon Point")
-			}
-			
-			if selectedGeoType.value == .Path {
-				trackEvent(.drag, label: "Drag Path Point")
-			}
-			
+						
 			let distance = controlPoint.type == .MidPoint ? 1 : 2
 			let neighbors = self.neighbors(of: controlPoint, distance: distance)
 			let points = [neighbors.prev, ControlPoint(coordinate: controlPointCoordinate), neighbors.next]
