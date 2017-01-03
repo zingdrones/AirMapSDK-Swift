@@ -9,8 +9,17 @@
 import RxSwift
 import RxCocoa
 
-class AirMapCreateAircraftViewController: UITableViewController {
+class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTrackable {
 
+	var screenName: String {
+		switch mode {
+		case .Create:
+			return "Create Aircraft"
+		case .Update:
+			return "Update Aircraft"
+		}
+	}
+	
 	@IBOutlet var nextButton: UIButton!
 	@IBOutlet weak var nickName: UITextField!
 	@IBOutlet weak var makeAndModel: UILabel!
@@ -56,12 +65,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		switch mode {
-		case .Create:
-			AirMapAnalytics.trackView(AircraftCreateScreen)
-		case .Update:
-			AirMapAnalytics.trackView(AircraftUpdateScreen)
-		}
+		trackView()
 		
 		if (nickName.text ?? "").isEmpty || mode == .Update {
 			nickName.becomeFirstResponder()
@@ -110,6 +114,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "modalModel" {
+			trackEvent(.tap, label: "Make & Model")
 			let nav = segue.destinationViewController as! AirMapAircraftModelNavController
 			nav.aircraftModelSelectionDelegate = self
 		}
@@ -119,14 +124,14 @@ class AirMapCreateAircraftViewController: UITableViewController {
 	
 	@IBAction func save() {
 		
+		trackEvent(.tap, label: "Save Button")
+
 		let action: Observable<AirMapAircraft>
 		switch mode {
 		case .Create:
 			action = AirMap.rx_createAircraft(aircraft).trackActivity(activityIndicator)
-				.doOnNext { _ in AirMapAnalytics.trackEvent(AircraftCreateScreen(action: .SaveAircraft)) }
 		case .Update:
 			action = AirMap.rx_updateAircraft(aircraft).trackActivity(activityIndicator)
-				.doOnNext { _ in AirMapAnalytics.trackEvent(AircraftUpdateScreen(action: .SaveAircraft)) }
 		}
 
 		action

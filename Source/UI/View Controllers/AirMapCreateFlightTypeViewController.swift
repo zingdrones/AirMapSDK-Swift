@@ -75,9 +75,11 @@ class InvalidIntersectionView: MGLAnnotationView {
 	}
 }
 
-class AirMapCreateFlightTypeViewController: UIViewController {
+class AirMapCreateFlightTypeViewController: UIViewController, AnalyticsTrackable {
 	
 	// MARK: Properties
+	
+	var screenName = "Create Flight - Type"
 	
 	typealias Meters = CLLocationDistance
 	typealias AirspacePermitting = (airspace: AirMapAirspace, hasPermit: Bool)
@@ -146,7 +148,7 @@ extension AirMapCreateFlightTypeViewController: AirMapAdvisoriesViewControllerDe
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		AirMapAnalytics.trackView(CreateFlight.GeoType.self)
+		trackView()
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -167,14 +169,14 @@ extension AirMapCreateFlightTypeViewController: AirMapAdvisoriesViewControllerDe
 		case "pushFlightDetails":
 			let flightDetails = segue.destinationViewController as! AirMapFlightPlanViewController
 			flightDetails.location = Variable(flight.coordinate)
-			AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .SaveFlightType))
+			trackEvent(.next, label: "Next Button")
 		case "modalAdvisories":
 			let nav = segue.destinationViewController as! UINavigationController
 			let advisoriesVC = nav.viewControllers.first as! AirMapAdvisoriesViewController
 			let status = navigationController.status.value!
 			advisoriesVC.status = Variable(status)
             advisoriesVC.delegate = self
-			AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .ViewAdvisories))
+			trackEvent(.tap, label: "Advisory Icon")
 		default:
 			break
 		}
@@ -253,8 +255,8 @@ extension AirMapCreateFlightTypeViewController {
 		
 		snappedBuffer.map { $0.buffer }
 			.distinctUntilChanged()
-			.driveNext { meters in
-				AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .AdjustedRadius(value: meters)))
+			.driveNext { [unowned self] meters in
+				self.trackEvent(.slide, label: "Buffer", value: meters)
 			}
 			.addDisposableTo(disposeBag)
 
@@ -655,16 +657,16 @@ extension AirMapCreateFlightTypeViewController {
 		switch geoType {
 		case .Point:
 			bufferSlider.value = 0.5667
+			trackEvent(.tap, label: "Point")
 		case .Path:
 			bufferSlider.value = 20/1000
-		default:
-			break
+			trackEvent(.tap, label: "Path")
+		case .Polygon:
+			trackEvent(.tap, label: "Polygon")
 		}
 		
 		bufferSlider.sendActionsForControlEvents(.ValueChanged)
 		selectedGeoType.value = geoType
-		
-		AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .ToggledFlightType(type: geoType)))
 	}
 	
 	@objc private func toggleDrawing() {
@@ -677,15 +679,18 @@ extension AirMapCreateFlightTypeViewController {
 		}
 	}
 
-	@IBAction func deleteShape() {
+	@IBAction func deleteShape(sender: AnyObject?) {
 		
 		controlPoints.value = []
 		navigationController.status.value = nil
 		
-		AirMapAnalytics.trackEvent(CreateFlight.GeoType(action: .DeletedShape))
+		if sender is UIButton {
+			trackEvent(.tap, label: "Trash Icon")
+		}
 	}
 		
 	@IBAction func dismiss() {
+		trackEvent(.tap, label: "Cancel Button")
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 
@@ -1040,6 +1045,7 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 			guard coordinates.count > 1 && coordinates.count <= 25 else { return }
 			// Ensure points first two points are at least 25m apart. This catches paths created when double tapping the map.
 			guard CLLocation(coordinate: coordinates[0]).distanceFromLocation(CLLocation(coordinate: coordinates[1])) > 25 else { return }
+			trackEvent(.draw, label: "Draw Path", value: coordinates.count)
 		case .Polygon:
 			guard coordinates.count > 2 else { return }
 			// Discard polygons with too many self-intersections
@@ -1092,6 +1098,8 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 		
 		case .Point:
 
+			trackEvent(.drag, label: "Drag Point")
+
 			let point = Point(geometry: controlPointCoordinate)
 			let bufferedPoint = SwiftTurf.buffer(point, distance: buffer.value, units: .Meters)
 			let coordinates = bufferedPoint?.geometry.first ?? []
@@ -1099,6 +1107,14 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 			editingOverlayView.drawProposedPath(along: [points])
 
 		case .Polygon, .Path:
+			
+			if selectedGeoType.value == .Polygon {
+				trackEvent(.drag, label: "Drag Polygon Point")
+			}
+			
+			if selectedGeoType.value == .Path {
+				trackEvent(.drag, label: "Drag Path Point")
+			}
 			
 			let distance = controlPoint.type == .MidPoint ? 1 : 2
 			let neighbors = self.neighbors(of: controlPoint, distance: distance)
@@ -1127,6 +1143,14 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 		switch selectedGeoType.value {
 		
 		case .Path, .Polygon:
+			
+			if selectedGeoType.value == .Path {
+				trackEvent(.drag, label: "Drag Path Point")
+			}
+			
+			if selectedGeoType.value == .Polygon {
+				trackEvent(.drag, label: "Drag Polygon Point")
+			}
 		
 			let hitPoint = mapView.convertCoordinate(controlPoint.coordinate, toPointToView: mapView)
 			let shouldDeletePoint = canDelete(controlPoint) && actionButton.bounds.contains(hitPoint)
@@ -1151,6 +1175,7 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 							let vertices = neighbors(of: midPoint, distance: 1)
 							position(midPoint, between: vertices)
 					}
+					trackEvent(.drop, label: "Drop Point Trash Icon")
 				} else {
 					for midPoint in [midPoints.prev, midPoints.next].flatMap({$0}) {
 						let vertices = neighbors(of: midPoint, distance: 1)
@@ -1160,6 +1185,8 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 				
 			case .MidPoint:
 				
+				trackEvent(.drag, label: "Drag New Point") // Add New Point
+
 				controlPoint.type = .Vertex
 				
 				mapView.removeAnnotation(controlPoint)
@@ -1176,7 +1203,7 @@ extension AirMapCreateFlightTypeViewController: ControlPointDelegate {
 			}
 
 		case .Point:
-			break
+			trackEvent(.drag, label: "Drag Point")
 		}
 		
 		controlPoints.value = controlPoints.value

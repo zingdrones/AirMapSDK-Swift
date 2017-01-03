@@ -9,7 +9,9 @@
 import Mapbox
 import RxSwift
 
-class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelegate, TabSelectorDelegate {
+class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelegate, TabSelectorDelegate, AnalyticsTrackable {
+	
+	var screenName = "Create Flight - Review"
 	
 	@IBOutlet weak var mapView: AirMapMapView!
 	@IBOutlet weak var scrollView: UIScrollView!
@@ -114,6 +116,18 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 	}
 
 	func tabSelectorDidSelectItemAtIndex(index: Int) {
+		
+		let view = embeddedViews[index].view
+		switch view {
+		case detailsView:
+			trackEvent(.slide, label: "Review Details Tab")
+		case noticesView:
+			trackEvent(.slide, label: "Review Permits Tab")
+		case permitsView:
+			trackEvent(.slide, label: "Review Notices Tab")
+		default:
+			break
+		}
 		scrollToTabIndex(index)
 	}
 
@@ -160,6 +174,8 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 	@IBAction func submitFlightPlan() {
 
+		trackEvent(.tap, label: "Save")
+		
 		let flow = navigationController!
 		let selectedPermits = flow.selectedPermits.value.map { _, availablePermit, pilotPermit in
 			return (availablePermit: availablePermit, pilotPermit: pilotPermit)
@@ -173,6 +189,12 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		if neededPermits.count > 0 {
 			let permitRequests = neededPermits.map {
 				AirMap.rx_applyForPermit($0.availablePermit)
+					.doOnError { [unowned self] error in
+						self.trackEvent(.save, label: "Apply Permit Error", value: (error as NSError).code)
+					}
+					.doOnCompleted {
+						self.trackEvent(.save, label: "Apply Permit Success")
+					}
 					.trackActivity(activityIndicator)
 			}
 			let permits = permitRequests.zip { $0 }
@@ -189,6 +211,12 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		flight
 			.flatMap { [unowned self] flight in
 				AirMap.rx_createFlight(flight).trackActivity(self.activityIndicator)
+					.doOnError { [unowned self] error in
+						self.trackEvent(.save, label: "Create Flight Error", value: (error as NSError).code)
+					}
+					.doOnCompleted {
+						self.trackEvent(.save, label: "Create Flight Success")
+				}
 			}
 			.doOnError { [weak flow] error in
 				flow?.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)

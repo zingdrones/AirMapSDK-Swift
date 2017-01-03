@@ -11,9 +11,11 @@ import RxCocoa
 import PhoneNumberKit
 import libPhoneNumber_iOS
 
-class AirMapPhoneVerificationViewController: UITableViewController {
+class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTrackable {
 	
 	// MARK: - Properties
+	
+	var screenName = "Phone Verification - Phone Number"
 	
 	var pilot: AirMapPilot!
 	
@@ -52,6 +54,7 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 		super.viewWillAppear(animated)
 		
 		validateForm()
+		trackView()
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -79,11 +82,11 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 		switch Segue(rawValue: identifier)! {
 
 		case .pushSelectCountry:
+			trackEvent(.tap, label: "Select Country")
 			let countryVC = segue.destinationViewController as! AirMapPhoneCountryViewController
 			countryVC.selectionDelegate = self
 			countryVC.selectedCountryIdentifier = countryCode
 			countryVC.locale = AirMapLocale.currentLocale()
-			AirMapAnalytics.trackEvent(VerifyPhoneNumber(action: .SelectCountry))
 		
 		case .pushVerifySMS:
 			break
@@ -129,14 +132,21 @@ class AirMapPhoneVerificationViewController: UITableViewController {
 
 		guard let phoneNumber = phoneNumber else { return }
 		
-		AirMapAnalytics.trackEvent(VerifyPhoneNumber(action: .SavePhoneNumber))
+		trackEvent(.tap, label: "Save Button")
 
 		pilot.phone = phoneNumber.toE164()
 		
 		AirMap.rx_updatePilot(pilot)
 			.trackActivity(activityIndicator)
 			.flatMap { [unowned self] _ in
-				AirMap.rx_sendVerificationToken().trackActivity(self.activityIndicator)
+				AirMap.rx_sendVerificationToken()
+					.trackActivity(self.activityIndicator)
+					.doOnError { [unowned self] error in
+						self.trackEvent(.save, label: "error", value: (error as NSError).code)
+					}
+					.doOnCompleted { [unowned self] _ in
+						self.trackEvent(.save, label: "Success")
+					}
 			}
 			.doOnCompleted(unowned(self, AirMapPhoneVerificationViewController.verifySMSToken))
 			.subscribe()

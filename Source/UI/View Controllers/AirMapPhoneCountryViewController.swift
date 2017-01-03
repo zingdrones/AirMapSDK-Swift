@@ -16,8 +16,10 @@ protocol AirMapPhoneCountrySelectorDelegate: class {
 	func phoneCountrySelectorDidCancel()
 }
 
-class AirMapPhoneCountryViewController: UITableViewController {
+class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackable {
 	
+	
+	var screenName = "Phone Country Selector"
 	weak var selectionDelegate: AirMapPhoneCountrySelectorDelegate?
 	
 	var locale: NSLocale!
@@ -35,6 +37,12 @@ class AirMapPhoneCountryViewController: UITableViewController {
 		super.viewDidLoad()
 		
 		setupTable()
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		trackView()
 	}
 	
 	func setupTable() {
@@ -67,6 +75,7 @@ class AirMapPhoneCountryViewController: UITableViewController {
 		tableView.rx_itemSelected.asObservable()
 			.map(tableView.rx_modelAtIndexPath)
 			.subscribeNext { [weak self] (row: RowData) in
+				self?.trackEvent(.tap, label: "Country Row")
 				self?.selectionDelegate?.phoneCountrySelectorDidSelect(country: row.name, country: row.code)
 			}
 			.addDisposableTo(disposeBag)

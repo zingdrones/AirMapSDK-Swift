@@ -46,7 +46,9 @@ class AirMapFormTextField: UITableViewCell {
 	@IBOutlet weak var label: UILabel!
 }
 
-class AirMapPilotProfileViewController: UITableViewController {
+class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackable {
+	
+	var screenName = "Pilot Profile"
 	
 	var customFields = [AirMapPilotProfileField]()
 
@@ -89,7 +91,7 @@ class AirMapPilotProfileViewController: UITableViewController {
 			.bindTo(pilot)
 			.addDisposableTo(disposeBag)
 		
-		AirMapAnalytics.trackView(PilotProfileScreen)
+		trackView()
 	}
 	
 	override func canBecomeFirstResponder() -> Bool {
@@ -204,18 +206,20 @@ class AirMapPilotProfileViewController: UITableViewController {
 	}
 	
 	@IBAction func savePilot() {
+		
+		trackEvent(.tap, label: "Save")
 
 		guard let pilot = pilot.value else { return }
 
 		AirMap.rx_updatePilot(pilot)
 			.trackActivity(activityIndicator)
 			.doOnError { error in
-				AirMapAnalytics.trackException(String(error), fatal: false)
+				self.trackEvent(.save, label: "Error", value: (error as NSError).code)
 			}
 			.doOnCompleted { [unowned self] in
 				self.view.endEditing(true)
 				self.dismissViewControllerAnimated(true, completion: nil)
-				AirMapAnalytics.trackEvent(PilotProfileScreen(action: .EditProfile))
+				self.trackEvent(.save, label: "Success")
 			}
 			.subscribe()
 			.addDisposableTo(disposeBag)
@@ -227,7 +231,6 @@ class AirMapPilotProfileViewController: UITableViewController {
 			nav.phoneVerificationDelegate = self
 			let phoneVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
 			phoneVC.pilot = pilot.value
-			AirMapAnalytics.trackEvent(PilotProfileScreen(action: .VerifyPhoneNumber))
 		}
 	}
 	
