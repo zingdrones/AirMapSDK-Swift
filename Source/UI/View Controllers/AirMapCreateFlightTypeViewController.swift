@@ -79,8 +79,16 @@ class AirMapCreateFlightTypeViewController: UIViewController, AnalyticsTrackable
 	
 	// MARK: Properties
 	
-	var screenName = "Create Flight - Type"
-	
+	var screenName: String {
+		switch selectedGeoType.value {
+		case .Point:
+			return "Create Flight - Point"
+		case .Path:
+			return "Create Flight - Path"
+		case .Polygon:
+			return "Create Flight - Polygon"
+		}
+	}
 	typealias Meters = CLLocationDistance
 	typealias AirspacePermitting = (airspace: AirMapAirspace, hasPermit: Bool)
 
@@ -647,6 +655,8 @@ extension AirMapCreateFlightTypeViewController {
 	// MARK: Actions
 
 	@IBAction func selectFlightMode(button: AirMapFlightTypeButton) {
+		
+		trackView()
 		
 		flightTypeButtons.forEach { $0.selected = false }
 		button.selected = true
