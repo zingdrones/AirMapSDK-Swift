@@ -69,6 +69,12 @@ extension AirMapPilotPermit: Mappable {
 		customProperties  <-  map["custom_properties"]
 		permitDetails     <-  map["permit"]
 		status            <-  map["status"]
+		
+		if map.JSONDictionary.keys.contains("permit") {
+			permitId <- map["permit.id"]
+		} else {
+			permitId <- map["permit_id"]
+		}
 	}
 
 	/**
