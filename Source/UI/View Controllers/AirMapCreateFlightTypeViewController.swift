@@ -262,6 +262,7 @@ extension AirMapCreateFlightTypeViewController {
 			.addDisposableTo(disposeBag)
 		
 		snappedBuffer.map { $0.buffer }
+			.throttle(1)
 			.distinctUntilChanged()
 			.driveNext { [unowned self] meters in
 				self.trackEvent(.slide, label: "Buffer", value: meters)
@@ -646,7 +647,7 @@ extension AirMapCreateFlightTypeViewController {
 			feet = ceil(feet / distancePerStep) * distancePerStep
 			meters = feet / Config.Maps.feetPerMeters
 			
-			bufferValue = (meters, formatter.stringFromNumber(meters)! + " m")
+			bufferValue = (meters, formatter.stringFromNumber(feet)! + " ft")
 		}
 		
 		return bufferValue
