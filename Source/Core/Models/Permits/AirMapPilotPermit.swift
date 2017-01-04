@@ -61,15 +61,14 @@ extension AirMapPilotPermit: Mappable {
 
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
-		id					<-  map["id"]
-		permitId			<-  map["permit.id"]
-		organization		<-  map["organization"]
-		createdAt			<- (map["created_at"], dateTransform)
-		updatedAt			<- (map["updated_at"], dateTransform)
-		expiresAt			<- (map["expiration"], dateTransform)
-		customProperties	<-  map["custom_properties"]
-		permitDetails		<-  map["permit"]
-		status				<-	map["status"]
+		id                <-  map["id"]
+		organization      <-  map["organization"]
+		createdAt         <- (map["created_at"], dateTransform)
+		updatedAt         <- (map["updated_at"], dateTransform)
+		expiresAt         <- (map["expiration"], dateTransform)
+		customProperties  <-  map["custom_properties"]
+		permitDetails     <-  map["permit"]
+		status            <-  map["status"]
 	}
 
 	/**

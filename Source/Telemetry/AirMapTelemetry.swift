@@ -52,17 +52,23 @@ struct AirMapTelemetry {
 					(session: session, message: telemetry.message)
 			}
 			
+			let frequency = Config.AirMapTelemetry.SampleFrequency.self
+			
 			let position = flightMessages
 				.filter { $0.1 is Airmap.Telemetry.Position }
-				.sample(Observable<Int>.timer(0, period: Config.AirMapTelemetry.RateLimit.position, scheduler: scheduler))
+				.sample(Observable<Int>.timer(0, period: frequency.position, scheduler: scheduler))
+			
+			let attitude = flightMessages
+				.filter { $0.1 is Airmap.Telemetry.Attitude }
+				.sample(Observable<Int>.timer(0, period: frequency.attitude, scheduler: scheduler))
 			
 			let speed = flightMessages
 				.filter { $0.1 is Airmap.Telemetry.Speed }
-				.sample(Observable<Int>.timer(0, period: Config.AirMapTelemetry.RateLimit.speed, scheduler: scheduler))
+				.sample(Observable<Int>.timer(0, period: frequency.speed, scheduler: scheduler))
 			
 			let barometer = flightMessages
 				.filter { $0.1 is Airmap.Telemetry.Barometer }
-				.sample(Observable<Int>.timer(0, period: Config.AirMapTelemetry.RateLimit.barometer, scheduler: scheduler))
+				.sample(Observable<Int>.timer(0, period: frequency.barometer, scheduler: scheduler))
 			
 			let latestMessages = [position, speed, barometer].toObservable().merge()
 				.buffer(timeSpan: 1, count: 20, scheduler: scheduler)
@@ -90,8 +96,7 @@ struct AirMapTelemetry {
 		
 		static var socket = Socket(socketQueue: serialQueue)
 		
-//		private let encryption = Packet.EncryptionType.AES256CBC
-		private let encryption = Packet.EncryptionType.None
+		private let encryption = Packet.EncryptionType.AES256CBC
 		private var serialNumber: UInt32 = 0
 				
 		init(flight: AirMapFlight, commKey: CommKey) {
@@ -145,7 +150,7 @@ struct AirMapTelemetry {
 	struct Packet {
 		
 		enum EncryptionType: UInt8 {
-			case None = 0
+			case None = 0 // Unsupported by backend; for testing only
 			case AES256CBC = 1
 		}
 
