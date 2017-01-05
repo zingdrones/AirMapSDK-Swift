@@ -537,7 +537,7 @@ extension AirMapCreateFlightTypeViewController {
 				actionButton.setImage(trashIcon, forState: .Normal)
 				actionButton.setImage(trashIconHighlighted, forState: .Highlighted)
 				actionButton.setImage(trashIconSelected, forState: .Selected)
-				actionButton.addTarget(self, action: #selector(deleteShape), forControlEvents: .TouchUpInside)
+				actionButton.addTarget(self, action: #selector(deleteShape(_:)), forControlEvents: .TouchUpInside)
 			}
 			actionButton.selected = false
 			actionButton.highlighted = false
