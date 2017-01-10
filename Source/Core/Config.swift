@@ -36,7 +36,6 @@ struct Config {
 		static var mapTilesUrl: String {
 			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
 		}
-
 		static func urlForResource(named: String, version: String) -> String {
 			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "\(version)")
 		}
@@ -67,7 +66,6 @@ struct Config {
 			static let speed: NSTimeInterval = 1/5
 			static let barometer: NSTimeInterval = 5
 		}
-		
 	}
 
 	struct AirMapTraffic {

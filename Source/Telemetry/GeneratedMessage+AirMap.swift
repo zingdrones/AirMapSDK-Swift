@@ -14,14 +14,17 @@ extension ProtoBufMessage {
 	
 	enum MessageType: UInt16 {
 		case Position  = 0
-		case Speed     = 1
-		case Barometer = 2
+		case Attitude  = 1
+		case Speed     = 2
+		case Barometer = 3
 	}
 	
 	var messageType: MessageType {
 		switch self {
 		case is Airmap.Telemetry.Position:
 			return .Position
+		case is Airmap.Telemetry.Attitude:
+			return .Attitude
 		case is Airmap.Telemetry.Speed:
 			return .Speed
 		case is Airmap.Telemetry.Barometer:
