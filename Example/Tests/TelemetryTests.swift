@@ -104,6 +104,7 @@ class TelemetryTests: TestCase {
 		var payloadLength: UInt16 = 0
 		range.length = sizeofValue(payloadLength)
 		messageData.getBytes(&payloadLength, range: range)
+		payloadLength = CFSwapInt16BigToHost(payloadLength)
 		range.location += range.length
 		expect(Int(payloadLength)).to(equal(position.data().length))
 
@@ -126,6 +127,7 @@ class TelemetryTests: TestCase {
 		var serial: UInt32 = 0
 		range.length = sizeofValue(serial)
 		packetData.getBytes(&serial, range: range)
+		serial = CFSwapInt32BigToHost(serial)
 		range.location += range.length
 		expect(serial).to(equal(123))
 		

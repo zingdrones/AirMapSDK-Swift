@@ -43,9 +43,23 @@ extension NSData {
 
 }
 
-extension IntegerType {
+extension UInt8 {
 	var data: NSData {
 		var varSelf = self
+		return NSData(bytes: &varSelf, length: sizeofValue(self))
+	}
+}
+
+extension UInt16 {
+	var data: NSData {
+		var varSelf = self.bigEndian
+		return NSData(bytes: &varSelf, length: sizeofValue(self))
+	}
+}
+
+extension UInt32 {
+	var data: NSData {
+		var varSelf = self.bigEndian
 		return NSData(bytes: &varSelf, length: sizeofValue(self))
 	}
 }
