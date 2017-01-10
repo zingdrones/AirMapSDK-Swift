@@ -14,8 +14,8 @@ extension ProtoBufMessage {
 	
 	enum MessageType: UInt16 {
 		case Position  = 0
-		case Attitude  = 1
-		case Speed     = 2
+		case Speed     = 1
+		case Attitude  = 2
 		case Barometer = 3
 	}
 	
