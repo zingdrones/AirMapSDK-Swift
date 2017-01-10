@@ -11,7 +11,9 @@ import RxCocoa
 import RxDataSources
 
 /// Displays a list of organizations that require a permit and selected permits for each, if any.
-class AirMapRequiredPermitsViewController: UIViewController {
+class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable {
+	
+	var screenName = "Create Flight - Permits"
 	
 	@IBOutlet weak var permitComplianceStatus: UILabel!
 	@IBOutlet weak var tableView: UITableView!
@@ -54,6 +56,12 @@ class AirMapRequiredPermitsViewController: UIViewController {
 		setupTableView()
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		trackView()
+	}
+	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		guard let identifier = segue.identifier else { return }
 		
@@ -72,6 +80,7 @@ class AirMapRequiredPermitsViewController: UIViewController {
 			let nav = segue.destinationViewController as! UINavigationController
 			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
 			faqVC.section = .Permits
+			trackEvent(.tap, label: "Info Button (Permit FAQ's)")
 		default:
 			break
 		}
@@ -184,7 +193,9 @@ class AirMapRequiredPermitsViewController: UIViewController {
 	// MARK: - Instance Methods
 	
 	@IBAction func next() {
-		
+
+		trackEvent(.tap, label: "Next Button")
+
 		if status.value!.supportsDigitalNotice {
 			performSegueWithIdentifier("pushFlightNotice", sender: self)
 		} else {
@@ -288,7 +299,10 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 				
 				selectedPermits.value.append((organization: row.organization, permit: row.availablePermit!, pilotPermit: pilotPermit))
 				cell?.imageView?.highlighted = true
+				trackEvent(.tap, label: "Selected Permit")
 			}
+		} else {
+			trackEvent(.tap, label: "Selecte a Different Permit")
 		}
 	}
 	

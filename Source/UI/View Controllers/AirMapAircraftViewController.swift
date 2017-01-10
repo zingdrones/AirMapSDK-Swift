@@ -9,7 +9,9 @@
 import RxSwift
 import RxCocoa
 
-class AirMapAircraftViewController: UITableViewController {
+class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
+	
+	var screenName = "List Aircraft"
 	
 	let selectedAircraft = Variable(nil as AirMapAircraft?)
 	
@@ -25,6 +27,8 @@ class AirMapAircraftViewController: UITableViewController {
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
+		
+		trackView()
 		
 		AirMap
 			.rx_listAircraft()
@@ -63,8 +67,19 @@ class AirMapAircraftViewController: UITableViewController {
 		
 		tableView
 			.rx_itemDeleted
+			.doOnNext { [unowned self] _ in
+				self.trackEvent(.swipe, label: "Delete")
+			}
 			.map(tableView.rx_modelAtIndexPath)
-			.flatMap(AirMap.rx_deleteAircraft)
+			.flatMap { aircraft in
+				AirMap.rx_deleteAircraft(aircraft)
+					.doOnError { [unowned self] error in
+						self.trackEvent(.delete, label: "Error", value: (error as NSError).code)
+					}
+					.doOnCompleted { [unowned self] _ in
+						self.trackEvent(.delete, label: "Success")
+					}
+			}
 			.flatMap(AirMap.rx_listAircraft)
 			.doOnError { AirMap.logger.error($0) }
 			.ignoreErrors()
@@ -84,10 +99,12 @@ class AirMapAircraftViewController: UITableViewController {
 		switch identifier {
 			
 		case "createAircraft":
+			trackEvent(.tap, label: "New Aircraft Button")
 			let nav = segue.destinationViewController as! AirMapAircraftNavController
 			nav.aircraftDelegate = self
 			
 		case "editAircraft":
+			trackEvent(.tap, label: "Edit Aircraft Button")
 			let cell = sender as! UITableViewCell
 			let indexPath = tableView.indexPathForCell(cell)!
 			let aircraft = try! tableView.rx_modelAtIndexPath(indexPath) as AirMapAircraft

@@ -12,7 +12,9 @@ import RxCocoa
 import RxDataSources
 
 /// Displays a list of existing, available, and unavailable permits for a specific organization
-class AirMapAvailablePermitsViewController: UITableViewController {
+class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrackable {
+	
+	var screenName = "Create Flight - Available Permits"
 	
 	@IBOutlet weak var header: UILabel!
 	
@@ -47,23 +49,26 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 		guard let identifier = segue.identifier else { return }
 		switch identifier {
 		case "pushNewPermit", "pushExistingPermit":
+			if identifier == "pushNewPermit" {
+				trackEvent(.tap, label: "Select Permit")
+			} else {
+				trackEvent(.tap, label: "Permit Details")
+			}
 			let cell = sender as! UITableViewCell
 			let indexPath = tableView.indexPathForCell(cell)!
 			let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
 			permitVC.permit = Variable(dataSource.itemAtIndexPath(indexPath).availablePermit)
 			permitVC.organization = organization
-		case "unwindFromExistingPermit" :
+		case "unwindFromExistingPermit":
 			let cell = sender as! UITableViewCell
 			let indexPath = tableView.indexPathForCell(cell)!
 			let permit = dataSource.itemAtIndexPath(indexPath)
 			let permitVC = segue.destinationViewController as! AirMapRequiredPermitsViewController
 		
-			
 			var selectedPermits = permitVC.selectedPermits.value.filter { $0.permit.id != permit.availablePermit.id }
 			selectedPermits.append((organization, permit.availablePermit, permit.pilotPermit!))
 			
 			permitVC.selectedPermits.value = selectedPermits
-
 
 		default:
 			break
@@ -104,10 +109,6 @@ class AirMapAvailablePermitsViewController: UITableViewController {
 				return "Unavailable Permits"
 			}
 		}
-		
-        
-        
-        
 	}
 	
 	private func setupBindings() {

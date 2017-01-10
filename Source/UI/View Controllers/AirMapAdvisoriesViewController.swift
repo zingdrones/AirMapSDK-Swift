@@ -16,8 +16,9 @@ public protocol AirMapAdvisoriesViewControllerDelegate: class {
     func advisoriesViewControllerDidTapDismissButton()
 }
 
-class AirMapAdvisoriesViewController: UITableViewController {
+class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable {
 	
+	var screenName = "Advisories"
 	var status: Variable<AirMapStatus>!
     weak var delegate: AirMapAdvisoriesViewControllerDelegate?
 	
@@ -30,6 +31,12 @@ class AirMapAdvisoriesViewController: UITableViewController {
 		
 		setupTable()
 		setupBindings()
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		trackView()
 	}
 	
 	private func setupTable() {
@@ -78,6 +85,7 @@ class AirMapAdvisoriesViewController: UITableViewController {
 			.subscribeNext { [unowned self] (advisory: AirMapStatusAdvisory) in
 				
 				if let url = advisory.tfrProperties?.url {
+					self.trackEvent(.tap, label: "TFR Details")
 					self.openWebView(url)
 				}
 				
@@ -100,6 +108,7 @@ class AirMapAdvisoriesViewController: UITableViewController {
 	}
     
     @IBAction func dismiss(sender: AnyObject) {
+		trackEvent(.tap, label: "Close Button")
         delegate?.advisoriesViewControllerDidTapDismissButton()
     }
 	

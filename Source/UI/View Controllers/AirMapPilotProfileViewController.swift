@@ -46,7 +46,9 @@ class AirMapFormTextField: UITableViewCell {
 	@IBOutlet weak var label: UILabel!
 }
 
-class AirMapPilotProfileViewController: UITableViewController {
+class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackable {
+	
+	var screenName = "Pilot Profile"
 	
 	var customFields = [AirMapPilotProfileField]()
 
@@ -77,6 +79,27 @@ class AirMapPilotProfileViewController: UITableViewController {
 
 		setupBindings()
 		setupTableView()
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		guard pilot.value == nil else { return }
+		
+		AirMap.rx_getAuthenticatedPilot().asOptional()
+			.trackActivity(activityIndicator)
+			.bindTo(pilot)
+			.addDisposableTo(disposeBag)
+		
+		trackView()
+	}
+	
+	override func canBecomeFirstResponder() -> Bool {
+		return true
+	}
+	
+	override var inputAccessoryView: UIView? {
+		return saveButton
 	}
 	
 	private func sectionModel(pilot: AirMapPilot) -> [Model] {
@@ -160,25 +183,6 @@ class AirMapPilotProfileViewController: UITableViewController {
 		}
 	}
 	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-
-		guard pilot.value == nil else { return }
-
-		AirMap.rx_getAuthenticatedPilot().asOptional()
-			.trackActivity(activityIndicator)
-			.bindTo(pilot)
-			.addDisposableTo(disposeBag)
-	}
-	
-	override func canBecomeFirstResponder() -> Bool {
-		return true
-	}
-	
-	override var inputAccessoryView: UIView? {
-		return saveButton
-	}
-	
 	private func setupBindings() {
 		
 		pilot.asObservable()
@@ -202,14 +206,20 @@ class AirMapPilotProfileViewController: UITableViewController {
 	}
 	
 	@IBAction func savePilot() {
+		
+		trackEvent(.tap, label: "Save")
 
 		guard let pilot = pilot.value else { return }
 
 		AirMap.rx_updatePilot(pilot)
 			.trackActivity(activityIndicator)
+			.doOnError { error in
+				self.trackEvent(.save, label: "Error", value: (error as NSError).code)
+			}
 			.doOnCompleted { [unowned self] in
 				self.view.endEditing(true)
 				self.dismissViewControllerAnimated(true, completion: nil)
+				self.trackEvent(.save, label: "Success")
 			}
 			.subscribe()
 			.addDisposableTo(disposeBag)
