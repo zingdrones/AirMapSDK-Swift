@@ -10,13 +10,13 @@ import ObjectMapper
 
 public class AirMapLocalRule: NSObject {
 	
-	var id = String()
-	var jurisdictionName = String()
-	var jurisdictionType = String()
-	var text = String()
-	var summary: String?
-	var lastUpdated = NSDate()
-	var url: NSURL?
+	public var id = String()
+	public var jurisdictionName = String()
+	public var jurisdictionType = String()
+	public var text = String()
+	public var summary: String?
+	public var lastUpdated = NSDate()
+	public var url: NSURL?
 	
 	public required init?(_ map: Map) {}
 	public override init() { super.init() }

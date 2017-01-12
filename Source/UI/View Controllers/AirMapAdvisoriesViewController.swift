@@ -16,7 +16,7 @@ public protocol AirMapAdvisoriesViewControllerDelegate: class {
     func advisoriesViewControllerDidTapDismissButton()
 }
 
-class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable {
+public class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable {
 	
 	@IBOutlet var localRulesHeader: UIView!
 	@IBOutlet weak var localityName: UILabel!
@@ -32,20 +32,20 @@ class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable 
 	private let dataSource = RxTableViewSectionedReloadDataSource<AdvisoriesSectionModel>()
 	private let disposeBag = DisposeBag()
 	
-	override func viewDidLoad() {
+	override public func viewDidLoad() {
 		super.viewDidLoad()
 		
 		setupTable()
 		setupBindings()
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override public func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		
 		if segue.identifier == "pushLocalRules" {
 			
