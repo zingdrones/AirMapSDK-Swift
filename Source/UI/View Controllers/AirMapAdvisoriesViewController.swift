@@ -23,8 +23,8 @@ class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable 
 	
 	var screenName = "Advisories"
 	
-	let status = Variable(nil as AirMapStatus?)
-	let localityRules = Variable(nil as (name: String, rules: [AirMapLocalRule])?)
+	public let status = Variable(nil as AirMapStatus?)
+	public let localityRules = Variable(nil as (name: String, rules: [AirMapLocalRule])?)
 
 	weak var delegate: AirMapAdvisoriesViewControllerDelegate?
 	
