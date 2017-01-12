@@ -157,7 +157,7 @@ extension AirMap_UI {
         
         let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
         let statusVC = storyboard.instantiateViewControllerWithIdentifier(String(AirMapAdvisoriesViewController)) as! AirMapAdvisoriesViewController
-        statusVC.status = Variable(status)
+		statusVC.status.value = status
         statusVC.delegate = delegate
         
         let nav = UINavigationController(navigationBarClass: AirMapNavBar.self, toolbarClass: nil)

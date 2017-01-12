@@ -182,7 +182,7 @@ extension AirMapCreateFlightTypeViewController: AirMapAdvisoriesViewControllerDe
 			let nav = segue.destinationViewController as! UINavigationController
 			let advisoriesVC = nav.viewControllers.first as! AirMapAdvisoriesViewController
 			let status = navigationController.status.value!
-			advisoriesVC.status = Variable(status)
+			advisoriesVC.status.value = status
             advisoriesVC.delegate = self
 			trackEvent(.tap, label: "Advisory Icon")
 		default:

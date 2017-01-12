@@ -17,6 +17,7 @@ extension AirMap_Internal {
 	@nonobjc internal static let permitClient = PermitClient()
 	@nonobjc internal static let pilotClient = PilotClient()
 	@nonobjc internal static let statusClient = StatusClient()
+	@nonobjc internal static let rulesClient = RulesClient()
 	@nonobjc internal static let mappingService = MappingService()
 	@nonobjc internal static let authSession = AirMapAuthSession()
 	@nonobjc internal static let authClient = AirMapAuthClient()

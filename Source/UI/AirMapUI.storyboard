@@ -411,7 +411,7 @@ Line two details would be here.</string>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="flightDataCell" rowHeight="44" id="52Y-X7-LfJ" customClass="AirMapFlightDataCell" customModule="AirMap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="65.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="66" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="52Y-X7-LfJ" id="XC4-sk-30y">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -458,7 +458,7 @@ Line two details would be here.</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="startsAtCell" rowHeight="44" id="gNJ-as-7V1" customClass="AirMapFlightDataDateCell" customModule="AirMap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="109.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="110" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gNJ-as-7V1" id="5WU-QV-YrF">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -497,7 +497,7 @@ Line two details would be here.</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AirMapFlightPilotCell" rowHeight="44" id="dgF-gg-U9H" customClass="AirMapFlightPilotCell" customModule="AirMap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="153.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="154" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dgF-gg-U9H" id="Ql4-oD-Kzb">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -523,7 +523,7 @@ Line two details would be here.</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AirMapFlightAircraftCell" rowHeight="44" id="pjk-Jg-o2A" customClass="AirMapFlightAircraftCell" customModule="AirMap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="197.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="198" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pjk-Jg-o2A" id="InX-fb-sxY">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -549,7 +549,7 @@ Line two details would be here.</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AirMapFlightSocialCell" rowHeight="44" id="RNN-8J-UJe" customClass="AirMapFlightSocialCell" customModule="AirMap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="241.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="242" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RNN-8J-UJe" id="gdr-Fk-bP2">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -638,13 +638,61 @@ Line two details would be here.</string>
         <scene sceneID="Mss-hB-Ycd">
             <objects>
                 <tableViewController storyboardIdentifier="AirMapAdvisoriesViewController" id="gc2-XS-SaI" customClass="AirMapAdvisoriesViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="55" sectionHeaderHeight="18" sectionFooterHeight="18" id="pXx-s1-GeR">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" id="pXx-s1-GeR">
+                        <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="2lq-gi-YIm" userLabel="RuleSets">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRY-BW-Lhk" userLabel="Overscroll">
+                                    <rect key="frame" x="0.0" y="-1000" width="375" height="1000"/>
+                                    <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1000" id="VVA-lB-8YV"/>
+                                    </constraints>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Santa Monica, California" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7K-aU-SOK">
+                                    <rect key="frame" x="16" y="15" width="329" height="23"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
+                                    <color key="textColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="highlightedColor" red="0.87450980389999999" green="0.87450980389999999" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learn more about federal, state, and local rules that may impact operations in this area" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFD-WK-aLx">
+                                    <rect key="frame" x="16" y="41" width="312" height="33.5"/>
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="large_disclosure_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="3gH-o0-CKg">
+                                    <rect key="frame" x="336" y="30" width="17" height="30"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstItem="m7K-aU-SOK" firstAttribute="leading" secondItem="2lq-gi-YIm" secondAttribute="leading" constant="16" id="0PH-Lg-UCw"/>
+                                <constraint firstItem="OFD-WK-aLx" firstAttribute="leading" secondItem="m7K-aU-SOK" secondAttribute="leading" id="1Sv-n9-HhS"/>
+                                <constraint firstItem="3gH-o0-CKg" firstAttribute="leading" secondItem="OFD-WK-aLx" secondAttribute="trailing" constant="8" id="4pS-yc-QL8"/>
+                                <constraint firstAttribute="trailing" secondItem="TRY-BW-Lhk" secondAttribute="trailing" id="5wF-HJ-m66"/>
+                                <constraint firstItem="OFD-WK-aLx" firstAttribute="top" secondItem="m7K-aU-SOK" secondAttribute="bottom" constant="3" id="9S7-zR-brL"/>
+                                <constraint firstAttribute="bottom" secondItem="OFD-WK-aLx" secondAttribute="bottom" constant="15.5" id="BqW-wI-wf6"/>
+                                <constraint firstAttribute="trailing" secondItem="m7K-aU-SOK" secondAttribute="trailing" constant="30" id="Eis-dK-r9h"/>
+                                <constraint firstItem="m7K-aU-SOK" firstAttribute="top" secondItem="2lq-gi-YIm" secondAttribute="top" constant="15" id="IJm-yu-bLT"/>
+                                <constraint firstAttribute="trailing" secondItem="3gH-o0-CKg" secondAttribute="trailing" constant="22" id="S5R-yH-oo4"/>
+                                <constraint firstItem="3gH-o0-CKg" firstAttribute="centerY" secondItem="2lq-gi-YIm" secondAttribute="centerY" id="aqI-yr-gS5"/>
+                                <constraint firstItem="TRY-BW-Lhk" firstAttribute="leading" secondItem="2lq-gi-YIm" secondAttribute="leading" id="qvR-Bd-geD"/>
+                                <constraint firstAttribute="top" secondItem="TRY-BW-Lhk" secondAttribute="bottom" id="smw-Uk-73X"/>
+                            </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="tUz-Mf-CE3" appends="YES" id="2dg-4R-RXh"/>
+                            </connections>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AdvisoryCell" rowHeight="58" id="K1B-xh-wcj" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="58"/>
+                                <rect key="frame" x="0.0" y="118" width="375" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K1B-xh-wcj" id="9QT-Te-p40">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
@@ -690,7 +738,7 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AirportCell" rowHeight="86" id="1ke-8s-XCF" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="113.5" width="375" height="86"/>
+                                <rect key="frame" x="0.0" y="176" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1ke-8s-XCF" id="pzf-as-XOE">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="85.5"/>
@@ -748,7 +796,7 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TFRCell" rowHeight="111" id="XHp-do-nza" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="199.5" width="375" height="111"/>
+                                <rect key="frame" x="0.0" y="262" width="375" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XHp-do-nza" id="IA9-PR-oJZ">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="110.5"/>
@@ -814,7 +862,7 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WildfireCell" rowHeight="111" id="D9n-eZ-nlJ" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="310.5" width="375" height="111"/>
+                                <rect key="frame" x="0.0" y="373" width="375" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D9n-eZ-nlJ" id="H4m-Vv-Dqi">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="110.5"/>
@@ -880,7 +928,7 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OrganizationAdvisoryCell" rowHeight="86" id="hKV-wO-xww" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="421.5" width="375" height="86"/>
+                                <rect key="frame" x="0.0" y="484" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hKV-wO-xww" id="8Fd-d6-14K">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="85.5"/>
@@ -942,14 +990,25 @@ Line two details would be here.</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Airspace Advisories" id="yk1-9H-q3n">
+                        <barButtonItem key="backBarButtonItem" title=" " id="fVz-u9-MbE"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="JTX-n6-s2o">
                             <connections>
                                 <action selector="dismiss:" destination="gc2-XS-SaI" id="Qj9-I6-X0h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="localRulesHeader" destination="2lq-gi-YIm" id="piG-N4-PUc"/>
+                        <outlet property="localityName" destination="m7K-aU-SOK" id="C7U-Js-79Y"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkq-pH-7T7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="tUz-Mf-CE3">
+                    <connections>
+                        <segue destination="1OJ-1j-ib9" kind="show" identifier="pushLocalRules" id="Wwb-tD-c7w"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="388" y="1314.6926536731635"/>
         </scene>
@@ -1442,7 +1501,7 @@ AirMap will send you a text message when your digital notice has been successful
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AirMapPilotPermitCell" rowHeight="100" id="kJc-Io-RIh" customClass="AirMapPilotPermitCell" customModule="AirMap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="157" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="156.5" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kJc-Io-RIh" id="zyG-ME-xM9">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
@@ -1508,7 +1567,7 @@ AirMap will send you a text message when your digital notice has been successful
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="selectADifferenrPermit" textLabel="yCT-dv-lwD" rowHeight="50" style="IBUITableViewCellStyleDefault" id="J4i-AP-BkY">
-                                        <rect key="frame" x="0.0" y="257" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="256.5" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J4i-AP-BkY" id="g9U-eg-9Vk">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="49.5"/>
@@ -3018,6 +3077,111 @@ AirMap will send you a text message when your digital notice has been successful
             </objects>
             <point key="canvasLocation" x="-1439" y="1315"/>
         </scene>
+        <!--Santa Monica, California-->
+        <scene sceneID="kX9-Dx-87n">
+            <objects>
+                <tableViewController id="1OJ-1j-ib9" customClass="AirMapLocalRulesViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="0gm-jj-nV8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="G2q-kH-Eqy">
+                            <rect key="frame" x="0.0" y="118" width="375" height="10"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RuleCell" rowHeight="90" id="NOm-4D-BVy" customClass="AirMapRuleCell" customModule="AirMap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NOm-4D-BVy" id="FFf-Y9-bSP">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="89.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City of Santa Monica" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lBk-bJ-aeJ">
+                                            <rect key="frame" x="16" y="15" width="321" height="23"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
+                                            <color key="textColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="The City of Santa Monica has rules that relate to the use of drones in the vicinity of…" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BkD-sA-FOI">
+                                            <rect key="frame" x="16" y="42" width="321" height="33.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="highlightedColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="BkD-sA-FOI" secondAttribute="bottom" constant="14" id="HbB-uv-0uo"/>
+                                        <constraint firstItem="BkD-sA-FOI" firstAttribute="top" secondItem="lBk-bJ-aeJ" secondAttribute="bottom" constant="4" id="aBs-hG-OUl"/>
+                                        <constraint firstItem="BkD-sA-FOI" firstAttribute="leading" secondItem="lBk-bJ-aeJ" secondAttribute="leading" id="lRm-Bc-Vcr"/>
+                                        <constraint firstItem="lBk-bJ-aeJ" firstAttribute="leading" secondItem="FFf-Y9-bSP" secondAttribute="leading" constant="16" id="m2i-vP-0um"/>
+                                        <constraint firstAttribute="trailing" secondItem="lBk-bJ-aeJ" secondAttribute="trailing" constant="5" id="oS4-5p-2N1"/>
+                                        <constraint firstAttribute="trailing" secondItem="BkD-sA-FOI" secondAttribute="trailing" constant="5" id="t5x-GQ-glV"/>
+                                        <constraint firstItem="lBk-bJ-aeJ" firstAttribute="top" secondItem="FFf-Y9-bSP" secondAttribute="top" constant="15" id="y0K-LN-DEf"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="jurisdictionName" destination="lBk-bJ-aeJ" id="rab-jB-YRf"/>
+                                    <outlet property="ruleText" destination="BkD-sA-FOI" id="31h-oh-0RF"/>
+                                    <segue destination="joP-eH-5Up" kind="show" identifier="pushRuleDetails" id="jTm-vz-c0y"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1OJ-1j-ib9" id="lG3-It-G1Q"/>
+                            <outlet property="delegate" destination="1OJ-1j-ib9" id="ovW-oI-O2Y"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Santa Monica, California" id="8Lr-SJ-VYN">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Ymb-CA-QPC"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YRj-8O-Quj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="388" y="2183.658170914543"/>
+        </scene>
+        <!--City of Santa Monica-->
+        <scene sceneID="gS4-H4-Svh">
+            <objects>
+                <viewController id="joP-eH-5Up" customClass="AirMapLocalRuleViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yKp-RS-tDL"/>
+                        <viewControllerLayoutGuide type="bottom" id="bP5-JK-HF4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NrN-3X-LGe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WuW-jk-baQ">
+                                <rect key="frame" x="15" y="64" width="345" height="603"/>
+                                <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="WuW-jk-baQ" secondAttribute="trailing" constant="15" id="NKV-K6-Wax"/>
+                            <constraint firstItem="WuW-jk-baQ" firstAttribute="leading" secondItem="NrN-3X-LGe" secondAttribute="leading" constant="15" id="SKv-oh-BjH"/>
+                            <constraint firstItem="WuW-jk-baQ" firstAttribute="top" secondItem="yKp-RS-tDL" secondAttribute="bottom" id="ahB-UO-wfE"/>
+                            <constraint firstItem="bP5-JK-HF4" firstAttribute="top" secondItem="WuW-jk-baQ" secondAttribute="bottom" id="w3U-i0-aVf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="City of Santa Monica" id="sek-Vd-dge"/>
+                    <connections>
+                        <outlet property="ruleText" destination="WuW-jk-baQ" id="WEW-N5-5Ep"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D54-XZ-30p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1262" y="2184"/>
+        </scene>
         <!--FAQs-->
         <scene sceneID="qbD-mz-Bf5">
             <objects>
@@ -3056,7 +3220,7 @@ AirMap will send you a text message when your digital notice has been successful
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="36f-Jv-NG1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="389" y="2268"/>
+            <point key="canvasLocation" x="388" y="3033"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WOP-Sh-xuM">
@@ -3075,7 +3239,7 @@ AirMap will send you a text message when your digital notice has been successful
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tj5-gM-Wfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-484" y="2268"/>
+            <point key="canvasLocation" x="-484" y="3033"/>
         </scene>
         <!--FAQNav-->
         <scene sceneID="lk9-9W-1w9">
@@ -3093,6 +3257,7 @@ AirMap will send you a text message when your digital notice has been successful
         <image name="draw_icon" width="35" height="45"/>
         <image name="info_icon" width="23" height="22"/>
         <image name="info_icon_advisories" width="30" height="30"/>
+        <image name="large_disclosure_indicator" width="17" height="30"/>
         <image name="path_flight_icon_deselected" width="48" height="48"/>
         <image name="path_flight_icon_selected" width="48" height="48"/>
         <image name="permit_wallet_icon" width="30" height="23"/>

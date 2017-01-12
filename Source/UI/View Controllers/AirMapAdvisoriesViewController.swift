@@ -18,9 +18,15 @@ public protocol AirMapAdvisoriesViewControllerDelegate: class {
 
 class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable {
 	
+	@IBOutlet var localRulesHeader: UIView!
+	@IBOutlet weak var localityName: UILabel!
+	
 	var screenName = "Advisories"
-	var status: Variable<AirMapStatus>!
-    weak var delegate: AirMapAdvisoriesViewControllerDelegate?
+	
+	let status = Variable(nil as AirMapStatus?)
+	let localityRules = Variable(nil as (name: String, rules: [AirMapLocalRule])?)
+
+	weak var delegate: AirMapAdvisoriesViewControllerDelegate?
 	
 	private typealias AdvisoriesSectionModel = SectionModel<AirMapStatus.StatusColor, AirMapStatusAdvisory>
 	private let dataSource = RxTableViewSectionedReloadDataSource<AdvisoriesSectionModel>()
@@ -37,6 +43,15 @@ class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable 
 		super.viewDidAppear(animated)
 		
 		trackView()
+	}
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		
+		if segue.identifier == "pushLocalRules" {
+			
+			let rulesVC = segue.destinationViewController as! AirMapLocalRulesViewController
+			rulesVC.localityRules = localityRules.value
+		}
 	}
 	
 	private func setupTable() {
@@ -80,6 +95,17 @@ class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable 
 			.drive(tableView.rx_itemsWithDataSource(dataSource))
 			.addDisposableTo(disposeBag)
 		
+		localityRules.asDriver()
+			.map { $0?.name ?? "" }
+			.drive(localityName.rx_text)
+			.addDisposableTo(disposeBag)
+		
+		localityRules.asDriver()
+			.map { $0 == nil }
+			.distinctUntilChanged()
+			.driveNext(unowned(self, AirMapAdvisoriesViewController.toggleHeaderVisibility))
+			.addDisposableTo(disposeBag)
+		
 		tableView.rx_itemSelected
 			.map(tableView.rx_modelAtIndexPath)
 			.subscribeNext { [unowned self] (advisory: AirMapStatusAdvisory) in
@@ -96,23 +122,32 @@ class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable 
 			.addDisposableTo(disposeBag)
 	}
 	
-	private func sectionModel(status: AirMapStatus) -> [AdvisoriesSectionModel] {
+	private func sectionModel(status: AirMapStatus?) -> [AdvisoriesSectionModel] {
+		
+		guard let status = status else { return [] }
 		
 		return AirMapStatus.StatusColor.allColors
 			.map { color in
-                AdvisoriesSectionModel(model: color, items: status.advisories.filter { $0.color == color })
-            }
-			.filter { section in
-                section.items.count > 0
-            }
+				(color: color, advisories: status.advisories.filter({ $0.color == color }))
+			}
+			.filter { $0.advisories.count > 0 }
+			.map(AdvisoriesSectionModel.init)
 	}
-    
+	
+	private func toggleHeaderVisibility(hidden: Bool) {
+		if hidden {
+			tableView.tableHeaderView = nil
+		} else {
+			tableView.tableHeaderView = self.localRulesHeader
+		}
+	}
+	
     @IBAction func dismiss(sender: AnyObject) {
 		trackEvent(.tap, label: "Close Button")
         delegate?.advisoriesViewControllerDidTapDismissButton()
     }
 	
-    func openWebView(url:String) {
+    func openWebView(url: String) {
        
         if let nsurl = NSURL(string: url) {
             if #available(iOS 9.0, *) {
