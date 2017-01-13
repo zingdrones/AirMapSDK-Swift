@@ -13,10 +13,10 @@ typealias ProtoBufMessage = GeneratedMessage
 extension ProtoBufMessage {
 	
 	enum MessageType: UInt16 {
-		case Position  = 0
-		case Speed     = 1
-		case Attitude  = 2
-		case Barometer = 3
+		case Position  = 1
+		case Speed     = 2
+		case Attitude  = 3
+		case Barometer = 4
 	}
 	
 	var messageType: MessageType {
