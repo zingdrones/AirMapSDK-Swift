@@ -9,12 +9,12 @@
 import UIKit
 import SafariServices
 
-class AirMapLocalRuleViewController: UIViewController {
+public class AirMapLocalRuleViewController: UIViewController {
 	
 	var rule: AirMapLocalRule!
 	@IBOutlet weak var ruleText: UITextView!
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 		
 		navigationItem.title = rule.jurisdictionName

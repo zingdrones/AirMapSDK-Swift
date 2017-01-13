@@ -18,7 +18,7 @@ class RulesTests: TestCase {
 		
 		let location = CLLocationCoordinate2D(latitude: 34.1, longitude: -118.1)
 		
-		stub(.GET, Config.AirMapApi.rulesUrl + "/local", with: "rules_local_get_success.json") { request in
+		stub(.GET, Config.AirMapApi.rulesUrl + "/locale", with: "rules_local_get_success.json") { request in
 			let query = request.queryParams()
 			expect(query["latitude"] as? String).to(equal(String(location.latitude)))
 			expect(query["longitude"] as? String).to(equal(String(location.longitude)))

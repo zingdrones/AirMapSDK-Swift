@@ -185,7 +185,7 @@ extension RxAirMap_Status {
 private typealias RxAirMap_Rules = AirMap
 extension RxAirMap_Rules {
 
-	class func rx_getLocalRules(location: CLLocationCoordinate2D) -> Observable<[AirMapLocalRule]> {
+	public class func rx_getLocalRules(location: CLLocationCoordinate2D) -> Observable<[AirMapLocalRule]> {
 		
 		return rulesClient.getLocalRules(location)
 	}

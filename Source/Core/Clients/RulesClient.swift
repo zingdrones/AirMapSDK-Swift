@@ -21,7 +21,7 @@ internal class RulesClient: HTTPClient {
 			"latitude": location.latitude,
 			"longitude": location.longitude
 		]
-		return call(.GET, url: "/local", params: params, keyPath: "data.results")
+		return call(.GET, url: "/locale", params: params)
 	}
 	
 }

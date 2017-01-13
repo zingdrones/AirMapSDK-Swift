@@ -14,7 +14,7 @@ import SafariServices
 
 class AirMapLocalRulesViewController: UITableViewController {
 
-	var localityRules: (name: String, rules: [AirMapLocalRule])!
+	var localityRules: (name: String?, rules: [AirMapLocalRule])!
 
 	private let disposeBag = DisposeBag()
 	
@@ -22,7 +22,7 @@ class AirMapLocalRulesViewController: UITableViewController {
         super.viewDidLoad()
 		
 		assert(localityRules != nil)
-		navigationItem.title = localityRules.name
+		navigationItem.title = localityRules.name ?? "Locality Rules"
 		setupBindings()
 	}
 
