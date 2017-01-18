@@ -11,6 +11,7 @@ import XCTest
 @testable import AirMap
 import Nimble
 import CocoaAsyncSocket
+import ProtocolBuffers
 
 class TelemetryTests: TestCase {
 	
@@ -98,6 +99,7 @@ class TelemetryTests: TestCase {
 		var messageType: UInt16 = 0
 		range.length = sizeofValue(messageType)
 		messageData.getBytes(&messageType, range: range)
+		messageType = CFSwapInt16BigToHost(messageType)
 		range.location += range.length
 		expect(messageType).to(equal(ProtoBufMessage.MessageType.Position.rawValue))
 		
@@ -193,6 +195,99 @@ class TelemetryTests: TestCase {
 		
 		let coordinate = CLLocationCoordinate2D(latitude: position.latitude, longitude: position.longitude)
 		try! AirMap.sendTelemetryData(flight, coordinate: coordinate, altitudeAgl: nil, altitudeMsl: position.altitudeMsl)
+	}
+	
+	func testDecryptPacket() {
+		
+		let key = "00001111222233334444555566667777".dataUsingEncoding(NSASCIIStringEncoding)!.arrayOfBytes()
+		let iv = Array(key[0..<16])
+		
+		expect(key.count).to(equal(32))
+		expect(iv.count).to(equal(16))
+		
+		let packetBase64 = "AAAAASNmbGlnaHR8SnZ6TXZkSkZnRDBFOXlGTnBSUTZBaHBPMlpadwEwMDAwMTExMTIyMjIzMzMzb2yXSrFrZxNNmZ6LwjLT6aSp9BXiF0E/d9ASIuwI4YmyJYccplg+XPTG9L1NRqxLbAD7QuUOcI/6R8xjBCzCVA=="
+		let packetData = NSData(base64EncodedString: packetBase64, options: NSDataBase64DecodingOptions())!
+		
+		var range = NSRange()
+		
+		var serial: UInt32 = 0
+		range.length = sizeofValue(serial)
+		packetData.getBytes(&serial, range: range)
+		serial = CFSwapInt32BigToHost(serial)
+		range.location += range.length
+		expect(serial).to(equal(1))
+		
+		var flightIdLength: UInt8 = 0
+		range.length = sizeofValue(flightIdLength)
+		packetData.getBytes(&flightIdLength, range: range)
+		range.location += range.length
+		
+		var flightIdData = [UInt8](count: Int(flightIdLength), repeatedValue: 0)
+		range.length = flightIdData.count
+		packetData.getBytes(&flightIdData, range: range)
+		range.location += range.length
+		expect(String(bytes: flightIdData, encoding: NSUTF8StringEncoding)).to(equal("flight|JvzMvdJFgD0E9yFNpRQ6AhpO2ZZw"))
+		
+		var encryption: UInt8 = 0
+		range.length = sizeofValue(encryption)
+		packetData.getBytes(&encryption, range: range)
+		range.location += range.length
+		expect(encryption).to(equal(AirMapTelemetry.Packet.EncryptionType.AES256CBC.rawValue))
+		
+		var ivBytes = [UInt8](count: 16, repeatedValue: 0)
+		range.length = ivBytes.count
+		packetData.getBytes(&ivBytes, range: range)
+		range.location += range.length
+		expect(ivBytes).to(equal(iv))
+		
+		expect(range.location).to(equal(57))
+		
+		range.length = packetData.length - range.location
+		let encryptedPayload = packetData.subdataWithRange(range)
+		let payload = encryptedPayload.AES256CBCDecrypt(key: key, iv: iv)!
+		
+		range.location = 0
+		
+		var messages = [GeneratedMessage?]()
+		
+		while range.location < payload.length {
+			
+			var messageType: UInt16 = 0
+			range.length = sizeofValue(messageType)
+			payload.getBytes(&messageType, range: range)
+			messageType = CFSwapInt16BigToHost(messageType)
+			range.location += range.length
+			
+			var messageSize: UInt16 = 0
+			range.length = sizeofValue(messageSize)
+			payload.getBytes(&messageSize, range: range)
+			messageSize = CFSwapInt16BigToHost(messageSize)
+			range.location += range.length
+			
+			range.length = Int(messageSize)
+			let messageData = payload.subdataWithRange(range)
+			range.location += range.length
+			
+			var message: GeneratedMessage? = nil
+			switch messageType {
+			case ProtoBufMessage.MessageType.Position.rawValue:
+				message = try? Airmap.Telemetry.Position.parseFromData(messageData)
+				expect(message).toNot(beNil())
+			case ProtoBufMessage.MessageType.Attitude.rawValue:
+				message = try? Airmap.Telemetry.Attitude.parseFromData(messageData)
+				expect(message).toNot(beNil())
+			case ProtoBufMessage.MessageType.Speed.rawValue:
+				message = try? Airmap.Telemetry.Speed.parseFromData(messageData)
+				expect(message).toNot(beNil())
+			case ProtoBufMessage.MessageType.Barometer.rawValue:
+				message = try? Airmap.Telemetry.Barometer.parseFromData(messageData)
+				expect(message).toNot(beNil())
+			default:
+				fail("unexpected type")
+			}
+		
+			messages.append(message)
+		}
 	}
 	
 }
