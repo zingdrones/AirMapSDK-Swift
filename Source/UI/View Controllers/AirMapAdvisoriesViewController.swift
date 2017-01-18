@@ -24,7 +24,6 @@ public class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTra
 	var screenName = "Advisories"
 	
 	public let status = Variable(nil as AirMapStatus?)
-	public let localityRules = Variable(nil as (name: String?, rules: [AirMapLocalRule])?)
 
 	weak var delegate: AirMapAdvisoriesViewControllerDelegate?
 	
@@ -43,15 +42,6 @@ public class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTra
 		super.viewDidAppear(animated)
 		
 		trackView()
-	}
-	
-	override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		
-		if segue.identifier == "pushLocalRules" {
-			
-			let rulesVC = segue.destinationViewController as! AirMapLocalRulesViewController
-			rulesVC.localityRules = localityRules.value
-		}
 	}
 	
 	private func setupTable() {
@@ -95,17 +85,6 @@ public class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTra
 			.drive(tableView.rx_itemsWithDataSource(dataSource))
 			.addDisposableTo(disposeBag)
 		
-		localityRules.asDriver()
-			.map { $0?.name ?? "" }
-			.drive(localityName.rx_text)
-			.addDisposableTo(disposeBag)
-		
-		localityRules.asDriver()
-			.map { $0 == nil }
-			.distinctUntilChanged()
-			.driveNext(unowned(self, AirMapAdvisoriesViewController.toggleHeaderVisibility))
-			.addDisposableTo(disposeBag)
-		
 		tableView.rx_itemSelected
 			.map(tableView.rx_modelAtIndexPath)
 			.subscribeNext { [unowned self] (advisory: AirMapStatusAdvisory) in
@@ -132,14 +111,6 @@ public class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTra
 			}
 			.filter { $0.advisories.count > 0 }
 			.map(AdvisoriesSectionModel.init)
-	}
-	
-	private func toggleHeaderVisibility(hidden: Bool) {
-		if hidden {
-			tableView.tableHeaderView = nil
-		} else {
-			tableView.tableHeaderView = self.localRulesHeader
-		}
 	}
 	
     @IBAction func dismiss(sender: AnyObject) {

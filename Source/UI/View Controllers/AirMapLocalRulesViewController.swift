@@ -12,13 +12,13 @@ import RxCocoa
 import RxDataSources
 import SafariServices
 
-class AirMapLocalRulesViewController: UITableViewController {
+public class AirMapLocalRulesViewController: UITableViewController {
 
-	var localityRules: (name: String?, rules: [AirMapLocalRule])!
+	public var localityRules: (name: String?, rules: [AirMapLocalRule])!
 
 	private let disposeBag = DisposeBag()
 	
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 		
 		assert(localityRules != nil)
@@ -26,7 +26,7 @@ class AirMapLocalRulesViewController: UITableViewController {
 		setupBindings()
 	}
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		
 		if segue.identifier == "pushRuleDetails" {
 			let cell = (sender as! UITableViewCell)
@@ -36,7 +36,7 @@ class AirMapLocalRulesViewController: UITableViewController {
 		}
 	}
 
-	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+	public override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
 		
 		if identifier == "pushRuleDetails" {
 			if #available(iOS 9.0, *) {

@@ -642,57 +642,9 @@ Line two details would be here.</string>
                         <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="2lq-gi-YIm" userLabel="RuleSets">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRY-BW-Lhk" userLabel="Overscroll">
-                                    <rect key="frame" x="0.0" y="-1000" width="375" height="1000"/>
-                                    <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="1000" id="VVA-lB-8YV"/>
-                                    </constraints>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Santa Monica, California" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7K-aU-SOK">
-                                    <rect key="frame" x="16" y="15" width="329" height="23"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
-                                    <color key="textColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="highlightedColor" red="0.87450980389999999" green="0.87450980389999999" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learn more about federal, state, and local rules that may impact operations in this area" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFD-WK-aLx">
-                                    <rect key="frame" x="16" y="41" width="312" height="33.5"/>
-                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="large_disclosure_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="3gH-o0-CKg">
-                                    <rect key="frame" x="336" y="30" width="17" height="30"/>
-                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </imageView>
-                            </subviews>
-                            <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <gestureRecognizers/>
-                            <constraints>
-                                <constraint firstItem="m7K-aU-SOK" firstAttribute="leading" secondItem="2lq-gi-YIm" secondAttribute="leading" constant="16" id="0PH-Lg-UCw"/>
-                                <constraint firstItem="OFD-WK-aLx" firstAttribute="leading" secondItem="m7K-aU-SOK" secondAttribute="leading" id="1Sv-n9-HhS"/>
-                                <constraint firstItem="3gH-o0-CKg" firstAttribute="leading" secondItem="OFD-WK-aLx" secondAttribute="trailing" constant="8" id="4pS-yc-QL8"/>
-                                <constraint firstAttribute="trailing" secondItem="TRY-BW-Lhk" secondAttribute="trailing" id="5wF-HJ-m66"/>
-                                <constraint firstItem="OFD-WK-aLx" firstAttribute="top" secondItem="m7K-aU-SOK" secondAttribute="bottom" constant="3" id="9S7-zR-brL"/>
-                                <constraint firstAttribute="bottom" secondItem="OFD-WK-aLx" secondAttribute="bottom" constant="15.5" id="BqW-wI-wf6"/>
-                                <constraint firstAttribute="trailing" secondItem="m7K-aU-SOK" secondAttribute="trailing" constant="30" id="Eis-dK-r9h"/>
-                                <constraint firstItem="m7K-aU-SOK" firstAttribute="top" secondItem="2lq-gi-YIm" secondAttribute="top" constant="15" id="IJm-yu-bLT"/>
-                                <constraint firstAttribute="trailing" secondItem="3gH-o0-CKg" secondAttribute="trailing" constant="22" id="S5R-yH-oo4"/>
-                                <constraint firstItem="3gH-o0-CKg" firstAttribute="centerY" secondItem="2lq-gi-YIm" secondAttribute="centerY" id="aqI-yr-gS5"/>
-                                <constraint firstItem="TRY-BW-Lhk" firstAttribute="leading" secondItem="2lq-gi-YIm" secondAttribute="leading" id="qvR-Bd-geD"/>
-                                <constraint firstAttribute="top" secondItem="TRY-BW-Lhk" secondAttribute="bottom" id="smw-Uk-73X"/>
-                            </constraints>
-                            <connections>
-                                <outletCollection property="gestureRecognizers" destination="tUz-Mf-CE3" appends="YES" id="2dg-4R-RXh"/>
-                            </connections>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AdvisoryCell" rowHeight="58" id="K1B-xh-wcj" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="118" width="375" height="58"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K1B-xh-wcj" id="9QT-Te-p40">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
@@ -738,14 +690,14 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AirportCell" rowHeight="86" id="1ke-8s-XCF" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="176" width="375" height="86"/>
+                                <rect key="frame" x="0.0" y="86" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1ke-8s-XCF" id="pzf-as-XOE">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyw-KD-cYD">
-                                            <rect key="frame" x="0.0" y="0.0" width="16" height="86"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="16" height="85"/>
                                             <color key="backgroundColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="16" id="y1b-9M-aw2"/>
@@ -764,7 +716,7 @@ Line two details would be here.</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="310-555-1212" translatesAutoresizingMaskIntoConstraints="NO" id="hyU-kT-UVu" customClass="AirMapPhoneTextView" customModule="AirMap" customModuleProvider="target">
-                                            <rect key="frame" x="22" y="50" width="337" height="29.5"/>
+                                            <rect key="frame" x="22" y="50" width="337" height="29"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -796,7 +748,7 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TFRCell" rowHeight="111" id="XHp-do-nza" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="262" width="375" height="111"/>
+                                <rect key="frame" x="0.0" y="172" width="375" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XHp-do-nza" id="IA9-PR-oJZ">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="110"/>
@@ -862,7 +814,7 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WildfireCell" rowHeight="111" id="D9n-eZ-nlJ" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="373" width="375" height="111"/>
+                                <rect key="frame" x="0.0" y="283" width="375" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D9n-eZ-nlJ" id="H4m-Vv-Dqi">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
@@ -928,7 +880,7 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OrganizationAdvisoryCell" rowHeight="86" id="hKV-wO-xww" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="484" width="375" height="86"/>
+                                <rect key="frame" x="0.0" y="394" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hKV-wO-xww" id="8Fd-d6-14K">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
@@ -948,13 +900,13 @@ Line two details would be here.</string>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advisory Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10R-hU-bms">
-                                            <rect key="frame" x="28" y="56.5" width="331" height="18"/>
+                                            <rect key="frame" x="28" y="57" width="331" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" text="Advisory Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c94-NK-gnb">
-                                            <rect key="frame" x="28" y="32.5" width="331" height="21"/>
+                                            <rect key="frame" x="28" y="33" width="331" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -998,24 +950,16 @@ Line two details would be here.</string>
                         </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <outlet property="localRulesHeader" destination="2lq-gi-YIm" id="piG-N4-PUc"/>
-                        <outlet property="localityName" destination="m7K-aU-SOK" id="C7U-Js-79Y"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkq-pH-7T7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="tUz-Mf-CE3">
-                    <connections>
-                        <segue destination="1OJ-1j-ib9" kind="show" identifier="pushLocalRules" id="Wwb-tD-c7w"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="tUz-Mf-CE3"/>
             </objects>
             <point key="canvasLocation" x="388" y="1314.6926536731635"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ajs-kt-gsK">
             <objects>
-                <navigationController id="OcD-bb-4X7" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AdvisoriesNavigation" automaticallyAdjustsScrollViewInsets="NO" id="OcD-bb-4X7" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Esf-20-NJN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1965,7 +1909,7 @@ AirMap will send you a text message when your digital notice has been successful
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="310-555-1212" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kly-En-8eF">
-                                                    <rect key="frame" x="19" y="29" width="337" height="29.5"/>
+                                                    <rect key="frame" x="19" y="29" width="337" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2253,7 +2197,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="1G0-0b-b0E">
             <objects>
                 <navigationController id="LkW-Bl-olT" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="iyG-Vv-MOC" customClass="AirMapNavBar" customModule="AirMap" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="iyG-Vv-MOC" customClass="AirMapNavBar" customModule="AirMap" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2767,7 +2711,7 @@ AirMap will send you a text message when your digital notice has been successful
             <objects>
                 <tableViewController id="GLN-Nc-fFM" customClass="AirMapAircraftManufacturerViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jY1-0m-GFn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -2896,7 +2840,7 @@ AirMap will send you a text message when your digital notice has been successful
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="310-555-1212" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bBK-bB-q3L">
-                                                    <rect key="frame" x="19" y="29" width="337" height="29.5"/>
+                                                    <rect key="frame" x="19" y="29" width="337" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2993,7 +2937,7 @@ AirMap will send you a text message when your digital notice has been successful
             <objects>
                 <tableViewController id="Was-cz-StC" customClass="AirMapAircraftModelViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bOk-bi-V4i">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -3080,7 +3024,7 @@ AirMap will send you a text message when your digital notice has been successful
         <!--Santa Monica, California-->
         <scene sceneID="kX9-Dx-87n">
             <objects>
-                <tableViewController id="1OJ-1j-ib9" customClass="AirMapLocalRulesViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocalRules" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1OJ-1j-ib9" customClass="AirMapLocalRulesViewController" customModule="AirMap" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="0gm-jj-nV8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3105,7 +3049,7 @@ AirMap will send you a text message when your digital notice has been successful
                                             <color key="highlightedColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="The City of Santa Monica has rules that relate to the use of drones in the vicinity of…" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BkD-sA-FOI">
-                                            <rect key="frame" x="16" y="42" width="321" height="33.5"/>
+                                            <rect key="frame" x="16" y="42" width="321" height="33"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="highlightedColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3257,7 +3201,6 @@ AirMap will send you a text message when your digital notice has been successful
         <image name="draw_icon" width="35" height="45"/>
         <image name="info_icon" width="23" height="22"/>
         <image name="info_icon_advisories" width="30" height="30"/>
-        <image name="large_disclosure_indicator" width="17" height="30"/>
         <image name="path_flight_icon_deselected" width="48" height="48"/>
         <image name="path_flight_icon_selected" width="48" height="48"/>
         <image name="permit_wallet_icon" width="30" height="23"/>
