@@ -1,5 +1,5 @@
 //
-//  AirMapRule.swift
+//  AirMapLocalRule.swift
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 1/10/17.
@@ -20,6 +20,10 @@ public class AirMapLocalRule: NSObject {
 	
 	public required init?(_ map: Map) {}
 	public override init() { super.init() }
+	
+	override public var hashValue: Int {
+		return id.hashValue
+	}
 }
 
 extension AirMapLocalRule: Mappable {
