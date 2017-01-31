@@ -20,7 +20,13 @@ extension ObservableType {
 			Optional.Some($0)
 		}
 	}
+}
+
+extension Observable where Element: Equatable {
 	
+	public func filter(value: E) -> Observable<E> {
+		return filter { $0 == value }
+	}
 }
 
 extension Driver {
