@@ -30,6 +30,9 @@ struct Config {
 		static var statusUrl: String {
 			return AirMapApi.urlForResource("status", version: "v2")
 		}
+		static var rulesUrl: String {
+			return AirMapApi.urlForResource("rules", version: "v1")
+		}
 		static var mapTilesUrl: String {
 			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
 		}

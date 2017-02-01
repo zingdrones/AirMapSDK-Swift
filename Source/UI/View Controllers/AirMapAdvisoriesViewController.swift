@@ -16,24 +16,29 @@ public protocol AirMapAdvisoriesViewControllerDelegate: class {
     func advisoriesViewControllerDidTapDismissButton()
 }
 
-class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable {
+public class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable {
+	
+	@IBOutlet var localRulesHeader: UIView!
+	@IBOutlet weak var localityName: UILabel!
 	
 	var screenName = "Advisories"
-	var status: Variable<AirMapStatus>!
-    weak var delegate: AirMapAdvisoriesViewControllerDelegate?
+	
+	public let status = Variable(nil as AirMapStatus?)
+
+	weak var delegate: AirMapAdvisoriesViewControllerDelegate?
 	
 	private typealias AdvisoriesSectionModel = SectionModel<AirMapStatus.StatusColor, AirMapStatusAdvisory>
 	private let dataSource = RxTableViewSectionedReloadDataSource<AdvisoriesSectionModel>()
 	private let disposeBag = DisposeBag()
 	
-	override func viewDidLoad() {
+	override public func viewDidLoad() {
 		super.viewDidLoad()
 		
 		setupTable()
 		setupBindings()
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override public func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
@@ -43,6 +48,7 @@ class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable 
 		
 		tableView.delegate = nil
 		tableView.dataSource = nil
+
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 75
 		
@@ -70,7 +76,10 @@ class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable 
 		
 		dataSource.titleForHeaderInSection = { dataSource, section in
 			dataSource.sectionAtIndex(section).model.description
-		} 
+		}
+
+		// Reset delegate for methods declared below to be called
+		tableView.rx_setDelegate(self)
 	}
 	
 	private func setupBindings() {
@@ -96,23 +105,25 @@ class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable 
 			.addDisposableTo(disposeBag)
 	}
 	
-	private func sectionModel(status: AirMapStatus) -> [AdvisoriesSectionModel] {
+	private func sectionModel(status: AirMapStatus?) -> [AdvisoriesSectionModel] {
+		
+		guard let status = status else { return [] }
 		
 		return AirMapStatus.StatusColor.allColors
 			.map { color in
-                AdvisoriesSectionModel(model: color, items: status.advisories.filter { $0.color == color })
-            }
-			.filter { section in
-                section.items.count > 0
-            }
+				(color: color, advisories: status.advisories.filter({ $0.color == color }))
+			}
+			.filter { $0.advisories.count > 0 }
+			.map(AdvisoriesSectionModel.init)
 	}
-    
+	
     @IBAction func dismiss(sender: AnyObject) {
 		trackEvent(.tap, label: "Close Button")
+		resignFirstResponder()
         delegate?.advisoriesViewControllerDidTapDismissButton()
     }
 	
-    func openWebView(url:String) {
+    func openWebView(url: String) {
        
         if let nsurl = NSURL(string: url) {
             if #available(iOS 9.0, *) {
@@ -125,4 +136,26 @@ class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrackable 
         }
     }
 	
+	// MARK: - UITableViewDataSource
+	
+	public override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		
+		let section = dataSource.sectionAtIndex(section)
+		
+		let header = UIView(frame: tableView.bounds)
+		header.frame.size.height = 25
+		header.backgroundColor = UIColor(red: 64.0/255.0, green: 84.0/255.0, blue: 93.0/255.0, alpha: 1.0)
+		
+		let label = UILabel()
+		label.backgroundColor = header.backgroundColor
+		label.textColor = UIColor.whiteColor()
+		label.font = UIFont.systemFontOfSize(13)
+		label.text = section.model.description.uppercaseString
+		label.frame = CGRectInset(header.bounds, tableView.superview!.layoutMargins.left + 12, 0)
+		label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+
+		header.addSubview(label)
+		
+		return header
+	}
 }
