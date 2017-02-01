@@ -3121,7 +3121,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WuW-jk-baQ">
-                                <rect key="frame" x="15" y="64" width="345" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="583"/>
                                 <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3132,10 +3132,10 @@ AirMap will send you a text message when your digital notice has been successful
                         </subviews>
                         <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="WuW-jk-baQ" secondAttribute="trailing" constant="15" id="NKV-K6-Wax"/>
-                            <constraint firstItem="WuW-jk-baQ" firstAttribute="leading" secondItem="NrN-3X-LGe" secondAttribute="leading" constant="15" id="SKv-oh-BjH"/>
+                            <constraint firstAttribute="trailing" secondItem="WuW-jk-baQ" secondAttribute="trailing" id="NKV-K6-Wax"/>
+                            <constraint firstItem="WuW-jk-baQ" firstAttribute="leading" secondItem="NrN-3X-LGe" secondAttribute="leading" id="SKv-oh-BjH"/>
                             <constraint firstItem="WuW-jk-baQ" firstAttribute="top" secondItem="yKp-RS-tDL" secondAttribute="bottom" id="ahB-UO-wfE"/>
-                            <constraint firstItem="bP5-JK-HF4" firstAttribute="top" secondItem="WuW-jk-baQ" secondAttribute="bottom" id="w3U-i0-aVf"/>
+                            <constraint firstItem="bP5-JK-HF4" firstAttribute="top" secondItem="WuW-jk-baQ" secondAttribute="bottom" constant="20" id="w3U-i0-aVf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="City of Santa Monica" id="sek-Vd-dge"/>

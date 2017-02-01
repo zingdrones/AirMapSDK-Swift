@@ -17,6 +17,8 @@ public class AirMapLocalRuleViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 		
+		let m = view.layoutMargins
+		ruleText.textContainerInset = UIEdgeInsets(top: m.top+30, left: m.left+12, bottom: m.bottom+30, right: m.bottom+12)
 		navigationItem.title = rule.jurisdictionName
 		
 		if let url = rule.url {
