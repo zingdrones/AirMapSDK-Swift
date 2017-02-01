@@ -104,6 +104,9 @@ extension MapViewController: AirMapFlightPlanDelegate {
 	func airMapFlightPlanDidCreate(flight: AirMapFlight) {
 		mapView.addAnnotation(flight)
 		dismissViewControllerAnimated(true, completion: nil)
+		
+		let coordinate = mapView.centerCoordinate
+		try! AirMap.sendTelemetryData(flight, coordinate: coordinate, altitudeAgl: 100, altitudeMsl: nil)
 	}
 
 	func airMapFlightPlanDidEncounter(error: NSError) {

@@ -9,7 +9,9 @@
 import RxSwift
 import RxCocoa
 
-class AirMapVerifySMSCodeViewController: UITableViewController {
+class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackable {
+	
+	var screenName = "Phone Verification - SMS Code"
 	
 	@IBOutlet var submitButton: UIButton!
 	@IBOutlet weak var smsCode: UITextField!
@@ -23,6 +25,12 @@ class AirMapVerifySMSCodeViewController: UITableViewController {
 		
 		setupBindings()
 		smsCode.becomeFirstResponder()
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		trackView()
 	}
 	
 	override func canBecomeFirstResponder() -> Bool {
@@ -51,12 +59,21 @@ class AirMapVerifySMSCodeViewController: UITableViewController {
 	
 	@IBAction func submitSMSCode() {
 		
+		trackEvent(.tap, label: "Submit Button")
+		
 		smsCode.resignFirstResponder()
 		
 		AirMap.rx_verifySMS(smsTextField.text!)
 			.trackActivity(activityIndicator)
 			.map { $0.verified }
-			.subscribeNext(unowned(self, AirMapVerifySMSCodeViewController.didVerifyPhoneNumber))
+			.doOnNext(unowned(self, AirMapVerifySMSCodeViewController.didVerifyPhoneNumber))
+			.doOnError { [unowned self] error in
+				self.trackEvent(.save, label: "Error", value: (error as NSError).code)
+			}
+			.doOnCompleted { [unowned self] _ in
+				self.trackEvent(.save, label: "Success")
+			}
+			.subscribe()
 			.addDisposableTo(disposeBag)
 	}
 	

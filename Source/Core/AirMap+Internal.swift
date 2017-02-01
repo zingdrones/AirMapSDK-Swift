@@ -7,6 +7,9 @@
 //
 
 import RxSwift
+#if AIRMAP_TELEMETRY
+import CocoaAsyncSocket
+#endif
 
 typealias AirMap_Internal = AirMap
 extension AirMap_Internal {
@@ -17,12 +20,14 @@ extension AirMap_Internal {
 	@nonobjc internal static let permitClient = PermitClient()
 	@nonobjc internal static let pilotClient = PilotClient()
 	@nonobjc internal static let statusClient = StatusClient()
+	@nonobjc internal static let rulesClient = RulesClient()
 	@nonobjc internal static let mappingService = MappingService()
 	@nonobjc internal static let authSession = AirMapAuthSession()
 	@nonobjc internal static let authClient = AirMapAuthClient()
 
 	#if AIRMAP_TELEMETRY
-	@nonobjc internal static let telemetrySocket = TelemetrySocket()
+	@nonobjc internal static let telemetryClient = AirMapTelemetry.Client()
+	@nonobjc internal static let telemetrySocket = GCDAsyncUdpSocket()
 	#endif
 
 	#if AIRMAP_TRAFFIC

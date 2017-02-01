@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="V2h-jW-mVn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="V2h-jW-mVn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -64,9 +65,6 @@
                                     <constraint firstAttribute="width" constant="60" id="gD4-kE-Clp"/>
                                 </constraints>
                                 <state key="normal" image="draw_icon"/>
-                                <connections>
-                                    <action selector="deleteShape" destination="WOi-hz-5eP" eventType="touchUpInside" id="cV1-Ul-pta"/>
-                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLj-Bq-BpS" userLabel="Flight Type View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
@@ -641,33 +639,53 @@ Line two details would be here.</string>
         <scene sceneID="Mss-hB-Ycd">
             <objects>
                 <tableViewController storyboardIdentifier="AirMapAdvisoriesViewController" id="gc2-XS-SaI" customClass="AirMapAdvisoriesViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="55" sectionHeaderHeight="18" sectionFooterHeight="18" id="pXx-s1-GeR">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" id="pXx-s1-GeR">
+                        <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="7T5-kE-1jy">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lCi-3l-ybJ" userLabel="Overscroll">
+                                    <rect key="frame" x="0.0" y="-1000" width="375" height="1000"/>
+                                    <color key="backgroundColor" red="0.25098039215686274" green="0.32941176470588235" blue="0.36470588235294116" alpha="1" colorSpace="deviceRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1000" id="EDp-93-SQ7"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="lCi-3l-ybJ" secondAttribute="trailing" id="EXv-0O-nhN"/>
+                                <constraint firstItem="lCi-3l-ybJ" firstAttribute="leading" secondItem="7T5-kE-1jy" secondAttribute="leading" id="QeO-wa-jfm"/>
+                                <constraint firstAttribute="top" secondItem="lCi-3l-ybJ" secondAttribute="bottom" id="ebG-f5-Fcn"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AdvisoryCell" rowHeight="58" id="K1B-xh-wcj" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="56" width="375" height="58"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K1B-xh-wcj" id="9QT-Te-p40">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Advisory Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8DW-v6-ClH">
-                                            <rect key="frame" x="28" y="8" width="331" height="21"/>
+                                            <rect key="frame" x="20" y="8" width="339" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1dB-mD-ma5">
-                                            <rect key="frame" x="0.0" y="0.0" width="16" height="57"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="10" height="57"/>
                                             <color key="backgroundColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="16" id="HQZ-gj-5ao"/>
+                                                <constraint firstAttribute="width" constant="10" id="HQZ-gj-5ao"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advisory Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1e-sI-VMa">
-                                            <rect key="frame" x="28" y="31" width="331" height="18"/>
+                                            <rect key="frame" x="20" y="31" width="339" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -676,11 +694,11 @@ Line two details would be here.</string>
                                     <constraints>
                                         <constraint firstItem="c1e-sI-VMa" firstAttribute="top" secondItem="8DW-v6-ClH" secondAttribute="bottom" constant="2" id="0Fm-mo-spZ"/>
                                         <constraint firstAttribute="trailing" secondItem="c1e-sI-VMa" secondAttribute="trailing" constant="16" id="DUc-Dk-oty"/>
+                                        <constraint firstItem="8DW-v6-ClH" firstAttribute="leading" secondItem="9QT-Te-p40" secondAttribute="leadingMargin" constant="12" id="QZP-RY-NZy"/>
                                         <constraint firstAttribute="bottom" secondItem="1dB-mD-ma5" secondAttribute="bottom" id="YUk-rt-Dxo"/>
                                         <constraint firstItem="8DW-v6-ClH" firstAttribute="top" secondItem="9QT-Te-p40" secondAttribute="top" constant="8" id="b9V-wc-O68"/>
                                         <constraint firstItem="c1e-sI-VMa" firstAttribute="leading" secondItem="8DW-v6-ClH" secondAttribute="leading" id="bTN-0k-Yhn"/>
                                         <constraint firstAttribute="bottom" secondItem="c1e-sI-VMa" secondAttribute="bottom" constant="8" id="mgt-e5-bdN"/>
-                                        <constraint firstItem="8DW-v6-ClH" firstAttribute="leading" secondItem="1dB-mD-ma5" secondAttribute="trailing" constant="12" id="q5J-zO-Six"/>
                                         <constraint firstItem="1dB-mD-ma5" firstAttribute="leading" secondItem="9QT-Te-p40" secondAttribute="leading" id="tyV-gu-Rk9"/>
                                         <constraint firstAttribute="trailing" secondItem="8DW-v6-ClH" secondAttribute="trailing" constant="16" id="uTj-QC-UhM"/>
                                         <constraint firstItem="1dB-mD-ma5" firstAttribute="top" secondItem="9QT-Te-p40" secondAttribute="top" id="zMC-gr-1yu"/>
@@ -693,33 +711,33 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AirportCell" rowHeight="86" id="1ke-8s-XCF" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="114" width="375" height="86"/>
+                                <rect key="frame" x="0.0" y="86" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1ke-8s-XCF" id="pzf-as-XOE">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyw-KD-cYD">
-                                            <rect key="frame" x="0.0" y="0.0" width="16" height="86"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="10" height="85"/>
                                             <color key="backgroundColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="16" id="y1b-9M-aw2"/>
+                                                <constraint firstAttribute="width" constant="10" id="y1b-9M-aw2"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Advisory Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1Q-Q9-g1r">
-                                            <rect key="frame" x="28" y="8" width="331" height="21"/>
+                                            <rect key="frame" x="20" y="8" width="339" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advisory Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IA9-5u-IvP">
-                                            <rect key="frame" x="28" y="33" width="331" height="18"/>
+                                            <rect key="frame" x="20" y="33" width="339" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="310-555-1212" translatesAutoresizingMaskIntoConstraints="NO" id="hyU-kT-UVu" customClass="AirMapPhoneTextView" customModule="AirMap" customModuleProvider="target">
-                                            <rect key="frame" x="22" y="50" width="337" height="29.5"/>
+                                            <rect key="frame" x="14" y="50" width="345" height="29"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -736,11 +754,11 @@ Line two details would be here.</string>
                                         <constraint firstItem="IA9-5u-IvP" firstAttribute="leading" secondItem="p1Q-Q9-g1r" secondAttribute="leading" id="GvK-Ka-rWj"/>
                                         <constraint firstItem="p1Q-Q9-g1r" firstAttribute="top" secondItem="pzf-as-XOE" secondAttribute="top" constant="8" id="I1q-9g-oSt"/>
                                         <constraint firstAttribute="trailing" secondItem="hyU-kT-UVu" secondAttribute="trailing" constant="16" id="LNY-ts-85m"/>
+                                        <constraint firstItem="p1Q-Q9-g1r" firstAttribute="leading" secondItem="pzf-as-XOE" secondAttribute="leadingMargin" constant="12" id="NtJ-8B-UwU"/>
                                         <constraint firstItem="IA9-5u-IvP" firstAttribute="top" secondItem="p1Q-Q9-g1r" secondAttribute="bottom" constant="3.5" id="aqc-Ej-vwU"/>
                                         <constraint firstAttribute="bottom" secondItem="hyU-kT-UVu" secondAttribute="bottom" constant="6" id="drO-Cl-fdn"/>
                                         <constraint firstAttribute="bottom" secondItem="Tyw-KD-cYD" secondAttribute="bottom" id="fZc-gx-5Ae"/>
                                         <constraint firstAttribute="trailing" secondItem="IA9-5u-IvP" secondAttribute="trailing" constant="16" id="nbm-UB-r2i"/>
-                                        <constraint firstItem="p1Q-Q9-g1r" firstAttribute="leading" secondItem="Tyw-KD-cYD" secondAttribute="trailing" constant="12" id="pk3-Zg-ScE"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -751,46 +769,45 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TFRCell" rowHeight="111" id="XHp-do-nza" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="200" width="375" height="111"/>
+                                <rect key="frame" x="0.0" y="172" width="375" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XHp-do-nza" id="IA9-PR-oJZ">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="110"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rft-pd-xKv">
-                                            <rect key="frame" x="0.0" y="0.0" width="16" height="110"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="10" height="110"/>
                                             <color key="backgroundColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="16" id="VCZ-IL-Zds"/>
+                                                <constraint firstAttribute="width" constant="10" id="VCZ-IL-Zds"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Advisory Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xnd-Po-Cjc">
-                                            <rect key="frame" x="28" y="8" width="298" height="27"/>
+                                            <rect key="frame" x="20" y="8" width="306" height="27"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advisory Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLa-MC-tCU">
-                                            <rect key="frame" x="28" y="39" width="298" height="18"/>
+                                            <rect key="frame" x="20" y="39" width="306" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starts" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbj-0V-59o">
-                                            <rect key="frame" x="28" y="62" width="297" height="16"/>
+                                            <rect key="frame" x="20" y="62" width="305" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ends" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c21-8a-rg6">
-                                            <rect key="frame" x="28" y="85" width="297" height="16"/>
+                                            <rect key="frame" x="20" y="85" width="305" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Xnd-Po-Cjc" firstAttribute="leading" secondItem="rft-pd-xKv" secondAttribute="trailing" constant="12" id="3AA-Nf-bC7"/>
                                         <constraint firstAttribute="trailing" secondItem="iLa-MC-tCU" secondAttribute="trailing" constant="16" id="7WH-RF-qby"/>
                                         <constraint firstItem="bbj-0V-59o" firstAttribute="leading" secondItem="iLa-MC-tCU" secondAttribute="leading" id="Cz5-NY-7RV"/>
                                         <constraint firstItem="iLa-MC-tCU" firstAttribute="leading" secondItem="Xnd-Po-Cjc" secondAttribute="leading" id="E6e-pv-050"/>
@@ -806,6 +823,7 @@ Line two details would be here.</string>
                                         <constraint firstItem="rft-pd-xKv" firstAttribute="leading" secondItem="IA9-PR-oJZ" secondAttribute="leading" id="kDk-qh-FrK"/>
                                         <constraint firstItem="c21-8a-rg6" firstAttribute="top" secondItem="bbj-0V-59o" secondAttribute="bottom" constant="7" id="vYi-vO-fDn"/>
                                         <constraint firstItem="rft-pd-xKv" firstAttribute="top" secondItem="IA9-PR-oJZ" secondAttribute="top" id="wWx-Uw-d5G"/>
+                                        <constraint firstItem="Xnd-Po-Cjc" firstAttribute="leading" secondItem="IA9-PR-oJZ" secondAttribute="leadingMargin" constant="12" id="xj3-w8-23J"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -817,39 +835,39 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WildfireCell" rowHeight="111" id="D9n-eZ-nlJ" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="311" width="375" height="111"/>
+                                <rect key="frame" x="0.0" y="283" width="375" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D9n-eZ-nlJ" id="H4m-Vv-Dqi">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pac-5p-7hp">
-                                            <rect key="frame" x="0.0" y="0.0" width="16" height="110"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="10" height="110"/>
                                             <color key="backgroundColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="16" id="LHA-SJ-Aw6"/>
+                                                <constraint firstAttribute="width" constant="10" id="LHA-SJ-Aw6"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Advisory Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CTl-4E-bUm">
-                                            <rect key="frame" x="28" y="8" width="331" height="27"/>
+                                            <rect key="frame" x="20" y="8" width="339" height="27"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advisory Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b7c-LJ-jIt">
-                                            <rect key="frame" x="28" y="39" width="331" height="18"/>
+                                            <rect key="frame" x="20" y="39" width="339" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starts" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lt3-RZ-VSF">
-                                            <rect key="frame" x="28" y="62" width="330" height="16"/>
+                                            <rect key="frame" x="20" y="62" width="338" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ends" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gX9-8x-5nK">
-                                            <rect key="frame" x="28" y="85" width="330" height="16"/>
+                                            <rect key="frame" x="20" y="85" width="338" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -862,6 +880,7 @@ Line two details would be here.</string>
                                         <constraint firstItem="lt3-RZ-VSF" firstAttribute="top" secondItem="b7c-LJ-jIt" secondAttribute="bottom" constant="5.5" id="CXE-ft-ogQ"/>
                                         <constraint firstItem="b7c-LJ-jIt" firstAttribute="top" secondItem="CTl-4E-bUm" secondAttribute="bottom" constant="3.5" id="Cfs-Rj-2xP"/>
                                         <constraint firstAttribute="trailing" secondItem="gX9-8x-5nK" secondAttribute="trailing" constant="17" id="Dwq-4s-VOW"/>
+                                        <constraint firstItem="CTl-4E-bUm" firstAttribute="leading" secondItem="H4m-Vv-Dqi" secondAttribute="leadingMargin" constant="12" id="ERc-xu-5Tb"/>
                                         <constraint firstItem="Pac-5p-7hp" firstAttribute="top" secondItem="H4m-Vv-Dqi" secondAttribute="top" id="Gtu-S7-edr"/>
                                         <constraint firstItem="lt3-RZ-VSF" firstAttribute="leading" secondItem="b7c-LJ-jIt" secondAttribute="leading" id="Xq8-by-L3P"/>
                                         <constraint firstAttribute="trailing" secondItem="lt3-RZ-VSF" secondAttribute="trailing" constant="17" id="ZUg-PC-Znw"/>
@@ -869,7 +888,6 @@ Line two details would be here.</string>
                                         <constraint firstItem="gX9-8x-5nK" firstAttribute="leading" secondItem="lt3-RZ-VSF" secondAttribute="leading" id="f5M-h1-V5U"/>
                                         <constraint firstAttribute="trailing" secondItem="CTl-4E-bUm" secondAttribute="trailing" constant="16" id="fkR-jS-vDn"/>
                                         <constraint firstItem="b7c-LJ-jIt" firstAttribute="leading" secondItem="CTl-4E-bUm" secondAttribute="leading" id="kre-2o-6q0"/>
-                                        <constraint firstItem="CTl-4E-bUm" firstAttribute="leading" secondItem="Pac-5p-7hp" secondAttribute="trailing" constant="12" id="rJc-aY-AgS"/>
                                         <constraint firstItem="gX9-8x-5nK" firstAttribute="top" secondItem="lt3-RZ-VSF" secondAttribute="bottom" constant="7" id="riB-mZ-b8z"/>
                                         <constraint firstAttribute="bottom" secondItem="Pac-5p-7hp" secondAttribute="bottom" id="xwM-qi-NHJ"/>
                                     </constraints>
@@ -883,33 +901,33 @@ Line two details would be here.</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OrganizationAdvisoryCell" rowHeight="86" id="hKV-wO-xww" customClass="AirMapAdvisoryCell" customModule="AirMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="422" width="375" height="86"/>
+                                <rect key="frame" x="0.0" y="394" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hKV-wO-xww" id="8Fd-d6-14K">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Organization Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6z-bB-c3R">
-                                            <rect key="frame" x="28" y="8" width="331" height="21"/>
+                                            <rect key="frame" x="20" y="8" width="339" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MK-xV-StM">
-                                            <rect key="frame" x="0.0" y="0.0" width="16" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="10" height="85"/>
                                             <color key="backgroundColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="16" id="efS-p6-Yq5"/>
+                                                <constraint firstAttribute="width" constant="10" id="efS-p6-Yq5"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advisory Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10R-hU-bms">
-                                            <rect key="frame" x="28" y="56.5" width="331" height="18"/>
+                                            <rect key="frame" x="20" y="57" width="339" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" text="Advisory Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c94-NK-gnb">
-                                            <rect key="frame" x="28" y="32.5" width="331" height="21"/>
+                                            <rect key="frame" x="20" y="33" width="339" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.2156862745" green="0.24313725489999999" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -923,7 +941,7 @@ Line two details would be here.</string>
                                         <constraint firstItem="0MK-xV-StM" firstAttribute="top" secondItem="8Fd-d6-14K" secondAttribute="top" id="ZUG-Lx-ArT"/>
                                         <constraint firstAttribute="trailing" secondItem="10R-hU-bms" secondAttribute="trailing" constant="16" id="Zsh-67-7dd"/>
                                         <constraint firstItem="c94-NK-gnb" firstAttribute="top" secondItem="p6z-bB-c3R" secondAttribute="bottom" constant="3.5" id="dcd-TN-DjS"/>
-                                        <constraint firstItem="p6z-bB-c3R" firstAttribute="leading" secondItem="0MK-xV-StM" secondAttribute="trailing" constant="12" id="f9h-tJ-gCf"/>
+                                        <constraint firstItem="p6z-bB-c3R" firstAttribute="leading" secondItem="8Fd-d6-14K" secondAttribute="leadingMargin" constant="12" id="eOW-9p-Hq3"/>
                                         <constraint firstItem="0MK-xV-StM" firstAttribute="leading" secondItem="8Fd-d6-14K" secondAttribute="leading" id="gYh-E8-TjJ"/>
                                         <constraint firstItem="10R-hU-bms" firstAttribute="leading" secondItem="p6z-bB-c3R" secondAttribute="leading" id="hwk-dR-Rs2"/>
                                         <constraint firstAttribute="trailing" secondItem="c94-NK-gnb" secondAttribute="trailing" constant="16" id="pyd-Lp-PVx"/>
@@ -945,22 +963,25 @@ Line two details would be here.</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Airspace Advisories" id="yk1-9H-q3n">
+                        <barButtonItem key="backBarButtonItem" title=" " id="fVz-u9-MbE"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="JTX-n6-s2o">
                             <connections>
                                 <action selector="dismiss:" destination="gc2-XS-SaI" id="Qj9-I6-X0h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkq-pH-7T7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="tUz-Mf-CE3"/>
             </objects>
             <point key="canvasLocation" x="388" y="1314.6926536731635"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ajs-kt-gsK">
             <objects>
-                <navigationController id="OcD-bb-4X7" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Esf-20-NJN">
+                <navigationController storyboardIdentifier="AdvisoriesNavigation" automaticallyAdjustsScrollViewInsets="NO" id="OcD-bb-4X7" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="Esf-20-NJN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -978,7 +999,7 @@ Line two details would be here.</string>
         <scene sceneID="R0J-K9-qwi">
             <objects>
                 <navigationController id="EhR-xH-Seh" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="lzy-Bt-lcK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="lzy-Bt-lcK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1366,7 +1387,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="ppv-O4-Uso">
             <objects>
                 <navigationController storyboardIdentifier="AirMapAircraftNavController" id="dFP-db-86e" customClass="AirMapAircraftNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="58x-G9-Cm3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="58x-G9-Cm3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1909,7 +1930,7 @@ AirMap will send you a text message when your digital notice has been successful
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="310-555-1212" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kly-En-8eF">
-                                                    <rect key="frame" x="19" y="29" width="337" height="29.5"/>
+                                                    <rect key="frame" x="19" y="29" width="337" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2754,7 +2775,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="7TB-GQ-aUS">
             <objects>
                 <navigationController storyboardIdentifier="AirMapAircraftModelNavController" id="g95-Bq-UMI" customClass="AirMapAircraftModelNavController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="UWC-L3-45E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="UWC-L3-45E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2840,7 +2861,7 @@ AirMap will send you a text message when your digital notice has been successful
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="310-555-1212" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bBK-bB-q3L">
-                                                    <rect key="frame" x="19" y="29" width="337" height="29.5"/>
+                                                    <rect key="frame" x="19" y="29" width="337" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -3021,6 +3042,111 @@ AirMap will send you a text message when your digital notice has been successful
             </objects>
             <point key="canvasLocation" x="-1439" y="1315"/>
         </scene>
+        <!--Santa Monica, California-->
+        <scene sceneID="kX9-Dx-87n">
+            <objects>
+                <tableViewController storyboardIdentifier="LocalRules" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1OJ-1j-ib9" customClass="AirMapLocalRulesViewController" customModule="AirMap" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="0gm-jj-nV8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="G2q-kH-Eqy">
+                            <rect key="frame" x="0.0" y="118" width="375" height="10"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RuleCell" rowHeight="90" id="NOm-4D-BVy" customClass="AirMapRuleCell" customModule="AirMap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NOm-4D-BVy" id="FFf-Y9-bSP">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="89"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City of Santa Monica" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lBk-bJ-aeJ">
+                                            <rect key="frame" x="16" y="15" width="321" height="23"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
+                                            <color key="textColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="The City of Santa Monica has rules that relate to the use of drones in the vicinity of…" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BkD-sA-FOI">
+                                            <rect key="frame" x="16" y="42" width="321" height="33"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="highlightedColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="BkD-sA-FOI" secondAttribute="bottom" constant="14" id="HbB-uv-0uo"/>
+                                        <constraint firstItem="BkD-sA-FOI" firstAttribute="top" secondItem="lBk-bJ-aeJ" secondAttribute="bottom" constant="4" id="aBs-hG-OUl"/>
+                                        <constraint firstItem="BkD-sA-FOI" firstAttribute="leading" secondItem="lBk-bJ-aeJ" secondAttribute="leading" id="lRm-Bc-Vcr"/>
+                                        <constraint firstItem="lBk-bJ-aeJ" firstAttribute="leading" secondItem="FFf-Y9-bSP" secondAttribute="leading" constant="16" id="m2i-vP-0um"/>
+                                        <constraint firstAttribute="trailing" secondItem="lBk-bJ-aeJ" secondAttribute="trailing" constant="5" id="oS4-5p-2N1"/>
+                                        <constraint firstAttribute="trailing" secondItem="BkD-sA-FOI" secondAttribute="trailing" constant="5" id="t5x-GQ-glV"/>
+                                        <constraint firstItem="lBk-bJ-aeJ" firstAttribute="top" secondItem="FFf-Y9-bSP" secondAttribute="top" constant="15" id="y0K-LN-DEf"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="jurisdictionName" destination="lBk-bJ-aeJ" id="rab-jB-YRf"/>
+                                    <outlet property="ruleText" destination="BkD-sA-FOI" id="31h-oh-0RF"/>
+                                    <segue destination="joP-eH-5Up" kind="show" identifier="pushRuleDetails" id="jTm-vz-c0y"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1OJ-1j-ib9" id="lG3-It-G1Q"/>
+                            <outlet property="delegate" destination="1OJ-1j-ib9" id="ovW-oI-O2Y"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Santa Monica, California" id="8Lr-SJ-VYN">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Ymb-CA-QPC"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YRj-8O-Quj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="388" y="2183.658170914543"/>
+        </scene>
+        <!--City of Santa Monica-->
+        <scene sceneID="gS4-H4-Svh">
+            <objects>
+                <viewController id="joP-eH-5Up" customClass="AirMapLocalRuleViewController" customModule="AirMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yKp-RS-tDL"/>
+                        <viewControllerLayoutGuide type="bottom" id="bP5-JK-HF4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NrN-3X-LGe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WuW-jk-baQ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="583"/>
+                                <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.19973427060000001" green="0.24572724100000001" blue="0.28027448059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="WuW-jk-baQ" secondAttribute="trailing" id="NKV-K6-Wax"/>
+                            <constraint firstItem="WuW-jk-baQ" firstAttribute="leading" secondItem="NrN-3X-LGe" secondAttribute="leading" id="SKv-oh-BjH"/>
+                            <constraint firstItem="WuW-jk-baQ" firstAttribute="top" secondItem="yKp-RS-tDL" secondAttribute="bottom" id="ahB-UO-wfE"/>
+                            <constraint firstItem="bP5-JK-HF4" firstAttribute="top" secondItem="WuW-jk-baQ" secondAttribute="bottom" constant="20" id="w3U-i0-aVf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="City of Santa Monica" id="sek-Vd-dge"/>
+                    <connections>
+                        <outlet property="ruleText" destination="WuW-jk-baQ" id="WEW-N5-5Ep"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D54-XZ-30p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1262" y="2184"/>
+        </scene>
         <!--FAQs-->
         <scene sceneID="qbD-mz-Bf5">
             <objects>
@@ -3059,14 +3185,14 @@ AirMap will send you a text message when your digital notice has been successful
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="36f-Jv-NG1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="389" y="2268"/>
+            <point key="canvasLocation" x="388" y="3033"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WOP-Sh-xuM">
             <objects>
                 <navigationController storyboardIdentifier="FAQNav" id="Un5-Qe-RYq" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ncB-Al-mu8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="ncB-Al-mu8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3078,7 +3204,7 @@ AirMap will send you a text message when your digital notice has been successful
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tj5-gM-Wfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-484" y="2268"/>
+            <point key="canvasLocation" x="-484" y="3033"/>
         </scene>
         <!--FAQNav-->
         <scene sceneID="lk9-9W-1w9">
@@ -3103,9 +3229,9 @@ AirMap will send you a text message when your digital notice has been successful
         <image name="point_flight_icon_selected" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="iLT-bx-RW6"/>
         <segue reference="hz7-Iw-idg"/>
         <segue reference="rz8-aj-XVu"/>
-        <segue reference="d4K-iB-pv6"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

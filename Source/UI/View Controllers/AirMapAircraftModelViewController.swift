@@ -9,7 +9,9 @@
 import RxSwift
 import RxCocoa
 
-class AirMapAircraftModelViewController: UITableViewController {
+class AirMapAircraftModelViewController: UITableViewController, AnalyticsTrackable {
+	
+	var screenName = "Create Aircraft - Models"
 	
 	var manufacturer: AirMapAircraftManufacturer!
 	
@@ -36,7 +38,15 @@ class AirMapAircraftModelViewController: UITableViewController {
 			.addDisposableTo(disposeBag)
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		trackView()
+	}
+	
 	private func notifyDelegateOfSelection(model: AirMapAircraftModel) {
+		
+		trackEvent(.tap, label: "Select Model")
 		let nav = navigationController as! AirMapAircraftModelNavController
 		nav.aircraftModelSelectionDelegate?.didSelectAircraftModel(model)
 	}

@@ -66,8 +66,6 @@ class LoadingWindow: UIWindow {
 		window.rootViewController = LoadingRootViewController()
 		window.backgroundColor = UIColor.airMapGray().colorWithAlphaComponent(0.75)
 		window.windowLevel = UIWindowLevelAlert + 1
-//		window.makeKeyAndVisible()
-//		window.alpha = 0.0
 		window.addSubview(window.indicator)
 		window.indicator.center = window.center
 		window.indicator.startAnimating()

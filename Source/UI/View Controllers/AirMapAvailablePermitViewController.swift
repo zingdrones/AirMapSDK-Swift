@@ -10,7 +10,9 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class AirMapAvailablePermitViewController: UITableViewController {
+class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrackable {
+	
+	var screenName = "Permit Details"
 	
 	enum Mode {
 		case Select
@@ -58,6 +60,18 @@ class AirMapAvailablePermitViewController: UITableViewController {
 		setupBindings()
 		setupTable()
 		fetchPermitData()
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		trackView()
+	}
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "unwindFromNewPermitSelection" {
+			trackEvent(.tap, label: "Select Permit")
+		}
 	}
 	
 	override func canBecomeFirstResponder() -> Bool {
@@ -179,8 +193,6 @@ class AirMapAvailablePermitViewController: UITableViewController {
 			if let property = rowData.customProperty {
 				let cell = tableView.dequeueReusableCellWithIdentifier(rowData.cellIdentifier) as! AirMapPermitCustomPropertyCell
 				
-				// TODO: Clean this up ^AM
-	
 				let tf = self.textFields.value.map({$1})[indexPath.row]
 				
 				tf.autocorrectionType = .No

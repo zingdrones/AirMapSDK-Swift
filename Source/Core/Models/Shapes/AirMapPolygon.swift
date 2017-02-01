@@ -21,10 +21,17 @@ public class AirMapPolygon: AirMapGeometry, Mappable {
 		
 		var params = [String: AnyObject]()
 		
-		if var coords = coordinates where coords.count >= 3 {
-			coords.append(coords.first!)
+		if coordinates?.count >= 1 {
 			params["type"] = "Polygon"
-			params["coordinates"] = coords.map { $0.map { [$0.longitude, $0.latitude] } } as [[[Double]]]
+			params["coordinates"] = coordinates
+				.map { coordinates in
+					var coordinates = coordinates
+					// Connect the last point to the first
+					coordinates.append(coordinates.first!)
+					return coordinates.map { coordinate in
+						[coordinate.longitude, coordinate.latitude]
+					}
+				} as [[[Double]]]
 		}
 		
 		return params

@@ -33,7 +33,7 @@ class FlightTests: TestCase {
 			expect(json["start_time"] as? String).to(equal(flight.startTime?.ISO8601String()))
 			expect(json["end_time"] as? String).to(equal(flight.endTime?.ISO8601String()))
 			
-			// TODO: Add tess for flight geometry, permits, and statuses
+			// TODO: Add tests for flight geometry, permits, and statuses
 		}
 		
 		waitUntil { done in

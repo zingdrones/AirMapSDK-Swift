@@ -38,7 +38,7 @@ extension ColorType {
 	}
 	
 	class func airMapRed() -> ColorType {
-		return ColorType(red: 163.0/255.0, green: 37.0/255.0, blue: 37.0/255.0, alpha: 1.0)
+		return ColorType(red: 255.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 1.0)
 	}
 	
 	class func airMapBlack() -> ColorType {

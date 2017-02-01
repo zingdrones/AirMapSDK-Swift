@@ -41,13 +41,15 @@
 		915CFFD41DEF6A76002E6623 /* AircraftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915CFFD21DEF6A00002E6623 /* AircraftFactory.swift */; };
 		916956EF1D356821006F97B8 /* status_weather_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916956EE1D356821006F97B8 /* status_weather_success.json */; };
 		916A9B421D2D991B00322CDB /* flight_comm_key_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916A9B411D2D991B00322CDB /* flight_comm_key_success.json */; };
-		91763D391D2C228F00E825DA /* TelemetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91763D381D2C228F00E825DA /* TelemetryTests.swift */; };
+		916B56091DF0D809009C84F9 /* TelemetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B56081DF0D809009C84F9 /* TelemetryTests.swift */; };
 		918451121D270C64003B3D26 /* FlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918451111D270C64003B3D26 /* FlightTests.swift */; };
 		91AA74731D3DF03800FB82C4 /* AircraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA74721D3DF03800FB82C4 /* AircraftTests.swift */; };
 		91AA747D1D3EA5F300FB82C4 /* aircraft_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91AA747C1D3EA5F300FB82C4 /* aircraft_get_success.json */; };
 		91B783031D6373DA0034A5A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B783021D6373DA0034A5A6 /* AppDelegate.swift */; };
 		91B783051D6373DA0034A5A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91B783041D6373DA0034A5A6 /* Assets.xcassets */; };
 		91B783081D6373DA0034A5A6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91B783061D6373DA0034A5A6 /* MainMenu.xib */; };
+		91D551DC1E272C17000C0A5D /* rules_local_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91D551DB1E272C17000C0A5D /* rules_local_get_success.json */; };
+		91D551DD1E272D4B000C0A5D /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D551D91E272B82000C0A5D /* RulesTests.swift */; };
 		91F849BC1D5D8AEB00550D69 /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 912A5BDA1D5B9DCC004B359B /* airmap.config.json */; };
 		91F9006D1D37448C005B1084 /* StatusAdvisoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */; };
 		91F9006F1D3744CD005B1084 /* status_advisories_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91F9006E1D3744CD005B1084 /* status_advisories_success.json */; };
@@ -109,7 +111,7 @@
 		915CFFD21DEF6A00002E6623 /* AircraftFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AircraftFactory.swift; sourceTree = "<group>"; };
 		916956EE1D356821006F97B8 /* status_weather_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_weather_success.json; path = Fixtures/status_weather_success.json; sourceTree = "<group>"; };
 		916A9B411D2D991B00322CDB /* flight_comm_key_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_comm_key_success.json; path = Fixtures/flight_comm_key_success.json; sourceTree = "<group>"; };
-		91763D381D2C228F00E825DA /* TelemetryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelemetryTests.swift; sourceTree = "<group>"; };
+		916B56081DF0D809009C84F9 /* TelemetryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelemetryTests.swift; sourceTree = "<group>"; };
 		9184510F1D270C64003B3D26 /* AirMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		918451111D270C64003B3D26 /* FlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightTests.swift; sourceTree = "<group>"; };
 		918451131D270C64003B3D26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -120,6 +122,8 @@
 		91B783041D6373DA0034A5A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91B783071D6373DA0034A5A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		91B783091D6373DA0034A5A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91D551D91E272B82000C0A5D /* RulesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesTests.swift; sourceTree = "<group>"; };
+		91D551DB1E272C17000C0A5D /* rules_local_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rules_local_get_success.json; sourceTree = "<group>"; };
 		91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusAdvisoriesTests.swift; sourceTree = "<group>"; };
 		91F9006E1D3744CD005B1084 /* status_advisories_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_advisories_success.json; path = Fixtures/status_advisories_success.json; sourceTree = "<group>"; };
 		959CF7AD16492755A8E1F3C0 /* Pods_AirMapSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirMapSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -227,9 +231,10 @@
 				5CD99DDE1D418FEC00D21B72 /* PermitTests.swift */,
 				5C3B7B8B1D3EA8CE004705EA /* PilotTests.swift */,
 				91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */,
+				91D551D91E272B82000C0A5D /* RulesTests.swift */,
 				910F11761D27546E0053CEA2 /* StatusTests.swift */,
-				91763D381D2C228F00E825DA /* TelemetryTests.swift */,
 				910F11701D274A450053CEA2 /* TestCase.swift */,
+				916B56081DF0D809009C84F9 /* TelemetryTests.swift */,
 			);
 			name = "Test Cases";
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 				910F117D1D275CB80053CEA2 /* status_get_point_success.json */,
 				9109E7B71D2DB7BA00C119E8 /* status_get_polygon_success.json */,
 				916956EE1D356821006F97B8 /* status_weather_success.json */,
+				91D551DB1E272C17000C0A5D /* rules_local_get_success.json */,
 			);
 			name = "Test Fixtures";
 			sourceTree = "<group>";
@@ -453,6 +459,7 @@
 				9109E7BA1D2DB8A100C119E8 /* status_get_path_success.json in Resources */,
 				5C3B7B8A1D3EA8C0004705EA /* pilot_authorized_get_success.json in Resources */,
 				5CD99DF01D41CB4800D21B72 /* aircraft_model_success.json in Resources */,
+				91D551DC1E272C17000C0A5D /* rules_local_get_success.json in Resources */,
 				91F849BC1D5D8AEB00550D69 /* airmap.config.json in Resources */,
 				5CD99DEE1D41CB1600D21B72 /* aircraft_models_success.json in Resources */,
 				916956EF1D356821006F97B8 /* status_weather_success.json in Resources */,
@@ -627,6 +634,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				916B56091DF0D809009C84F9 /* TelemetryTests.swift in Sources */,
 				910F11751D274BF80053CEA2 /* FlightFactory.swift in Sources */,
 				918451121D270C64003B3D26 /* FlightTests.swift in Sources */,
 				915CFFD41DEF6A76002E6623 /* AircraftFactory.swift in Sources */,
@@ -636,8 +644,8 @@
 				91AA74731D3DF03800FB82C4 /* AircraftTests.swift in Sources */,
 				5CD99DDF1D418FEC00D21B72 /* PermitTests.swift in Sources */,
 				91F9006D1D37448C005B1084 /* StatusAdvisoriesTests.swift in Sources */,
+				91D551DD1E272D4B000C0A5D /* RulesTests.swift in Sources */,
 				5C3B7B8C1D3EA8CE004705EA /* PilotTests.swift in Sources */,
-				91763D391D2C228F00E825DA /* TelemetryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

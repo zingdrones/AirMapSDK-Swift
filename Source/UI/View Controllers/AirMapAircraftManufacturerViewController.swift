@@ -9,7 +9,9 @@
 import RxSwift
 import RxCocoa
 
-class AirMapAircraftManufacturerViewController: UITableViewController {
+class AirMapAircraftManufacturerViewController: UITableViewController, AnalyticsTrackable {
+	
+	var screenName = "Create Aircraft - Manufacturers"
 	
 	private let disposeBag = DisposeBag()
 	
@@ -25,11 +27,17 @@ class AirMapAircraftManufacturerViewController: UITableViewController {
 				cell.textLabel?.text = manufacturer.name
 			}
 			.addDisposableTo(disposeBag)
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		
+		trackView()
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "pushModel" {
+			trackEvent(.tap, label: "Select Manufacturer")
 			let cell = sender as! UITableViewCell
 			let indexPath = tableView.indexPathForCell(cell)!
 			let modelVC = segue.destinationViewController as! AirMapAircraftModelViewController

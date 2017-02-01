@@ -10,7 +10,9 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class AirMapFlightNoticeViewController: UIViewController {
+class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
+	
+	var screenName = "Create Flight - Flight Notices"
 	
 	@IBOutlet var submitNoticeHeader: UIView!
 	@IBOutlet var noticeUnavailableHeader: UIView!
@@ -31,6 +33,12 @@ class AirMapFlightNoticeViewController: UIViewController {
 		
 		setupBindings()
 		tableView.estimatedRowHeight = 44
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		trackView()
 	}
 	
 	private func setupBindings() {
@@ -105,6 +113,7 @@ class AirMapFlightNoticeViewController: UIViewController {
 	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
 		
 		if identifier == "pushReview" {
+			trackEvent(.tap, label: "Review Button")
 			let verified = navigationController!.flight.value.pilot!.phoneVerified
 			let submitDigitalNotice = true//submitNoticeSwitch.on
 			if verified {

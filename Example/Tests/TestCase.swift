@@ -21,8 +21,9 @@ class TestCase: XCTestCase {
 	override func setUp() {
 		super.setUp()
 
-		AirMap.authToken = nil
+		AirMap.authToken = "abcd"
 		AirMap.authSession.userId = "1234"
+		AirMap.authSession.expiresAt = .distantFuture()
 	}
 	
 	func stub(method: HTTPMethod, _ uri: String, with fixture: String, onRequest: ((NSURLRequest) -> Void)? = nil) {

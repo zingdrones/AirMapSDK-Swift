@@ -6,7 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-class AirMapNavBar: UINavigationBar {
+public class AirMapNavBar: UINavigationBar {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -14,7 +14,7 @@ class AirMapNavBar: UINavigationBar {
 		setup()
 	}
 	
-	required init?(coder aDecoder: NSCoder) {
+	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		
 		setup()

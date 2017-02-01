@@ -33,8 +33,7 @@ class PilotTests: TestCase {
 					expect(pilot.emailVerified).to(equal(false))
 					expect(pilot.pictureUrl).to(equal("http://cdn.airmap.com/users/photo.jpg"))
 					expect(pilot.phone).to(equal("+13105551212"))
-					expect(pilot.userMetadata["faa_registration_number"] as? String).to(equal("faa|1234"))
-					expect(pilot.appMetadata["app_meta_foo"] as? String).to(equal("bar"))
+					expect(pilot.appMetadata()["faa_registration_number"] as? String).to(equal("faa|1234"))
 					expect(pilot.statistics.totalFlights).to(equal(10))
 					expect(pilot.statistics.lastFlightTime).to(equal(NSDate.dateFromISO8601String("2016-07-05T10:51:19.000Z")))
 					expect(pilot.statistics.totalAircraft).to(equal(2))
@@ -54,8 +53,7 @@ class PilotTests: TestCase {
 		pilot.lastName = "Dronehead"
 		pilot.username = "daveyd"
 		pilot.phone = "+13105551212"
-		pilot.appMetadata = ["appmetafoo": "appmetabar"]
-		pilot.userMetadata = ["usermetafoo": "usermetabar"]
+		pilot.setAppMetadata("appmetabar", forKey: "appmetafoo")
 		
 		stub(.PATCH, Config.AirMapApi.pilotUrl + "/\(pilot.pilotId)", with: "pilot_authorized_get_success.json") { request in
 			let json = request.bodyJson()
@@ -63,7 +61,6 @@ class PilotTests: TestCase {
 			expect(json["last_name"] as? String).to(equal(pilot.lastName))
 			expect(json["username"] as? String).to(equal(pilot.username))
 			expect(json["phone"] as? String).to(equal(pilot.phone))
-			expect(json["user_metadata"]?["usermetafoo"] as? String).to(equal("usermetabar"))
 			expect(json["app_metadata"]?["appmetafoo"] as? String).to(equal("appmetabar"))
 		}
 		

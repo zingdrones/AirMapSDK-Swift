@@ -28,12 +28,14 @@ struct Config {
 			return AirMapApi.urlForResource("pilot", version: "v2")
 		}
 		static var statusUrl: String {
-			return AirMapApi.urlForResource("status", version: "v2")
+			return AirMapApi.urlForResource("status", version: "alpha")
+		}
+		static var rulesUrl: String {
+			return AirMapApi.urlForResource("rules", version: "v1")
 		}
 		static var mapTilesUrl: String {
 			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
 		}
-
 		static func urlForResource(named: String, version: String) -> String {
 			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "\(version)")
 		}
@@ -51,10 +53,19 @@ struct Config {
 
 	struct AirMapTelemetry {
 		static var host: String {
-			let env = AirMap.configuration.environment ?? "prod"
-			return "api-telemetry.\(env).airmap.com"
+// FIXME: Only supported on stage for now
+//			let env = AirMap.configuration.environment ?? "prod"
+//			return "api-udp-telemetry.\(env).airmap.com"
+			return "api-udp-telemetry.stage.airmap.com"
 		}
-		static let port = UInt16(8000)
+		static let port = UInt16(16060)
+		
+		struct SampleFrequency {
+			static let position: NSTimeInterval = 1/5
+			static let attitude: NSTimeInterval = 1/5
+			static let speed: NSTimeInterval = 1/5
+			static let barometer: NSTimeInterval = 5
+		}
 	}
 
 	struct AirMapTraffic {
