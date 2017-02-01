@@ -20,6 +20,13 @@ extension ObservableType {
 			Optional.Some($0)
 		}
 	}
+	
+	public func rateLimit(limit: NSTimeInterval, scheduler: SerialDispatchQueueScheduler) -> Observable<E> {
+		return self
+			.buffer(timeSpan: limit, count: .max, scheduler: MainScheduler.instance)
+			.filter { $0.count > 0 }
+			.map { $0.last! }
+	}
 }
 
 extension Observable where Element: Equatable {
