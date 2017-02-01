@@ -13,10 +13,9 @@
 			"email": false
 		},
 		"user_metadata": {
-			"faa_registration_number": "faa|1234"
 		},
 		"app_metadata": {
-			"app_meta_foo" : "bar"
+			"faa_registration_number": "faa|1234"
 		},
 		"statistics": {
 			"flight": {

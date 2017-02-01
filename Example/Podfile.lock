@@ -24,8 +24,8 @@ PODS:
     - JWTDecode (~> 1.2)
     - Log (= 0.5)
     - ObjectMapper (~> 1.4)
-    - RxCocoa (~> 2.6)
-    - RxSwift (~> 2.6)
+    - RxCocoa (< 3.0)
+    - RxSwift (< 3.0)
     - RxSwiftExt (~> 1.1.0)
     - SimpleKeychain
   - AirMapSDK/Telemetry (0.2.1):
@@ -33,6 +33,7 @@ PODS:
     - CocoaAsyncSocket (~> 7.5.0)
     - CryptoSwift (~> 0.5.2)
     - ProtocolBuffers-Swift (~> 2.4)
+    - RxSwift (< 3.0)
   - AirMapSDK/Traffic (0.2.1):
     - AirMapSDK/Core
     - SwiftMQTT (~> 1.0.2)
@@ -121,7 +122,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AirMapSDK: 8ffb76f9be9539b675f8870fb9cb54c1b4c19dc9
+  AirMapSDK: c31c287e5e80059fcc0e6765e0bb1531db8d68d2
   Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
   CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
   CryptoSwift: c1ef79f901b86099a6fe8b3c7524cf9f3f3c8c40

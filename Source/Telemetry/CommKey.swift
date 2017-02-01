@@ -1,5 +1,5 @@
 //
-//  Comm.swift
+//  CommKey.swift
 //  AirMapSDK
 //
 //  Created by Rocky Demoff on 6/6/16.
@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-struct Comm {
+struct CommKey {
 	
 	var key: [Int]!
 	var type: String!
@@ -30,7 +30,7 @@ struct Comm {
 	init?(_ map: Map) {}
 }
 
-extension Comm: Mappable {
+extension CommKey: Mappable {
 	
 	mutating func mapping(map: Map) {
 		

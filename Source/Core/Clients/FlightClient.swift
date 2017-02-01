@@ -20,7 +20,7 @@ internal class FlightClient: HTTPClient {
 	- parameter flight: The `AirMapFlight` for which to retreive a comm key
 	- returns: `Comm` key for a AirMapFlight
 	*/
-	func getCommKey(flight: AirMapFlight) -> Observable<Comm> {
+	func getCommKey(flight: AirMapFlight) -> Observable<CommKey> {
 		return call(.POST, url: "/\(flight.flightId)/start-comm")
 	}
 
@@ -91,7 +91,7 @@ extension FlightClient {
 		params["enhance"     ] = String(enhanced ?? false)
 
 		AirMap.logger.debug("Get Flights", params)
-		return call(.GET, params: params, keyPath: "data.results")
+        return call(.GET, params: params, keyPath: "data.results", authCheck: authCheck ?? false)
 	}
 
 	func listPublicFlights(fromDate fromDate: NSDate? = nil, toDate: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {

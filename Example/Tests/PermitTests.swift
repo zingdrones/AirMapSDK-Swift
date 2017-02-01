@@ -42,7 +42,6 @@ class PermitTests: TestCase {
 				.subscribe()
 				.addDisposableTo(self.disposeBag)
 		}
-
 	}
 
 	func testApplyForPermit() {

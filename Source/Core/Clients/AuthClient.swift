@@ -30,7 +30,9 @@ internal class AirMapAuthClient: HTTPClient {
 		return call(.POST, url:"/delegation", params: params, keyPath: nil)
 			.doOnNext { token in
 				AirMap.authToken = token.authToken
-			}
+            }.doOnError { error in
+                AirMap.logger.debug("ERROR: \(error)")
+            }
 		}
 	
 	func resendEmailVerification(resendLink:String?) {

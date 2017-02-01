@@ -78,6 +78,10 @@ import ObjectMapper
 			return .Past
 		}
 	}
+	
+	public override var hashValue: Int {
+		return flightId.hashValue
+	}
 
 }
 
@@ -106,7 +110,7 @@ extension AirMapFlight: Mappable {
 		state       <-  map["state"]
 		country     <-  map["country"]
 		notify      <-  map["notify"]
-		pilot       <-  map["pilot"]
+//		pilot       <-  map["pilot"]
 		pilotId     <-  map["pilot_id"]
 		aircraft    <-  map["aircraft"]
 		aircraftId  <-  map["aircraft_id"]
