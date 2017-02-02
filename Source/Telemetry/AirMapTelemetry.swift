@@ -70,7 +70,7 @@ struct AirMapTelemetry {
 				.filter { $0.1 is Airmap.Telemetry.Barometer }
 				.sample(Observable<Int>.timer(0, period: frequency.barometer, scheduler: scheduler))
 			
-			let latestMessages = [position, speed, barometer].toObservable().merge()
+			[position, attitude, speed, barometer].toObservable().merge()
 				.buffer(timeSpan: 1, count: 20, scheduler: scheduler)
 				.subscribeNext(Client.sendMessages)
 				.addDisposableTo(disposeBag)

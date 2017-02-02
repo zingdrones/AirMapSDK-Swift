@@ -6,7 +6,6 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import AirMap
 import ProtocolBuffers
 
 private typealias AirMapTelemetryServices = AirMap
