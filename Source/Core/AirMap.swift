@@ -6,56 +6,48 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-public class AirMap: NSObject {
-	
-	public static var configuration = AirMapConfiguration.loadConfig()
+import Foundation
 
-	/**
+/// An wrapper enum that encapsulates all responses from the AirMapSDK returning only one of two cases: value or error
+///
+/// - value: The requested value
+/// - error: An error describing the failure
+public enum Result<T> {
+	case value(T)
+	case error(Error)
+}
+
+/// The pricipal AirMapSDK class that is extended by individual services such as Status, Flight, Pilot, Rules, etc.
+public class AirMap {
 	
-	A JWT auth token that identifies the logged in user accessing the service. Required for all authenticated endpoints.
-	
-	*/
+	// The current environment settings and configuration of the AirMap SDK
+	public internal(set) static var configuration = AirMapConfiguration.loadConfig()
+
+	/// A JWT auth token that identifies the logged in user accessing the service. Required for all authenticated endpoints.
 	public static var authToken: String? {
 		didSet { authSession.authToken = authToken }
 	}
 
-	/**
-	
-	A Boolean value, if true, will use pinned certificates to validate the AirMap server trust.  Defaults to false.
-	
-	*/
+	/// A Boolean value, if true, will use pinned certificates to validate the AirMap server trust.  Defaults to false.
 	public static var pinCertificates: Bool = false {
 		didSet { authSession.enableCertificatePinning = pinCertificates }
 	}
 
-	/**
-
-	Suspend all active realtime services, including traffic alerts and telemetry updates
-	Typically called when the app enters the background.
-
-	*/
+	/// Suspend all active realtime services, including traffic alerts and telemetry updates
+	/// Typically called when the app enters the background.
 	public static func suspend() {
 		#if AIRMAP_TRAFFIC
 			trafficService.disconnect()
 		#endif
 	}
 
-	/**
-
-	Resume all available realtime services, including traffic alerts and telemetry updates
-	Typically called when the app enters the foreground.
-
-	*/
+	/// Resume all available realtime services, including traffic alerts and telemetry updates
+	/// Typically called when the app enters the foreground.
 	public static func resume() {
 		#if AIRMAP_TRAFFIC
 			trafficService.connect()
 		#endif
 	}
 	
-	override private init() {
-		super.init()
-	}
-	
-	public typealias AirMapErrorHandler = (error: NSError?) -> Void
-
+	private init() {}
 }

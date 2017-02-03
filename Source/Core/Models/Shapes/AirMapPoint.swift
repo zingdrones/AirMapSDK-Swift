@@ -8,32 +8,30 @@
 
 import ObjectMapper
 
-public class AirMapPoint: AirMapGeometry {
+public class AirMapPoint: AirMapGeometry, Mappable {
 
-	public var coordinate: CLLocationCoordinate2D!
-}
+	public var coordinate: Coordinate2D!
 
-extension AirMapPoint: Mappable {
+	public var type: AirMapFlight.FlightGeometryType {
+		return .point
+	}
+	
+	init(coordinate: Coordinate2D) {
+		self.coordinate = coordinate
+	}
+	
+	required public init?(map: Map) {}
 
 	public func mapping(map: Map) {
 		coordinate	<-  map["coordinates"]
 	}
 
-	/**
-	Returns key value parameters
-
-	- returns: [String: AnyObject]
-	*/
-	override public func params() -> [String: AnyObject] {
-
-		var params = [String: AnyObject]()
-
-		if let coords = coordinate {
-			params["type"] = "Point"
-			params["coordinates"] = [coords.latitude, coords.longitude]
-		}
-
-		return params
+	public func params() -> [String: Any] {
+		
+		return [
+			"type": "Point",
+			"coordinates": [coordinate.latitude, coordinate.longitude]
+		]
 	}
 
 }

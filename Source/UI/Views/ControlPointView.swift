@@ -10,15 +10,15 @@ import UIKit
 import Mapbox
 
 enum ControlPointType {
-	case Vertex
-	case MidPoint
+	case vertex
+	case midPoint
 }
 
 class ControlPoint: MGLPointAnnotation {
 	
 	var type: ControlPointType
 	
-	init(type: ControlPointType = .Vertex, coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()) {
+	init(type: ControlPointType = .vertex, coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()) {
 		self.type = type
 		super.init()
 		self.coordinate = coordinate
@@ -30,9 +30,9 @@ class ControlPoint: MGLPointAnnotation {
 }
 
 protocol ControlPointDelegate: class {
-	func didStartDragging(controlPoint: ControlPointView)
-	func didDrag(controlPoint: ControlPointView, to point: CGPoint)
-	func didEndDragging(controlPoint: ControlPointView)
+	func didStartDragging(_ controlPoint: ControlPointView)
+	func didDrag(_ controlPoint: ControlPointView, to point: CGPoint)
+	func didEndDragging(_ controlPoint: ControlPointView)
 }
 
 class ControlPointView: MGLAnnotationView {
@@ -43,16 +43,16 @@ class ControlPointView: MGLAnnotationView {
 		return annotation as? ControlPoint
 	}
 	
-	var type = ControlPointType.Vertex {
+	var type = ControlPointType.vertex {
 		didSet { configureForType() }
 	}
 	
 	init(type: ControlPointType) {
-		super.init(reuseIdentifier: String(type))
+		super.init(reuseIdentifier: String(describing: type))
 		
 		self.type = type
 		
-		draggable = true
+		isDraggable = true
 		scalesWithViewingDistance = false
 		
 		// Reduce annotation long press gesture delay
@@ -64,11 +64,11 @@ class ControlPointView: MGLAnnotationView {
 	}
 	
 	override init(frame: CGRect) {
-		super.init(frame: CGRectMake(0, 0, 35, 35))
+		super.init(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
 
-		layer.backgroundColor = UIColor.clearColor().CGColor
+		layer.backgroundColor = UIColor.clear.cgColor
 		layer.borderWidth = 0
-		layer.borderColor = UIColor.clearColor().CGColor
+		layer.borderColor = UIColor.clear.cgColor
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -80,42 +80,42 @@ class ControlPointView: MGLAnnotationView {
 		layer.cornerRadius = bounds.size.width / 2
 	}
 	
-	private func configureForType() {
+	fileprivate func configureForType() {
 		
 		let handle = CAShapeLayer()
 
 		switch type {
 			
-		case .Vertex:
+		case .vertex:
 			layer.zPosition = 0
-			handle.path = UIBezierPath(ovalInRect: CGRectInset(frame, 8, 8)).CGPath
-			handle.fillColor = UIColor.whiteColor().CGColor
+			handle.path = UIBezierPath(ovalIn: frame.insetBy(dx: 8, dy: 8)).cgPath
+			handle.fillColor = UIColor.white.cgColor
 			handle.borderWidth = 2
-			handle.strokeColor = UIColor.airMapGray().CGColor
-			handle.shadowColor = UIColor.airMapGray().CGColor
+			handle.strokeColor = UIColor.airMapDarkGray.cgColor
+			handle.shadowColor = UIColor.airMapDarkGray.cgColor
 			handle.shadowOpacity = 0.5
 			handle.shadowOffset = CGSize(width: 3, height: 3)
 			layer.addSublayer(handle)
 			
-		case .MidPoint:
+		case .midPoint:
 			layer.zPosition = -1
-			handle.path = UIBezierPath(ovalInRect: CGRectInset(frame, 14, 14)).CGPath
-			handle.fillColor = UIColor.airMapGray().CGColor
+			handle.path = UIBezierPath(ovalIn: frame.insetBy(dx: 14, dy: 14)).cgPath
+			handle.fillColor = UIColor.airMapDarkGray.cgColor
 			layer.addSublayer(handle)
 		}
 	}
 	
-	override func setDragState(dragState: MGLAnnotationViewDragState, animated: Bool) {
+	override func setDragState(_ dragState: MGLAnnotationViewDragState, animated: Bool) {
 		super.setDragState(dragState, animated: animated)
 		
 		switch dragState {
-		case .Starting:
+		case .starting:
 			delegate?.didStartDragging(self)
-		case .Dragging:
+		case .dragging:
 			delegate?.didDrag(self, to: center)
-		case .Ending, .Canceling:
+		case .ending, .canceling:
 			delegate?.didEndDragging(self)
-		case .None:
+		case .none:
 			break
 		}
 	}

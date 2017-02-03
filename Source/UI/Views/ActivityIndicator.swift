@@ -7,16 +7,18 @@
 //
 
 import Foundation
-import RxSwift
-import RxCocoa
+#if !RX_NO_MODULE
+	import RxSwift
+	import RxCocoa
+#endif
 
 private struct ActivityToken<E> : ObservableConvertibleType, Disposable {
-	private let _source: Observable<E>
-	private let _dispose: Cancelable
+	fileprivate let _source: Observable<E>
+	fileprivate let _dispose: Cancelable
 	
-	init(source: Observable<E>, disposeAction: () -> ()) {
+	init(source: Observable<E>, disposeAction: @escaping () -> ()) {
 		_source = source
-		_dispose = AnonymousDisposable(disposeAction)
+		_dispose = Disposables.create(with: disposeAction)
 	}
 	
 	func dispose() {
@@ -34,12 +36,13 @@ Enables monitoring of sequence computation.
 If there is at least one sequence computation in progress, `true` will be sent.
 When all activities complete `false` will be sent.
 */
-public class ActivityIndicator : DriverConvertibleType {
+open class ActivityIndicator : SharedSequenceConvertibleType {
 	public typealias E = Bool
+	public typealias SharingStrategy = DriverSharingStrategy
 	
-	private let _lock = NSRecursiveLock()
-	private let _variable = Variable(0)
-	private let _loading: Driver<Bool>
+	fileprivate let _lock = NSRecursiveLock()
+	fileprivate let _variable = Variable(0)
+	fileprivate let _loading: SharedSequence<SharingStrategy, Bool>
 	
 	public init() {
 		_loading = _variable.asDriver()
@@ -47,7 +50,7 @@ public class ActivityIndicator : DriverConvertibleType {
 			.distinctUntilChanged()
 	}
 	
-	private func trackActivityOfObservable<O: ObservableConvertibleType>(source: O) -> Observable<O.E> {
+	fileprivate func trackActivityOfObservable<O: ObservableConvertibleType>(_ source: O) -> Observable<O.E> {
 		return Observable.using({ () -> ActivityToken<O.E> in
 			self.increment()
 			return ActivityToken(source: source.asObservable(), disposeAction: self.decrement)
@@ -56,25 +59,25 @@ public class ActivityIndicator : DriverConvertibleType {
 		}
 	}
 	
-	private func increment() {
+	fileprivate func increment() {
 		_lock.lock()
 		_variable.value = _variable.value + 1
 		_lock.unlock()
 	}
 	
-	private func decrement() {
+	fileprivate func decrement() {
 		_lock.lock()
 		_variable.value = _variable.value - 1
 		_lock.unlock()
 	}
 	
-	public func asDriver() -> Driver<E> {
+	open func asSharedSequence() -> SharedSequence<SharingStrategy, E> {
 		return _loading
 	}
 }
 
-public extension ObservableConvertibleType {
-	public func trackActivity(activityIndicator: ActivityIndicator) -> Observable<E> {
+extension ObservableConvertibleType {
+	public func trackActivity(_ activityIndicator: ActivityIndicator) -> Observable<E> {
 		return activityIndicator.trackActivityOfObservable(self)
 	}
 }

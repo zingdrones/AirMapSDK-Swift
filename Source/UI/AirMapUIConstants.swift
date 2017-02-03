@@ -51,7 +51,7 @@ struct UIConstants {
 
 	static let defaultAltitudePresetMeters = altitudePresetsInMeters[3]
 	
-	static let durationPresets: [(title: String, value: NSTimeInterval)] = [
+	static let durationPresets: [(title: String, value: TimeInterval)] = [
 		("5 min", 5 * 60),
 		("10 min", 10 * 60),
 		("15 min", 15 * 60),

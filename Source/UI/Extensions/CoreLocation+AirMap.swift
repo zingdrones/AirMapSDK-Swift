@@ -10,7 +10,7 @@ import CoreLocation
 
 extension CLLocationCoordinate2D {
 
-	static func polygonCircleForCoordinates(coordinate: CLLocationCoordinate2D, withMeterRadius: Double) -> [CLLocationCoordinate2D] {
+	static func polygonCircleForCoordinates(_ coordinate: CLLocationCoordinate2D, withMeterRadius: Double) -> [CLLocationCoordinate2D] {
 		
 		let degreesBetweenPoints = 4.0
 		let numberOfPoints = floor(360.0 / degreesBetweenPoints)

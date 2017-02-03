@@ -1,23 +1,19 @@
 //
 //  AirMapPilotPermitOrganization.swift
-//  Pods
+//  AirMapSDK
 //
 //  Created by Rocky Demoff on 11/8/16.
-//
+//  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
 import ObjectMapper
 
-@objc public class AirMapPilotPermitOrganization: NSObject {
+open class AirMapPilotPermitOrganization {
 	
-	public var id = ""
-	public var name = ""
+	open var id = ""
+	open var name = ""
 	
-	internal override init() {
-		super.init()
-	}
-	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapPilotPermitOrganization: Mappable {

@@ -12,43 +12,39 @@
 	public typealias Image = UIImage
 #endif
 
-public class AirMapImage: NSObject {
+public class AirMapImage {
 	
-	private override init() {
-		super.init()
-	}
-	
-	public class func image(named name: String) -> Image? {
+	public static func image(named name: String) -> Image? {
 		
 		#if os(OSX)
 			// FIXME:
 			return nil
 		#else
-			return UIImage(named: name, inBundle: AirMapBundle.mainBundle(), compatibleWithTraitCollection: nil)
+			return UIImage(named: name, in: AirMapBundle.mainBundle, compatibleWith: nil)
 		#endif
 	}
 
-	public class func flightIcon(type: AirMapFlight.FlightType) -> Image? {
+	public static func flightIcon(_ type: AirMapFlight.FlightType) -> Image? {
 
 		switch type {
-		case .Past :
+		case .past :
 			return image(named: "past_flight_marker_icon")
-		case .Active:
+		case .active:
 			return image(named: "current_flight_marker_icon")
-		case .Future:
+		case .future:
 			return image(named: "future_flight_marker_icon")
 		}
 	}
 	
 	#if AIRMAP_TRAFFIC
-	public class func trafficIcon(type: AirMapTraffic.TrafficType, heading: Int) -> Image? {
+	public static func trafficIcon(type: AirMapTraffic.TrafficType, heading: Int) -> Image? {
 
 		let direction = heading == 0 ? "" : "_" + AirMapTrafficServiceUtils.directionFromBearing(Double(heading))
 
 		switch type {
-		case .SituationalAwareness:
+		case .situationalAwareness:
 			return AirMapImage.image(named: "sa_traffic_marker_icon" + direction)
-		case .Alert:
+		case .alert:
 			return AirMapImage.image(named: "traffic_marker_icon" + direction)
 		}
 	}

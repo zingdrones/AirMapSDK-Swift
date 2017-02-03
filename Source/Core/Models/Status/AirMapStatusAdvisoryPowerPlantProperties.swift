@@ -8,12 +8,12 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusAdvisoryPowerPlantProperties: NSObject {
+open class AirMapStatusAdvisoryPowerPlantProperties {
 
-	public var generatorType: String?
-	public var output: Int?
+	open var generatorType: String?
+	open var output: Int?
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusAdvisoryPowerPlantProperties: Mappable {

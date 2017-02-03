@@ -8,14 +8,18 @@
 
 import ObjectMapper
 
-@objc public class AirMapAircraft: NSObject {
+open class AirMapAircraft: Hashable, Equatable {
 	
-	public var aircraftId: String!
-	public var nickname: String!
-	public var model: AirMapAircraftModel!
+	open var aircraftId: String!
+	open var nickname: String!
+	open var model: AirMapAircraftModel!
 	
-	public required init?(_ map: Map) {}
-	public override init() { super.init() }
+	public required init?(map: Map) {}
+	public init() { }
+	
+	public var hashValue: Int {
+		return aircraftId.hashValue
+	}
 }
 
 extension AirMapAircraft: Mappable {
@@ -26,23 +30,15 @@ extension AirMapAircraft: Mappable {
 		model       <-  map["model"]
 	}
 	
-	/**
-	Returns key value parameters
-	
-	- returns: [String: AnyObject]
-	*/
-	
-	func params() -> [String: AnyObject] {
+	internal func params() -> [String: Any] {
 		
-		var params = [String: AnyObject]()
-		
-		params["model_id"] = model?.modelId
-		params["nickname"] = nickname
-		
-		return params
+		return [
+			"model_id": model?.modelId,
+			"nickname": nickname
+		]
 	}
 }
 
-func ==(lhs: AirMapAircraft, rhs: AirMapAircraft) -> Bool {
+public func ==(lhs: AirMapAircraft, rhs: AirMapAircraft) -> Bool {
 	return lhs.aircraftId == rhs.aircraftId
 }

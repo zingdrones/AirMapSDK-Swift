@@ -11,24 +11,24 @@ import RxCocoa
 
 class AirMapFlightDataDateCell: UITableViewCell {
 
-	private static let dateFormatter: NSDateFormatter = {
+	fileprivate static let dateFormatter: DateFormatter = {
 		$0.doesRelativeDateFormatting = true
-		$0.dateStyle = .MediumStyle
-		$0.timeStyle = .ShortStyle
+		$0.dateStyle = .medium
+		$0.timeStyle = .short
 		return $0
-	}(NSDateFormatter())
+	}(DateFormatter())
 	
 	@IBOutlet weak var date: UITextField!
 	
-	var model: FlightPlanDataTableRow<NSDate?>! {
+	var model: FlightPlanDataTableRow<Date?>! {
 		didSet { setupBindings() }
 	}
 	
-	private let disposeBag = DisposeBag()
-	private let datePicker = UIDatePicker()
-	private let doneButton = UIButton()
+	fileprivate let disposeBag = DisposeBag()
+	fileprivate let datePicker = UIDatePicker()
+	fileprivate let doneButton = UIButton()
 	
-	override func canBecomeFirstResponder() -> Bool {
+	override var canBecomeFirstResponder : Bool {
 		return true
 	}
 	
@@ -46,15 +46,15 @@ class AirMapFlightDataDateCell: UITableViewCell {
 		setupInputViews()
 	}
 	
-	private func setupInputViews() {
+	fileprivate func setupInputViews() {
 		
-		doneButton.setTitle("DONE", forState: .Normal)
-		doneButton.backgroundColor = .airMapGray()
-		datePicker.minimumDate = NSDate()
-		doneButton.addTarget(self, action: #selector(dismissPicker), forControlEvents: .TouchUpInside)
+		doneButton.setTitle("DONE", for: UIControlState())
+		doneButton.backgroundColor = .airMapDarkGray
+		datePicker.minimumDate = Date()
+		doneButton.addTarget(self, action: #selector(dismissPicker), for: .touchUpInside)
 	}
 	
-	@objc private func dismissPicker() {
+	@objc fileprivate func dismissPicker() {
 		endEditing(true)
 	}
 	
@@ -65,18 +65,18 @@ class AirMapFlightDataDateCell: UITableViewCell {
 		doneButton.frame.size.height = 44
 	}
 
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
 		model.value.asObservable()
 			.map { date in
-				return date == nil ? "Now" : AirMapFlightDataDateCell.dateFormatter.stringFromDate(date!)
+				return date == nil ? "Now" : AirMapFlightDataDateCell.dateFormatter.string(from: date!)
 			}
-			.bindTo(date.rx_text)
+			.bindTo(date.rx.text)
 			.addDisposableTo(disposeBag)
 		
-		datePicker.rx_date.asDriver()
+		datePicker.rx.date.asDriver()
 			.skip(1)
-			.map { .Some($0) }
+			.map { .some($0) }
 			.drive(model.value)
 			.addDisposableTo(disposeBag)
 	}

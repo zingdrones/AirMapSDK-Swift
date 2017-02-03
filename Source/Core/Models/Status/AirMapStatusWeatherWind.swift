@@ -8,13 +8,13 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusWeatherWind: NSObject {
+open class AirMapStatusWeatherWind {
 	
-	public var heading: Int = 0
-	public var speed: Int = 0
-	public var gusting: Int = 0
+	open var heading: Int = 0
+	open var speed: Int = 0
+	open var gusting: Int = 0
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusWeatherWind: Mappable {

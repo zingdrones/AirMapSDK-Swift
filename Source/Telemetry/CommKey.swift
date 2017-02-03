@@ -13,19 +13,23 @@ import CryptoSwift
 struct CommKey {
 	
 	var key: String!
-	var expiresAt = NSDate.distantPast()
+	var expiresAt = Date.distantPast
 	
-	func binaryKey() -> [UInt8] {
+	func bytes() -> [UInt8] {
 		
-		return NSData(base64EncodedString: key, options: .IgnoreUnknownCharacters)?.arrayOfBytes() ?? []
+		if let data = Data(base64Encoded: key) {
+			return Array(data)
+		} else {
+			return []
+		}
 	}
 	
 	func isValid() -> Bool {
 		
-		return expiresAt.lessThanDate(NSDate())
+		return expiresAt.lessThanDate(Date())
 	}
 	
-	init?(_ map: Map) {}
+	init?(map: Map) {}
 }
 
 extension CommKey: Mappable {
@@ -33,6 +37,6 @@ extension CommKey: Mappable {
 	mutating func mapping(map: Map) {
 		
 		key     <- map["key"]
-		expiresAt = NSDate().dateByAddingTimeInterval(300) // 5 minute
+		expiresAt = Date().addingTimeInterval(300) // 5 minute
 	}
 }

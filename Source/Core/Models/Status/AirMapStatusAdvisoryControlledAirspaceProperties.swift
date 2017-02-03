@@ -8,12 +8,12 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusAdvisoryControlledAirspaceProperties: NSObject {
+open class AirMapStatusAdvisoryControlledAirspaceProperties {
 
-	public var classAirspace: String = ""
-	public var airportIdentifier: NSDate?
+	open var classAirspace: String = ""
+	open var airportIdentifier: Date?
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusAdvisoryControlledAirspaceProperties: Mappable {

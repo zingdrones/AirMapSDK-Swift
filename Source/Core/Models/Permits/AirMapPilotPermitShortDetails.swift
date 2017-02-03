@@ -8,17 +8,13 @@
 
 import ObjectMapper
 
-@objc public class AirMapPilotPermitShortDetails: NSObject {
+open class AirMapPilotPermitShortDetails {
 
-	public var name = ""
-	public var permitDescription = ""
-	public var singleUse = false
-
-	internal override init() {
-		super.init()
-	}
+	open var name = ""
+	open var permitDescription = ""
+	open var singleUse = false
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapPilotPermitShortDetails: Mappable {

@@ -15,8 +15,8 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 	var screenName = "Permit Details"
 	
 	enum Mode {
-		case Select
-		case Review
+		case select
+		case review
 	}
 	
 	@IBOutlet weak var nextButton: UIButton!
@@ -25,28 +25,28 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 	var permit: Variable<AirMapAvailablePermit>!
     var pilotPermit =  Variable(nil as AirMapPilotPermit?)
 	var organization: AirMapOrganization!
-	var mode = Mode.Select
+	var mode = Mode.select
 	
 	var customProperties: [AirMapPilotPermitCustomProperty] {
 		return textFields.value.map { $0.property }
 	}
 	
-	private typealias PropertyTextField = (property: AirMapPilotPermitCustomProperty, textField: UITextField)
-	private let textFields = Variable([PropertyTextField]())
+	fileprivate typealias PropertyTextField = (property: AirMapPilotPermitCustomProperty, textField: UITextField)
+	fileprivate let textFields = Variable([PropertyTextField]())
 	
-	private typealias SectionData = String
-	private typealias RowData = (title: String?, subtitle: String?, customProperty: AirMapPilotPermitCustomProperty?, cellIdentifier: String)
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<SectionData,RowData>>()
+	fileprivate typealias SectionData = String
+	fileprivate typealias RowData = (title: String?, subtitle: String?, customProperty: AirMapPilotPermitCustomProperty?, cellIdentifier: String)
+	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<SectionData,RowData>>()
 	
-	private let disposeBag = DisposeBag()
+	fileprivate let disposeBag = DisposeBag()
 	
-	private let customFieldCell = "customFieldCell"
-	private let permitDetailsCell = "permitDetailCell"
-	private let permitDescriptionCell = "permitDescriptionCell"
+	fileprivate let customFieldCell = "customFieldCell"
+	fileprivate let permitDetailsCell = "permitDetailCell"
+	fileprivate let permitDescriptionCell = "permitDescriptionCell"
 	
-	private func fetchPermitData() {
+	fileprivate func fetchPermitData() {
 		
-		AirMap.rx_getAvailablePermit(permit.value.id)
+		AirMap.rx.getAvailablePermit(permit.value.id)
 			.unwrap()
 			.bindTo(permit)
 			.addDisposableTo(disposeBag)
@@ -62,20 +62,20 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 		fetchPermitData()
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "unwindFromNewPermitSelection" {
 			trackEvent(.tap, label: "Select Permit")
 		}
 	}
 	
-	override func canBecomeFirstResponder() -> Bool {
-		return mode == .Select
+	override var canBecomeFirstResponder : Bool {
+		return mode == .select
 	}
 	
 	override var inputAccessoryView: UIView? {
@@ -86,7 +86,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 		view.endEditing(true)
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
 		tableView.dataSource = nil
         
@@ -113,9 +113,9 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
                     let textField = UITextField()
                     textField.placeholder = property.label
                     
-                    if self.mode == .Review {
+                    if self.mode == .review {
                         textField.text = property.value
-                        textField.enabled = false
+                        textField.isEnabled = false
                     }
                     
                     return (property, textField)
@@ -130,11 +130,11 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 			.map { [unowned self] (permit, propertTextFields) in
 				self.sectionModels(permit, textFields: propertTextFields)
 			}
-			.bindTo(tableView.rx_itemsWithDataSource(dataSource))
+			.bindTo(tableView.rx.items(dataSource: dataSource))
 			.addDisposableTo(disposeBag)
 	}
 	
-	private func sectionModels(permit: AirMapAvailablePermit, textFields: [PropertyTextField]) -> [SectionModel<SectionData,RowData>] {
+	fileprivate func sectionModels(_ permit: AirMapAvailablePermit, textFields: [PropertyTextField]) -> [SectionModel<SectionData,RowData>] {
 		
 		var sections = [SectionModel<String,RowData>]()
 		
@@ -177,7 +177,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 		return sections
 	}
 	
-	private func textFieldsAreValid() -> Bool {
+	fileprivate func textFieldsAreValid() -> Bool {
 		
 		return textFields.value
             .filter { $0.property.required == true }
@@ -187,58 +187,58 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 		}
 	}
 	
-	private func setupTable() {
+	fileprivate func setupTable() {
 		
 		dataSource.configureCell = { [unowned self] dataSource, tableView, indexPath, rowData in
 			if let property = rowData.customProperty {
-				let cell = tableView.dequeueReusableCellWithIdentifier(rowData.cellIdentifier) as! AirMapPermitCustomPropertyCell
+				let cell = tableView.dequeueReusableCell(withIdentifier: rowData.cellIdentifier) as! AirMapPermitCustomPropertyCell
 				
 				let tf = self.textFields.value.map({$1})[indexPath.row]
 				
-				tf.autocorrectionType = .No
+				tf.autocorrectionType = .no
 				tf.text = property.value
 				
-				if self.mode == .Review {
-					tf.enabled = false
+				if self.mode == .review {
+					tf.isEnabled = false
 					tf.placeholder = nil
                     tf.text = property.value
 				} else {
-					tf.enabled = true
+					tf.isEnabled = true
                     tf.placeholder = property.required ? "* \(property.label)" : property.label
 				}
 	
-				if property.label.lowercaseString.rangeOfString("email") != nil {
-					tf.keyboardType = .EmailAddress
-					tf.autocapitalizationType = .None
+				if property.label.lowercased().range(of: "email") != nil {
+					tf.keyboardType = .emailAddress
+					tf.autocapitalizationType = .none
 				} else {
-					tf.keyboardType = .Default
-					tf.autocapitalizationType = .Words
+					tf.keyboardType = .default
+					tf.autocapitalizationType = .words
 				}
 				
 				tf.inputAccessoryView = self.doneButton
 				tf.frame = cell.textField.frame
 				
-				tf.rx_text.asObservable()
-					.doOnNext { property.value = $0 }
+				tf.rx.text
+					.do( onNext: { property.value = $0 ?? "" } )
 					.mapToVoid()
 					.map(unowned(self, AirMapAvailablePermitViewController.textFieldsAreValid))
-					.bindTo(self.nextButton.rx_enabled)
+					.bindTo(self.nextButton.rx.isEnabled)
 					.addDisposableTo(self.disposeBag)
 				
 				cell.addSubview(tf)
-				cell.textField.hidden = true
+				cell.textField.isHidden = true
 
 				return cell
 			} else {
-				let cell = tableView.dequeueReusableCellWithIdentifier(rowData.cellIdentifier)!
+				let cell = tableView.dequeueReusableCell(withIdentifier: rowData.cellIdentifier)!
 				cell.textLabel?.text = rowData.title
 				cell.detailTextLabel?.text = rowData.subtitle
 				return cell
 			}
 		}
 		
-		dataSource.titleForHeaderInSection = { [weak self] indexPath in
-			self?.dataSource.sectionAtIndex(indexPath.section).identity
+		dataSource.titleForHeaderInSection = { [weak self] dataSource, index in
+			dataSource.sectionModels[index].identity
 		}
 		
 		tableView.estimatedRowHeight = 50

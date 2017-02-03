@@ -8,17 +8,17 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusAdvisoryAirportProperties: NSObject {
+open class AirMapStatusAdvisoryAirportProperties {
 
-	public var identifier: String?
-	public var phone: String?
-	public var tower: Bool?
-	public var paved: Bool?
-	public var longestRunway: Int?
-	public var elevation: Int?
-	public var publicUse: Bool?
+	open var identifier: String?
+	open var phone: String?
+	open var tower: Bool?
+	open var paved: Bool?
+	open var longestRunway: Int?
+	open var elevation: Int?
+	open var publicUse: Bool?
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusAdvisoryAirportProperties: Mappable {

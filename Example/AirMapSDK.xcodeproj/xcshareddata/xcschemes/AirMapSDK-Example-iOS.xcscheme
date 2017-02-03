@@ -51,11 +51,6 @@
                BlueprintName = "AirMapSDKTests"
                ReferencedContainer = "container:AirMapSDK.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "StatusAdvisoriesTests">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

@@ -1,5 +1,5 @@
 //
-//  AirMapApiData.swift
+//  AirMapPolygon.swift
 //  AirMapSDK
 //
 //  Created by Rocky Demoff on 7/20/16.
@@ -8,20 +8,25 @@
 
 import ObjectMapper
 
-public class AirMapPolygon: AirMapGeometry, Mappable {
+internal class AirMapPolygon: AirMapGeometry, Mappable {
 
-	public var coordinates: [[CLLocationCoordinate2D]]!
-	
-	/**
-	Returns key value parameters
-	
-	- returns: [String: AnyObject]
-	*/
-	override public func params() -> [String: AnyObject] {
+	public var coordinates: [[Coordinate2D]]!
 		
-		var params = [String: AnyObject]()
+	public var type: AirMapFlight.FlightGeometryType {
+		return .polygon
+	}
+	
+	internal init(coordinates: [[Coordinate2D]]) {
+		self.coordinates = coordinates
+	}
+
+	required public init?(map: Map) {}
+
+	public func params() -> [String: Any] {
 		
-		if coordinates?.count >= 1 {
+		var params = [String: Any]()
+		
+		if (coordinates?.count ?? 0) >= 1 {
 			params["type"] = "Polygon"
 			params["coordinates"] = coordinates
 				.map { coordinates in
@@ -31,29 +36,21 @@ public class AirMapPolygon: AirMapGeometry, Mappable {
 					return coordinates.map { coordinate in
 						[coordinate.longitude, coordinate.latitude]
 					}
-				} as [[[Double]]]
+				} as [[[Double]]] as AnyObject?
 		}
 		
 		return params
 	}
 
-	public func mapping(map: Map) {
+	open func mapping(map: Map) {
 		var coords: [[[Double]]] = []
 		coords      <-  map["coordinates"]
 		coordinates = coords
 			.map { polygon in
 				polygon
 					.map { ($0[1], $0[0]) }
-					.map(CLLocationCoordinate2D.init)
+					.map(Coordinate2D.init)
 			}
 	}
 	
-	public override init() {
-		super.init()
-	}
-	
-	required public init?(_ map: Map) {
-		super.init()
-	}
-
 }

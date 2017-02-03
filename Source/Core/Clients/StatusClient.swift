@@ -6,13 +6,12 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import CoreLocation
 import RxSwift
 
 internal class StatusClient: HTTPClient {
 
 	init() {
-		super.init(Config.AirMapApi.statusUrl)
+		super.init(basePath: Config.AirMapApi.statusUrl)
 	}
 
 	/**
@@ -28,12 +27,12 @@ internal class StatusClient: HTTPClient {
 	- returns: AirMapStatus promise
 
 	*/
-	func checkCoordinate(coordinate: CLLocationCoordinate2D,
-	                     buffer: Double,
+	func checkCoordinate(coordinate: Coordinate2D,
+	                     buffer: Meters,
 	                     types: [AirMapAirspaceType]? = nil,
 	                     ignoredTypes: [AirMapAirspaceType]? = nil,
 	                     weather: Bool = false,
-	                     date: NSDate = NSDate()) -> Observable<AirMapStatus> {
+	                     date: Date = Date()) -> Observable<AirMapStatus> {
 
 
 		let sharedParams = AirMapStatusSharedRequestParams(coordinate: coordinate,
@@ -44,7 +43,7 @@ internal class StatusClient: HTTPClient {
 		var params = sharedParams.params()
 		params["buffer"] = buffer
 
-		return call(.GET, url: "/point", params: params)
+		return perform(method: .get, path: "/point", params: params)
 	}
 
 	/**
@@ -61,15 +60,15 @@ internal class StatusClient: HTTPClient {
 	- retuns: AirMapStatus promise
 
 	*/
-	func checkFlightPath(path: [CLLocationCoordinate2D],
-	                                  buffer: Int,
-	                                  takeOffPoint: CLLocationCoordinate2D,
-	                                  types: [AirMapAirspaceType]? = nil,
-	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
-	                                  weather: Bool = false,
-	                                  date: NSDate = NSDate()) -> Observable<AirMapStatus> {
-
-		let geo = geometricStringRepresentation(path)
+	func checkFlightPath(path: [Coordinate2D],
+	                     buffer: Meters,
+	                     takeOffPoint: Coordinate2D,
+	                     types: [AirMapAirspaceType]? = nil,
+	                     ignoredTypes: [AirMapAirspaceType]? = nil,
+	                     weather: Bool = false,
+	                     date: Date = Date()) -> Observable<AirMapStatus> {
+		
+		let geo = geometricStringRepresentation(for: path)
 
 		let sharedParams = AirMapStatusSharedRequestParams(coordinate: takeOffPoint,
 		                                                   types: types,
@@ -81,7 +80,7 @@ internal class StatusClient: HTTPClient {
 		params["geometry"] = "LINESTRING(\(geo))"
 		params["buffer"] = buffer
 
-		return call(.GET, url: "/path", params: params)
+		return perform(method: .get, path: "/path", params: params)
 	}
 
 	/**
@@ -97,14 +96,14 @@ internal class StatusClient: HTTPClient {
 	- returns: AirMapStatus promise
 
 	*/
-	func checkPolygon(geometry: [CLLocationCoordinate2D],
-	                  takeOffPoint: CLLocationCoordinate2D,
+	func checkPolygon(geometry: [Coordinate2D],
+	                  takeOffPoint: Coordinate2D,
 	                  types: [AirMapAirspaceType]? = nil,
 	                  ignoredTypes: [AirMapAirspaceType]? = nil,
 	                  weather: Bool = false,
-	                  date: NSDate = NSDate()) -> Observable<AirMapStatus> {
+	                  date: Date = Date()) -> Observable<AirMapStatus> {
 
-		let geo = geometricStringRepresentation(geometry + [geometry.first!])
+		let geo = geometricStringRepresentation(for: geometry + [geometry.first!])
 
 		let sharedParams = AirMapStatusSharedRequestParams(coordinate: takeOffPoint,
 		                                                   types: types,
@@ -115,18 +114,18 @@ internal class StatusClient: HTTPClient {
 		var params = sharedParams.params()
 		params["geometry"] = "POLYGON(\(geo))"
 
-		return call(.GET, url: "/polygon", params: params)
+		return perform(method: .get, path: "/polygon", params: params)
 	}
 
 	// MARK: - Private
 
 	/**
-	Transforms a collection of `CLLocationCoordinate2D` into a `String` representation
-	- parameter geometry: A collection of `CLLocationCoordinate2D` points
+	Transforms a collection of `Coordinate2D` into a `String` representation
+	- parameter geometry: A collection of `Coordinate2D` points
 	- returns: A `String` representation of the geometry provided
 	*/
-	private func geometricStringRepresentation(geometry: [CLLocationCoordinate2D]) -> String {
-		return geometry.map { "\($0.longitude) \($0.latitude)" }.joinWithSeparator(",")
+	fileprivate func geometricStringRepresentation(for geometry: [Coordinate2D]) -> String {
+		return geometry.map { "\($0.longitude) \($0.latitude)" }.joined(separator: ",")
 	}
 
 }

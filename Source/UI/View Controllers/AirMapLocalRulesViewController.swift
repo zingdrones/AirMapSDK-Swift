@@ -12,13 +12,13 @@ import RxCocoa
 import RxDataSources
 import SafariServices
 
-public class AirMapLocalRulesViewController: UITableViewController {
+open class AirMapLocalRulesViewController: UITableViewController {
 
-	public var localityRules: (name: String?, rules: [AirMapLocalRule])!
+	open var localityRules: (name: String?, rules: [AirMapLocalRule])!
 
-	private let disposeBag = DisposeBag()
+	fileprivate let disposeBag = DisposeBag()
 	
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
 		
 		assert(localityRules != nil)
@@ -26,43 +26,43 @@ public class AirMapLocalRulesViewController: UITableViewController {
 		setupBindings()
 	}
 
-	public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
 		if segue.identifier == "pushRuleDetails" {
 			let cell = (sender as! UITableViewCell)
-			let index = tableView.indexPathForCell(cell)!
-			let ruleVC = segue.destinationViewController as! AirMapLocalRuleViewController
-			ruleVC.rule = try! tableView.rx_modelAtIndexPath(index)
+			let index = tableView.indexPath(for: cell)!
+			let ruleVC = segue.destination as! AirMapLocalRuleViewController
+			ruleVC.rule = try! tableView.rx.model(at: index)
 		}
 	}
 
-	public override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+	open override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
 		
 		if identifier == "pushRuleDetails" {
 			if #available(iOS 9.0, *) {
 				let cell = sender as! UITableViewCell
-				let indexPath = tableView.indexPathForCell(cell)!
+				let indexPath = tableView.indexPath(for: cell)!
 				let rule = localityRules.rules[indexPath.row]
 				if let url = rule.url {
-					let safari = SFSafariViewController(URL: url)
+					let safari = SFSafariViewController(url: url as URL)
 					navigationController?.pushViewController(safari, animated: true)
 					safari.navigationItem.title = rule.jurisdictionName
 					return false
 				} else {
-					return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+					return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
 				}
 			}
 		}
-		return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+		return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
 		tableView.dataSource = nil
 		tableView.delegate = nil
 		
 		Driver.of(localityRules.rules)
-			.drive(tableView.rx_itemsWithCellIdentifier("RuleCell", cellType: AirMapRuleCell.self.self)) {
+			.drive(tableView.rx.items(cellIdentifier: "RuleCell", cellType: AirMapRuleCell.self.self)) {
 				(index, rule, cell) in
 				cell.jurisdictionName.text = rule.jurisdictionName
 				cell.ruleText.text = rule.summary ?? rule.text

@@ -15,7 +15,7 @@ class AirMapAircraftModelViewController: UITableViewController, AnalyticsTrackab
 	
 	var manufacturer: AirMapAircraftManufacturer!
 	
-	private let disposeBag = DisposeBag()
+	fileprivate let disposeBag = DisposeBag()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -23,28 +23,28 @@ class AirMapAircraftModelViewController: UITableViewController, AnalyticsTrackab
 		tableView.dataSource = nil
 		
 		AirMap
-			.rx_listModels()
+			.rx.listModels()
 			.map { [unowned self] models in
-				models.filter { $0.manufacturer.id == self.manufacturer.id }.sort {$0.name < $1.name }
+				models.filter { $0.manufacturer.id == self.manufacturer.id }.sorted {$0.name < $1.name }
 			}
-			.bindTo(tableView.rx_itemsWithCellIdentifier("Cell")) { index, model, cell in
+			.bindTo(tableView.rx.items(cellIdentifier: "Cell")) { index, model, cell in
 				cell.textLabel?.text = model.name
 			}
 			.addDisposableTo(disposeBag)
 		
-		tableView.rx_itemSelected
-			.map(tableView.rx_modelAtIndexPath)
-			.subscribeNext(unowned(self, AirMapAircraftModelViewController.notifyDelegateOfSelection))
+		tableView.rx.itemSelected
+			.map(tableView.rx.model)
+			.subscribeNext(weak: self, AirMapAircraftModelViewController.notifyDelegateOfSelection)
 			.addDisposableTo(disposeBag)
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
 	}
 	
-	private func notifyDelegateOfSelection(model: AirMapAircraftModel) {
+	fileprivate func notifyDelegateOfSelection(_ model: AirMapAircraftModel) {
 		
 		trackEvent(.tap, label: "Select Model")
 		let nav = navigationController as! AirMapAircraftModelNavController

@@ -11,7 +11,7 @@ public protocol AirMapPhoneVerificationDelegate: class {
 	func phoneVerificationDidVerifyPhoneNumber()
 }
 
-public class AirMapPhoneVerificationNavController: UINavigationController {
+open class AirMapPhoneVerificationNavController: UINavigationController {
 	
 	weak var phoneVerificationDelegate: AirMapPhoneVerificationDelegate?
 }

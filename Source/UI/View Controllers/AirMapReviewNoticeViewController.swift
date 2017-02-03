@@ -17,22 +17,22 @@ class AirMapReviewNoticeViewController: UIViewController {
 	
 	@IBOutlet var tableView: UITableView!
 	
-	private typealias RowData = (advisory: AirMapStatusAdvisory, notice: AirMapStatusRequirementNotice)
+	fileprivate typealias RowData = (advisory: AirMapStatusAdvisory, notice: AirMapStatusRequirementNotice)
 	
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Bool,RowData>>()
-	private let disposeBag = DisposeBag()
+	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Bool,RowData>>()
+	fileprivate let disposeBag = DisposeBag()
 	
-	private lazy var advisoryNotices: [RowData] = {
+	fileprivate lazy var advisoryNotices: [RowData] = {
         
         let advisories:[AirMapStatusAdvisory] = self.status?.advisories
             .filterDuplicates { (left, right) in
                 let notNil = left.organizationId != nil && right.organizationId != nil
-                let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport
+                let notAirport = left.type != AirMapAirspaceType.airport && right.type != AirMapAirspaceType.airport
                 return notNil && notAirport && left.organizationId == right.organizationId
             } ?? []
         
 		return advisories
-			.sort { $0.0.name < $0.1.name }
+			.sorted { $0.0.name < $0.1.name }
 			.map { ($0, $0.requirements?.notice) }
 			.filter { $0.1 != nil }
 			.map { ($0.0, $0.1!) } ?? []
@@ -49,7 +49,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, rowData in
             let cellIdentifier = rowData.notice.digital ? "digitalCell" : "noDigitalCell"
-		    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! AirMapFlightNoticeCell
+		    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! AirMapFlightNoticeCell
             cell.advisory = rowData.advisory
             
 			return cell
@@ -61,7 +61,7 @@ class AirMapReviewNoticeViewController: UIViewController {
                 return "There are no notices for this flight."
             }
             
-			let digitalNotice = sections.sectionModels[index].model.boolValue
+			let digitalNotice = sections.sectionModels[index].model
 			return digitalNotice ? "Accepts Digital Notice" : "The following authorities in this area do not accept digital notice"
 		}
         
@@ -75,11 +75,11 @@ class AirMapReviewNoticeViewController: UIViewController {
         
 		Observable
 			.just(sections)
-			.bindTo(tableView.rx_itemsWithDataSource(dataSource))
+			.bindTo(tableView.rx.items(dataSource: dataSource))
 			.addDisposableTo(disposeBag)
 	}
 	
-	func phoneStringFromE164(number: String) -> String? {		
+	func phoneStringFromE164(_ number: String) -> String? {		
 		do {
 			let util = AirMapFlightNoticeCell.phoneUtil
 			let phoneNumberObject = try util.parse(number, defaultRegion: nil)

@@ -19,34 +19,34 @@ class AirMapPilotPermitCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	@IBOutlet weak var walletIcon: UIImageView!
 	@IBOutlet weak var walletIconSpacing: NSLayoutConstraint!
 	
-	private var permitData: ObjectType!
+	fileprivate var permitData: ObjectType!
 	
-	private static let dateFormatter: NSDateFormatter = {
-		let df = NSDateFormatter()
-		df.dateStyle = .MediumStyle
-		df.timeStyle = .NoStyle
+	fileprivate static let dateFormatter: DateFormatter = {
+		let df = DateFormatter()
+		df.dateStyle = .medium
+		df.timeStyle = .none
 		return df
 	}()
 	
-	func setObject(object: ObjectType?) {
+	func setObject(_ object: ObjectType?) {
 		
 		permitData = object
 		configure()
 	}
 	
-	private func configure() {
+	fileprivate func configure() {
 
 		permitTitle.text = permitData.availablePermit.name
 		permitDescription.text = permitData.availablePermit.info
 		
 		if let status = permitData.pilotPermit?.status {
-			permitStatus?.text = status.rawValue.capitalizedString
+			permitStatus?.text = status.rawValue.capitalized
 		} else {
-			permitStatus?.text = AirMapPilotPermit.PermitStatus.Pending.rawValue.capitalizedString
+			permitStatus?.text = AirMapPilotPermit.PermitStatus.pending.rawValue.capitalized
 		}
 		
 		if let expirationDate = permitData.pilotPermit?.expiresAt {
-			permitExpiration?.text = "Expires " + AirMapPilotPermitCell.dateFormatter.stringFromDate(expirationDate)
+			permitExpiration?.text = "Expires " + AirMapPilotPermitCell.dateFormatter.string(from: expirationDate as Date)
 		} else {
 			permitExpiration?.text = nil
 		}

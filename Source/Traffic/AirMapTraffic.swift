@@ -9,43 +9,43 @@
 import ObjectMapper
 import CoreLocation
 
-@objc public class AirMapTraffic: NSObject {
+@objc open class AirMapTraffic: NSObject {
 
 	public enum TrafficType: Int {
-		case Alert
-		case SituationalAwareness
+		case alert
+		case situationalAwareness
 	}
 
-	public var id: String!
-	public var direction: Double = 0
-	public var altitude: Double = 0
-	public var groundSpeedKt: Int = 0
-	public var trueHeading: Int = 0
-	public var timestamp: NSDate = NSDate()
-	public var recordedTime: NSDate = NSDate()
-	public var properties = AirMapTrafficProperties()
-	public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
-	public var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
-	public var createdAt: NSDate = NSDate()
-	public var trafficType = TrafficType.SituationalAwareness {
+	open var id: String!
+	open var direction: Double = 0
+	open var altitude: Double = 0
+	open var groundSpeedKt: Double = 0
+	open var trueHeading: Int = 0
+	open var timestamp: Date = Date()
+	open var recordedTime: Date = Date()
+	open var properties = AirMapTrafficProperties()
+	open var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+	open var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+	open var createdAt: Date = Date()
+	open var trafficType = TrafficType.situationalAwareness {
 		willSet {
-			trafficTypeDidChangeToAlert =  trafficType == .SituationalAwareness && newValue == .Alert
+			trafficTypeDidChangeToAlert =  trafficType == .situationalAwareness && newValue == .alert
 		}
 	}
-	public var trafficTypeDidChangeToAlert = false
+	open var trafficTypeDidChangeToAlert = false
 
 	public override init() {
 		super.init()
 	}
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 
-	public func isExpired() -> Bool {
+	open func isExpired() -> Bool {
 		let expirationInterval = Config.AirMapTraffic.expirationInterval
-		return createdAt.dateByAddingTimeInterval(expirationInterval).lessThanDate(NSDate())
+		return createdAt.addingTimeInterval(expirationInterval).lessThanDate(Date())
 	}
 
-	public override func isEqual(object: AnyObject?) -> Bool {
+	open override func isEqual(_ object: Any?) -> Bool {
 		if let object = object as? AirMapTraffic {
 			return object.properties.aircraftId == self.properties.aircraftId
 		} else {
@@ -63,7 +63,7 @@ extension AirMapTraffic: Mappable {
 		id            <-  map["id"]
 		direction     <- (map["direction"], StringToDoubleTransform())
 		altitude      <- (map["altitude"], StringToDoubleTransform())
-		groundSpeedKt <- (map["ground_speed_kts"], StringToIntTransform())
+		groundSpeedKt <- (map["ground_speed_kts"], StringToDoubleTransform())
 		trueHeading   <- (map["true_heading"], StringToIntTransform())
 		properties    <-  map["properties"]
 		timestamp     <- (map["timestamp"], dateTransform)
@@ -74,7 +74,7 @@ extension AirMapTraffic: Mappable {
 		latitude      <-  map["latitude"]
 		longitude     <-  map["longitude"]
 
-		if let lat = Double(latitude), lng = Double(longitude) {
+		if let lat = Double(latitude), let lng = Double(longitude) {
 			initialCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
 			coordinate = initialCoordinate
 		}
@@ -83,16 +83,16 @@ extension AirMapTraffic: Mappable {
 
 extension AirMapTraffic {
 
-	public override var description: String {
+	open override var description: String {
 		
-		let usesMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem)!.boolValue!
+		let usesMetric = Locale.current.usesMetricSystem
 		let alt = usesMetric ? "\(Int(altitude)) m" : "\(Int(AirMapTrafficServiceUtils.metersToFeet(altitude))) ft"
 
 		if let flightLocation = AirMap.trafficService.currentFlightLocation() {
 
 			let trafficLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
 			let direction = flightLocation.initialDirectionToLocation(trafficLocation)
-			let distance = trafficLocation.distanceFromLocation(flightLocation)
+			let distance = trafficLocation.distance(from: flightLocation)
 			let milesOrMeters = usesMetric ?  "\(distance) m" : "\(AirMapTrafficServiceUtils.metersToMiles(distance)) mi"
 			let seconds = AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt)
 			let (_, m, s) = seconds.secondsToHoursMinutesSeconds()
@@ -101,6 +101,6 @@ extension AirMapTraffic {
 			return "Traffic \(trafficTitle)\nAltitude \(alt)\n\(milesOrMeters) \(direction) \(m) min \(s) sec"
 		}
 
-		return "Traffic \(properties.aircraftId)\nAltitude \(alt)\n\(Int(groundSpeedKt))kts \(String.coordinateString(coordinate.latitude, longitude:coordinate.longitude) )"
+		return "Traffic \(properties.aircraftId)\nAltitude \(alt)\n\(Int(groundSpeedKt))kts \(String.coordinateString(coordinate.latitude, longitude: coordinate.longitude) )"
 	}
 }

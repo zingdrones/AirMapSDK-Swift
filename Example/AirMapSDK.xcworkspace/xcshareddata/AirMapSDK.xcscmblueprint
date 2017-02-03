@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F3370376BCB0DCAB225524966337BBF64DF6DF23",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "60F218A7E1D33C9A3A7EE02A547B5A904E8B140E" : 9223372036854775807,
+    "F3370376BCB0DCAB225524966337BBF64DF6DF23" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B36D508A-5A43-49C8-8029-ECCF3AA16E2F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "60F218A7E1D33C9A3A7EE02A547B5A904E8B140E" : "SwiftTurf\/",
+    "F3370376BCB0DCAB225524966337BBF64DF6DF23" : "AirMapSDK-Swift\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AirMapSDK",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Example\/AirMapSDK.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/airmap\/SwiftTurf.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "60F218A7E1D33C9A3A7EE02A547B5A904E8B140E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/airmap\/AirMapSDK-Swift",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F3370376BCB0DCAB225524966337BBF64DF6DF23"
+    }
+  ]
+}

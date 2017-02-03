@@ -8,30 +8,22 @@
 
 import ObjectMapper
 
-public class AirMapAirspace: NSObject {
+final class AirMapAirspace: Equatable, Hashable {
 	
-	public var id: String!
-	public var name: String!
-	public var type: AirMapAirspaceType!
-	public var country: String!
-	public var state: String!
-	public var city: String!
-	public var geometry: AirMapGeometry!
-	public var propertyBoundary: AirMapGeometry!
-	public var rules = [AirMapAirspaceRule]()
+	public fileprivate(set) var id: String!
+	public fileprivate(set) var name: String!
+	public fileprivate(set) var type: AirMapAirspaceType!
+	public fileprivate(set) var country: String!
+	public fileprivate(set) var state: String!
+	public fileprivate(set) var city: String!
+	public fileprivate(set) var geometry: AirMapGeometry!
+	public fileprivate(set) var propertyBoundary: AirMapGeometry!
+	public fileprivate(set) var rules = [AirMapAirspaceRule]()
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 	
-	override public var hashValue:Int {
+	public var hashValue: Int {
 		return id.hashValue
-	}
-	
-	public override func isEqual(object: AnyObject?) -> Bool {
-		if let object = object as? AirMapAirspace {
-			return object.id == self.id
-		} else {
-			return false
-		}
 	}
 }
 
@@ -46,16 +38,10 @@ extension AirMapAirspace: Mappable {
 		geometry         <- (map["geometry"], GeoJSONToAirMapGeometryTransform())
 		rules            <-  map["rules"]
 		propertyBoundary <- (map["related_geometry.property_boundary.geometry"], GeoJSONToAirMapGeometryTransform())
-		
-		var type: String?
-		type        <- map["type"]
-		if let type = type {
-			self.type = AirMapAirspaceType.airspaceTypeFromName(type)
-		}
+		type             <-  map["type"]
 	}
-	
 }
 
-public func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
+internal func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
 	return lhs.id == rhs.id
 }

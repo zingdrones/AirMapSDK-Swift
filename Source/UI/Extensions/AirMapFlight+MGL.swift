@@ -3,7 +3,7 @@
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 8/5/16.
-//
+//  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
 import Mapbox
@@ -13,23 +13,26 @@ extension AirMapFlight: MGLAnnotation {
 		
 	public var title: String? {
 		guard let startTime = startTime else { return nil }
-		let dateFormatter = NSDateFormatter()
+		let dateFormatter = DateFormatter()
 		dateFormatter.doesRelativeDateFormatting = true
-		dateFormatter.dateStyle = .MediumStyle
-		dateFormatter.timeStyle = .LongStyle
-		return dateFormatter.stringFromDate(startTime)
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .long
+		return dateFormatter.string(from: startTime as Date)
 	}
 	
 	public func annotationRepresentations() -> [MGLAnnotation]? {
 		
-		guard let buffer = self.buffer else { return nil }
+		guard let geometry = self.geometry else { return nil }
 		
-		switch geometryType() {
+		switch geometry.type {
 
-		case .Point:
+		case .point:
+			
+			guard let buffer = self.buffer
+				else { return nil }
 			
 			guard let centerCoordinate = (geometry as? AirMapPoint)?.coordinate
-			else { return nil }
+				else { return nil }
 			
 			let point = Point(geometry: centerCoordinate)
 			let bufferedPoint = SwiftTurf.buffer(point, distance: buffer, units: .Meters)
@@ -39,11 +42,13 @@ extension AirMapFlight: MGLAnnotation {
 
 			return [circlePolygon, circleLine]
 			
-		case .Path:
+		case .path:
 
-			guard var coordinates = (geometry as? AirMapPath)?.coordinates
-			where coordinates.count >= 2
-			else { return nil }
+			guard let buffer = self.buffer
+				else { return nil }
+			
+			guard var coordinates = (geometry as? AirMapPath)?.coordinates, coordinates.count >= 2
+				else { return nil }
 
 			let lineString = LineString(geometry: coordinates)
 
@@ -63,13 +68,12 @@ extension AirMapFlight: MGLAnnotation {
 
 			return [bufferPolygon, pathPolyline]
 
-		case .Polygon:
+		case .polygon:
 			
 			guard
-				var polygons = (geometry as? AirMapPolygon)?.coordinates
-			where
+				var polygons = (geometry as? AirMapPolygon)?.coordinates,
 				polygons.count > 0 &&
-				polygons.first?.count >= 3
+				polygons.first!.count >= 3
 			else {
 				return nil
 			}

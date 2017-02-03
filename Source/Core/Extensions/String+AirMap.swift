@@ -9,10 +9,10 @@
 extension String {
 
 	var urlEncoded: String {
-		return stringByAddingPercentEncodingWithAllowedCharacters(.URLPathAllowedCharacterSet()) ?? self
+		return addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? self
 	}
 
-	static func coordinateString(latitude: Double, longitude: Double) -> String {
+	static func coordinateString(_ latitude: Double, longitude: Double) -> String {
 
 		var latSeconds = Int(latitude * 3600)
 		let latDegrees = latSeconds / 3600

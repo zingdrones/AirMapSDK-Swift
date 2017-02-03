@@ -21,14 +21,14 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
     @IBOutlet weak var starts: UILabel!
     @IBOutlet weak var ends: UILabel!
     
-	func setObject(object: ObjectType?) {
+	func setObject(_ object: ObjectType?) {
 		advisory = object
 		configure()
 	}
 
-	private var advisory: AirMapStatusAdvisory!
+	fileprivate var advisory: AirMapStatusAdvisory!
 	
-	private func configure() {
+	fileprivate func configure() {
 		
 		organizationName?.text = advisory.organization?.name
 		advisoryName.text = advisory.name
@@ -36,7 +36,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         starts?.text = ""
         ends?.text = ""
         phone?.text = UIConstants.Instructions.noPhoneNumberProvided
-		phone?.userInteractionEnabled = false
+		phone?.isUserInteractionEnabled = false
         colorView.backgroundColor = advisory.color.colorRepresentation
         
         // TFRS
@@ -69,9 +69,9 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         // Airport
         else if let properties = advisory.airportProperties {
 			
-			if let phoneTxt = properties.phone where !phoneTxt.isEmpty {
+			if let phoneTxt = properties.phone, !phoneTxt.isEmpty {
 				phone?.text = phoneStringFromE164(phoneTxt)
-				phone?.userInteractionEnabled = true
+				phone?.isUserInteractionEnabled = true
             }
         }
         
@@ -80,7 +80,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             
             if let phoneTxt = properties.phoneNumber {
                 phone?.text = phoneStringFromE164(phoneTxt)
-				phone?.userInteractionEnabled = true
+				phone?.isUserInteractionEnabled = true
             }
             
             if properties.digital  {
@@ -91,7 +91,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         
 	}
     
-   private func phoneStringFromE164(number: String) -> String? {
+   fileprivate func phoneStringFromE164(_ number: String) -> String? {
         do {
             let util = AirMapFlightNoticeCell.phoneUtil
             let phoneNumberObject = try util.parse(number, defaultRegion: nil)

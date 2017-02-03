@@ -8,12 +8,12 @@
 
 import ObjectMapper
 
-public class AirMapAirspaceRule: NSObject {
+public class AirMapAirspaceRule {
 
 	public var name: String!
 	public var geometry: AirMapGeometry!
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapAirspaceRule: Mappable {

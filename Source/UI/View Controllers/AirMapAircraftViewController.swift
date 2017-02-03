@@ -15,9 +15,9 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 	
 	let selectedAircraft = Variable(nil as AirMapAircraft?)
 	
-	private let activityIndicator = ActivityIndicator()
-	private let aircraft = Variable([AirMapAircraft]())
-	private let disposeBag = DisposeBag()
+	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let aircraft = Variable([AirMapAircraft]())
+	fileprivate let disposeBag = DisposeBag()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -25,63 +25,64 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 		setupBindings()
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
 		
 		AirMap
-			.rx_listAircraft()
+			.rx.listAircraft()
 			.trackActivity(activityIndicator)
 			.bindTo(aircraft)
 			.addDisposableTo(disposeBag)
 	}
 	
 	@IBAction func dismiss() {
-		dismissViewControllerAnimated(true, completion: nil)
+		self.dismiss(animated: true, completion: nil)
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 	
 		tableView.dataSource = nil
 		tableView.delegate = nil
 		
 		aircraft
 			.asObservable()
-			.bindTo(tableView.rx_itemsWithCellIdentifier("aircraftCell")) {
+			.bindTo(tableView.rx.items(cellIdentifier: "aircraftCell")) {
 				(index, aircraft, cell) in
 				cell.textLabel?.text = aircraft.nickname
 				cell.detailTextLabel?.text = [aircraft.model.manufacturer.name, aircraft.model.name]
-					.flatMap {$0}.joinWithSeparator(" ")
+					.flatMap {$0}.joined(separator: " ")
 			}
 			.addDisposableTo(disposeBag)
 		
-		tableView
-			.rx_modelSelected(AirMapAircraft)
-			.doOnNext { [weak self] _ in
-				self?.dismissViewControllerAnimated(true, completion: nil)
-			}
+		tableView.rx.modelSelected(AirMapAircraft)
+			.do(onNext: { [weak self] _ in
+				self?.dismiss(animated: true, completion: nil)
+			})
 			.asOptional()
 			.bindTo(selectedAircraft)
 			.addDisposableTo(disposeBag)
 		
 		tableView
-			.rx_itemDeleted
-			.doOnNext { [unowned self] _ in
-				self.trackEvent(.swipe, label: "Delete")
-			}
-			.map(tableView.rx_modelAtIndexPath)
+			.rx.itemDeleted
+			.do(
+				onNext: { [unowned self] _ in
+					self.trackEvent(.swipe, label: "Delete")
+			})
+			.map(tableView.rx.model)
 			.flatMap { aircraft in
-				AirMap.rx_deleteAircraft(aircraft)
-					.doOnError { [unowned self] error in
-						self.trackEvent(.delete, label: "Error", value: (error as NSError).code)
-					}
-					.doOnCompleted { [unowned self] _ in
-						self.trackEvent(.delete, label: "Success")
-					}
+				AirMap.rx.deleteAircraft(aircraft)
+					.do(
+						onError: { [unowned self] error in
+							self.trackEvent(.delete, label: "Error", value: (error as NSError).code as NSNumber?)
+						},
+						onCompleted: { [unowned self] _ in
+							self.trackEvent(.delete, label: "Success")
+					})
 			}
-			.flatMap(AirMap.rx_listAircraft)
-			.doOnError { AirMap.logger.error($0) }
+			.flatMap(AirMap.rx.listAircraft)
+			.do(onError: { AirMap.logger.error($0) })
 			.ignoreErrors()
 			.bindTo(aircraft)
 			.addDisposableTo(disposeBag)
@@ -93,22 +94,22 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 			.addDisposableTo(disposeBag)
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard let identifier = segue.identifier else { return }
 		
 		switch identifier {
 			
 		case "createAircraft":
 			trackEvent(.tap, label: "New Aircraft Button")
-			let nav = segue.destinationViewController as! AirMapAircraftNavController
+			let nav = segue.destination as! AirMapAircraftNavController
 			nav.aircraftDelegate = self
 			
 		case "editAircraft":
 			trackEvent(.tap, label: "Edit Aircraft Button")
 			let cell = sender as! UITableViewCell
-			let indexPath = tableView.indexPathForCell(cell)!
-			let aircraft = try! tableView.rx_modelAtIndexPath(indexPath) as AirMapAircraft
-			let nav = segue.destinationViewController as! AirMapAircraftNavController
+			let indexPath = tableView.indexPath(for: cell)!
+			let aircraft = try! tableView.rx.model(at: indexPath) as AirMapAircraft
+			let nav = segue.destination as! AirMapAircraftNavController
 			nav.aircraftDelegate = self
 			let aircraftVC = nav.viewControllers.last as! AirMapCreateAircraftViewController
 			aircraftVC.aircraft = aircraft
@@ -118,13 +119,13 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 		}
 	}
 	
-	@IBAction func unwindToAircraft(segue: UIStoryboardSegue) { /* unwind hook; keep */ }
+	@IBAction func unwindToAircraft(_ segue: UIStoryboardSegue) { /* unwind hook; keep */ }
 }
 
 extension AirMapAircraftViewController: AirMapAircraftNavControllerDelegate {
 	
-	func aircraftNavController(navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
+	func aircraftNavController(_ navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
 		selectedAircraft.value = aircraft
-		navigationController?.dismissViewControllerAnimated(true, completion: nil)
+		navigationController?.dismiss(animated: true, completion: nil)
 	}
 }

@@ -8,12 +8,12 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusAdvisorySpecialUseProperties: NSObject {
+open class AirMapStatusAdvisorySpecialUseProperties {
 
-	public var currentlyActive: Bool?
-	public var desc: String?
+	open var currentlyActive: Bool?
+	open var desc: String?
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusAdvisorySpecialUseProperties: Mappable {

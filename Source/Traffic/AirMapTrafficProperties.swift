@@ -9,16 +9,16 @@
 import ObjectMapper
 import CoreLocation
 
-@objc public class AirMapTrafficProperties: NSObject {
+@objc open class AirMapTrafficProperties: NSObject {
 	
-	public var aircraftId: String!
-	public var aircraftType: String!
+	open var aircraftId: String!
+	open var aircraftType: String!
 	
 	public override init() {
 		super.init()
 	}
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapTrafficProperties: Mappable {

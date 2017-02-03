@@ -10,15 +10,15 @@ import RxSwift
 
 public protocol AirMapFlightPlanDelegate: class {
 
-	func airMapFlightPlanDidCreate(flight: AirMapFlight)
-	func airMapFlightPlanDidEncounter(error: NSError)
+	func airMapFlightPlanDidCreate(_ flight: AirMapFlight)
+	func airMapFlightPlanDidEncounter(_ error: Error)
 }
 
-public class AirMapFlightPlanNavigationController: UINavigationController {
+open class AirMapFlightPlanNavigationController: UINavigationController {
 
 	weak var flightPlanDelegate: AirMapFlightPlanDelegate!
 	
-	var mapTheme: AirMapMapTheme = .Standard
+	var mapTheme: AirMapMapTheme = .standard
 	var mapLayers: [AirMapLayerType] = []
 
 	let flight = Variable(AirMapFlight())
@@ -29,17 +29,17 @@ public class AirMapFlightPlanNavigationController: UINavigationController {
 	let existingPermits = Variable([AirMapPilotPermit]())
 	let selectedPermits = Variable([(organization: AirMapOrganization, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]())
 	
-	public override func viewDidLoad() {
+	open override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+		navigationBar.setBackgroundImage(UIImage(), for: .default)
 		navigationBar.shadowImage = UIImage()
 	}
 
-	public override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return .LightContent
+	open override var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
 	}
 
-	@IBAction func unwindToFlightPlan(segue: UIStoryboardSegue) { /* unwind segue hook; keep */ }
+	@IBAction func unwindToFlightPlan(_ segue: UIStoryboardSegue) { /* unwind segue hook; keep */ }
 
 }

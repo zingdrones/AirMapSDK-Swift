@@ -6,43 +6,34 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import CoreLocation
+import Foundation
 import ObjectMapper
 
-@objc public class AirMapFlight: NSObject {
+// FIXME: Remove NSObject dependency
+//open class AirMapFlight: Hashable, Equatable {
+open class AirMapFlight: NSObject {
 
-	public enum FlightGeometryType {
-		case Point
-		case Path
-		case Polygon
-
-		public var value: String {
-			switch self {
-			case .Point:
-				return "point"
-			case .Path:
-				return "path"
-			case .Polygon:
-				return "polygon"
-			}
-		}
+	public enum FlightGeometryType: String {
+		case point
+		case path
+		case polygon
 	}
 
-	public enum FlightType {
-		case Past
-		case Active
-		case Future
+	public enum FlightType: String {
+		case past
+		case active
+		case future
 	}
 
-	public var flightId: String!
-	public var createdAt: NSDate = NSDate()
-	public var startTime: NSDate?
-	public var endTime: NSDate? {
-		return startTime?.dateByAddingTimeInterval(duration)
+	public var flightId: String?
+	public var createdAt: Date = Date()
+	public var startTime: Date?
+	public var endTime: Date? {
+		return startTime?.addingTimeInterval(duration)
 	}
-	public var duration: NSTimeInterval = 60*60 // 1 hour
-	public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
-	public var maxAltitude: Double?
+	public var duration: TimeInterval = 60*60 // 1 hour
+	public var coordinate: Coordinate2D = Coordinate2D()
+	public var maxAltitude: Meters?
 	public var city: String!
 	public var state: String!
 	public var country: String!
@@ -57,32 +48,29 @@ import ObjectMapper
 	}
 	public var aircraftId: String!
 	public var statuses = [AirMapFlightStatus]()
-	public var buffer: Double?
+	public var buffer: Meters?
 	public var isPublic: Bool = false
 	public var geometry: AirMapGeometry?
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 
-	public override init() {
-		super.init()
-	}
-	
 	public func flightType() -> FlightType {
-		guard let startTime = startTime, endTime = endTime else { return .Future }
+		guard let startTime = startTime, let endTime = endTime else { return .future }
 		switch (startTime, endTime) {
 		case let (start, end) where start.isInPast() && end.isInFuture():
-			return .Active
+			return .active
 		case let (start, end) where start.isInFuture() && end.isInFuture():
-			return .Future
+			return .future
 		default:
-			return .Past
+			return .past
 		}
 	}
 	
-	public override var hashValue: Int {
-		return flightId.hashValue
+	override open var hashValue: Int {
+		return flightId?.hashValue ?? super.hashValue
 	}
-
+	
+	public override init() {}
 }
 
 extension AirMapFlight: Mappable {
@@ -95,7 +83,7 @@ extension AirMapFlight: Mappable {
 		lat <- map["latitude"]
 		lng <- map["longitude"]
 
-		if let lat = lat, lng = lng {
+		if let lat = lat, let lng = lng {
 			coordinate.latitude = lat
 			coordinate.longitude = lng
 		}
@@ -120,24 +108,17 @@ extension AirMapFlight: Mappable {
 		buffer      <-  map["buffer"]
 		geometry    <- (map["geometry"], GeoJSONToAirMapGeometryTransform())
 		
-		var endTime: NSDate?
+		var endTime: Date?
 		endTime     <- (map["end_time"], dateTransform)
 		
-		if let startTime = startTime, endTime = endTime {
-			duration = endTime.timeIntervalSinceDate(startTime)
+		if let startTime = startTime, let endTime = endTime {
+			duration = endTime.timeIntervalSince(startTime)
 		}
 	}
 
-	/**
-	
-	Returns key value parameters
+	func params() -> [String: Any] {
 
-	- returns: [String: AnyObject]
-	
-	*/
-	func params() -> [String: AnyObject] {
-
-		var params = [String: AnyObject]()
+		var params = [String: Any]()
 
 		params["latitude"    ] = coordinate.latitude
 		params["longitude"   ] = coordinate.longitude
@@ -149,38 +130,29 @@ extension AirMapFlight: Mappable {
 		params["buffer"      ] = buffer ?? 0
 		params["permits"     ] = permitsIds
 
-		if let startTime = startTime, endTime = endTime {
+		if let startTime = startTime, let endTime = endTime {
 			params["start_time"] = startTime.ISO8601String()
 			params["end_time"  ] = endTime.ISO8601String()
 		} else {
-			let now = NSDate()
+			let now = Date()
 			params["start_time"] = now.ISO8601String()
-			params["end_time"  ] = now.dateByAddingTimeInterval(duration).ISO8601String()
+			params["end_time"  ] = now.addingTimeInterval(duration).ISO8601String()
 		}
 		
 		return params
 	}
 
-	public func geometryType() -> FlightGeometryType {
-		switch geometry {
-		case is AirMapPath:     return .Path
-		case is AirMapPolygon:  return .Polygon
-		default:                return .Point
-		}
- 	}
-
-	private func polygonStringFromCoordinates(coordinates: [CLLocationCoordinate2D]) -> String {
-		let polygonString = coordinates.flatMap {"\($0.latitude) \($0.longitude)"}.joinWithSeparator(", ")
+	fileprivate func polygonStringFromCoordinates(_ coordinates: [Coordinate2D]) -> String {
+		let polygonString = coordinates.flatMap {"\($0.latitude) \($0.longitude)"}.joined(separator: ", ")
 		return "POLYGON(\(polygonString))"
 	}
 
-	private func lineStringFromCoordinates(coordinates: [CLLocationCoordinate2D]) -> String {
-		let lineString = coordinates.flatMap {"\($0.latitude) \($0.longitude)"}.joinWithSeparator(", ")
+	fileprivate func lineStringFromCoordinates(_ coordinates: [Coordinate2D]) -> String {
+		let lineString = coordinates.flatMap {"\($0.latitude) \($0.longitude)"}.joined(separator: ", ")
 		return "LINESTRING(\(lineString))"
 	}
-	
 }
 
-func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {
+public func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {
 	return lhs.flightId == rhs.flightId
 }

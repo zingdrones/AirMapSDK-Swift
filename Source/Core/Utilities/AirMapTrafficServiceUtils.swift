@@ -7,9 +7,9 @@
 //
 
 
-public class AirMapTrafficServiceUtils {
+open class AirMapTrafficServiceUtils {
 
-	public class func directionFromBearing(bearing: Double) -> String {
+	open class func directionFromBearing(_ bearing: Double) -> String {
 		let index = Int((bearing/22.5) + 0.5) % 16
 		let directions = self.compassDirections()
 		return directions[index]
@@ -19,12 +19,12 @@ public class AirMapTrafficServiceUtils {
 		return ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
 	}
 
-	class func secondsFromDistanceAndSpeed(distance: Double, speedInKts: Int) -> Int {
+	class func secondsFromDistanceAndSpeed(_ distance: Meters, speedInKts: Double) -> TimeInterval {
 
-		return Int(distance / (Double(speedInKts)*1852) * 3600)
+		return distance / (speedInKts*1852) * 3600
 	}
 
-	class func metersToMiles(meters: Double, rounded: Bool = true) -> Double {
+	class func metersToMiles(_ meters: Meters, rounded: Bool = true) -> Miles {
 
 		if rounded {
 			return (round((meters * 0.000621369647819236) * 10) / 10)
@@ -33,7 +33,7 @@ public class AirMapTrafficServiceUtils {
 		return meters * 0.000621369647819236
 	}
 	
-	class func metersToFeet(meters: Double, rounded: Bool = true) -> Double {
+	class func metersToFeet(_ meters: Meters, rounded: Bool = true) -> Feet {
 		
 		if rounded {
 			return (round((meters * 0.3048) * 10) / 10)

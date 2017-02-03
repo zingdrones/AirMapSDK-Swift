@@ -28,10 +28,10 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 	var existingFlight: Variable<AirMapFlight>!
 	
-	private var embeddedViews = [(title: String, view: UIView)]()
-	private let mapViewDelegate = AirMapMapboxMapViewDelegate()
-	private let activityIndicator = ActivityIndicator()
-	private let disposeBag = DisposeBag()
+	fileprivate var embeddedViews = [(title: String, view: UIView)]()
+	fileprivate let mapViewDelegate = AirMapMapboxMapViewDelegate()
+	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let disposeBag = DisposeBag()
 	
 	override var navigationController: AirMapFlightPlanNavigationController? {
 		return super.navigationController as? AirMapFlightPlanNavigationController
@@ -51,7 +51,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		setupEmbeddedViews()
 		
 		mapView.delegate = mapViewDelegate
-		mapView.configure(layers: navigationController?.mapLayers ?? [], theme: navigationController?.mapTheme ?? .Light)
+		mapView.configure(layers: navigationController?.mapLayers ?? [], theme: navigationController?.mapTheme ?? .light)
 		
 		let flight: AirMapFlight
 		if existingFlight != nil {
@@ -64,27 +64,27 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		
 		if let annotations = flight.annotationRepresentations() {
 			mapView.addAnnotations(annotations)
-			dispatch_async(dispatch_get_main_queue()) {
+			DispatchQueue.main.async {
 				self.mapView.showAnnotations(annotations, edgePadding: UIEdgeInsetsMake(10, 40, 10, 40), animated: true)
 			}
 		}
 	}
 	
-	override func canBecomeFirstResponder() -> Bool {
+	override var canBecomeFirstResponder : Bool {
 		return true
 	}
 	
 	override var inputView: UIView? {
 		if existingFlight == nil {
 			return submitButton
-		} else if existingFlight.value.flightType() == .Active {
+		} else if existingFlight.value.flightType() == .active {
 			return endFlightButton
 		} else {
 			return nil
 		}
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 	
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
@@ -93,7 +93,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 			.addDisposableTo(disposeBag)
 	}
 
-	private func setupEmbeddedViews() {
+	fileprivate func setupEmbeddedViews() {
 
 		embeddedViews.append((title: "Flight", view: detailsView))
 
@@ -106,7 +106,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 				embeddedViews.append((title: "Notices", view: noticesView))
 			}
 			
-		} else if existingFlight?.value.statuses.count > 0 {
+		} else if (existingFlight?.value.statuses.count ?? 0) > 0 {
 			embeddedViews.append((title: "Notice Status", view: statusesView))
 		}
 
@@ -115,7 +115,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		tabView.delegate = self
 	}
 
-	func tabSelectorDidSelectItemAtIndex(index: Int) {
+	func tabSelectorDidSelectItemAtIndex(_ index: Int) {
 		
 		let view = embeddedViews[index].view
 		switch view {
@@ -131,27 +131,27 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		scrollToTabIndex(index)
 	}
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard let identifier = segue.identifier else { return }
 
 		switch Segue(rawValue: identifier)! {
 
 		case .embedFlightDetails:
-			let flightDetailsVC = segue.destinationViewController as! AirMapReviewFlightDetailsViewController
+			let flightDetailsVC = segue.destination as! AirMapReviewFlightDetailsViewController
 				flightDetailsVC.flight = existingFlight ?? navigationController?.flight
 
 		case .embedPermits:
-			let permitsVC = segue.destinationViewController as! AirMapReviewPermitsViewController
+			let permitsVC = segue.destination as! AirMapReviewPermitsViewController
 			if let permits = navigationController?.selectedPermits.value {
 				permitsVC.selectedPermits.value = permits
 			}
 
 		case .embedNotice:
-			let noticeVC = segue.destinationViewController as! AirMapReviewNoticeViewController
+			let noticeVC = segue.destination as! AirMapReviewNoticeViewController
 			noticeVC.status = navigationController?.status.value
 			
 		case .embedStatuses:
-			let statusesVC = segue.destinationViewController as! AirMapStatusesViewController
+			let statusesVC = segue.destination as! AirMapStatusesViewController
 			if let flight = existingFlight {
 				statusesVC.flight = flight
 			}
@@ -164,7 +164,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		let frame = scrollView.bounds
 		let tabCount = CGFloat(embeddedViews.count)
 
-		for (index, embeddedView) in embeddedViews.enumerate() {
+		for (index, embeddedView) in embeddedViews.enumerated() {
 			embeddedView.view.frame = frame
 			embeddedView.view.frame.origin.x = frame.width * CGFloat(index)
 		}
@@ -188,16 +188,17 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 		if neededPermits.count > 0 {
 			let permitRequests = neededPermits.map {
-				AirMap.rx_applyForPermit($0.availablePermit)
-					.doOnError { [unowned self] error in
-						self.trackEvent(.save, label: "Apply Permit Error", value: (error as NSError).code)
-					}
-					.doOnCompleted {
-						self.trackEvent(.save, label: "Apply Permit Success")
-					}
+				AirMap.rx.apply(for: $0.availablePermit)
+					.do(
+						onError: { [unowned self] error in
+							self.trackEvent(.save, label: "Apply Permit Error", value: NSNumber(value: (error as NSError).code)) },
+						onCompleted: {
+							self.trackEvent(.save, label: "Apply Permit Success") }
+					)
 					.trackActivity(activityIndicator)
 			}
-			let permits = permitRequests.zip { $0 }
+			
+			let permits = Observable.zip(permitRequests, { $0 })
 			let permitIds = permits.map { $0.map { $0.id } }
 			flight = permitIds.map { ids -> AirMapFlight in
 				flow.flight.value.permitsIds = ids + existingPermitIds
@@ -210,45 +211,44 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 		flight
 			.flatMap { [unowned self] flight in
-				AirMap.rx_createFlight(flight).trackActivity(self.activityIndicator)
-					.doOnError { [unowned self] error in
-						self.trackEvent(.save, label: "Create Flight Error", value: (error as NSError).code)
-					}
-					.doOnCompleted {
-						self.trackEvent(.save, label: "Create Flight Success")
+				AirMap.rx.createFlight(flight).trackActivity(self.activityIndicator)
+					.do(onError: { [unowned self] error in
+						self.trackEvent(.save, label: "Create Flight Error", value: NSNumber(value: (error as NSError).code)) },
+					    onCompleted: {
+							self.trackEvent(.save, label: "Create Flight Success") }
+					)
+			}
+			.subscribe(
+				onNext: { [weak flow] flight in
+					flow?.flightPlanDelegate.airMapFlightPlanDidCreate(flight) },
+				onError: { [weak flow] error in
+					flow?.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
 				}
-			}
-			.doOnError { [weak flow] error in
-				flow?.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
-			}
-			.subscribeNext { [weak flow] flight in
-				flow?.flightPlanDelegate.airMapFlightPlanDidCreate(flight)
-			}
+			)
 			.addDisposableTo(disposeBag)
 	}
 	
 	@IBAction func endFlight() {
-		AirMap.rx_endFlight(existingFlight.value)
+		AirMap.rx.endFlight(existingFlight.value)
 			.trackActivity(activityIndicator)
-			.doOnCompleted { [unowned self] _ in
+			.subscribe(onCompleted: { [unowned self] _ in
 				self.dismiss()
-		}
-		.subscribe()
-		.addDisposableTo(disposeBag)
+			})
+			.addDisposableTo(disposeBag)
 	}
 	
 	@IBAction func dismiss() {
 		resignFirstResponder()
-		dismissViewControllerAnimated(true, completion: nil)
+		self.dismiss(animated: true, completion: nil)
 	}
 
-	@IBAction func scrollToTabIndex(index: Int) {
+	@IBAction func scrollToTabIndex(_ index: Int) {
 		let offset = CGPoint(x: scrollView.frame.width * CGFloat(index), y: 0)
 		scrollView.setContentOffset(offset, animated: true)
 	}
 
-	func scrollViewDidScroll(scrollView: UIScrollView) {
-		tabSelectionIndicator.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x / CGFloat(embeddedViews.count), 0)
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		tabSelectionIndicator.transform = CGAffineTransform(translationX: scrollView.contentOffset.x / CGFloat(embeddedViews.count), y: 0)
 	}
 		
 }

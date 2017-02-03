@@ -13,27 +13,27 @@ class AirMapFlightPilotCell: UITableViewCell, Dequeueable {
 	
 	@IBOutlet weak var pilotLabel: UILabel!
 	
-	static let reuseIdentifier = String(AirMapFlightPilotCell)
+	static let reuseIdentifier = String(describing: AirMapFlightPilotCell.self)
 	
 	var pilot = Variable(nil as AirMapPilot?) {
 		didSet { setupBindings() }
 	}
 
-	private let disposeBag = DisposeBag()
+	fileprivate let disposeBag = DisposeBag()
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
 		pilot
 			.asObservable()
 			.subscribeOn(MainScheduler.instance)
 			.unwrap()
 			.map { [unowned self] pilot in self.fullName(pilot.firstName, lastName: pilot.lastName) }
-			.bindTo(pilotLabel!.rx_text)
+			.bindTo(pilotLabel!.rx.text)
 			.addDisposableTo(disposeBag)
 	}
 	
-	private func fullName(firstName: String?, lastName: String?) -> String {
-		return [firstName, lastName].flatMap {$0}.joinWithSeparator(" ")
+	fileprivate func fullName(_ firstName: String?, lastName: String?) -> String {
+		return [firstName, lastName].flatMap {$0}.joined(separator: " ")
 	}
 	
 }

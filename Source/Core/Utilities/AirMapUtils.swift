@@ -8,11 +8,7 @@
 
 public class AirMapBundle {
 
-	/**
-	Returns the AirMap SDK Bundle
-	*/
-
-	public class func mainBundle() -> NSBundle {
-		return NSBundle(forClass: AirMap.self)
+	public class var mainBundle: Bundle {
+		return Bundle(for: AirMap.self)
 	}
 }

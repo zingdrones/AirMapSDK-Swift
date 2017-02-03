@@ -6,21 +6,16 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-private typealias AirMap_Airspace = AirMap
+public typealias AirMap_Airspace = AirMap
 extension AirMap_Airspace {
-
-	public typealias AirMapAirspaceResponseHandler = (AirMapAirspace?, NSError?) -> Void
 	
-	/**
-	
-	Get extended details about an `AirMapAirspace` by id
-	
-	- parameter modelId: `String`  The id of the airspace
-	- parameter handler: `(AirMapAirspace?, NSError?) -> Void`
-	
-	*/
-	public class func getAirspace(airspaceId: String, handler: AirMapAirspaceResponseHandler) {
-		airspaceClient.getAirspace(airspaceId).subscribe(handler)
+	/// Get detailed information about an airspace object
+	///
+	/// - Parameters:
+	///   - airspaceId: The unique identifier associated with the airspace object
+	///   - completion: A completion handler to call with the Result
+	internal static func getAirspace(_ airspaceId: String, completion: @escaping (Result<AirMapAirspace>) -> Void) {
+		airspaceClient.getAirspace(airspaceId).subscribe(completion)
 	}
 
 }

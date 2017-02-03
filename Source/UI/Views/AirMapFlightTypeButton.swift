@@ -16,23 +16,23 @@ class AirMapFlightTypeButton: UIButton {
 		adjustInsets()
 	}
 	
-	private func adjustInsets() {
+	fileprivate func adjustInsets() {
 		
 		let spacing: CGFloat = 3.0
 		
-		var titleEdgeInsets = UIEdgeInsetsZero
+		var titleEdgeInsets = UIEdgeInsets.zero
 		if let image = imageView?.image {
 			titleEdgeInsets.left = -image.size.width
 			titleEdgeInsets.bottom = -(image.size.height + spacing)
 		}
 		self.titleEdgeInsets = titleEdgeInsets;
 		
-		var imageEdgeInsets = UIEdgeInsetsZero
+		var imageEdgeInsets = UIEdgeInsets.zero
 		if let
-			text: NSString = self.titleLabel?.text,
-			font = self.titleLabel?.font {
+			text: NSString = self.titleLabel?.text as NSString?,
+			let font = self.titleLabel?.font {
 				let attributes = [NSFontAttributeName: font]
-				let titleSize = text.sizeWithAttributes(attributes)
+				let titleSize = text.size(attributes: attributes)
 				imageEdgeInsets.top = -(titleSize.height + spacing)
 				imageEdgeInsets.right = -titleSize.width
 			}

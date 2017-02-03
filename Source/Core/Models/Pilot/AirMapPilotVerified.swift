@@ -8,11 +8,11 @@
 
 import ObjectMapper
 
-@objc public class AirMapPilotVerified: NSObject {
+public class AirMapPilotVerified {
 
 	public var verified: Bool = false
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapPilotVerified: Mappable {

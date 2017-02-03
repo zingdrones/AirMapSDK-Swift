@@ -6,19 +6,8 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
-
-public class AirMapGeometry: NSObject {
-
-	required public init?(_ map: Map) {}
-
-	public override init() {
-		super.init()
-	}
-
-	public func params() -> [String: AnyObject] {
-		let params = [String: AnyObject]()
-		return params
-	}
+public protocol AirMapGeometry {
 	
+	var type: AirMapFlight.FlightGeometryType { get }
+	func params() -> [String: Any]
 }

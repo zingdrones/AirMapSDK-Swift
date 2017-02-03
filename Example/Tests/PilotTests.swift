@@ -12,35 +12,34 @@ import RxSwift
 
 class PilotTests: TestCase {
 
-	let disposeBag = DisposeBag()
-
 	func testGetAuthorizedPilot() {
 
 		let pilotId: String = "pilot|1234"
 
-		stub(.GET, Config.AirMapApi.pilotUrl + "/\(pilotId)", with: "pilot_authorized_get_success.json")
+		stub(.get, Config.AirMapApi.pilotUrl + "/\(pilotId)", with: "pilot_authorized_get_success.json")
 
 		waitUntil { done in
 
-			AirMap.rx_getPilot(pilotId)
-				.doOnNext { pilot in
-					expect(pilot.pilotId).to(equal(pilotId))
-					expect(pilot.firstName).to(equal("Davey"))
-					expect(pilot.lastName).to(equal("Dronehead"))
-					expect(pilot.username).to(equal("daveyd"))
-					expect(pilot.email).to(equal("davey@airmap.com"))
-					expect(pilot.phoneVerified).to(equal(true))
-					expect(pilot.emailVerified).to(equal(false))
-					expect(pilot.pictureUrl).to(equal("http://cdn.airmap.com/users/photo.jpg"))
-					expect(pilot.phone).to(equal("+13105551212"))
-					expect(pilot.appMetadata()["faa_registration_number"] as? String).to(equal("faa|1234"))
-					expect(pilot.statistics.totalFlights).to(equal(10))
-					expect(pilot.statistics.lastFlightTime).to(equal(NSDate.dateFromISO8601String("2016-07-05T10:51:19.000Z")))
-					expect(pilot.statistics.totalAircraft).to(equal(2))
-				}
-				.doOnError { expect($0).to(beNil()); done() }
-				.doOnCompleted(done)
-				.subscribe()
+			AirMap.rx.getPilot(pilotId)
+				.subscribe (
+					onNext: { pilot in
+						expect(pilot.pilotId).to(equal(pilotId))
+						expect(pilot.firstName).to(equal("Davey"))
+						expect(pilot.lastName).to(equal("Dronehead"))
+						expect(pilot.username).to(equal("daveyd"))
+						expect(pilot.email).to(equal("davey@airmap.com"))
+						expect(pilot.phoneVerified).to(equal(true))
+						expect(pilot.emailVerified).to(equal(false))
+						expect(pilot.pictureUrl).to(equal("http://cdn.airmap.com/users/photo.jpg"))
+						expect(pilot.phone).to(equal("+13105551212"))
+						expect(pilot.appMetadata()["faa_registration_number"] as? String).to(equal("faa|1234"))
+						expect(pilot.statistics.totalFlights).to(equal(10))
+						expect(pilot.statistics.lastFlightTime).to(equal(Date.dateFromISO8601String("2016-07-05T10:51:19.000Z")))
+						expect(pilot.statistics.totalAircraft).to(equal(2)) },
+					onError: {
+						expect($0).to(beNil()); done() },
+					onCompleted: done
+				)
 				.addDisposableTo(self.disposeBag)
 		}
 	}
@@ -53,9 +52,9 @@ class PilotTests: TestCase {
 		pilot.lastName = "Dronehead"
 		pilot.username = "daveyd"
 		pilot.phone = "+13105551212"
-		pilot.setAppMetadata("appmetabar", forKey: "appmetafoo")
+		pilot.setAppMetadata(value: "appmetabar", forKey: "appmetafoo")
 		
-		stub(.PATCH, Config.AirMapApi.pilotUrl + "/\(pilot.pilotId)", with: "pilot_authorized_get_success.json") { request in
+		stub(.patch, Config.AirMapApi.pilotUrl + "/\(pilot.pilotId)", with: "pilot_authorized_get_success.json") { request in
 			let json = request.bodyJson()
 			expect(json["first_name"] as? String).to(equal(pilot.firstName))
 			expect(json["last_name"] as? String).to(equal(pilot.lastName))
@@ -66,13 +65,14 @@ class PilotTests: TestCase {
 		
 		waitUntil { done in
 			
-			AirMap.rx_updatePilot(pilot)
-				.doOnNext { pilot in
-					expect(pilot).toNot(beNil())
-				}
-				.doOnError { expect($0).to(beNil()); done() }
-				.doOnCompleted(done)
-				.subscribe()
+			AirMap.rx.updatePilot(pilot)
+				.subscribe(
+					onNext: { pilot in
+						expect(pilot).toNot(beNil()) },
+					onError: {
+						expect($0).to(beNil()); done() },
+					onCompleted: done
+				)
 				.addDisposableTo(self.disposeBag)
 		}
 	}

@@ -11,18 +11,18 @@ import RxCocoa
 import RxDataSources
 import libPhoneNumber_iOS
 
-public class AirMapPilotProfileField {
+open class AirMapPilotProfileField {
 	
 	public enum FieldType {
-		case Text
-		case Email
-		case PhoneNumber
+		case text
+		case email
+		case phoneNumber
 		
 		var type: String {
 			switch self {
-			case .Text: return "text"
-			case .Email: return "email"
-			case .PhoneNumber: return "phone"
+			case .text: return "text"
+			case .email: return "email"
+			case .phoneNumber: return "phone"
 			}
 		}
 	}
@@ -32,14 +32,15 @@ public class AirMapPilotProfileField {
 	
 	internal let rx_value = PublishSubject<String?>()
 	
-	public var type: FieldType = .Text
+	open var type: FieldType = .text
 	
-	public init(label: String, key: String, type: FieldType = .Text) {
+	public init(label: String, key: String, type: FieldType = .text) {
 		self.label = label
 		self.type = type
 		self.key = key
 	}
 }
+
 
 class AirMapFormTextField: UITableViewCell {
 	@IBOutlet weak var textField: UITextField!
@@ -58,14 +59,14 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	@IBOutlet weak var statisticsLabel: UILabel!
 	@IBOutlet var saveButton: UIButton!
 	
-	private typealias Model = SectionModel<String,AirMapPilotProfileField>
-	private let dataSource = RxTableViewSectionedReloadDataSource<Model>()
-	private let activityIndicator = ActivityIndicator()
-	private let disposeBag = DisposeBag()
+	fileprivate typealias Model = SectionModel<String,AirMapPilotProfileField>
+	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<Model>()
+	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let disposeBag = DisposeBag()
 	
 	enum Section: Int {
-		case PilotInfo
-		case CustomInfo
+		case pilotInfo
+		case customInfo
 	}
 	
 	override func viewDidLoad() {
@@ -81,12 +82,12 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		setupTableView()
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		guard pilot.value == nil else { return }
 		
-		AirMap.rx_getAuthenticatedPilot().asOptional()
+		AirMap.rx.getAuthenticatedPilot().asOptional()
 			.trackActivity(activityIndicator)
 			.bindTo(pilot)
 			.addDisposableTo(disposeBag)
@@ -94,7 +95,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		trackView()
 	}
 	
-	override func canBecomeFirstResponder() -> Bool {
+	override var canBecomeFirstResponder : Bool {
 		return true
 	}
 	
@@ -102,33 +103,48 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		return saveButton
 	}
 	
-	private func sectionModel(pilot: AirMapPilot) -> [Model] {
+	fileprivate func sectionModel(_ pilot: AirMapPilot) -> [Model] {
 		
 		let firstNameField = AirMapPilotProfileField(label: "First Name", key: "firstName")
 		let lastNameField  = AirMapPilotProfileField(label: "Last Name", key: "lastName")
 		let usernameField  = AirMapPilotProfileField(label: "Username", key: "username")
-		let emailField     = AirMapPilotProfileField(label: "Email", key: "email", type: .Email)
-		let phoneField     = AirMapPilotProfileField(label: "Phone Number", key: "phone", type: .PhoneNumber)
+		let emailField     = AirMapPilotProfileField(label: "Email", key: "email", type: .email)
+		let phoneField     = AirMapPilotProfileField(label: "Phone Number", key: "phone", type: .phoneNumber)
 		
 		let pilotFields = [firstNameField, lastNameField, usernameField, emailField, phoneField]
 		
 		pilotFields.forEach { field in
 			
 			field.rx_value.skip(1).asDriver(onErrorJustReturn: nil)
-				.driveNext { pilot.setValue($0, forKey: field.key) }
+				.drive(onNext: { text in
+					switch field.key {
+					case "firstName":
+						pilot.firstName = text
+					case "lastName":
+						pilot.lastName = text
+					case "username":
+						pilot.username = text
+					case "email":
+						pilot.email = text
+					case "phone":
+						pilot.phone = text
+					default:
+						assertionFailure()
+					}
+				})
 				.addDisposableTo(disposeBag)
 		}
 		
 		customFields.forEach { customField in
 
 			customField.rx_value.skip(1).asDriver(onErrorJustReturn: nil)
-				.driveNext { text in pilot.setAppMetadata(text, forKey: customField.key) }
+				.drive(onNext: { text in pilot.setAppMetadata(value: text, forKey: customField.key) })
 				.addDisposableTo(disposeBag)
 		}
 		
-		[firstNameField.rx_value.asDriver(onErrorJustReturn: nil), lastNameField.rx_value.asDriver(onErrorJustReturn: nil)]
-			.combineLatest(fullNameString)
-			.drive(fullName.rx_text)
+		Driver
+			.combineLatest([firstNameField.rx_value.asDriver(onErrorJustReturn: nil), lastNameField.rx_value.asDriver(onErrorJustReturn: nil)], fullNameString)
+			.drive(fullName.rx.text)
 			.addDisposableTo(disposeBag)
 		
 		return [
@@ -137,7 +153,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		]
 	}
 	
-	private func setupTableView() {
+	fileprivate func setupTableView() {
 		
 		tableView.estimatedRowHeight = 50
 		tableView.rowHeight = UITableViewAutomaticDimension
@@ -147,55 +163,74 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 			
 			let cellIdentifier: String
 			switch field.type  {
-			case .Text:
+			case .text:
 				cellIdentifier = "TextCell"
-			case .Email:
+			case .email:
 				cellIdentifier = "EmailCell"
-			case .PhoneNumber:
+			case .phoneNumber:
 				cellIdentifier = "PhoneCell"
 			}
 			
-			cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! AirMapFormTextField
+			cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! AirMapFormTextField
 			cell.label.text = field.label
 
 			let pilot = self.pilot.value
 			
 			switch Section(rawValue: indexPath.section)! {
-			case .PilotInfo:
-				if let value = pilot?.valueForKey(field.key) as? String {
-					cell.textField.rx_text.onNext(value)
+				
+			case .pilotInfo:
+				
+				var value: String?
+				switch field.key {
+				case "firstName":
+					value = pilot?.firstName
+				case "lastName":
+					value = pilot?.lastName
+				case "username":
+					value = pilot?.username
+				case "email":
+					value = pilot?.email
+				case "phone":
+					value = pilot?.phone
+				default:
+					assertionFailure()
 				}
-			case .CustomInfo:
+
+				if let value = value {
+					cell.textField.rx.text.onNext(value)
+				}
+				
+			case .customInfo:
 				if let value = pilot?.appMetadata()[field.key] as? String {
-					cell.textField.rx_text.onNext(value)
+					cell.textField.rx.text.onNext(value)
 				}
 			}
 
-			cell.textField.rx_text.asOptional()
+			cell.textField.rx.text
 				.bindTo(field.rx_value)
 				.addDisposableTo(self.disposeBag)
 			
 			return cell
 		}
-		
-		dataSource.titleForHeaderInSection = { datasource, section in
-			datasource.sectionAtIndex(section).model
+
+		dataSource.titleForHeaderInSection = { dataSource, index in
+			dataSource.sectionModels[index].model
 		}
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
 		pilot.asObservable()
 			.unwrap()
 			.map(sectionModel)
 			.observeOn(MainScheduler.instance)
-			.bindTo(tableView.rx_itemsWithDataSource(dataSource))
+			.bindTo(tableView.rx.items(dataSource: dataSource))
 			.addDisposableTo(disposeBag)
 		
 		pilot.asObservable()
 			.unwrap()
 			.observeOn(MainScheduler.instance)
-			.subscribeNext(unowned(self, AirMapPilotProfileViewController.configureStats))
+			.subscribeNext(weak: self, AirMapPilotProfileViewController.configureStats)
 			.addDisposableTo(disposeBag)
 		
 		activityIndicator.asObservable()
@@ -211,44 +246,43 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 
 		guard let pilot = pilot.value else { return }
 
-		AirMap.rx_updatePilot(pilot)
+		AirMap.rx.updatePilot(pilot)
 			.trackActivity(activityIndicator)
-			.doOnError { error in
-				self.trackEvent(.save, label: "Error", value: (error as NSError).code)
-			}
-			.doOnCompleted { [unowned self] in
+			.do(onError: { error in
+				self.trackEvent(.save, label: "Error", value: NSNumber(value: (error as NSError).code))
+			}, onCompleted: { [unowned self] in
 				self.view.endEditing(true)
-				self.dismissViewControllerAnimated(true, completion: nil)
+				self.dismiss(animated: true, completion: nil)
 				self.trackEvent(.save, label: "Success")
-			}
+			})
 			.subscribe()
 			.addDisposableTo(disposeBag)
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "modalUpdatePhoneNumber" {
-			let nav = segue.destinationViewController as! AirMapPhoneVerificationNavController
+			let nav = segue.destination as! AirMapPhoneVerificationNavController
 			nav.phoneVerificationDelegate = self
 			let phoneVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
 			phoneVC.pilot = pilot.value
 		}
 	}
 	
-	private func fullNameString(names: [String?]) -> String {
-		return names.flatMap { $0 }.joinWithSeparator(" ").uppercaseString
+	fileprivate func fullNameString(_ names: [String?]) -> String {
+		return names.flatMap { $0 }.joined(separator: " ").uppercased()
 	}
 	
-	private func configureStats(pilot: AirMapPilot) {
+	fileprivate func configureStats(_ pilot: AirMapPilot) {
 		statisticsLabel.text = "\(pilot.statistics.totalAircraft) Aircraft, \(pilot.statistics.totalFlights) Flights"
 	}
 	
-	@IBAction func unwindToPilotProfile(segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }
+	@IBAction func unwindToPilotProfile(_ segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }
 
 }
 
 extension AirMapPilotProfileViewController: AirMapPhoneVerificationDelegate {
 	
 	func phoneVerificationDidVerifyPhoneNumber() {
-		dismissViewControllerAnimated(true, completion: nil)
+		dismiss(animated: true, completion: nil)
 	}
 }

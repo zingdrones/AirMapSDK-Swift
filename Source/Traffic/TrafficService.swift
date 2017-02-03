@@ -14,20 +14,16 @@ import RxSwiftExt
 
 internal class TrafficService: MQTTSessionDelegate {
 
-	enum Error: ErrorType {
-		case InvalidCredentials
-	}
-
 	enum ConnectionState {
-		case Connecting
-		case Connected
-		case Disconnected
+		case connecting
+		case connected
+		case disconnected
 	}
 
-	enum TrafficServiceError: ErrorType {
-		case InvalidCredentials
-		case ConnectionFailed
-		case SubscriptionFailed
+	enum TrafficServiceError: Error {
+		case invalidCredentials
+		case connectionFailed
+		case subscriptionFailed
 	}
 
 	internal weak var delegate: AirMapTrafficObserver?
@@ -37,13 +33,13 @@ internal class TrafficService: MQTTSessionDelegate {
 		get { return client.password }
 	}
 
-	private var activeTraffic = [AirMapTraffic]()
-	private var expirationInterval = Config.AirMapTraffic.expirationInterval
-	private var client = TrafficClient()
-	private var connectionState  = Variable(ConnectionState.Disconnected)
-	private var currentFlight    = Variable(nil as AirMapFlight?)
+	fileprivate var activeTraffic = [AirMapTraffic]()
+	fileprivate var expirationInterval = Config.AirMapTraffic.expirationInterval
+	fileprivate var client = TrafficClient()
+	fileprivate var connectionState  = Variable(ConnectionState.disconnected)
+	fileprivate var currentFlight    = Variable(nil as AirMapFlight?)
 
-	private let disposeBag = DisposeBag()
+	fileprivate let disposeBag = DisposeBag()
 
 	// MARK: - Setup
 
@@ -65,10 +61,10 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		let flightState = Observable.combineLatest(flight, state) { ($0, $1) }
 
-		let whenConnected    = flightState.filter { $1 == .Connected }
-		let whenDisconnected = flightState.filter { $1 == .Disconnected }
+		let whenConnected    = flightState.filter { $1 == .connected }
+		let whenDisconnected = flightState.filter { $1 == .disconnected }
 
-		func printError(error: ErrorType) {
+		func printError(_ error: Error) {
 			AirMap.logger.error(error)
 		}
 
@@ -79,8 +75,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			.unwrap()
 			.filter {[unowned self] _ in AirMap.hasValidCredentials() && self.delegate != nil}
 			.flatMap(unowned(self, TrafficService.connectWithFlight))
-			.doOnError(printError)
-			.catchError({ _ in return Observable.just( .Disconnected) })
+			.catchError({ _ in return Observable.just( .disconnected) })
 			.bindTo(connectionState)
 			.addDisposableTo(disposeBag)
 
@@ -91,46 +86,44 @@ internal class TrafficService: MQTTSessionDelegate {
 			.map { flight, state in flight }
 			.unwrap()
 			.flatMap(unowned(self, TrafficService.subscribeToTraffic))
-			.doOnError(printError)
 			.catchError({ _ in return Observable.empty() })
 			.subscribe()
 			.addDisposableTo(disposeBag)
 
 		state
-			.subscribeNext { [unowned self] state in
+			.subscribe(onNext: { [unowned self] state in
 				switch state {
-				case .Connecting:
+				case .connecting:
 					AirMap.logger.debug(TrafficService.self, "Connecting…")
-				case .Connected:
+				case .connected:
 					AirMap.logger.debug(TrafficService.self, "Connected")
 					self.delegate?.airMapTrafficServiceDidConnect?()
-				case .Disconnected:
+				case .disconnected:
 					AirMap.logger.debug(TrafficService.self, "Disconnected")
 					self.delegate?.airMapTrafficServiceDidDisconnect?()
 				}
 				AirMap.logger.debug(state)
-			}
+			})
 			.addDisposableTo(disposeBag)
 
 		let refreshCurrentFlight = Observable<Int>.timer(0, period: 15, scheduler: MainScheduler.instance).mapToVoid()
 
 		refreshCurrentFlight
 			.skipWhile({[unowned self] _ in !AirMap.hasValidCredentials() || self.delegate == nil})
-			.flatMap(AirMap.rx_getCurrentAuthenticatedPilotFlight)
+			.flatMap(AirMap.rx.getCurrentAuthenticatedPilotFlight)
 			.bindTo(currentFlight)
 			.addDisposableTo(disposeBag)
 
 		let trafficProjectionTimer = Observable<Int>.interval(0.25, scheduler: MainScheduler.asyncInstance).mapToVoid()
 
 		trafficProjectionTimer
-			.doOnNext(unowned(self, TrafficService.updateTrafficProjections))
-			.subscribe()
+			.subscribeNext(weak: self, TrafficService.updateTrafficProjections)
 			.addDisposableTo(disposeBag)
 
 		let purgeTrafficTimer = Observable<Int>.interval(5, scheduler: MainScheduler.asyncInstance).mapToVoid()
 
 		purgeTrafficTimer
-			.subscribeNext(unowned(self, TrafficService.purgeExpiredTraffic))
+			.subscribeNext(weak: self, TrafficService.purgeExpiredTraffic)
 			.addDisposableTo(disposeBag)
 	}
 
@@ -138,11 +131,11 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		if AirMap.hasValidCredentials() && delegate != nil {
 
-			if connectionState.value != .Disconnected {
+			if connectionState.value != .disconnected {
 				disconnect()
 			}
 
-			AirMap.rx_getCurrentAuthenticatedPilotFlight().bindTo(currentFlight).addDisposableTo(disposeBag)
+			AirMap.rx.getCurrentAuthenticatedPilotFlight().bindTo(currentFlight).addDisposableTo(disposeBag)
 		}
 	}
 
@@ -155,50 +148,49 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	// MARK: - Observable Methods
 
-	func connectWithFlight(flight: AirMapFlight) -> Observable<ConnectionState> {
+	func connectWithFlight(_ flight: AirMapFlight) -> Observable<ConnectionState> {
 
 		return Observable.create { (observer: AnyObserver<ConnectionState>) -> Disposable in
 
-			observer.onNext(.Connecting)
+			observer.onNext(.connecting)
 
 			self.client.username = flight.flightId
 			self.client.password = AirMap.authSession.authToken
 
 			self.client.connect { succeeded, error in
 				if succeeded {
-					observer.onNext(.Connected)
+					observer.onNext(.connected)
 				} else {
 					AirMap.logger.error(error)
-					observer.onError(TrafficServiceError.ConnectionFailed)
-					observer.onNext(.Disconnected)
+					observer.onError(TrafficServiceError.connectionFailed)
+					observer.onNext(.disconnected)
 				}
 			}
 
-			return AnonymousDisposable {
-			}
+			return Disposables.create()
 		}
 	}
 
-	func subscribeToTraffic(flight: AirMapFlight) -> Observable<Void> {
-
-		let sa    = self.subscribe(flight, to: Config.AirMapTraffic.trafficSituationalAwarenessChannel + flight.flightId)
-		let alert = self.subscribe(flight, to: Config.AirMapTraffic.trafficAlertChannel + flight.flightId)
+	func subscribeToTraffic(_ flight: AirMapFlight) -> Observable<Void> {
+		
+		let sa    = self.subscribe(flight, to: Config.AirMapTraffic.trafficSituationalAwarenessChannel + flight.flightId!)
+		let alert = self.subscribe(flight, to: Config.AirMapTraffic.trafficAlertChannel + flight.flightId!)
 
 		return unsubscribeFromAllChannels().concat(sa).concat(alert)
 	}
 
-	func subscribe(flight: AirMapFlight, to channel: String) -> Observable<Void> {
+	func subscribe(_ flight: AirMapFlight, to channel: String) -> Observable<Void> {
 		return Observable.create { (observer: AnyObserver<Void>) -> Disposable in
-			self.client.subscribe(channel, qos: .AtLeastOnce) { succeeded, error in
+			self.client.subscribe(to: channel, delivering: .atLeastOnce) { succeeded, error in
 				if succeeded {
 					self.client.currentChannels.append(channel)
 					AirMap.logger.debug(TrafficService.self, "Subscribed to \(channel)")
 					observer.onCompleted()
 				} else {
-					observer.onError(TrafficServiceError.SubscriptionFailed)
+					observer.onError(TrafficServiceError.subscriptionFailed)
 				}
 			}
-			return NopDisposable.instance
+			return Disposables.create()
 		}
 	}
 
@@ -207,32 +199,32 @@ internal class TrafficService: MQTTSessionDelegate {
 			let channels = self.client.currentChannels
 			guard channels.count > 0 else {
 				observer.onCompleted()
-				return NopDisposable.instance
+				return Disposables.create()
 			}
-			self.client.unSubscribe(channels) { succeeded, error in
+			self.client.unSubscribe(from: channels) { succeeded, error in
 				if succeeded {
 					AirMap.logger.debug(TrafficService.self, "Unsubscribed from channels", channels)
 				} else {
 					AirMap.logger.debug(TrafficService.self, error)
-					observer.onError(TrafficServiceError.SubscriptionFailed)
+					observer.onError(TrafficServiceError.subscriptionFailed)
 				}
 				self.client.currentChannels = []
 				observer.onCompleted()
 			}
-			return NopDisposable.instance
+			return Disposables.create()
 		}
 	}
 
-	func startPurgingExpiredTraffic(flight: AirMapFlight) -> Observable<AirMapFlight> {
+	func startPurgingExpiredTraffic(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
 		return Observable.create { (observer: AnyObserver<AirMapFlight>) -> Disposable in
 			observer.onCompleted()
-			return NopDisposable.instance
+			return Disposables.create()
 		}
 	}
 
 	// MARK: - Private Instance Methods
 
-	private func addTraffic(traffic: [AirMapTraffic]) {
+	fileprivate func addTraffic(_ traffic: [AirMapTraffic]) {
 
 		guard let currentFlight = currentFlight.value else {
 			disconnect()
@@ -250,7 +242,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 				// Update values using KVO-compliant mechanisms
 
-				existing.setValuesForKeysWithDictionary([
+				existing.setValuesForKeys([
 					"id":              added.id,
 					"direction":       added.direction,
 					"altitude":        added.altitude,
@@ -262,33 +254,32 @@ internal class TrafficService: MQTTSessionDelegate {
 					"createdAt":       added.createdAt
 					])
 
-				existing.willChangeValueForKey("coordinate")
+				existing.willChangeValue(forKey: "coordinate")
 				existing.coordinate = added.coordinate
-				existing.didChangeValueForKey("coordinate")
+				existing.didChangeValue(forKey: "coordinate")
 
-				existing.willChangeValueForKey("initialCoordinate")
+				existing.willChangeValue(forKey: "initialCoordinate")
 				existing.initialCoordinate = added.initialCoordinate
-				existing.didChangeValueForKey("initialCoordinate")
+				existing.didChangeValue(forKey: "initialCoordinate")
 
-				existing.willChangeValueForKey("trafficType")
+				existing.willChangeValue(forKey: "trafficType")
 
-				if existing.trafficType == .Alert {
+				if existing.trafficType == .alert {
 					existing.trafficTypeDidChangeToAlert = false
 				} else {
 					existing.trafficType = added.trafficType
 				}
 
-
 				let addedLocation = CLLocation(latitude: added.coordinate.latitude, longitude: added.coordinate.longitude)
 				let trafficLocation = CLLocation(latitude: currentFlight.coordinate.latitude, longitude: currentFlight.coordinate.longitude)
-				let distance = trafficLocation.distanceFromLocation(addedLocation)
+				let distance = trafficLocation.distance(from: addedLocation)
 
 				//FIXME: This is temporary
 				if distance > 3000 {
-					existing.trafficType = .SituationalAwareness
+					existing.trafficType = .situationalAwareness
 				}
 
-				existing.didChangeValueForKey("trafficType")
+				existing.didChangeValue(forKey: "trafficType")
 
 				updatedTraffic.append(existing)
 				addedTraffic.removeObject(existing)
@@ -305,7 +296,7 @@ internal class TrafficService: MQTTSessionDelegate {
 		}
 	}
 
-	@objc private func purgeExpiredTraffic() {
+	@objc fileprivate func purgeExpiredTraffic() {
 
 		let expiredTraffic = activeTraffic.filter(isExpired)
 
@@ -317,14 +308,14 @@ internal class TrafficService: MQTTSessionDelegate {
 		updateTrafficProjections()
 	}
 
-	private func removeAllTraffic() {
+	fileprivate func removeAllTraffic() {
 		if activeTraffic.count > 0 {
 			delegate?.airMapTrafficServiceDidRemove(activeTraffic)
 			activeTraffic.removeAll()
 		}
 	}
 
-	private func updateTrafficProjections() {
+	fileprivate func updateTrafficProjections() {
 
 		let updatedTraffic = activeTraffic
 			.filter(isMoving)
@@ -345,26 +336,26 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	// MARK: - Filter/Map helper functions
 
-	private func isMoving(traffic: AirMapTraffic) -> Bool {
+	fileprivate func isMoving(_ traffic: AirMapTraffic) -> Bool {
 		return traffic.groundSpeedKt > -1 && traffic.trueHeading > -1
 	}
 
-	private func hasAircractId(traffic: AirMapTraffic) -> Bool {
+	fileprivate func hasAircractId(_ traffic: AirMapTraffic) -> Bool {
 		return !traffic.properties.aircraftId.isEmpty
 	}
 
-	private func isExpired(traffic: AirMapTraffic) -> Bool {
-		return traffic.createdAt.dateByAddingTimeInterval(expirationInterval).lessThanDate(NSDate())
+	fileprivate func isExpired(_ traffic: AirMapTraffic) -> Bool {
+		return traffic.createdAt.addingTimeInterval(expirationInterval).lessThanDate(Date())
 	}
 
-	private func hasAircractIdMatching(aircraftId: String) -> (AirMapTraffic) -> Bool {
+	fileprivate func hasAircractIdMatching(_ aircraftId: String) -> (AirMapTraffic) -> Bool {
 		return { $0.properties.aircraftId == aircraftId }
 	}
 
 	/**
 	Mapping function that projects the traffic's position
 	*/
-	private func projectedTraffic(traffic: AirMapTraffic) -> AirMapTraffic {
+	fileprivate func projectedTraffic(_ traffic: AirMapTraffic) -> AirMapTraffic {
 		let newPosition = projectedCoordinate(traffic)
 		traffic.coordinate.latitude = newPosition.latitude
 		traffic.coordinate.longitude = newPosition.longitude
@@ -375,18 +366,18 @@ internal class TrafficService: MQTTSessionDelegate {
 	Calculates the projected coordinate for the Manned Aircraft Traffic based upon distance and direction traveled.
 	- returns: CLLocation
 	*/
-	private func projectedCoordinate(traffic: AirMapTraffic) -> CLLocationCoordinate2D {
+	fileprivate func projectedCoordinate(_ traffic: AirMapTraffic) -> CLLocationCoordinate2D {
 
 		guard isMoving(traffic) else {
 			return traffic.initialCoordinate
 		}
 
-		let elapsedTime = Double(NSDate().timeIntervalSinceDate(traffic.recordedTime))
+		let elapsedTime = Double(Date().timeIntervalSince(traffic.recordedTime as Date))
 		let metersPerSecond = Double(traffic.groundSpeedKt) * 0.514444
 		let distanceTraveledInMeters = metersPerSecond*elapsedTime
 		let trafficLocation = CLLocation(latitude: traffic.initialCoordinate.latitude, longitude: traffic.initialCoordinate.longitude)
 
-		return trafficLocation.destinationLocationWithInitialBearing(Double(traffic.trueHeading), distance:distanceTraveledInMeters).coordinate
+		return trafficLocation.destinationLocation(withInitialBearing: Double(traffic.trueHeading), distance: distanceTraveledInMeters).coordinate
 	}
 
 	/**
@@ -394,26 +385,27 @@ internal class TrafficService: MQTTSessionDelegate {
 	- parameter topic: String
 	- returns: AirMapTraffic.TrafficType
 	*/
-	private func trafficTypeForTopic(topic: String) -> AirMapTraffic.TrafficType {
+	fileprivate func trafficTypeForTopic(_ topic: String) -> AirMapTraffic.TrafficType {
 
 		if topic.hasPrefix(Config.AirMapTraffic.trafficAlertChannel) {
-			return .Alert
+			return .alert
 		} else {
-			return .SituationalAwareness
+			return .situationalAwareness
 		}
 	}
 
 	// MARK: - MQTTSessionDelegate {
-
-	func mqttSession(session: MQTTSession, didReceiveMessage message: NSData, onTopic topic: String) {
+	
+	func mqttDidReceive(message data: Data, in topic: String, from session: MQTTSession) {
 
 		AirMap.logger.trace(TrafficService.self, "Did receive data")
 
 		guard
-			connectionState.value == .Connected,
-			let jsonString = String(data: message, encoding: NSUTF8StringEncoding),
-			let jsonDict = try? NSJSONSerialization.JSONObjectWithData(message, options: []),
-			let traffic = Mapper<AirMapTraffic>().mapArray(jsonDict["traffic"])
+			connectionState.value == .connected,
+			let jsonString = String(data: data, encoding: String.Encoding.utf8),
+			let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+			let trafficArray = jsonDict?["traffic"] as? [[String: Any]],
+			let traffic = Mapper<AirMapTraffic>().mapArray(JSONArray: trafficArray)
 		else {
 			AirMap.logger.error(TrafficService.self, "Failed to parse JSON message")
 			return
@@ -429,15 +421,14 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		addTraffic(receivedTraffic)
 	}
-
-	func didDisconnectSession(session: MQTTSession) {
+	
+	func mqttDidDisconnect(session: MQTTSession) {
 		AirMap.logger.debug(TrafficService.self, "Disconnected from MQTT")
-		connectionState.value = .Disconnected
+		connectionState.value = .disconnected
 	}
-
-	func socketErrorOccurred(session: MQTTSession) {
+	
+	func mqttSocketErrorOccurred(session: MQTTSession) {
 		AirMap.logger.error(TrafficService.self, "MQTTSession socket error")
-//		disconnect()
 	}
 
 	deinit {

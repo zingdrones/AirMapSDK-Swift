@@ -36,7 +36,7 @@ struct Config {
 		static var mapTilesUrl: String {
 			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
 		}
-		static func urlForResource(named: String, version: String) -> String {
+		static func urlForResource(_ named: String, version: String) -> String {
 			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "\(version)")
 		}
 
@@ -62,10 +62,10 @@ struct Config {
         static let port = UInt16(16060)
 		
 		struct SampleFrequency {
-			static let position: NSTimeInterval = 1/5
-			static let attitude: NSTimeInterval = 1/5
-			static let speed: NSTimeInterval = 1/5
-			static let barometer: NSTimeInterval = 5
+			static let position: TimeInterval = 1/5
+			static let attitude: TimeInterval = 1/5
+			static let speed: TimeInterval = 1/5
+			static let barometer: TimeInterval = 5
 		}
 	}
 
@@ -76,22 +76,22 @@ struct Config {
 		}
 		static let port = UInt16(8883)
 		static let keepAlive = UInt16(15)
-		static let expirationInterval = NSTimeInterval(30)
+		static let expirationInterval = TimeInterval(30)
 		static let trafficAlertChannel = "uav/traffic/alert/"
 		static let trafficSituationalAwarenessChannel = "uav/traffic/sa/"
 		#if os(OSX)
 		static let clientId = "macOS AirMap SDK" // TODO: Create a unique id for macOS clients
 		#else
-		static let clientId = UIDevice.currentDevice().identifierForVendor!.UUIDString
+		static let clientId = UIDevice.current.identifierForVendor!.uuidString
 		#endif
 	}
 
 	struct Maps {
 		static let pointsPerCirclePolygon = CGFloat(90)
 		static let bufferSliderLinearity: Double = 2
-		static let minimumRadius: CLLocationDistance = 10
-		static let maximumRadius: CLLocationDistance = 1_000
-		static let feetPerMeters: Double = 3.2808
+		static let minimumRadius: Meters = 10
+		static let maximumRadius: Meters = 1_000
+		static let feetPerMeters: Feet = 3.2808
 	}
 	
 }

@@ -8,164 +8,179 @@
 
 import Alamofire
 import ObjectMapper
+import AlamofireObjectMapper
 import RxSwift
 
 internal class HTTPClient {
 
-	enum MimeType: String {
+	private enum MimeType: String {
 		case JSON = "application/json"
 	}
 
-	enum Header: String {
+	private enum Header: String {
 		case Accept        = "Accept"
 		case Authorization = "Authorization"
 		case CacheControl  = "Cache-Control"
 		case XApiKey       = "X-API-Key"
 	}
 	
-	private let baseUrl: String!
+	private let basePath: String!
 	
-	private var headers: [String : String] {
+	private var headers: [String: String] {
 	
 		let authorizationValue = [AirMap.authSession.tokenType, AirMap.authSession.authToken]
-			.flatMap{$0}
-			.joinWithSeparator(" ")
+			.flatMap { $0 }
+			.joined(separator: " ")
 		
 		return [
 			Header.Accept.rawValue: MimeType.JSON.rawValue,
-			Header.XApiKey.rawValue: AirMap.configuration.airMapApiKey,
+			Header.XApiKey.rawValue: AirMap.configuration.airMapApiKey!,
 			Header.Authorization.rawValue: authorizationValue
 		]
 	}
 
-	lazy var manager: Manager = {
+	private lazy var manager: SessionManager = {
 
 		let host = NSURL(string: Config.AirMapApi.host)!.host!
-		let certs = ServerTrustPolicy.certificatesInBundle(AirMapBundle.mainBundle())
+		let certs = ServerTrustPolicy.certificates(in: AirMapBundle.mainBundle)
 		
 		let serverTrustPolicies: [String: ServerTrustPolicy] = [
-			host: ServerTrustPolicy.PinCertificates(certificates: certs, validateCertificateChain: true, validateHost: true)
+			host: ServerTrustPolicy.pinCertificates(certificates: certs, validateCertificateChain: true, validateHost: true)
 		]
 		
 		return AirMap.authSession.enableCertificatePinning ?
-			Manager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)) : Manager()
-
+			SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)) : SessionManager()
 	}()
 
-	init(_ baseUrl: String) {
-		self.baseUrl = baseUrl
+	init(basePath: String) {
+		self.basePath = basePath
 	}
 	
-	func call<T: Mappable>(method: Alamofire.Method, url: String = "", params: [String: AnyObject] = [:], keyPath: String? = "data", update object: T? = nil, authCheck: Bool = false) -> Observable<T> {
+	internal func perform<T: Mappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, authCheck: Bool = false) -> Observable<T> {
 
 		return Observable.create { (observer: AnyObserver<T>) -> Disposable in
 
 			if authCheck && !AirMap.hasValidCredentials() {
-				observer.onError(AirMapErrorType.Unauthorized)
+				observer.onError(AirMapError.unauthorized)
 				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
-				return NopDisposable.instance
+				return Disposables.create()
 			}
 
-			let request = self.manager.request(method, self.baseUrl + url.urlEncoded, parameters: params, encoding: self.encoding(method), headers: self.headers)
-				.responseObject(keyPath: keyPath, mapToObject: object) { (response: Response<T, NSError>) in
-
+			let absolutePath = self.basePath + path.urlEncoded
+			let request = self.manager.request(absolutePath, method: method, parameters: params, encoding: self.encoding(method), headers: self.headers)
+				.responseObject(keyPath: keyPath, mapToObject: object) { response in
 					if let error = response.result.error {
-						AirMap.logger.error(method, String(T), url, error)
-						observer.onError(error)
+						AirMap.logger.error(method, String(describing: T.self), path, error)
+						observer.onError(HTTPClient.adapt(error: error))
 					} else {
-						AirMap.logger.debug(String(T), "response:", response.result.value!)
-						observer.on(.Next(response.result.value!))
-						observer.on(.Completed)
+						AirMap.logger.debug(String(describing: T.self), "response:", response.result.value!)
+						observer.on(.next(response.result.value!))
+						observer.on(.completed)
 					}
-			}
-			return AnonymousDisposable {
-				request.cancel()
-			}
-		}
-	}
-
-	func call<T: Mappable>(method: Alamofire.Method, url: String = "", params: [String: AnyObject] = [:], keyPath: String? = "data", update object: T? = nil, authCheck: Bool = false) -> Observable<T?> {
-
-		return Observable.create { (observer: AnyObserver<T?>) -> Disposable in
-			if authCheck && !AirMap.hasValidCredentials() {
-				observer.onError(AirMapErrorType.Unauthorized)
-				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
-				return NopDisposable.instance
-			}
-
-			let request = self.manager.request(method, self.baseUrl + url.urlEncoded, parameters: params, encoding: self.encoding(method), headers: self.headers)
-				.responseObject(keyPath: keyPath, mapToObject: object) { (response: Response<T?, NSError>) in
-					if let error = response.result.error {
-						AirMap.logger.error(method, String(T), url, error)
-						observer.onError(error)
-					} else {
-						AirMap.logger.debug(String(T), "response:", response.result.value)
-						observer.on(.Next(response.result.value ?? nil))
-						observer.on(.Completed)
-					}
-			}
-			return AnonymousDisposable {
-				request.cancel()
-			}
-		}
-	}
-
-	func call<T: Mappable>(method: Alamofire.Method, url: String = "", params: [String: AnyObject] = [:], keyPath: String? = "data", authCheck: Bool = false) -> Observable<[T]> {
-
-		return Observable.create { (observer: AnyObserver<[T]>) -> Disposable in
-
-			if authCheck && !AirMap.hasValidCredentials() {
-				observer.onError(AirMapErrorType.Unauthorized)
-				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
-				return NopDisposable.instance
-			}
-
-			let request = self.manager.request(method, self.baseUrl + url.urlEncoded, parameters: params, encoding: self.encoding(method), headers: self.headers)
-				.responseArray(keyPath: keyPath) { (response: Response<[T], NSError>) in
-					if let error = response.result.error {
-						AirMap.logger.error(method, String(T), url, error)
-						observer.onError(error)
-					} else {
-						let resultValue = response.result.value!
-						AirMap.logger.debug("Response:", resultValue.count, String(T)+"s")
-						observer.on(.Next(resultValue))
-						observer.on(.Completed)
-					}
-			}
-			return AnonymousDisposable {
-				request.cancel()
-			}
-		}
-	}
-
-	func call(method: Alamofire.Method, url: String = "", params: [String: AnyObject] = [:], keyPath: String? = "data", authCheck: Bool = false) -> Observable<Void> {
-
-		return Observable.create { (observer: AnyObserver<Void>) -> Disposable in
-
-			if authCheck && !AirMap.hasValidCredentials() {
-				observer.onError(AirMapErrorType.Unauthorized)
-				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
-				return NopDisposable.instance
-			}
-
-			let request = self.manager.request(method, self.baseUrl + url.urlEncoded, parameters: params, encoding: self.encoding(method), headers: self.headers)
-				.response { _, _, _, error in
-					if let error = error {
-						AirMap.logger.error(method, url, error)
-						observer.onError(error)
-					} else {
-						observer.on(.Next())
-						observer.on(.Completed)
-					}
-			}
-			return AnonymousDisposable {
+				}
+			
+			return Disposables.create {
 				request.cancel()
 			}
 		}
 	}
 	
-	private func encoding(method: Alamofire.Method) -> ParameterEncoding {
-		return (method == .GET || method == .DELETE) ? .URL : .JSON
+	internal func perform<T: Mappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, authCheck: Bool = false) -> Observable<T?> {
+
+		return Observable.create { (observer: AnyObserver<T?>) -> Disposable in
+			
+			if authCheck && !AirMap.hasValidCredentials() {
+				observer.onError(AirMapError.unauthorized)
+				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
+				return Disposables.create()
+			}
+
+			let fullUrl = self.basePath + path.urlEncoded
+			let request = self.manager
+				.request(fullUrl, method: method, parameters: params, encoding: self.encoding(method), headers: self.headers)
+				.responseObject(keyPath: keyPath, mapToObject: object) { response in
+					if let error = response.result.error {
+						AirMap.logger.error(method, String(describing: T.self), path, error)
+						observer.onError(HTTPClient.adapt(error: error))
+					} else {
+						AirMap.logger.debug(String(describing: T.self), "response:", response.result.value)
+						observer.on(.next(response.result.value ?? nil))
+						observer.on(.completed)
+					}
+			}
+			return Disposables.create {
+				request.cancel()
+			}
+		}
+	}
+
+	internal func perform<T: Mappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", authCheck: Bool = false) -> Observable<[T]> {
+
+		return Observable.create { (observer: AnyObserver<[T]>) -> Disposable in
+
+			if authCheck && !AirMap.hasValidCredentials() {
+				observer.onError(AirMapError.unauthorized)
+				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
+				return Disposables.create()
+			}
+
+			let absolutePath = self.basePath + path.urlEncoded
+			let request = self.manager
+				.request(absolutePath, method: method, parameters: params, encoding: self.encoding(method), headers: self.headers)
+				.responseArray(keyPath: keyPath) { (response: DataResponse<[T]>) in
+					if let error = response.result.error {
+						AirMap.logger.error(method, String(describing: T.self), path, error)
+						observer.onError(HTTPClient.adapt(error: error))
+					} else {
+						let resultValue = response.result.value!
+						AirMap.logger.debug("Response:", resultValue.count, String(describing: T.self)+"s")
+						observer.on(.next(resultValue))
+						observer.on(.completed)
+					}
+			}
+			return Disposables.create() {
+				request.cancel()
+			}
+		}
+	}
+
+	internal func perform(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", authCheck: Bool = false) -> Observable<Void> {
+
+		return Observable.create { (observer: AnyObserver<Void>) -> Disposable in
+
+			if authCheck && !AirMap.hasValidCredentials() {
+				observer.onError(AirMapError.unauthorized)
+				AirMap.authSession.delegate?.airmapSessionShouldAuthenticate()
+				return Disposables.create()
+			}
+
+			let fullUrl = self.basePath + path.urlEncoded
+			let request = self.manager
+				.request(fullUrl, method: method, parameters: params, encoding: self.encoding(method), headers: self.headers)
+				.response() { response in
+					if let error = response.error {
+						AirMap.logger.error(method, path, error)
+						observer.onError(HTTPClient.adapt(error: error))
+					} else {
+						observer.on(.next())
+						observer.on(.completed)
+					}
+			}
+			return Disposables.create() {
+				request.cancel()
+			}
+		}
+	}
+	
+	private static func adapt(error: Error) -> Error {
+		
+		// TODO Adapt error
+		return error
+	}
+	
+	private func encoding(_ method: HTTPMethod) -> ParameterEncoding {
+		
+		return (method == .get || method == .delete) ? URLEncoding.queryString : JSONEncoding.default
 	}
 	
 }

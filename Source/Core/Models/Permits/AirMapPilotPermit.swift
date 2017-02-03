@@ -8,51 +8,33 @@
 
 import ObjectMapper
 
-@objc public class AirMapPilotPermit: NSObject {
+public class AirMapPilotPermit: Hashable, Equatable {
 
 	public enum PermitStatus: String {
-		case Accepted	= "accepted"
-		case Rejected	= "rejected"
-		case Pending	= "pending"
-		case Expired	= "expired"
+		case accepted
+		case rejected
+		case pending
+		case expired
 	}
 
 	public var id = ""
 	public var permitId = ""
 	public var status: PermitStatus?
-	public var createdAt: NSDate = NSDate()
-	public var updatedAt: NSDate!
-	public var expiresAt: NSDate!
+	public var createdAt: Date = Date()
+	public var updatedAt: Date!
+	public var expiresAt: Date!
 	public var customProperties = [AirMapPilotPermitCustomProperty]()
 	public var permitDetails: AirMapPilotPermitShortDetails!
 	public var organization: AirMapOrganization?
 
-	public required init?(_ map: Map) {}
-
-	internal override init() {
-		super.init()
+	public init() {}
+	
+	public required init?(map: Map) {}
+	
+	public var hashValue: Int {
+		return id.isEmpty ? permitId.hashValue : id.hashValue
 	}
 	
-	override public var hashValue: Int {
-		return id.hashValue
-	}
-	
-	override public func isEqual(object: AnyObject?) -> Bool {
-		if let permit = object as? AirMapPilotPermit {
-			return permit == self
-		} else {
-			return false
-		}
-	}
-
-}
-
-public func ==(lhs: AirMapPilotPermit, rhs: AirMapPilotPermit) -> Bool {
-	if lhs.id.isEmpty || rhs.id.isEmpty {
-		return lhs.permitId == rhs.permitId
-	} else {
-		return lhs.id == rhs.id
-	}
 }
 
 extension AirMapPilotPermit: Mappable {
@@ -70,26 +52,27 @@ extension AirMapPilotPermit: Mappable {
 		permitDetails     <-  map["permit"]
 		status            <-  map["status"]
 		
-		if map.JSONDictionary.keys.contains("permit") {
+		if map.JSON.keys.contains("permit") {
 			permitId <- map["permit.id"]
 		} else {
 			permitId <- map["permit_id"]
 		}
 	}
 
-	/**
-	Returns key value parameters
+	func params() -> [String: Any] {
 
-	- returns: [String: AnyObject]
-	*/
-
-	func params() -> [String: AnyObject] {
-
-		var params = [String: AnyObject]()
-		params["id"] = id
-		params["custom_properties"] = customProperties.toJSON()
-
-		return params
+		return [
+			"id": id,
+			"custom_properties": customProperties.toJSON()
+		]
 	}
 
+}
+
+public func ==(lhs: AirMapPilotPermit, rhs: AirMapPilotPermit) -> Bool {
+	if lhs.id.isEmpty || rhs.id.isEmpty {
+		return lhs.permitId == rhs.permitId
+	} else {
+		return lhs.id == rhs.id
+	}
 }

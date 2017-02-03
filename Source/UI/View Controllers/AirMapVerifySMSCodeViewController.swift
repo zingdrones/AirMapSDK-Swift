@@ -17,8 +17,8 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 	@IBOutlet weak var smsCode: UITextField!
 	@IBOutlet weak var smsTextField: UITextField!
 	
-	private let disposeBag = DisposeBag()
-	private let activityIndicator = ActivityIndicator()
+	fileprivate let disposeBag = DisposeBag()
+	fileprivate let activityIndicator = ActivityIndicator()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -27,13 +27,13 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 		smsCode.becomeFirstResponder()
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
 	}
 	
-	override func canBecomeFirstResponder() -> Bool {
+	override var canBecomeFirstResponder : Bool {
 		
 		return true
 	}
@@ -43,11 +43,11 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 		return submitButton
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
-		smsTextField.rx_text.asObservable()
-			.map { $0.characters.count == Config.AirMapApi.smsCodeLength }
-			.bindTo(submitButton.rx_enabled)
+		smsTextField.rx.text.asObservable()
+			.map { $0?.characters.count == Config.AirMapApi.smsCodeLength }
+			.bindTo(submitButton.rx.isEnabled)
 			.addDisposableTo(disposeBag)
 		
 		activityIndicator.asObservable()
@@ -63,28 +63,29 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 		
 		smsCode.resignFirstResponder()
 		
-		AirMap.rx_verifySMS(smsTextField.text!)
+		AirMap.rx.verifySMS(smsTextField.text!)
 			.trackActivity(activityIndicator)
 			.map { $0.verified }
-			.doOnNext(unowned(self, AirMapVerifySMSCodeViewController.didVerifyPhoneNumber))
-			.doOnError { [unowned self] error in
-				self.trackEvent(.save, label: "Error", value: (error as NSError).code)
-			}
-			.doOnCompleted { [unowned self] _ in
-				self.trackEvent(.save, label: "Success")
-			}
-			.subscribe()
+			.subscribe(
+				onNext: (unowned(self, AirMapVerifySMSCodeViewController.didVerifyPhoneNumber)),
+				onError: { [unowned self] error in
+					self.trackEvent(.save, label: "Error", value: NSNumber(value: (error as NSError).code))
+				},
+				onCompleted: { [unowned self] _ in
+					self.trackEvent(.save, label: "Success")
+				}
+			)
 			.addDisposableTo(disposeBag)
 	}
 	
-	private func didVerifyPhoneNumber(verified: Bool) {
+	fileprivate func didVerifyPhoneNumber(_ verified: Bool) {
 		
 		if verified {
 			let nav = navigationController as! AirMapPhoneVerificationNavController
 			nav.phoneVerificationDelegate?.phoneVerificationDidVerifyPhoneNumber()
 		} else {
 			//TODO: Handle error
-			navigationController?.popViewControllerAnimated(true)
+			navigationController?.popViewController(animated: true)
 		}
 	}
 	

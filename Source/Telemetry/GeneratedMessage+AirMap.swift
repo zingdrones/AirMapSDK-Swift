@@ -13,33 +13,36 @@ typealias ProtoBufMessage = GeneratedMessage
 extension ProtoBufMessage {
 	
 	enum MessageType: UInt16 {
-		case Position  = 1
-		case Speed     = 2
-		case Attitude  = 3
-		case Barometer = 4
+		case position  = 1
+		case speed     = 2
+		case attitude  = 3
+		case barometer = 4
 	}
 	
 	var messageType: MessageType {
 		switch self {
 		case is Airmap.Telemetry.Position:
-			return .Position
+			return .position
 		case is Airmap.Telemetry.Attitude:
-			return .Attitude
+			return .attitude
 		case is Airmap.Telemetry.Speed:
-			return .Speed
+			return .speed
 		case is Airmap.Telemetry.Barometer:
-			return .Barometer
+			return .barometer
 		default:
 			fatalError("Unsupported Message Type")
 		}
 	}
 	
-	func telemetryData() -> NSData {
-		let payloadData = self.data()
-		let telemetryData = NSMutableData()
-		telemetryData.appendData(messageType.rawValue.data)
-		telemetryData.appendData(UInt16(payloadData.length).data)
-		telemetryData.appendData(payloadData)
-		return telemetryData
+	func telemetryBytes() -> [UInt8] {
+		
+		var bytes = [UInt8]()
+		
+		bytes += messageType.rawValue.bigEndian.bytes
+		bytes += UInt16(serializedSize()).bigEndian.bytes
+		bytes += data().bytes
+		
+		return bytes
 	}
+	
 }

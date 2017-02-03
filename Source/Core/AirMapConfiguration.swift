@@ -8,43 +8,50 @@
 
 import ObjectMapper
 
-public class AirMapConfiguration: NSObject {
+public class AirMapConfiguration {
+		
+	public var distanceUnits = DistanceUnits.meters
+	public var temperatureUnits = TemperatureUnits.celcius
 	
-	public enum DistanceUnits {
-		case Meters
-		case Feet
-	}
-	
-	public enum TemperatureUnits {
-		case Celcius
-		case Fahrenheit
-	}
-	
-	public var distanceUnits = DistanceUnits.Meters
-	public var temperatureUnits = TemperatureUnits.Celcius
-	
-	public var environment: String?
-	public var airMapApiKey: String!
-	public var mapboxAccessToken: String?
+	internal fileprivate(set) var environment: String?
+	internal fileprivate(set) var airMapApiKey: String?
+	public fileprivate(set) var mapboxAccessToken: String?
 
-	var auth0ClientId: String!
-	var auth0CallbackUrl: String!
+	internal fileprivate(set) var auth0ClientId: String!
+	internal fileprivate(set) var auth0CallbackUrl: String!
 	
-	static func loadConfig() -> AirMapConfiguration {
-		
-		let bundle = NSBundle.mainBundle()
-		
-		guard let
-			configFile = bundle.pathForResource("airmap.config", ofType: "json"),
-			json = try? String(contentsOfFile: configFile),
-			config = Mapper<AirMapConfiguration>().map(json)
- 		else {
- 			fatalError(
- 				"The `airmap.config.json` file required to configure the AirMapSDK is missing. " +
-				"Please reference the documentation for more information. " +
-				"https://developers.airmap.com/docs/ios-getting-started#section-3-download-an-airmap-configuration-file"
-			)
- 		}
+	internal static func loadConfig() -> AirMapConfiguration {
+
+		#if os(Linux)
+			let configFile = "./config/airmap.config.json"
+			guard
+				let json = try? String(contentsOfFile: configFile) else {
+					fatalError(
+						"The `\(configFile)` file required to configure the AirMapSDK is missing. " +
+						"Please reference the documentation for more information."
+					)
+			}
+		#else
+			let bundle = Bundle.main
+			guard
+				let configFile = bundle.path(forResource: "airmap.config", ofType: "json"),
+				let json = try? String(contentsOfFile: configFile) else {
+					fatalError(
+						"The `airmap.config.json` file required to configure the AirMapSDK is missing. " +
+							"Please reference the documentation for more information. " +
+						"https://developers.airmap.com/docs/ios-getting-started"
+					)
+			}
+		#endif
+
+		guard
+			let config = Mapper<AirMapConfiguration>().map(JSONString: json)
+			else {
+				fatalError(
+					"Could not parse the AirMap configuration file" +
+					"https://developers.airmap.com/docs/ios-getting-started"
+				)
+		}
 
 		if config.airMapApiKey == nil {
 			fatalError("airmap.config.json is missing an AirMap API Key (airmap.api_key)")
@@ -58,20 +65,18 @@ public class AirMapConfiguration: NSObject {
 			AirMap.logger.warning("airmap.config.json is missing an Auth0 Callback URL (auth0.callback_url)")
 		}
 		
-		let usesMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem)!.boolValue!
-		
-		if usesMetric {
-			config.temperatureUnits = .Celcius
-			config.distanceUnits = .Meters
+		if Locale.current.usesMetricSystem {
+			config.temperatureUnits = .celcius
+			config.distanceUnits = .meters
 		} else {
-			config.temperatureUnits = .Fahrenheit
-			config.distanceUnits = .Feet
+			config.temperatureUnits = .fahrenheit
+			config.distanceUnits = .feet
 		}
 		
 		return config
 	}
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapConfiguration: Mappable {

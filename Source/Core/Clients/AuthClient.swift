@@ -9,42 +9,42 @@
 import RxSwift
 import Alamofire
 
-internal class AirMapAuthClient: HTTPClient {
+internal class AuthClient: HTTPClient {
 
 	init() {
-		super.init(Config.AirMapApi.Auth.ssoUrl)
+		super.init(basePath: Config.AirMapApi.Auth.ssoUrl)
 	}
 
 	func refreshAccessToken() -> Observable<AirMapToken> {
 		AirMap.logger.debug("Refresh Access Token")
 
 		guard let refreshToken = AirMap.authSession.getRefreshToken() else {
-			return Observable.error(AirMapErrorType.Unauthorized)
+			return Observable.error(AirMapError.unauthorized)
 		}
 
-		let params = ["grant_type" : Config.AirMapApi.Auth.grantType,
-		                  "client_id" : AirMap.configuration.auth0ClientId,
-		                  "api_type" : "app",
-		                  "refresh_token" : refreshToken]
+		let params = ["grant_type": Config.AirMapApi.Auth.grantType,
+		              "client_id": AirMap.configuration.auth0ClientId,
+		              "api_type": "app",
+		              "refresh_token": refreshToken]
 
-		return call(.POST, url:"/delegation", params: params, keyPath: nil)
-			.doOnNext { token in
+		return perform(method: .post, path:"/delegation", params: params, keyPath: nil)
+			.do(onNext: { token in
 				AirMap.authToken = token.authToken
-            }.doOnError { error in
-                AirMap.logger.debug("ERROR: \(error)")
-            }
+			}, onError: { error in
+				AirMap.logger.debug("ERROR: \(error)")
+			})
 		}
 	
-	func resendEmailVerification(resendLink:String?) {
+	func resendEmailVerification(_ resendLink: String?) {
 		
-		if let urlStr = resendLink?.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())! {
-			Alamofire.request(.GET, urlStr)
+		if let urlStr = resendLink?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! {
+			Alamofire.request(urlStr, method: .get)
 				.responseJSON { response in
 			}
 		}
 	}
     
-    func logout(){
+    func logout() {
         AirMap.authToken = nil
     }
 }

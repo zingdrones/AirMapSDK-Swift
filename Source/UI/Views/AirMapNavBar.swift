@@ -6,7 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-public class AirMapNavBar: UINavigationBar {
+open class AirMapNavBar: UINavigationBar {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -20,12 +20,12 @@ public class AirMapNavBar: UINavigationBar {
 		setup()
 	}
 
-	private func setup() {
+	fileprivate func setup() {
 	
-		translucent = false
-		barStyle = .Black
-		tintColor = .whiteColor()
-		barTintColor = .airMapGray()
+		isTranslucent = false
+		barStyle = .black
+		tintColor = .white
+		barTintColor = .airMapDarkGray
 	}
 	
 }

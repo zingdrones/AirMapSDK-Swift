@@ -22,11 +22,12 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 	override var navigationController: AirMapFlightPlanNavigationController? {
 		return super.navigationController as? AirMapFlightPlanNavigationController
 	}
-	private typealias SectionData = (digital: Bool, headerView: UIView!)
-	private typealias RowData = AirMapStatusAdvisory
+	fileprivate typealias SectionData = (digital: Bool, headerView: UIView?)
+	fileprivate typealias RowData = AirMapStatusAdvisory
+	fileprivate typealias SectionDataModel = SectionModel<SectionData, RowData>
 
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<SectionData, RowData>>()
-	private let disposeBag = DisposeBag()
+	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionDataModel>()
+	fileprivate let disposeBag = DisposeBag()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -35,29 +36,28 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 		tableView.estimatedRowHeight = 44
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
         let advisories:[AirMapStatusAdvisory] = navigationController!.status.value!.advisories
             .filterDuplicates { (left, right) in
                 let notNil = left.organizationId != nil && right.organizationId != nil
-                let notAirport = left.type != AirMapAirspaceType.Airport && right.type != AirMapAirspaceType.Airport
+                let notAirport = left.type != AirMapAirspaceType.airport && right.type != AirMapAirspaceType.airport
                 return notNil && notAirport && left.organizationId == right.organizationId
             }
 		
-        var sections = [SectionModel<SectionData, RowData>]()
+        var sections = [SectionDataModel]()
 		
         let digitalNotices: [AirMapStatusAdvisory] = advisories
             .filter { $0.requirements?.notice?.digital == true }
         
-        
         if digitalNotices.count > 0 {
-			let digitalSection = SectionModel(model: (digital: true, headerView: submitNoticeHeader), items: digitalNotices)
+			let digitalSection = SectionDataModel(model: (digital: true, headerView: submitNoticeHeader), items: digitalNotices)
 			sections.append(digitalSection)
 		}
 		
@@ -66,51 +66,51 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			.flatMap { $0 }
 		
 		if notices.count > 0 {
-			let section = SectionModel(model: (digital: false, headerView: noticeUnavailableHeader), items: notices)
+			let section = SectionDataModel(model: (digital: false, headerView: noticeUnavailableHeader), items: notices)
 			sections.append(section)
         }
 		
 		Observable
 			.just(sections)
-			.bindTo(tableView.rx_itemsWithDataSource(dataSource))
+			.bindTo(tableView.rx.items(dataSource: dataSource))
 			.addDisposableTo(disposeBag)
 		
-		tableView.rx_setDelegate(self)
+		tableView.rx.setDelegate(self)
 		
 		dataSource.configureCell = { datasource, tableView, indexPath, advisory in
 			let cell: AirMapFlightNoticeCell!
-			let notice = datasource.sectionAtIndex(indexPath.section).model
+			let notice = datasource.sectionModels[indexPath.section].model
 			if notice.digital {
-				cell = tableView.dequeueReusableCellWithIdentifier("noticeCell") as! AirMapFlightNoticeCell
+				cell = tableView.dequeueReusableCell(withIdentifier: "noticeCell") as! AirMapFlightNoticeCell
 			} else {
-				cell = tableView.dequeueReusableCellWithIdentifier("noticePhoneNumberCell") as! AirMapFlightNoticeCell			}
+				cell = tableView.dequeueReusableCell(withIdentifier: "noticePhoneNumberCell") as! AirMapFlightNoticeCell			}
 			cell.advisory = advisory
             return cell
 		}
         
         self.navigationController!.flight.value.notify = true
 		
-//		submitNoticeSwitch.rx_value
+//		submitNoticeSwitch.rx.value
 //			.subscribeNext { [unowned self] submitNotice in
 //				self.navigationController!.flight.value.notify = submitNotice
 //			}
 //			.addDisposableTo(disposeBag)
 	}
 	
-	@IBAction func unwindToFlightNotice(segue: UIStoryboardSegue) {
+	@IBAction func unwindToFlightNotice(_ segue: UIStoryboardSegue) {
 		
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "modalVerifyId" {
-			let nav = segue.destinationViewController as! AirMapPhoneVerificationNavController
+			let nav = segue.destination as! AirMapPhoneVerificationNavController
 			nav.phoneVerificationDelegate = self
 			let phoneVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
 			phoneVC.pilot = navigationController!.flight.value.pilot
 		}
 	}
 	
-	override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+	override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
 		
 		if identifier == "pushReview" {
 			trackEvent(.tap, label: "Review Button")
@@ -119,7 +119,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			if verified {
 				return true
 			} else if submitDigitalNotice && !verified {
-				performSegueWithIdentifier("modalVerifyId", sender: self)
+				performSegue(withIdentifier: "modalVerifyId", sender: self)
 				return false
 			}
 		}
@@ -129,12 +129,12 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 
 extension AirMapFlightNoticeViewController: UITableViewDelegate {
 	
-	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		return dataSource.sectionAtIndex(section).model.headerView
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		return dataSource.sectionModels[section].model.headerView
 	}
 	
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return dataSource.sectionModels[section].model.headerView.frame.height
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return dataSource.sectionModels[section].model.headerView?.frame.height ?? 0
 	}
 
 }
@@ -142,9 +142,9 @@ extension AirMapFlightNoticeViewController: UITableViewDelegate {
 extension AirMapFlightNoticeViewController: AirMapPhoneVerificationDelegate {
 	
 	func phoneVerificationDidVerifyPhoneNumber() {
-		dismissViewControllerAnimated(true) {
+		dismiss(animated: true) {
 			self.navigationController?.flight.value.pilot?.phoneVerified = true
-			self.performSegueWithIdentifier("pushReview", sender: self)
+			self.performSegue(withIdentifier: "pushReview", sender: self)
 		}
 	}
 }

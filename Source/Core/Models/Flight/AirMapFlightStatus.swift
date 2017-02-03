@@ -10,25 +10,19 @@ import ObjectMapper
 
 public enum AirMapFlightStatusType: String {
 
-	case Accepted = "accepted"
-	case Rejected = "rejected"
-	case Pending  = "pending"
-	case Unknown  = "unknown"
+	case accepted
+	case rejected
+	case pending
+	case unknown
 }
 
-@objc public class AirMapFlightStatus: NSObject {
+open class AirMapFlightStatus {
 
-	public var id: String!
-	public var managerId: String!
-	public var status: AirMapFlightStatusType = .Unknown
+	open var id: String!
+	open var managerId: String!
+	open var status: AirMapFlightStatusType = .unknown
 
-	public required init?(_ map: Map) {
-		super.init()
-	}
-
-	internal override init() {
-		super.init()
-	}
+	public required init?(map: Map) {}
 
 }
 
@@ -41,11 +35,7 @@ extension AirMapFlightStatus: Mappable {
 
 		var statusType = "unknown"
 		statusType  <- map["status"]
-		status = statusTypeForString(statusType)
-	}
-
-	func statusTypeForString(status: String) -> AirMapFlightStatusType {
-		return AirMapFlightStatusType(rawValue: status) ?? .Unknown
+		status = AirMapFlightStatusType(rawValue: statusType) ?? .unknown
 	}
 
 }

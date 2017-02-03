@@ -8,17 +8,13 @@
 
 import ObjectMapper
 
-@objc public class AirMapPilotStats: NSObject {
+public class AirMapPilotStats {
 	
 	public var totalAircraft = 0
 	public var totalFlights = 0
-	public var lastFlightTime: NSDate?
+	public var lastFlightTime: Date?
 
-	internal override init() {
-		super.init()
-	}
-	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapPilotStats: Mappable {

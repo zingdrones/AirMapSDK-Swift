@@ -11,20 +11,20 @@ import RxSwift
 internal class AirspaceClient: HTTPClient {
 	
 	init() {
-		super.init(Config.AirMapApi.airspaceUrl)
+		super.init(basePath: Config.AirMapApi.airspaceUrl)
 	}
 	
-	func getAirspace(airspaceId: String) -> Observable<AirMapAirspace> {
+	func getAirspace(_ airspaceId: String) -> Observable<AirMapAirspace> {
 		AirMap.logger.debug("Get Airspace", airspaceId)
-		return call(.GET, url:"/\(airspaceId)")
+		return perform(method: .get, path:"/\(airspaceId)")
 	}
 
-	func listAirspace(airspaceIds: [String]) -> Observable<[AirMapAirspace]> {
+	func listAirspace(_ airspaceIds: [String]) -> Observable<[AirMapAirspace]> {
 		AirMap.logger.debug("Get Airspace", airspaceIds)
 		let params = [
-			"ids": airspaceIds.joinWithSeparator(",")
+			"ids": airspaceIds.joined(separator: ",")
 		]
-		return call(.GET, url:"/list", params: params)
+		return perform(method: .get, path:"/list", params: params)
 	}
 
 }

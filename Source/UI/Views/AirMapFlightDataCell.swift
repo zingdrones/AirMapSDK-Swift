@@ -20,36 +20,36 @@ class AirMapFlightDataCell: UITableViewCell {
 		didSet { setupBindings() }
 	}
 
-	private let disposeBag = DisposeBag()
+	fileprivate let disposeBag = DisposeBag()
 		
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
 		model.title
 			.asObservable()
-			.bindTo(label.rx_text)
+			.bindTo(label.rx.text)
 			.addDisposableTo(disposeBag)
 		
-		slider.rx_value
+		slider.rx.value
 			.map(unowned(self, AirMapFlightDataCell.sliderValueToPreset))
 			.map { $0.value}
 			.bindTo(model.value)
 			.addDisposableTo(disposeBag)
 		
-		slider.rx_value
+		slider.rx.value
 			.map(unowned(self, AirMapFlightDataCell.sliderValueToPreset))
 			.map { $0.title }
-			.bindTo(value.rx_text)
+			.bindTo(value.rx.text)
 			.addDisposableTo(disposeBag)
 	}
 	
-	private func sliderValueToPreset(value: Float) -> (title: String, value: Double) {
+	fileprivate func sliderValueToPreset(_ value: Float) -> (title: String, value: Double) {
 		let presets = model.values!
 		let maxIndex = presets.count - 1
 		let index = Int(round(Double(maxIndex) * Double(value)))
 		return presets[index]
 	}
 	
-	private func modelValueToSliderValue(value: Double) -> Float {
+	fileprivate func modelValueToSliderValue(_ value: Double) -> Float {
 		return min(Float(value/model.values!.last!.value), 1)
 	}
 	

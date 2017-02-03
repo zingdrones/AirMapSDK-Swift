@@ -10,7 +10,7 @@ import UIKit
 
 class AirMapPointEditingOverlay: UIView {
 	
-	private var points = [[CGPoint]]()
+	fileprivate var points = [[CGPoint]]()
 		
 	func drawProposedPath(along points: [[CGPoint]]) {
 		
@@ -23,21 +23,21 @@ class AirMapPointEditingOverlay: UIView {
 		drawProposedPath(along: [])
 	}
 	
-	override func drawRect(rect: CGRect) {
-		super.drawRect(rect)
+	override func draw(_ rect: CGRect) {
+		super.draw(rect)
 		
-		UIColor.airMapGray().colorWithAlphaComponent(0.5).setStroke()
+		UIColor.airMapDarkGray.withAlphaComponent(0.5).setStroke()
 		
 		for pointArray in points {
 			
-			let cgPath = CGPathCreateMutable()
-			CGPathAddLines(cgPath, nil, pointArray, pointArray.count)
+			let cgPath = CGMutablePath()
+			cgPath.addLines(between: pointArray)
 			
-			let uiPath = UIBezierPath(CGPath: cgPath)
+			let uiPath = UIBezierPath(cgPath: cgPath)
 			uiPath.setLineDash([6], count: 1, phase: 0)
 			uiPath.lineWidth = 2
 			uiPath.miterLimit = 2
-			uiPath.lineJoinStyle = .Round
+			uiPath.lineJoinStyle = .round
 			uiPath.stroke()
 		}
 

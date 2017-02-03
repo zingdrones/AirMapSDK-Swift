@@ -14,11 +14,11 @@ class TableHeader: UIView {
 		guard let title = title else {
 			return nil
 		}
-		self.init(frame: CGRectMake(0, 0, 50, 50))
+		self.init(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
 
-		backgroundColor = .clearColor()
-		textLabel.textColor = .airMapGray()
-		textLabel.font = UIFont.boldSystemFontOfSize(15)
+		backgroundColor = .clear
+		textLabel.textColor = .airMapDarkGray
+		textLabel.font = UIFont.boldSystemFont(ofSize: 15)
 		textLabel.text = title
 		addSubview(textLabel)
 	}
@@ -26,6 +26,6 @@ class TableHeader: UIView {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		
-		textLabel.frame = CGRectInset(bounds, 15, 0)
+		textLabel.frame = bounds.insetBy(dx: 15, dy: 0)
 	}
 }
