@@ -13,7 +13,6 @@ import CryptoSwift
 struct CommKey {
 	
 	var key: String!
-	var type: String!
 	var expiresAt = NSDate.distantPast()
 	
 	func binaryKey() -> [UInt8] {
@@ -33,8 +32,7 @@ extension CommKey: Mappable {
 	
 	mutating func mapping(map: Map) {
 		
-		key     <- map["key.data"]
-		type    <- map["key.type"]
+		key     <- map["key"]
 		expiresAt = NSDate().dateByAddingTimeInterval(300) // 5 minute
 	}
 }
