@@ -6,20 +6,19 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import ObjectMapper
+import CryptoSwift
 
 struct CommKey {
 	
-	var key: [Int]!
+	var key: String!
 	var type: String!
 	var expiresAt = NSDate.distantPast()
 	
 	func binaryKey() -> [UInt8] {
 		
-		let keys = key.flatMap {
-			UInt8(truncatingBitPattern: $0)
-		}
-		return keys
+		return key.dataUsingEncoding(NSUTF8StringEncoding)?.arrayOfBytes() ?? []
 	}
 	
 	func isValid() -> Bool {
