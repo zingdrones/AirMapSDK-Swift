@@ -17,7 +17,7 @@ struct CommKey {
 	
 	func binaryKey() -> [UInt8] {
 		
-		return key.dataUsingEncoding(NSUTF8StringEncoding)?.arrayOfBytes() ?? []
+		return NSData(base64EncodedString: key, options: .IgnoreUnknownCharacters)?.arrayOfBytes() ?? []
 	}
 	
 	func isValid() -> Bool {
