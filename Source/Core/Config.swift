@@ -53,12 +53,13 @@ struct Config {
 
 	struct AirMapTelemetry {
 		static var host: String {
-// FIXME: Only supported on stage for now
-//			let env = AirMap.configuration.environment ?? "prod"
-//			return "api-udp-telemetry.\(env).airmap.com"
-			return "api-udp-telemetry.stage.airmap.com"
+            if let env = AirMap.configuration.environment {
+                if env == "stage" { return "api-udp-telemetry.\(env).airmap.com" }
+            }
+	        return "api-udp-telemetry.airmap.com"
 		}
-		static let port = UInt16(16060)
+		
+        static let port = UInt16(16060)
 		
 		struct SampleFrequency {
 			static let position: NSTimeInterval = 1/5
