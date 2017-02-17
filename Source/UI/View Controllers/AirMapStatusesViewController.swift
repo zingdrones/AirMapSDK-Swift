@@ -38,7 +38,7 @@ class AirMapStatusesViewController: UITableViewController {
 				
 				cell.detailTextLabel?.text = status.status.rawValue
 			}
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 		
 }

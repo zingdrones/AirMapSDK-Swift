@@ -29,7 +29,7 @@ class AirMapFlightPilotCell: UITableViewCell, Dequeueable {
 			.unwrap()
 			.map { [unowned self] pilot in self.fullName(pilot.firstName, lastName: pilot.lastName) }
 			.bindTo(pilotLabel!.rx.text)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func fullName(_ firstName: String?, lastName: String?) -> String {

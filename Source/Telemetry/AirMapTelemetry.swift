@@ -74,7 +74,7 @@ struct AirMapTelemetry {
 				.buffer(timeSpan: 1, count: 20, scheduler: scheduler)
 				.do(onNext: Client.sendMessages)
 				.subscribe()
-				.addDisposableTo(disposeBag)
+				.disposed(by: disposeBag)
 		}
 		
 		fileprivate static func sendMessages(_ telemetry: [(session: Session, message: ProtoBufMessage)]) {

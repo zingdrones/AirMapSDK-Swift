@@ -43,7 +43,7 @@ class RulesTests: TestCase {
 						expect(error).to(beNil()); done() },
 					onCompleted: done
 				)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 }

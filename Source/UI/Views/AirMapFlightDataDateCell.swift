@@ -72,12 +72,12 @@ class AirMapFlightDataDateCell: UITableViewCell {
 				return date == nil ? "Now" : AirMapFlightDataDateCell.dateFormatter.string(from: date!)
 			}
 			.bindTo(date.rx.text)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		datePicker.rx.date.asDriver()
 			.skip(1)
 			.map { .some($0) }
 			.drive(model.value)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 }

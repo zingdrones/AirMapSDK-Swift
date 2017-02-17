@@ -67,7 +67,7 @@ open class AirMapLocalRulesViewController: UITableViewController {
 				cell.jurisdictionName.text = rule.jurisdictionName
 				cell.ruleText.text = rule.summary ?? rule.text
 			}
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 }

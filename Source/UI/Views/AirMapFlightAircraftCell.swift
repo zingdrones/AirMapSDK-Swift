@@ -31,6 +31,6 @@ class AirMapFlightAircraftCell: UITableViewCell, Dequeueable {
 			.subscribeOn(MainScheduler.instance)
 			.map { $0?.nickname ?? "Select Aircraft" }
 			.bindTo(selectedAircraft.rx.text)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 }

@@ -102,13 +102,13 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 				self.phone.isValidNumber
 			}
 			.bindTo(submitButton.rx.isEnabled)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func setupDefaultCountryCode() {
@@ -150,7 +150,7 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 					)
 			}
 			.subscribeNext(weak: self, AirMapPhoneVerificationViewController.verifySMSToken)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func validateForm() {

@@ -73,7 +73,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 		Observable
 			.just(sections)
 			.bindTo(tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		tableView.rx.setDelegate(self)
 		
@@ -94,7 +94,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 //			.subscribeNext { [unowned self] submitNotice in
 //				self.navigationController!.flight.value.notify = submitNotice
 //			}
-//			.addDisposableTo(disposeBag)
+//			.disposed(by: disposeBag)
 	}
 	
 	@IBAction func unwindToFlightNotice(_ segue: UIStoryboardSegue) {

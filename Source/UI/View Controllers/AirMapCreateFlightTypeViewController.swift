@@ -222,7 +222,7 @@ extension AirMapCreateFlightTypeViewController {
 		
 		AirMap.rx.listPilotPermits()
 			.bindTo(userPermits)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		let geoType = selectedGeoType.asDriver().distinctUntilChanged()
 		let coordinates = controlPoints.asDriver()
@@ -230,29 +230,29 @@ extension AirMapCreateFlightTypeViewController {
 
 		geoType
 			.drive(onNext: unowned(self, $.configureForType))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		geoType
 			.throttle(0.25)
 			.mapToVoid()
 			.drive(onNext: unowned(self, $.centerFlightPlan))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		buffer.asDriver()
 			.skip(1)
 			.throttle(0.25)
 			.mapToVoid()
 			.drive(onNext: unowned(self, $.centerFlightPlan))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		state.asDriver()
 			.throttle(0.01)
 			.drive(onNext: unowned(self, $.configureForState))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		controlPoints.asDriver()
 			.drive(onNext: unowned(self, $.drawControlPoints))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	
 		let snappedBuffer = bufferSlider.rx.value.asDriver()
             .distinctUntilChanged()
@@ -260,16 +260,16 @@ extension AirMapCreateFlightTypeViewController {
 
 		snappedBuffer.map { $0.displayString }
 			.drive(bufferValueLabel.rx.text)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		snappedBuffer.map { $0.buffer }
 			.drive(onNext: unowned(self, $.drawNewProposedRadius))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		snappedBuffer.map { $0.buffer }
 			.throttle(0.25)
 			.drive(buffer)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		snappedBuffer.map { $0.buffer }
 			.throttle(1)
@@ -277,7 +277,7 @@ extension AirMapCreateFlightTypeViewController {
 			.drive(onNext: { [unowned self] meters in
 				self.trackEvent(.slide, label: "Buffer", value: NSNumber(value: meters))
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		let validatedInput = Driver
 			.combineLatest(geoType, coordinates, buffer.asDriver()) { [unowned self] geoType, coordinates, buffer in
@@ -286,7 +286,7 @@ extension AirMapCreateFlightTypeViewController {
 
 		validatedInput
 			.drive(onNext: unowned(self, $.drawFlightArea))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		let status = navigationController.status
 		
@@ -294,20 +294,20 @@ extension AirMapCreateFlightTypeViewController {
 			.asObservable()
             .filter { $0.3.valid }
 			.flatMapLatest {[unowned self] input in
-                unowned(self, $.getStatus)(input)
+				unowned(self, $.getStatus)(input)
 					.map { Optional.some($0) }
 					.asDriver(onErrorJustReturn: nil)
 			}
 			.shareReplayLatestWhileConnected()
 			.asDriver(onErrorJustReturn: nil)
 			.drive(status)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		status
 			.asDriver()
 			.map { $0?.advisoryColor ?? .gray }
 			.drive(onNext: unowned(self, $.applyAdvisoryColorToNextButton))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		status
 			.asDriver()
@@ -317,7 +317,7 @@ extension AirMapCreateFlightTypeViewController {
 				self.bottomToolTip.superview!.backgroundColor = .airMapRed
 				self.bottomToolTip.text = "Flight area cannot overlap with conflicting permit requirement zones."
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		status
 			.asObservable()
@@ -333,7 +333,7 @@ extension AirMapCreateFlightTypeViewController {
 			}
 			.asDriver(onErrorJustReturn: [])
 			.drive(onNext: unowned(self, $.drawRedAdvisoryAirspaces))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		Observable
 			.combineLatest(status.asObservable().unwrap(), userPermits.asObservable()) { status, permits in
@@ -370,7 +370,7 @@ extension AirMapCreateFlightTypeViewController {
 			}
 			.asDriver(onErrorJustReturn: [AirspacePermitting]())
 			.drive(onNext: unowned(self, $.drawPermitAdvisoryAirspaces))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		let canAdvance = Observable
             .combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
@@ -381,7 +381,7 @@ extension AirMapCreateFlightTypeViewController {
         
         canAdvance
             .drive(nextButton.rx.isEnabled)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         let canAdvanceInfo = Observable
             .combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
@@ -391,11 +391,11 @@ extension AirMapCreateFlightTypeViewController {
 		
 		canAdvanceInfo
 			.drive(advisoriesInfoButton.rx.isEnabled)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		controlPointsHidden.asDriver()
 			.drive(onNext: mapView.hideControlPoints)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func setupMap() {

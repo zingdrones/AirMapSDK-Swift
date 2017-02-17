@@ -44,7 +44,7 @@ class AirMapAuthSession {
 
 		expiredDateInterval
 			.subscribeNext(weak: self, AirMapAuthSession.verifyAuthentication)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 
 	/// Decode a JWT token and set the userId and expiration

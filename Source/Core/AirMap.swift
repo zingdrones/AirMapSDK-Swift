@@ -14,7 +14,7 @@ import Foundation
 /// - error: An error describing the failure
 public enum Result<T> {
 	case value(T)
-	case error(Error)
+	case error(AirMapError)
 }
 
 /// The pricipal AirMapSDK class that is extended by individual services such as Status, Flight, Pilot, Rules, etc.

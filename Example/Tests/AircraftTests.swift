@@ -38,7 +38,7 @@ class AircraftTests: TestCase {
 						expect(error).to(beNil()); done() },
 					onCompleted: done
 				)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 
@@ -58,7 +58,7 @@ class AircraftTests: TestCase {
 						expect(error).to(beNil()); done() },
 					onCompleted: done
 				)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 
@@ -81,14 +81,12 @@ class AircraftTests: TestCase {
 						expect(error).to(beNil()); done() },
 					onCompleted: done
 				)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 
 	func testGetAircraftModel() {
 		
-		return
-
 		stub(.get, Config.AirMapApi.aircraftUrl + "/model/1234", with: "aircraft_model_success.json")
 
 		waitUntil { done in
@@ -108,7 +106,7 @@ class AircraftTests: TestCase {
 						expect(error).to(beNil()); done() },
 					onCompleted: done
 				)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 
 	}

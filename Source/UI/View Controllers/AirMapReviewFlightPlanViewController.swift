@@ -90,7 +90,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 
 	fileprivate func setupEmbeddedViews() {
@@ -225,7 +225,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 					flow?.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
 				}
 			)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	@IBAction func endFlight() {
@@ -234,7 +234,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 			.subscribe(onCompleted: { [unowned self] _ in
 				self.dismiss()
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	@IBAction func dismiss() {

@@ -76,7 +76,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 		Observable
 			.just(sections)
 			.bindTo(tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	func phoneStringFromE164(_ number: String) -> String? {		

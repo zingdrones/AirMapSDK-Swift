@@ -11,94 +11,150 @@ import ObjectMapper
 
 public enum AirMapError: Error {
 	
-	case networkOffline
+	case network(Error)
+	
 	case unauthorized
-	case badRequest(underlying: AirMapApiError)
-	case httpError(underlying: AirMapHTTPError)
+	case invalidRequest(Error)
+
+	case client(Error)
+	case server
+	
+	case serialization(AirMapSerializationError)
+	
+	case unknown(underlying: Error)
 }
 
-public class AirMapApiError: Mappable, LocalizedError {
+extension AirMapError: RawRepresentable {
 	
-	public var message: String = ""
-	public var messages = [AirMapApiValidationErrors]()
-	public var code: Int!
-	
-	required public init?(map: Map) {}
-	
-	public func mapping(map: Map) {
-		message   <-  map["message"]
-		messages  <-  map["errors"]
-		code      <-  map["code"]
+	public typealias RawValue = (request: URLRequest?, response: HTTPURLResponse, data: Data)
+
+	public var rawValue: RawValue {
+		fatalError("RawValue getter unavailable")
 	}
 	
-	public var localizedDescription: String {
+	public init?(rawValue: RawValue) {
 		
+		let code = rawValue.response.statusCode
+		
+		switch code {
+			
+		case 400:
+			let error = AirMapError.error(from: rawValue)
+			self = .invalidRequest(error)
+			
+		case 401:
+			self = .unauthorized
+			
+		case 404:
+			let path = rawValue.request!.url!.path
+			let error = AirMapApiError(message: "Invalid URL: \(path)", code: code)
+			self = .client(error)
+			
+		case 422:
+			let error = AirMapError.error(from: rawValue)
+			self = .invalidRequest(error)
+			
+		case 400..<500:
+			let error = AirMapError.error(from: rawValue)
+			self = .client(error)
+			
+		case 500..<600:
+			self = .server
+			
+		default:
+			return nil
+		}
+	}
+	
+	private static func error(from rawValue: RawValue) -> Error {
+
+		if let json = try? JSONSerialization.jsonObject(with: rawValue.data, options: .allowFragments),
+			let error = Mapper<AirMapApiError>().map(JSONObject: json) {
+			return error
+		} else {
+			let code = rawValue.response.statusCode
+			return AirMapApiError(message: "The server returned an error. (\(code))", code: code)
+		}
+	}
+}
+
+extension AirMapError: LocalizedError {
+	
+	public var localizedDescription: String {
+		switch self {
+		case .network(let error):
+			return error.localizedDescription
+		case .unauthorized:
+			return "Unauthorized. Please check login credentials."
+		case .invalidRequest(let error):
+			return error.localizedDescription
+		case .client(let error):
+			return error.localizedDescription
+		case .server:
+			return "The server could not complete your request."
+		case .serialization:
+			return "A response serialization error has occurred."
+		case .unknown(let error):
+			return error.localizedDescription
+		}
+	}
+}
+
+public enum AirMapSerializationError: Error {
+	
+	case invalidData
+	case invalidJson
+	case invalidObject
+}
+
+public struct AirMapApiError: Mappable {
+	
+	public internal(set) var message: String!
+	public internal(set) var messages = [AirMapApiParameterError]()
+	public internal(set) var code: Int!
+	
+	internal init(message: String, code: Int) {
+		self.message = message
+		self.code = code
+	}
+	
+	public init?(map: Map) {
+		guard let status = map.JSON["status"] as? String, status == "fail" else {
+			return nil
+		}
+	}
+	
+	public mutating func mapping(map: Map) {
+		message   <-  map["data.message"]
+		messages  <-  map["data.errors"]
+		code      <-  map["data.code"]
+	}
+}
+
+extension AirMapApiError: LocalizedError {
+
+	public var localizedDescription: String {
 		if messages.count == 0 {
 			return message
 		} else {
-			return messages.map { $0.name + ":" + $0.message }.joined(separator: "\n")
+			return messages.map { $0.name + ": " + $0.message }.joined(separator: "\n")
 		}
 	}
 }
 
-public class AirMapApiValidationErrors: Mappable {
+public struct AirMapApiParameterError: Mappable {
 	
-	public var name: String = ""
-	public var message: String = ""
+	public internal(set) var name: String!
+	public internal(set) var message: String!
 	
-	required public init?(map: Map) {}
+	public init?(map: Map) {
+		guard map.JSON["name"] as? String != nil, map.JSON["message"] as? String != nil else {
+			return nil
+		}
+	}
 	
-	public func mapping(map: Map) {
+	public mutating func mapping(map: Map) {
 		name     <-  map["name"]
 		message  <-  map["message"]
-	}
-}
-
-public enum AirMapHTTPError: Error {
-	
-	public enum StatusClass: RawRepresentable {
-		
-		public typealias RawValue = (code: Int, error: AirMapHTTPError?)
-		
-		case informational
-		case success
-		case redirection
-		case client(Error)
-		case server(Error)
-		
-		public var rawValue: RawValue {
-			fatalError("Raw value getter not implemented")
-		}
-		
-		public init?(rawValue: RawValue) {
-			
-			switch rawValue.code {
-			case 100..<200:
-				self = .informational
-			case 200..<300:
-				self = .success
-			case 300..<400:
-				self = .redirection
-			case 400..<500:
-				guard let error = rawValue.error else { return nil }
-				self = .client(error)
-			case 500..<600:
-				guard let error = rawValue.error else { return nil }
-				self = .server(error)
-			default:
-				return nil
-			}
-		}
-		
-		public var underlyingError: Error? {
-			switch self {
-			case .client(let error):
-				return error
-			case .server(let error):
-				return error
-			default:
-				return nil
-			}
-		}
 	}
 }

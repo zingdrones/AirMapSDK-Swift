@@ -30,12 +30,12 @@ class AirMapAircraftModelViewController: UITableViewController, AnalyticsTrackab
 			.bindTo(tableView.rx.items(cellIdentifier: "Cell")) { index, model, cell in
 				cell.textLabel?.text = model.name
 			}
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		tableView.rx.itemSelected
 			.map(tableView.rx.model)
 			.subscribeNext(weak: self, AirMapAircraftModelViewController.notifyDelegateOfSelection)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

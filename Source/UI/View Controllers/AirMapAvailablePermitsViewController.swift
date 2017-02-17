@@ -120,7 +120,7 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 		
 		Driver.of(sectionModel(status, existingPermits: existingPermits, draftPermits: draftPermits))
 			.drive(tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	// MARK: - Helper Functions

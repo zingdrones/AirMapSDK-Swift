@@ -88,7 +88,7 @@ open class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrack
 		status.asDriver()
 			.map(unowned(self, AirMapAdvisoriesViewController.sectionModel))
 			.drive(tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		tableView.rx.itemSelected
 			.map(tableView.rx.model)
@@ -103,7 +103,7 @@ open class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrack
 					self.tableView.deselectRow(at: indexPath, animated: true)
 				}
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func sectionModel(_ status: AirMapStatus?) -> [AdvisoriesSectionModel] {

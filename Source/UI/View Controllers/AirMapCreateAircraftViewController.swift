@@ -88,7 +88,7 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 			.subscribe( onNext: { [weak self] name in
 				self?.aircraft.nickname = name
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		model.asObservable()
 			.unwrap()
@@ -97,19 +97,19 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 			})
 			.map { [$0.manufacturer.name, $0.name].flatMap { $0 }.joined(separator: " ") }
 			.bindTo(makeAndModel.rx.text)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		Observable
 			.combineLatest(model.asObservable(), nickName.rx.text) { (model: $0.0, nickName: $0.1) }
 			.map { $0.model != nil && !($0.nickName ?? "").isEmpty }
 			.bindTo(nextButton.rx.isEnabled)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -139,7 +139,7 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 				self?.navigationController?.aircraftDelegate?
 					.aircraftNavController(self!.navigationController!, didCreateOrModify: self!.aircraft)
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 
 }

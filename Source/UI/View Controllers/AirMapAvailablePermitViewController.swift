@@ -49,7 +49,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 		AirMap.rx.getAvailablePermit(permit.value.id)
 			.unwrap()
 			.bindTo(permit)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 
 	override func viewDidLoad() {
@@ -101,7 +101,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
                 }
             }
             .bindTo(textFields)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
        
         pilotPermit
@@ -122,7 +122,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
                 }
             }
             .bindTo(textFields)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 		
 		Observable
 			.combineLatest(permit.asObservable(), textFields.asObservable()) { ($0, $1) }
@@ -131,7 +131,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 				self.sectionModels(permit, textFields: propertTextFields)
 			}
 			.bindTo(tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func sectionModels(_ permit: AirMapAvailablePermit, textFields: [PropertyTextField]) -> [SectionModel<SectionData,RowData>] {
@@ -223,7 +223,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 					.mapToVoid()
 					.map(unowned(self, AirMapAvailablePermitViewController.textFieldsAreValid))
 					.bindTo(self.nextButton.rx.isEnabled)
-					.addDisposableTo(self.disposeBag)
+					.disposed(by: self.disposeBag)
 				
 				cell.addSubview(tf)
 				cell.textField.isHidden = true

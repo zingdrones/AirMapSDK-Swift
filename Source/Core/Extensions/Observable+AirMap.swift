@@ -15,9 +15,11 @@ extension Observable {
 		self
 			.subscribe(
 				onNext:  { result(Result<Element>.value($0)) },
-				onError: { error in result(Result<Element>.error(error)) }
-			)
-			.addDisposableTo(AirMap.disposeBag)
+				onError: {
+					let error = $0 as? AirMapError ?? AirMapError.unknown(underlying: $0)
+					result(Result<Element>.error(error))
+			})
+			.disposed(by: AirMap.disposeBag)
 	}
 
 }

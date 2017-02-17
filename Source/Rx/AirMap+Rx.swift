@@ -23,7 +23,7 @@ extension Reactive where Base: AirMap_Flight {
 	}
 	
 	public static func getCurrentAuthenticatedPilotFlight() -> Observable<AirMapFlight?> {
-		return AirMap.flightClient.list(pilotId: AirMap.authSession.userId, startBeforeNow: true, endAfterNow: true, authCheck: true ).map { $0.first }
+		return AirMap.flightClient.list(pilotId: AirMap.authSession.userId, startBeforeNow: true, endAfterNow: true, checkAuth: true ).map { $0.first }
 	}
 
 	public static func getFlight(_ flightId: String) -> Observable<AirMapFlight> {

@@ -21,7 +21,7 @@ internal class PilotClient: HTTPClient {
 
 	func getAuthenticatedPilot() -> Observable<AirMapPilot> {
 		AirMap.logger.debug("GET Authenticated Pilot", AirMap.authSession.userId)
-		return perform(method: .get, path:"/\(AirMap.authSession.userId)", authCheck: true)
+		return perform(method: .get, path:"/\(AirMap.authSession.userId)", checkAuth: true)
 	}
 
 	func update(_ pilot: AirMapPilot) -> Observable<AirMapPilot> {

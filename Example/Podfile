@@ -8,11 +8,6 @@ target 'AirMapSDK-Example-iOS' do
 	pod 'SwiftTurf', :path => '../../SwiftTurf/'
 end
 
-target 'AirMapSDK-Example-macOS' do
-	platform :osx, '10.11'
-	pod 'AirMapSDK', :path => '../'
-end
-
 target 'AirMapSDKTests' do
 	platform :ios, '9.0'
 	pod 'AirMapSDK', :path => '../'

@@ -48,13 +48,13 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 		smsTextField.rx.text.asObservable()
 			.map { $0?.characters.count == Config.AirMapApi.smsCodeLength }
 			.bindTo(submitButton.rx.isEnabled)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	@IBAction func submitSMSCode() {
@@ -75,7 +75,7 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 					self.trackEvent(.save, label: "Success")
 				}
 			)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func didVerifyPhoneNumber(_ verified: Bool) {

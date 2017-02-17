@@ -90,7 +90,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		AirMap.rx.getAuthenticatedPilot().asOptional()
 			.trackActivity(activityIndicator)
 			.bindTo(pilot)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		trackView()
 	}
@@ -132,20 +132,20 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 						assertionFailure()
 					}
 				})
-				.addDisposableTo(disposeBag)
+				.disposed(by: disposeBag)
 		}
 		
 		customFields.forEach { customField in
 
 			customField.rx_value.skip(1).asDriver(onErrorJustReturn: nil)
 				.drive(onNext: { text in pilot.setAppMetadata(value: text, forKey: customField.key) })
-				.addDisposableTo(disposeBag)
+				.disposed(by: disposeBag)
 		}
 		
 		Driver
 			.combineLatest([firstNameField.rx_value.asDriver(onErrorJustReturn: nil), lastNameField.rx_value.asDriver(onErrorJustReturn: nil)], fullNameString)
 			.drive(fullName.rx.text)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		return [
 			Model(model: "Personal Info", items: pilotFields),
@@ -208,7 +208,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 
 			cell.textField.rx.text
 				.bindTo(field.rx_value)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 			
 			return cell
 		}
@@ -225,19 +225,19 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 			.map(sectionModel)
 			.observeOn(MainScheduler.instance)
 			.bindTo(tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		pilot.asObservable()
 			.unwrap()
 			.observeOn(MainScheduler.instance)
 			.subscribeNext(weak: self, AirMapPilotProfileViewController.configureStats)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	@IBAction func savePilot() {
@@ -256,7 +256,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 				self.trackEvent(.save, label: "Success")
 			})
 			.subscribe()
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

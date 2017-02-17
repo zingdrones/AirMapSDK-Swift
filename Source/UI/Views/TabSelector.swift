@@ -38,7 +38,7 @@ class TabSelectorView: UIView {
 				.subscribe(onNext: { [weak self] _ in
 					self?.delegate?.tabSelectorDidSelectItemAtIndex(index)
 				})
-				.addDisposableTo(disposeBag)
+				.disposed(by: disposeBag)
 			return button
 		}
 		

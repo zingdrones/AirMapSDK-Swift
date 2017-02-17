@@ -36,7 +36,7 @@ class PermitTests: TestCase {
 						expect(customProperty?.required).to(equal(false)) },
 					onError: { expect($0).to(beNil()); done() },
 					onCompleted: done )
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 
@@ -74,7 +74,7 @@ class PermitTests: TestCase {
 					onError: { error in
 						expect(error).to(beNil()) },
 					onCompleted: done )
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 

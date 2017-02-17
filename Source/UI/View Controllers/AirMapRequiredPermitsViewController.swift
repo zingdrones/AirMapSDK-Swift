@@ -153,7 +153,7 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 		
 		Driver.combineLatest(status.asDriver(), existingPermits.asDriver(), draftPermits.asDriver(), resultSelector: unowned(self, AirMapRequiredPermitsViewController.sectionModels))
 			.drive(tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		Driver.combineLatest(selectedPermits.asDriver(), status.asDriver()) { ($0, $1) }
 			.do(onNext: { [weak self] selected, status in
@@ -161,13 +161,13 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 			})
 			.map { $0.count == $1?.organizations.count }
 			.drive(nextButton.rx.isEnabled)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func loadData() {
@@ -177,7 +177,7 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 			.trackActivity(activityIndicator)
 			.map(unowned(self, AirMapRequiredPermitsViewController.filterOutInvalidPermits))
 			.bindTo(existingPermits)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func filterOutInvalidPermits(_ permits: [AirMapPilotPermit]) -> [AirMapPilotPermit] {

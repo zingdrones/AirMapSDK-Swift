@@ -38,7 +38,7 @@ class StatusTests: TestCase {
 						expect($0).to(beNil()); done() },
 					onCompleted: done
 				)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 
@@ -65,7 +65,7 @@ class StatusTests: TestCase {
 					onError: { expect($0).to(beNil()); done() },
 					onCompleted: done
 				)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 
@@ -98,7 +98,7 @@ class StatusTests: TestCase {
 					onError: { expect($0).to(beNil()); done() },
 					onCompleted: done
 				)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 
@@ -133,7 +133,7 @@ class StatusTests: TestCase {
 					onError: { expect($0).to(beNil()); done() },
 					onCompleted: done
 				)
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 	}
 

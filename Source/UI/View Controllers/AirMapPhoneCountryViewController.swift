@@ -63,7 +63,7 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 		
 		Observable.just(sections)
 			.bindTo(tableView.rx.items(dataSource: dataSource))
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		dataSource.configureCell = { datasource, tableView, indexPath, row in
 			let cell = tableView.dequeueReusableCell(withIdentifier: "phoneCountryCell")!
@@ -77,7 +77,7 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 				self?.trackEvent(.tap, label: "Country Row")
 				self?.selectionDelegate?.phoneCountrySelectorDidSelect(country: row.name, country: row.code)
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	// MARK: - UITableViewDelegate

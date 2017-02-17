@@ -29,7 +29,7 @@ class AirMapFlightSocialCell: UITableViewCell, Dequeueable {
 		model.value
 			.asObservable()
 			.bindTo(toggle.rx.isSelected)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 
 }

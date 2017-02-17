@@ -77,7 +77,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			.flatMap(unowned(self, TrafficService.connectWithFlight))
 			.catchError({ _ in return Observable.just( .disconnected) })
 			.bindTo(connectionState)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		whenConnected
 			.retry()
@@ -88,7 +88,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			.flatMap(unowned(self, TrafficService.subscribeToTraffic))
 			.catchError({ _ in return Observable.empty() })
 			.subscribe()
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		state
 			.subscribe(onNext: { [unowned self] state in
@@ -104,7 +104,7 @@ internal class TrafficService: MQTTSessionDelegate {
 				}
 				AirMap.logger.debug(state)
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		let refreshCurrentFlight = Observable<Int>.timer(0, period: 15, scheduler: MainScheduler.instance).mapToVoid()
 
@@ -112,19 +112,19 @@ internal class TrafficService: MQTTSessionDelegate {
 			.skipWhile({[unowned self] _ in !AirMap.hasValidCredentials() || self.delegate == nil})
 			.flatMap(AirMap.rx.getCurrentAuthenticatedPilotFlight)
 			.bindTo(currentFlight)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		let trafficProjectionTimer = Observable<Int>.interval(0.25, scheduler: MainScheduler.asyncInstance).mapToVoid()
 
 		trafficProjectionTimer
 			.subscribeNext(weak: self, TrafficService.updateTrafficProjections)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		let purgeTrafficTimer = Observable<Int>.interval(5, scheduler: MainScheduler.asyncInstance).mapToVoid()
 
 		purgeTrafficTimer
 			.subscribeNext(weak: self, TrafficService.purgeExpiredTraffic)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 
 	func connect() {
@@ -135,7 +135,7 @@ internal class TrafficService: MQTTSessionDelegate {
 				disconnect()
 			}
 
-			AirMap.rx.getCurrentAuthenticatedPilotFlight().bindTo(currentFlight).addDisposableTo(disposeBag)
+			AirMap.rx.getCurrentAuthenticatedPilotFlight().bindTo(currentFlight).disposed(by: disposeBag)
 		}
 	}
 

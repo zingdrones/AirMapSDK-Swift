@@ -26,7 +26,7 @@ class AirMapAircraftManufacturerViewController: UITableViewController, Analytics
 			.bindTo(tableView.rx.items(cellIdentifier: "Cell")) { index, manufacturer, cell in
 				cell.textLabel?.text = manufacturer.name
 			}
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {

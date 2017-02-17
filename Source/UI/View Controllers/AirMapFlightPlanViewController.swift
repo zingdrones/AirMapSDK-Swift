@@ -102,7 +102,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 				self?.navigationController?.flight.value.pilot = pilot
 			})
 			.bindTo(pilot)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -121,8 +121,8 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 			let nav = segue.destination as! UINavigationController
 			let aircraftVC = nav.viewControllers.last as! AirMapAircraftViewController
 			let selectedAircraft = aircraftVC.selectedAircraft.asObservable()
-			selectedAircraft.delaySubscription(1.0, scheduler: MainScheduler.instance).bindTo(cell.aircraft).addDisposableTo(disposeBag)
-			selectedAircraft.bindTo(aircraft).addDisposableTo(disposeBag)
+			selectedAircraft.delaySubscription(1.0, scheduler: MainScheduler.instance).bindTo(cell.aircraft).disposed(by: disposeBag)
+			selectedAircraft.bindTo(aircraft).disposed(by: disposeBag)
 			aircraftVC.selectedAircraft.value = aircraft.value
 			trackEvent(.tap, label: "Select Aircraft")
 
@@ -205,23 +205,23 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 			.subscribe(onNext: {
 				flight.value.maxAltitude = $0
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		altitude.asObservable()
 			.skip(1)
 			.subscribe(onNext: { [unowned self] alt in
 				self.trackEvent(.slide, label: "Altitude Slider", value: NSNumber(value: alt))
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		aircraft.asObservable()
 			.subscribe(onNext: { flight.value.aircraft = $0 })
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		pilot.asObservable()
 			.unwrap()
 			.subscribe(onNext: { flight.value.pilotId = $0.pilotId })
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		status.asObservable()
 			.map {
@@ -231,51 +231,51 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 			.subscribe(onNext: { [unowned self] title in
 				self.nextButton.setTitle(title, for: .normal)
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		shareFlight.asObservable()
 			.subscribe(onNext: { flight.value.isPublic = $0 })
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		tableView.rx.itemSelected.subscribe(onNext: { [unowned self] indexPath in
 			self.tableView.deselectRow(at: indexPath, animated: true)
 			self.tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 
 		Driver.combineLatest(startsAt.asDriver(), duration.asDriver()) { ($0, $1)}
 			.drive(onNext: { start, duration in
 				flight.value.startTime = start
 				flight.value.duration = duration
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		shareFlight.asObservable()
 			.skip(1)
 			.subscribe(onNext: { [unowned self] bool in
 				self.trackEvent(.toggle, label: "AirMap Public Flight", value: NSNumber(value: bool ? 1 : 0))
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		startsAt.asDriver()
 			.skip(1)
 			.drive(onNext: { [unowned self] date in
 				self.trackEvent(.tap, label: "Flight Start Time")
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		duration.asDriver()
 			.skip(1)
 			.drive(onNext: { [unowned self] duration in
 				self.trackEvent(.tap, label: "Flight End Time")
 			})
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 
 	@IBAction func next() {
@@ -295,7 +295,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error)
 				})
 				.subscribe(onNext: navigationController!.flightPlanDelegate.airMapFlightPlanDidCreate)
-				.addDisposableTo(disposeBag)
+				.disposed(by: disposeBag)
 		}
 	}
 	
@@ -347,7 +347,7 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 
 			case is AssociatedAircraftModelRow:
 				let cell = tableView.dequeueCell(at: indexPath) as AirMapFlightAircraftCell
-				cell.aircraft.asObservable().bindTo(aircraft).addDisposableTo(disposeBag)
+				cell.aircraft.asObservable().bindTo(aircraft).disposed(by: disposeBag)
 				return cell
 
 			default:
@@ -359,7 +359,7 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 			let cell = tableView.dequeueCell(at: indexPath) as AirMapFlightSocialCell
 			let row = row as! SocialSharingRow
 			cell.model = row
-			cell.toggle.rx.value.asObservable().bindTo(row.value).addDisposableTo(disposeBag)
+			cell.toggle.rx.value.asObservable().bindTo(row.value).disposed(by: disposeBag)
 			return cell
 
 		default:

@@ -34,7 +34,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 			.rx.listAircraft()
 			.trackActivity(activityIndicator)
 			.bindTo(aircraft)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	@IBAction func dismiss() {
@@ -54,7 +54,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 				cell.detailTextLabel?.text = [aircraft.model.manufacturer.name, aircraft.model.name]
 					.flatMap {$0}.joined(separator: " ")
 			}
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		tableView.rx.modelSelected(AirMapAircraft)
 			.do(onNext: { [weak self] _ in
@@ -62,7 +62,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 			})
 			.asOptional()
 			.bindTo(selectedAircraft)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		tableView
 			.rx.itemDeleted
@@ -85,13 +85,13 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 			.do(onError: { AirMap.logger.error($0) })
 			.ignoreErrors()
 			.bindTo(aircraft)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

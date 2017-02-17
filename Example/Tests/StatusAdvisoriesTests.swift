@@ -41,7 +41,7 @@ class StatusAdvisoriesTests: TestCase {
 						expect(error).to(beNil())
 				},
 					onCompleted: done )
-				.addDisposableTo(self.disposeBag)
+				.disposed(by: self.disposeBag)
 		}
 
 	}

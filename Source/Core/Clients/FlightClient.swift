@@ -47,7 +47,7 @@ internal class FlightClient: HTTPClient {
 	          state: String? = nil,
 	          country: String? = nil,
 	          enhanced: Bool? = true,
-	          authCheck: Bool? = false) -> Observable<[AirMapFlight]> {
+	          checkAuth: Bool? = false) -> Observable<[AirMapFlight]> {
 		
 		var params = [String : Any]()
 
@@ -63,7 +63,7 @@ internal class FlightClient: HTTPClient {
 		params["enhance"     ] = String(enhanced ?? false)
 
 		AirMap.logger.debug("Get Flights", params)
-        return perform(method: .get, params: params, keyPath: "data.results", authCheck: authCheck ?? false)
+        return perform(method: .get, params: params, keyPath: "data.results", checkAuth: checkAuth ?? false)
 	}
 
 	func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {

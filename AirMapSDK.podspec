@@ -29,7 +29,6 @@ Pod::Spec.new do |s|
 		core.source_files = ['Source/Core/**/{*.h,*.m,*.swift}', 'Source/Rx/*']
 		core.dependency 'SimpleKeychain'
 		core.dependency 'Alamofire'
-		core.dependency 'AlamofireObjectMapper'
 		core.dependency 'JWTDecode'
 		core.dependency 'Log'
 		core.dependency 'ObjectMapper'

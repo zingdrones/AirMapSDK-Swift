@@ -36,7 +36,7 @@ extension AirMap_Flight {
 	///
 	/// - Parameter completion: A completion handler to call with the Result
 	public static func getCurrentAuthenticatedPilotFlight(_ completion: @escaping (Result<AirMapFlight?>) -> Void) {
-		flightClient.list(pilotId: AirMap.authSession.userId, startBeforeNow: true, endAfterNow: true, enhanced: true, authCheck: true).map { $0.first }.subscribe(completion)
+		flightClient.list(pilotId: AirMap.authSession.userId, startBeforeNow: true, endAfterNow: true, enhanced: true, checkAuth: true).map { $0.first }.subscribe(completion)
 	}
 
 	/// Get a flight by its identifer
