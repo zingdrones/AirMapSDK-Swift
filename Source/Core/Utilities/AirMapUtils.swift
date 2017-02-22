@@ -8,7 +8,7 @@
 
 public class AirMapBundle {
 
-	public class var mainBundle: Bundle {
+	public class var main: Bundle {
 		return Bundle(for: AirMap.self)
 	}
 }

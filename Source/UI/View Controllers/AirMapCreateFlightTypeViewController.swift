@@ -612,7 +612,7 @@ extension AirMapCreateFlightTypeViewController {
 		let ramp = Config.Maps.bufferSliderLinearity
 		let sliderValue = pow(Double(sliderValue), ramp)
 
-		let usesMetric = AirMap.configuration.distanceUnits == .meters
+		let usesMetric = AirMap.configuration.distanceUnits == .metric
 		let distancePerStep: Double
 		
 		let bufferValue: (buffer: Meters, displayString: String)

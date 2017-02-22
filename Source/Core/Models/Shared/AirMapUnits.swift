@@ -9,8 +9,8 @@
 import Foundation
 
 public enum DistanceUnits {
-	case meters
-	case feet
+	case metric
+	case imperial
 }
 
 public enum TemperatureUnits {

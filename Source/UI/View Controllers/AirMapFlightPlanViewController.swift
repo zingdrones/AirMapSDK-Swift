@@ -85,10 +85,10 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		super.viewDidLoad()
 		
 		switch AirMap.configuration.distanceUnits {
-		case .feet:
-			altitude.value = UIConstants.defaultAltitudePresetFeet.value
-		case .meters:
+		case .metric:
 			altitude.value = UIConstants.defaultAltitudePresetMeters.value
+		case .imperial:
+			altitude.value = UIConstants.defaultAltitudePresetFeet.value
 		}
 		
 		setupTable()
@@ -148,9 +148,9 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		
 		let altitudeValues: [(title: String, value: CLLocationDistance)]
 		switch AirMap.configuration.distanceUnits {
-		case .meters:
+		case .metric:
 			altitudeValues = UIConstants.altitudePresetsInMeters
-		case .feet:
+		case .imperial:
 			altitudeValues = UIConstants.altitudePresetsInFeet
 		}
 

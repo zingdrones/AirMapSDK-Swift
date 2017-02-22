@@ -20,7 +20,7 @@ public class AirMapImage {
 			// FIXME:
 			return nil
 		#else
-			return UIImage(named: name, in: AirMapBundle.mainBundle, compatibleWith: nil)
+			return UIImage(named: name, in: AirMapBundle.main, compatibleWith: nil)
 		#endif
 	}
 

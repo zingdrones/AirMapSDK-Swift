@@ -85,12 +85,12 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 		let altitude: String
 
 		switch AirMap.configuration.distanceUnits {
-		case .feet:
-			radius = Int(flight.buffer! / UIConstants.metersPerFoot).description + " ft"
-			altitude = Int(flight.maxAltitude! / UIConstants.metersPerFoot).description + " ft"
-		case .meters:
+		case .metric:
 			radius = Int(flight.buffer!).description + " m"
 			altitude = Int(flight.maxAltitude!).description + " m"
+		case .imperial:
+			radius = Int(flight.buffer! / UIConstants.metersPerFoot).description + " ft"
+			altitude = Int(flight.maxAltitude! / UIConstants.metersPerFoot).description + " ft"
 		}
 		
 		let startTime = flight.startTime == nil ? "Now" : df.string(from: flight.startTime!)
