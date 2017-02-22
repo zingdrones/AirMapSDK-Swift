@@ -78,57 +78,55 @@ public enum AirMapLayerType: String {
 	/// A descriptive title for the layer
 	public var title: String {
 		
+		let bundle = AirMapBundle.main
+		
 		switch self {
-		case .airportsCommercial:
-			return "Airport"
-		case .airportsRecreational:
-			return	"Airport"
-		case .airportsCommercialPrivate:
-			return "Private Airport"
-		case .airportsRecreationalPrivate:
-			return	"Private Airport"
+		case .airportsCommercial, .airportsRecreational:
+			return NSLocalizedString("TILE_LAYER_AIRPORTS", bundle: bundle, value: "Airports", comment: "Name for map layer Commercial Airports")
+		case .airportsCommercialPrivate, .airportsRecreationalPrivate:
+			return NSLocalizedString("TILE_LAYER_PRIVATE_AIRPORTS", bundle: bundle, value: "Private Airports", comment: "Name for map layer Private Airports")
 		case .cities:
-			return "Cities"
+			return NSLocalizedString("TILE_LAYER_CITIES", bundle: bundle, value: "Cities", comment: "Name for map layer Cities")
 		case .classB:
-			return "Class B Controlled Airspace"
+			return NSLocalizedString("TILE_LAYER_CLASS_B", bundle: bundle, value: "Class B Controlled Airspace", comment: "Name for map layer Class B Airspace")
 		case .classC:
-			return "Class C Controlled Airspace"
+			return NSLocalizedString("TILE_LAYER_CLASS_C", bundle: bundle, value: "Class C Controlled Airspace", comment: "Name for map layer Class C Airspace")
 		case .classD:
-			return "Class D Controlled Airspace"
+			return NSLocalizedString("TILE_LAYER_CLASS_D", bundle: bundle, value: "Class D Controlled Airspace", comment: "Name for map layer Class D Airspace")
 		case .classE:
-			return "Class E Controlled Airspace"  // ClassE *at the surface
+			return NSLocalizedString("TILE_LAYER_CLASS_E", bundle: bundle, value: "Class E Controlled Airspace", comment: "Name for map layer Class E Airspace")
 		case .custom:
-			return "Custom"
+			return NSLocalizedString("TILE_LAYER_CUSTOM", bundle: bundle, value: "Custom", comment: "Name for map layer Custom")
 		case .essentialAirspace:
-			return "Controlled Airspace (B, C, D & E)"
+			return NSLocalizedString("TILE_LAYER_CONTROLLED_AIRSPACE", bundle: bundle, value: "Controlled Airspace (B, C, D & E)", comment: "Name for map layer Controlled Airspace")
 		case .hazardAreas:
-			return "Hazard Areas"
+			return NSLocalizedString("TILE_LAYER_HAZARD_AREAS", bundle: bundle, value: "Hazard Areas", comment: "Name for map layer Hazard Areas")
 		case .heliports:
-			return "Heliport"
+			return NSLocalizedString("TILE_LAYER_HELIPORTS", bundle: bundle, value: "Heliports", comment: "Name for map layer Heliports")
 		case .hospitals:
-			return "Hospital"
+			return NSLocalizedString("TILE_LAYER_HOSPITALS", bundle: bundle, value: "Hospitals", comment: "Name for map layer Hospitals")
 		case .nationalParks:
-			return "National Park"
+			return NSLocalizedString("TILE_LAYER_NATIONAL_PARKS", bundle: bundle, value: "National Parks", comment: "Name for map layer National Parks")
 		case .noaa:
-			return "NOAA Marine Protection Area"
+			return NSLocalizedString("TILE_LAYER_NOAA", bundle: bundle, value: "NOAA Marine Protection Areas", comment: "Name for map layer NOAA Marine Protection Areas")
 		case .powerPlants:
-			return "Power Plant"
+			return NSLocalizedString("TILE_LAYER_POWER_PLANTS", bundle: bundle, value: "Power Plants", comment: "Name for map layer Power Plants")
 		case .prisons:
-			return "Prisons"
+			return NSLocalizedString("TILE_LAYER_PRISONS", bundle: bundle, value: "Prisons", comment: "Name for map layer Prisons")
 		case .prohibited:
-			return "Prohibited Airspace"
+			return NSLocalizedString("TILE_LAYER_PROHIBITED", bundle: bundle, value: "Prohibited Airspace", comment: "Name for map layer Prohibited Airspace")
 		case .recreationalAreas:
-			return "Aerial Recreational Areas"
+			return NSLocalizedString("TILE_LAYER_AERIAL_REC_AREAS", bundle: bundle, value: "Aerial Recreational Areas", comment: "Name for map layer Aerial Recreational Areas")
 		case .restricted:
-			return "Restricted Airspace"
+			return NSLocalizedString("TILE_LAYER_RESTRICTED_AIRSPACE", bundle: bundle, value: "Restricted Airspace", comment: "Name for map layer Restricted Airspace")
 		case .schools:
-			return "School"
+			return NSLocalizedString("TILE_LAYER_SCHOOLS", bundle: bundle, value: "Schools", comment: "Name for map layer Schools")
 		case .tfrs:
-			return "Temporary Flight Restriction"
+			return NSLocalizedString("TILE_LAYER_TFR_FAA", bundle: bundle, value: "Temporary Flight Restrictions", comment: "Name for map layer FAA Temporary Flight Restrictions")
 		case .universities:
-			return "Universities"
+			return NSLocalizedString("TILE_LAYER_UNIVERSITIES", bundle: bundle, value: "Universities", comment: "Name for map layer Universities")
 		case .wildfires:
-			return "Wildfires"
+			return NSLocalizedString("TILE_LAYER_WILDFIRES", bundle: bundle, value: "Wildfires", comment: "Name for map layer Wildfires")
 		}
 	}
 	
@@ -191,7 +189,7 @@ public enum AirMapLayerType: String {
             return .university
 
 		case .wildfires:
-			return .wildfires
+			return .wildfire
 		}
 	}
 }
@@ -215,7 +213,7 @@ public enum AirMapAirspaceType: String {
 	case stadium             = "stadium"
 	case tfr                 = "tfr"
 	case university          = "universities"
-	case wildfires           = "wildfire"
+	case wildfire            = "wildfire"
 	
 	public static let allAirspaceTypes: [AirMapAirspaceType] = [
 		.airport,
@@ -234,47 +232,49 @@ public enum AirMapAirspaceType: String {
 		.stadium,
 		.tfr,
 		.university,
-		.wildfires,
+		.wildfire,
 	]
 	
 	/// A descriptive title for the airspace type
 	public var title: String {
 		
+		let bundle = AirMapBundle.main
+
 		switch self {
 		case .airport:
-			return "Airport"
+			return NSLocalizedString("AIRSPACE_TYPE_AIRPORT", bundle: bundle, value: "Airport", comment: "Name for airspace type Airport")
 		case .cities:
-			return "Cities"
+			return NSLocalizedString("AIRSPACE_TYPE_CITY", bundle: bundle, value: "City", comment: "Name for airspace type City")
 		case .controlledAirspace:
-			return "Controlled Airspace"
+			return NSLocalizedString("AIRSPACE_TYPE_CONTROLLED", bundle: bundle, value: "Controlled Airspace", comment: "Name for airspace type Controlled Airspace")
 		case .custom:
-			return "Custom"
+			return NSLocalizedString("AIRSPACE_TYPE_CUSTOM", bundle: bundle, value: "Custom", comment: "Name for airspace type Custom")
 		case .hazardArea:
-			return "Hazard Area"
+			return NSLocalizedString("AIRSPACE_TYPE_HAZARD_AREA", bundle: bundle, value: "Hazard Area", comment: "Name for airspace type Hazard Area")
 		case .heliport:
-			return "Heliport"
+			return NSLocalizedString("AIRSPACE_TYPE_HELIPORT", bundle: bundle, value: "Heliport", comment: "Name for airspace type Heliport")
 		case .hospital:
-			return "Hospital"
+			return NSLocalizedString("AIRSPACE_TYPE_HOSPITAL", bundle: bundle, value: "Hospital", comment: "Name for airspace type Hospital")
 		case .park:
-			return "National Park"
+			return NSLocalizedString("AIRSPACE_TYPE_NATIONAL_PARK", bundle: bundle, value: "National Park", comment: "Name for airspace type National Park")
 		case .powerPlant:
-			return "Power Plant"
+			return NSLocalizedString("AIRSPACE_TYPE_POWER_PLANT", bundle: bundle, value: "Power Plant", comment: "Name for airspace type Power Plant")
 		case .prison:
-			return "Prison"
+			return NSLocalizedString("AIRSPACE_TYPE_PRISON", bundle: bundle, value: "Prison", comment: "Name for airspace type Prison")
 		case .recreationalArea:
-			return "Aerial Recreational Area"
+			return NSLocalizedString("AIRSPACE_TYPE_AERIAL_REC_AREA", bundle: bundle, value: "Aerial Recreational Area", comment: "Name for airspace type Aerial Recreational Area")
 		case .school:
-			return "School"
+			return NSLocalizedString("AIRSPACE_TYPE_SCHOOL", bundle: bundle, value: "School", comment: "Name for airspace type School")
 		case .specialUse:
-			return "Special Use Airspace"
+			return NSLocalizedString("AIRSPACE_TYPE_SPECIAL_USE", bundle: bundle, value: "Special Use Airspace", comment: "Name for airspace type Special Use Airspace")
 		case .stadium:
-			return "Stadium"
+			return NSLocalizedString("AIRSPACE_TYPE_STADIUM", bundle: bundle, value: "Stadium", comment: "Name for airspace type Stadium")
 		case .tfr:
-			return "Temporary Flight Restriction"
+			return NSLocalizedString("AIRSPACE_TYPE_TFR_FAA", bundle: bundle, value: "Temporary Flight Restriction", comment: "Name for airspace type FAA Temporary Flight Restriction")
 		case .university:
-			return "University"
-		case .wildfires:
-			return "Wildfire"
+			return NSLocalizedString("AIRSPACE_TYPE_UNIVERSITY", bundle: bundle, value: "University", comment: "Name for airspace type University")
+		case .wildfire:
+			return NSLocalizedString("AIRSPACE_TYPE_WILDFIRE", bundle: bundle, value: "Wildfire", comment: "Name for airspace type Wildfire")
 		}
 	}
 }

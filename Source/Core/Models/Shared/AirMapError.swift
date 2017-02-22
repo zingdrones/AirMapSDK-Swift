@@ -78,9 +78,10 @@ extension AirMapError: RawRepresentable {
 	}
 }
 
-extension AirMapError: LocalizedError {
+extension AirMapError: CustomStringConvertible {
 	
-	public var localizedDescription: String {
+	public var description: String {
+		
 		switch self {
 		case .network(let error):
 			return error.localizedDescription
