@@ -44,8 +44,7 @@ open class AirMapMapView: MGLMapView {
 		
 		MGLAccountManager.setAccessToken(mapboxAccessToken)
 		
-		let bundle = Bundle(for: AirMap.self)
-		let image = UIImage(named: "info_icon", in: bundle, compatibleWith: nil)!
+		let image = UIImage(named: "info_icon", in: AirMapBundle.ui, compatibleWith: nil)!
 		attributionButton.setImage(image.withRenderingMode(.alwaysOriginal), for: UIControlState())
 		
 		configure(layers: AirMapMapView.defaultLayers, theme: AirMapMapView.defaultTheme)

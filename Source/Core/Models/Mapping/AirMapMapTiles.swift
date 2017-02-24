@@ -78,7 +78,7 @@ public enum AirMapLayerType: String {
 	/// A descriptive title for the layer
 	public var title: String {
 		
-		let bundle = AirMapBundle.main
+		let bundle = AirMapBundle.core
 		
 		switch self {
 		case .airportsCommercial, .airportsRecreational:
@@ -238,7 +238,7 @@ public enum AirMapAirspaceType: String {
 	/// A descriptive title for the airspace type
 	public var title: String {
 		
-		let bundle = AirMapBundle.main
+		let bundle = AirMapBundle.core
 
 		switch self {
 		case .airport:

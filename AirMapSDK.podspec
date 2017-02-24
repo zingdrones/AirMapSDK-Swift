@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 	s.subspec 'Core' do |core|
 		core.ios.frameworks = 'UIKit'
 		core.osx.frameworks = 'AppKit'
-		core.source_files = ['Source/Core/**/{*.h,*.m,*.swift}', 'Source/Rx/*']
+		core.source_files = ['Source/Core/**/*.{h,m,swift}', 'Source/Rx/*']
 		core.dependency 'SimpleKeychain'
 		core.dependency 'Alamofire'
 		core.dependency 'JWTDecode'
@@ -35,7 +35,10 @@ Pod::Spec.new do |s|
 		core.dependency 'RxCocoa'
 		core.dependency 'RxSwift'
 		core.dependency 'RxSwiftExt'
-		core.resources = ['Source/Resources/*.cer', 'Source/Resources/*.pdf', 'Source/Resources/*.xcassets']
+		core.resource_bundles = {
+			'AirMapCore' => ['Source/Resources/*.cer', 'Source/Resources/*.pdf', 'Source/Resources/*.xcassets']
+		}
+
 	end
 	
 	s.subspec 'UI' do |ui|
@@ -51,7 +54,9 @@ Pod::Spec.new do |s|
 		ui.dependency 'SwiftSimplify'
 		ui.dependency 'SwiftTurf'
 		ui.source_files = 'Source/UI/**/{*.swift}'
-		ui.resources = ['Source/UI/**/{*.storyboard,*.xcassets}']
+		ui.resource_bundles = {
+			'AirMapUI' => ['Source/UI/**/*.{xcassets}', 'Source/UI/**/*.{lproj,storyboard}']
+		}
 	end
 	
 	s.subspec 'Traffic' do |traffic|

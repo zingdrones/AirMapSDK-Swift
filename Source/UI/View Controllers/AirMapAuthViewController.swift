@@ -58,7 +58,7 @@ open class AirMapAuthViewController: A0LockViewController {
 	fileprivate func registerTheme() {
 		let theme = A0Theme()
 		
-		theme.registerImage(withName: "lock_login_image", bundle: Bundle(for: AirMap.self), forKey: A0ThemeIconImageName)
+		theme.registerImage(withName: "lock_login_image", bundle: AirMapBundle.ui, forKey: A0ThemeIconImageName)
 
 		theme.register(UIColor.airMapDarkGray, forKey: A0ThemePrimaryButtonNormalColor)
 		theme.register(UIColor.airMapDarkGray, forKey: A0ThemePrimaryButtonHighlightedColor)

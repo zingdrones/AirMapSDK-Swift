@@ -17,7 +17,7 @@ open class AirMapTrafficServiceUtils {
 
 	class func compassDirections() -> [String] {
 		
-		let bundle = AirMapBundle.main
+		let bundle = AirMapBundle.core
 		
 		return [
 			NSLocalizedString("CARDINAL_DIRECTION_N",    bundle: bundle, value: "N",   comment: "Abbreviation for North"),

@@ -1,5 +1,5 @@
 //
-//  String+AirMap.swift
+//  CLLocationCoordinate2D+AirMapTraffic.swift
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 2/21/17.

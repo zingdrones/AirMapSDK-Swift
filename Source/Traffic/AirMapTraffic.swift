@@ -97,17 +97,17 @@ extension AirMapTraffic {
 		let distanceString: String
 		let groundSpeedString: String
 
-		let groundSpeedFormat = NSLocalizedString("GROUND_SPEED_FORMAT", bundle: AirMapBundle.main, value: "%@ %@", comment: "Format for displaying ground speed")
+		let groundSpeedFormat = NSLocalizedString("GROUND_SPEED_FORMAT", bundle: AirMapBundle.core, value: "%@ %@", comment: "Format for displaying ground speed")
 
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
 			altitudeString = lengthFormatter.string(fromValue: altitude, unit: .meter)
-			let groundSpeedUnits = NSLocalizedString("GROUND_SPEED_UNIT_METERS_PER_SECOND", bundle: AirMapBundle.main, value: "m/s", comment: "Unit for displaying ground speed")
+			let groundSpeedUnits = NSLocalizedString("GROUND_SPEED_UNIT_METERS_PER_SECOND", bundle: AirMapBundle.core, value: "m/s", comment: "Unit for displaying ground speed")
 			groundSpeedString = String(format: groundSpeedFormat, groundSpeedKt, groundSpeedUnits)
 		case .imperial:
 			let miles = AirMapTrafficServiceUtils.metersToFeet(altitude)
 			altitudeString = lengthFormatter.string(fromValue: altitude, unit: .foot)
-			let groundSpeedUnits = NSLocalizedString("GROUND_SPEED_UNIT_KNOTS", bundle: AirMapBundle.main, value: "kts", comment: "Unit for displaying ground speed")
+			let groundSpeedUnits = NSLocalizedString("GROUND_SPEED_UNIT_KNOTS", bundle: AirMapBundle.core, value: "kts", comment: "Unit for displaying ground speed")
 			groundSpeedString = String(format: groundSpeedFormat, groundSpeedKt, groundSpeedUnits)
 		}
 		
@@ -134,7 +134,7 @@ extension AirMapTraffic {
 			
 			let alertFormat = NSLocalizedString(
 				"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT",
-				bundle: AirMapBundle.main,
+				bundle: AirMapBundle.core,
 				value: "Traffic %1$@\nAltitude %2$@\n%3$@ %4$@ %5$@",
 				comment: "Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time"
 			)
@@ -144,7 +144,7 @@ extension AirMapTraffic {
 
 			let alertFormat = NSLocalizedString(
 				"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT",
-				bundle: AirMapBundle.main,
+				bundle: AirMapBundle.core,
 				value: "Traffic %1$@\nAltitude %2$@\n%3$@",
 				comment: "Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed"
 			)

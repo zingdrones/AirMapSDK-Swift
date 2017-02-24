@@ -22,7 +22,7 @@ open class AirMapStatus {
 		
 		public var description: String {
 			
-			let bundle = AirMapBundle.main
+			let bundle = AirMapBundle.core
 
 			switch self {
 			case .red:

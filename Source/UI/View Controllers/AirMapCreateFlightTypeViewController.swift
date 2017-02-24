@@ -495,7 +495,7 @@ extension AirMapCreateFlightTypeViewController {
 	
 	func configureForState(_ state: DrawingUIState) {
 	
-		let bundle = Bundle(for: AirMap.self)
+		let bundle = AirMapBundle.ui
 
 		let drawIcon = UIImage(named: "draw_icon", in: bundle, compatibleWith: nil)!
 		let drawIconSelected = UIImage(named: "draw_icon_selected", in: bundle, compatibleWith: nil)!

@@ -172,7 +172,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		)
 		sections.append(associatedModels)
 
-		let bundle = Bundle(for: AirMap.self)
+		let bundle = AirMapBundle.ui
 		let image = UIImage(named: "airmap_share_logo", in: bundle, compatibleWith: nil)
 
 		let shareSection = SocialSection(title: "Share My Flight", rows: [
