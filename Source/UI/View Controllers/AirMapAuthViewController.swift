@@ -114,11 +114,11 @@ extension AFJSONResponseSerializer {
 						let message: String
 						switch type {
 						case "email_verification":
-							message = "Your email address needs to be verified. Please check your inbox."
+							message = NSLocalizedString("AUTH_ERROR_EMAIL_NEEDS_VERIFICATION", bundle: AirMapBundle.core, value: "Your email address needs to be verified. Please check your inbox.", comment: "Login message when a user must verify their email address")
 						case "domain_blacklist":
-							message = "Your account has been blacklisted. Please contact security@airmap.com"
+							message = NSLocalizedString("AUTH_ERROR_ACCOUNT_BLACKLISTED", bundle: AirMapBundle.core, value: "Your account has been blacklisted. Please contact security@airmap.com", comment: "Login message when a user's account has been blacklisted.")
 						default:
-							message = "Unauthorized"
+							message = NSLocalizedString("AUTH_ERROR_UNAUTHORIZED", bundle: AirMapBundle.core, value: "Unauthorized", comment: "Login message when a user failed to authenticate")
 						}
 						let dict = [
 							"error": "unauthorized",
@@ -166,7 +166,7 @@ extension UIAlertController {
 	public func airmap_viewWillAppear(_ animated: Bool) {
 		// Updating Auth0 Alert Title
 		if title == "There was an error logging in" || title == "There was an error signing up" {
-			title = "Alert"
+			title = NSLocalizedString("AUTH_FAILED_LOGIN_TITLE", bundle: AirMapBundle.core, value: "Alert", comment: "Navigation title for failed login attempt")
 		}
 	}
 }

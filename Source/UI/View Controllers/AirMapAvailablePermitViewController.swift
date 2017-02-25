@@ -140,29 +140,32 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 		
 		let permitDescription: RowData = (title: permit.info, subtitle: nil, customProperty: nil,  cellIdentifier: permitDescriptionCell)
 		
-		let descriptionSection = SectionModel(model: "Description", items: [permitDescription])
+		let descriptionSectionTitle = NSLocalizedString("PERMIT_DETAIL_SECTION_TITLE_DESCRIPTION", bundle: AirMapBundle.core, value: "Description", comment: "Title for the Description section of the permit detail view")
+		let descriptionSection = SectionModel(model: descriptionSectionTitle, items: [permitDescription])
 		sections.append(descriptionSection)
 		
+		let validityRowTitle = NSLocalizedString("PERMIT_DETAIL_ROW_TITLE_VALIDITY", bundle: AirMapBundle.core, value: "Valid for", comment: "Title for the row that shows the temporal validity or expiration of the permit")
 		let validity: RowData = (
-			title: "Valid for",
+			title: validityRowTitle,
 			subtitle: permit.validityString(),
 			customProperty: nil,
 			cellIdentifier: permitDetailsCell)
 		
+		let singleUseRowTitle = NSLocalizedString("PERMIT_DETAIL_ROW_TITLE_SINGLE_USE", bundle: AirMapBundle.core, value: "Single use", comment: "Title for the row that describes if the permit can be used more than once.")
+		let singleUseTrueValue = NSLocalizedString("PERMIT_DETAIL_ROW_VALUE_SINGLE_USE_TRUE", bundle: AirMapBundle.core, value: "Yes", comment: "Value for when single use is true")
+		let singleUseFalseValue = NSLocalizedString("PERMIT_DETAIL_ROW_VALUE_SINGLE_USE_FALSE", bundle: AirMapBundle.core, value: "No", comment: "Value for when single use is false")
+		
 		let singleUse: RowData = (
-			title: "Single Use",
-			subtitle: permit.singleUse ? "Yes":"No",
+			title: singleUseRowTitle,
+			subtitle: permit.singleUse ? singleUseTrueValue : singleUseFalseValue,
 			customProperty: nil,
 			cellIdentifier: permitDetailsCell)
 		
-//		let price: RowData = (
-//			title: "Price",
-//			subtitle: "Free",
-//			customProperty: nil,
-//			cellIdentifier: permitDetailsCell)
-		
 		let items = [validity, singleUse].filter {$0.subtitle != nil}
-		let detailsSection = SectionModel(model: "Details", items: items)
+		
+		let detailsSectionTitle = NSLocalizedString("PERMIT_DETAIL_SECTION_TITLE_DETAILS", bundle: AirMapBundle.core, value: "Details", comment: "Title for the Details section of the permit detail view")
+
+		let detailsSection = SectionModel(model: detailsSectionTitle, items: items)
 		sections.append(detailsSection)
 		
 		let customPropertyData = textFields.map { data in
@@ -170,7 +173,8 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 		}
 		
 		if customPropertyData.count > 0 {
-			let customPropertiesSection = SectionModel(model: "Form Fields (* Required)", items: customPropertyData)
+			let customPropertiesSectionTitle = NSLocalizedString("PERMIT_DETAIL_SECTION_TITLE_CUSTOM_PROPERTIES", bundle: AirMapBundle.core, value: "Form Fields (* Required)", comment: "Title for the Custom Properties section of the permit detail view. '*' denotes a required field")
+			let customPropertiesSection = SectionModel(model: customPropertiesSectionTitle, items: customPropertyData)
 			sections.append(customPropertiesSection)
 		}
 	

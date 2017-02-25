@@ -56,7 +56,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		let flight: AirMapFlight
 		if existingFlight != nil {
 			flight = existingFlight.value
-			navigationItem.title = "Flight Plan"
+			navigationItem.title = NSLocalizedString("REVIEW_FLIGHT_PLANE_TITLE", bundle: AirMapBundle.core, value: "Flight Plan", comment: "Title for the flight plan review view")
 		} else {
 			flight = navigationController!.flight.value
 			navigationItem.leftBarButtonItem = nil
@@ -95,19 +95,23 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 	fileprivate func setupEmbeddedViews() {
 
-		embeddedViews.append((title: "Flight", view: detailsView))
+		let detailsTitle = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_FLIGHT", bundle: AirMapBundle.core, value: "Flight", comment: "Title for the Review Flight, flight Details tab")
+		embeddedViews.append((title: detailsTitle, view: detailsView))
 
 		if let status = navigationController?.status.value {
 			
 			if status.requiresPermits {
-				embeddedViews.append((title: "Permits", view: permitsView))
+				let permitsTitle = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_PERMITS", bundle: AirMapBundle.core, value: "Permits", comment: "Title for the Review Flight, permits tab")
+				embeddedViews.append((title: permitsTitle, view: permitsView))
 			}
 			if status.supportsDigitalNotice {
-				embeddedViews.append((title: "Notices", view: noticesView))
+				let noticesTitle = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_DIGITAL_NOTICE", bundle: AirMapBundle.core, value: "Notices", comment: "Title for the Review Flight, digital notices tab")
+				embeddedViews.append((title: noticesTitle, view: noticesView))
 			}
 			
 		} else if (existingFlight?.value.statuses.count ?? 0) > 0 {
-			embeddedViews.append((title: "Notice Status", view: statusesView))
+			let noticeStatusTitle = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_NOTICE_STATUS", bundle: AirMapBundle.core, value: "Notice Status", comment: "Title for the Review Flight, notice status tab")
+			embeddedViews.append((title: noticeStatusTitle, view: statusesView))
 		}
 
 		embeddedViews.forEach { scrollView.addSubview($0.view) }

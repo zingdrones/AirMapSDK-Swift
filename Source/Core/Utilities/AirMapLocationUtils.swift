@@ -37,5 +37,5 @@ func convertDegreesToNearestCompassRose(_ degree: Int) -> Int {
 		return 360
 	}
 	
-	return 360
+	return 0
 }

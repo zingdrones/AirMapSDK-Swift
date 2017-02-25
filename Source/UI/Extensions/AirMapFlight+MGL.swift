@@ -17,7 +17,7 @@ extension AirMapFlight: MGLAnnotation {
 		dateFormatter.doesRelativeDateFormatting = true
 		dateFormatter.dateStyle = .medium
 		dateFormatter.timeStyle = .long
-		return dateFormatter.string(from: startTime as Date)
+		return dateFormatter.string(from: startTime)
 	}
 	
 	public func annotationRepresentations() -> [MGLAnnotation]? {

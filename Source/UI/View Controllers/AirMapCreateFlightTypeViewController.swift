@@ -140,12 +140,6 @@ class AirMapCreateFlightTypeViewController: UIViewController, AnalyticsTrackable
 		return inputViewContainer
 	}
 	
-	fileprivate static let bufferFormatter: NumberFormatter = {
-		$0.numberStyle = .decimal
-		$0.maximumFractionDigits = 0
-		return $0
-	}(NumberFormatter())
-	
 	// MARK: View Lifecycle
 	
 	override func viewDidLoad() {
@@ -315,7 +309,7 @@ extension AirMapCreateFlightTypeViewController {
 			.drive(onNext: {[unowned self] required in
 				self.bottomToolTip.superview!.superview!.isHidden = !required
 				self.bottomToolTip.superview!.backgroundColor = .airMapRed
-				self.bottomToolTip.text = "Flight area cannot overlap with conflicting permit requirement zones."
+				self.bottomToolTip.text = NSLocalizedString("FLIGHT_PLAN_OVERLAPPING_AREA", bundle: AirMapBundle.core, value: "Flight area cannot overlap with conflicting permit requirement zones.", comment: "Displayed when the user has drawn an invalid shaping, overlapping with conflicting permitted zones")
 			})
 			.disposed(by: disposeBag)
 		
@@ -460,13 +454,13 @@ extension AirMapCreateFlightTypeViewController {
 		case .path:
 			drawingOverlayView.discardsDuplicateClosingPoint = false
 			actionButton.isHidden = false
-			bufferTitleLabel.text = "Width"
+			bufferTitleLabel.text = NSLocalizedString("FLIGHT_PLAN_WIDTH", bundle: AirMapBundle.core, value: "Width", comment: "The width of a path-based flight")
 			controlPoints.value = []
 			state.value = .drawing
 
 		case .point:
 			actionButton.isHidden = true
-			bufferTitleLabel.text = "Radius"
+			bufferTitleLabel.text = NSLocalizedString("FLIGHT_PLAN_RADIUS", bundle: AirMapBundle.core, value: "Radius", comment: "The radius around of a point-based flight")
 			toolTip.superview!.superview!.isHidden = true
 			controlPoints.value = [
 				ControlPoint(type: .vertex, coordinate: mapView.centerCoordinate)
@@ -517,11 +511,11 @@ extension AirMapCreateFlightTypeViewController {
 				
 				switch selectedGeoType.value {
 				case .path:
-					toolTip.text = "Tap the hand icon to freehand draw any path."
+					toolTip.text = NSLocalizedString("FLIGHT_PLAN_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH", bundle: AirMapBundle.core, value: "Tap the hand icon to freehand draw any path.", comment: "Call to action to tap the icon to begin drawing a flight path.")
 				case .polygon:
-					toolTip.text = "Tap the hand icon to freehand draw any area."
+					toolTip.text = NSLocalizedString("FLIGHT_PLAN_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA", bundle: AirMapBundle.core, value: "Tap the hand icon to freehand draw any area.", comment: "Call to action to tap the icon to begin drawing a flight area.")
 				case .point:
-					toolTip.text = "Drag the center point to position your flight area."
+					toolTip.text = NSLocalizedString("FLIGHT_PLAN_TOOLTIP_CTA_POSTIION_POINT", bundle: AirMapBundle.core, value: "Drag the center point to position your flight area.", comment: "Call to action to drag the center position of a point-based flight.")
 				}
 				actionButton.setImage(drawIcon, for: UIControlState())
 				actionButton.setImage(drawIconSelected, for: .highlighted)
@@ -538,10 +532,10 @@ extension AirMapCreateFlightTypeViewController {
 				let validation = geometryValidation(selectedGeoType.value, coordinates: coordinates)
 
 				if (validation.kinks?.features.count ?? 0) > 0 {
-					toolTip.text = "Invalid flight area. Adjust flight area so that it does not overlap with itself."
+					toolTip.text = NSLocalizedString("FLIGHT_PLAN_TOOLTIP_ERROR_OVERLAPPING_AREA", bundle: AirMapBundle.core, value: "Invalid flight area. Adjust flight area so that it does not overlap with itself.", comment: "Call to action to fix self-intersecting geometries of an area-based flight.")
 					toolTip.superview?.backgroundColor = UIColor.airMapRed.withAlphaComponent(0.50)
 				} else {
-					toolTip.text = "Drag any point to move. Drag any midpoint to add a new point."
+					toolTip.text = NSLocalizedString("FLIGHT_PLAN_TOOLTIP_CTA_MODIFY_FLIGHT_GEOMETRY", bundle: AirMapBundle.core, value: "Drag any point to move. Drag any midpoint to add a new point.", comment: "Call to action to fine-tune the geometry of a flight.")
 				}
 
 				actionButton.setImage(trashIcon, for: UIControlState())
@@ -566,10 +560,10 @@ extension AirMapCreateFlightTypeViewController {
 
 			switch selectedGeoType.value {
 			case .path:
-				toolTip.text = "Draw a freehand path"
+				toolTip.text = NSLocalizedString("FLIGHT_PLAN_TOOLTIP_CTA_DRAW_FREEHAND_PATH", bundle: AirMapBundle.core, value: "Draw a freehand path", comment: "Call to action to draw a path-based flight.")
 				drawingOverlayView.tolerance = 8
 			case .polygon:
-				toolTip.text = "Draw a freehand area"
+				toolTip.text = NSLocalizedString("FLIGHT_PLAN_TOOLTIP_CTA_DRAW_FREEHAND_AREA", bundle: AirMapBundle.core, value: "Draw a freehand area", comment: "Call to action to draw an area-based flight.")
 				drawingOverlayView.tolerance = 11
 			case .point:
 				fatalError()
@@ -588,7 +582,7 @@ extension AirMapCreateFlightTypeViewController {
 		case .editing(let controlPoint):
 			
 			if canDelete(controlPoint) {
-				toolTip.text = "Drag point to trash to delete"
+				toolTip.text = NSLocalizedString("FLIGHT_PLAN_TOOLTIP_CTA_DRAG_TO_TRASH_TO_DELETE", bundle: AirMapBundle.core, value: "Drag point to trash to delete", comment: "Call to action to drag a point to the trash to delete.")
 			}
 			actionButton.setImage(trashIcon, for: UIControlState())
 			actionButton.setImage(trashIconHighlighted, for: .highlighted)
@@ -607,14 +601,13 @@ extension AirMapCreateFlightTypeViewController {
 	
 	fileprivate func sliderValueToBuffer(sliderValue: Float) -> (buffer: Meters, displayString: String) {
 		
-		let formatter = AirMapCreateFlightTypeViewController.bufferFormatter
-		
 		let ramp = Config.Maps.bufferSliderLinearity
 		let sliderValue = pow(Double(sliderValue), ramp)
 
 		let usesMetric = AirMap.configuration.distanceUnits == .metric
 		let distancePerStep: Double
 		
+		let formatter = UIConstants.flightDistanceFormatter
 		let bufferValue: (buffer: Meters, displayString: String)
 		
 		if usesMetric {
@@ -634,7 +627,7 @@ extension AirMapCreateFlightTypeViewController {
 			}
 			meters = ceil(meters / distancePerStep) * distancePerStep
 		
-			bufferValue = (meters, formatter.string(from: NSNumber(value: meters))! + " m")
+			bufferValue = (meters, formatter.string(fromValue: meters, unit: .meter))
 
 		} else {
 			
@@ -657,7 +650,7 @@ extension AirMapCreateFlightTypeViewController {
 			feet = ceil(feet / distancePerStep) * distancePerStep
 			meters = feet / Config.Maps.feetPerMeters
 			
-			bufferValue = (meters, formatter.string(from: NSNumber(value: feet))! + " ft")
+			bufferValue = (meters, formatter.string(fromValue: feet, unit: .foot))
 		}
 		
 		return bufferValue

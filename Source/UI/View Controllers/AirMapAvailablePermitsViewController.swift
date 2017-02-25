@@ -107,11 +107,11 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 		dataSource.titleForHeaderInSection = { dataSource, section in
 			switch dataSource.sectionModels[section].model {
 			case .existing:
-				return "Existing Permits"
+				return NSLocalizedString("AVAILABLE_PERMITS_TABLE_HEADER_EXISTING", bundle: AirMapBundle.core, value: "Existing Permits", comment: "Title for table section header of existing permits the user has")
 			case .available:
-				return "Available Permits"
+				return NSLocalizedString("AVAILABLE_PERMITS_TABLE_HEADER_AVAILABLE", bundle: AirMapBundle.core, value: "Available Permits", comment: "Title for table section header of available permits the user may apply for")
 			case .unavailable:
-				return "Unavailable Permits"
+				return NSLocalizedString("AVAILABLE_PERMITS_TABLE_HEADER_UNAVAILABLE", bundle: AirMapBundle.core, value: "Unavailable Permits", comment: "Title for table section header of permits which are not available to the user")
 			}
 		}
 	}
@@ -148,26 +148,12 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 	}
         
     private func headerCopy(_ availablePermitCount: Int, existingPermitCount: Int)->String {
-    
-        var headerCopy = "The following exisiting & available permits meets the requirements for operation in the flight area."
-        
-        if existingPermitCount > 0 && availablePermitCount == 0 {
-            let plural1 = existingPermitCount == 1 ? "" : "s"
-            let plural2 = existingPermitCount == 1 ? "s" : ""
-            headerCopy = "The following exisiting permit\(plural1) meet\(plural2) the requirements for operation in the flight area."
-        }
-        
-        if existingPermitCount == 0 && availablePermitCount > 0 {
-            let plural1 = availablePermitCount == 1 ? "" : "s"
-            let plural2 = availablePermitCount == 1 ? "s" : ""
-            headerCopy = "The following available permit\(plural1) meet\(plural2) the requirements for operation in the flight area."
-        }
-        
-        if status.applicablePermits.count == 0 {
-            headerCopy = "Only a single permit can be used to fly in this operating area. Your flight path intersects with multiple areas requiring different permits."
-        }
-        
-       return headerCopy
+		
+        if status.applicablePermits.count > 0 {
+			return NSLocalizedString("AVAILABLE_PERMITS_HEADER", bundle: AirMapBundle.core, value: "The following existing & available permits meets the requirements for operation in the flight area.", comment: "Header copy describing the permits listed below")
+		} else {
+			return NSLocalizedString("AVAILABLE_PERMITS_HEADER_CONFLICTING_AREAS", bundle: AirMapBundle.core, value: "Only a single permit can be used to fly in this operating area. Your flight path intersects with multiple areas requiring different permits.", comment: "Header copy describing that the flight area overlaps with multiple areas, each with differing permit requirements. No one single permit is able to satisfy all requirements.")
+		}
     }
 	
 	private func rowData(_ pilotPermits: [AirMapPilotPermit]) -> (AirMapAvailablePermit) -> RowData {

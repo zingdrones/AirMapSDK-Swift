@@ -35,7 +35,8 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         type?.text = advisory.type?.title
         starts?.text = ""
         ends?.text = ""
-        phone?.text = UIConstants.Instructions.noPhoneNumberProvided
+		phone?.text = NSLocalizedString("ADVISORY_CELL_PHONE_NOT_PROVIDED", bundle: AirMapBundle.core, value: "No Phone Number Provided", comment: "Displayed when an advisory has not provided a contact phone")
+
 		phone?.isUserInteractionEnabled = false
         colorView.backgroundColor = advisory.color.colorRepresentation
         
@@ -60,9 +61,11 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             }
             
             if let size = wildfires.size {
-                ends?.text = "\(size) Acres"
+				let wildfireFormat = NSLocalizedString("ADVISORY_CELL_WILDFIRE_SIZE_FORMAT", bundle: AirMapBundle.core, value: "%$1i Acres", comment: "Label and format for wildfire advisory cells")
+				ends?.text = String(format: wildfireFormat, size)
             } else {
-                ends?.text = "Size Unknown"
+				let sizeUnknown = NSLocalizedString("ADVISORY_CELL_WILDFIRE_SIZE_UNKNOWN", bundle: AirMapBundle.core, value: "Size Unknown", comment: "Label for wildfire advisory cells where size is unknown")
+                ends?.text = sizeUnknown
             }
         }
         
@@ -84,7 +87,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             }
             
             if properties.digital  {
-                phone?.text = "Accepts Digital Notice"
+                phone?.text = NSLocalizedString("ADVISORY_CELL_ACCEPTS_DIGITAL_NOTICE", bundle: AirMapBundle.core, value: "Accepts Digital Notice", comment: "Label for advisories that are stup to receive digital notice")
             }
         }
         

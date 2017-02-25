@@ -97,7 +97,7 @@ extension AirMapTraffic {
 		let distanceString: String
 		let groundSpeedString: String
 
-		let groundSpeedFormat = NSLocalizedString("GROUND_SPEED_FORMAT", bundle: AirMapBundle.core, value: "%@ %@", comment: "Format for displaying ground speed")
+		let groundSpeedFormat = NSLocalizedString("GROUND_SPEED_FORMAT", bundle: AirMapBundle.core, value: "%1$@ %2$@", comment: "Format for displaying ground speed. 1) value 2) unit")
 
 		switch AirMap.configuration.distanceUnits {
 		case .metric:

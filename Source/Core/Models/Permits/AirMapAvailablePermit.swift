@@ -27,7 +27,6 @@ public class AirMapAvailablePermit: Hashable, Equatable {
 		let f = DateComponentsFormatter()
 		f.allowedUnits = [.year, .month, .day, .hour, .minute]
 		f.zeroFormattingBehavior = .dropAll
-		f.calendar = Calendar(identifier: Calendar.Identifier.gregorian)
 		f.allowsFractionalUnits = false
 		f.unitsStyle = .full
 		return f

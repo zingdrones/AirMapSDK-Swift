@@ -46,7 +46,9 @@ class AirMapPilotPermitCell: UITableViewCell, Dequeueable, ObjectAssignable {
 		}
 		
 		if let expirationDate = permitData.pilotPermit?.expiresAt {
-			permitExpiration?.text = "Expires " + AirMapPilotPermitCell.dateFormatter.string(from: expirationDate as Date)
+			let expirationFormat = NSLocalizedString("PILOT_PERMIT_CELL_EXPIRATION_FORMAT", bundle: AirMapBundle.core, value: "Expires %$1@", comment: "Format for pilot permit expiration")
+			let expirationString = AirMapPilotPermitCell.dateFormatter.string(from: expirationDate)
+			permitExpiration?.text = String(format: expirationFormat, expirationString)
 		} else {
 			permitExpiration?.text = nil
 		}

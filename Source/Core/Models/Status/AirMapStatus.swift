@@ -28,9 +28,9 @@ open class AirMapStatus {
 			case .red:
 				return NSLocalizedString("STATUS_RED_DESCRIPTION", bundle: bundle, value: "Flight Strictly Regulated", comment: "Description for status advisory color Red")
 			case .yellow:
-				return NSLocalizedString("STATUS_YELLO_DESCRIPTION", bundle: bundle, value: "Advisories", comment: "Description for status advisory color Yellow")
+				return NSLocalizedString("STATUS_YELLOW_DESCRIPTION", bundle: bundle, value: "Advisories", comment: "Description for status advisory color Yellow")
 			case .green, .gray:
-				return NSLocalizedString("STATUS_RED_DESCRIPTION", bundle: bundle, value: "Informational", comment: "Description for status advisory color Green")
+				return NSLocalizedString("STATUS_GREEN_DESCRIPTION", bundle: bundle, value: "Informational", comment: "Description for status advisory color Green")
 			}
 		}
 	}

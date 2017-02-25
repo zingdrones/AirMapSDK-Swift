@@ -80,7 +80,7 @@ struct Config {
 		static let trafficAlertChannel = "uav/traffic/alert/"
 		static let trafficSituationalAwarenessChannel = "uav/traffic/sa/"
 		#if os(OSX)
-		static let clientId = "macOS AirMap SDK" // TODO: Create a unique id for macOS clients
+		static let clientId = UUID().uuidString
 		#else
 		static let clientId = UIDevice.current.identifierForVendor!.uuidString
 		#endif

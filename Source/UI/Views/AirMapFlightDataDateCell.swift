@@ -48,7 +48,8 @@ class AirMapFlightDataDateCell: UITableViewCell {
 	
 	fileprivate func setupInputViews() {
 		
-		doneButton.setTitle("DONE", for: UIControlState())
+		let doneTitle = NSLocalizedString("FLIGHT_DATA_CELL_BUTTON_DONE", bundle: AirMapBundle.core, value: "DONE", comment: "Label for text input button")
+		doneButton.setTitle(doneTitle, for: UIControlState())
 		doneButton.backgroundColor = .airMapDarkGray
 		datePicker.minimumDate = Date()
 		doneButton.addTarget(self, action: #selector(dismissPicker), for: .touchUpInside)
@@ -69,7 +70,8 @@ class AirMapFlightDataDateCell: UITableViewCell {
 		
 		model.value.asObservable()
 			.map { date in
-				return date == nil ? "Now" : AirMapFlightDataDateCell.dateFormatter.string(from: date!)
+				let now = NSLocalizedString("FLIGHT_DATA_CELL_NOW", bundle: AirMapBundle.core, value: "Now", comment: "Label for start time when the start is immediate")
+				return date == nil ? now : AirMapFlightDataDateCell.dateFormatter.string(from: date!)
 			}
 			.bindTo(date.rx.text)
 			.disposed(by: disposeBag)

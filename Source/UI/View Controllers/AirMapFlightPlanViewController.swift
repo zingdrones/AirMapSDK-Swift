@@ -67,7 +67,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 	
 	fileprivate let altitude = Variable(0 as Double)
 	fileprivate var startsAt = Variable(nil as Date?)
-	fileprivate let duration = Variable(UIConstants.defaultDurationPreset.value)
+	fileprivate let duration = Variable(UIConstants.defaultDurationPreset)
 	fileprivate let pilot    = Variable(nil as AirMapPilot?)
 	fileprivate let aircraft = Variable(nil as AirMapAircraft?)
 
@@ -86,9 +86,9 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
-			altitude.value = UIConstants.defaultAltitudePresetMeters.value
+			altitude.value = UIConstants.defaultAltitudePresetMetric
 		case .imperial:
-			altitude.value = UIConstants.defaultAltitudePresetFeet.value
+			altitude.value = UIConstants.defaultAltitudePresetImperial
 		}
 		
 		setupTable()
@@ -146,36 +146,56 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 
 	fileprivate func setupTable() {
 		
-		let altitudeValues: [(title: String, value: CLLocationDistance)]
+		let altitudeValues: [(title: String, value: Meters)]
+		let altitudeFormatter = UIConstants.flightDistanceFormatter
+		
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
-			altitudeValues = UIConstants.altitudePresetsInMeters
+			altitudeValues = UIConstants.altitudePresetsMetric.map {
+				(altitudeFormatter.string(fromValue: $0, unit: .meter), $0)
+			}
 		case .imperial:
-			altitudeValues = UIConstants.altitudePresetsInFeet
+			altitudeValues = UIConstants.altitudePresetsImperial.map {
+				(altitudeFormatter.string(fromValue: $0, unit: .foot), $0)
+			}
 		}
 
-		let flightDataSection =  DataSection(title: "Flight", rows: [
-			FlightPlanDataTableRow(title: Variable("Altitude"), value: altitude, values: altitudeValues),
+		let flightDataSectionTitle = NSLocalizedString("FLIGHT_PLAN_TABLE_SECTION_FLIGHT", bundle: AirMapBundle.core, value: "Flight", comment: "Title for the section displaying flight plan details")
+		let altitudeRowTitle = NSLocalizedString("FLIGHT_PLAN_TABLE_ROW_ALTITUDE", bundle: AirMapBundle.core, value: "Altitude", comment: "Title for the row displaying flight plan altitude")
+
+		let flightDataSection =  DataSection(title: flightDataSectionTitle, rows: [
+			FlightPlanDataTableRow(title: Variable(altitudeRowTitle), value: altitude, values: altitudeValues),
 			])
 		sections.append(flightDataSection)
 
-		let flightTimeSection =  DataSection(title: "Date & Time", rows: [
-			FlightPlanDataTableRow(title: Variable("Starts"), value: startsAt, values: nil),
-			FlightPlanDataTableRow(title: Variable("Duration"), value: duration, values: UIConstants.durationPresets)
+		let durationPresets = UIConstants.durationPresets
+			.map { (UIConstants.flightDurationFormatter.string(from: $0)!, $0) }
+		
+		let flightTimeSectionTitle = NSLocalizedString("FLIGHT_PLAN_TABLE_SECTION_TIME", bundle: AirMapBundle.core, value: "Date & Time", comment: "Title for the section displaying flight plan start time & duration")
+		let flightTimeRowStarts = NSLocalizedString("FLIGHT_PLAN_TABLE_ROW_START_TIME", bundle: AirMapBundle.core, value: "Starts", comment: "Title for the row displaying flight plan start time")
+		let flightTimeRowDuration = NSLocalizedString("FLIGHT_PLAN_TABLE_ROW_DURATION", bundle: AirMapBundle.core, value: "Duration", comment: "Title for the row displaying flight plan duration")
+
+		let flightTimeSection =  DataSection(title: flightTimeSectionTitle, rows: [
+			FlightPlanDataTableRow(title: Variable(flightTimeRowStarts), value: startsAt, values: nil),
+			FlightPlanDataTableRow(title: Variable(flightTimeRowDuration), value: duration, values: durationPresets)
 			])
 		sections.append(flightTimeSection)
 
-		let associatedModels = AssociatedObjectsSection(title: "Pilot & Aircraft", rows: [
-			AssociatedPilotModelRow(title: Variable("Select Pilot Profile"), value: pilot),
-			AssociatedAircraftModelRow(title: Variable("Select Aircraft"), value: aircraft)
+		let associatedSectionTitle = NSLocalizedString("FLIGHT_PLAN_TABLE_SECTION_ASSOCIATED", bundle: AirMapBundle.core, value: "Pilot & Aircraft", comment: "Title for the section displaying the pilot and aircraft details")
+		let associatedRowPilot = NSLocalizedString("FLIGHT_PLAN_TABLE_ROW_PILOT", bundle: AirMapBundle.core, value: "Select Pilot Profile", comment: "Call to action title for the user to select a pilot profile")
+		let associatedRowAircraft = NSLocalizedString("FLIGHT_PLAN_TABLE_ROW_AIRCRAFT", bundle: AirMapBundle.core, value: "Select Aircraft", comment: "Call to action title for the user to select an aircraft")
+
+		let associatedModels = AssociatedObjectsSection(title: associatedSectionTitle, rows: [
+			AssociatedPilotModelRow(title: Variable(associatedRowPilot), value: pilot),
+			AssociatedAircraftModelRow(title: Variable(associatedRowAircraft), value: aircraft)
 			]
 		)
 		sections.append(associatedModels)
 
-		let bundle = AirMapBundle.ui
-		let image = UIImage(named: "airmap_share_logo", in: bundle, compatibleWith: nil)
+		let image = UIImage(named: "airmap_share_logo", in: AirMapBundle.ui, compatibleWith: nil)
 
-		let shareSection = SocialSection(title: "Share My Flight", rows: [
+		let shareMyFlightSectionTitle = NSLocalizedString("FLIGHT_PLAN_TABLE_SECTION_SHARE", bundle: AirMapBundle.core, value: "Share My Flight", comment: "Title for the section displaying social sharing features")
+		let shareSection = SocialSection(title: shareMyFlightSectionTitle, rows: [
 			SocialSharingRow(logo: image!, value: navigationController!.shareFlight)
 			])
 		sections.append(shareSection)
@@ -226,7 +246,11 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		status.asObservable()
 			.map {
 				let hasNextSteps = $0?.supportsNotice ?? true || $0?.requiresPermits ?? true
-				return hasNextSteps ? "Next" : "Save"
+				
+				let nextTitle = NSLocalizedString("FLIGHT_PLAN_BUTTON_NEXT", bundle: AirMapBundle.core, value: "Next", comment: "Title for the button to advance to the next screen")
+				let saveTitle = NSLocalizedString("FLIGHT_PLAN_BUTTON_SAVE", bundle: AirMapBundle.core, value: "Save", comment: "Title for the button to save and create the flight")
+				
+				return hasNextSteps ? nextTitle : saveTitle
 			}
 			.subscribe(onNext: { [unowned self] title in
 				self.nextButton.setTitle(title, for: .normal)

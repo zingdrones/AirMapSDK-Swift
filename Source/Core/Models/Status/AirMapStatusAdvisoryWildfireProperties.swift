@@ -24,7 +24,7 @@ extension AirMapStatusAdvisoryWildfireProperties: Mappable {
 		
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
-		size			<- map["size"]
+		size			<-  map["size"]
 		dateEffective	<- (map["date_effective"], dateTransform)
 	}
 }

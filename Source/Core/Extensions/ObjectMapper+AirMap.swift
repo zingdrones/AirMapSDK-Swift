@@ -89,7 +89,6 @@ class GeoJSONToAirMapGeometryTransform: TransformType {
 			return AirMapPolygon(coordinates: coords)
 
 		case "LineString":
-			// TODO: Verify this works as expected
 			guard let pointString = geometry["coordinates"] as? [[Double]] else { return nil }
 			let coords: [Coordinate2D] = pointString
 				.map { point in
@@ -98,7 +97,6 @@ class GeoJSONToAirMapGeometryTransform: TransformType {
 			return AirMapPath(coordinates: coords)
 			
 		case "Point":
-			// TODO: Verify this works as expected
 			guard let points = geometry["coordinates"] as? [Double], points.count == 2 else { return nil }
 			let coord: Coordinate2D = Coordinate2D(latitude: points[0], longitude: points[1])
 			return AirMapPoint(coordinate: coord)

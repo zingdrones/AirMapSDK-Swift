@@ -372,7 +372,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			return traffic.initialCoordinate
 		}
 
-		let elapsedTime = Double(Date().timeIntervalSince(traffic.recordedTime as Date))
+		let elapsedTime = Double(Date().timeIntervalSince(traffic.recordedTime))
 		let metersPerSecond = Double(traffic.groundSpeedKt) * 0.514444
 		let distanceTraveledInMeters = metersPerSecond*elapsedTime
 		let trafficLocation = CLLocation(latitude: traffic.initialCoordinate.latitude, longitude: traffic.initialCoordinate.longitude)

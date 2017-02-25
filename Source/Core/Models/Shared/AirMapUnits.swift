@@ -11,6 +11,8 @@ import Foundation
 public enum DistanceUnits {
 	case metric
 	case imperial
+	
+	static let metersPerFoot: Feet = 0.3048
 }
 
 public enum TemperatureUnits {
@@ -21,6 +23,7 @@ public enum TemperatureUnits {
 public typealias Feet = Double
 public typealias Miles = Double
 public typealias Meters = Double
+
 
 #if os(Linux)
 	

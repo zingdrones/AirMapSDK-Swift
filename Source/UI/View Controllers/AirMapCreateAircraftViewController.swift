@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTrackable {
-
+	
 	var screenName: String {
 		switch mode {
 		case .create:
@@ -49,10 +49,11 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 		
 		switch mode {
 		case .create:
-			navigationItem.title = "Create Aircraft"
+			navigationItem.title = NSLocalizedString("AIRCRAFT_DETAIL_TITLE_CREATE_NEW", bundle: AirMapBundle.core, value: "Create Aircraft", comment: "Title to display for the view creating a new aircraft")
 			
 		case .update:
-			navigationItem.title = "Update Aircraft"
+			navigationItem.title = NSLocalizedString("AIRCRAFT_DETAIL_TITLE_UPDATE_EXISTING", bundle: AirMapBundle.core, value: "Update Aircraft", comment: "Title to display for the view when updating an existing aircraft")
+
 			tableView.allowsSelection = false
 			nickName.text = aircraft.nickname
 			model.value = aircraft.model

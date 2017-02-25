@@ -23,7 +23,7 @@ extension AirMapStatusAdvisoryTFRProperties: Mappable {
 
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
-		url			<- map["url"]
+		url			<-  map["url"]
 		startTime	<- (map["effective_start"], dateTransform)
 		endTime		<- (map["effective_end"], dateTransform)
 	}

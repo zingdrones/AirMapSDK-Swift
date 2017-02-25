@@ -82,19 +82,21 @@ extension AirMapError: CustomStringConvertible {
 	
 	public var description: String {
 		
+		let bundle = AirMapBundle.core
+		
 		switch self {
 		case .network(let error):
 			return error.localizedDescription
 		case .unauthorized:
-			return "Unauthorized. Please check login credentials."
+			return NSLocalizedString("ERROR_UNAUTHORIZED", bundle: bundle, value: "Unauthorized. Please check login credentials.", comment: "Authorization failure error")
 		case .invalidRequest(let error):
 			return error.localizedDescription
 		case .client(let error):
 			return error.localizedDescription
 		case .server:
-			return "The server could not complete your request."
+			return NSLocalizedString("ERROR_SERVER", bundle: bundle, value: "The server could not complete your request.", comment: "Server failure error")
 		case .serialization:
-			return "A response serialization error has occurred."
+			return NSLocalizedString("ERROR_SERIALIZATION", bundle: bundle, value: "The server returned an unprocessible response.", comment: "Response serialization failure error")
 		case .unknown(let error):
 			return error.localizedDescription
 		}
