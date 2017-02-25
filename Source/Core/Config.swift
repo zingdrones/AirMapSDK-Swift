@@ -27,6 +27,9 @@ struct Config {
 		static var pilotUrl: String {
 			return AirMapApi.urlForResource("pilot", version: "v2")
 		}
+        static var userUrl: String {
+            return AirMapApi.urlForResource("user", version: "v1")
+        }
 		static var statusUrl: String {
 			return AirMapApi.urlForResource("status", version: "alpha")
 		}

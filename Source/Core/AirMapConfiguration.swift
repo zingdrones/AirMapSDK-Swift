@@ -14,6 +14,7 @@ public class AirMapConfiguration {
 	public var temperatureUnits = TemperatureUnits.celcius
 	
 	internal fileprivate(set) var environment: String?
+    internal fileprivate(set) var developerSecret: String?
 	internal fileprivate(set) var airMapApiKey: String?
 	public fileprivate(set) var mapboxAccessToken: String?
 
@@ -84,6 +85,7 @@ extension AirMapConfiguration: Mappable {
 	public func mapping(map: Map) {
 		environment       <-  map["airmap.environment"]
 		airMapApiKey      <-  map["airmap.api_key"]
+        developerSecret   <-  map["airmap.developer_secret"]
 		auth0ClientId     <-  map["auth0.client_id"]
 		auth0CallbackUrl  <-  map["auth0.callback_url"]
 		mapboxAccessToken <-  map["mapbox.access_token"]

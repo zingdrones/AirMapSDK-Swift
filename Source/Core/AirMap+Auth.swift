@@ -28,6 +28,12 @@ extension AirMap_Auth {
 		authClient.refreshAccessToken().subscribe(completion)
 	}
     
+    /// Authenticates an Anonymous User associated with the Developer API Key and returns an AuthToken.
+    ///   - completion: A completion handler to call with the Result
+    public static func performAnonymousLogin(userId:String, completion: @escaping (Result<AirMapToken>) -> Void) {
+        userClient.performAnonymousLogin(userId: userId).subscribe(completion)
+    }
+    
     /// Log out the currently authenticated pilot
     public static func logout() {
         authClient.logout()
