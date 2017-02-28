@@ -18,12 +18,8 @@ open class AirMapStatusAdvisoryWildfireProperties {
 
 extension AirMapStatusAdvisoryWildfireProperties: Mappable {
 
-	public func mapping(map: Map) {
-		
-		"2016-06-30T16:54:17.606Z"
-		
+	public func mapping(map: Map) {		
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
-
 		size			<-  map["size"]
 		dateEffective	<- (map["date_effective"], dateTransform)
 	}

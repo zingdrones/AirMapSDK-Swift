@@ -47,6 +47,7 @@ struct Config {
 			static let keychainKeyRefreshToken = "com.airmap.airmapsdk.refresh_token"
 		}
 		
+		// Used only for API date formatting
 		static let dateFormat  = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // Ex: 2016-06-30T16:54:17.606Z
 		static let smsCodeLength = 6
 	}

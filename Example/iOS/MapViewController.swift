@@ -12,26 +12,26 @@ import Mapbox
 import RxSwift
 
 class MapViewController: UIViewController {
-
+	
 	@IBOutlet weak var mapView: AirMapMapView!
 	
 	private let mapLayers: [AirMapLayerType] = [.essentialAirspace, .tfrs]
 	private let mapTheme: AirMapMapTheme = .standard
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		AirMap.logger.minLevel = .debug
 		AirMap.authSessionDelegate = self
 		AirMap.trafficDelegate = self
-		AirMap.configuration.distanceUnits = .metric // or .imperial
-		AirMap.configuration.temperatureUnits = .celcius // or .fahrenheit
+		AirMap.configuration.distanceUnits = .imperial // or .metric
+		AirMap.configuration.temperatureUnits = .fahrenheit // or .celcius
 		
 		mapView.configure(layers: mapLayers, theme: mapTheme)
 	}
 	
 	@IBAction func addFlight() {
-
+		
 		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self, mapTheme: mapTheme, mapLayers: mapLayers) {
 			present(flightPlanController, animated: true, completion: nil)
 		} else {
@@ -53,11 +53,11 @@ class MapViewController: UIViewController {
 			}
 		}
 	}
-
+	
 	fileprivate func showAuthController() {
-
+		
 		let authViewController = AirMap.authViewController(handleLogin)
-//		authViewController.registerLogo("<YOUR_LOGO_CONNECT_WITH_AIRMAP>", bundle: NSBundle.mainBundle())
+		//		authViewController.registerLogo("<YOUR_LOGO_CONNECT_WITH_AIRMAP>", bundle: NSBundle.mainBundle())
 		
 		present(authViewController, animated: true, completion: nil)
 	}
@@ -118,34 +118,34 @@ extension MapViewController: AirMapFlightPlanDelegate {
 		let coordinate = mapView.centerCoordinate
 		try! AirMap.sendTelemetryData(flight, coordinate: coordinate, altitudeAgl: 100, altitudeMsl: nil)
 	}
-
+	
 }
 
 extension AirMapTraffic: MGLAnnotation {
-
+	
 	public var title: String? {
 		return properties.aircraftId
 	}
 }
 
 extension MapViewController: AirMapTrafficObserver {
-
+	
 	func airMapTrafficServiceDidAdd(_ traffic: [AirMapTraffic]) {
 		mapView.addAnnotations(traffic)
 	}
-
+	
 	func airMapTrafficServiceDidUpdate(_ traffic: [AirMapTraffic]) {
 		// annotations are updated via KVO
 	}
-
+	
 	func airMapTrafficServiceDidRemove(_ traffic: [AirMapTraffic]) {
 		mapView.removeAnnotations(traffic)
 	}
-
+	
 	func airMapTrafficServiceDidConnect() {
 		print("Connected")
 	}
-
+	
 	func airMapTrafficServiceDidDisconnect() {
 		print("Disconnected")
 	}
@@ -154,7 +154,7 @@ extension MapViewController: AirMapTrafficObserver {
 extension MapViewController: MGLMapViewDelegate {
 	
 	func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-
+		
 	}
 	
 	func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
@@ -163,26 +163,26 @@ extension MapViewController: MGLMapViewDelegate {
 			present(flightNav, animated: true, completion: nil)
 		}
 	}
-
+	
 	func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
 		
 		switch annotation {
-		
+			
 		case is AirMapFlight:
 			let flightIcon = AirMapImage.flightIcon(.active)!
 			return MGLAnnotationImage(image: flightIcon, reuseIdentifier: "flightIcon")
-		
+			
 		case let traffic as AirMapTraffic:
 			let trafficIcon = AirMapImage.trafficIcon(type: traffic.trafficType, heading: traffic.trueHeading)!
 			return MGLAnnotationImage(image: trafficIcon, reuseIdentifier: traffic.id)
-		
+			
 		default:
 			return nil
 		}
 	}
-
+	
 	func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
 		return true
 	}
-
+	
 }

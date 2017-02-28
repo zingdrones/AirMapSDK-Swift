@@ -23,14 +23,15 @@ open class AirMapStatus {
 		public var description: String {
 			
 			let bundle = AirMapBundle.core
-
+			let localized = LocalizedString.Status.self
+			
 			switch self {
 			case .red:
-				return NSLocalizedString("STATUS_RED_DESCRIPTION", bundle: bundle, value: "Flight Strictly Regulated", comment: "Description for status advisory color Red")
+				return localized.redDescription
 			case .yellow:
-				return NSLocalizedString("STATUS_YELLOW_DESCRIPTION", bundle: bundle, value: "Advisories", comment: "Description for status advisory color Yellow")
+				return localized.yellowDescription
 			case .green, .gray:
-				return NSLocalizedString("STATUS_GREEN_DESCRIPTION", bundle: bundle, value: "Informational", comment: "Description for status advisory color Green")
+				return localized.greenDescription
 			}
 		}
 	}

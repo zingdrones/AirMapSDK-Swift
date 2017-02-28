@@ -36,6 +36,7 @@ import CoreLocation
 
 	public override init() {
 		super.init()
+		
 	}
 
 	public required init?(map: Map) {}
@@ -97,18 +98,17 @@ extension AirMapTraffic {
 		let distanceString: String
 		let groundSpeedString: String
 
-		let groundSpeedFormat = NSLocalizedString("GROUND_SPEED_FORMAT", bundle: AirMapBundle.core, value: "%1$@ %2$@", comment: "Format for displaying ground speed. 1) value 2) unit")
+		let localizedUnits = LocalizedString.Units.self
 
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
 			altitudeString = lengthFormatter.string(fromValue: altitude, unit: .meter)
-			let groundSpeedUnits = NSLocalizedString("GROUND_SPEED_UNIT_METERS_PER_SECOND", bundle: AirMapBundle.core, value: "m/s", comment: "Unit for displaying ground speed")
-			groundSpeedString = String(format: groundSpeedFormat, groundSpeedKt, groundSpeedUnits)
+			let metricSpeed = AirMapTrafficServiceUtils  ... groundSpeedKt
+			groundSpeedString = String(format: localizedUnits.groundSpeedFormat, metricSpeed, localizedUnits.groundSpeedMetersPerSecond)
 		case .imperial:
-			let miles = AirMapTrafficServiceUtils.metersToFeet(altitude)
-			altitudeString = lengthFormatter.string(fromValue: altitude, unit: .foot)
-			let groundSpeedUnits = NSLocalizedString("GROUND_SPEED_UNIT_KNOTS", bundle: AirMapBundle.core, value: "kts", comment: "Unit for displaying ground speed")
-			groundSpeedString = String(format: groundSpeedFormat, groundSpeedKt, groundSpeedUnits)
+			let feet = AirMapTrafficServiceUtils.metersToFeet(altitude)
+			altitudeString = lengthFormatter.string(fromValue: feet, unit: .foot)
+			groundSpeedString = String(format: localizedUnits.groundSpeedFormat, groundSpeedKt, localizedUnits.groundSpeedKnots)
 		}
 		
 		let aircraftId = properties.aircraftId ?? ""
