@@ -27,18 +27,17 @@ Pod::Spec.new do |s|
 		core.ios.frameworks = 'UIKit'
 		core.osx.frameworks = 'AppKit'
 		core.source_files = ['Source/Core/**/*.{h,m,swift}', 'Source/Rx/*']
-		core.dependency 'SimpleKeychain'
 		core.dependency 'Alamofire'
-		core.dependency 'JWTDecode'
-		core.dependency 'Log'
 		core.dependency 'ObjectMapper'
-		core.dependency 'RxCocoa'
+		core.dependency 'SimpleKeychain'
+		core.dependency 'JWTDecode'
 		core.dependency 'RxSwift'
 		core.dependency 'RxSwiftExt'
+		core.dependency 'RxCocoa'
+		core.dependency 'Log'
 		core.resource_bundles = {
 			'AirMapCore' => ['Source/Resources/*.cer', 'Source/Resources/*.pdf', 'Source/Resources/*.xcassets']
 		}
-
 	end
 	
 	s.subspec 'UI' do |ui|
@@ -50,7 +49,7 @@ Pod::Spec.new do |s|
 		ui.dependency 'PhoneNumberKit'
 		ui.dependency 'RxDataSources'
 		ui.dependency 'Mapbox-iOS-SDK', '3.3.6'
-		ui.dependency 'Lock'
+		ui.dependency 'Lock', '< 2.0.0'
 		ui.dependency 'SwiftSimplify'
 		ui.dependency 'SwiftTurf'
 		ui.source_files = 'Source/UI/**/{*.swift}'
@@ -69,10 +68,9 @@ Pod::Spec.new do |s|
 	s.subspec 'Telemetry' do |telemetry|
 		telemetry.xcconfig = { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DAIRMAP_TELEMETRY' }
 		telemetry.dependency 'AirMapSDK/Core'
-		telemetry.dependency 'CocoaAsyncSocket', '~> 7.5.0'
+		telemetry.dependency 'CocoaAsyncSocket', '~> 7.6.0'
 		telemetry.dependency 'CryptoSwift'
 		telemetry.dependency 'ProtocolBuffers-Swift'
-		telemetry.dependency 'RxSwift'
 		telemetry.source_files = 'Source/Telemetry/*'
 	end
 	

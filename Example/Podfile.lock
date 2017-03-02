@@ -30,47 +30,44 @@ PODS:
     - SimpleKeychain
   - AirMapSDK/Telemetry (1.0.0):
     - AirMapSDK/Core
-    - CocoaAsyncSocket (~> 7.5.0)
+    - CocoaAsyncSocket (~> 7.6.0)
     - CryptoSwift
     - ProtocolBuffers-Swift
-    - RxSwift
   - AirMapSDK/Traffic (1.0.0):
     - AirMapSDK/Core
     - SwiftMQTT
   - AirMapSDK/UI (1.0.0):
     - AirMapSDK/Core
     - libPhoneNumber-iOS
-    - Lock
+    - Lock (< 2.0.0)
     - Mapbox-iOS-SDK (= 3.3.6)
     - PhoneNumberKit
     - RxDataSources
     - SwiftSimplify
     - SwiftTurf
-  - Alamofire (4.3.0)
-  - CocoaAsyncSocket (7.5.1):
-    - CocoaAsyncSocket/GCD (= 7.5.1)
-  - CocoaAsyncSocket/GCD (7.5.1)
+  - Alamofire (4.4.0)
+  - CocoaAsyncSocket (7.6.0)
   - CryptoSwift (0.6.7)
   - JWTDecode (2.0.0)
-  - libPhoneNumber-iOS (0.9.2)
-  - Lock (1.28.1):
-    - Lock/Core (= 1.28.1)
-    - Lock/UI (= 1.28.1)
-    - Lock/WebView (= 1.28.1)
-  - Lock/Core (1.28.1):
+  - libPhoneNumber-iOS (0.9.4)
+  - Lock (1.28.2):
+    - Lock/Core (= 1.28.2)
+    - Lock/UI (= 1.28.2)
+    - Lock/WebView (= 1.28.2)
+  - Lock/Core (1.28.2):
     - AFNetworking (~> 3.0)
-  - Lock/CoreUI (1.28.1):
+  - Lock/CoreUI (1.28.2):
     - Lock/Core
     - Masonry (~> 0.6)
-  - Lock/UI (1.28.1):
+  - Lock/UI (1.28.2):
     - Lock/CoreUI
-  - Lock/WebView (1.28.1):
+  - Lock/WebView (1.28.2):
     - Lock/CoreUI
   - Log (1.0)
   - Mapbox-iOS-SDK (3.3.6)
   - Masonry (0.6.4)
   - Nimble (6.0.1)
-  - ObjectMapper (2.2.2)
+  - ObjectMapper (2.2.5)
   - OHHTTPStubs (5.2.3):
     - OHHTTPStubs/Default (= 5.2.3)
   - OHHTTPStubs/Core (5.2.3)
@@ -92,11 +89,11 @@ PODS:
   - PhoneNumberKit/PhoneNumberKitCore (1.2.2)
   - PhoneNumberKit/UIKit (1.2.2):
     - PhoneNumberKit/PhoneNumberKitCore
-  - ProtocolBuffers-Swift (3.0.9)
+  - ProtocolBuffers-Swift (3.0.10)
   - Quick (1.0.0)
   - RxCocoa (3.2.0):
     - RxSwift (~> 3.1)
-  - RxDataSources (1.0.2):
+  - RxDataSources (1.0.3):
     - RxCocoa (~> 3.0)
     - RxSwift (~> 3.0)
   - RxSwift (3.2.0)
@@ -125,24 +122,24 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AirMapSDK: 047601043fa4a15058250ca7f9615478ee94035e
-  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
-  CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
+  AirMapSDK: 58499054a16744a0089ca43ee49d1a5c3f90985b
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
   CryptoSwift: 685ae257941e5447474348a2b545583e1a16b573
   JWTDecode: 178e47e5d28d3abcff778bacced8342858cd6cb5
-  libPhoneNumber-iOS: a8bffdec18c37728360f6771fe021302f1e0b497
-  Lock: 75874afed8380a46459dfb643cb93b3b6ffa59d9
+  libPhoneNumber-iOS: 63bab980d1fc9783d82d955800ac9d7c1d81fde3
+  Lock: 742c21d94c8a1805a3fb8d7e8a5d5e873b14ec47
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
   Mapbox-iOS-SDK: 1651ab31beec917b60ccbb8f737d0435ec80eeb3
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   Nimble: 1527fd1bd2b4cf0636251a36bc8ab37e81da8347
-  ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
+  ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
   OHHTTPStubs: e238cd5b66d8efa51c861db45895de8fe079f4a7
   PhoneNumberKit: ffae8f18fb78c1425c7af973711b0b0fd4f4104f
-  ProtocolBuffers-Swift: dad8725c6b497a91c9dff38f9035499d40f2c025
+  ProtocolBuffers-Swift: ca96ede646c86e2bdc94f6da60e470c7b4dfa47c
   Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
   RxCocoa: ccdf43101a70407097a29082f648ba1676075b30
-  RxDataSources: 1de77880bf5b7fcee42102adcd5a5d65e5b81541
+  RxDataSources: a021a0e944ba5f7991259829d973afdbfa719c0b
   RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
   RxSwiftExt: 492a6575cf6afabb8feeed3204bd0f9e2c695e67
   SimpleKeychain: b50cef3b87939d480ea1143425c00f5b4b70fe21
