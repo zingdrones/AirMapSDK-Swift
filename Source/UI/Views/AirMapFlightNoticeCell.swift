@@ -21,7 +21,7 @@ class AirMapFlightNoticeCell: UITableViewCell {
                 name.text = advisory.name
             }
             
-            let phoneStr = phoneStringFromE164(advisoryPhoneNumber) ?? NSLocalizedString("DIGITAL_NOTICE_PHONE_NOT_PROVIDED", bundle: AirMapBundle.core, value: "No Phone Number Provided", comment: "Displayed when a DNAS organization has not provided a contact phone")
+            let phoneStr = phoneStringFromE164(advisoryPhoneNumber) ?? LocalizedString.Advisory.phoneNumberNotProvided
             phoneNumber?.text = phoneStr
 		}
 	}

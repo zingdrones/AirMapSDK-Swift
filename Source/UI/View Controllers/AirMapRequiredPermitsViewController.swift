@@ -143,11 +143,8 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 				return cell
 			} else {
 				let cell = tableView.dequeueReusableCell(withIdentifier: "selectADifferenrPermit", for: indexPath)
-				
-				let selectPermit = NSLocalizedString("REQUIRED_PERMITS_SELECT_PERMIT", bundle: AirMapBundle.core, value: "Select permit", comment: "Call to action row text for selecting a permit")
-				let selectDifferentPermit = NSLocalizedString("REQUIRED_PERMITS_SELECT_DIFFERENT_PERMIT", bundle: AirMapBundle.core, value: "Select a different permit", comment: "Call to action row text for selecting a different permit than the one displayed above")
-				
-				cell.textLabel?.text = indexPath.row == 0 ? selectPermit : selectDifferentPermit
+				let localized = LocalizedString.RequiredPermits.self
+				cell.textLabel?.text = indexPath.row == 0 ? localized.selectPermit : localized.selectDifferentPermit
 				return cell
 			}
 		}

@@ -102,13 +102,13 @@ extension AirMapTraffic {
 
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
+			let groundSpeedMps = AirMapTrafficServiceUtils.knotsToMetersPerSecond(knots: groundSpeedKt)
+			groundSpeedString = String(format: localizedUnits.groundSpeedFormatMetersPerSecond, groundSpeedMps)
 			altitudeString = lengthFormatter.string(fromValue: altitude, unit: .meter)
-			let metricSpeed = AirMapTrafficServiceUtils  ... groundSpeedKt
-			groundSpeedString = String(format: localizedUnits.groundSpeedFormat, metricSpeed, localizedUnits.groundSpeedMetersPerSecond)
 		case .imperial:
 			let feet = AirMapTrafficServiceUtils.metersToFeet(altitude)
+			groundSpeedString = String(format: localizedUnits.groundSpeedFormatKnots, groundSpeedKt)
 			altitudeString = lengthFormatter.string(fromValue: feet, unit: .foot)
-			groundSpeedString = String(format: localizedUnits.groundSpeedFormat, groundSpeedKt, localizedUnits.groundSpeedKnots)
 		}
 		
 		let aircraftId = properties.aircraftId ?? ""
@@ -132,41 +132,13 @@ extension AirMapTraffic {
 			let seconds = Int(AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt))
 			let timeString = timeFormatter.string(from: DateComponents(second: seconds))!
 			
-			let alertFormat = NSLocalizedString(
-				"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT",
-				bundle: AirMapBundle.core,
-				value: "Traffic %1$@\nAltitude %2$@\n%3$@ %4$@ %5$@",
-				comment: "Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time"
-			)
+			let alertFormat = LocalizedString.Traffic.alertWithAircraftIdAndDistanceFormat
 			return String(format: alertFormat, aircraftId, altitudeString, distanceString, direction, timeString)
 			
 		} else {
 
-			let alertFormat = NSLocalizedString(
-				"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT",
-				bundle: AirMapBundle.core,
-				value: "Traffic %1$@\nAltitude %2$@\n%3$@",
-				comment: "Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed"
-			)
+			let alertFormat = LocalizedString.Traffic.alertWithAircraftIdFormat
 			return String(format: alertFormat, aircraftId, altitudeString, groundSpeedString)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

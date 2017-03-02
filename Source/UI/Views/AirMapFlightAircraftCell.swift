@@ -30,7 +30,7 @@ class AirMapFlightAircraftCell: UITableViewCell, Dequeueable {
 			.asObservable()
 			.subscribeOn(MainScheduler.instance)
 			.map {
-				let selectAircraftTitle = NSLocalizedString("AIRCRAFT_CELL_SELECT_AIRCRAFT", bundle: AirMapBundle.core, value: "Select Aircraft", comment: "Call to action when a user has not selected an aircraft")
+				let selectAircraftTitle = LocalizedString.Aircraft.selectAircraft
 				return $0?.nickname ?? selectAircraftTitle
 			}
 			.bindTo(selectedAircraft.rx.text)

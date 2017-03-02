@@ -68,6 +68,7 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 	
 	fileprivate func tableDataFromFlight(_ flight: AirMapFlight) -> [SectionModel<SectionData,RowData>] {
 		
+		let localized = LocalizedString.ReviewFlightPlanDetails.self
 		var sections = [SectionModel<SectionData,RowData>]()
 
 		let df = dateFormatter
@@ -86,47 +87,33 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 			altitude = UIConstants.flightDistanceFormatter.string(fromValue: altitudeFeet, unit: .foot)
 		}
 		
-		let now = NSLocalizedString("REVIEW_START_NOW", bundle: AirMapBundle.core, value: "Now", comment: "Time for flights that start immediately")
-		let startTime = flight.startTime == nil ? now : df.string(from: flight.startTime!)
+		let startTime = flight.startTime == nil ? localized.startTimeNow : df.string(from: flight.startTime!)
 		let endTime = flight.endTime == nil ? (nil as String?) : df.string(from: flight.endTime!)
 		let duration = UIConstants.flightDurationFormatter.string(from: flight.duration)
 		
-		
-		let radiusLabel = NSLocalizedString("REVIEW_FLIGHT_RADIUS", bundle: AirMapBundle.core, value: "Radius", comment: "Label for the Buffer or radius surrounding a point or path")
-		let altitudeLabel = NSLocalizedString("REVIEW_FLIGHT_ALTITUDE", bundle: AirMapBundle.core, value: "Altitude", comment: "Label for the maximum altitude for a flight")
-		let startsLabel = NSLocalizedString("REVIEW_FLIGHT_STARTS", bundle: AirMapBundle.core, value: "Starts", comment: "Label for a flight's start time")
-		let endsLabel = NSLocalizedString("REVIEW_FLIGHT_ENDS", bundle: AirMapBundle.core, value: "Ends", comment: "Label for a flight's end time")
-		let durationLabel = NSLocalizedString("REVIEW_FLIGHT_DURATION", bundle: AirMapBundle.core, value: "Ends", comment: "Label for a flight's duration")
-		
 		let items: [RowData] = [
-			(radiusLabel, radius),
-			(altitudeLabel, altitude),
-			(startsLabel, startTime),
-			(endsLabel, endTime),
-			(durationLabel, duration)
+			
+			(localized.rowTitleRadius,   radius),
+			(localized.rowTitleAltitude, altitude),
+			(localized.rowTitleStarts,   startTime),
+			(localized.rowTitleEnds,     endTime),
+			(localized.rowTitleDuration, duration)
+			
 			].filter { $0.value != nil }
 
-		let detailsSectionTitle = NSLocalizedString("REVIEW_FLIGHT_SECTION_TITLE_DETAILS", bundle: AirMapBundle.core, value: "Details", comment: "Header label for the flight review details section")
-		let detailsSection = SectionModel(model: detailsSectionTitle, items: items)
+		let detailsSection = SectionModel(model: localized.sectionHeaderDetails, items: items)
 		sections.append(detailsSection)
 		
 		if let aircraft = flight.aircraft, aircraft.aircraftId != nil {
-			let aircraftRowLabel = NSLocalizedString("REVIEW_FLIGHT_ROW_LABEL_AIRCRAFT", bundle: AirMapBundle.core, value: "Aircraft", comment: "Label for the aircraft row")
-			let items = [RowData(aircraftRowLabel, aircraft.nickname)]
-			let aircraftSectionLabel = NSLocalizedString("REVIEW_FLIGHT_SECTION_TITLE_AIRCRAFT", bundle: AirMapBundle.core, value: "Aircraft", comment: "Header label for the flight review aircraft section")
-			let aircraftSection = SectionModel(model: aircraftSectionLabel, items: items)
+			let items = [RowData(localized.rowLabelAircraft, aircraft.nickname)]
+			let aircraftSection = SectionModel(model: localized.sectionHeaderAircraft, items: items)
 			sections.append(aircraftSection)
 		}
 
 		if flight.isPublic {
 			
-			let publicRowLabel = NSLocalizedString("REVIEW_FLIGHT_ROW_LABEL_PUBLIC", bundle: AirMapBundle.core, value: "Public", comment: "Label for the flight review 'is public' row")
-			let yes = NSLocalizedString("REVIEW_FLIGHT_ROW_LABEL_PUBLIC_TRUE_VALUE", bundle: AirMapBundle.core, value: "Yes", comment: "'Yes' Value for the public flight row")
-
-			let items = [RowData(publicRowLabel, yes)]
-			
-			let socialSectionLabel = NSLocalizedString("REVIEW_FLIGHT_SECTION_TITLE_SOCIAL", bundle: AirMapBundle.core, value: "Share My Flight", comment: "Header label for the flight review social sharing section")
-			let socialSection = SectionModel(model: socialSectionLabel, items: items)
+			let items = [RowData(localized.rowTitlePublic, localized.yes)]
+			let socialSection = SectionModel(model: localized.sectionHeaderSocial, items: items)
 			
 			sections.append(socialSection)
 		}

@@ -12,7 +12,7 @@ extension CLLocation {
 	
 	func initialDirectionToLocation(_ location: CLLocation) -> String {
 		
-		let bearing = self.initialBearing(to: location)
+		let bearing = initialBearing(to: location)
 		let directions = AirMapTrafficServiceUtils.compassDirections()
 		let index = Int((bearing/22.5) + 0.5) % 16
 		return directions[index]

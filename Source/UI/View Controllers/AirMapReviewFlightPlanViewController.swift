@@ -95,23 +95,21 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 	fileprivate func setupEmbeddedViews() {
 
-		let detailsTitle = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_FLIGHT", bundle: AirMapBundle.core, value: "Flight", comment: "Title for the Review Flight, flight Details tab")
-		embeddedViews.append((title: detailsTitle, view: detailsView))
+		let localized = LocalizedString.ReviewFlightPlan.self
+		
+		embeddedViews.append((title: localized.tabTitleFlight, view: detailsView))
 
 		if let status = navigationController?.status.value {
 			
 			if status.requiresPermits {
-				let permitsTitle = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_PERMITS", bundle: AirMapBundle.core, value: "Permits", comment: "Title for the Review Flight, permits tab")
-				embeddedViews.append((title: permitsTitle, view: permitsView))
+				embeddedViews.append((title: localized.tabTitlePermits, view: permitsView))
 			}
 			if status.supportsDigitalNotice {
-				let noticesTitle = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_DIGITAL_NOTICE", bundle: AirMapBundle.core, value: "Notices", comment: "Title for the Review Flight, digital notices tab")
-				embeddedViews.append((title: noticesTitle, view: noticesView))
+				embeddedViews.append((title: localized.tabTitleNotices, view: noticesView))
 			}
 			
 		} else if (existingFlight?.value.statuses.count ?? 0) > 0 {
-			let noticeStatusTitle = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_NOTICE_STATUS", bundle: AirMapBundle.core, value: "Notice Status", comment: "Title for the Review Flight, notice status tab")
-			embeddedViews.append((title: noticeStatusTitle, view: statusesView))
+			embeddedViews.append((title: localized.tabTitleNotices, view: statusesView))
 		}
 
 		embeddedViews.forEach { scrollView.addSubview($0.view) }

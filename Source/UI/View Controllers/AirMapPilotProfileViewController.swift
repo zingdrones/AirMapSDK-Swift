@@ -75,9 +75,8 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		tableView.dataSource = nil
 		tableView.delegate = nil
 		
-		let faaRegistrationLabel = NSLocalizedString("PILOT_PROFILE_FAA_REGISTRATION", bundle: AirMapBundle.core, value: "FAA Registration Number", comment: "Table row label for FAA registration number")
-
-		let faaReg = AirMapPilotProfileField(label: faaRegistrationLabel, key: "faa_registration_number")
+		let faaLabel = LocalizedString.PilotProfile.faaRegistrationLabel
+		let faaReg = AirMapPilotProfileField(label: faaLabel, key: "faa_registration_number")
 		customFields.append(faaReg)
 
 		setupBindings()
@@ -107,17 +106,13 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	
 	fileprivate func sectionModel(_ pilot: AirMapPilot) -> [Model] {
 		
-		let firstNameLabel = NSLocalizedString("PILOT_PROFILE_LABEL_FIRST_NAME", bundle: AirMapBundle.core, value: "First Name", comment: "Label for the pilot profile first name")
-		let lastNameLabel = NSLocalizedString("PILOT_PROFILE_LABEL_LAST_NAME", bundle: AirMapBundle.core, value: "Last Name", comment: "Label for the pilot profile last name")
-		let usernameLabel = NSLocalizedString("PILOT_PROFILE_LABEL_USERNAME", bundle: AirMapBundle.core, value: "Username", comment: "Label for the pilot profile username")
-		let emailLabel = NSLocalizedString("PILOT_PROFILE_LABEL_EMAIL", bundle: AirMapBundle.core, value: "Email", comment: "Label for the pilot profile email")
-		let phoneLabel = NSLocalizedString("PILOT_PROFILE_LABEL_PHONE", bundle: AirMapBundle.core, value: "Phone", comment: "Label for the pilot profile phone")
+		let localized = LocalizedString.PilotProfile.self
 		
-		let firstNameField = AirMapPilotProfileField(label: firstNameLabel, key: "firstName")
-		let lastNameField  = AirMapPilotProfileField(label: lastNameLabel, key: "lastName")
-		let usernameField  = AirMapPilotProfileField(label: usernameLabel, key: "username")
-		let emailField     = AirMapPilotProfileField(label: emailLabel, key: "email", type: .email)
-		let phoneField     = AirMapPilotProfileField(label: phoneLabel, key: "phone", type: .phoneNumber)
+		let firstNameField = AirMapPilotProfileField(label: localized.firstNameLabel, key: "firstName")
+		let lastNameField  = AirMapPilotProfileField(label: localized.lastNameLabel, key: "lastName")
+		let usernameField  = AirMapPilotProfileField(label: localized.usernameLabel, key: "username")
+		let emailField     = AirMapPilotProfileField(label: localized.emailLabel, key: "email", type: .email)
+		let phoneField     = AirMapPilotProfileField(label: localized.phoneLabel, key: "phone", type: .phoneNumber)
 		
 		let pilotFields = [firstNameField, lastNameField, usernameField, emailField, phoneField]
 		
@@ -154,13 +149,10 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 			.combineLatest([firstNameField.rx_value.asDriver(onErrorJustReturn: nil), lastNameField.rx_value.asDriver(onErrorJustReturn: nil)], fullNameString)
 			.drive(fullName.rx.text)
 			.disposed(by: disposeBag)
-
-		let personalSection = NSLocalizedString("PILOT_PROFILE_SECTION_PERSONAL", bundle: AirMapBundle.core, value: "Personal Info", comment: "Section header for the pilot profile personal info section")
-		let addtnlSection = NSLocalizedString("PILOT_PROFILE_SECTION_ADDITIONAL", bundle: AirMapBundle.core, value: "Additional Info", comment: "Section header for the pilot profile additional info section")
 		
 		return [
-			Model(model: personalSection, items: pilotFields),
-			Model(model: addtnlSection, items: customFields)
+			Model(model: localized.sectionHeaderPersonal, items: pilotFields),
+			Model(model: localized.sectionHeaderAdditional, items: customFields)
 		]
 	}
 	
@@ -284,7 +276,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	}
 	
 	fileprivate func configureStats(_ pilot: AirMapPilot) {
-		let statsFormat = NSLocalizedString("PILOT_PROFILE_STATISTICS_FORMAT", bundle: AirMapBundle.core, value: "%1$@ Aircraft, %2$@ Flights", comment: "Format for displaying a user's number of aircraft and flights")
+		let statsFormat = LocalizedString.PilotProfile.statisticsFormat
 		statisticsLabel.text = String(format: statsFormat, pilot.statistics.totalAircraft, pilot.statistics.totalFlights)
 	}
 	
