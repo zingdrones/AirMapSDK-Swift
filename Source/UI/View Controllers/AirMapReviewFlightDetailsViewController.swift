@@ -68,7 +68,7 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 	
 	fileprivate func tableDataFromFlight(_ flight: AirMapFlight) -> [SectionModel<SectionData,RowData>] {
 		
-		let localized = LocalizedString.ReviewFlightPlanDetails.self
+		let localized = LocalizedStrings.ReviewFlightPlanDetails.self
 		var sections = [SectionModel<SectionData,RowData>]()
 
 		let df = dateFormatter

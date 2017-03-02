@@ -30,7 +30,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	
 	fileprivate func configure() {
 		
-		let localized = LocalizedString.Advisory.self
+		let localized = LocalizedStrings.Advisory.self
 		organizationName?.text = advisory.organization?.name
 		advisoryName.text = advisory.name
         type?.text = advisory.type?.title

@@ -105,7 +105,7 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 		}
 		
 		dataSource.titleForHeaderInSection = { dataSource, section in
-			let localized = LocalizedString.AvailablePermits.self
+			let localized = LocalizedStrings.AvailablePermits.self
 			switch dataSource.sectionModels[section].model {
 			case .existing:
 				return localized.sectionHeaderExisting
@@ -150,7 +150,7 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
         
     private func headerCopy(_ availablePermitCount: Int, existingPermitCount: Int)->String {
 		
-		let localized = LocalizedString.AvailablePermits.self
+		let localized = LocalizedStrings.AvailablePermits.self
 
 		if status.applicablePermits.count > 0 {
 			return localized.tableHeaderAvailablePermits

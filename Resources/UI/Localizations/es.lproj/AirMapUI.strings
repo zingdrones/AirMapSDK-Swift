@@ -11,7 +11,7 @@ AirMap will send you a text message when your digital notice has been successful
 ";
 
 /* Class = "UIButton"; normalTitle = "Next"; ObjectID = "2jl-c2-qqx"; */
-"2jl-c2-qqx.normalTitle" = "Next";
+"2jl-c2-qqx.normalTitle" = "Siguiente";
 
 /* Class = "UILabel"; text = "[Make & Model]"; ObjectID = "3Xp-HW-KXR"; */
 "3Xp-HW-KXR.text" = "[Make & Model]";
@@ -92,7 +92,7 @@ AirMap will send you a text message when your digital notice has been successful
 "FUn-yd-J9S.text" = "[My Permit]";
 
 /* Class = "UIButton"; normalTitle = "Point"; ObjectID = "Fti-S4-xfH"; Note = "Label for button that changes flight geometry type to Point"; */
-"Fti-S4-xfH.normalTitle" = "Point";
+"Fti-S4-xfH.normalTitle" = "Punto";
 
 /* Class = "UILabel"; text = "[Organization]"; ObjectID = "Gpk-5A-j54"; */
 "Gpk-5A-j54.text" = "[Organization]";
@@ -110,7 +110,7 @@ AirMap will send you a text message when your digital notice has been successful
 "IA9-5u-IvP.text" = "[Advisory Type]";
 
 /* Class = "UIButton"; normalTitle = "Path"; ObjectID = "IAP-O7-VzM"; */
-"IAP-O7-VzM.normalTitle" = "Path";
+"IAP-O7-VzM.normalTitle" = "Trayectoría";
 
 /* Class = "UILabel"; text = "[Student ID]"; ObjectID = "Iq8-jx-S7U"; */
 "Iq8-jx-S7U.text" = "[Student ID]";
@@ -189,7 +189,7 @@ Line two details would be here.]";
 "Ymb-CA-QPC.title" = " ";
 
 /* Class = "UIButton"; normalTitle = "Area"; ObjectID = "Yyg-xF-uSz"; */
-"Yyg-xF-uSz.normalTitle" = "Area";
+"Yyg-xF-uSz.normalTitle" = "Área";
 
 /* Class = "UINavigationItem"; title = "Create Aircraft"; ObjectID = "Z9F-I6-niw"; */
 "Z9F-I6-niw.title" = "Create Aircraft";

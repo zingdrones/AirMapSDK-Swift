@@ -95,7 +95,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 	fileprivate func setupEmbeddedViews() {
 
-		let localized = LocalizedString.ReviewFlightPlan.self
+		let localized = LocalizedStrings.ReviewFlightPlan.self
 		
 		embeddedViews.append((title: localized.tabTitleFlight, view: detailsView))
 

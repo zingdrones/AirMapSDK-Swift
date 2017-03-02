@@ -73,7 +73,7 @@ extension AirMapError: RawRepresentable {
 			return error
 		} else {
 			let code = rawValue.response.statusCode
-			return AirMapApiError(message: String(format: LocalizedString.Error.genericFormat, code), code: code)
+			return AirMapApiError(message: String(format: LocalizedStrings.Error.genericFormat, code), code: code)
 		}
 	}
 }
@@ -83,7 +83,7 @@ extension AirMapError: CustomStringConvertible {
 	public var description: String {
 		
 		let bundle = AirMapBundle.core
-		let localized = LocalizedString.Error.self
+		let localized = LocalizedStrings.Error.self
 		
 		switch self {
 		case .network(let error):

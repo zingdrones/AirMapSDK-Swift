@@ -21,7 +21,7 @@ class AirMapFlightNoticeCell: UITableViewCell {
                 name.text = advisory.name
             }
             
-            let phoneStr = phoneStringFromE164(advisoryPhoneNumber) ?? LocalizedString.Advisory.phoneNumberNotProvided
+            let phoneStr = phoneStringFromE164(advisoryPhoneNumber) ?? LocalizedStrings.Advisory.phoneNumberNotProvided
             phoneNumber?.text = phoneStr
 		}
 	}

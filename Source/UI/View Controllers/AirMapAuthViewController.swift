@@ -114,11 +114,11 @@ extension AFJSONResponseSerializer {
 						let message: String
 						switch type {
 						case "email_verification":
-							message = LocalizedString.Auth.emailVerificationRequired
+							message = LocalizedStrings.Auth.emailVerificationRequired
 						case "domain_blacklist":
-							message = LocalizedString.Auth.domainBlacklisted
+							message = LocalizedStrings.Auth.domainBlacklisted
 						default:
-							message = LocalizedString.Auth.unauthorized
+							message = LocalizedStrings.Auth.unauthorized
 						}
 						let dict = [
 							"error": "unauthorized",
@@ -166,7 +166,7 @@ extension UIAlertController {
 	public func airmap_viewWillAppear(_ animated: Bool) {
 		// Updating Auth0 Alert Title
 		if title == "There was an error logging in" || title == "There was an error signing up" {
-			title = LocalizedString.Auth.failedLoginTitle
+			title = LocalizedStrings.Auth.failedLoginTitle
 		}
 	}
 }

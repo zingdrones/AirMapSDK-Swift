@@ -136,7 +136,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 	
 	fileprivate func sectionModels(_ permit: AirMapAvailablePermit, textFields: [PropertyTextField]) -> [SectionModel<SectionData,RowData>] {
 		
-		let localized = LocalizedString.AvailablePermit.self
+		let localized = LocalizedStrings.AvailablePermit.self
 		
 		var sections = [SectionModel<String,RowData>]()
 		

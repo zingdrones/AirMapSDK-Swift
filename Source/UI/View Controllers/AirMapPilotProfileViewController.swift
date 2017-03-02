@@ -75,7 +75,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		tableView.dataSource = nil
 		tableView.delegate = nil
 		
-		let faaLabel = LocalizedString.PilotProfile.faaRegistrationLabel
+		let faaLabel = LocalizedStrings.PilotProfile.faaRegistrationLabel
 		let faaReg = AirMapPilotProfileField(label: faaLabel, key: "faa_registration_number")
 		customFields.append(faaReg)
 
@@ -106,7 +106,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	
 	fileprivate func sectionModel(_ pilot: AirMapPilot) -> [Model] {
 		
-		let localized = LocalizedString.PilotProfile.self
+		let localized = LocalizedStrings.PilotProfile.self
 		
 		let firstNameField = AirMapPilotProfileField(label: localized.firstNameLabel, key: "firstName")
 		let lastNameField  = AirMapPilotProfileField(label: localized.lastNameLabel, key: "lastName")
@@ -276,7 +276,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	}
 	
 	fileprivate func configureStats(_ pilot: AirMapPilot) {
-		let statsFormat = LocalizedString.PilotProfile.statisticsFormat
+		let statsFormat = LocalizedStrings.PilotProfile.statisticsFormat
 		statisticsLabel.text = String(format: statsFormat, pilot.statistics.totalAircraft, pilot.statistics.totalFlights)
 	}
 	

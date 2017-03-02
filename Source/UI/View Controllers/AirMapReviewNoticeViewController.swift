@@ -57,7 +57,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 		
 		dataSource.titleForHeaderInSection = { sections, index -> String? in
 			
-			let localized = LocalizedString.ReviewFlightPlanNotices.self
+			let localized = LocalizedStrings.ReviewFlightPlanNotices.self
 			
             if digitalNotices.count == 0 && regularNotices.count == 0 {
 				localized.headerNoNotices

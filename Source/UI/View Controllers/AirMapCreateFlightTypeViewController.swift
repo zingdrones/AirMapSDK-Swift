@@ -309,7 +309,7 @@ extension AirMapCreateFlightTypeViewController {
 			.drive(onNext: {[unowned self] required in
 				self.bottomToolTip.superview!.superview!.isHidden = !required
 				self.bottomToolTip.superview!.backgroundColor = .airMapRed
-				self.bottomToolTip.text = LocalizedString.FlightDrawing.tooltipErrorOverlappingPermitAreas
+				self.bottomToolTip.text = LocalizedStrings.FlightDrawing.tooltipErrorOverlappingPermitAreas
 			})
 			.disposed(by: disposeBag)
 		
@@ -454,13 +454,13 @@ extension AirMapCreateFlightTypeViewController {
 		case .path:
 			drawingOverlayView.discardsDuplicateClosingPoint = false
 			actionButton.isHidden = false
-			bufferTitleLabel.text = LocalizedString.FlightDrawing.width
+			bufferTitleLabel.text = LocalizedStrings.FlightDrawing.width
 			controlPoints.value = []
 			state.value = .drawing
 
 		case .point:
 			actionButton.isHidden = true
-			bufferTitleLabel.text = LocalizedString.FlightDrawing.radius
+			bufferTitleLabel.text = LocalizedStrings.FlightDrawing.radius
 			toolTip.superview!.superview!.isHidden = true
 			controlPoints.value = [
 				ControlPoint(type: .vertex, coordinate: mapView.centerCoordinate)
@@ -490,7 +490,7 @@ extension AirMapCreateFlightTypeViewController {
 	func configureForState(_ state: DrawingUIState) {
 	
 		let bundle = AirMapBundle.ui
-		let localized = LocalizedString.FlightDrawing.self
+		let localized = LocalizedStrings.FlightDrawing.self
 
 		let drawIcon = UIImage(named: "draw_icon", in: bundle, compatibleWith: nil)!
 		let drawIconSelected = UIImage(named: "draw_icon_selected", in: bundle, compatibleWith: nil)!

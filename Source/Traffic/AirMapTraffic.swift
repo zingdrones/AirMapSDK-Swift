@@ -98,7 +98,7 @@ extension AirMapTraffic {
 		let distanceString: String
 		let groundSpeedString: String
 
-		let localizedUnits = LocalizedString.Units.self
+		let localizedUnits = LocalizedStrings.Units.self
 
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
@@ -132,12 +132,12 @@ extension AirMapTraffic {
 			let seconds = Int(AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt))
 			let timeString = timeFormatter.string(from: DateComponents(second: seconds))!
 			
-			let alertFormat = LocalizedString.Traffic.alertWithAircraftIdAndDistanceFormat
+			let alertFormat = LocalizedStrings.Traffic.alertWithAircraftIdAndDistanceFormat
 			return String(format: alertFormat, aircraftId, altitudeString, distanceString, direction, timeString)
 			
 		} else {
 
-			let alertFormat = LocalizedString.Traffic.alertWithAircraftIdFormat
+			let alertFormat = LocalizedStrings.Traffic.alertWithAircraftIdFormat
 			return String(format: alertFormat, aircraftId, altitudeString, groundSpeedString)
 		}
 	}

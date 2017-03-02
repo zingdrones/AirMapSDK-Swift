@@ -49,10 +49,10 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 		
 		switch mode {
 		case .create:
-			navigationItem.title = LocalizedString.Aircraft.titleCreate
+			navigationItem.title = LocalizedStrings.Aircraft.titleCreate
 			
 		case .update:
-			navigationItem.title = LocalizedString.Aircraft.titleUpdate
+			navigationItem.title = LocalizedStrings.Aircraft.titleUpdate
 
 			tableView.allowsSelection = false
 			nickName.text = aircraft.nickname

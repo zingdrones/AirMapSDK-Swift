@@ -23,7 +23,7 @@ open class AirMapStatus {
 		public var description: String {
 			
 			let bundle = AirMapBundle.core
-			let localized = LocalizedString.Status.self
+			let localized = LocalizedStrings.Status.self
 			
 			switch self {
 			case .red:

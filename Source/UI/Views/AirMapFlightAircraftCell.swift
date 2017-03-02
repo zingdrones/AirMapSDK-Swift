@@ -30,7 +30,7 @@ class AirMapFlightAircraftCell: UITableViewCell, Dequeueable {
 			.asObservable()
 			.subscribeOn(MainScheduler.instance)
 			.map {
-				let selectAircraftTitle = LocalizedString.Aircraft.selectAircraft
+				let selectAircraftTitle = LocalizedStrings.Aircraft.selectAircraft
 				return $0?.nickname ?? selectAircraftTitle
 			}
 			.bindTo(selectedAircraft.rx.text)

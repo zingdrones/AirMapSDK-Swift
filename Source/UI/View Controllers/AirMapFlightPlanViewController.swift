@@ -146,7 +146,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 
 	fileprivate func setupTable() {
 		
-		let localized = LocalizedString.FlightPlan.self
+		let localized = LocalizedStrings.FlightPlan.self
 		
 		let altitudeValues: [(title: String, value: Meters)]
 		let altitudeFormatter = UIConstants.flightDistanceFormatter
@@ -236,7 +236,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		status.asObservable()
 			.map {
 				let hasNextSteps = $0?.supportsNotice ?? true || $0?.requiresPermits ?? true
-				let localized = LocalizedString.FlightPlan.self
+				let localized = LocalizedStrings.FlightPlan.self
 				return hasNextSteps ? localized.buttonTitleNext : localized.buttonTitleSave
 			}
 			.subscribe(onNext: { [unowned self] title in

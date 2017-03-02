@@ -79,7 +79,7 @@ public enum AirMapLayerType: String {
 	public var title: String {
 		
 		let bundle = AirMapBundle.core
-		let localized = LocalizedString.TileLayer.self
+		let localized = LocalizedStrings.TileLayer.self
 		
 		switch self {
 		case .airportsCommercial:             return localized.airports
@@ -219,7 +219,7 @@ public enum AirMapAirspaceType: String {
 	public var title: String {
 		
 		let bundle = AirMapBundle.core
-		let localized = LocalizedString.AirspaceType.self
+		let localized = LocalizedStrings.AirspaceType.self
 
 		switch self {
 		case .airport:               return localized.airport
