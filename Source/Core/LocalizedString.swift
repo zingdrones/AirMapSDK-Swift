@@ -6,6 +6,8 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
+
 internal struct LocalizedString {
 	
 	private static let bundle = AirMapBundle.core

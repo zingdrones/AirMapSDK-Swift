@@ -11,7 +11,7 @@ import ObjectMapper
 open class AirMapStatusWeatherWind {
 	
 	open var heading: Int = 0
-	open var speed: Int = 0
+	open var speed: Int = 0 // km/h
 	open var gusting: Int = 0
 	
 	public required init?(map: Map) {}

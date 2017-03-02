@@ -9,7 +9,6 @@
 import UIKit
 import AirMap
 import Mapbox
-import RxSwift
 
 class MapViewController: UIViewController {
 	

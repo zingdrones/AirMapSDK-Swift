@@ -9,16 +9,20 @@
 public class AirMapBundle {
 	
 	public class var core: Bundle {
+		
 		return bundleNamed("AirMapCore")
 	}
 
 	public class var ui: Bundle {
+		
 		return bundleNamed("AirMapUI")
 	}
 	
 	private class func bundleNamed(_ name: String) -> Bundle {
+		
 		let frameworkBundle = Bundle(for: AirMap.self)
 		let url = frameworkBundle.url(forResource: name, withExtension: "bundle")!
-		return Bundle(url: url)!
+		let bundle = Bundle(url: url)!
+		return bundle
 	}
 }
