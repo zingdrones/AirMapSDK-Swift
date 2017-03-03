@@ -25,23 +25,23 @@ extension AirMap_Auth {
 	///
 	///   - completion: A completion handler to call with the Result
 	public static func refreshAuthToken(_ completion: @escaping (Result<AirMapToken>) -> Void) {
-		authClient.refreshAccessToken().subscribe(completion)
+		auth0Client.refreshAccessToken().subscribe(completion)
 	}
     
     /// Authenticates an Anonymous User associated with the Developer API Key and returns an AuthToken.
     ///   - completion: A completion handler to call with the Result
     public static func performAnonymousLogin(userId:String, completion: @escaping (Result<AirMapToken>) -> Void) {
-        userClient.performAnonymousLogin(userId: userId).subscribe(completion)
+        authClient.performAnonymousLogin(userId: userId).subscribe(completion)
     }
     
     /// Log out the currently authenticated pilot
     public static func logout() {
-        authClient.logout()
+        auth0Client.logout()
     }
 	
 	/// Re-send a verification email to the pilot's email address
 	public static func resendEmailVerificationLink(_ resendLink: String?) {
-		authClient.resendEmailVerification(resendLink)
+		auth0Client.resendEmailVerification(resendLink)
 	}
 
 }
