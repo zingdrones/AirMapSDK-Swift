@@ -58,7 +58,7 @@ open class AirMapAuthViewController: A0LockViewController {
 	fileprivate func registerTheme() {
 		let theme = A0Theme()
 		
-		theme.registerImage(withName: "lock_login_image", bundle: Bundle(for: AirMap.self), forKey: A0ThemeIconImageName)
+		theme.registerImage(withName: "lock_login_image", bundle: AirMapBundle.ui, forKey: A0ThemeIconImageName)
 
 		theme.register(UIColor.airMapDarkGray, forKey: A0ThemePrimaryButtonNormalColor)
 		theme.register(UIColor.airMapDarkGray, forKey: A0ThemePrimaryButtonHighlightedColor)
@@ -114,11 +114,11 @@ extension AFJSONResponseSerializer {
 						let message: String
 						switch type {
 						case "email_verification":
-							message = "Your email address needs to be verified. Please check your inbox."
+							message = LocalizedStrings.Auth.emailVerificationRequired
 						case "domain_blacklist":
-							message = "Your account has been blacklisted. Please contact security@airmap.com"
+							message = LocalizedStrings.Auth.domainBlacklisted
 						default:
-							message = "Unauthorized"
+							message = LocalizedStrings.Auth.unauthorized
 						}
 						let dict = [
 							"error": "unauthorized",
@@ -166,7 +166,7 @@ extension UIAlertController {
 	public func airmap_viewWillAppear(_ animated: Bool) {
 		// Updating Auth0 Alert Title
 		if title == "There was an error logging in" || title == "There was an error signing up" {
-			title = "Alert"
+			title = LocalizedStrings.Auth.failedLoginTitle
 		}
 	}
 }

@@ -56,9 +56,11 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 			.map { ($0, self.locale.localizedString(forCurrencyCode: $0)!) }
 			.sorted { $0.name < $1.name }
 		
+		let localized = LocalizedStrings.PhoneCountry.self
+
 		let sections = [
-			SectionModel(model: "Selected Country", items: [currentCountry]),
-			SectionModel(model: "Other", items: otherCountries)
+			SectionModel(model: localized.selectedCountry, items: [currentCountry]),
+			SectionModel(model: localized.otherCountry, items: otherCountries)
 		]
 		
 		Observable.just(sections)

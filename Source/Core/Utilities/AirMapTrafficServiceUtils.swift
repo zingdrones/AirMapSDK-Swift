@@ -9,22 +9,48 @@
 
 open class AirMapTrafficServiceUtils {
 
-	open class func directionFromBearing(_ bearing: Double) -> String {
+	open static func directionFromBearing(_ bearing: Double) -> String {
 		let index = Int((bearing/22.5) + 0.5) % 16
 		let directions = self.compassDirections()
 		return directions[index]
 	}
 
-	class func compassDirections() -> [String] {
-		return ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+	static func compassDirections() -> [String] {
+		
+		let bundle = AirMapBundle.core
+		let localized = LocalizedStrings.CardinalDirection.self
+		
+		return [
+			localized.N,
+			localized.NNE,
+			localized.NE,
+			localized.ENE,
+			localized.E,
+			localized.ESE,
+			localized.SE,
+			localized.SSE,
+			localized.S,
+			localized.SSW,
+			localized.SW,
+			localized.WSW,
+			localized.W,
+			localized.WNW,
+			localized.NW,
+			localized.NNW
+		]
 	}
 
-	class func secondsFromDistanceAndSpeed(_ distance: Meters, speedInKts: Double) -> TimeInterval {
+	static func secondsFromDistanceAndSpeed(_ distance: Meters, speedInKts: Double) -> TimeInterval {
 
 		return distance / (speedInKts*1852) * 3600
 	}
+	
+	static func knotsToMetersPerSecond(knots: Double) -> Meters {
 
-	class func metersToMiles(_ meters: Meters, rounded: Bool = true) -> Miles {
+		return knots * 0.514444
+	}
+
+	static func metersToMiles(_ meters: Meters, rounded: Bool = true) -> Miles {
 
 		if rounded {
 			return (round((meters * 0.000621369647819236) * 10) / 10)
@@ -33,7 +59,7 @@ open class AirMapTrafficServiceUtils {
 		return meters * 0.000621369647819236
 	}
 	
-	class func metersToFeet(_ meters: Meters, rounded: Bool = true) -> Feet {
+	static func metersToFeet(_ meters: Meters, rounded: Bool = true) -> Feet {
 		
 		if rounded {
 			return (round((meters * 0.3048) * 10) / 10)

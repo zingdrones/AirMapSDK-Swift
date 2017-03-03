@@ -136,33 +136,30 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 	
 	fileprivate func sectionModels(_ permit: AirMapAvailablePermit, textFields: [PropertyTextField]) -> [SectionModel<SectionData,RowData>] {
 		
+		let localized = LocalizedStrings.AvailablePermit.self
+		
 		var sections = [SectionModel<String,RowData>]()
 		
 		let permitDescription: RowData = (title: permit.info, subtitle: nil, customProperty: nil,  cellIdentifier: permitDescriptionCell)
 		
-		let descriptionSection = SectionModel(model: "Description", items: [permitDescription])
+		let descriptionSection = SectionModel(model: localized.sectionHeaderDescription, items: [permitDescription])
 		sections.append(descriptionSection)
 		
 		let validity: RowData = (
-			title: "Valid for",
+			title: localized.rowTitleValidity,
 			subtitle: permit.validityString(),
 			customProperty: nil,
 			cellIdentifier: permitDetailsCell)
 		
 		let singleUse: RowData = (
-			title: "Single Use",
-			subtitle: permit.singleUse ? "Yes":"No",
+			title: localized.rowTitleSingleUse,
+			subtitle: permit.singleUse ? localized.rowValueSingleUseValueTrue : localized.rowValueSingleUseValueFalse,
 			customProperty: nil,
 			cellIdentifier: permitDetailsCell)
 		
-//		let price: RowData = (
-//			title: "Price",
-//			subtitle: "Free",
-//			customProperty: nil,
-//			cellIdentifier: permitDetailsCell)
-		
 		let items = [validity, singleUse].filter {$0.subtitle != nil}
-		let detailsSection = SectionModel(model: "Details", items: items)
+		
+		let detailsSection = SectionModel(model: localized.rowTitleDetails, items: items)
 		sections.append(detailsSection)
 		
 		let customPropertyData = textFields.map { data in
@@ -170,7 +167,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 		}
 		
 		if customPropertyData.count > 0 {
-			let customPropertiesSection = SectionModel(model: "Form Fields (* Required)", items: customPropertyData)
+			let customPropertiesSection = SectionModel(model: localized.sectionHeaderCustomProperties, items: customPropertyData)
 			sections.append(customPropertiesSection)
 		}
 	

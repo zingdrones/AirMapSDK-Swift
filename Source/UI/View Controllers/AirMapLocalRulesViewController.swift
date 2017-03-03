@@ -22,7 +22,8 @@ open class AirMapLocalRulesViewController: UITableViewController {
         super.viewDidLoad()
 		
 		assert(localityRules != nil)
-		navigationItem.title = localityRules.name ?? "Locality Rules"
+
+		navigationItem.title = localityRules.name ?? LocalizedStrings.Rules.genericTitle
 		setupBindings()
 	}
 

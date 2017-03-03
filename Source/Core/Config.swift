@@ -50,6 +50,7 @@ struct Config {
 			static let keychainKeyRefreshToken = "com.airmap.airmapsdk.refresh_token"
 		}
 		
+		// Used only for API date formatting
 		static let dateFormat  = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // Ex: 2016-06-30T16:54:17.606Z
 		static let smsCodeLength = 6
 	}
@@ -83,7 +84,7 @@ struct Config {
 		static let trafficAlertChannel = "uav/traffic/alert/"
 		static let trafficSituationalAwarenessChannel = "uav/traffic/sa/"
 		#if os(OSX)
-		static let clientId = "macOS AirMap SDK" // TODO: Create a unique id for macOS clients
+		static let clientId = UUID().uuidString
 		#else
 		static let clientId = UIDevice.current.identifierForVendor!.uuidString
 		#endif

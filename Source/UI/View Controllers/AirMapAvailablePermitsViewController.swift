@@ -105,13 +105,14 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 		}
 		
 		dataSource.titleForHeaderInSection = { dataSource, section in
+			let localized = LocalizedStrings.AvailablePermits.self
 			switch dataSource.sectionModels[section].model {
 			case .existing:
-				return "Existing Permits"
+				return localized.sectionHeaderExisting
 			case .available:
-				return "Available Permits"
+				return localized.sectionHeaderAvailable
 			case .unavailable:
-				return "Unavailable Permits"
+				return localized.sectionHeaderUnavailable
 			}
 		}
 	}
@@ -148,26 +149,14 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 	}
         
     private func headerCopy(_ availablePermitCount: Int, existingPermitCount: Int)->String {
-    
-        var headerCopy = "The following exisiting & available permits meets the requirements for operation in the flight area."
-        
-        if existingPermitCount > 0 && availablePermitCount == 0 {
-            let plural1 = existingPermitCount == 1 ? "" : "s"
-            let plural2 = existingPermitCount == 1 ? "s" : ""
-            headerCopy = "The following exisiting permit\(plural1) meet\(plural2) the requirements for operation in the flight area."
-        }
-        
-        if existingPermitCount == 0 && availablePermitCount > 0 {
-            let plural1 = availablePermitCount == 1 ? "" : "s"
-            let plural2 = availablePermitCount == 1 ? "s" : ""
-            headerCopy = "The following available permit\(plural1) meet\(plural2) the requirements for operation in the flight area."
-        }
-        
-        if status.applicablePermits.count == 0 {
-            headerCopy = "Only a single permit can be used to fly in this operating area. Your flight path intersects with multiple areas requiring different permits."
-        }
-        
-       return headerCopy
+		
+		let localized = LocalizedStrings.AvailablePermits.self
+
+		if status.applicablePermits.count > 0 {
+			return localized.tableHeaderAvailablePermits
+		} else {
+			return localized.tableHeaderConflictingRequirements
+		}
     }
 	
 	private func rowData(_ pilotPermits: [AirMapPilotPermit]) -> (AirMapAvailablePermit) -> RowData {

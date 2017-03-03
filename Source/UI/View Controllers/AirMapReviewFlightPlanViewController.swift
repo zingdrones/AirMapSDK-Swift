@@ -56,7 +56,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		let flight: AirMapFlight
 		if existingFlight != nil {
 			flight = existingFlight.value
-			navigationItem.title = "Flight Plan"
+			navigationItem.title = NSLocalizedString("REVIEW_FLIGHT_PLANE_TITLE", bundle: AirMapBundle.core, value: "Flight Plan", comment: "Title for the flight plan review view")
 		} else {
 			flight = navigationController!.flight.value
 			navigationItem.leftBarButtonItem = nil
@@ -95,19 +95,21 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 
 	fileprivate func setupEmbeddedViews() {
 
-		embeddedViews.append((title: "Flight", view: detailsView))
+		let localized = LocalizedStrings.ReviewFlightPlan.self
+		
+		embeddedViews.append((title: localized.tabTitleFlight, view: detailsView))
 
 		if let status = navigationController?.status.value {
 			
 			if status.requiresPermits {
-				embeddedViews.append((title: "Permits", view: permitsView))
+				embeddedViews.append((title: localized.tabTitlePermits, view: permitsView))
 			}
 			if status.supportsDigitalNotice {
-				embeddedViews.append((title: "Notices", view: noticesView))
+				embeddedViews.append((title: localized.tabTitleNotices, view: noticesView))
 			}
 			
 		} else if (existingFlight?.value.statuses.count ?? 0) > 0 {
-			embeddedViews.append((title: "Notice Status", view: statusesView))
+			embeddedViews.append((title: localized.tabTitleNotices, view: statusesView))
 		}
 
 		embeddedViews.forEach { scrollView.addSubview($0.view) }

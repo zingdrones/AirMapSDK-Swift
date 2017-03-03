@@ -21,13 +21,17 @@ open class AirMapStatus {
 		}
 		
 		public var description: String {
+			
+			let bundle = AirMapBundle.core
+			let localized = LocalizedStrings.Status.self
+			
 			switch self {
 			case .red:
-				return "Flight Strictly Regulated"
+				return localized.redDescription
 			case .yellow:
-				return "Advisories"
+				return localized.yellowDescription
 			case .green, .gray:
-				return "Informational"
+				return localized.greenDescription
 			}
 		}
 	}

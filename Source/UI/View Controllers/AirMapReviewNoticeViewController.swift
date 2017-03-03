@@ -56,13 +56,16 @@ class AirMapReviewNoticeViewController: UIViewController {
 		}
 		
 		dataSource.titleForHeaderInSection = { sections, index -> String? in
-            
+			
+			let localized = LocalizedStrings.ReviewFlightPlanNotices.self
+			
             if digitalNotices.count == 0 && regularNotices.count == 0 {
-                return "There are no notices for this flight."
+				localized.headerNoNotices
             }
             
 			let digitalNotice = sections.sectionModels[index].model
-			return digitalNotice ? "Accepts Digital Notice" : "The following authorities in this area do not accept digital notice"
+			
+			return digitalNotice ? localized.acceptsDigitalNotice : localized.doesNotacceptsDigitalNotice
 		}
         
 		let digitalSection = SectionModel(model: true, items: digitalNotices)

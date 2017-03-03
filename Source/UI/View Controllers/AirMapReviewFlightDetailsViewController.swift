@@ -17,16 +17,7 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 		$0.timeStyle = .short
 		return $0
 	}(DateFormatter())
-	
-	fileprivate let durationFormatter: DateComponentsFormatter = {
-		$0.allowedUnits = [.hour, .minute]
-		$0.zeroFormattingBehavior = .dropAll
-		$0.calendar = Calendar(identifier: Calendar.Identifier.gregorian)
-		$0.allowsFractionalUnits = false
-		$0.unitsStyle = .full
-		return $0
-	}(DateComponentsFormatter())
-	
+		
 	@IBOutlet var tableView: UITableView!
 	
 	var flight: Variable<AirMapFlight>!
@@ -77,6 +68,7 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 	
 	fileprivate func tableDataFromFlight(_ flight: AirMapFlight) -> [SectionModel<SectionData,RowData>] {
 		
+		let localized = LocalizedStrings.ReviewFlightPlanDetails.self
 		var sections = [SectionModel<SectionData,RowData>]()
 
 		let df = dateFormatter
@@ -85,38 +77,44 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 		let altitude: String
 
 		switch AirMap.configuration.distanceUnits {
-		case .feet:
-			radius = Int(flight.buffer! / UIConstants.metersPerFoot).description + " ft"
-			altitude = Int(flight.maxAltitude! / UIConstants.metersPerFoot).description + " ft"
-		case .meters:
-			radius = Int(flight.buffer!).description + " m"
-			altitude = Int(flight.maxAltitude!).description + " m"
+		case .metric:
+			radius = UIConstants.flightDistanceFormatter.string(fromValue: flight.buffer!, unit: .meter)
+			altitude = UIConstants.flightDistanceFormatter.string(fromValue: flight.maxAltitude!, unit: .meter)
+		case .imperial:
+			let radiusFeet = flight.buffer! / DistanceUnits.metersPerFoot
+			radius = UIConstants.flightDistanceFormatter.string(fromValue: radiusFeet, unit: .foot)
+			let altitudeFeet = flight.maxAltitude! / DistanceUnits.metersPerFoot
+			altitude = UIConstants.flightDistanceFormatter.string(fromValue: altitudeFeet, unit: .foot)
 		}
 		
-		let startTime = flight.startTime == nil ? "Now" : df.string(from: flight.startTime!)
+		let startTime = flight.startTime == nil ? localized.startTimeNow : df.string(from: flight.startTime!)
 		let endTime = flight.endTime == nil ? (nil as String?) : df.string(from: flight.endTime!)
-		let duration = durationFormatter.string(from: flight.duration)
+		let duration = UIConstants.flightDurationFormatter.string(from: flight.duration)
 		
 		let items: [RowData] = [
-			("Radius", radius),
-			("Altitude", altitude),
-			("Starts", startTime),
-			("Ends", endTime),
-			("Duration", duration)
+			
+			(localized.rowTitleRadius,   radius),
+			(localized.rowTitleAltitude, altitude),
+			(localized.rowTitleStarts,   startTime),
+			(localized.rowTitleEnds,     endTime),
+			(localized.rowTitleDuration, duration)
+			
 			].filter { $0.value != nil }
 
-		let detailsSection = SectionModel(model: "Details", items: items)
+		let detailsSection = SectionModel(model: localized.sectionHeaderDetails, items: items)
 		sections.append(detailsSection)
 		
 		if let aircraft = flight.aircraft, aircraft.aircraftId != nil {
-			let items = [RowData("Aircraft", aircraft.nickname)]
-			let aircraftSection = SectionModel(model: "Aircraft", items: items)
+			let items = [RowData(localized.rowLabelAircraft, aircraft.nickname)]
+			let aircraftSection = SectionModel(model: localized.sectionHeaderAircraft, items: items)
 			sections.append(aircraftSection)
 		}
 
 		if flight.isPublic {
-			let items = [RowData("Public", "Yes")]
-			let socialSection = SectionModel(model: "Share My Flight", items: items)
+			
+			let items = [RowData(localized.rowTitlePublic, localized.yes)]
+			let socialSection = SectionModel(model: localized.sectionHeaderSocial, items: items)
+			
 			sections.append(socialSection)
 		}
 		

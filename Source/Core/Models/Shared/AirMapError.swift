@@ -73,27 +73,31 @@ extension AirMapError: RawRepresentable {
 			return error
 		} else {
 			let code = rawValue.response.statusCode
-			return AirMapApiError(message: "The server returned an error. (\(code))", code: code)
+			return AirMapApiError(message: String(format: LocalizedStrings.Error.genericFormat, code), code: code)
 		}
 	}
 }
 
-extension AirMapError: LocalizedError {
+extension AirMapError: CustomStringConvertible {
 	
-	public var localizedDescription: String {
+	public var description: String {
+		
+		let bundle = AirMapBundle.core
+		let localized = LocalizedStrings.Error.self
+		
 		switch self {
 		case .network(let error):
 			return error.localizedDescription
 		case .unauthorized:
-			return "Unauthorized. Please check login credentials."
+			return localized.unauthorized
 		case .invalidRequest(let error):
 			return error.localizedDescription
 		case .client(let error):
 			return error.localizedDescription
 		case .server:
-			return "The server could not complete your request."
+			return localized.server
 		case .serialization:
-			return "A response serialization error has occurred."
+			return localized.serialization
 		case .unknown(let error):
 			return error.localizedDescription
 		}

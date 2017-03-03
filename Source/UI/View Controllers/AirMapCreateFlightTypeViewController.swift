@@ -140,12 +140,6 @@ class AirMapCreateFlightTypeViewController: UIViewController, AnalyticsTrackable
 		return inputViewContainer
 	}
 	
-	fileprivate static let bufferFormatter: NumberFormatter = {
-		$0.numberStyle = .decimal
-		$0.maximumFractionDigits = 0
-		return $0
-	}(NumberFormatter())
-	
 	// MARK: View Lifecycle
 	
 	override func viewDidLoad() {
@@ -315,7 +309,7 @@ extension AirMapCreateFlightTypeViewController {
 			.drive(onNext: {[unowned self] required in
 				self.bottomToolTip.superview!.superview!.isHidden = !required
 				self.bottomToolTip.superview!.backgroundColor = .airMapRed
-				self.bottomToolTip.text = "Flight area cannot overlap with conflicting permit requirement zones."
+				self.bottomToolTip.text = LocalizedStrings.FlightDrawing.tooltipErrorOverlappingPermitAreas
 			})
 			.disposed(by: disposeBag)
 		
@@ -460,13 +454,13 @@ extension AirMapCreateFlightTypeViewController {
 		case .path:
 			drawingOverlayView.discardsDuplicateClosingPoint = false
 			actionButton.isHidden = false
-			bufferTitleLabel.text = "Width"
+			bufferTitleLabel.text = LocalizedStrings.FlightDrawing.width
 			controlPoints.value = []
 			state.value = .drawing
 
 		case .point:
 			actionButton.isHidden = true
-			bufferTitleLabel.text = "Radius"
+			bufferTitleLabel.text = LocalizedStrings.FlightDrawing.radius
 			toolTip.superview!.superview!.isHidden = true
 			controlPoints.value = [
 				ControlPoint(type: .vertex, coordinate: mapView.centerCoordinate)
@@ -495,7 +489,8 @@ extension AirMapCreateFlightTypeViewController {
 	
 	func configureForState(_ state: DrawingUIState) {
 	
-		let bundle = Bundle(for: AirMap.self)
+		let bundle = AirMapBundle.ui
+		let localized = LocalizedStrings.FlightDrawing.self
 
 		let drawIcon = UIImage(named: "draw_icon", in: bundle, compatibleWith: nil)!
 		let drawIconSelected = UIImage(named: "draw_icon_selected", in: bundle, compatibleWith: nil)!
@@ -515,14 +510,13 @@ extension AirMapCreateFlightTypeViewController {
 			// No existing shape
 			if controlPoints.value.count == 0 {
 				
+				
 				switch selectedGeoType.value {
-				case .path:
-					toolTip.text = "Tap the hand icon to freehand draw any path."
-				case .polygon:
-					toolTip.text = "Tap the hand icon to freehand draw any area."
-				case .point:
-					toolTip.text = "Drag the center point to position your flight area."
+				case .path:     toolTip.text = localized.toolTipCtaTapToDrawPath
+				case .polygon:  toolTip.text = localized.toolTipCtaTapToDrawArea
+				case .point:    toolTip.text = localized.toolTipCtaTapToDrawPoint
 				}
+				
 				actionButton.setImage(drawIcon, for: UIControlState())
 				actionButton.setImage(drawIconSelected, for: .highlighted)
 				actionButton.setImage(drawIconSelected, for: .selected)
@@ -538,10 +532,10 @@ extension AirMapCreateFlightTypeViewController {
 				let validation = geometryValidation(selectedGeoType.value, coordinates: coordinates)
 
 				if (validation.kinks?.features.count ?? 0) > 0 {
-					toolTip.text = "Invalid flight area. Adjust flight area so that it does not overlap with itself."
+					toolTip.text = localized.tooltipErrorSelfIntersectingGeometry
 					toolTip.superview?.backgroundColor = UIColor.airMapRed.withAlphaComponent(0.50)
 				} else {
-					toolTip.text = "Drag any point to move. Drag any midpoint to add a new point."
+					toolTip.text = localized.toolTipCtaDragPointToModifyGeometry
 				}
 
 				actionButton.setImage(trashIcon, for: UIControlState())
@@ -566,10 +560,10 @@ extension AirMapCreateFlightTypeViewController {
 
 			switch selectedGeoType.value {
 			case .path:
-				toolTip.text = "Draw a freehand path"
+				toolTip.text = localized.toolTipCtaDrawFreehandPath
 				drawingOverlayView.tolerance = 8
 			case .polygon:
-				toolTip.text = "Draw a freehand area"
+				toolTip.text = localized.toolTipCtaDrawFreehandArea
 				drawingOverlayView.tolerance = 11
 			case .point:
 				fatalError()
@@ -588,7 +582,7 @@ extension AirMapCreateFlightTypeViewController {
 		case .editing(let controlPoint):
 			
 			if canDelete(controlPoint) {
-				toolTip.text = "Drag point to trash to delete"
+				toolTip.text = localized.toolTipCtaDragToTrashToDelete
 			}
 			actionButton.setImage(trashIcon, for: UIControlState())
 			actionButton.setImage(trashIconHighlighted, for: .highlighted)
@@ -607,14 +601,13 @@ extension AirMapCreateFlightTypeViewController {
 	
 	fileprivate func sliderValueToBuffer(sliderValue: Float) -> (buffer: Meters, displayString: String) {
 		
-		let formatter = AirMapCreateFlightTypeViewController.bufferFormatter
-		
 		let ramp = Config.Maps.bufferSliderLinearity
 		let sliderValue = pow(Double(sliderValue), ramp)
 
-		let usesMetric = AirMap.configuration.distanceUnits == .meters
+		let usesMetric = AirMap.configuration.distanceUnits == .metric
 		let distancePerStep: Double
 		
+		let formatter = UIConstants.flightDistanceFormatter
 		let bufferValue: (buffer: Meters, displayString: String)
 		
 		if usesMetric {
@@ -634,7 +627,7 @@ extension AirMapCreateFlightTypeViewController {
 			}
 			meters = ceil(meters / distancePerStep) * distancePerStep
 		
-			bufferValue = (meters, formatter.string(from: NSNumber(value: meters))! + " m")
+			bufferValue = (meters, formatter.string(fromValue: meters, unit: .meter))
 
 		} else {
 			
@@ -657,7 +650,7 @@ extension AirMapCreateFlightTypeViewController {
 			feet = ceil(feet / distancePerStep) * distancePerStep
 			meters = feet / Config.Maps.feetPerMeters
 			
-			bufferValue = (meters, formatter.string(from: NSNumber(value: feet))! + " ft")
+			bufferValue = (meters, formatter.string(fromValue: feet, unit: .foot))
 		}
 		
 		return bufferValue

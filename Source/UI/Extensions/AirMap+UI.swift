@@ -20,7 +20,7 @@ extension AirMap_UI {
 	*/
 	public class func phoneVerificationViewController(_ pilot: AirMapPilot, phoneVerificationDelegate: AirMapPhoneVerificationDelegate) -> AirMapPhoneVerificationNavController {
 		
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: Bundle(for: AirMap.self))
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
 		let nav = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumber") as! AirMapPhoneVerificationNavController
 		nav.phoneVerificationDelegate = phoneVerificationDelegate
 		let phoneVerificationVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
@@ -44,7 +44,7 @@ extension AirMap_UI {
 		// FIXME:
 		guard AirMap.authSession.hasValidCredentials() else { return nil }
 
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: Bundle(for: AirMap.self))
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
 
 		let flightPlanNav = storyboard.instantiateInitialViewController() as! AirMapFlightPlanNavigationController
 		flightPlanNav.flightPlanDelegate = flightPlanDelegate
@@ -68,7 +68,7 @@ extension AirMap_UI {
 		
 		guard AirMap.authSession.hasValidCredentials() else { return nil }
 		
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: Bundle(for: AirMap.self))
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
 		let aircraftVC = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapReviewFlightPlanViewController.self)) as! AirMapReviewFlightPlanViewController
 		aircraftVC.existingFlight = Variable(flight)
 		
@@ -95,7 +95,7 @@ extension AirMap_UI {
 			return nil
 		}
 		
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: Bundle(for: AirMap.self))
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
 		
 		let aircraftNav = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapAircraftNavController.self)) as! AirMapAircraftNavController
 		aircraftNav.aircraftDelegate = delegate
@@ -121,7 +121,7 @@ extension AirMap_UI {
 			return nil
 		}
 
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: Bundle(for: AirMap.self))
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
 
 		let aircraftNav = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapAircraftModelNavController.self)) as! AirMapAircraftModelNavController
 		aircraftNav.aircraftModelSelectionDelegate = aircraftSelectionDelegate
@@ -155,7 +155,7 @@ extension AirMap_UI {
      */
     public class func statusAdvisoriesViewController(_ status: AirMapStatus, delegate: AirMapAdvisoriesViewControllerDelegate?) -> UINavigationController? {
         
-        let storyboard = UIStoryboard(name: "AirMapUI", bundle: Bundle(for: AirMap.self))
+        let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
         let statusVC = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapAdvisoriesViewController.self)) as! AirMapAdvisoriesViewController
 		statusVC.status.value = status
         statusVC.delegate = delegate

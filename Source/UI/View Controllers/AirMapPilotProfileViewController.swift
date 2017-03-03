@@ -75,7 +75,8 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		tableView.dataSource = nil
 		tableView.delegate = nil
 		
-		let faaReg = AirMapPilotProfileField(label: "FAA Registration Number", key: "faa_registration_number")
+		let faaLabel = LocalizedStrings.PilotProfile.faaRegistrationLabel
+		let faaReg = AirMapPilotProfileField(label: faaLabel, key: "faa_registration_number")
 		customFields.append(faaReg)
 
 		setupBindings()
@@ -105,11 +106,13 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	
 	fileprivate func sectionModel(_ pilot: AirMapPilot) -> [Model] {
 		
-		let firstNameField = AirMapPilotProfileField(label: "First Name", key: "firstName")
-		let lastNameField  = AirMapPilotProfileField(label: "Last Name", key: "lastName")
-		let usernameField  = AirMapPilotProfileField(label: "Username", key: "username")
-		let emailField     = AirMapPilotProfileField(label: "Email", key: "email", type: .email)
-		let phoneField     = AirMapPilotProfileField(label: "Phone Number", key: "phone", type: .phoneNumber)
+		let localized = LocalizedStrings.PilotProfile.self
+		
+		let firstNameField = AirMapPilotProfileField(label: localized.firstNameLabel, key: "firstName")
+		let lastNameField  = AirMapPilotProfileField(label: localized.lastNameLabel, key: "lastName")
+		let usernameField  = AirMapPilotProfileField(label: localized.usernameLabel, key: "username")
+		let emailField     = AirMapPilotProfileField(label: localized.emailLabel, key: "email", type: .email)
+		let phoneField     = AirMapPilotProfileField(label: localized.phoneLabel, key: "phone", type: .phoneNumber)
 		
 		let pilotFields = [firstNameField, lastNameField, usernameField, emailField, phoneField]
 		
@@ -148,8 +151,8 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 			.disposed(by: disposeBag)
 		
 		return [
-			Model(model: "Personal Info", items: pilotFields),
-			Model(model: "Additional Info", items: customFields)
+			Model(model: localized.sectionHeaderPersonal, items: pilotFields),
+			Model(model: localized.sectionHeaderAdditional, items: customFields)
 		]
 	}
 	
@@ -273,7 +276,8 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	}
 	
 	fileprivate func configureStats(_ pilot: AirMapPilot) {
-		statisticsLabel.text = "\(pilot.statistics.totalAircraft) Aircraft, \(pilot.statistics.totalFlights) Flights"
+		let statsFormat = LocalizedStrings.PilotProfile.statisticsFormat
+		statisticsLabel.text = String(format: statsFormat, pilot.statistics.totalAircraft, pilot.statistics.totalFlights)
 	}
 	
 	@IBAction func unwindToPilotProfile(_ segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }

@@ -10,7 +10,7 @@ import ObjectMapper
 
 public class AirMapConfiguration {
 		
-	public var distanceUnits = DistanceUnits.meters
+	public var distanceUnits = DistanceUnits.metric
 	public var temperatureUnits = TemperatureUnits.celcius
 	
 	internal fileprivate(set) var environment: String?
@@ -68,10 +68,10 @@ public class AirMapConfiguration {
 		
 		if Locale.current.usesMetricSystem {
 			config.temperatureUnits = .celcius
-			config.distanceUnits = .meters
+			config.distanceUnits = .metric
 		} else {
 			config.temperatureUnits = .fahrenheit
-			config.distanceUnits = .feet
+			config.distanceUnits = .imperial
 		}
 		
 		return config

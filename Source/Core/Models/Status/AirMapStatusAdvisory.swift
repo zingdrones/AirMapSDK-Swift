@@ -84,7 +84,7 @@ extension AirMapStatusAdvisory: Mappable {
 			case .school:             schoolProperties             <- map["properties"]
 			case .controlledAirspace: controlledAirspaceProperties <- map["properties"]
 			case .tfr:                tfrProperties                <- map["properties"]
-			case .wildfires:		  wildfireProperties           <- map["properties"]
+			case .wildfire:           wildfireProperties           <- map["properties"]
 			default:
 				break
 			}

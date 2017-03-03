@@ -143,7 +143,8 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 				return cell
 			} else {
 				let cell = tableView.dequeueReusableCell(withIdentifier: "selectADifferenrPermit", for: indexPath)
-				cell.textLabel?.text = indexPath.row == 0 ? "Select permit" : "Select a different permit"
+				let localized = LocalizedStrings.RequiredPermits.self
+				cell.textLabel?.text = indexPath.row == 0 ? localized.selectPermit : localized.selectDifferentPermit
 				return cell
 			}
 		}

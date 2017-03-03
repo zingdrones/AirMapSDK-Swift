@@ -88,13 +88,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
             return cell
 		}
         
-        self.navigationController!.flight.value.notify = true
-		
-//		submitNoticeSwitch.rx.value
-//			.subscribeNext { [unowned self] submitNotice in
-//				self.navigationController!.flight.value.notify = submitNotice
-//			}
-//			.disposed(by: disposeBag)
+        navigationController!.flight.value.notify = true
 	}
 	
 	@IBAction func unwindToFlightNotice(_ segue: UIStoryboardSegue) {

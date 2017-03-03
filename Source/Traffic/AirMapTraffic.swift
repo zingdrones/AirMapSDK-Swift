@@ -36,6 +36,7 @@ import CoreLocation
 
 	public override init() {
 		super.init()
+		
 	}
 
 	public required init?(map: Map) {}
@@ -85,22 +86,59 @@ extension AirMapTraffic {
 
 	open override var description: String {
 		
-		let usesMetric = Locale.current.usesMetricSystem
-		let alt = usesMetric ? "\(Int(altitude)) m" : "\(Int(AirMapTrafficServiceUtils.metersToFeet(altitude))) ft"
+		let lengthFormatter = LengthFormatter()
+		lengthFormatter.unitStyle = .short
+
+		let timeFormatter = DateComponentsFormatter()
+		timeFormatter.allowsFractionalUnits = false
+		timeFormatter.allowedUnits = [.minute, .second]
+		timeFormatter.unitsStyle = .abbreviated
+
+		let altitudeString: String
+		let distanceString: String
+		let groundSpeedString: String
+
+		let localizedUnits = LocalizedStrings.Units.self
+
+		switch AirMap.configuration.distanceUnits {
+		case .metric:
+			let groundSpeedMps = AirMapTrafficServiceUtils.knotsToMetersPerSecond(knots: groundSpeedKt)
+			groundSpeedString = String(format: localizedUnits.groundSpeedFormatMetersPerSecond, groundSpeedMps)
+			altitudeString = lengthFormatter.string(fromValue: altitude, unit: .meter)
+		case .imperial:
+			let feet = AirMapTrafficServiceUtils.metersToFeet(altitude)
+			groundSpeedString = String(format: localizedUnits.groundSpeedFormatKnots, groundSpeedKt)
+			altitudeString = lengthFormatter.string(fromValue: feet, unit: .foot)
+		}
+		
+		let aircraftId = properties.aircraftId ?? ""
 
 		if let flightLocation = AirMap.trafficService.currentFlightLocation() {
 
 			let trafficLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
 			let direction = flightLocation.initialDirectionToLocation(trafficLocation)
-			let distance = trafficLocation.distance(from: flightLocation)
-			let milesOrMeters = usesMetric ?  "\(distance) m" : "\(AirMapTrafficServiceUtils.metersToMiles(distance)) mi"
-			let seconds = AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt)
-			let (_, m, s) = seconds.secondsToHoursMinutesSeconds()
-			let trafficTitle = properties.aircraftId == nil ? "Traffic" : "\(properties.aircraftId)"
 			
-			return "Traffic \(trafficTitle)\nAltitude \(alt)\n\(milesOrMeters) \(direction) \(m) min \(s) sec"
-		}
+			let distance = trafficLocation.distance(from: flightLocation)
+			let distanceString: String
+			
+			switch AirMap.configuration.distanceUnits {
+			case .metric:
+				distanceString = lengthFormatter.string(fromValue: distance, unit: .meter)
+			case .imperial:
+				let miles = AirMapTrafficServiceUtils.metersToFeet(altitude)
+				distanceString = lengthFormatter.string(fromValue: miles, unit: .mile)
+			}
 
-		return "Traffic \(properties.aircraftId)\nAltitude \(alt)\n\(Int(groundSpeedKt))kts \(String.coordinateString(coordinate.latitude, longitude: coordinate.longitude) )"
+			let seconds = Int(AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt))
+			let timeString = timeFormatter.string(from: DateComponents(second: seconds))!
+			
+			let alertFormat = LocalizedStrings.Traffic.alertWithAircraftIdAndDistanceFormat
+			return String(format: alertFormat, aircraftId, altitudeString, distanceString, direction, timeString)
+			
+		} else {
+
+			let alertFormat = LocalizedStrings.Traffic.alertWithAircraftIdFormat
+			return String(format: alertFormat, aircraftId, altitudeString, groundSpeedString)
+		}
 	}
 }

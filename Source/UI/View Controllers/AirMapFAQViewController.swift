@@ -22,6 +22,7 @@ class AirMapFAQViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		// TODO: Localize static FAQ url
 		let url = "https://cdn.airmap.io/static/webviews/faq.html#\(section?.rawValue ?? "")"
 		let request = URLRequest(url: URL(string: url)!)
 		webView.loadRequest(request)
@@ -37,6 +38,7 @@ class AirMapFAQViewController: UIViewController {
 extension AirMapFAQViewController: UIWebViewDelegate {
 	
 	func webViewDidFinishLoad(_ webView: UIWebView) {
+		// Hide the redundant "FAQs" title in the HTML
 		webView.stringByEvaluatingJavaScript(
 			from: "var h3Tags = document.getElementsByTagName('h3');" +
 			"for (var i = h3Tags.length; i--;) {" +

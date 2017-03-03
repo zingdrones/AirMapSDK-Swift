@@ -30,12 +30,14 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 	
 	fileprivate func configure() {
 		
+		let localized = LocalizedStrings.Advisory.self
 		organizationName?.text = advisory.organization?.name
 		advisoryName.text = advisory.name
         type?.text = advisory.type?.title
         starts?.text = ""
         ends?.text = ""
-        phone?.text = UIConstants.Instructions.noPhoneNumberProvided
+		phone?.text = localized.phoneNumberNotProvided
+
 		phone?.isUserInteractionEnabled = false
         colorView.backgroundColor = advisory.color.colorRepresentation
         
@@ -43,12 +45,12 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
         if let trfs = advisory.tfrProperties {
 
             if let effectiveDate = trfs.startTime {
-                starts?.text = "Starts: \(effectiveDate.shortDateString())"
+				starts?.text = String(format: localized.tfrStartsFormat, effectiveDate.shortDateString())
             }
             if let expireDate = trfs.endTime {
-                ends?.text = "Ends: \(expireDate.shortDateString())"
+                ends?.text = String(format: localized.tfrStartsFormat, expireDate.shortDateString())
             } else {
-                ends?.text = "Permanent"
+                ends?.text
             }
         }
         
@@ -60,9 +62,14 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             }
             
             if let size = wildfires.size {
-                ends?.text = "\(size) Acres"
+				switch AirMap.configuration.distanceUnits {
+				case .metric:
+					ends?.text = String(format: localized.wildfireSizeFormatHectares, size)
+				case .imperial:
+					ends?.text = String(format: localized.wildfireSizeFormatAcres, size)
+				}
             } else {
-                ends?.text = "Size Unknown"
+                ends?.text = localized.wildfireSizeUnknown
             }
         }
         
@@ -84,10 +91,9 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             }
             
             if properties.digital  {
-                phone?.text = "Accepts Digital Notice"
+                phone?.text = localized.acceptsDigitalNotice
             }
         }
-        
         
 	}
     

@@ -59,7 +59,7 @@ open class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrack
 			switch advisory.type {
 			case .tfr?:
 				identifier = "TFRCell"
-			case .wildfires?:
+			case .wildfire?:
 				identifier = "WildfireCell"
 			case .airport?, .heliport?:
 				identifier = "AirportCell"
