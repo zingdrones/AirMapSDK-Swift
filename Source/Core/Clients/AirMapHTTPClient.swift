@@ -60,7 +60,7 @@ internal class HTTPClient {
 					if let error = response.result.error {
 						AirMap.logger.error(method, String(describing: T.self), path, error)
 						observer.onError(error)
-					} else {
+                    } else {
 						AirMap.logger.debug(String(describing: T.self), "response:", response.result.value!)
 						observer.on(.next(response.result.value!))
 						observer.on(.completed)
@@ -341,10 +341,15 @@ extension DataRequest {
 	
 	/// Adapts a generic underlying error to an AirMapError
 	private static func catchApiError(with response: HTTPURLResponse, from request: URLRequest?, with data: Data) throws {
+
+        if let error = Auth0Error(rawValue: (request, response, data)) {
+            throw error
+        }
 		
 		if let error = AirMapError(rawValue: (request, response, data)) {
 			throw error
 		}
+        
 	}
 	
 }

@@ -176,6 +176,25 @@ extension Reactive where Base: AirMap_Status {
 
 }
 
+/// Documentation found in AirMap+Auth.swift
+extension Reactive where Base: AirMap_Auth {
+    
+    public static func performAnonymousLogin(userId:String) -> Observable<AirMapToken> {
+        
+        return AirMap.authClient.performAnonymousLogin(userId: userId)
+    }
+    
+    public static func performPhoneNumberLogin(phoneNumber:String) -> Observable<Void> {
+        
+        return AirMap.auth0Client.performPhoneNumberLogin(phoneNumber: phoneNumber)
+    }
+    
+    public static func performLoginWithCode(phoneNumber:String, code:String) -> Observable<Auth0Credentials> {
+        
+        return AirMap.auth0Client.performLoginWithCode(phoneNumber:phoneNumber, code:code)
+    }
+}
+
 /// Documentation found in AirMap+Rules.swift
 extension Reactive where Base: AirMap_Rules {
 

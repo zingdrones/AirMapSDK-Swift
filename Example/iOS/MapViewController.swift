@@ -55,7 +55,9 @@ class MapViewController: UIViewController {
 	
 	fileprivate func showAuthController() {
 		
-		let authViewController = AirMap.authViewController(handleLogin)
+        
+        let authViewController = AirMap.smsLoginController(delegate: self)
+//		let authViewController = AirMap.authViewController(handleLogin)
 		//		authViewController.registerLogo("<YOUR_LOGO_CONNECT_WITH_AIRMAP>", bundle: NSBundle.mainBundle())
 		
 		present(authViewController, animated: true, completion: nil)
@@ -77,6 +79,16 @@ class MapViewController: UIViewController {
 			})
 		}
 	}
+}
+
+extension MapViewController: AirMapSMSLoginDelegate {
+    
+    func smsLoginDidAuthenticate() {
+        dismiss(animated: true, completion: addFlight)
+    }
+    func smsLogindidFailToAuthenticate(error:Auth0Error) {
+        print(error.localizedDescription)
+    }
 }
 
 extension MapViewController: AirMapPhoneVerificationDelegate {

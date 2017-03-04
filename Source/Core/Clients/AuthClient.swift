@@ -15,7 +15,7 @@ internal class AuthClient: HTTPClient {
         super.init(basePath: Config.AirMapApi.authUrl)
     }
     
-    func performAnonymousLogin(userId:String) -> Observable<AirMapToken>{
+    func performAnonymousLogin(userId:String) -> Observable<AirMapToken> {
         
         let params = ["user_id": userId]
         

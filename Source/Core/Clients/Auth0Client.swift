@@ -44,6 +44,36 @@ internal class Auth0Client: HTTPClient {
 		}
 	}
     
+    func performPhoneNumberLogin(phoneNumber:String) -> Observable<Void> {
+        
+        let params = ["phone_number": phoneNumber,
+                      "client_id": AirMap.configuration.auth0ClientId,
+                      "connection": "sms",
+                      "send": "code"]
+        
+        return perform(method: .post, path:"/passwordless/start", params: params, keyPath: nil)
+    }
+    
+    func performLoginWithCode(phoneNumber:String, code:String) -> Observable<Auth0Credentials> {
+        
+        let params = ["username": phoneNumber,
+                      "password" : code,
+                      "client_id": AirMap.configuration.auth0ClientId,
+                      "connection": "sms",
+                      "grant_type": "password",
+                      "device" : UIDevice.current.identifierForVendor?.uuidString ?? "",
+                      "scope" : "openid offline_access"]
+        
+        return perform(method: .post, path:"/oauth/ro", params: params, keyPath: nil)
+            .do(onNext: { credentials in
+                AirMap.authToken = credentials.idToken
+                AirMap.authSession.saveRefreshToken(credentials.refreshToken)                
+            }, onError: { error in
+                AirMap.logger.debug("ERROR: \(error)")
+            })
+        
+    }
+    
     func logout() {
         AirMap.authToken = nil
     }
