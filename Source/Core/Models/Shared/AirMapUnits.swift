@@ -11,8 +11,59 @@ import Foundation
 public enum DistanceUnits {
 	case metric
 	case imperial
+}
+
+public typealias Feet = Double
+public typealias Meters = Double
+public typealias StatuteMiles = Double
+public typealias NauticalMiles = Double
+
+public extension Feet {
 	
-	static let metersPerFoot: Feet = 0.3048
+	public static let metersPerFoot: Meters = 0.3048
+
+	public var meters: Meters {
+		return self * Feet.metersPerFoot
+	}
+}
+
+public extension Meters {
+	
+	public static let metersPerNauticalMile: Meters = 1852.0
+	public static let metersPerStatuteMile: Meters = 1609.34
+
+	public var nauticalMiles: NauticalMiles {
+		return self / Meters.metersPerNauticalMile
+	}
+	
+	public var statuteMiles: StatuteMiles {
+		return self / Meters.metersPerStatuteMile
+	}
+	
+	public var feet: Feet {
+		return self / Feet.metersPerFoot
+	}
+}
+
+public typealias Knots = Double
+public typealias MilesPerHour = Double
+public typealias MetersPerSecond = Double
+public typealias KilometersPerHour = Double
+
+public extension Knots {
+	
+	public static let metersPerSecondPerKnot = 0.514444
+}
+
+public extension KilometersPerHour {
+	
+	public var metersPerSecond: MetersPerSecond {
+		return self / 3.6
+	}
+	
+	public var milesPerHour: MilesPerHour {
+		return self * 0.621371
+	}
 }
 
 public enum TemperatureUnits {
@@ -20,10 +71,22 @@ public enum TemperatureUnits {
 	case fahrenheit
 }
 
-public typealias Feet = Double
-public typealias Miles = Double
-public typealias Meters = Double
+public typealias Celcius = Double
+public typealias Fahrenheit = Double
 
+public extension Celcius {
+	
+	public var fahrenheit: Fahrenheit {
+		return (self * 9.0/5.0) + 32.0
+	}
+}
+
+public extension Fahrenheit {
+	
+	public var celcius: Celcius {
+		return (self - 32.0) * (5.0/9.0)
+	}
+}
 
 #if os(Linux)
 	
@@ -47,7 +110,7 @@ public typealias Meters = Double
 	
 	extension CLLocationCoordinate2D {
 		
-		var isValid: Bool {
+		public var isValid: Bool {
 			return CLLocationCoordinate2DIsValid(self)
 		}
 	}

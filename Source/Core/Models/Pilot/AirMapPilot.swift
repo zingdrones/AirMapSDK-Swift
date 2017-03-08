@@ -64,5 +64,11 @@ extension AirMapPilot: Mappable {
 			"phone":          phone,
 		]
 	}
+}
 
+extension AirMapPilot {
+
+	public var fullName: String {
+		return [firstName, lastName].flatMap({$0}).joined(separator: " ")
+	}
 }

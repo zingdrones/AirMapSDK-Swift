@@ -10,8 +10,8 @@ import Foundation
 import ObjectMapper
 
 // FIXME: Remove NSObject dependency
-//open class AirMapFlight: Hashable, Equatable {
 open class AirMapFlight: NSObject {
+//open class AirMapFlight: Hashable, Equatable {
 
 	public enum FlightGeometryType: String {
 		case point

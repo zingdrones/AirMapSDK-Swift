@@ -744,7 +744,7 @@ Line two details would be here.]</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="[310-555-1212]" translatesAutoresizingMaskIntoConstraints="NO" id="hyU-kT-UVu" customClass="AirMapPhoneTextView" customModule="AirMapUI" customModuleProvider="target">
-                                            <rect key="frame" x="14" y="50" width="345" height="29.5"/>
+                                            <rect key="frame" x="14" y="50" width="345" height="29"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1905,7 +1905,7 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization Name]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZm-0C-nto">
-                                                    <rect key="frame" x="15" y="12" width="345" height="19.5"/>
+                                                    <rect key="frame" x="15" y="12" width="345" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2837,7 +2837,7 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpk-5A-j54">
-                                                    <rect key="frame" x="15" y="12" width="345" height="19.5"/>
+                                                    <rect key="frame" x="15" y="12" width="345" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>

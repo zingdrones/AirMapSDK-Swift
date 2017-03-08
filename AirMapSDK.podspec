@@ -35,9 +35,7 @@ Pod::Spec.new do |s|
 		core.dependency 'RxSwiftExt'
 		core.dependency 'RxCocoa'
 		core.dependency 'Log'
-		core.resource_bundles = {
-			'AirMapCore' => ['Resources/Core/*.{cer,pdf,xcassets}']
-		}
+		core.resources = ['Resources/Core/*.{cer,pdf,xcassets}']
 	end
 	
 	s.subspec 'UI' do |ui|
@@ -53,9 +51,7 @@ Pod::Spec.new do |s|
 		ui.dependency 'SwiftSimplify'
 		ui.dependency 'SwiftTurf'
 		ui.source_files = 'Source/UI/**/{*.swift}'
-		ui.resource_bundles = {
-			'AirMapUI' => ['Resources/UI/*.{xcassets}', 'Resources/UI/Localizations/**/*']
-		}
+		ui.resources = ['Resources/UI/*.{xcassets}', 'Resources/UI/Localizations/**/*']
 	end
 	
 	s.subspec 'Traffic' do |traffic|

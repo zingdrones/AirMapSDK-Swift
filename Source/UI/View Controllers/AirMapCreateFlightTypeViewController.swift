@@ -612,8 +612,8 @@ extension AirMapCreateFlightTypeViewController {
 		
 		if usesMetric {
 
-			let minRadius = 5.0
-			let maxRadius = 1000.0
+			let minRadius = Meters(5.0)
+			let maxRadius = Meters(1000.0)
 			var meters = (sliderValue * (maxRadius - minRadius)) + minRadius
 			switch meters {
 			case 50..<200:
@@ -631,10 +631,11 @@ extension AirMapCreateFlightTypeViewController {
 
 		} else {
 			
-			let minRadius = 25.0 / Config.Maps.feetPerMeters
-			let maxRadius = 3000.0 / Config.Maps.feetPerMeters
-			var meters = (sliderValue * (maxRadius - minRadius)) + minRadius
-			var feet = meters * Config.Maps.feetPerMeters
+			let minRadius = Feet(25).meters
+			let maxRadius = Feet(3000).meters
+			let meters = (sliderValue * (maxRadius - minRadius)) + minRadius
+			var feet = meters.feet
+			
 			switch feet {
 			case 200..<500:
 				distancePerStep = 50
@@ -648,9 +649,8 @@ extension AirMapCreateFlightTypeViewController {
 				distancePerStep = 25
 			}
 			feet = ceil(feet / distancePerStep) * distancePerStep
-			meters = feet / Config.Maps.feetPerMeters
 			
-			bufferValue = (meters, formatter.string(fromValue: feet, unit: .foot))
+			bufferValue = (feet.meters, formatter.string(fromValue: feet, unit: .foot))
 		}
 		
 		return bufferValue
