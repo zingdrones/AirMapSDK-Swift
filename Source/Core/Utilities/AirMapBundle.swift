@@ -12,12 +12,14 @@ public class AirMapBundle {
 	
 	public class var core: Bundle {
 		
-		return bundleNamed("AirMapCore")
+		return Bundle(for: AirMap.self)
+//		return bundleNamed("AirMapCore")
 	}
 
 	public class var ui: Bundle {
 		
-		return bundleNamed("AirMapUI")
+		return Bundle(for: AirMap.self)
+//		return bundleNamed("AirMapUI")
 	}
 	
 	private class func bundleNamed(_ name: String) -> Bundle {
