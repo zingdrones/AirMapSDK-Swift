@@ -128,9 +128,9 @@ public struct LocalizedStrings {
 		
 		public static let tfrPermanent = NSLocalizedString("ADVISORY_TFR_PERMANENT", bundle: bundle, value: "Permanent", comment: "Never ending duration for a TFR")
 		
-		public static let wildfireSizeFormatAcres = NSLocalizedString("ADVISORY_WILDFIRE_SIZE_FORMAT_ACRES", bundle: bundle, value: "%$1@ Acres", comment: "Format and unit for wildfire advisory in the area unit acres")
+		public static let wildfireSizeFormatAcres = NSLocalizedString("ADVISORY_WILDFIRE_SIZE_FORMAT_ACRES", bundle: bundle, value: "%1$@ Acres", comment: "Format and unit for wildfire advisory in the area unit acres")
 		
-		public static let wildfireSizeFormatHectares = NSLocalizedString("ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES", bundle: bundle, value: "%$1@ Hectares", comment: "Format and unit for wildfire advisory in the area unit hectares")
+		public static let wildfireSizeFormatHectares = NSLocalizedString("ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES", bundle: bundle, value: "%1$@ Hectares", comment: "Format and unit for wildfire advisory in the area unit hectares")
 		
 		public static let wildfireSizeUnknown = NSLocalizedString("ADVISORY_WILDFIRE_SIZE_UNKNOWN", bundle: bundle, value: "Size Unknown", comment: "Label for wildfire advisory cells where size is unknown")
 		
@@ -304,7 +304,7 @@ public struct LocalizedStrings {
 	
 	public struct PilotPermit {
 		
-		public static let expirationFormat = NSLocalizedString("PILOT_PERMIT_EXPIRATION_FORMAT", bundle: bundle, value: "Expires %$1@", comment: "Format for pilot permit expiration")
+		public static let expirationFormat = NSLocalizedString("PILOT_PERMIT_EXPIRATION_FORMAT", bundle: bundle, value: "Expires %1$@", comment: "Format for pilot permit expiration")
 	}
 	
 	public struct Aircraft {
@@ -369,9 +369,9 @@ public struct LocalizedStrings {
 
 		public static let speedFormatKnots = NSLocalizedString("UNITS_SPEED_FORMAT_KNOTS", bundle: bundle, value: "%@ kts", comment: "Unit and format for displaying speed in knots")
 		
-		public static let temperatureFormatCelcius = NSLocalizedString("UNITS_TEMPERATURE_CELCIUS_FORMAT", bundle: bundle, value: "%$1@°C", comment: "Unit and format for displaying temperature in Celcius")
+		public static let temperatureFormatCelcius = NSLocalizedString("UNITS_TEMPERATURE_CELCIUS_FORMAT", bundle: bundle, value: "%1$@°C", comment: "Unit and format for displaying temperature in Celcius")
 
-		public static let temperatureFormatFahrenheit = NSLocalizedString("UNITS_TEMPERATURE_FAHRENHEIT_FORMAT", bundle: bundle, value: "%$1@°F", comment: "Unit and format for displaying temperature in Fahrenheit")
+		public static let temperatureFormatFahrenheit = NSLocalizedString("UNITS_TEMPERATURE_FAHRENHEIT_FORMAT", bundle: bundle, value: "%1$@°F", comment: "Unit and format for displaying temperature in Fahrenheit")
 	}
 	
 	public struct Traffic {
