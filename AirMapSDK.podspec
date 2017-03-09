@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
 		core.dependency 'RxSwiftExt'
 		core.dependency 'RxCocoa'
 		core.dependency 'Log'
-		core.resources = ['Resources/Localizable.strings', 'Resources/Core/*.{cer,pdf,xcassets}']
+		core.resources = ['Resources/Core/Localizations/**/*', 'Resources/Core/*.{cer,pdf,xcassets}']
 	end
 	
 	s.subspec 'UI' do |ui|
