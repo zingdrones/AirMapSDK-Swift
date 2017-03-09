@@ -12,7 +12,7 @@ public struct UIConstants {
 		
 	public static let flightDistanceFormatter: LengthFormatter = {
 		let f = LengthFormatter()
-		f.unitStyle = .short
+		f.unitStyle = .medium
 		f.numberFormatter.maximumFractionDigits = 0
 		f.numberFormatter.roundingIncrement = 5
 		return f
