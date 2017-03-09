@@ -89,8 +89,9 @@ PODS:
   - PhoneNumberKit/PhoneNumberKitCore (1.2.2)
   - PhoneNumberKit/UIKit (1.2.2):
     - PhoneNumberKit/PhoneNumberKitCore
-  - ProtocolBuffers-Swift (3.0.10)
-  - Quick (1.0.0)
+  - Protobuf (3.1.0)
+  - ProtocolBuffers-Swift (3.0.13)
+  - Quick (1.1.0)
   - RxCocoa (3.2.0):
     - RxSwift (~> 3.1)
   - RxDataSources (1.0.3):
@@ -111,6 +112,7 @@ DEPENDENCIES:
   - Nimble
   - OHHTTPStubs
   - OHHTTPStubs/Swift
+  - Protobuf (= 3.1.0)
   - Quick
   - SwiftTurf (from `../../SwiftTurf/`)
 
@@ -136,8 +138,9 @@ SPEC CHECKSUMS:
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898
   OHHTTPStubs: e238cd5b66d8efa51c861db45895de8fe079f4a7
   PhoneNumberKit: ffae8f18fb78c1425c7af973711b0b0fd4f4104f
-  ProtocolBuffers-Swift: ca96ede646c86e2bdc94f6da60e470c7b4dfa47c
-  Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
+  Protobuf: 265e9977d04a83eba9cefb0bed3ad07e41033b4a
+  ProtocolBuffers-Swift: b1962dbfbd2ccb61b57d6a1825cddf6a03c0dd09
+  Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
   RxCocoa: ccdf43101a70407097a29082f648ba1676075b30
   RxDataSources: a021a0e944ba5f7991259829d973afdbfa719c0b
   RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
@@ -147,6 +150,6 @@ SPEC CHECKSUMS:
   SwiftSimplify: 374ead1c360c6e236539543d6ce5b3abda011080
   SwiftTurf: 3561aa90125a8bf55229a998415aa82f2b516497
 
-PODFILE CHECKSUM: ef18defe7336def039a5fd0f5e5820e24cb843a6
+PODFILE CHECKSUM: 0e26deca78ee2a834dae0eeb819922c9c4150792
 
 COCOAPODS: 1.2.0
