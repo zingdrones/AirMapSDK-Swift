@@ -76,11 +76,13 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 			availablePermitsVC.organization = dataSource.sectionModels[indexPath.section].items[indexPath.row].organization
 			availablePermitsVC.existingPermits = existingPermits.value
 			availablePermitsVC.draftPermits = draftPermits.value
+		
 		case "modalFAQ" :
 			let nav = segue.destination as! UINavigationController
 			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
 			faqVC.section = .Permits
 			trackEvent(.tap, label: "Info Button (Permit FAQ's)")
+	
 		default:
 			break
 		}

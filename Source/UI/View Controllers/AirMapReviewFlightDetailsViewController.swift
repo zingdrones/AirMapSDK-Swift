@@ -81,9 +81,9 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 			radius = UIConstants.flightDistanceFormatter.string(fromValue: flight.buffer!, unit: .meter)
 			altitude = UIConstants.flightDistanceFormatter.string(fromValue: flight.maxAltitude!, unit: .meter)
 		case .imperial:
-			let radiusFeet = flight.buffer! / DistanceUnits.metersPerFoot
+			let radiusFeet = flight.buffer!.feet
 			radius = UIConstants.flightDistanceFormatter.string(fromValue: radiusFeet, unit: .foot)
-			let altitudeFeet = flight.maxAltitude! / DistanceUnits.metersPerFoot
+			let altitudeFeet = flight.maxAltitude!.feet
 			altitude = UIConstants.flightDistanceFormatter.string(fromValue: altitudeFeet, unit: .foot)
 		}
 		

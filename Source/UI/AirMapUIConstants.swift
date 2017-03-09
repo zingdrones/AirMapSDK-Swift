@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct UIConstants {
+public struct UIConstants {
 		
-	static let flightDistanceFormatter: LengthFormatter = {
+	public static let flightDistanceFormatter: LengthFormatter = {
 		let f = LengthFormatter()
 		f.unitStyle = .short
 		f.numberFormatter.maximumFractionDigits = 0
@@ -18,7 +18,7 @@ struct UIConstants {
 		return f
 	}()
 
-	static let flightDurationFormatter: DateComponentsFormatter = {
+	public static let flightDurationFormatter: DateComponentsFormatter = {
 		let f = DateComponentsFormatter()
 		f.allowedUnits = [.hour, .minute]
 		f.allowsFractionalUnits = false
@@ -28,7 +28,7 @@ struct UIConstants {
 		return f
 	}()
 
-	static let altitudePresetsImperial: [Meters] = [
+	public static let altitudePresetsImperial: [Meters] = [
 		15.24,  //  50 ft
 		30.48,  // 100 ft
 		60.96,  // 200 ft
@@ -36,11 +36,11 @@ struct UIConstants {
 		121.92, // 400 ft
 		152.4   // 500 ft
 		]
-	static let defaultAltitudePresetImperial = altitudePresetsImperial[3]
+	public static let defaultAltitudePresetImperial = altitudePresetsImperial[3]
 
-	static let altitudePresetsMetric: [Meters] = [25, 50, 75, 100, 150]
-	static let defaultAltitudePresetMetric = altitudePresetsMetric[3]
+	public static let altitudePresetsMetric: [Meters] = [25, 50, 75, 100, 150]
+	public static let defaultAltitudePresetMetric = altitudePresetsMetric[3]
 
-	static let durationPresets: [TimeInterval] = [5, 10, 15, 30, 45, 60, 90, 120, 150, 180, 210, 240].map { $0 * 60 }
-	static let defaultDurationPreset = durationPresets[5]
+	public static let durationPresets: [TimeInterval] = [5, 10, 15, 30, 45, 60, 90, 120, 150, 180, 210, 240].map { $0 * 60 }
+	public static let defaultDurationPreset = durationPresets[5]
 }

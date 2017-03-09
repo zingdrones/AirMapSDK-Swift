@@ -45,26 +45,4 @@ open class AirMapTrafficServiceUtils {
 		return distance / (speedInKts*1852) * 3600
 	}
 	
-	static func knotsToMetersPerSecond(knots: Double) -> Meters {
-
-		return knots * 0.514444
-	}
-
-	static func metersToMiles(_ meters: Meters, rounded: Bool = true) -> Miles {
-
-		if rounded {
-			return (round((meters * 0.000621369647819236) * 10) / 10)
-		}
-
-		return meters * 0.000621369647819236
-	}
-	
-	static func metersToFeet(_ meters: Meters, rounded: Bool = true) -> Feet {
-		
-		if rounded {
-			return (round((meters * 0.3048) * 10) / 10)
-		}
-		
-		return meters * 0.3048
-	}
 }

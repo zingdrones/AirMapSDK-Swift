@@ -15,7 +15,7 @@ open class AirMapStatusWeather {
 	open var humidity: Double!
 	open var visibility: Double!
 	open var precipitation: Double!
-	open var temperature: Double!
+	open var temperature: Celcius!
 	open var icon: String!
 	
 	#if os(iOS) || os(tvOS) || os(watchOS)
