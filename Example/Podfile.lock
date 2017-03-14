@@ -14,12 +14,12 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AirMapSDK (0.3.0):
-    - AirMapSDK/Core (= 0.3.0)
-    - AirMapSDK/Telemetry (= 0.3.0)
-    - AirMapSDK/Traffic (= 0.3.0)
-    - AirMapSDK/UI (= 0.3.0)
-  - AirMapSDK/Core (0.3.0):
+  - AirMapSDK (0.3.1):
+    - AirMapSDK/Core (= 0.3.1)
+    - AirMapSDK/Telemetry (= 0.3.1)
+    - AirMapSDK/Traffic (= 0.3.1)
+    - AirMapSDK/UI (= 0.3.1)
+  - AirMapSDK/Core (0.3.1):
     - Alamofire (~> 3.5)
     - JWTDecode (~> 1.2)
     - Log (= 0.5)
@@ -28,16 +28,16 @@ PODS:
     - RxSwift (< 3.0)
     - RxSwiftExt (~> 1.1.0)
     - SimpleKeychain
-  - AirMapSDK/Telemetry (0.3.0):
+  - AirMapSDK/Telemetry (0.3.1):
     - AirMapSDK/Core
     - CocoaAsyncSocket (~> 7.5.0)
     - CryptoSwift (~> 0.5.2)
     - ProtocolBuffers-Swift (~> 2.4)
     - RxSwift (< 3.0)
-  - AirMapSDK/Traffic (0.3.0):
+  - AirMapSDK/Traffic (0.3.1):
     - AirMapSDK/Core
     - SwiftMQTT (~> 1.0.2)
-  - AirMapSDK/UI (0.3.0):
+  - AirMapSDK/UI (0.3.1):
     - AirMapSDK/Core
     - libPhoneNumber-iOS (~> 0.8.16)
     - Lock (~> 1.27.1)
@@ -45,7 +45,7 @@ PODS:
     - PhoneNumberKit (= 0.8.5)
     - RxDataSources (~> 0.9.0)
     - SwiftSimplify (< 0.2.0)
-    - SwiftTurf
+    - SwiftTurf (< 0.2.0)
   - Alamofire (3.5.1)
   - CocoaAsyncSocket (7.5.1):
     - CocoaAsyncSocket/GCD (= 7.5.1)
@@ -122,7 +122,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AirMapSDK: 7e7e529350c9c0c75e804a2bb85f9db5c4ed283b
+  AirMapSDK: 6b639478800e572a10a39393236a55fe059a73f8
   Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
   CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
   CryptoSwift: c1ef79f901b86099a6fe8b3c7524cf9f3f3c8c40
@@ -149,4 +149,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 48d5b791bb465e167fb146332ce664c1699202fd
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0
