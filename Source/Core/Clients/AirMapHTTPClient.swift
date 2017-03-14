@@ -29,10 +29,10 @@ internal class HTTPClient {
 	private lazy var manager: SessionManager = {
 		
 		let host = NSURL(string: Config.AirMapApi.host)!.host!
-		let certs = ServerTrustPolicy.certificates(in: AirMapBundle.core)
+		let keys = ServerTrustPolicy.publicKeys(in: AirMapBundle.core)
 		
 		let serverTrustPolicies: [String: ServerTrustPolicy] = [
-			host: ServerTrustPolicy.pinCertificates(certificates: certs, validateCertificateChain: true, validateHost: true)
+			host: ServerTrustPolicy.pinPublicKeys(publicKeys: keys, validateCertificateChain: true, validateHost: true)
 		]
 
 		let manager = AirMap.authSession.enableCertificatePinning ?

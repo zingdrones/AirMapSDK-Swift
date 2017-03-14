@@ -102,7 +102,7 @@ PODS:
   - SimpleKeychain (0.7.0)
   - SwiftMQTT (2.0.0)
   - SwiftSimplify (0.2.0)
-  - SwiftTurf (0.1.1)
+  - SwiftTurf (0.2.0)
 
 DEPENDENCIES:
   - AirMapSDK (from `../`)
@@ -122,7 +122,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AirMapSDK: f0430aa808953c702babfe89db6acbc4069c7a8b
+  AirMapSDK: 04bd22a2ca9abbf32adf485210ca76c916fa6eac
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
   CryptoSwift: 685ae257941e5447474348a2b545583e1a16b573
@@ -145,7 +145,7 @@ SPEC CHECKSUMS:
   SimpleKeychain: b50cef3b87939d480ea1143425c00f5b4b70fe21
   SwiftMQTT: 1223cdf3056cd9211112e3f136aa221125b457e1
   SwiftSimplify: 374ead1c360c6e236539543d6ce5b3abda011080
-  SwiftTurf: 3561aa90125a8bf55229a998415aa82f2b516497
+  SwiftTurf: 599828dcc13a0c5338bc6934c5c29e2b064e3926
 
 PODFILE CHECKSUM: ef18defe7336def039a5fd0f5e5820e24cb843a6
 
