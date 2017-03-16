@@ -87,27 +87,33 @@ extension AirMapTraffic {
 	open override var description: String {
 		
 		let lengthFormatter = LengthFormatter()
-		lengthFormatter.unitStyle = .short
+		lengthFormatter.unitStyle = .medium
+		lengthFormatter.numberFormatter.maximumFractionDigits = 0
 
 		let timeFormatter = DateComponentsFormatter()
 		timeFormatter.allowsFractionalUnits = false
 		timeFormatter.allowedUnits = [.minute, .second]
 		timeFormatter.unitsStyle = .abbreviated
-
+		
+		let speedFormatter = NumberFormatter()
+		speedFormatter.maximumFractionDigits = 0
+		
 		let altitudeString: String
 		let distanceString: String
-		let groundSpeedString: String
+		let localizedGroundSpeedString: String
 
 		let localizedUnits = LocalizedStrings.Units.self
 
+		lengthFormatter.numberFormatter.roundingIncrement = 50
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
-			let groundSpeedMps = groundSpeed.metersPerSecond
-			groundSpeedString = String(format: localizedUnits.speedFormatMetersPerSecond, groundSpeedMps)
+			let groundSpeedMpsString = speedFormatter.string(from: NSNumber(value: groundSpeed.metersPerSecond))!
+			localizedGroundSpeedString = String(format: localizedUnits.speedFormatMetersPerSecond, groundSpeedMpsString)
 			altitudeString = lengthFormatter.string(fromValue: altitude, unit: .meter)
 		case .imperial:
 			let feet = altitude.feet
-			groundSpeedString = String(format: localizedUnits.speedFormatKnots, groundSpeed)
+			let groundSpeedKnotsString = speedFormatter.string(from: NSNumber(value: groundSpeed))!
+			localizedGroundSpeedString = String(format: localizedUnits.speedFormatKnots, groundSpeedKnotsString)
 			altitudeString = lengthFormatter.string(fromValue: feet, unit: .foot)
 		}
 		
@@ -120,11 +126,21 @@ extension AirMapTraffic {
 			
 			let distance = trafficLocation.distance(from: flightLocation)
 			let distanceString: String
-			
+
 			switch AirMap.configuration.distanceUnits {
 			case .metric:
-				distanceString = lengthFormatter.string(fromValue: distance, unit: .meter)
+				if distance < 950 {
+					lengthFormatter.numberFormatter.roundingIncrement = 100
+					lengthFormatter.numberFormatter.maximumFractionDigits = 0
+					distanceString = lengthFormatter.string(fromValue: distance, unit: .meter)
+				} else {
+					lengthFormatter.numberFormatter.roundingIncrement = 0.5
+					lengthFormatter.numberFormatter.maximumFractionDigits = 1
+					distanceString = lengthFormatter.string(fromValue: distance/1000, unit: .kilometer)
+				}
 			case .imperial:
+				lengthFormatter.numberFormatter.roundingIncrement = 0.5
+				lengthFormatter.numberFormatter.maximumFractionDigits = 1
 				let miles = distance.nauticalMiles
 				distanceString = lengthFormatter.string(fromValue: miles, unit: .mile)
 			}
@@ -138,7 +154,7 @@ extension AirMapTraffic {
 		} else {
 
 			let alertFormat = LocalizedStrings.Traffic.alertWithAircraftIdFormat
-			return String(format: alertFormat, aircraftId, altitudeString, groundSpeedString)
+			return String(format: alertFormat, aircraftId, altitudeString, localizedGroundSpeedString)
 		}
 	}
 }

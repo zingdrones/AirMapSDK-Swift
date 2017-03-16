@@ -140,9 +140,31 @@ extension AirMap_UI {
 	*/
 	
 	public class func authViewController(_ authHandler: @escaping AirMapAuthHandler) -> AirMapAuthViewController {
+        
 		let authController = AirMapAuthViewController(authHandler: authHandler)
 		return authController
 	}
+    
+    
+    /**
+     
+     Creates an AirMapSMSLoginNavController that can be presented to the user.
+     
+     - parameter delegate: The block that is called upon completion/error of login flow
+     
+     - returns: An AirMapSMSLoginNavController
+     
+     */
+    
+    public class func smsLoginController(delegate: AirMapSMSLoginDelegate?) -> AirMapSMSLoginNavController {
+        
+        let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
+        
+        let authController = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapSMSLoginNavController.self)) as! AirMapSMSLoginNavController
+        authController.smsLoginDelegate = delegate
+        return authController
+    }
+    
     
     /**
      
