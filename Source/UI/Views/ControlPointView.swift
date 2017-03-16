@@ -24,6 +24,10 @@ class ControlPoint: MGLPointAnnotation {
 		self.coordinate = coordinate
 	}
 	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
 	override var hashValue: Int {
 		return coordinate.latitude.hashValue & coordinate.longitude.hashValue & type.hashValue
 	}
