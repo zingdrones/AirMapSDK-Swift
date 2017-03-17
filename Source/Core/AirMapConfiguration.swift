@@ -14,7 +14,7 @@ public class AirMapConfiguration {
 	public var temperatureUnits = TemperatureUnits.celcius
 	
 	internal fileprivate(set) var environment: String?
-	internal fileprivate(set) var airMapApiKey: String?
+	public fileprivate(set) var airMapApiKey: String?
 	public fileprivate(set) var mapboxAccessToken: String?
 
 	internal fileprivate(set) var auth0ClientId: String!
