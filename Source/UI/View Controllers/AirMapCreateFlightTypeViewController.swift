@@ -233,7 +233,6 @@ extension AirMapCreateFlightTypeViewController {
 			.disposed(by: disposeBag)
 		
 		buffer.asDriver()
-			.skip(1)
 			.throttle(0.25)
 			.mapToVoid()
 			.drive(onNext: unowned(self, $.centerFlightPlan))
