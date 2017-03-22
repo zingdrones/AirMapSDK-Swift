@@ -3119,7 +3119,7 @@ AirMap will send you a text message when your digital notice has been successful
         <!--[Jurisdiction Name]-->
         <scene sceneID="gS4-H4-Svh">
             <objects>
-                <viewController id="joP-eH-5Up" customClass="AirMapLocalRuleViewController" customModule="AirMap" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="joP-eH-5Up" customClass="AirMapLocalRuleViewController" customModule="AirMap" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yKp-RS-tDL"/>
                         <viewControllerLayoutGuide type="bottom" id="bP5-JK-HF4"/>
