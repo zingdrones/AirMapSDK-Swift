@@ -13,7 +13,7 @@ public extension Airmap.Telemetry {
     public struct TelemetryRoot {
         public static let `default` = TelemetryRoot()
         public var extensionRegistry:ExtensionRegistry
-
+        
         init() {
             extensionRegistry = ExtensionRegistry()
             registerAllExtensions(registry: extensionRegistry)
@@ -21,9 +21,9 @@ public extension Airmap.Telemetry {
         public func registerAllExtensions(registry: ExtensionRegistry) {
         }
     }
-
+    
     final public class Position : GeneratedMessage {
-
+        
         public static func == (lhs: Airmap.Telemetry.Position, rhs: Airmap.Telemetry.Position) -> Bool {
             if lhs === rhs {
                 return true
@@ -38,33 +38,33 @@ public extension Airmap.Telemetry {
             fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
             return fieldCheck
         }
-
+        
         /// UNIX time in Milliseconds
         public fileprivate(set) var timestamp:UInt64 = UInt64(0)
         public fileprivate(set) var hasTimestamp:Bool = false
-
+        
         /// The recorded latitude
         /// Decimal place requirement: 7 decimal places.
         public fileprivate(set) var latitude:Double = Double(0)
         public fileprivate(set) var hasLatitude:Bool = false
-
+        
         /// The recorded longitude
         /// Decimal place requirement: 7 decimal places.
         public fileprivate(set) var longitude:Double = Double(0)
         public fileprivate(set) var hasLongitude:Bool = false
-
+        
         ///Altitude above mean sea level (ie. GPS), meters
         public fileprivate(set) var altitudeAgl:Float = Float(0)
         public fileprivate(set) var hasAltitudeAgl:Bool = false
-
+        
         /// Altitude above ground level, meters
         public fileprivate(set) var altitudeMsl:Float = Float(0)
         public fileprivate(set) var hasAltitudeMsl:Bool = false
-
+        
         /// Horizontal Dilution of Precision, in meters
         public fileprivate(set) var horizontalAccuracy:Float = Float(0)
         public fileprivate(set) var hasHorizontalAccuracy:Bool = false
-
+        
         required public init() {
             super.init()
         }
@@ -95,9 +95,9 @@ public extension Airmap.Telemetry {
         override public func serializedSize() -> Int32 {
             var serialize_size:Int32 = memoizedSerializedSize
             if serialize_size != -1 {
-             return serialize_size
+                return serialize_size
             }
-
+            
             serialize_size = 0
             if hasTimestamp {
                 serialize_size += timestamp.computeUInt64Size(fieldNumber: 1)
@@ -143,7 +143,7 @@ public extension Airmap.Telemetry {
             guard isInitialized() else {
                 throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
             }
-
+            
             var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
             if hasTimestamp {
                 jsonMap["timestamp"] = "\(timestamp)"
@@ -219,10 +219,10 @@ public extension Airmap.Telemetry {
                 return hashCode
             }
         }
-
-
+        
+        
         //Meta information declaration start
-
+        
         override public class func className() -> String {
             return "Airmap.Telemetry.Position"
         }
@@ -230,13 +230,13 @@ public extension Airmap.Telemetry {
             return "Airmap.Telemetry.Position"
         }
         //Meta information declaration end
-
+        
         final public class Builder : GeneratedMessageBuilder {
             fileprivate var builderResult:Airmap.Telemetry.Position = Airmap.Telemetry.Position()
             public func getMessage() -> Airmap.Telemetry.Position {
                 return builderResult
             }
-
+            
             required override public init () {
                 super.init()
             }
@@ -455,28 +455,28 @@ public extension Airmap.Telemetry {
                 while (true) {
                     let protobufTag = try codedInputStream.readTag()
                     switch protobufTag {
-                    case 0: 
+                    case 0:
                         self.unknownFields = try unknownFieldsBuilder.build()
                         return self
-
+                        
                     case 8:
                         timestamp = try codedInputStream.readUInt64()
-
+                        
                     case 17:
                         latitude = try codedInputStream.readDouble()
-
+                        
                     case 25:
                         longitude = try codedInputStream.readDouble()
-
+                        
                     case 37:
                         altitudeAgl = try codedInputStream.readFloat()
-
+                        
                     case 45:
                         altitudeMsl = try codedInputStream.readFloat()
-
+                        
                     case 53:
                         horizontalAccuracy = try codedInputStream.readFloat()
-
+                        
                     default:
                         if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                             unknownFields = try unknownFieldsBuilder.build()
@@ -522,16 +522,16 @@ public extension Airmap.Telemetry {
             override class public func fromJSONToBuilder(data:Data) throws -> Airmap.Telemetry.Position.Builder {
                 let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
                 guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                    throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
                 }
                 return try Airmap.Telemetry.Position.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
         }
-
+        
     }
-
+    
     final public class Attitude : GeneratedMessage {
-
+        
         public static func == (lhs: Airmap.Telemetry.Attitude, rhs: Airmap.Telemetry.Attitude) -> Bool {
             if lhs === rhs {
                 return true
@@ -544,23 +544,23 @@ public extension Airmap.Telemetry {
             fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
             return fieldCheck
         }
-
+        
         /// UNIX time in Milliseconds
         public fileprivate(set) var timestamp:UInt64 = UInt64(0)
         public fileprivate(set) var hasTimestamp:Bool = false
-
+        
         /// Yaw angle measured from True North, { 0 <= x < 360 } degrees
         public fileprivate(set) var yaw:Float = Float(0)
         public fileprivate(set) var hasYaw:Bool = false
-
+        
         /// Pitch angle, { -180 < x <= 180 } degrees
         public fileprivate(set) var pitch:Float = Float(0)
         public fileprivate(set) var hasPitch:Bool = false
-
+        
         /// Roll angle, { -180 < x <= 180 } degrees
         public fileprivate(set) var roll:Float = Float(0)
         public fileprivate(set) var hasRoll:Bool = false
-
+        
         required public init() {
             super.init()
         }
@@ -585,9 +585,9 @@ public extension Airmap.Telemetry {
         override public func serializedSize() -> Int32 {
             var serialize_size:Int32 = memoizedSerializedSize
             if serialize_size != -1 {
-             return serialize_size
+                return serialize_size
             }
-
+            
             serialize_size = 0
             if hasTimestamp {
                 serialize_size += timestamp.computeUInt64Size(fieldNumber: 1)
@@ -627,7 +627,7 @@ public extension Airmap.Telemetry {
             guard isInitialized() else {
                 throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
             }
-
+            
             var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
             if hasTimestamp {
                 jsonMap["timestamp"] = "\(timestamp)"
@@ -685,10 +685,10 @@ public extension Airmap.Telemetry {
                 return hashCode
             }
         }
-
-
+        
+        
         //Meta information declaration start
-
+        
         override public class func className() -> String {
             return "Airmap.Telemetry.Attitude"
         }
@@ -696,13 +696,13 @@ public extension Airmap.Telemetry {
             return "Airmap.Telemetry.Attitude"
         }
         //Meta information declaration end
-
+        
         final public class Builder : GeneratedMessageBuilder {
             fileprivate var builderResult:Airmap.Telemetry.Attitude = Airmap.Telemetry.Attitude()
             public func getMessage() -> Airmap.Telemetry.Attitude {
                 return builderResult
             }
-
+            
             required override public init () {
                 super.init()
             }
@@ -861,22 +861,22 @@ public extension Airmap.Telemetry {
                 while (true) {
                     let protobufTag = try codedInputStream.readTag()
                     switch protobufTag {
-                    case 0: 
+                    case 0:
                         self.unknownFields = try unknownFieldsBuilder.build()
                         return self
-
+                        
                     case 8:
                         timestamp = try codedInputStream.readUInt64()
-
+                        
                     case 21:
                         yaw = try codedInputStream.readFloat()
-
+                        
                     case 29:
                         pitch = try codedInputStream.readFloat()
-
+                        
                     case 37:
                         roll = try codedInputStream.readFloat()
-
+                        
                     default:
                         if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                             unknownFields = try unknownFieldsBuilder.build()
@@ -912,16 +912,16 @@ public extension Airmap.Telemetry {
             override class public func fromJSONToBuilder(data:Data) throws -> Airmap.Telemetry.Attitude.Builder {
                 let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
                 guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                    throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
                 }
                 return try Airmap.Telemetry.Attitude.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
         }
-
+        
     }
-
+    
     final public class Speed : GeneratedMessage {
-
+        
         public static func == (lhs: Airmap.Telemetry.Speed, rhs: Airmap.Telemetry.Speed) -> Bool {
             if lhs === rhs {
                 return true
@@ -934,23 +934,23 @@ public extension Airmap.Telemetry {
             fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
             return fieldCheck
         }
-
+        
         /// UNIX time in Milliseconds
         public fileprivate(set) var timestamp:UInt64 = UInt64(0)
         public fileprivate(set) var hasTimestamp:Bool = false
-
+        
         /// Aircraft Speed in the x direction in meters per second using the North-East-Down (N-E-D) coordinate system
         public fileprivate(set) var velocityX:Float = Float(0)
         public fileprivate(set) var hasVelocityX:Bool = false
-
+        
         /// Aircraft Speed in the y direction in meters per second using the North-East-Down (N-E-D) coordinate system
         public fileprivate(set) var velocityY:Float = Float(0)
         public fileprivate(set) var hasVelocityY:Bool = false
-
+        
         /// Aircraft Speed in the z direction in meters per second using the North-East-Down (N-E-D) coordinate system
         public fileprivate(set) var velocityZ:Float = Float(0)
         public fileprivate(set) var hasVelocityZ:Bool = false
-
+        
         required public init() {
             super.init()
         }
@@ -975,9 +975,9 @@ public extension Airmap.Telemetry {
         override public func serializedSize() -> Int32 {
             var serialize_size:Int32 = memoizedSerializedSize
             if serialize_size != -1 {
-             return serialize_size
+                return serialize_size
             }
-
+            
             serialize_size = 0
             if hasTimestamp {
                 serialize_size += timestamp.computeUInt64Size(fieldNumber: 1)
@@ -1017,7 +1017,7 @@ public extension Airmap.Telemetry {
             guard isInitialized() else {
                 throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
             }
-
+            
             var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
             if hasTimestamp {
                 jsonMap["timestamp"] = "\(timestamp)"
@@ -1075,10 +1075,10 @@ public extension Airmap.Telemetry {
                 return hashCode
             }
         }
-
-
+        
+        
         //Meta information declaration start
-
+        
         override public class func className() -> String {
             return "Airmap.Telemetry.Speed"
         }
@@ -1086,13 +1086,13 @@ public extension Airmap.Telemetry {
             return "Airmap.Telemetry.Speed"
         }
         //Meta information declaration end
-
+        
         final public class Builder : GeneratedMessageBuilder {
             fileprivate var builderResult:Airmap.Telemetry.Speed = Airmap.Telemetry.Speed()
             public func getMessage() -> Airmap.Telemetry.Speed {
                 return builderResult
             }
-
+            
             required override public init () {
                 super.init()
             }
@@ -1251,22 +1251,22 @@ public extension Airmap.Telemetry {
                 while (true) {
                     let protobufTag = try codedInputStream.readTag()
                     switch protobufTag {
-                    case 0: 
+                    case 0:
                         self.unknownFields = try unknownFieldsBuilder.build()
                         return self
-
+                        
                     case 8:
                         timestamp = try codedInputStream.readUInt64()
-
+                        
                     case 21:
                         velocityX = try codedInputStream.readFloat()
-
+                        
                     case 29:
                         velocityY = try codedInputStream.readFloat()
-
+                        
                     case 37:
                         velocityZ = try codedInputStream.readFloat()
-
+                        
                     default:
                         if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                             unknownFields = try unknownFieldsBuilder.build()
@@ -1302,16 +1302,16 @@ public extension Airmap.Telemetry {
             override class public func fromJSONToBuilder(data:Data) throws -> Airmap.Telemetry.Speed.Builder {
                 let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
                 guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                    throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
                 }
                 return try Airmap.Telemetry.Speed.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
         }
-
+        
     }
-
+    
     final public class Barometer : GeneratedMessage {
-
+        
         public static func == (lhs: Airmap.Telemetry.Barometer, rhs: Airmap.Telemetry.Barometer) -> Bool {
             if lhs === rhs {
                 return true
@@ -1322,15 +1322,15 @@ public extension Airmap.Telemetry {
             fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
             return fieldCheck
         }
-
+        
         /// UNIX time in Milliseconds
         public fileprivate(set) var timestamp:UInt64 = UInt64(0)
         public fileprivate(set) var hasTimestamp:Bool = false
-
+        
         /// Barometric pressure in hPa
         public fileprivate(set) var pressure:Float = Float(0)
         public fileprivate(set) var hasPressure:Bool = false
-
+        
         required public init() {
             super.init()
         }
@@ -1349,9 +1349,9 @@ public extension Airmap.Telemetry {
         override public func serializedSize() -> Int32 {
             var serialize_size:Int32 = memoizedSerializedSize
             if serialize_size != -1 {
-             return serialize_size
+                return serialize_size
             }
-
+            
             serialize_size = 0
             if hasTimestamp {
                 serialize_size += timestamp.computeUInt64Size(fieldNumber: 1)
@@ -1385,7 +1385,7 @@ public extension Airmap.Telemetry {
             guard isInitialized() else {
                 throw ProtocolBuffersError.invalidProtocolBuffer("Uninitialized Message")
             }
-
+            
             var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
             if hasTimestamp {
                 jsonMap["timestamp"] = "\(timestamp)"
@@ -1425,10 +1425,10 @@ public extension Airmap.Telemetry {
                 return hashCode
             }
         }
-
-
+        
+        
         //Meta information declaration start
-
+        
         override public class func className() -> String {
             return "Airmap.Telemetry.Barometer"
         }
@@ -1436,13 +1436,13 @@ public extension Airmap.Telemetry {
             return "Airmap.Telemetry.Barometer"
         }
         //Meta information declaration end
-
+        
         final public class Builder : GeneratedMessageBuilder {
             fileprivate var builderResult:Airmap.Telemetry.Barometer = Airmap.Telemetry.Barometer()
             public func getMessage() -> Airmap.Telemetry.Barometer {
                 return builderResult
             }
-
+            
             required override public init () {
                 super.init()
             }
@@ -1543,16 +1543,16 @@ public extension Airmap.Telemetry {
                 while (true) {
                     let protobufTag = try codedInputStream.readTag()
                     switch protobufTag {
-                    case 0: 
+                    case 0:
                         self.unknownFields = try unknownFieldsBuilder.build()
                         return self
-
+                        
                     case 8:
                         timestamp = try codedInputStream.readUInt64()
-
+                        
                     case 21:
                         pressure = try codedInputStream.readFloat()
-
+                        
                     default:
                         if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                             unknownFields = try unknownFieldsBuilder.build()
@@ -1578,20 +1578,20 @@ public extension Airmap.Telemetry {
             override class public func fromJSONToBuilder(data:Data) throws -> Airmap.Telemetry.Barometer.Builder {
                 let jsonData = try JSONSerialization.jsonObject(with:data, options: JSONSerialization.ReadingOptions(rawValue: 0))
                 guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                    throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
                 }
                 return try Airmap.Telemetry.Barometer.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
         }
-
+        
     }
-
+    
 }
 extension Airmap.Telemetry.Position: GeneratedMessageProtocol {
     public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Airmap.Telemetry.Position> {
         var mergedArray = Array<Airmap.Telemetry.Position>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
-          mergedArray.append(value)
+            mergedArray.append(value)
         }
         return mergedArray
     }
@@ -1630,7 +1630,7 @@ extension Airmap.Telemetry.Position: GeneratedMessageProtocol {
 }
 extension Airmap.Telemetry.Position.Builder: GeneratedMessageBuilderProtocol {
     public subscript(key: String) -> Any? {
-        get { 
+        get {
             switch key {
             case "timestamp": return self.timestamp
             case "latitude": return self.latitude
@@ -1641,7 +1641,7 @@ extension Airmap.Telemetry.Position.Builder: GeneratedMessageBuilderProtocol {
             default: return nil
             }
         }
-        set (newSubscriptValue) { 
+        set (newSubscriptValue) {
             switch key {
             case "timestamp":
                 guard let newSubscriptValue = newSubscriptValue as? UInt64 else {
@@ -1682,7 +1682,7 @@ extension Airmap.Telemetry.Attitude: GeneratedMessageProtocol {
     public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Airmap.Telemetry.Attitude> {
         var mergedArray = Array<Airmap.Telemetry.Attitude>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
-          mergedArray.append(value)
+            mergedArray.append(value)
         }
         return mergedArray
     }
@@ -1719,7 +1719,7 @@ extension Airmap.Telemetry.Attitude: GeneratedMessageProtocol {
 }
 extension Airmap.Telemetry.Attitude.Builder: GeneratedMessageBuilderProtocol {
     public subscript(key: String) -> Any? {
-        get { 
+        get {
             switch key {
             case "timestamp": return self.timestamp
             case "yaw": return self.yaw
@@ -1728,7 +1728,7 @@ extension Airmap.Telemetry.Attitude.Builder: GeneratedMessageBuilderProtocol {
             default: return nil
             }
         }
-        set (newSubscriptValue) { 
+        set (newSubscriptValue) {
             switch key {
             case "timestamp":
                 guard let newSubscriptValue = newSubscriptValue as? UInt64 else {
@@ -1759,7 +1759,7 @@ extension Airmap.Telemetry.Speed: GeneratedMessageProtocol {
     public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Airmap.Telemetry.Speed> {
         var mergedArray = Array<Airmap.Telemetry.Speed>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
-          mergedArray.append(value)
+            mergedArray.append(value)
         }
         return mergedArray
     }
@@ -1796,7 +1796,7 @@ extension Airmap.Telemetry.Speed: GeneratedMessageProtocol {
 }
 extension Airmap.Telemetry.Speed.Builder: GeneratedMessageBuilderProtocol {
     public subscript(key: String) -> Any? {
-        get { 
+        get {
             switch key {
             case "timestamp": return self.timestamp
             case "velocityX": return self.velocityX
@@ -1805,7 +1805,7 @@ extension Airmap.Telemetry.Speed.Builder: GeneratedMessageBuilderProtocol {
             default: return nil
             }
         }
-        set (newSubscriptValue) { 
+        set (newSubscriptValue) {
             switch key {
             case "timestamp":
                 guard let newSubscriptValue = newSubscriptValue as? UInt64 else {
@@ -1836,7 +1836,7 @@ extension Airmap.Telemetry.Barometer: GeneratedMessageProtocol {
     public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Airmap.Telemetry.Barometer> {
         var mergedArray = Array<Airmap.Telemetry.Barometer>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
-          mergedArray.append(value)
+            mergedArray.append(value)
         }
         return mergedArray
     }
