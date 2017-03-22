@@ -40,6 +40,13 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 
 		phone?.isUserInteractionEnabled = false
         colorView.backgroundColor = advisory.color.colorRepresentation
+		
+		// Fires & Emergencies
+		if let type = advisory.type {
+			if  (type == .fire || type == .emergency) && advisory.city.characters.count > 0 && advisory.state.characters.count > 0  {
+				advisoryName.text = "\(advisory.city), \(advisory.state)"
+			}
+		}
         
         // TFRS
         if let trfs = advisory.tfrProperties {
