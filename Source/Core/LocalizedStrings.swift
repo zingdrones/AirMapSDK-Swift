@@ -66,9 +66,12 @@ public struct LocalizedStrings {
 		public static let tfrs = NSLocalizedString("TILE_LAYER_TFR_FAA", bundle: bundle, value: "Temporary Flight Restrictions", comment: "Name for map layer FAA Temporary Flight Restrictions")
 		
 		public static let universities = NSLocalizedString("TILE_LAYER_UNIVERSITIES", bundle: bundle, value: "Universities", comment: "Name for map layer Universities")
-		
-		public static let wildfires = NSLocalizedString("TILE_LAYER_WILDFIRES", bundle: bundle, value: "Wildfires", comment: "Name for map layer Wildfires")
-	}
+        
+        public static let fires = NSLocalizedString("TILE_LAYER_FIRES", bundle: bundle, value: "Fires", comment: "Name for map layer Fires")
+
+        public static let emergencies = NSLocalizedString("TILE_LAYER_EMERGENCIES", bundle: bundle, value: "First Responder Activity", comment: "Name for map layer First Responder Activity")
+
+    }
 	
 	public struct AirspaceType {
 		
@@ -104,8 +107,13 @@ public struct LocalizedStrings {
 		
 		public static let university = NSLocalizedString("AIRSPACE_TYPE_UNIVERSITY", bundle: bundle, value: "University", comment: "Name for airspace type University")
 		
-		public static let wildfire = NSLocalizedString("AIRSPACE_TYPE_WILDFIRE", bundle: bundle, value: "Wildfire", comment: "Name for airspace type Wildfire")
-	}
+        public static let wildfire = NSLocalizedString("AIRSPACE_TYPE_WILDFIRE", bundle: bundle, value: "WildFire", comment: "Name for airspace type WildFire")
+
+        public static let fire = NSLocalizedString("AIRSPACE_TYPE_FIRE", bundle: bundle, value: "Fire", comment: "Name for airspace type Fire")
+
+        public static let emergency = NSLocalizedString("AIRSPACE_TYPE_EMERGENCY", bundle: bundle, value: "Emergency", comment: "Name for airspace type Emergency")
+
+    }
 	
 	public struct Auth {
 		

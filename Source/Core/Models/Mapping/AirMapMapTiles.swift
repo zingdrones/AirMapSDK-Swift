@@ -22,10 +22,10 @@ public enum AirMapMapTheme: String {
 /// The individual airspace layers available
 public enum AirMapLayerType: String {
 	
-	case airportsCommercial          = "airports_commercial"
-	case airportsCommercialPrivate   = "airports_commercial_private"
-	case airportsRecreational        = "airports_recreational"
-	case airportsRecreationalPrivate = "airports_recreational_private"
+	case airportsCommercial				= "airports_commercial"
+	case airportsCommercialPrivate		= "airports_commercial_private"
+	case airportsRecreational			= "airports_recreational"
+	case airportsRecreationalPrivate	= "airports_recreational_private"
 	case cities = "cities"
 	case classB = "class_b"
 	case classC = "class_c"
@@ -33,20 +33,21 @@ public enum AirMapLayerType: String {
 	case classE = "class_e0"  // ClassE *at the surface
 	case custom = "custom"
 	case essentialAirspace = "class_b,class_c,class_d,class_e0"
-	case hazardAreas       = "hazard_areas"
-	case heliports         = "heliports"
-	case hospitals         = "hospitals"
-	case nationalParks     = "national_parks"
-	case noaa              = "noaa"
-	case powerPlants       = "power_plants"
-	case prisons           = "prisons"
-	case prohibited        = "sua_prohibited"
-	case recreationalAreas = "aerial_recreational_areas"
-	case restricted        = "sua_restricted"
-	case schools           = "schools"
-	case tfrs              = "tfrs"
-	case universities      = "universities"
-	case wildfires         = "wildfires"
+	case hazardAreas		= "hazard_areas"
+	case heliports			= "heliports"
+	case hospitals			= "hospitals"
+	case nationalParks		= "national_parks"
+	case noaa				= "noaa"
+	case powerPlants		= "power_plants"
+	case prisons			= "prisons"
+	case prohibited			= "sua_prohibited"
+	case recreationalAreas	= "aerial_recreational_areas"
+	case restricted			= "sua_restricted"
+	case schools			= "schools"
+	case tfrs				= "tfrs"
+	case universities		= "universities"
+	case fires				= "wildfries,fires"
+	case emergencies		= "emergencies"
 	
 	public static let allLayerTypes = [
 		airportsCommercial,
@@ -69,7 +70,8 @@ public enum AirMapLayerType: String {
 		restricted,
 		schools,
 		tfrs,
-		wildfires,
+		fires,
+		emergencies,
 		custom,
 		prisons,
 		universities,
@@ -82,31 +84,32 @@ public enum AirMapLayerType: String {
 		let localized = LocalizedStrings.TileLayer.self
 		
 		switch self {
-		case .airportsCommercial:             return localized.airports
-		case .airportsRecreational:           return localized.airports
-		case .airportsCommercialPrivate:      return localized.airportsPrivate
-		case .airportsRecreationalPrivate:    return localized.airportsPrivate
-		case .cities:                         return localized.cities
-		case .classB:                         return localized.classB
-		case .classC:                         return localized.classC
-		case .classD:                         return localized.classD
-		case .classE:                         return localized.classE
-		case .custom:                         return localized.custom
-		case .essentialAirspace:              return localized.essentionalAirspace
-		case .hazardAreas:                    return localized.hazardAreas
-		case .heliports:                      return localized.heliports
-		case .hospitals:                      return localized.hospitals
-		case .nationalParks:                  return localized.nationalParks
-		case .noaa:                           return localized.noaa
-		case .powerPlants:                    return localized.powerPlants
-		case .prisons:                        return localized.prisons
-		case .prohibited:                     return localized.prohibited
-		case .recreationalAreas:              return localized.recreationalAreas
-		case .restricted:                     return localized.restricted
-		case .schools:                        return localized.schools
-		case .tfrs:                           return localized.tfrs
-		case .universities:                   return localized.universities
-		case .wildfires:                      return localized.wildfires
+		case .airportsCommercial:				return localized.airports
+		case .airportsRecreational:				return localized.airports
+		case .airportsCommercialPrivate:		return localized.airportsPrivate
+		case .airportsRecreationalPrivate:		return localized.airportsPrivate
+		case .cities:							return localized.cities
+		case .classB:							return localized.classB
+		case .classC:							return localized.classC
+		case .classD:							return localized.classD
+		case .classE:							return localized.classE
+		case .custom:							return localized.custom
+		case .essentialAirspace:				return localized.essentionalAirspace
+		case .hazardAreas:						return localized.hazardAreas
+		case .heliports:						return localized.heliports
+		case .hospitals:						return localized.hospitals
+		case .nationalParks:					return localized.nationalParks
+		case .noaa:								return localized.noaa
+		case .powerPlants:						return localized.powerPlants
+		case .prisons:							return localized.prisons
+		case .prohibited:						return localized.prohibited
+		case .recreationalAreas:				return localized.recreationalAreas
+		case .restricted:						return localized.restricted
+		case .schools:							return localized.schools
+		case .tfrs:								return localized.tfrs
+		case .universities:						return localized.universities
+		case .fires:							return localized.fires
+		case .emergencies:						return localized.emergencies
 		}
 	}
 	
@@ -165,11 +168,14 @@ public enum AirMapLayerType: String {
 		case .tfrs:
 			return .tfr
 			
-        case .universities:
-            return .university
+		case .universities:
+			return .university
 
-		case .wildfires:
-			return .wildfire
+		case .fires:
+			return .fire
+			
+		case .emergencies:
+			return .emergency
 		}
 	}
 }
@@ -194,6 +200,8 @@ public enum AirMapAirspaceType: String {
 	case tfr                 = "tfr"
 	case university          = "universities"
 	case wildfire            = "wildfire"
+	case fire                = "fire"
+	case emergency           = "emergency"
 	
 	public static let allAirspaceTypes: [AirMapAirspaceType] = [
 		.airport,
@@ -213,6 +221,8 @@ public enum AirMapAirspaceType: String {
 		.tfr,
 		.university,
 		.wildfire,
+		.fire,
+		.emergency,
 	]
 	
 	/// A descriptive title for the airspace type
@@ -222,23 +232,25 @@ public enum AirMapAirspaceType: String {
 		let localized = LocalizedStrings.AirspaceType.self
 
 		switch self {
-		case .airport:               return localized.airport
-		case .cities:                return localized.city
-		case .controlledAirspace:    return localized.controlledAirspace
-		case .custom:                return localized.custom
-		case .hazardArea:            return localized.hazardArea
-		case .heliport:              return localized.heliport
-		case .hospital:              return localized.hospital
-		case .park:                  return localized.park
-		case .powerPlant:            return localized.powerPlant
-		case .prison:                return localized.prison
-		case .recreationalArea:      return localized.recreationalArea
-		case .school:                return localized.school
-		case .specialUse:            return localized.specialUse
-		case .stadium:               return localized.stadium
-		case .tfr:                   return localized.tfr
-		case .university:            return localized.university
-		case .wildfire:              return localized.wildfire
+		case .airport:				return localized.airport
+		case .cities:				return localized.city
+		case .controlledAirspace:	return localized.controlledAirspace
+		case .custom:				return localized.custom
+		case .hazardArea:			return localized.hazardArea
+		case .heliport:				return localized.heliport
+		case .hospital:				return localized.hospital
+		case .park:					return localized.park
+		case .powerPlant:			return localized.powerPlant
+		case .prison:				return localized.prison
+		case .recreationalArea:		return localized.recreationalArea
+		case .school:				return localized.school
+		case .specialUse:			return localized.specialUse
+		case .stadium:				return localized.stadium
+		case .tfr:					return localized.tfr
+		case .university:			return localized.university
+		case .wildfire:				return localized.wildfire
+		case .fire:					return localized.fire
+		case .emergency:			return localized.emergency
 		}
 	}
 }
