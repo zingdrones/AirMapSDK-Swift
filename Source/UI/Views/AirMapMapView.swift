@@ -10,7 +10,7 @@ import Mapbox
 
 open class AirMapMapView: MGLMapView {
 	
-	open static let defaultLayers: [AirMapLayerType] = [.essentialAirspace, .tfrs, .wildfires]
+	open static let defaultLayers: [AirMapLayerType] = [.essentialAirspace, .tfrs, .fires, .emergencies]
 	open static let defaultTheme: AirMapMapTheme = .light
 	
 	public convenience init(frame: CGRect, layers: [AirMapLayerType], theme: AirMapMapTheme) {
