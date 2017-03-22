@@ -11,6 +11,7 @@ import Foundation
 public class AirMapBundle {
 	
 	public class var core: Bundle {
+        
 		return Bundle(for: AirMap.self)
 	}
 
