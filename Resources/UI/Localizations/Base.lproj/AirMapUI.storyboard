@@ -15,7 +15,7 @@
             <objects>
                 <navigationController id="V2h-jW-mVn" customClass="AirMapFlightPlanNavigationController" customModule="AirMap" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="dCI-yu-ww5" customClass="AirMapNavBar" customModule="AirMap">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="dCI-yu-ww5" customClass="AirMapNavBar" customModule="AirMap">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -69,7 +69,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fti-S4-xfH" customClass="AirMapFlightTypeButton" customModule="AirMap">
-                                        <rect key="frame" x="30" y="1" width="100" height="60"/>
+                                        <rect key="frame" x="29.5" y="1" width="100" height="60"/>
                                         <accessibility key="accessibilityConfiguration" identifier="MAP_"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="7Lg-S0-kgc"/>
@@ -98,7 +98,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAP-O7-VzM" customClass="AirMapFlightTypeButton" customModule="AirMap">
-                                        <rect key="frame" x="138" y="1" width="100" height="60"/>
+                                        <rect key="frame" x="137.5" y="1" width="100" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="CMa-iW-y89"/>
                                             <constraint firstAttribute="width" constant="100" id="jMF-1q-rtD"/>
@@ -126,7 +126,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yyg-xF-uSz" customClass="AirMapFlightTypeButton" customModule="AirMap">
-                                        <rect key="frame" x="246" y="1" width="100" height="60"/>
+                                        <rect key="frame" x="245.5" y="1" width="100" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="0eH-Cd-9nK"/>
                                             <constraint firstAttribute="height" constant="60" id="9Mf-Uq-3nj"/>
@@ -175,10 +175,10 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.56669999999999998" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="edb-PY-xVw">
-                                        <rect key="frame" x="92" y="10" width="178" height="31"/>
+                                        <rect key="frame" x="93" y="10" width="181" height="31"/>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="[3,000 ft]" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVU-1B-8kY">
-                                        <rect key="frame" x="283" y="16" width="70" height="18"/>
+                                        <rect key="frame" x="287" y="16" width="70" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="YyC-Id-pTg"/>
                                         </constraints>
@@ -187,7 +187,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="[Radius]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69c-Tr-wUG">
-                                        <rect key="frame" x="15" y="16" width="59" height="18"/>
+                                        <rect key="frame" x="16" y="16" width="59" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -195,12 +195,12 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="uVU-1B-8kY" secondAttribute="trailing" constant="22" id="1iN-uz-2bk"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="uVU-1B-8kY" secondAttribute="trailing" constant="10" id="1iN-uz-2bk"/>
                                     <constraint firstItem="uVU-1B-8kY" firstAttribute="centerY" secondItem="GlT-gh-cZU" secondAttribute="centerY" id="3PC-dt-gtI"/>
                                     <constraint firstItem="69c-Tr-wUG" firstAttribute="centerY" secondItem="GlT-gh-cZU" secondAttribute="centerY" id="4Fq-AK-i4a"/>
                                     <constraint firstAttribute="bottom" secondItem="jJa-Es-m77" secondAttribute="bottom" id="8IG-C6-eIe"/>
                                     <constraint firstItem="edb-PY-xVw" firstAttribute="centerY" secondItem="GlT-gh-cZU" secondAttribute="centerY" id="Axd-MS-0iS"/>
-                                    <constraint firstItem="69c-Tr-wUG" firstAttribute="leading" secondItem="GlT-gh-cZU" secondAttribute="leading" constant="15" id="Ihr-2k-zY7"/>
+                                    <constraint firstItem="69c-Tr-wUG" firstAttribute="leading" secondItem="GlT-gh-cZU" secondAttribute="leadingMargin" constant="8" id="Ihr-2k-zY7"/>
                                     <constraint firstItem="jJa-Es-m77" firstAttribute="top" secondItem="GlT-gh-cZU" secondAttribute="top" id="MLD-T1-Q4C"/>
                                     <constraint firstItem="jJa-Es-m77" firstAttribute="leading" secondItem="GlT-gh-cZU" secondAttribute="leading" id="TQ2-lD-HN7"/>
                                     <constraint firstItem="edb-PY-xVw" firstAttribute="leading" secondItem="69c-Tr-wUG" secondAttribute="trailing" constant="20" id="ZaV-gQ-Qes"/>
@@ -324,6 +324,7 @@ Line two details would be here.]</string>
                             </fragment>
                         </attributedString>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="actionButton" destination="1eA-nR-8lo" id="CgF-d5-KpY"/>
                         <outlet property="advisoriesInfoButton" destination="QV9-dV-Hou" id="kEd-rR-7hU"/>
@@ -475,7 +476,7 @@ Line two details would be here.]</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Value]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dnw-0q-e8Y">
-                                                    <rect key="frame" x="128" y="12" width="65" height="20"/>
+                                                    <rect key="frame" x="129" y="12" width="65" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="65" id="hPK-of-uPt"/>
                                                     </constraints>
@@ -484,11 +485,11 @@ Line two details would be here.]</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.322843998670578" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Zun-2f-xrx">
-                                                    <rect key="frame" x="201" y="7" width="161" height="31"/>
+                                                    <rect key="frame" x="202" y="7" width="159" height="31"/>
                                                     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </slider>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Label]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdR-Pf-MWO">
-                                                    <rect key="frame" x="15" y="12" width="105" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Label]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="kdR-Pf-MWO">
+                                                    <rect key="frame" x="16" y="12" width="105" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="105" id="xlk-WE-TwI"/>
                                                     </constraints>
@@ -499,12 +500,12 @@ Line two details would be here.]</string>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Zun-2f-xrx" firstAttribute="leading" secondItem="Dnw-0q-e8Y" secondAttribute="trailing" constant="10" id="Aps-FB-sod"/>
-                                                <constraint firstAttribute="trailing" secondItem="Zun-2f-xrx" secondAttribute="trailing" constant="15" id="DoD-tx-P25"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Zun-2f-xrx" secondAttribute="trailing" constant="8" id="DoD-tx-P25"/>
                                                 <constraint firstItem="Zun-2f-xrx" firstAttribute="centerY" secondItem="XC4-sk-30y" secondAttribute="centerY" id="Jtk-vv-JqA"/>
                                                 <constraint firstItem="Dnw-0q-e8Y" firstAttribute="centerY" secondItem="XC4-sk-30y" secondAttribute="centerY" id="RL1-7V-vNz"/>
                                                 <constraint firstItem="kdR-Pf-MWO" firstAttribute="centerY" secondItem="XC4-sk-30y" secondAttribute="centerY" id="RLD-NF-PaE"/>
                                                 <constraint firstItem="Dnw-0q-e8Y" firstAttribute="leading" secondItem="kdR-Pf-MWO" secondAttribute="trailing" constant="8" id="UHR-Ft-HZ0"/>
-                                                <constraint firstItem="kdR-Pf-MWO" firstAttribute="leading" secondItem="XC4-sk-30y" secondAttribute="leading" constant="15" id="ok0-ja-gPp"/>
+                                                <constraint firstItem="kdR-Pf-MWO" firstAttribute="leading" secondItem="XC4-sk-30y" secondAttribute="leadingMargin" constant="8" id="ok0-ja-gPp"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -521,8 +522,8 @@ Line two details would be here.]</string>
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dy4-Qg-lC0">
-                                                    <rect key="frame" x="15" y="11" width="105" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Dy4-Qg-lC0">
+                                                    <rect key="frame" x="16" y="11" width="105" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="105" id="Tf6-GU-Ve9"/>
                                                     </constraints>
@@ -547,7 +548,7 @@ Line two details would be here.]</string>
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="[Date]" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kvr-OH-s5B">
-                                                    <rect key="frame" x="128" y="7" width="237" height="30"/>
+                                                    <rect key="frame" x="129" y="7" width="230" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="eoz-b4-pe2"/>
                                                     </constraints>
@@ -559,8 +560,8 @@ Line two details would be here.]</string>
                                             <constraints>
                                                 <constraint firstItem="kvr-OH-s5B" firstAttribute="baseline" secondItem="Dy4-Qg-lC0" secondAttribute="baseline" id="B0s-Lo-hi2"/>
                                                 <constraint firstItem="Dy4-Qg-lC0" firstAttribute="centerY" secondItem="5WU-QV-YrF" secondAttribute="centerY" id="BU5-M8-tJW"/>
-                                                <constraint firstAttribute="trailing" secondItem="kvr-OH-s5B" secondAttribute="trailing" constant="10" id="IYB-x9-beU"/>
-                                                <constraint firstItem="Dy4-Qg-lC0" firstAttribute="leading" secondItem="5WU-QV-YrF" secondAttribute="leading" constant="15" id="Qvf-bf-upA"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kvr-OH-s5B" secondAttribute="trailing" constant="8" id="IYB-x9-beU"/>
+                                                <constraint firstItem="Dy4-Qg-lC0" firstAttribute="leading" secondItem="5WU-QV-YrF" secondAttribute="leadingMargin" constant="8" id="Qvf-bf-upA"/>
                                                 <constraint firstItem="kvr-OH-s5B" firstAttribute="leading" secondItem="Dy4-Qg-lC0" secondAttribute="trailing" constant="8" id="p8c-wS-wnh"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -576,8 +577,8 @@ Line two details would be here.]</string>
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Pilot Profile]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ik-Ci-W3p">
-                                                    <rect key="frame" x="15" y="12" width="312" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Pilot Profile Here]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ik-Ci-W3p">
+                                                    <rect key="frame" x="16" y="12" width="311" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="highlightedColor" red="0.14901960780000001" green="0.18039215689999999" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -586,7 +587,7 @@ Line two details would be here.]</string>
                                             <constraints>
                                                 <constraint firstItem="0ik-Ci-W3p" firstAttribute="centerY" secondItem="Ql4-oD-Kzb" secondAttribute="centerY" id="6gP-hk-abC"/>
                                                 <constraint firstAttribute="trailing" secondItem="0ik-Ci-W3p" secondAttribute="trailing" constant="15" id="Sw8-TB-kwf"/>
-                                                <constraint firstItem="0ik-Ci-W3p" firstAttribute="leading" secondItem="Ql4-oD-Kzb" secondAttribute="leading" constant="15" id="iNw-92-TdE"/>
+                                                <constraint firstItem="0ik-Ci-W3p" firstAttribute="leading" secondItem="Ql4-oD-Kzb" secondAttribute="leadingMargin" constant="8" id="iNw-92-TdE"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -603,14 +604,14 @@ Line two details would be here.]</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Select Aircraft]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JRY-fw-0ZI">
-                                                    <rect key="frame" x="15" y="12" width="312" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="311" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="highlightedColor" red="0.14901960780000001" green="0.18039215689999999" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="JRY-fw-0ZI" firstAttribute="leading" secondItem="InX-fb-sxY" secondAttribute="leading" constant="15" id="9zn-um-eyf"/>
+                                                <constraint firstItem="JRY-fw-0ZI" firstAttribute="leading" secondItem="InX-fb-sxY" secondAttribute="leadingMargin" constant="8" id="9zn-um-eyf"/>
                                                 <constraint firstItem="JRY-fw-0ZI" firstAttribute="centerY" secondItem="InX-fb-sxY" secondAttribute="centerY" id="O9g-Ij-Uzl"/>
                                                 <constraint firstAttribute="trailing" secondItem="JRY-fw-0ZI" secondAttribute="trailing" constant="15" id="bv4-nr-hdN"/>
                                             </constraints>
@@ -629,14 +630,14 @@ Line two details would be here.]</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="airmap_share_logo" translatesAutoresizingMaskIntoConstraints="NO" id="gfw-aW-EmB">
-                                                    <rect key="frame" x="15" y="12" width="87" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="87" height="20"/>
                                                 </imageView>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pIi-9Q-xqe">
-                                                    <rect key="frame" x="311" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="310" y="6" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </switch>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WD8-KH-isg">
-                                                    <rect key="frame" x="102" y="1" width="50" height="42"/>
+                                                    <rect key="frame" x="103" y="1" width="50" height="42"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="7K0-RW-n9b"/>
                                                         <constraint firstAttribute="height" constant="42" id="YCv-On-Yb5"/>
@@ -650,8 +651,8 @@ Line two details would be here.]</string>
                                             <constraints>
                                                 <constraint firstItem="pIi-9Q-xqe" firstAttribute="centerY" secondItem="gdr-Fk-bP2" secondAttribute="centerY" id="4WE-BP-RgW"/>
                                                 <constraint firstItem="gfw-aW-EmB" firstAttribute="centerY" secondItem="gdr-Fk-bP2" secondAttribute="centerY" id="GuW-V1-Hm5"/>
-                                                <constraint firstItem="gfw-aW-EmB" firstAttribute="leading" secondItem="gdr-Fk-bP2" secondAttribute="leading" constant="15" id="O4W-cf-aPB"/>
-                                                <constraint firstAttribute="trailing" secondItem="pIi-9Q-xqe" secondAttribute="trailing" constant="15" id="OKp-nq-HbS"/>
+                                                <constraint firstItem="gfw-aW-EmB" firstAttribute="leading" secondItem="gdr-Fk-bP2" secondAttribute="leadingMargin" constant="8" id="O4W-cf-aPB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="pIi-9Q-xqe" secondAttribute="trailing" constant="8" id="OKp-nq-HbS"/>
                                                 <constraint firstItem="WD8-KH-isg" firstAttribute="leading" secondItem="gfw-aW-EmB" secondAttribute="trailing" id="Pdi-Vg-ged"/>
                                                 <constraint firstItem="WD8-KH-isg" firstAttribute="centerY" secondItem="gfw-aW-EmB" secondAttribute="centerY" id="hvz-pr-rWd"/>
                                             </constraints>
@@ -1077,7 +1078,7 @@ Line two details would be here.]</string>
         <scene sceneID="ajs-kt-gsK">
             <objects>
                 <navigationController storyboardIdentifier="AdvisoriesNavigation" automaticallyAdjustsScrollViewInsets="NO" id="OcD-bb-4X7" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="Esf-20-NJN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Esf-20-NJN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1095,7 +1096,7 @@ Line two details would be here.]</string>
         <scene sceneID="R0J-K9-qwi">
             <objects>
                 <navigationController id="EhR-xH-Seh" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="lzy-Bt-lcK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="lzy-Bt-lcK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1136,6 +1137,14 @@ Line two details would be here.]</string>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="CREATE_AIRCRAFT_NICKNAME|Placeholder label for the textfield where a user inputs the nickname for an aircraft">
+                                                            <attributes>
+                                                                <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1262,46 +1271,7 @@ AirMap will send you a text message when your digital notice has been successful
                                         <fragment content="PHONE_VERIFICATION_HEADER|Copy describing the process of verifying your phone number">
                                             <attributes>
                                                 <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                    <tabStops>
-                                                        <textTab alignment="left" location="28">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="56">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="84">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="112">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="140">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="168">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="196">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="224">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="252">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="280">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="308">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="336">
-                                                            <options/>
-                                                        </textTab>
-                                                    </tabStops>
-                                                </paragraphStyle>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -1359,46 +1329,7 @@ AirMap will send you a text message when your digital notice has been successful
                                                         <fragment content="PHONE_VERIFICATION_PHONE|Placeholder label for the text field where a user types their phone number">
                                                             <attributes>
                                                                 <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                    <tabStops>
-                                                                        <textTab alignment="left" location="28">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="56">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="84">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="112">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="140">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="168">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="196">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="224">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="252">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="280">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="308">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="336">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                    </tabStops>
-                                                                </paragraphStyle>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -1430,6 +1361,14 @@ AirMap will send you a text message when your digital notice has been successful
                                 <action selector="dismiss:" destination="vSg-8e-JzS" id="gB5-7p-6oU"/>
                             </connections>
                         </barButtonItem>
+                        <attributedString key="userComments">
+                            <fragment content="PHONE_VERIFICATION_TITLE|Title for view that allows a user to verify their phone number">
+                                <attributes>
+                                    <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                     </navigationItem>
                     <connections>
                         <outlet property="country" destination="EGv-95-foG" id="tKu-jD-KlF"/>
@@ -1456,46 +1395,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <fragment content="PHONE_VERIFICATION_SAVE_BUTTON|Title for button that saves and submits the users phone number for verification">
                             <attributes>
                                 <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                    <tabStops>
-                                        <textTab alignment="left" location="28">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="56">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="84">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="112">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="140">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="168">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="196">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="224">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="252">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="280">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="308">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="336">
-                                            <options/>
-                                        </textTab>
-                                    </tabStops>
-                                </paragraphStyle>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                             </attributes>
                         </fragment>
                     </attributedString>
@@ -1527,46 +1427,7 @@ AirMap will send you a text message when your digital notice has been successful
                                         <fragment content="PHONE_VERIFICATION_CODE_HEADER|Header text for view where a user can input their SMS verification code">
                                             <attributes>
                                                 <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                    <tabStops>
-                                                        <textTab alignment="left" location="28">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="56">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="84">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="112">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="140">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="168">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="196">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="224">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="252">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="280">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="308">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="336">
-                                                            <options/>
-                                                        </textTab>
-                                                    </tabStops>
-                                                </paragraphStyle>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -1600,46 +1461,7 @@ AirMap will send you a text message when your digital notice has been successful
                                                         <fragment content="PHONE_VERIFICATION_CODE_PLACEHOLDER|Placeholder label for the textfield where a user can input their SMS verification code">
                                                             <attributes>
                                                                 <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                    <tabStops>
-                                                                        <textTab alignment="left" location="28">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="56">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="84">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="112">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="140">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="168">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="196">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="224">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="252">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="280">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="308">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="336">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                    </tabStops>
-                                                                </paragraphStyle>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -1660,7 +1482,16 @@ AirMap will send you a text message when your digital notice has been successful
                             <outlet property="delegate" destination="nyx-Hp-7C7" id="ysK-Kl-AO3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Verify Phone Number" id="MVj-Qg-sch"/>
+                    <navigationItem key="navigationItem" title="Verify Phone Number" id="MVj-Qg-sch">
+                        <attributedString key="userComments">
+                            <fragment content="PHONE_VERIFICATION_CODE_TITLE|Title for the view where a user can verify an SMS token">
+                                <attributes>
+                                    <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </navigationItem>
                     <connections>
                         <outlet property="smsCode" destination="dDO-AY-LlB" id="K85-pO-i1J"/>
                         <outlet property="smsTextField" destination="dDO-AY-LlB" id="9nv-aY-B1E"/>
@@ -1686,46 +1517,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <fragment content="PHONE_VERIFICATION_SAVE_BUTTON|Title for button that allows the user to submit the SMS code for verification">
                             <attributes>
                                 <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                    <tabStops>
-                                        <textTab alignment="left" location="28">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="56">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="84">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="112">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="140">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="168">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="196">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="224">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="252">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="280">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="308">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="336">
-                                            <options/>
-                                        </textTab>
-                                    </tabStops>
-                                </paragraphStyle>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                             </attributes>
                         </fragment>
                     </attributedString>
@@ -1774,46 +1566,7 @@ AirMap will send you a text message when your digital notice has been successful
                             <fragment content="PHONE_COUNTRY_TITLE|Title for the view that allows a user to select their phone numbers country">
                                 <attributes>
                                     <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                        <tabStops>
-                                            <textTab alignment="left" location="28">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="56">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="84">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="112">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="140">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="168">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="196">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="224">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="252">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="280">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="308">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="336">
-                                                <options/>
-                                            </textTab>
-                                        </tabStops>
-                                    </paragraphStyle>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
@@ -1827,7 +1580,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="fXr-LJ-5QW">
             <objects>
                 <navigationController storyboardIdentifier="VerifyPhoneNumber" id="qCC-Ux-GvH" customClass="AirMapPhoneVerificationNavController" customModule="AirMap" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="7wR-7A-qNT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="7wR-7A-qNT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1845,7 +1598,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="ppv-O4-Uso">
             <objects>
                 <navigationController storyboardIdentifier="AirMapAircraftNavController" id="dFP-db-86e" customClass="AirMapAircraftNavController" customModule="AirMap" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="58x-G9-Cm3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="58x-G9-Cm3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1911,7 +1664,7 @@ AirMap will send you a text message when your digital notice has been successful
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Operating in this flight area requires a permit from each of the following authorities:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLI-qV-iML">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Operating in this flight area requires a permit from each of the following authorities:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="HLI-qV-iML">
                                             <rect key="frame" x="15" y="50" width="345" height="41"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2058,7 +1811,6 @@ AirMap will send you a text message when your digital notice has been successful
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Permits" id="747-Q2-1CI">
-                        <barButtonItem key="backBarButtonItem" title="  " id="Zhn-iE-IQ1"/>
                         <barButtonItem key="rightBarButtonItem" image="info_icon" id="waI-wP-EZg">
                             <connections>
                                 <segue destination="s0Y-eF-iZa" kind="presentation" identifier="modalFAQ" id="ysS-Cf-M36"/>
@@ -2258,6 +2010,22 @@ AirMap will send you a text message when your digital notice has been successful
                                 <segue destination="lYW-Le-hXy" kind="unwind" unwindAction="unwindToFlightPlan:" id="hVb-PK-4Ev"/>
                             </connections>
                         </barButtonItem>
+                        <attributedString key="userComments">
+                            <fragment content="PILOT_PROFILE_TITLE|Title for view where a user can modify their user profile">
+                                <attributes>
+                                    <color key="NSColor" red="0.85899999999999999" green="0.17100000000000001" blue="0.219" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="14" name="Menlo-Regular"/>
+                                    <integer key="NSLigature" value="0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="34.600000000000001" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                        <tabStops>
+                                            <textTab alignment="left" location="34.599998474121094">
+                                                <options/>
+                                            </textTab>
+                                        </tabStops>
+                                    </paragraphStyle>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                     </navigationItem>
                     <connections>
                         <outlet property="fullName" destination="LTQ-cw-ceU" id="oRi-oE-U9Z"/>
@@ -2307,7 +2075,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="aQe-Qh-Civ">
             <objects>
                 <navigationController id="Qwf-w4-bR0" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="PdW-vy-Pt4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="PdW-vy-Pt4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2378,46 +2146,7 @@ AirMap will send you a text message when your digital notice has been successful
                             <fragment content="SELECT_AIRCRAFT_TITLE|Title for the view where you can select an aircraft for a flight">
                                 <attributes>
                                     <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                        <tabStops>
-                                            <textTab alignment="left" location="28">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="56">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="84">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="112">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="140">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="168">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="196">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="224">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="252">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="280">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="308">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="336">
-                                                <options/>
-                                            </textTab>
-                                        </tabStops>
-                                    </paragraphStyle>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
@@ -2485,16 +2214,16 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization Name]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZm-0C-nto">
-                                                    <rect key="frame" x="15" y="12" width="345" height="19"/>
+                                                    <rect key="frame" x="16" y="12" width="343" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="LZm-0C-nto" firstAttribute="leading" secondItem="3ga-x3-2qs" secondAttribute="leading" constant="15" id="3l6-XS-hxz"/>
+                                                <constraint firstItem="LZm-0C-nto" firstAttribute="leading" secondItem="3ga-x3-2qs" secondAttribute="leadingMargin" constant="8" id="3l6-XS-hxz"/>
                                                 <constraint firstItem="LZm-0C-nto" firstAttribute="top" secondItem="3ga-x3-2qs" secondAttribute="top" constant="12" id="ZEx-bu-gDc"/>
-                                                <constraint firstItem="LZm-0C-nto" firstAttribute="trailing" secondItem="3ga-x3-2qs" secondAttribute="trailing" constant="-15" id="fTz-VG-dw0"/>
+                                                <constraint firstItem="LZm-0C-nto" firstAttribute="trailing" secondItem="3ga-x3-2qs" secondAttribute="trailingMargin" constant="-8" id="fTz-VG-dw0"/>
                                                 <constraint firstAttribute="bottom" secondItem="LZm-0C-nto" secondAttribute="bottom" constant="12" id="v02-CS-YOY"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2511,13 +2240,13 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization Name]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x15-bn-O0z">
-                                                    <rect key="frame" x="15" y="12" width="345" height="21"/>
+                                                    <rect key="frame" x="16" y="12" width="343" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="[310-555-1212]" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kly-En-8eF">
-                                                    <rect key="frame" x="19" y="29" width="337" height="30"/>
+                                                    <rect key="frame" x="16" y="29" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2526,12 +2255,12 @@ AirMap will send you a text message when your digital notice has been successful
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="kly-En-8eF" firstAttribute="leading" secondItem="1Ty-kb-Ftf" secondAttribute="leading" constant="19" id="EmE-SP-fDS"/>
+                                                <constraint firstItem="kly-En-8eF" firstAttribute="leading" secondItem="1Ty-kb-Ftf" secondAttribute="leadingMargin" constant="8" id="EmE-SP-fDS"/>
                                                 <constraint firstAttribute="bottom" secondItem="kly-En-8eF" secondAttribute="bottom" constant="10.5" id="GkS-lS-5ch"/>
-                                                <constraint firstItem="x15-bn-O0z" firstAttribute="leading" secondItem="1Ty-kb-Ftf" secondAttribute="leading" constant="15" id="JDi-rF-FON"/>
-                                                <constraint firstAttribute="trailing" secondItem="kly-En-8eF" secondAttribute="trailing" constant="19" id="e83-6y-pHp"/>
+                                                <constraint firstItem="x15-bn-O0z" firstAttribute="leading" secondItem="1Ty-kb-Ftf" secondAttribute="leadingMargin" constant="8" id="JDi-rF-FON"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kly-En-8eF" secondAttribute="trailing" constant="8" id="e83-6y-pHp"/>
                                                 <constraint firstItem="kly-En-8eF" firstAttribute="top" secondItem="x15-bn-O0z" secondAttribute="bottom" constant="-4" id="f2N-n9-hGo"/>
-                                                <constraint firstItem="x15-bn-O0z" firstAttribute="trailing" secondItem="1Ty-kb-Ftf" secondAttribute="trailing" constant="-15" id="jaO-km-icc"/>
+                                                <constraint firstItem="x15-bn-O0z" firstAttribute="trailing" secondItem="1Ty-kb-Ftf" secondAttribute="trailingMargin" constant="-8" id="jaO-km-icc"/>
                                                 <constraint firstItem="x15-bn-O0z" firstAttribute="top" secondItem="1Ty-kb-Ftf" secondAttribute="top" constant="12" id="rJk-dN-k0s"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2698,31 +2427,31 @@ AirMap will send you a text message when your digital notice has been successful
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Existing Permit Title]" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDi-dr-PQg">
-                                            <rect key="frame" x="55" y="15" width="320" height="21"/>
+                                            <rect key="frame" x="56" y="15" width="319" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Permit Description]" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzq-z0-kAV">
-                                            <rect key="frame" x="15" y="42" width="355" height="18"/>
+                                            <rect key="frame" x="16" y="42" width="354" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Status]" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glK-3H-vJ9">
-                                            <rect key="frame" x="15" y="66" width="55" height="18"/>
+                                            <rect key="frame" x="16" y="66" width="55" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.51196527089999999" green="0.53720663800000001" blue="0.55613766340000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[2016-12-31]" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuX-KA-s6d">
-                                            <rect key="frame" x="277" y="66" width="90" height="18"/>
+                                            <rect key="frame" x="269" y="66" width="90" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.51196527089999999" green="0.53720663800000001" blue="0.55613766340000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="permit_wallet_icon" translatesAutoresizingMaskIntoConstraints="NO" id="fS6-vm-nHU">
-                                            <rect key="frame" x="15" y="14" width="30" height="23"/>
+                                            <rect key="frame" x="16" y="14" width="30" height="23"/>
                                             <color key="tintColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="v3m-7K-yhz"/>
@@ -2737,10 +2466,10 @@ AirMap will send you a text message when your digital notice has been successful
                                         <constraint firstItem="fS6-vm-nHU" firstAttribute="centerY" secondItem="iDi-dr-PQg" secondAttribute="centerY" id="Igm-ID-Hyc"/>
                                         <constraint firstItem="DuX-KA-s6d" firstAttribute="baseline" secondItem="glK-3H-vJ9" secondAttribute="baseline" id="KfE-7E-mV0"/>
                                         <constraint firstItem="iDi-dr-PQg" firstAttribute="top" secondItem="mwW-t2-yrV" secondAttribute="top" constant="15" id="qmf-Q5-igf"/>
-                                        <constraint firstItem="fS6-vm-nHU" firstAttribute="leading" secondItem="mwW-t2-yrV" secondAttribute="leading" constant="15" id="ssE-xl-XXF"/>
+                                        <constraint firstItem="fS6-vm-nHU" firstAttribute="leading" secondItem="mwW-t2-yrV" secondAttribute="leadingMargin" constant="8" id="ssE-xl-XXF"/>
                                         <constraint firstAttribute="trailing" secondItem="vzq-z0-kAV" secondAttribute="trailing" constant="5" id="uTz-8g-wa1"/>
                                         <constraint firstAttribute="trailing" secondItem="iDi-dr-PQg" secondAttribute="trailing" id="vIv-4c-5Pf"/>
-                                        <constraint firstAttribute="trailing" secondItem="DuX-KA-s6d" secondAttribute="trailing" constant="8" id="yPL-fr-CHj"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="DuX-KA-s6d" secondAttribute="trailing" constant="8" id="yPL-fr-CHj"/>
                                         <constraint firstItem="glK-3H-vJ9" firstAttribute="leading" secondItem="vzq-z0-kAV" secondAttribute="leading" id="yWm-k9-5HW"/>
                                         <constraint firstItem="glK-3H-vJ9" firstAttribute="top" secondItem="vzq-z0-kAV" secondAttribute="bottom" constant="6" id="ybb-c1-Oai"/>
                                     </constraints>
@@ -2762,13 +2491,13 @@ AirMap will send you a text message when your digital notice has been successful
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Available Permit Title]" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZ0-Sr-UGd">
-                                            <rect key="frame" x="15" y="15" width="322" height="21"/>
+                                            <rect key="frame" x="16" y="15" width="321" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Permit Description]" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7r-Zk-B9n">
-                                            <rect key="frame" x="15" y="41" width="322" height="18"/>
+                                            <rect key="frame" x="16" y="41" width="321" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -2779,7 +2508,7 @@ AirMap will send you a text message when your digital notice has been successful
                                         <constraint firstItem="o7r-Zk-B9n" firstAttribute="top" secondItem="uZ0-Sr-UGd" secondAttribute="bottom" constant="5" id="Bv7-pa-gFT"/>
                                         <constraint firstAttribute="trailing" secondItem="uZ0-Sr-UGd" secondAttribute="trailing" constant="5" id="GYw-JX-J7H"/>
                                         <constraint firstItem="o7r-Zk-B9n" firstAttribute="leading" secondItem="uZ0-Sr-UGd" secondAttribute="leading" id="S5z-UP-9ev"/>
-                                        <constraint firstItem="uZ0-Sr-UGd" firstAttribute="leading" secondItem="aaS-rT-K4Q" secondAttribute="leading" constant="15" id="aa9-de-5Qe"/>
+                                        <constraint firstItem="uZ0-Sr-UGd" firstAttribute="leading" secondItem="aaS-rT-K4Q" secondAttribute="leadingMargin" constant="8" id="aa9-de-5Qe"/>
                                         <constraint firstItem="uZ0-Sr-UGd" firstAttribute="top" secondItem="aaS-rT-K4Q" secondAttribute="top" constant="15" id="cW4-RA-dM2"/>
                                         <constraint firstAttribute="trailing" secondItem="o7r-Zk-B9n" secondAttribute="trailing" constant="5" id="vhU-cg-WMj"/>
                                     </constraints>
@@ -2799,13 +2528,13 @@ AirMap will send you a text message when your digital notice has been successful
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Unavailable Permit Title]" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOg-3O-fMT">
-                                            <rect key="frame" x="15" y="15" width="355" height="21"/>
+                                            <rect key="frame" x="16" y="15" width="354" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Permit Description]" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGe-ct-6cG">
-                                            <rect key="frame" x="15" y="41" width="355" height="18"/>
+                                            <rect key="frame" x="16" y="41" width="354" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -2817,7 +2546,7 @@ AirMap will send you a text message when your digital notice has been successful
                                         <constraint firstItem="fGe-ct-6cG" firstAttribute="top" secondItem="pOg-3O-fMT" secondAttribute="bottom" constant="5" id="EhC-G5-Mpe"/>
                                         <constraint firstAttribute="trailing" secondItem="fGe-ct-6cG" secondAttribute="trailing" constant="5" id="Ir6-Q5-mFE"/>
                                         <constraint firstAttribute="bottom" secondItem="fGe-ct-6cG" secondAttribute="bottom" constant="15" id="acZ-RO-lUh"/>
-                                        <constraint firstItem="pOg-3O-fMT" firstAttribute="leading" secondItem="wgU-ix-oCE" secondAttribute="leading" constant="15" id="ezT-Ow-43V"/>
+                                        <constraint firstItem="pOg-3O-fMT" firstAttribute="leading" secondItem="wgU-ix-oCE" secondAttribute="leadingMargin" constant="8" id="ezT-Ow-43V"/>
                                         <constraint firstItem="fGe-ct-6cG" firstAttribute="leading" secondItem="pOg-3O-fMT" secondAttribute="leading" id="vP8-Vk-1g9"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -2871,7 +2600,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="1G0-0b-b0E">
             <objects>
                 <navigationController id="LkW-Bl-olT" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="iyG-Vv-MOC" customClass="AirMapNavBar" customModule="AirMap">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="iyG-Vv-MOC" customClass="AirMapNavBar" customModule="AirMap">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2974,6 +2703,14 @@ AirMap will send you a text message when your digital notice has been successful
                     </tableView>
                     <navigationItem key="navigationItem" title="Permit" id="uxj-wa-owq">
                         <barButtonItem key="backBarButtonItem" title=" " id="HTK-1P-LMg"/>
+                        <attributedString key="userComments">
+                            <fragment content="PERMIT_DETAILS_TITLE|Title for the view that displays permit details">
+                                <attributes>
+                                    <font key="NSFont" size="11" name="HelveticaNeue"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                     </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="Iz2-Va-oce" id="sJa-df-FNf"/>
@@ -3023,46 +2760,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <fragment content="PERMIT_DETAILS_SELECT_PERMIT_BUTTON|Title for the button that selects the currently displayed permit and dismisses the view">
                             <attributes>
                                 <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                    <tabStops>
-                                        <textTab alignment="left" location="28">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="56">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="84">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="112">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="140">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="168">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="196">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="224">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="252">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="280">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="308">
-                                            <options/>
-                                        </textTab>
-                                        <textTab alignment="left" location="336">
-                                            <options/>
-                                        </textTab>
-                                    </tabStops>
-                                </paragraphStyle>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                             </attributes>
                         </fragment>
                     </attributedString>
@@ -3146,6 +2844,22 @@ AirMap will send you a text message when your digital notice has been successful
                                 <action selector="dismiss" destination="8BE-J7-rU0" id="1i4-v9-s1N"/>
                             </connections>
                         </barButtonItem>
+                        <attributedString key="userComments">
+                            <fragment content="REVIEW_FLIGHT_PLAN_TITLE|Title for view where user can review a flight plan">
+                                <attributes>
+                                    <color key="NSColor" red="0.85899999999999999" green="0.17100000000000001" blue="0.219" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="14" name="Menlo-Regular"/>
+                                    <integer key="NSLigature" value="0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="34.600000000000001" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                        <tabStops>
+                                            <textTab alignment="left" location="34.599998474121094">
+                                                <options/>
+                                            </textTab>
+                                        </tabStops>
+                                    </paragraphStyle>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                     </navigationItem>
                     <connections>
                         <outlet property="detailsView" destination="pjF-7N-mPh" id="xa0-73-ueY"/>
@@ -3339,10 +3053,10 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="airmap_share_logo" translatesAutoresizingMaskIntoConstraints="NO" id="J0q-Fc-eam">
-                                                    <rect key="frame" x="15" y="12" width="87" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="87" height="20"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVI-eK-zfJ">
-                                                    <rect key="frame" x="310" y="1" width="50" height="42"/>
+                                                    <rect key="frame" x="309" y="1" width="50" height="42"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="0hO-d3-HNs"/>
                                                         <constraint firstAttribute="height" constant="42" id="lCO-eR-2Eg"/>
@@ -3355,9 +3069,9 @@ AirMap will send you a text message when your digital notice has been successful
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="mVI-eK-zfJ" firstAttribute="centerY" secondItem="J0q-Fc-eam" secondAttribute="centerY" id="OsS-QD-UJJ"/>
-                                                <constraint firstItem="J0q-Fc-eam" firstAttribute="leading" secondItem="Mvt-bS-Hzr" secondAttribute="leading" constant="15" id="nuG-gl-ZYv"/>
+                                                <constraint firstItem="J0q-Fc-eam" firstAttribute="leading" secondItem="Mvt-bS-Hzr" secondAttribute="leadingMargin" constant="8" id="nuG-gl-ZYv"/>
                                                 <constraint firstItem="J0q-Fc-eam" firstAttribute="centerY" secondItem="Mvt-bS-Hzr" secondAttribute="centerY" id="shM-WN-Kqf"/>
-                                                <constraint firstAttribute="trailing" secondItem="mVI-eK-zfJ" secondAttribute="trailing" constant="15" id="shX-4U-Ts5"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="mVI-eK-zfJ" secondAttribute="trailing" constant="8" id="shX-4U-Ts5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3523,7 +3237,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="7TB-GQ-aUS">
             <objects>
                 <navigationController storyboardIdentifier="AirMapAircraftModelNavController" id="g95-Bq-UMI" customClass="AirMapAircraftModelNavController" customModule="AirMap" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="UWC-L3-45E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="UWC-L3-45E">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3577,7 +3291,7 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpk-5A-j54">
-                                                    <rect key="frame" x="15" y="12" width="345" height="19"/>
+                                                    <rect key="frame" x="16" y="12" width="343" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3585,8 +3299,8 @@ AirMap will send you a text message when your digital notice has been successful
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Gpk-5A-j54" firstAttribute="top" secondItem="ZHg-ik-rPF" secondAttribute="top" constant="12" id="2ZH-fN-VpE"/>
-                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="trailing" secondItem="ZHg-ik-rPF" secondAttribute="trailing" constant="-15" id="4pA-j5-Cbs"/>
-                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="leading" secondItem="ZHg-ik-rPF" secondAttribute="leading" constant="15" id="ccg-8p-ybA"/>
+                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="trailing" secondItem="ZHg-ik-rPF" secondAttribute="trailingMargin" constant="-8" id="4pA-j5-Cbs"/>
+                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="leading" secondItem="ZHg-ik-rPF" secondAttribute="leadingMargin" constant="8" id="ccg-8p-ybA"/>
                                                 <constraint firstAttribute="bottom" secondItem="Gpk-5A-j54" secondAttribute="bottom" constant="12" id="ruS-wE-Dlw"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -3603,13 +3317,13 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization Name]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPi-lH-bxt">
-                                                    <rect key="frame" x="15" y="12" width="345" height="21"/>
+                                                    <rect key="frame" x="16" y="12" width="343" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="[310-555-1212]" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bBK-bB-q3L">
-                                                    <rect key="frame" x="19" y="29" width="337" height="30"/>
+                                                    <rect key="frame" x="16" y="29" width="343" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -3620,11 +3334,11 @@ AirMap will send you a text message when your digital notice has been successful
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="bBK-bB-q3L" secondAttribute="bottom" constant="10.5" id="1E6-1A-g0S"/>
                                                 <constraint firstItem="bBK-bB-q3L" firstAttribute="top" secondItem="rPi-lH-bxt" secondAttribute="bottom" constant="-4" id="NTX-Px-SGH"/>
-                                                <constraint firstAttribute="trailing" secondItem="bBK-bB-q3L" secondAttribute="trailing" constant="19" id="RBu-6l-PdU"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="bBK-bB-q3L" secondAttribute="trailing" constant="8" id="RBu-6l-PdU"/>
                                                 <constraint firstItem="rPi-lH-bxt" firstAttribute="top" secondItem="dMv-O4-L2F" secondAttribute="top" constant="12" id="aKd-iE-4Qk"/>
-                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="leading" secondItem="dMv-O4-L2F" secondAttribute="leading" constant="15" id="baQ-JA-yha"/>
-                                                <constraint firstItem="bBK-bB-q3L" firstAttribute="leading" secondItem="dMv-O4-L2F" secondAttribute="leading" constant="19" id="uVk-ht-xKe"/>
-                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="trailing" secondItem="dMv-O4-L2F" secondAttribute="trailing" constant="-15" id="vCO-Ka-9pw"/>
+                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="leading" secondItem="dMv-O4-L2F" secondAttribute="leadingMargin" constant="8" id="baQ-JA-yha"/>
+                                                <constraint firstItem="bBK-bB-q3L" firstAttribute="leading" secondItem="dMv-O4-L2F" secondAttribute="leadingMargin" constant="8" id="uVk-ht-xKe"/>
+                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="trailing" secondItem="dMv-O4-L2F" secondAttribute="trailingMargin" constant="-8" id="vCO-Ka-9pw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3735,46 +3449,7 @@ AirMap will send you a text message when your digital notice has been successful
                             <fragment content="MODELS_TITLE|Title for the view that displays a list of all aircraft models">
                                 <attributes>
                                     <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                        <tabStops>
-                                            <textTab alignment="left" location="28">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="56">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="84">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="112">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="140">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="168">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="196">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="224">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="252">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="280">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="308">
-                                                <options/>
-                                            </textTab>
-                                            <textTab alignment="left" location="336">
-                                                <options/>
-                                            </textTab>
-                                        </tabStops>
-                                    </paragraphStyle>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
@@ -3811,7 +3486,7 @@ AirMap will send you a text message when your digital notice has been successful
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="29"/>
                                 <inset key="contentEdgeInsets" minX="5" minY="5" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="X">
+                                <state key="normal" image="close_icon">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -3875,7 +3550,7 @@ AirMap will send you a text message when your digital notice has been successful
                                         <constraint firstAttribute="bottom" secondItem="BkD-sA-FOI" secondAttribute="bottom" constant="14" id="HbB-uv-0uo"/>
                                         <constraint firstItem="BkD-sA-FOI" firstAttribute="top" secondItem="lBk-bJ-aeJ" secondAttribute="bottom" constant="4" id="aBs-hG-OUl"/>
                                         <constraint firstItem="BkD-sA-FOI" firstAttribute="leading" secondItem="lBk-bJ-aeJ" secondAttribute="leading" id="lRm-Bc-Vcr"/>
-                                        <constraint firstItem="lBk-bJ-aeJ" firstAttribute="leading" secondItem="FFf-Y9-bSP" secondAttribute="leading" constant="16" id="m2i-vP-0um"/>
+                                        <constraint firstItem="lBk-bJ-aeJ" firstAttribute="leading" secondItem="FFf-Y9-bSP" secondAttribute="leadingMargin" constant="8" id="m2i-vP-0um"/>
                                         <constraint firstAttribute="trailing" secondItem="lBk-bJ-aeJ" secondAttribute="trailing" constant="5" id="oS4-5p-2N1"/>
                                         <constraint firstAttribute="trailing" secondItem="BkD-sA-FOI" secondAttribute="trailing" constant="5" id="t5x-GQ-glV"/>
                                         <constraint firstItem="lBk-bJ-aeJ" firstAttribute="top" secondItem="FFf-Y9-bSP" secondAttribute="top" constant="15" id="y0K-LN-DEf"/>
@@ -3973,6 +3648,14 @@ AirMap will send you a text message when your digital notice has been successful
                                 <action selector="dismiss" destination="aXE-Bk-GP3" id="uC3-xH-Gqj"/>
                             </connections>
                         </barButtonItem>
+                        <attributedString key="userComments">
+                            <fragment content="FAQS_TITLE|Title for view that shows answers to frequently asked questions (FAQs).">
+                                <attributes>
+                                    <font key="NSFont" metaFont="smallSystem"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                     </navigationItem>
                     <connections>
                         <outlet property="webView" destination="3FZ-4o-60x" id="xYi-qL-lpN"/>
@@ -3987,7 +3670,7 @@ AirMap will send you a text message when your digital notice has been successful
             <objects>
                 <navigationController storyboardIdentifier="FAQNav" id="Un5-Qe-RYq" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="ncB-Al-mu8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ncB-Al-mu8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4022,7 +3705,7 @@ AirMap will send you a text message when your digital notice has been successful
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SMS Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oG7-qM-t5D">
-                                    <rect key="frame" x="154" y="62" width="68" height="17"/>
+                                    <rect key="frame" x="153.5" y="62" width="68" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -4030,46 +3713,7 @@ AirMap will send you a text message when your digital notice has been successful
                                         <fragment content="SMS_LOGIN_CODE_HEADER|Header text for view where a user can input their SMS verification code">
                                             <attributes>
                                                 <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                    <tabStops>
-                                                        <textTab alignment="left" location="28">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="56">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="84">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="112">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="140">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="168">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="196">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="224">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="252">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="280">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="308">
-                                                            <options/>
-                                                        </textTab>
-                                                        <textTab alignment="left" location="336">
-                                                            <options/>
-                                                        </textTab>
-                                                    </tabStops>
-                                                </paragraphStyle>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -4103,46 +3747,7 @@ AirMap will send you a text message when your digital notice has been successful
                                                         <fragment content="SMS_LOGIN_CODE_PLACEHOLDER|Placeholder label for the textfield where a user can input their SMS verification code">
                                                             <attributes>
                                                                 <font key="NSFont" size="11" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                    <tabStops>
-                                                                        <textTab alignment="left" location="28">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="56">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="84">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="112">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="140">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="168">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="196">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="224">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="252">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="280">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="308">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="336">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                    </tabStops>
-                                                                </paragraphStyle>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -4345,7 +3950,7 @@ AirMap will send you a text message when your digital notice has been successful
             <objects>
                 <navigationController storyboardIdentifier="AirMapSMSLoginNavController" id="GEN-jL-jgD" customClass="AirMapSMSLoginNavController" customModule="AirMap" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fMj-9P-09p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fMj-9P-09p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4368,6 +3973,7 @@ AirMap will send you a text message when your digital notice has been successful
         <image name="airmap_share_logo" width="87" height="20"/>
         <image name="area_flight_icon_deselected" width="49" height="48"/>
         <image name="area_flight_icon_selected" width="49" height="48"/>
+        <image name="close_icon" width="29" height="29"/>
         <image name="draw_icon" width="35" height="45"/>
         <image name="info_icon" width="23" height="22"/>
         <image name="info_icon_advisories" width="30" height="30"/>
@@ -4379,9 +3985,9 @@ AirMap will send you a text message when your digital notice has been successful
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="EBb-de-rWY"/>
-        <segue reference="OiG-zl-Hhu"/>
         <segue reference="rz8-aj-XVu"/>
-        <segue reference="d4K-iB-pv6"/>
+        <segue reference="iLT-bx-RW6"/>
+        <segue reference="OiG-zl-Hhu"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

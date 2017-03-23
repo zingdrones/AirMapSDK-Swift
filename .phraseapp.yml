@@ -1,0 +1,17 @@
+phraseapp:
+  project_id: 8e1da11a577bc4eb2ca0a2b4011d165d
+  push:
+    sources:
+    - file: /tmp/airmap.sdk.en.cleaned.xliff
+      params:
+        locale_id: en
+        update_translations: true
+        convert_emoji: true
+        file_format: xlf
+  pull:
+    targets:
+    - file: /tmp/airmap.sdk.<locale_code>.translated.xliff
+      params:
+        file_format: xlf
+        convert_emoji: true
+        format_options: { convert_placeholder: true }

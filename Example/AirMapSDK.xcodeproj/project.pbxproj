@@ -92,9 +92,6 @@
 		89605CA924276976C190EDE7 /* Pods_AirMapSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirMapSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9109E7B71D2DB7BA00C119E8 /* status_get_polygon_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_polygon_success.json; path = Fixtures/status_get_polygon_success.json; sourceTree = "<group>"; };
 		9109E7B91D2DB8A100C119E8 /* status_get_path_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_path_success.json; path = Fixtures/status_get_path_success.json; sourceTree = "<group>"; };
-		910E369D1E78757B00E08849 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
-		910E369E1E78757B00E08849 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		910E369F1E78757C00E08849 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		910F11701D274A450053CEA2 /* TestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		910F11741D274BF80053CEA2 /* FlightFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightFactory.swift; sourceTree = "<group>"; };
 		910F11761D27546E0053CEA2 /* StatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatusTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -104,9 +101,6 @@
 		910F117C1D275CB80053CEA2 /* flight_put_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_put_success.json; path = Fixtures/flight_put_success.json; sourceTree = "<group>"; };
 		910F117D1D275CB80053CEA2 /* status_get_point_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_point_success.json; path = Fixtures/status_get_point_success.json; sourceTree = "<group>"; };
 		9120A3B01D5E6B0500262F08 /* ATTRIBUTION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ATTRIBUTION; path = ../ATTRIBUTION; sourceTree = "<group>"; };
-		91248DB01E60A9C2002DEAE3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
-		91248DB11E60A9C2002DEAE3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		91248DB21E60A9C2002DEAE3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		912A5BDA1D5B9DCC004B359B /* airmap.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = airmap.config.json; path = iOS/airmap.config.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
 		915CFFD21DEF6A00002E6623 /* AircraftFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AircraftFactory.swift; sourceTree = "<group>"; };
 		916956EE1D356821006F97B8 /* status_weather_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_weather_success.json; path = Fixtures/status_weather_success.json; sourceTree = "<group>"; };
@@ -573,8 +567,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				607FACDA1AFB9204008FA782 /* Base */,
-				91248DB01E60A9C2002DEAE3 /* es */,
-				910E369D1E78757B00E08849 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -583,8 +575,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				607FACDF1AFB9204008FA782 /* Base */,
-				91248DB11E60A9C2002DEAE3 /* es */,
-				910E369E1E78757B00E08849 /* ja */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -593,8 +583,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				91B783071D6373DA0034A5A6 /* Base */,
-				91248DB21E60A9C2002DEAE3 /* es */,
-				910E369F1E78757C00E08849 /* ja */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";

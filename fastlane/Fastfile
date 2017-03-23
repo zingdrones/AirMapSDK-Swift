@@ -25,24 +25,162 @@ platform :ios do
     scan
   end
 
-  desc "Extract Strings from storyboard, code and upload to PhraseApp"
+  desc "Extract Strings from all storyboards, code and upload to PhraseApp"
   lane :uploadstrings do
 
-    sh 'find .././ -name "*.swift" -print0 | xargs -0 xcrun -k extractLocStrings -o /tmp/'
-    sh 'ibtool --export-strings-file /tmp/AirMapUI.strings ../Resources/UI/Localizations/Base.lproj/AirMapUI.storyboard'
-    sh 'cat /tmp/Localizable.strings > /tmp/all.strings && cat /tmp/AirMapUI.strings >> /tmp/all.strings' 
-    sh 'cd .. && phraseapp push'
+    fastlane_require 'nokogiri'
+    fastlane_require 'yaml'
+
+    phraseapp_token = YAML.load_file("../.phraseapp-auth.yml")["access_token"]
+
+    UI.important "If export of localization hangs, try quiting simulator or plugging in or unplugging device. #thanksapple 📲" 
+    sh 'xcodebuild -exportLocalizations -project ../Example/Pods/Pods.xcodeproj -exportLanguage en -localizationPath /tmp'
+    File.rename("/tmp/en.xliff", "/tmp/airmap.sdk.en.xliff")
+
+    doc = File.open("/tmp/airmap.sdk.en.xliff") { |f| Nokogiri::XML(f) }
+
+    UI.message "Removing storyboard dynamic string placeholders" 
+
+    # remove other resources that don't need localization
+    for file in doc.css("xliff file")
+      translatable_sources = ["AirMapSDK/Localizable.strings", "AirMapUI.storyboard"]
+      unless translatable_sources.any? { |source| file["original"].include?(source) }
+        file.remove
+      end
+    end
+
+    for unit in doc.css("xliff file body trans-unit")
+      
+      source = unit.css("source")
+
+      # remove if the source is a placeholder (surrounded by square brackets; i.e [username] or " ")
+      if /\[.*\]/m.match(source.text) || /^\s$/.match(source.text)
+        unit.remove
+        next
+      end
+
+    end
+    
+    UI.message "Replacing translation unit with localization key name" 
+
+    for unit in doc.css("xliff file body trans-unit")
+      
+      note = unit.at_css "note"
+      next unless note
+
+      if match = /Class = \".*\";.*/.match(note.text)
+
+        # Split note objects separated by ; character
+        note_objects = note.text.split(";")
+
+        # Loop through not objects and remove leading/trailing whitespace
+        for object in note_objects.map(&:strip)
+
+          # Extract key value pair
+          if match = /(.*) = \"(.*)\"/.match(object)
+            key, value = match.captures
+
+            if key == "Note"
+              
+              if match = /(.*)\|(.*)/.match(value)
+                localization_key, comment = match.captures
+                objectId = unit["id"]
+                # Store the old key in the Note for future round tripping
+                note.content = note.text + " AirMapUIObjectId = \"#{objectId}\";"
+                # Replace the translation unit id with our localized key name
+                unit["id"] = localization_key
+                break
+              end
+
+            end
+
+          end
+
+        end
+
+      end
+
+      # Find ids that still reference storyboad ids instead of localization keys
+      if match = /^...-..-...\..*/.match(unit["id"])
+        file = unit.parent.parent["original"].split('/').last
+        id = unit["id"]
+        source = unit.css("source")
+        UI.error("#{file}: Found un-keyed string: \"#{source.text}\" (#{id})")
+      end
+
+    end
+
+    File.write("/tmp/airmap.sdk.en.cleaned.xliff", doc.to_xml)
+    sh "cd .. && phraseapp push --access-token #{phraseapp_token}"
+  
+  end
+
+
+desc "Download strings from PhraseApp and update the XLIFF with the correct object ids"
+lane :downloadstrings do
+
+  fastlane_require 'yaml'
+  fastlane_require 'nokogiri'
+
+  # Load config from PhraseApp YAML
+  project = YAML.load_file("../.phraseapp.yml")["phraseapp"]["project_id"]
+  phraseapp_token = YAML.load_file("../.phraseapp-auth.yml")["access_token"]
+
+  # Get locales for project on PhraseApp
+  locales = sh "cd .. && phraseapp locales list #{project} --access-token #{phraseapp_token}"
+  locales = JSON.parse(locales)
+  locale_codes = locales.map { |loc| loc["code"] }
+
+  # Pull translations for project from PhraseApp
+  sh "cd .. && phraseapp pull --access-token #{phraseapp_token}"
+
+  UI.message "Replacing key names with object ids"
+
+  files = locale_codes.map { |code| "/tmp/airmap.sdk.#{code}.translated.xliff" }
+  
+  for file in files
+    
+    doc = File.open(file) { |f| Nokogiri::XML(f) }
+
+    for unit in doc.css("xliff file body trans-unit")
+      
+      note = unit.at_css "note"
+      next unless note
+
+      if match = /Class = \".*\";.*/.match(note.text)
+
+        # Split note objects separated by ; character
+        note_objects = note.text.split(";")
+        # Loop through not objects and remove leading/trailing whitespace
+        for object in note_objects.map(&:strip)
+
+          # Extract key value pair
+          next unless match = /(.*) = \"(.*)\"/.match(object)
+          key, value = match.captures
+
+          # Restore translation unit id
+          next unless key == "AirMapUIObjectId"
+          unit["id"] = value
+
+          # Delete the old key from the notes
+          note_objects.pop()
+          note.content = note_objects.join(";") + ";"
+          break
+
+        end
+
+      end
+
+    end
+
+    File.write(file, doc.to_xml)
+
+    # Import the localizations into Xcode
+    sh "xcodebuild -importLocalizations -project ../Example/Pods/Pods.xcodeproj -localizationPath #{file}"
 
   end
 
-  desc "Download strings from PhraseApp and add to project"
-  lane :downloadstrings do
-
-    sh 'cd .. && phraseapp pull'
-    sh 'rm -r ../Resources/UI/Localizations/en.lproj'
-    sh 'rm -r ../Resources/Core/Localizations/en.lproj'
-
-  end
+end
 
   after_all do |lane|
     # This block is called, only if the executed lane was successful
