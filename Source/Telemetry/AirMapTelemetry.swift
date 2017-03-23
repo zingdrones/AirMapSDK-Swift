@@ -45,6 +45,7 @@ struct AirMapTelemetry {
 			
 			let flightMessages = Observable
 				.combineLatest(session, telemetry) { $0 }
+				.share()
 				.filter { flightSession, telemetry in
 					telemetry.flight == flightSession.flight
 				}
