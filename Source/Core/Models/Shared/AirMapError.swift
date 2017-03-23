@@ -73,7 +73,7 @@ extension AirMapError: RawRepresentable {
 			return error
 		} else {
 			let code = rawValue.response.statusCode
-			return AirMapApiError(message: String(format: LocalizedStrings.Error.genericFormat, code), code: code)
+			return AirMapApiError(message: String(format: LocalizedStrings.Error.genericFormat, code.description), code: code)
 		}
 	}
 }

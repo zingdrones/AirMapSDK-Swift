@@ -69,7 +69,7 @@ extension Auth0Error: RawRepresentable {
 			return error
 		} else {
 			let code = rawValue.response.statusCode
-			return Auth0ApiError(message: String(format: LocalizedStrings.Error.genericFormat, code), code: code)
+			return Auth0ApiError(message: String(format: LocalizedStrings.Error.genericFormat, code.description), code: code)
 		}
 	}
 }
