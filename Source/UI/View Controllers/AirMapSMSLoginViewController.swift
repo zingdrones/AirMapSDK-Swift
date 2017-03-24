@@ -11,11 +11,10 @@ import RxCocoa
 import PhoneNumberKit
 import libPhoneNumber_iOS
 
-
-class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable {
+@available(*, unavailable)
+class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, AirMapPhoneCountrySelectorDelegate {
     
     // MARK: - Properties
-    
     var screenName = "SMS Login"
     
     @IBOutlet weak var submitButton: UIButton!
@@ -42,7 +41,6 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable {
         setupDefaultCountryCode()
         setupPhoneNumberField()
         setupBindings()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,19 +131,19 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable {
         
         trackEvent(.tap, label: "Save Button")
         
-        AirMap.rx.performPhoneNumberLogin(phoneNumber: phoneNumberKit.format(phoneNumber, toType: .e164))
-            .trackActivity(self.activityIndicator)
-            .do(
-                onError: { [unowned self] error in
-                    self.trackEvent(.save, label: "error", value: NSNumber(value: (error as NSError).code))
-                },
-                onCompleted: { [unowned self] _ in
-                    self.trackEvent(.save, label: "Success")
-                }
-            )
-            .subscribeNext(weak: self, AirMapSMSLoginViewController.verifySMSToken)
-            .disposed(by: disposeBag)
-        
+//        AirMap.rx.performPhoneNumberLogin(phoneNumber: phoneNumberKit.format(phoneNumber, toType: .e164))
+//            .trackActivity(self.activityIndicator)
+//            .do(
+//                onError: { [unowned self] error in
+//                    self.trackEvent(.save, label: "error", value: NSNumber(value: (error as NSError).code))
+//                },
+//                onCompleted: { [unowned self] _ in
+//                    self.trackEvent(.save, label: "Success")
+//                }
+//            )
+//            .subscribeNext(weak: self, AirMapSMSLoginViewController.verifySMSToken)
+//            .disposed(by: disposeBag)
+		
     }
     
     fileprivate func validateForm() {
@@ -159,24 +157,17 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable {
     @IBAction func dismiss(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-}
-
-// MARK: - Extensions
-
-extension AirMapSMSLoginViewController: AirMapPhoneCountrySelectorDelegate {
-    
-    func phoneCountrySelectorDidSelect(country name: String, country code: String) {
-        if regionCode != code { phone.text = PartialFormatter().formatPartial(phone.text ?? "") }
-        
-        regionCode = code
-        country.text = name
-        setupPhoneNumberField()
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func phoneCountrySelectorDidCancel() {
-        navigationController?.popViewController(animated: true)
-    }
-    
+	
+	func phoneCountrySelectorDidSelect(country name: String, country code: String) {
+		if regionCode != code { phone.text = PartialFormatter().formatPartial(phone.text ?? "") }
+		
+		regionCode = code
+		country.text = name
+		setupPhoneNumberField()
+		navigationController?.popViewController(animated: true)
+	}
+	
+	func phoneCountrySelectorDidCancel() {
+		navigationController?.popViewController(animated: true)
+	}
 }

@@ -64,18 +64,18 @@ open class AirMapLoginWithCodeViewController: UITableViewController, AnalyticsTr
         
         trackEvent(.tap, label: "Submit Button")
         smsCode.resignFirstResponder()
-        
-        AirMap.rx.performLoginWithCode(phoneNumber: phoneNumber, code: smsTextField.text!)
-            .trackActivity(activityIndicator)
-            .subscribe(onNext: { [unowned self] _ in
-                self.didAuthenticate()
-            }, onError: { [unowned self] error in
-                self.trackEvent(.save, label: "Error", value: NSNumber(value: (error as NSError).code))
-                self.didFailToAuthenticate(error as! Auth0Error)
-            }, onCompleted: {
-                self.trackEvent(.save, label: "Success")
-            })
-            .disposed(by: disposeBag)
+		
+//        AirMap.rx.performLoginWithCode(phoneNumber: phoneNumber, code: smsTextField.text!)
+//            .trackActivity(activityIndicator)
+//            .subscribe(onNext: { [unowned self] _ in
+//                self.didAuthenticate()
+//            }, onError: { [unowned self] error in
+//                self.trackEvent(.save, label: "Error", value: NSNumber(value: (error as NSError).code))
+//                self.didFailToAuthenticate(error as! Auth0Error)
+//            }, onCompleted: {
+//                self.trackEvent(.save, label: "Success")
+//            })
+//            .disposed(by: disposeBag)
         
     }
     

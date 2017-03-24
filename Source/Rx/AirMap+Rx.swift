@@ -183,12 +183,14 @@ extension Reactive where Base: AirMap_Auth {
         
         return AirMap.authClient.performAnonymousLogin(userId: userId)
     }
-    
+	
+    @available(*, unavailable)
     public static func performPhoneNumberLogin(phoneNumber:String) -> Observable<Void> {
         
         return AirMap.auth0Client.performPhoneNumberLogin(phoneNumber: phoneNumber)
     }
-    
+	
+	@available(*, unavailable)
     public static func performLoginWithCode(phoneNumber:String, code:String) -> Observable<Auth0Credentials> {
         
         return AirMap.auth0Client.performLoginWithCode(phoneNumber:phoneNumber, code:code)

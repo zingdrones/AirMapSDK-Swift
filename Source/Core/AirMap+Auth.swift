@@ -35,16 +35,18 @@ extension AirMap_Auth {
     public static func performAnonymousLogin(userId:String, completion: @escaping (Result<AirMapToken>) -> Void) {
         authClient.performAnonymousLogin(userId: userId).subscribe(completion)
     }
-    
+	
     ///  Starts passwordless authentication by sending an sms with an OTP code
     ///   - completion: A completion handler to call with the Result
+	@available(*, unavailable)
     public static func performPhoneNumberLogin(phoneNumber:String, completion: @escaping (Result<Void>) -> Void) {
         auth0Client.performPhoneNumberLogin(phoneNumber: phoneNumber).subscribe(completion)
     }
     
     ///  Authenticates passwordless authentication with a Code and returns an AuthToken.
     ///   - completion: A completion handler to call with the Result
-    public static func performLoginWithCode(phoneNumber:String, code:String, completion: @escaping (Result<Auth0Credentials>) -> Void) {
+	@available(*, unavailable)
+	public static func performLoginWithCode(phoneNumber:String, code:String, completion: @escaping (Result<Auth0Credentials>) -> Void) {
         auth0Client.performLoginWithCode(phoneNumber: phoneNumber, code: code).subscribe(completion)
     }
     
