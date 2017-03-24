@@ -69,6 +69,8 @@ public struct LocalizedStrings {
         
         public static let fires = NSLocalizedString("TILE_LAYER_FIRES", bundle: bundle, value: "Fires", comment: "Name for map layer Fires")
 
+		public static let wildfires = NSLocalizedString("TILE_LAYER_WILDFIRES", bundle: bundle, value: "Wildfires", comment: "Name for map layer Wildfires")
+
         public static let emergencies = NSLocalizedString("TILE_LAYER_EMERGENCIES", bundle: bundle, value: "First Responder Activity", comment: "Name for map layer First Responder Activity")
 
     }
@@ -263,7 +265,7 @@ public struct LocalizedStrings {
 		
 		public static let sectionHeaderAdditional = NSLocalizedString("PILOT_PROFILE_SECTION_ADDITIONAL", bundle: bundle, value: "Additional Info", comment: "Section header for the pilot profile additional info section")
 		
-		public static let statisticsFormat = NSLocalizedString("PILOT_PROFILE_STATISTICS_FORMAT", bundle: bundle, value: "%1$@ Aircraft, %2$@ Flights", comment: "Format for displaying a user's number of aircraft and flights")
+		public static let statisticsFormat = NSLocalizedString("PILOT_PROFILE_STATISTICS_FORMAT", bundle: bundle, value: "%@ Aircraft, %@ Flights", comment: "Format for displaying a user's number of aircraft and flights")
 	}
 	
 	public struct PhoneCountry {

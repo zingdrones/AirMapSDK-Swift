@@ -277,7 +277,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	
 	fileprivate func configureStats(_ pilot: AirMapPilot) {
 		let statsFormat = LocalizedStrings.PilotProfile.statisticsFormat
-		statisticsLabel.text = String(format: statsFormat, pilot.statistics.totalAircraft, pilot.statistics.totalFlights)
+		statisticsLabel.text = String(format: statsFormat, pilot.statistics.totalAircraft.description, pilot.statistics.totalFlights.description)
 	}
 	
 	@IBAction func unwindToPilotProfile(_ segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }
