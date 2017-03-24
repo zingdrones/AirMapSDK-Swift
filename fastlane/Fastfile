@@ -33,7 +33,7 @@ platform :ios do
 
     phraseapp_token = YAML.load_file("../.phraseapp-auth.yml")["access_token"]
 
-    UI.important "If export of localization hangs, try quiting simulator or plugging in or unplugging device. #thanksapple 📲" 
+  UI.important "If export of localization hangs, try quitting the simulator or plugging in and unplugging a device. #thanksapple 📲" 
     sh 'xcodebuild -exportLocalizations -project ../Example/Pods/Pods.xcodeproj -exportLanguage en -localizationPath /tmp'
     File.rename("/tmp/en.xliff", "/tmp/airmap.sdk.en.xliff")
 
