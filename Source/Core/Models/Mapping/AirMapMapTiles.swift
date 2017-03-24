@@ -46,7 +46,8 @@ public enum AirMapLayerType: String {
 	case schools                        = "schools"
 	case tfrs                           = "tfrs"
 	case universities                   = "universities"
-	case fires                          = "wildfries,fires"
+	case fires                          = "fires"
+	case wildfires                      = "wildfires"
 	case emergencies                    = "emergencies"
 	
 	public static let allLayerTypes = [
@@ -71,6 +72,7 @@ public enum AirMapLayerType: String {
 		schools,
 		tfrs,
 		fires,
+		wildfires,
 		emergencies,
 		custom,
 		prisons,
@@ -109,6 +111,7 @@ public enum AirMapLayerType: String {
 		case .tfrs:                         return localized.tfrs
 		case .universities:                 return localized.universities
 		case .fires:                        return localized.fires
+		case .wildfires:                    return localized.wildfires
 		case .emergencies:                  return localized.emergencies
 		}
 	}
@@ -173,6 +176,9 @@ public enum AirMapLayerType: String {
 
 		case .fires:
 			return .fire
+			
+		case .wildfires:
+			return .wildfire
 			
 		case .emergencies:
 			return .emergency
