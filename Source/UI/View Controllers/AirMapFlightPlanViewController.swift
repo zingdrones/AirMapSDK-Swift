@@ -158,7 +158,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 			}
 		case .imperial:
 			altitudeValues = UIConstants.altitudePresetsImperial.map {
-				(altitudeFormatter.string(fromValue: $0, unit: .foot), $0)
+				(altitudeFormatter.string(fromValue: $0.feet, unit: .foot), $0)
 			}
 		}
 
