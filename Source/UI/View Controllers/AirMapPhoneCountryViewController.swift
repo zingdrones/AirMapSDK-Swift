@@ -25,7 +25,7 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 	var selectedCountryIdentifier: String!
 	
 	fileprivate var selectedCountryName: String! {
-		return locale.localizedString(forCurrencyCode: selectedCountryIdentifier)
+		return locale.localizedString(forRegionCode: selectedCountryIdentifier)
 	}
 	
 	fileprivate typealias RowData = (code: String, name: String)
@@ -53,7 +53,7 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 		let currentCountry: RowData = (code: selectedCountryIdentifier, name: selectedCountryName)
 		
 		let otherCountries: [RowData] = Locale.isoRegionCodes
-			.map { ($0, self.locale.localizedString(forCurrencyCode: $0)!) }
+			.map { ($0, self.locale.localizedString(forRegionCode: $0) ?? $0) }
 			.sorted { $0.name < $1.name }
 		
 		let localized = LocalizedStrings.PhoneCountry.self
