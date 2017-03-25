@@ -51,7 +51,7 @@ extension PilotClient_Aircraft {
 
 	func getAircraft(_ aircraftId: String) -> Observable<AirMapAircraft> {
 		AirMap.logger.debug("Get Aircraft")
-		return perform(method: .get, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraftId)")
+		return perform(method: .get, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraftId ?? "")")
 	}
 
 	func createAircraft(_ aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
@@ -62,12 +62,12 @@ extension PilotClient_Aircraft {
 	func updateAircraft(_ aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
 		AirMap.logger.debug("Update Aircraft", aircraft)
 		let params = ["nickname": aircraft.nickname]
-		return perform(method: .patch, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.aircraftId)", params: params, update: aircraft)
+		return perform(method: .patch, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.aircraftId ?? "")", params: params, update: aircraft)
 	}
 
 	func deleteAircraft(_ aircraft: AirMapAircraft) -> Observable<Void> {
 		AirMap.logger.debug("Delete Aircraft", aircraft)
-		return perform(method: .delete, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.aircraftId)")
+		return perform(method: .delete, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.aircraftId ?? "")")
 	}
 }
 
@@ -81,6 +81,6 @@ extension PilotClient_Permit {
 
 	func deletePilotPermit(_ pilotId: String, permit: AirMapPilotPermit) -> Observable<Void> {
 		AirMap.logger.debug("Delete Pilot Permit")
-		return perform(method: .delete, path:"/\(pilotId)/permit/\(permit.permitId)")
+		return perform(method: .delete, path:"/\(pilotId)/permit/\(permit.permitId ?? "")")
 	}
 }
