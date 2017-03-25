@@ -133,10 +133,7 @@ public struct AirMapApiError: Mappable {
 		messages  <-  map["data.errors"]
 		code      <-  map["data.code"]
 	}
-}
-
-extension AirMapApiError: LocalizedError {
-
+	
 	public var localizedDescription: String {
 		if messages.count == 0 {
 			return message
@@ -150,9 +147,9 @@ public struct AirMapApiParameterError: Mappable {
 	
 	public internal(set) var name: String!
 	public internal(set) var message: String!
-	
+
 	public init?(map: Map) {
-		guard map.JSON["name"] as? String != nil, map.JSON["message"] as? String != nil else {
+		guard (map.JSON["name"] as? String != nil || map.JSON["param"] as? String != nil), (map.JSON["message"] as? String != nil || map.JSON["msg"] as? String != nil) else {
 			return nil
 		}
 	}
@@ -160,5 +157,8 @@ public struct AirMapApiParameterError: Mappable {
 	public mutating func mapping(map: Map) {
 		name     <-  map["name"]
 		message  <-  map["message"]
+		
+		if name == nil { name <- map["param"] }
+		if message == nil { message <- map["msg"]}
 	}
 }
