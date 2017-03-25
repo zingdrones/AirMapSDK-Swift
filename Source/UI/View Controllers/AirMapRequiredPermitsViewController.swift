@@ -130,7 +130,7 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 	fileprivate func setupTableView() {
 
 		// FIXME: Investigate if this is still required
-//		tableView.rx.setDelegate(self)
+		tableView.rx.setDelegate(self)
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 75
 		tableView.layoutAndResizeHeader()
@@ -139,9 +139,8 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 			
 			if let availablePermit = rowData.availablePermit, let pilotPermit = rowData.pilotPermit {
 				
-				
 				let cell = tableView.dequeueReusableCell(withIdentifier: "AirMapPilotPermitCell", for: indexPath) as! AirMapPilotPermitCell
-//				let cell = tableView.cellWith((availablePermit, pilotPermit), at: indexPath) as AirMapPilotPermitCell
+				
 				cell.setObject((availablePermit, pilotPermit))
 				cell.imageView?.image = AirMapImage.image(named: "deselected_cell_option")
 				cell.imageView?.highlightedImage = AirMapImage.image(named: "selected_cell_option")
