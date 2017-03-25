@@ -342,14 +342,14 @@ extension DataRequest {
 	/// Adapts a generic underlying error to an AirMapError
 	private static func catchApiError(with response: HTTPURLResponse, from request: URLRequest?, with data: Data) throws {
 
-        if let error = Auth0Error(rawValue: (request, response, data)) {
-            throw error
-        }
-		
 		if let error = AirMapError(rawValue: (request, response, data)) {
+			
+			throw error
+			
+		} else if let error = Auth0Error(rawValue: (request, response, data)) {
+		
 			throw error
 		}
-        
 	}
 	
 }
