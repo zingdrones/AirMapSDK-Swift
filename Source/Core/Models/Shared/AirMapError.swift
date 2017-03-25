@@ -111,7 +111,7 @@ public enum AirMapSerializationError: Error {
 	case invalidObject
 }
 
-public struct AirMapApiError: Mappable {
+public struct AirMapApiError: Mappable, LocalizedError {
 	
 	public internal(set) var message: String!
 	public internal(set) var messages = [AirMapApiParameterError]()
@@ -123,8 +123,11 @@ public struct AirMapApiError: Mappable {
 	}
 	
 	public init?(map: Map) {
-		guard let status = map.JSON["status"] as? String, status == "fail" else {
-			return nil
+		
+		if let status = map.JSON["status"] as? String {
+			if status != "fail" {
+				return nil
+			}
 		}
 	}
 	
@@ -132,6 +135,11 @@ public struct AirMapApiError: Mappable {
 		message   <-  map["data.message"]
 		messages  <-  map["data.errors"]
 		code      <-  map["data.code"]
+		
+		// Auth0
+		if message == nil && messages.count == 0 {
+			message <- map["error_description"]
+		}
 	}
 	
 	public var localizedDescription: String {
