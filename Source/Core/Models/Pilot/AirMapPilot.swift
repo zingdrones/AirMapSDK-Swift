@@ -60,8 +60,6 @@ extension AirMapPilot: Mappable {
 			"last_name":      lastName,
 			"user_metadata":  _userMetadata,
 			"app_metadata":   _appMetadata,
-			"username":       username,
-			"phone":          phone,
 		]
 	}
 }
