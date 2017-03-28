@@ -113,7 +113,7 @@ public struct LocalizedStrings {
 
         public static let fire = NSLocalizedString("AIRSPACE_TYPE_FIRE", bundle: bundle, value: "Fire", comment: "Name for airspace type Fire")
 
-        public static let emergency = NSLocalizedString("AIRSPACE_TYPE_EMERGENCY", bundle: bundle, value: "Emergency", comment: "Name for airspace type Emergency")
+        public static let emergency = NSLocalizedString("AIRSPACE_TYPE_EMERGENCY", bundle: bundle, value: "First Responder Activity", comment: "Name for airspace type Emergency")
 
     }
 	
