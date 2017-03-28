@@ -127,10 +127,10 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
     
     @IBAction func submitForm() {
         
-        guard let phoneNumber = phoneNumber else { return }
-        
-        trackEvent(.tap, label: "Save Button")
-        
+//        guard let phoneNumber = phoneNumber else { return }
+		
+//        trackEvent(.tap, label: "Save Button")
+		
 //        AirMap.rx.performPhoneNumberLogin(phoneNumber: phoneNumberKit.format(phoneNumber, toType: .e164))
 //            .trackActivity(self.activityIndicator)
 //            .do(
@@ -147,7 +147,7 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
     }
     
     fileprivate func validateForm() {
-        submitButton?.isEnabled = phone.isValidNumber ?? false
+        submitButton?.isEnabled = phone.isValidNumber
     }
     
     fileprivate func verifySMSToken() {
@@ -164,10 +164,10 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
 		regionCode = code
 		country.text = name
 		setupPhoneNumberField()
-		navigationController?.popViewController(animated: true)
+		_ = navigationController?.popViewController(animated: true)
 	}
 	
 	func phoneCountrySelectorDidCancel() {
-		navigationController?.popViewController(animated: true)
+		_ = navigationController?.popViewController(animated: true)
 	}
 }

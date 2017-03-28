@@ -51,8 +51,6 @@ internal class HTTPClient {
 		
 		return Observable.create { (observer: AnyObserver<T>) -> Disposable in
 			
-			let absolutePath = self.basePath + path.urlEncoded
-
 			let request = self.manager
 				.checkAuth(checkAuth)
 				.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
@@ -84,7 +82,7 @@ internal class HTTPClient {
 						AirMap.logger.error(method, String(describing: T.self), path, error)
 						observer.onError(error)
 					} else {
-						AirMap.logger.debug(String(describing: T.self), "response:", response.result.value)
+						AirMap.logger.debug(String(describing: T.self), "response:", response.result.value as Any)
 						observer.on(.next(response.result.value ?? nil))
 						observer.on(.completed)
 					}
@@ -260,7 +258,7 @@ extension DataRequest {
 				
 				// Map the json to the target object if provided else return a new object
 				if let object = object {
-					Mapper<T>().map(JSONObject: json, toObject: object)
+					_ = Mapper<T>().map(JSONObject: json, toObject: object)
 					return .success(object)
 				} else if let mappedObject = Mapper<T>(context: context).map(JSONObject: json) {
 					return .success(mappedObject)
@@ -312,7 +310,7 @@ extension DataRequest {
 		let jsonResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
 		let result = jsonResponseSerializer.serializeResponse(nil, response, data, nil)
 		
-		guard case let .success(jsonObject) = result else {
+		guard case .success = result else {
 			throw AirMapError.serialization(.invalidJson)
 		}
 		

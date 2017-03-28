@@ -33,7 +33,7 @@ extension AirMapAircraft: Mappable {
 	internal func params() -> [String: Any] {
 		
 		return [
-			"model_id": model?.modelId,
+			"model_id": model?.modelId as Any,
 			"nickname": nickname
 		]
 	}

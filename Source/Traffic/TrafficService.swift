@@ -140,10 +140,15 @@ internal class TrafficService: MQTTSessionDelegate {
 	}
 
 	func disconnect() {
+		
 		unsubscribeFromAllChannels()
-		currentFlight.value = nil
-		removeAllTraffic()
-		client.disconnect()
+			.do(onDispose: { [unowned self] in
+				self.client.disconnect()
+				self.currentFlight.value = nil
+				self.removeAllTraffic()
+			})
+			.subscribe()
+			.disposed(by: disposeBag)
 	}
 
 	// MARK: - Observable Methods

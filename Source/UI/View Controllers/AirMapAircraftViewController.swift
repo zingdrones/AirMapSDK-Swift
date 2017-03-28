@@ -56,7 +56,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 			}
 			.disposed(by: disposeBag)
 		
-		tableView.rx.modelSelected(AirMapAircraft)
+		tableView.rx.modelSelected(AirMapAircraft.self)
 			.do(onNext: { [weak self] _ in
 				self?.dismiss(animated: true, completion: nil)
 			})

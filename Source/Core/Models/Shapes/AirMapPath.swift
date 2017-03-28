@@ -26,7 +26,7 @@ public class AirMapPath: AirMapGeometry, Mappable {
 
 		return [
 			"type": "LineString",
-			"coordinates": coordinates?.map { [$0.longitude, $0.latitude] }
+			"coordinates": coordinates?.map({ [$0.longitude, $0.latitude] }) as Any
 		]
 	}
 	

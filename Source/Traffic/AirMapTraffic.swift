@@ -99,7 +99,6 @@ extension AirMapTraffic {
 		speedFormatter.maximumFractionDigits = 0
 		
 		let altitudeString: String
-		let distanceString: String
 		let localizedGroundSpeedString: String
 
 		let localizedUnits = LocalizedStrings.Units.self

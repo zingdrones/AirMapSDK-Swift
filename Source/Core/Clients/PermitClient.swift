@@ -15,11 +15,11 @@ internal class PermitClient: HTTPClient {
 	}
 
 	func list(_ permitIds: [String]? = nil, organizationId: String? = nil) -> Observable<[AirMapAvailablePermit]> {
-		AirMap.logger.debug("Get Permit", permitIds, organizationId)
+		AirMap.logger.debug("Get Permit", permitIds as Any, organizationId as Any)
 
-		var params = [String : Any]()
-		params["ids"] = permitIds?.joined(separator: ",")
-		params["organization_id"] = organizationId
+		var params = [String: Any]()
+		params["ids"] = permitIds?.joined(separator: ",") as Any
+		params["organization_id"] = organizationId as Any
 
 		return perform(method: .get, params: params)
 	}

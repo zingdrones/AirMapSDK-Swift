@@ -35,7 +35,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 			.sorted { $0.0.name < $0.1.name }
 			.map { ($0, $0.requirements?.notice) }
 			.filter { $0.1 != nil }
-			.map { ($0.0, $0.1!) } ?? []
+			.map { ($0.0, $0.1!) }
 	}()
 	
 	override func viewDidLoad() {
@@ -60,7 +60,7 @@ class AirMapReviewNoticeViewController: UIViewController {
 			let localized = LocalizedStrings.ReviewFlightPlanNotices.self
 			
             if digitalNotices.count == 0 && regularNotices.count == 0 {
-				localized.headerNoNotices
+				return localized.headerNoNotices
             }
             
 			let digitalNotice = sections.sectionModels[index].model

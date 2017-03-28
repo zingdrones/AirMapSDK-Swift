@@ -17,7 +17,6 @@ open class AirMapTrafficServiceUtils {
 
 	static func compassDirections() -> [String] {
 		
-		let bundle = AirMapBundle.core
 		let localized = LocalizedStrings.CardinalDirection.self
 		
 		return [

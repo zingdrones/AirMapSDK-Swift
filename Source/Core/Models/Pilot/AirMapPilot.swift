@@ -56,10 +56,10 @@ extension AirMapPilot: Mappable {
 	internal func params() -> [String: Any] {
 
 		return [
-			"first_name":     firstName,
-			"last_name":      lastName,
-			"user_metadata":  _userMetadata,
-			"app_metadata":   _appMetadata,
+			"first_name":    firstName as Any,
+			"last_name":     lastName as Any,
+			"user_metadata": _userMetadata,
+			"app_metadata":  _appMetadata,
 		]
 	}
 }

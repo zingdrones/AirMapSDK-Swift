@@ -22,7 +22,6 @@ open class AirMapStatus {
 		
 		public var description: String {
 			
-			let bundle = AirMapBundle.core
 			let localized = LocalizedStrings.Status.self
 			
 			switch self {

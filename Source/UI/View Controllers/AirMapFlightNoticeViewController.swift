@@ -76,6 +76,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			.disposed(by: disposeBag)
 		
 		tableView.rx.setDelegate(self)
+			.disposed(by: disposeBag)
 		
 		dataSource.configureCell = { datasource, tableView, indexPath, advisory in
 			let cell: AirMapFlightNoticeCell!

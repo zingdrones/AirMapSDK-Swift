@@ -82,7 +82,6 @@ public enum AirMapLayerType: String {
 	/// A descriptive title for the layer
 	public var title: String {
 		
-		let bundle = AirMapBundle.core
 		let localized = LocalizedStrings.TileLayer.self
 		
 		switch self {
@@ -234,7 +233,6 @@ public enum AirMapAirspaceType: String {
 	/// A descriptive title for the airspace type
 	public var title: String {
 		
-		let bundle = AirMapBundle.core
 		let localized = LocalizedStrings.AirspaceType.self
 
 		switch self {

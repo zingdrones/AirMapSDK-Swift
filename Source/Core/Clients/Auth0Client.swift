@@ -22,10 +22,12 @@ internal class Auth0Client: HTTPClient {
 			return Observable.error(AirMapError.unauthorized)
 		}
 
-		let params = ["grant_type": Config.AirMapApi.Auth.grantType,
-		              "client_id": AirMap.configuration.auth0ClientId,
-		              "api_type": "app",
-		              "refresh_token": refreshToken]
+		let params = [
+			"grant_type": Config.AirMapApi.Auth.grantType,
+			"client_id": AirMap.configuration.auth0ClientId as Any,
+			"api_type": "app",
+			"refresh_token": refreshToken
+		]
 
 		return perform(method: .post, path:"/delegation", params: params, keyPath: nil)
 			.do(onNext: { token in
@@ -44,24 +46,36 @@ internal class Auth0Client: HTTPClient {
 		}
 	}
     
-    func performPhoneNumberLogin(phoneNumber:String) -> Observable<Void> {
+    func performPhoneNumberLogin(phoneNumber: String) -> Observable<Void> {
         
-        let params = ["phone_number": phoneNumber,
-                      "client_id": AirMap.configuration.auth0ClientId,
-                      "connection": "sms",
-                      "send": "code"]
-        
+		let params = [
+			"phone_number": phoneNumber,
+			"client_id": AirMap.configuration.auth0ClientId as Any,
+			"connection": "sms",
+			"send": "code"
+		]
+		
         return perform(method: .post, path:"/passwordless/start", params: params, keyPath: nil)
     }
     
     func performLoginWithCode(phoneNumber:String, code:String) -> Observable<Auth0Credentials> {
-        
+		
+		let deviceId: String
+		
+		#if os(OSX)
+			deviceId = "macOS-" + UUID().uuidString
+		#elseif os(Linux)
+			deviceId = "linux-" + UUID().uuidString
+		#else
+			deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
+		#endif
+		
         let params = ["username": phoneNumber,
                       "password" : code,
-                      "client_id": AirMap.configuration.auth0ClientId,
+                      "client_id": AirMap.configuration.auth0ClientId as Any,
                       "connection": "sms",
                       "grant_type": "password",
-                      "device" : UIDevice.current.identifierForVendor?.uuidString ?? "",
+                      "device" : deviceId,
                       "scope" : "openid offline_access"]
         
         return perform(method: .post, path:"/oauth/ro", params: params, keyPath: nil)
@@ -71,7 +85,6 @@ internal class Auth0Client: HTTPClient {
             }, onError: { error in
                 AirMap.logger.debug("ERROR: \(error)")
             })
-        
     }
     
     func logout() {

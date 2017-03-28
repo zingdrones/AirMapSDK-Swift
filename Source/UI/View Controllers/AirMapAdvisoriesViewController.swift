@@ -81,6 +81,7 @@ open class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrack
 	
 		// Reset delegate for methods declared below to be called
 		tableView.rx.setDelegate(self)
+			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func setupBindings() {

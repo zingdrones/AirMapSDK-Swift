@@ -82,7 +82,6 @@ extension AirMapError: CustomStringConvertible {
 	
 	public var description: String {
 		
-		let bundle = AirMapBundle.core
 		let localized = LocalizedStrings.Error.self
 		
 		switch self {

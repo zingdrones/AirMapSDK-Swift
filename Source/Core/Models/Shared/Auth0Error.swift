@@ -78,7 +78,6 @@ extension Auth0Error: CustomStringConvertible {
 	
 	public var description: String {
 		
-		let bundle = AirMapBundle.core
 		let localized = LocalizedStrings.Error.self
 		
 		switch self {
@@ -100,7 +99,6 @@ extension Auth0Error: CustomStringConvertible {
 	}
 }
 
-
 public struct Auth0ApiError: Mappable {
 	
 	public internal(set) var message: String!
@@ -112,7 +110,7 @@ public struct Auth0ApiError: Mappable {
 	}
 	
 	public init?(map: Map) {
-		guard let error = map.JSON["error"] as? String else {
+		guard map.JSON["error"] is String else {
 			return nil
 		}
 	}

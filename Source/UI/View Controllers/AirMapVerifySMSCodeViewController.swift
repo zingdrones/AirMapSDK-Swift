@@ -85,7 +85,7 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 			nav.phoneVerificationDelegate?.phoneVerificationDidVerifyPhoneNumber()
 		} else {
 			//TODO: Handle error
-			navigationController?.popViewController(animated: true)
+			_ = navigationController?.popViewController(animated: true)
 		}
 	}
 	

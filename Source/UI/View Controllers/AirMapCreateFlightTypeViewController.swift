@@ -933,9 +933,6 @@ extension AirMapCreateFlightTypeViewController {
 	
 	fileprivate func drawRedAdvisoryAirspaces(_ airspaces: [AirMapAirspace]) {
 		
-		// FIXME: Skip for now
-		return
-		
 		let existingRedAdvisories = mapView.annotations?.flatMap { $0 as? RedAdvisory} ?? []
 		mapView.remove(existingRedAdvisories)
 		
@@ -1058,7 +1055,15 @@ extension AirMapCreateFlightTypeViewController: DrawingOverlayDelegate {
 			guard coordinates.count > 1 && coordinates.count <= 25 else { return }
 			trackEvent(.draw, label: "Draw Path", value: coordinates.count as NSNumber)
 			// Ensure points first two points are at least 25m apart. This catches paths created when double tapping the map.
-			guard CLLocation(coordinate: coordinates[0]).distance(from: CLLocation(coordinate: coordinates[1])) > 25 else { return }
+			
+			let (coord0, coord1) = (coordinates[0], coordinates[1])
+
+			let loc0 = CLLocation(latitude: coord0.latitude, longitude: coord0.longitude)
+			let loc1 = CLLocation(latitude: coord1.latitude, longitude: coord1.longitude)
+			
+			guard loc0.distance(from: loc1) > 25 else {
+				return
+			}
 		case .polygon:
 			guard coordinates.count > 2 else { return }
 			trackEvent(.draw, label: "Draw Polygon", value: coordinates.count as NSNumber)

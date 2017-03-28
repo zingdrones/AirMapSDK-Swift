@@ -154,7 +154,7 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	}
 	
 	fileprivate func validateForm() {
-		submitButton?.isEnabled = phone.isValidNumber ?? false
+		submitButton?.isEnabled = phone.isValidNumber
 	}
 	
 	fileprivate func verifySMSToken() {
@@ -177,11 +177,11 @@ extension AirMapPhoneVerificationViewController: AirMapPhoneCountrySelectorDeleg
 		regionCode = code
 		country.text = name
 		setupPhoneNumberField()
-		navigationController?.popViewController(animated: true)
+		_ = navigationController?.popViewController(animated: true)
 	}
 	
 	func phoneCountrySelectorDidCancel() {
-		navigationController?.popViewController(animated: true)
+		_ = navigationController?.popViewController(animated: true)
 	}
 	
 }

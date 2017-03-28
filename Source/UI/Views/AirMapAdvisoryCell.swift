@@ -57,7 +57,7 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             if let expireDate = trfs.endTime {
                 ends?.text = String(format: localized.tfrStartsFormat, expireDate.shortDateString())
             } else {
-                ends?.text
+                ends?.text = localized.tfrPermanent
             }
         }
         

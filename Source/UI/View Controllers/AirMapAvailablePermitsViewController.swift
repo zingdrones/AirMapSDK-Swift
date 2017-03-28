@@ -132,7 +132,7 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 			.map(rowData(existingPermits + draftPermits))
 			.sorted(by: availablePermitNameAscending)
         
-        let existing = try! data.filter(isApplicable).filter(isIssued)
+        let existing = data.filter(isApplicable).filter(isIssued)
         let available = data.filter(isApplicable).filter(isNotIssued)
         let unavailable = data.filter(isUnapplicable)
 		

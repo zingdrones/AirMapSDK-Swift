@@ -48,7 +48,7 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 		
 		tableView.dataSource = nil
 		tableView.delegate = nil
-		tableView.rx.setDelegate(self)
+		tableView.rx.setDelegate(self).disposed(by: disposeBag)
 
 		let currentCountry: RowData = (code: selectedCountryIdentifier, name: selectedCountryName)
 		

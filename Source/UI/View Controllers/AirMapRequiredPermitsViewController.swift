@@ -130,7 +130,7 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 	fileprivate func setupTableView() {
 
 		// FIXME: Investigate if this is still required
-		tableView.rx.setDelegate(self)
+		tableView.rx.setDelegate(self).disposed(by: disposeBag)
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 75
 		tableView.layoutAndResizeHeader()
@@ -288,9 +288,9 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 				
 		tableView.deselectRow(at: indexPath, animated: false)
 		
-		if let model = try? dataSource.sectionModels[indexPath.section].items[indexPath.row],
-			let row = model as? RowData,
-			let pilotPermit = row.pilotPermit {
+		let row = dataSource.sectionModels[indexPath.section].items[indexPath.row]
+
+		if let pilotPermit = row.pilotPermit {
 			
 			let cell = tableView.cellForRow(at: indexPath)
 			

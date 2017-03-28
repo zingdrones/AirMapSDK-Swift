@@ -73,7 +73,7 @@ internal class FlightClient: HTTPClient {
 		let startBeforeNow = toDate == nil
 		let startBefore = toDate
 
-		AirMap.logger.debug("Get Public Flights", endAfterNow, endAfter, startBefore, startBeforeNow)
+		AirMap.logger.debug("Get Public Flights", endAfterNow as Any, endAfter as Any, startBefore as Any, startBeforeNow as Any)
 
 		let publicFlights = list(limit: limit, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow)
 

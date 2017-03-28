@@ -234,7 +234,7 @@ class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrack
 			}
 		}
 		
-		dataSource.titleForHeaderInSection = { [weak self] dataSource, index in
+		dataSource.titleForHeaderInSection = { dataSource, index in
 			dataSource.sectionModels[index].identity
 		}
 		
