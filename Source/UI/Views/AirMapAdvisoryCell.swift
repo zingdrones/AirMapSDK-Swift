@@ -33,7 +33,13 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
 		let localized = LocalizedStrings.Advisory.self
 		organizationName?.text = advisory.organization?.name
 		advisoryName.text = advisory.name
-        type?.text = advisory.type?.title
+		
+		if advisory.type == .emergency {
+			type?.text = "First Reponder Activity"
+		} else {
+			type?.text = advisory.type?.title
+		}
+		
         starts?.text = ""
         ends?.text = ""
 		phone?.text = localized.phoneNumberNotProvided
