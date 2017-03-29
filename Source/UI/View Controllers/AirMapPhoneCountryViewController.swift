@@ -18,20 +18,19 @@ protocol AirMapPhoneCountrySelectorDelegate: class {
 
 class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackable {
 	
-	
 	var screenName = "Phone Country Selector"
 	weak var selectionDelegate: AirMapPhoneCountrySelectorDelegate?
 	
-	var locale: NSLocale!
+	let locale = Locale.current
 	var selectedCountryIdentifier: String!
 	
-	private var selectedCountryName: String! {
-		return self.locale.displayNameForKey(NSLocaleCountryCode, value: self.selectedCountryIdentifier)!
+	fileprivate var selectedCountryName: String! {
+		return locale.localizedString(forRegionCode: selectedCountryIdentifier)
 	}
 	
-	private typealias RowData = (code: String, name: String)
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String,RowData>>()
-	private let disposeBag = DisposeBag()
+	fileprivate typealias RowData = (code: String, name: String)
+	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String,RowData>>()
+	fileprivate let disposeBag = DisposeBag()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -39,7 +38,7 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 		setupTable()
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
@@ -49,46 +48,48 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 		
 		tableView.dataSource = nil
 		tableView.delegate = nil
-		tableView.rx_setDelegate(self)
+		tableView.rx.setDelegate(self).disposed(by: disposeBag)
 
 		let currentCountry: RowData = (code: selectedCountryIdentifier, name: selectedCountryName)
 		
-		let otherCountries: [RowData] = NSLocale.ISOCountryCodes()
-			.map { ($0, self.locale.displayNameForKey(NSLocaleCountryCode, value: $0)!) }
-			.sort { $0.name < $1.name }
+		let otherCountries: [RowData] = Locale.isoRegionCodes
+			.map { ($0, self.locale.localizedString(forRegionCode: $0) ?? $0) }
+			.sorted { $0.name < $1.name }
 		
+		let localized = LocalizedStrings.PhoneCountry.self
+
 		let sections = [
-			SectionModel(model: "Selected Country", items: [currentCountry]),
-			SectionModel(model: "Other", items: otherCountries)
+			SectionModel(model: localized.selectedCountry, items: [currentCountry]),
+			SectionModel(model: localized.otherCountry, items: otherCountries)
 		]
 		
 		Observable.just(sections)
-			.bindTo(tableView.rx_itemsWithDataSource(dataSource))
-			.addDisposableTo(disposeBag)
+			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.disposed(by: disposeBag)
 		
 		dataSource.configureCell = { datasource, tableView, indexPath, row in
-			let cell = tableView.dequeueReusableCellWithIdentifier("phoneCountryCell")!
+			let cell = tableView.dequeueReusableCell(withIdentifier: "phoneCountryCell")!
 			cell.textLabel?.text = row.name
 			return cell
 		}
 		
-		tableView.rx_itemSelected.asObservable()
-			.map(tableView.rx_modelAtIndexPath)
-			.subscribeNext { [weak self] (row: RowData) in
+		tableView.rx.itemSelected.asObservable()
+			.map(tableView.rx.model)
+			.subscribe(onNext: { [weak self] (row: RowData) in
 				self?.trackEvent(.tap, label: "Country Row")
 				self?.selectionDelegate?.phoneCountrySelectorDidSelect(country: row.name, country: row.code)
-			}
-			.addDisposableTo(disposeBag)
+			})
+			.disposed(by: disposeBag)
 	}
 	
 	// MARK: - UITableViewDelegate
 	
-	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		
 		if indexPath.section == 0 {
-			cell.accessoryType = .Checkmark
+			cell.accessoryType = .checkmark
 		} else {
-			cell.accessoryType = .None
+			cell.accessoryType = .none
 		}
 	}
 	

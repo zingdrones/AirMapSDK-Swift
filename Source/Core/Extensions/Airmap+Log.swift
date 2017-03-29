@@ -10,9 +10,9 @@ import Log
 
 extension AirMap {
 	
-	public static let logger = Logger(
-		formatter: Formatter("AirMapSDK %@: %@", .Level, .Message),
-		minLevel: .Warning
-	)
-	
+	#if os(Linux)
+		// FIXME: Integrate Linux compatible Logging
+	#else
+		public static let logger = Logger(formatter: Formatter("AirMapSDK %@: %@", [.level, .message]), minLevel: .warning)
+	#endif
 }

@@ -8,23 +8,19 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusAdvisoryWildfireProperties: NSObject {
+open class AirMapStatusAdvisoryWildfireProperties {
 
-	public var size: Int?
-	public var dateEffective: NSDate?
+	open var size: Int?
+	open var dateEffective: Date?
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusAdvisoryWildfireProperties: Mappable {
 
-	public func mapping(map: Map) {
-		
-		"2016-06-30T16:54:17.606Z"
-		
+	public func mapping(map: Map) {		
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
-
-		size			<- map["size"]
+		size			<-  map["size"]
 		dateEffective	<- (map["date_effective"], dateTransform)
 	}
 }

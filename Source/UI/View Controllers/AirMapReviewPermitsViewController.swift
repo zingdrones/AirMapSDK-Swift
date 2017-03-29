@@ -16,10 +16,10 @@ class AirMapReviewPermitsViewController: UIViewController {
 	
 	@IBOutlet var tableView: UITableView!
 	
-	private typealias SectionData = SectionModel<AirMapOrganization, RowData>
-	private typealias RowData = (permit: AirMapAvailablePermit?, pilotPermit: AirMapPilotPermit?, name: String, value: String?)
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionData>()
-	private let disposeBag = DisposeBag()
+	fileprivate typealias SectionData = SectionModel<AirMapOrganization, RowData>
+	fileprivate typealias RowData = (permit: AirMapAvailablePermit?, pilotPermit: AirMapPilotPermit?, name: String, value: String?)
+	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionData>()
+	fileprivate let disposeBag = DisposeBag()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -27,48 +27,48 @@ class AirMapReviewPermitsViewController: UIViewController {
 		selectedPermits
 			.asObservable()
 			.map(unowned(self, AirMapReviewPermitsViewController.permitsToSectionModels))
-			.bindTo(tableView.rx_itemsWithDataSource(dataSource))
-			.addDisposableTo(disposeBag)
+			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.disposed(by: disposeBag)
 
 		dataSource.configureCell = { dataSource, tableView, indexPath, rowData in
 			let cell: UITableViewCell
 			if rowData.permit != nil {
-				cell = tableView.dequeueReusableCellWithIdentifier("permitNameCell")!
+				cell = tableView.dequeueReusableCell(withIdentifier: "permitNameCell")!
 			} else {
-				cell = tableView.dequeueReusableCellWithIdentifier("permitDetailCell")!
+				cell = tableView.dequeueReusableCell(withIdentifier: "permitDetailCell")!
 			}
 			cell.textLabel?.text = rowData.name
 			cell.detailTextLabel?.text = rowData.value
 			return cell
 		}
 		
-		dataSource.titleForHeaderInSection = { dataSource, section in
-			return dataSource.sectionAtIndex(section).model.name
+		dataSource.titleForHeaderInSection = { dataSource, index in
+			return dataSource.sectionModels[index].model.name
 		}
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
-		tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRowAtIndexPath($0, animated: true) }
+		tableView.indexPathsForSelectedRows?.forEach { tableView.deselectRow(at: $0, animated: true) }
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
 		if segue.identifier == "pushPermit" {
             let cell = sender as! UITableViewCell
-            let indexPath = tableView.indexPathForCell(cell)!
-            let section = dataSource.sectionAtIndex(indexPath.section)
+            let indexPath = tableView.indexPath(for: cell)!
+            let section = dataSource.sectionModels[indexPath.section]
             let rowData = section.items[indexPath.row]
-            let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
-            permitVC.mode = .Review
+            let permitVC = segue.destination as! AirMapAvailablePermitViewController
+            permitVC.mode = .review
             permitVC.permit = Variable(rowData.permit!)
             permitVC.pilotPermit = Variable(rowData.pilotPermit)
             permitVC.organization = section.model
 		}
 	}
 	
-	private func permitsToSectionModels(permits: [(organization: AirMapOrganization, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]) -> [SectionData] {
+	fileprivate func permitsToSectionModels(_ permits: [(organization: AirMapOrganization, permit: AirMapAvailablePermit, pilotPermit: AirMapPilotPermit)]) -> [SectionData] {
 
 		return permits.map { permit in
 			

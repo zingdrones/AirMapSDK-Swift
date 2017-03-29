@@ -8,16 +8,14 @@
 
 import ObjectMapper
 
-@objc public class AirMapAircraftManufacturer: NSObject {
+open class AirMapAircraftManufacturer {
 
-	public var id: String!
-	public var name: String!
+	open var id: String!
+	open var name: String!
 
-	internal override init() {
-		super.init()
-	}
-
-	required public init?(_ map: Map) {}
+	required public init?(map: Map) {}
+	
+	internal init() {}
 }
 
 extension AirMapAircraftManufacturer: Mappable {

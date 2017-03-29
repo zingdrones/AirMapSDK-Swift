@@ -24,11 +24,11 @@ class AirMapAuthSession {
 		}
 	}
 
-	var tokenType: String = "Bearer"
-	var enableCertificatePinning: Bool = false
-	var userId: String = ""
-	var expiresAt: NSDate!
-	weak var delegate: AirMapAuthSessionDelegate?
+	internal var tokenType: String = "Bearer"
+	internal var enableCertificatePinning: Bool = false
+	internal var userId: String = ""
+	internal var expiresAt: Date!
+	internal weak var delegate: AirMapAuthSessionDelegate?
 
 	private let disposeBag = DisposeBag()
 
@@ -43,24 +43,21 @@ class AirMapAuthSession {
 			.mapToVoid()
 
 		expiredDateInterval
-			.subscribeNext(unowned(self, AirMapAuthSession.verifyAuthentication))
-			.addDisposableTo(disposeBag)
+			.subscribeNext(weak: self, AirMapAuthSession.verifyAuthentication)
+			.disposed(by: disposeBag)
 	}
 
-	/**
-	Decodes a JWT token and sets the userId and expiresAt properties
-
-	- parameter jwt: The JWT Token to decode
-
-	*/
-	private func decodeToken(jwt: String) {
+	/// Decode a JWT token and set the userId and expiration
+	///
+	/// - Parameter jwt: The JWT token to decode
+	private func decodeToken(_ jwt: String) {
 
 		if jwt.isEmpty {
 			self.authToken = nil
 			self.userId = ""
 		}
 
-		guard let decoded = try? JWTDecode.decode(jwt) else {
+		guard let decoded = try? JWTDecode.decode(jwt: jwt) else {
 			delegate?.airmapSessionShouldAuthenticate()
 			return
 		}
@@ -71,18 +68,14 @@ class AirMapAuthSession {
 		AirMap.logger.debug("Decoded Token User Id", userId)
 	}
 
-	/**
-
-	If token is expired then ask the delegate for a new Auth Token
-
-	*/
+	/// If the token is expired then ask the delegate for a new token
 	private func verifyAuthentication() {
 
 		guard let expiresAt = expiresAt else { return }
 
 		if !hasValidCredentials() {
 
-			if NSDate().greaterThanDate(expiresAt.dateBySubtractingTimeInterval(60*5)) {
+			if Date().greaterThanDate(expiresAt.dateBySubtractingTimeInterval(60*5)) {
 				self.expiresAt = nil
 			}
 
@@ -93,23 +86,23 @@ class AirMapAuthSession {
 	/// Checks for an expired token and returns a Boolean
 	private func tokenIsExpired() -> Bool {
 		guard let expiresAt = expiresAt else { return true }
-		return NSDate().greaterThanDate(expiresAt)
+		return Date().greaterThanDate(expiresAt)
 	}
 
 	/// Validates the credentials and returns a Bool
-	func hasValidCredentials() -> Bool {
+	internal func hasValidCredentials() -> Bool {
 		return authToken != nil && !authToken!.isEmpty && !tokenIsExpired()
 	}
 
-	func saveRefreshToken(token: String?) {
+	internal func saveRefreshToken(_ token: String?) {
 		if let token = token {
 			A0SimpleKeychain().setString(token, forKey: Config.AirMapApi.Auth.keychainKeyRefreshToken)
 		} else {
-			A0SimpleKeychain().deleteEntryForKey(Config.AirMapApi.Auth.keychainKeyRefreshToken)
+			A0SimpleKeychain().deleteEntry(forKey: Config.AirMapApi.Auth.keychainKeyRefreshToken)
 		}
 	}
 
-	func getRefreshToken() -> String? {
-		return A0SimpleKeychain().stringForKey(Config.AirMapApi.Auth.keychainKeyRefreshToken)
+	internal func getRefreshToken() -> String? {
+		return A0SimpleKeychain().string(forKey: Config.AirMapApi.Auth.keychainKeyRefreshToken)
 	}
 }

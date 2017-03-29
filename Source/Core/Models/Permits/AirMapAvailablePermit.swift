@@ -8,51 +8,38 @@
 
 import ObjectMapper
 
-@objc public class AirMapAvailablePermit: NSObject {
+public class AirMapAvailablePermit: Hashable, Equatable {
 
 	public internal(set) var id = ""
-	public private(set) var name = ""
-	public private(set) var info = ""
-	public private(set) var infoUrl = ""
-	public private(set) var singleUse: Bool = false
-	public private(set) var validForInMinutes: Int?
-	public private(set) var validUntil: NSDate?
+	public fileprivate(set) var name = ""
+	public fileprivate(set) var info = ""
+	public fileprivate(set) var infoUrl = ""
+	public fileprivate(set) var singleUse: Bool = false
+	public fileprivate(set) var validForInMinutes: Int?
+	public fileprivate(set) var validUntil: Date?
 	public internal(set) var customProperties = [AirMapPilotPermitCustomProperty]()
 	public internal(set) var organizationId = ""
 	
-	internal override init() {
-		super.init()
-	}
-
-	public required init?(_ map: Map) {}
+	internal init() {}
+	public required init?(map: Map) {}
 	
-	private static let validityFormatter: NSDateComponentsFormatter = {
-		let f = NSDateComponentsFormatter()
-		f.allowedUnits = [.Year, .Month, .Day, .Hour, .Minute]
-		f.zeroFormattingBehavior = .DropAll
-		f.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+	fileprivate static let validityFormatter: DateComponentsFormatter = {
+		let f = DateComponentsFormatter()
+		f.allowedUnits = [.year, .month, .day, .hour, .minute]
+		f.zeroFormattingBehavior = .dropAll
 		f.allowsFractionalUnits = false
-		f.unitsStyle = .Full
+		f.unitsStyle = .full
 		return f
 	}()
 
 	public func validityString() -> String? {
 		guard let minutes = validForInMinutes else { return nil }
-		return AirMapAvailablePermit.validityFormatter.stringFromTimeInterval(NSTimeInterval(minutes * 60))
+		return AirMapAvailablePermit.validityFormatter.string(from: TimeInterval(minutes * 60))
 	}
 	
-	override public var hashValue: Int {
+	public var hashValue: Int {
 		return id.hashValue
 	}
-	
-	override public func isEqual(object: AnyObject?) -> Bool {
-		if let permit = object as? AirMapAvailablePermit {
-			return permit == self
-		} else {
-			return false
-		}
-	}
-
 }
 
 extension AirMapAvailablePermit: Mappable {
@@ -71,20 +58,13 @@ extension AirMapAvailablePermit: Mappable {
 		validUntil          <- (map["valid_until"], dateTransform)
 		customProperties    <-  map["custom_properties"]
 	}
-
-	/**
 	
-	Returns key value parameters
-	
-	- returns: [String: AnyObject]
-	
-	*/
-	public func params() -> [String: AnyObject] {
+	public func params() -> [String: Any] {
 		
-		var params = [String: AnyObject]()
-		params["id"] = id
-		params["custom_properties"] = customProperties.toJSON()
-		return params
+		return [
+			"id": id,
+			"custom_properties": customProperties.map { $0.params() }
+		]
 	}
 }
 

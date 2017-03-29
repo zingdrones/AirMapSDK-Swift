@@ -10,15 +10,15 @@ import Foundation
 
 public protocol AirMapAnalyticsDelegate: class {
 	
-	func analyticsDidTrackScreen(screen: String)
-	func analyticsDidTrackEvent(category: String, action: String, label: String, value: NSNumber?)
+	func analyticsDidTrackScreen(_ screen: String)
+	func analyticsDidTrackEvent(_ category: String, action: String, label: String, value: NSNumber?)
 }
 
 public class AirMapAnalytics {
 	
-	static weak public var delegate: AirMapAnalyticsDelegate?
+	public static weak var delegate: AirMapAnalyticsDelegate?
 	
-	static func trackEvent(category: String, action: AnalyticsAction, label: String, value: NSNumber? = nil) {
+	internal static func trackEvent(_ category: String, action: AnalyticsAction, label: String, value: NSNumber? = nil) {
 		delegate?.analyticsDidTrackEvent(category, action: action.rawValue, label: label, value: value)
 	}
 }
@@ -48,7 +48,7 @@ extension AnalyticsTrackable {
 		AirMapAnalytics.delegate?.analyticsDidTrackScreen(screenName)
 	}
 	
-	func trackEvent(action: AnalyticsAction, label: String, value: NSNumber? = nil) {
+	func trackEvent(_ action: AnalyticsAction, label: String, value: NSNumber? = nil) {
 		AirMapAnalytics.delegate?.analyticsDidTrackEvent(screenName, action: action.rawValue, label: label, value: value)
 	}
 }

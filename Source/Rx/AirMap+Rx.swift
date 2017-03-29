@@ -7,253 +7,267 @@
 //
 
 import RxSwift
-import RxCocoa
 
-private typealias RxAirMap_Flight = AirMap
-extension RxAirMap_Flight {
+// Reactive extension for AirMap methods.
+extension AirMap: ReactiveCompatible {}
 
-	public class func rx_listPublicFlights(fromDate fromDate: NSDate? = nil, toDate: NSDate? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
-		return flightClient.listPublicFlights(fromDate: fromDate, toDate: toDate, limit: limit)
+/// Documentation found in AirMap+Flights.swift
+extension Reactive where Base: AirMap_Flight {
+	
+	public static func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
+		return AirMap.flightClient.listPublicFlights(from: fromDate, to: toDate, limit: limit)
 	}
 
-	public class func rx_getCurrentAuthenticatedPilotFlight() -> Observable<AirMapFlight?> {
-		return flightClient.list(startBeforeNow: true, endAfterNow: true, pilotId: AirMap.authSession.userId, authCheck:true ).map { $0.first }
+	public static func listFlights(_ pilot: AirMapPilot, limit: Int = 100) -> Observable<[AirMapFlight]> {
+		return AirMap.flightClient.list(limit: limit, pilotId: pilot.pilotId)
+	}
+	
+	public static func getCurrentAuthenticatedPilotFlight() -> Observable<AirMapFlight?> {
+		return AirMap.flightClient.list(pilotId: AirMap.authSession.userId, startBeforeNow: true, endAfterNow: true, checkAuth: true ).map { $0.first }
 	}
 
-	public class func rx_getFlight(flightId: String) -> Observable<AirMapFlight> {
-		return flightClient.get(flightId)
+	public static func getFlight(_ flightId: String) -> Observable<AirMapFlight> {
+		return AirMap.flightClient.get(flightId)
 	}
 
-	public class func rx_listFlights(pilot: AirMapPilot, limit: Int = 100) -> Observable<[AirMapFlight]> {
-		return flightClient.list(limit, pilotId: pilot.pilotId)
+	public static func createFlight(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
+		return AirMap.flightClient.create(flight)
 	}
 
-	public class func rx_createFlight(flight: AirMapFlight, geometryType: AirMapFlight.FlightGeometryType? = .Point) -> Observable<AirMapFlight> {
-		return flightClient.create(flight)
+	public static func endFlight(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
+		return AirMap.flightClient.end(flight)
 	}
 
-	public class func rx_endFlight(flight: AirMapFlight) -> Observable<AirMapFlight> {
-		return flightClient.end(flight)
-	}
-
-	public class func rx_deleteFlight(flight: AirMapFlight) -> Observable<Void> {
-		return flightClient.delete(flight)
-	}
-}
-
-private typealias RxAirMap_Aircraft = AirMap
-extension RxAirMap_Aircraft {
-
-	public class func rx_listManufacturers() -> Observable<[AirMapAircraftManufacturer]> {
-		return aircraftClient.listManufacturers()
-	}
-
-	public class func rx_listModels() -> Observable<[AirMapAircraftModel]> {
-		return aircraftClient.listModels()
-	}
-
-	public class func rx_getModel(modelId: String) -> Observable<AirMapAircraftModel> {
-		return aircraftClient.getModel(modelId)
+	public static func deleteFlight(_ flight: AirMapFlight) -> Observable<Void> {
+		return AirMap.flightClient.delete(flight)
 	}
 }
 
-private typealias RxAirMap_Pilot_Aircraft = AirMap
-extension RxAirMap_Pilot_Aircraft {
+/// Documentation found in AirMap+Aircraft.swift
+extension Reactive where Base: AirMap_Aircraft {
 
-	public class func rx_listAircraft() -> Observable<[AirMapAircraft]> {
-		return pilotClient.listAircraft()
+	public static func listAircraft() -> Observable<[AirMapAircraft]> {
+		return AirMap.pilotClient.listAircraft()
 	}
 
-	public class func rx_createAircraft(aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
-		return pilotClient.createAircraft(aircraft)
+	public static func createAircraft(_ aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
+		return AirMap.pilotClient.createAircraft(aircraft)
 	}
 
-	public class func rx_updateAircraft(aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
-		return pilotClient.updateAircraft(aircraft)
+	public static func updateAircraft(_ aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
+		return AirMap.pilotClient.updateAircraft(aircraft)
 	}
 
-	public class func rx_deleteAircraft(aircraft: AirMapAircraft) -> Observable<Void> {
-		return pilotClient.deleteAircraft(aircraft)
-	}
-}
-
-private typealias RxAirMap_Pilot = AirMap
-extension RxAirMap_Pilot {
-
-	public class func rx_getPilot(pilotId: String) -> Observable<AirMapPilot> {
-		return pilotClient.get(pilotId)
+	public static func deleteAircraft(_ aircraft: AirMapAircraft) -> Observable<Void> {
+		return AirMap.pilotClient.deleteAircraft(aircraft)
 	}
 
-	public class func rx_getAuthenticatedPilot() -> Observable<AirMapPilot> {
-		return pilotClient.getAuthenticatedPilot()
+	public static func listManufacturers() -> Observable<[AirMapAircraftManufacturer]> {
+		return AirMap.aircraftClient.listManufacturers()
 	}
-
-	public class func rx_updatePilot(pilot: AirMapPilot) -> Observable<AirMapPilot> {
-		return pilotClient.update(pilot)
+	
+	public static func listModels() -> Observable<[AirMapAircraftModel]> {
+		return AirMap.aircraftClient.listModels()
 	}
-
-	public class func rx_sendVerificationToken() -> Observable<Void> {
-		return pilotClient.sendVerificationToken()
-	}
-
-	public class func rx_verifySMS(token: String) -> Observable<AirMapPilotVerified> {
-		return pilotClient.verifySMS(token)
+	
+	public static func getModel(_ modelId: String) -> Observable<AirMapAircraftModel> {
+		return AirMap.aircraftClient.getModel(modelId)
 	}
 }
 
-private typealias RxAirMap_Pilot_Permits = AirMap
-extension RxAirMap_Pilot_Permits {
+/// Documentation found in AirMap+Pilot.swift
+extension Reactive where Base: AirMap_Pilot {
 
-	public class func rx_listPilotPermits() -> Observable<[AirMapPilotPermit]> {
-		return pilotClient.listPilotPermits()
+	public static func getPilot(_ pilotId: String) -> Observable<AirMapPilot> {
+		return AirMap.pilotClient.get(pilotId)
 	}
 
-	public class func rx_deletePilotPermit(pilotId: String, permit: AirMapPilotPermit) -> Observable<Void> {
-		return pilotClient.deletePilotPermit(pilotId, permit: permit)
+	public static func getAuthenticatedPilot() -> Observable<AirMapPilot> {
+		return AirMap.pilotClient.getAuthenticatedPilot()
+	}
+
+	public static func updatePilot(_ pilot: AirMapPilot) -> Observable<AirMapPilot> {
+		return AirMap.pilotClient.update(pilot)
+	}
+
+	public static func sendSMSVerificationToken() -> Observable<Void> {
+		return AirMap.pilotClient.sendVerificationToken()
+	}
+
+	public static func verifySMS(_ token: String) -> Observable<AirMapPilotVerified> {
+		return AirMap.pilotClient.verifySMS(token: token)
 	}
 }
 
-private typealias RxAirMap_Permit = AirMap
-extension RxAirMap_Permit {
+/// Documentation found in AirMap+Permits.swift
+extension Reactive where Base: AirMap_Permits {
 
-	public class func rx_listPermits(permitIds: [String]? = nil, organizationId: String? = nil) -> Observable<[AirMapAvailablePermit]> {
-		return permitClient.list(permitIds, organizationId: organizationId)
+	public static func listPilotPermits() -> Observable<[AirMapPilotPermit]> {
+		return AirMap.pilotClient.listPilotPermits()
 	}
 
-	public class func rx_getAvailablePermit(permitId: String) -> Observable<AirMapAvailablePermit?> {
-		return permitClient.list([permitId]).map { $0.first }
+	public static func deletePilotPermit(_ pilotId: String, permit: AirMapPilotPermit) -> Observable<Void> {
+		return AirMap.pilotClient.deletePilotPermit(pilotId, permit: permit)
 	}
 
-	public class func rx_applyForPermit(permit: AirMapAvailablePermit) -> Observable<AirMapPilotPermit> {
-		return permitClient.apply(permit)
+	public static func listPermits(_ permitIds: [String]? = nil, organizationId: String? = nil) -> Observable<[AirMapAvailablePermit]> {
+		return AirMap.permitClient.list(permitIds, organizationId: organizationId)
+	}
+
+	public static func getAvailablePermit(_ permitId: String) -> Observable<AirMapAvailablePermit?> {
+		return AirMap.permitClient.list([permitId]).map { $0.first }
+	}
+
+	public static func apply(for permit: AirMapAvailablePermit) -> Observable<AirMapPilotPermit> {
+		return AirMap.permitClient.apply(for: permit)
 	}
 
 }
 
-private typealias RxAirMap_Status = AirMap
-extension RxAirMap_Status {
+/// Documentation found in AirMap+Status.swift
+extension Reactive where Base: AirMap_Status {
 
-	public class func rx_checkCoordinate(coordinate: CLLocationCoordinate2D,
-	                                  buffer: Double,
+	public static func checkCoordinate(coordinate: Coordinate2D,
+	                                  buffer: Meters,
 	                                  types: [AirMapAirspaceType]? = nil,
 	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
 	                                  weather: Bool = false,
-	                                  date: NSDate = NSDate()) -> Observable<AirMapStatus> {
+	                                  date: Date = Date()) -> Observable<AirMapStatus> {
 
-		return statusClient.checkCoordinate(coordinate,
-		                                    buffer: buffer,
-		                                    types: types,
-		                                    ignoredTypes: ignoredTypes,
-		                                    weather: weather,
-		                                    date: date)
+		return AirMap.statusClient.checkCoordinate(coordinate: coordinate,
+		                                           buffer: buffer,
+		                                           types: types,
+		                                           ignoredTypes: ignoredTypes,
+		                                           weather: weather,
+		                                           date: date)
 	}
 
-	public class func rx_checkFlightPath(path: [CLLocationCoordinate2D],
-	                                  buffer: Int,
-	                                  takeOffPoint: CLLocationCoordinate2D,
+	public static func checkFlightPath(path: [Coordinate2D],
+	                                  buffer: Meters,
+	                                  takeOffPoint: Coordinate2D,
 	                                  types: [AirMapAirspaceType]? = nil,
 	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
 	                                  weather: Bool = false,
-	                                  date: NSDate = NSDate()) -> Observable<AirMapStatus> {
+	                                  date: Date = Date()) -> Observable<AirMapStatus> {
 
-		return statusClient.checkFlightPath(path,
-		                                    buffer: buffer,
-		                                    takeOffPoint: takeOffPoint,
-		                                    types: types,
-		                                    ignoredTypes: ignoredTypes,
-		                                    weather: weather,
-		                                    date: date)
+		return AirMap.statusClient.checkFlightPath(path: path,
+		                                           buffer: buffer,
+		                                           takeOffPoint: takeOffPoint,
+		                                           types: types,
+		                                           ignoredTypes: ignoredTypes,
+		                                           weather: weather,
+		                                           date: date)
 	}
 
-	public class func rx_checkPolygon(geometry: [CLLocationCoordinate2D],
-	                               takeOffPoint: CLLocationCoordinate2D,
+	public static func checkPolygon(geometry: [Coordinate2D],
+	                               takeOffPoint: Coordinate2D,
 	                               types: [AirMapAirspaceType]? = nil,
 	                               ignoredTypes: [AirMapAirspaceType]? = nil,
 	                               weather: Bool = false,
-	                               date: NSDate = NSDate()) -> Observable<AirMapStatus> {
+	                               date: Date = Date()) -> Observable<AirMapStatus> {
 
-		return statusClient.checkPolygon(geometry,
-		                                 takeOffPoint: takeOffPoint,
-		                                 types: types,
-		                                 ignoredTypes: ignoredTypes,
-		                                 weather: weather,
-		                                 date: date)
+		return AirMap.statusClient.checkPolygon(geometry: geometry,
+		                                        takeOffPoint: takeOffPoint,
+		                                        types: types,
+		                                        ignoredTypes: ignoredTypes,
+		                                        weather: weather,
+		                                        date: date)
 	}
 
 }
 
-private typealias RxAirMap_Rules = AirMap
-extension RxAirMap_Rules {
+/// Documentation found in AirMap+Auth.swift
+extension Reactive where Base: AirMap_Auth {
+    
+    public static func performAnonymousLogin(userId:String) -> Observable<AirMapToken> {
+        
+        return AirMap.authClient.performAnonymousLogin(userId: userId)
+    }
+	
+    @available(*, unavailable)
+    public static func performPhoneNumberLogin(phoneNumber:String) -> Observable<Void> {
+        
+        return AirMap.auth0Client.performPhoneNumberLogin(phoneNumber: phoneNumber)
+    }
+	
+	@available(*, unavailable)
+    public static func performLoginWithCode(phoneNumber:String, code:String) -> Observable<Auth0Credentials> {
+        
+        return AirMap.auth0Client.performLoginWithCode(phoneNumber:phoneNumber, code:code)
+    }
+}
 
-	public class func rx_getLocalRules(location: CLLocationCoordinate2D) -> Observable<[AirMapLocalRule]> {
+/// Documentation found in AirMap+Rules.swift
+extension Reactive where Base: AirMap_Rules {
+
+	public static func getLocalRules(location: Coordinate2D) -> Observable<[AirMapLocalRule]> {
 		
-		return rulesClient.getLocalRules(location)
+		return AirMap.rulesClient.listLocalRules(at: location)
 	}
 
 }
 
-private typealias RxAirMap_Airspace = AirMap
-extension RxAirMap_Airspace {
+extension Reactive where Base: AirMap_Airspace {
 
-	class func rx_getAirspace(airspaceId: String) -> Observable<AirMapAirspace> {
-		return airspaceClient.getAirspace(airspaceId)
+	static func getAirspace(_ airspaceId: String) -> Observable<AirMapAirspace> {
+		return AirMap.airspaceClient.getAirspace(airspaceId)
 	}
 	
-	class func rx_listAirspace(airspaceIds: [String]) -> Observable<[AirMapAirspace]> {
-		return airspaceClient.listAirspace(airspaceIds)
+	static func listAirspace(_ airspaceIds: [String]) -> Observable<[AirMapAirspace]> {
+		return AirMap.airspaceClient.listAirspace(airspaceIds)
 			// Unlikely, but remove nil or empty airspace ids
 			.map { $0.filter { airspace in airspace.id != nil && !airspace.id!.isEmpty } }
 	}
 
 }
 
-#if AIRMAP_TRAFFIC
+#if AIRMAP_TRAFFIC && AIRMAP_UI
+import RxCocoa
 
-class RxAirMapTrafficDelegateProxy: DelegateProxy, DelegateProxyType {
-
-	static func currentDelegateFor(object: AnyObject) -> AnyObject? {
+/// AirMapTrafficObserver Reactive delegate wrapper
+class RxAirMapTrafficObserverProxy: DelegateProxy, DelegateProxyType {
+	
+	static func currentDelegateFor(_ object: AnyObject) -> AnyObject? {
 		return AirMap.trafficDelegate
 	}
-
-	static func setCurrentDelegate(delegate: AnyObject?, toObject object: AnyObject) {
+	
+	static func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {
 		AirMap.trafficDelegate = delegate as? AirMapTrafficObserver
 	}
 
 }
 
-private typealias RxAirMap_Traffic = AirMap
-extension RxAirMap_Traffic {
-
-
-	public static var rx_trafficDelegate: DelegateProxy {
-		return RxAirMapTrafficDelegateProxy.proxyForObject(self)
+/// Documentation found in AirMap+Traffic.swift
+extension Reactive where Base: AirMap_Traffic {
+	
+	public static var trafficDelegate: DelegateProxy {
+		return RxAirMapTrafficObserverProxy.proxyForObject(self as AnyObject)
 	}
-
-	public static var rx_trafficServiceDidConnect: Observable<Bool> {
-
-		return rx_trafficDelegate.observe(#selector(AirMapTrafficObserver.airMapTrafficServiceDidConnect))
+	
+	public static var trafficServiceDidConnect: Observable<Bool> {
+		return trafficDelegate.rx.sentMessage(#selector(AirMapTrafficObserver.airMapTrafficServiceDidConnect))
 			.map { _ in return true }
 	}
-
-	public static var rx_trafficServiceDidDisconnect: Observable<Bool> {
-		return rx_trafficDelegate.observe(#selector(AirMapTrafficObserver.airMapTrafficServiceDidDisconnect))
+	
+	public static var trafficServiceDidDisconnect: Observable<Bool> {
+		return trafficDelegate.rx.sentMessage(#selector(AirMapTrafficObserver.airMapTrafficServiceDidDisconnect))
 			.map { _ in return false }
 	}
-
-	public static var rx_trafficServiceDidAdd: Observable<[AirMapTraffic]> {
-		return rx_trafficDelegate.observe(#selector(AirMapTrafficObserver.airMapTrafficServiceDidAdd(_:)))
+	
+	public static var trafficServiceDidAdd: Observable<[AirMapTraffic]> {
+		return trafficDelegate.rx.sentMessage(#selector(AirMapTrafficObserver.airMapTrafficServiceDidAdd(_:)))
 			.map { $0 as! [AirMapTraffic] }
 	}
-
-	public static var rx_trafficServiceDidUpdate: Observable<[AirMapTraffic]> {
-		return rx_trafficDelegate.observe(#selector(AirMapTrafficObserver.airMapTrafficServiceDidUpdate(_:)))
+	
+	public static var trafficServiceDidUpdate: Observable<[AirMapTraffic]> {
+		return trafficDelegate.rx.sentMessage(#selector(AirMapTrafficObserver.airMapTrafficServiceDidUpdate(_:)))
 			.map { $0 as! [AirMapTraffic] }
 	}
-
-	public static var rx_trafficServiceDidRemove: Observable<[AirMapTraffic]> {
-		return rx_trafficDelegate.observe(#selector(AirMapTrafficObserver.airMapTrafficServiceDidRemove(_:)))
+	
+	public static var trafficServiceDidRemove: Observable<[AirMapTraffic]> {
+		return trafficDelegate.rx.sentMessage(#selector(AirMapTrafficObserver.airMapTrafficServiceDidRemove(_:)))
 			.map { $0 as! [AirMapTraffic] }
 	}
-
+	
 }
 #endif

@@ -8,20 +8,19 @@
 
 import ObjectMapper
 
-public class AirMapLocalRule: NSObject {
+public class AirMapLocalRule: Hashable, Equatable {
 	
 	public var id = String()
 	public var jurisdictionName = String()
 	public var jurisdictionType = String()
 	public var text = String()
 	public var summary: String?
-	public var lastUpdated = NSDate()
-	public var url: NSURL?
+	public var lastUpdated = Date()
+	public var url: URL?
 	
-	public required init?(_ map: Map) {}
-	public override init() { super.init() }
+	public required init?(map: Map) {}
 	
-	override public var hashValue: Int {
+	public var hashValue: Int {
 		return id.hashValue
 	}
 }
@@ -39,6 +38,6 @@ extension AirMapLocalRule: Mappable {
 	}
 }
 
-func ==(lhs: AirMapLocalRule, rhs: AirMapLocalRule) -> Bool {
+public func ==(lhs: AirMapLocalRule, rhs: AirMapLocalRule) -> Bool {
 	return lhs.id == rhs.id
 }

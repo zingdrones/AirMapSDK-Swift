@@ -8,10 +8,10 @@
 
 import ObjectMapper
 
-@objc public class AirMapToken: NSObject {
+open class AirMapToken {
 
-	public var authToken: String!
-	public required init?(_ map: Map) {}
+	open var authToken: String!
+	public required init?(map: Map) {}
 }
 
 extension AirMapToken: Mappable {

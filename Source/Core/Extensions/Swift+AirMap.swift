@@ -6,10 +6,9 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-
 /// Convenience method for wrapping closure parameters with `[unowned self]` to prevent retain cycles
 func unowned<Type: AnyObject, Parameters, ReturnValue>
-	(instance: Type, _ function: (Type -> Parameters -> ReturnValue)) -> (Parameters -> ReturnValue) {
+	(_ instance: Type, _ function: @escaping ((Type) -> (Parameters) -> ReturnValue)) -> ((Parameters) -> ReturnValue) {
 	
 	return { [unowned instance] parameters -> ReturnValue in
 		return function(instance)(parameters)

@@ -11,21 +11,21 @@ import RxSwift
 internal class AircraftClient: HTTPClient {
 	
 	init() {
-		super.init(Config.AirMapApi.aircraftUrl)
+		super.init(basePath: Config.AirMapApi.aircraftUrl)
 	}
 	
 	func listManufacturers() -> Observable<[AirMapAircraftManufacturer]> {
 		AirMap.logger.debug("Get Aircraft Manufacturers")
-		return call(.GET, url:"/manufacturer")
+		return perform(method: .get, path: "/manufacturer")
 	}
 	
 	func listModels() -> Observable<[AirMapAircraftModel]> {
 		AirMap.logger.debug("Get Aircraft Models")
-		return call(.GET, url:"/model")
+		return perform(method: .get, path: "/model")
 	}
 	
-	func getModel(modelId: String) -> Observable<AirMapAircraftModel> {
+	func getModel(_ modelId: String) -> Observable<AirMapAircraftModel> {
 		AirMap.logger.debug("Get Model", modelId)
-		return call(.GET, url:"/model/\(modelId)")
+		return perform(method: .get, path: "/model/\(modelId)")
 	}
 }

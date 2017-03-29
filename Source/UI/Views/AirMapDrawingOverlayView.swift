@@ -20,26 +20,26 @@ class AirMapDrawingOverlayView: UIView {
 	var tolerance: Float = 10
 	var discardsDuplicateClosingPoint = false
 	
-	private var points = [CGPoint]()
+	fileprivate var points = [CGPoint]()
 	
-	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		
 		points = []
 
-		let point = touches.first!.locationInView(self)
+		let point = touches.first!.location(in: self)
 		points.append(point)
 	}
 	
-	override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 		
-		let point = touches.first!.locationInView(self)
+		let point = touches.first!.location(in: self)
 		points.append(point)
 		setNeedsDisplay()
 	}
 	
-	override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 		
-		let point = touches.first!.locationInView(self)
+		let point = touches.first!.location(in: self)
 		points.append(point)
 
 		points = SwiftSimplify.simplify(points, tolerance: tolerance, highQuality: true)
@@ -48,32 +48,32 @@ class AirMapDrawingOverlayView: UIView {
 			discardDuplicateClosingPoint(within: tolerance*2)
 		}
 
-		delegate?.overlayDidDraw(points)
+		delegate?.overlayDidDraw(geometry: points)
 		
 		points = []
 		setNeedsDisplay()
 	}
 	
-	override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+	override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
 		
-		touchesEnded(touches!, withEvent: event)
+		touchesEnded(touches, with: event)
 	}
 	
-	override func drawRect(rect: CGRect) {
-		super.drawRect(rect)
+	override func draw(_ rect: CGRect) {
+		super.draw(rect)
 		
-		let cgPath = CGPathCreateMutable()
-		CGPathAddLines(cgPath, nil, points, points.count)
+		let cgPath = CGMutablePath()
+		cgPath.addLines(between: points)
 		
-		UIColor.airMapGray().setStroke()
+		UIColor.airMapDarkGray.setStroke()
 		
-		let uiPath = UIBezierPath(CGPath: cgPath)
+		let uiPath = UIBezierPath(cgPath: cgPath)
 		uiPath.setLineDash([6,6], count: 2, phase: 0)
 		uiPath.lineWidth = 2
 		uiPath.stroke()
 	}
 	
-	private func discardDuplicateClosingPoint(within tolerance: Float) {
+	fileprivate func discardDuplicateClosingPoint(within tolerance: Float) {
 		
 		guard points.count >= 2 else { return }
 		

@@ -28,11 +28,11 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 	}
 
 	/// Valid permits the user already holds
-	private var existingPermits: Variable<[AirMapPilotPermit]> {
+	fileprivate var existingPermits: Variable<[AirMapPilotPermit]> {
 		return navigationController!.existingPermits
 	}
 	/// Any new permits that the user is creating that they don't already hold
-	private var draftPermits: Variable<[AirMapPilotPermit]> {
+	fileprivate var draftPermits: Variable<[AirMapPilotPermit]> {
 		return navigationController!.draftPermits
 	}
 	/// The permits that user has selected in order to advance to the next step of the flow
@@ -40,12 +40,12 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 		return navigationController!.selectedPermits
 	}
 
-	private typealias SectionData = SectionModel<AirMapOrganization, RowData>
-	private typealias RowData = (organization: AirMapOrganization, availablePermit: AirMapAvailablePermit?, pilotPermit: AirMapPilotPermit?)
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionData>()
-	private let activityIndicator = ActivityIndicator()
-	private let disposeBag = DisposeBag()
-	
+	fileprivate typealias SectionData = SectionModel<AirMapOrganization, RowData>
+	fileprivate typealias RowData = (organization: AirMapOrganization, availablePermit: AirMapAvailablePermit?, pilotPermit: AirMapPilotPermit?)
+	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionData>()
+	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let disposeBag = DisposeBag()
+
 	// MARK: - View Lifecycle
 
 	override func viewDidLoad() {
@@ -55,44 +55,46 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 		setupBindings()
 		setupTableView()
 	}
-	
-	override func viewDidAppear(animated: Bool) {
+
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard let identifier = segue.identifier else { return }
 		
 		switch identifier {
 			
 		case "modalPermitSelection":
 			let cell = sender as! UITableViewCell
-			let indexPath = tableView.indexPathForCell(cell)!
-			let nav = segue.destinationViewController as! UINavigationController
+			let indexPath = tableView.indexPath(for: cell)!
+			let nav = segue.destination as! UINavigationController
 			let availablePermitsVC = nav.viewControllers.first as! AirMapAvailablePermitsViewController
 			availablePermitsVC.status = status.value!
-			availablePermitsVC.organization = dataSource.itemAtIndexPath(indexPath).organization
+			availablePermitsVC.organization = dataSource.sectionModels[indexPath.section].items[indexPath.row].organization
 			availablePermitsVC.existingPermits = existingPermits.value
 			availablePermitsVC.draftPermits = draftPermits.value
+		
 		case "modalFAQ" :
-			let nav = segue.destinationViewController as! UINavigationController
+			let nav = segue.destination as! UINavigationController
 			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
 			faqVC.section = .Permits
 			trackEvent(.tap, label: "Info Button (Permit FAQ's)")
+	
 		default:
 			break
 		}
 	}
 
-	@IBAction func unwindToRequiredPermits(segue: UIStoryboardSegue) { /* Hook for Interface Builder; keep. */ }
+	@IBAction func unwindToRequiredPermits(_ segue: UIStoryboardSegue) { /* Hook for Interface Builder; keep. */ }
 	
-	@IBAction func unwindFromPermitSelection(segue: UIStoryboardSegue) {
+	@IBAction func unwindFromPermitSelection(_ segue: UIStoryboardSegue) {
 		
 		if segue.identifier == "unwindFromNewPermitSelection" {
 			
-			let permitVC = segue.sourceViewController as! AirMapAvailablePermitViewController
+			let permitVC = segue.source as! AirMapAvailablePermitViewController
 			let availablePermit = permitVC.permit.value
 			let organization = permitVC.organization
 			
@@ -116,9 +118,8 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 				.count > 0
 			
 			if !isSelected {
-				selectedPermits.value.append((organization, availablePermit, draftPermit))
+				selectedPermits.value.append((organization!, availablePermit, draftPermit))
 			}
-			
 		}
 		
 		tableView.reloadData()
@@ -126,9 +127,10 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 	
 	// MARK: - Setup
 	
-	private func setupTableView() {
-		
-		tableView.rx_setDelegate(self)
+	fileprivate func setupTableView() {
+
+		// FIXME: Investigate if this is still required
+		tableView.rx.setDelegate(self).disposed(by: disposeBag)
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 75
 		tableView.layoutAndResizeHeader()
@@ -136,58 +138,62 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 		dataSource.configureCell = { dataSource, tableView, indexPath, rowData in
 			
 			if let availablePermit = rowData.availablePermit, let pilotPermit = rowData.pilotPermit {
-				let cell = tableView.cellWith((availablePermit, pilotPermit), at: indexPath) as AirMapPilotPermitCell
+				
+				let cell = tableView.dequeueReusableCell(withIdentifier: "AirMapPilotPermitCell", for: indexPath) as! AirMapPilotPermitCell
+				
+				cell.setObject((availablePermit, pilotPermit))
 				cell.imageView?.image = AirMapImage.image(named: "deselected_cell_option")
 				cell.imageView?.highlightedImage = AirMapImage.image(named: "selected_cell_option")
 				
 				return cell
 			} else {
-				let cell = tableView.dequeueReusableCellWithIdentifier("selectADifferenrPermit", forIndexPath: indexPath)
-				cell.textLabel?.text = indexPath.row == 0 ? "Select permit" : "Select a different permit"
+				let cell = tableView.dequeueReusableCell(withIdentifier: "selectADifferenrPermit", for: indexPath)
+				let localized = LocalizedStrings.RequiredPermits.self
+				cell.textLabel?.text = indexPath.row == 0 ? localized.selectPermit : localized.selectDifferentPermit
 				return cell
 			}
 		}
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
 		Driver.combineLatest(status.asDriver(), existingPermits.asDriver(), draftPermits.asDriver(), resultSelector: unowned(self, AirMapRequiredPermitsViewController.sectionModels))
-			.drive(tableView.rx_itemsWithDataSource(dataSource))
-			.addDisposableTo(disposeBag)
+			.drive(tableView.rx.items(dataSource: dataSource))
+			.disposed(by: disposeBag)
 		
 		Driver.combineLatest(selectedPermits.asDriver(), status.asDriver()) { ($0, $1) }
-			.doOnNext { [weak self] selected, status in
+			.do(onNext: { [weak self] selected, status in
 				self?.permitComplianceStatus.text = "You have selected \(selected.count) of \(status!.organizations.count) required permits"
-			}
+			})
 			.map { $0.count == $1?.organizations.count }
-			.drive(nextButton.rx_enabled)
-			.addDisposableTo(disposeBag)
+			.drive(nextButton.rx.isEnabled)
+			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
-	private func loadData() {
+	fileprivate func loadData() {
 		
 		AirMap
-			.rx_listPilotPermits()
+			.rx.listPilotPermits()
 			.trackActivity(activityIndicator)
 			.map(unowned(self, AirMapRequiredPermitsViewController.filterOutInvalidPermits))
 			.bindTo(existingPermits)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
-	private func filterOutInvalidPermits(permits: [AirMapPilotPermit]) -> [AirMapPilotPermit] {
+	fileprivate func filterOutInvalidPermits(_ permits: [AirMapPilotPermit]) -> [AirMapPilotPermit] {
 		
 		return permits
 			// Only return available permits that are applicable and not expired
 			.filter { status.value?.applicablePermits.map { $0.id }.contains($0.permitId) ?? false }
 			.filter { $0.permitDetails.singleUse != true }
-            .filter { ($0.expiresAt ?? NSDate.distantFuture()).greaterThanDate(NSDate()) }
-			.filter { $0.status != .Rejected }
+            .filter { ($0.expiresAt ?? Date.distantFuture).greaterThanDate(Date()) }
+			.filter { $0.status != .rejected }
 	}
 	
 	// MARK: - Instance Methods
@@ -197,13 +203,13 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 		trackEvent(.tap, label: "Next Button")
 
 		if status.value!.supportsDigitalNotice {
-			performSegueWithIdentifier("pushFlightNotice", sender: self)
+			performSegue(withIdentifier: "pushFlightNotice", sender: self)
 		} else {
-			performSegueWithIdentifier("pushReview", sender: self)
+			performSegue(withIdentifier: "pushReview", sender: self)
 		}
 	}
 	
-	private func sectionModels(status: AirMapStatus?, existingPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [SectionData] {
+	fileprivate func sectionModels(_ status: AirMapStatus?, existingPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [SectionData] {
 		
 		guard let status = status else { return [] }
 		
@@ -235,62 +241,62 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 			return SectionData(model: organization, items: existingPermitRows + draftPermitRows + [newPermitRow])
 		}
 	}
-	
-	private func uncheckRowsInSection(section: Int) {
-		for index in 0..<dataSource.sectionAtIndex(section).items.count-1 {
-			let ip = NSIndexPath(forRow: index, inSection: section)
-			let cell = tableView.cellForRowAtIndexPath(ip) as? AirMapPilotPermitCell
-			cell?.imageView?.highlighted = false
+
+	fileprivate func uncheckRowsInSection(_ section: Int) {
+		for index in 0..<dataSource.sectionModels[section].items.count-1 {
+			let indexPath = IndexPath(row: index, section: section)
+			let cell = tableView.cellForRow(at: indexPath) as? AirMapPilotPermitCell
+			cell?.imageView?.isHighlighted = false
 		}
 	}
 	
 }
 
 extension AirMapRequiredPermitsViewController: UITableViewDelegate {
-	
-	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let header = TableHeader(dataSource.sectionAtIndex(section).model.name.uppercaseString)!
-		header.textLabel.font = UIFont.systemFontOfSize(17)
+
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let header = TableHeader(dataSource.sectionModels[section].model.name.uppercased())!
+		header.textLabel.font = UIFont.systemFont(ofSize: 17)
 		return header
 	}
 	
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 45
 	}
 	
-	func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		
-		guard
-			let row = try? dataSource.modelAtIndexPath(indexPath) as? RowData,
-			let rowOrganization = row?.organization,
-			let pilotPermit = row?.pilotPermit else { return }
+		let row = dataSource.sectionModels[indexPath.section].items[indexPath.row]
+		let rowOrganization = row.organization
 		
+		guard let pilotPermit = row.pilotPermit else { return }
+
 		if selectedPermits.value.filter ({$0.pilotPermit == pilotPermit && $0.organization == rowOrganization }).first != nil {
-			cell.imageView?.highlighted = true
+			cell.imageView?.isHighlighted = true
 		} else {
-			cell.imageView?.highlighted = false
+			cell.imageView?.isHighlighted = false
 		}
 		
 		// if draft, don't show wallet icon
 		let isDraft = self.draftPermits.value.contains(pilotPermit)
-		(cell as! AirMapPilotPermitCell).walletIcon.hidden = isDraft
+		(cell as! AirMapPilotPermitCell).walletIcon.isHidden = isDraft
 		(cell as! AirMapPilotPermitCell).walletIconSpacing.constant = isDraft ? -30 : 5
 		(cell as! AirMapPilotPermitCell).setNeedsLayout()
 	}
 	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 				
-		tableView.deselectRowAtIndexPath(indexPath, animated: false)
+		tableView.deselectRow(at: indexPath, animated: false)
 		
-		if let model = try? dataSource.modelAtIndexPath(indexPath),
-			let row = model as? RowData,
-			let pilotPermit = row.pilotPermit {
+		let row = dataSource.sectionModels[indexPath.section].items[indexPath.row]
+
+		if let pilotPermit = row.pilotPermit {
 			
-			let cell = tableView.cellForRowAtIndexPath(indexPath)
+			let cell = tableView.cellForRow(at: indexPath)
 			
-			if let alreadySelectedPermit = selectedPermits.value.filter({$0.permit == pilotPermit && $0.organization == row.organization}).first {
+			if let alreadySelectedPermit = selectedPermits.value.filter({$0.permit.id == pilotPermit.permitId && $0.organization == row.organization}).first {
 				selectedPermits.value = selectedPermits.value.filter { $0.permit !== alreadySelectedPermit.permit }
-				cell?.imageView?.highlighted = false
+				cell?.imageView?.isHighlighted = false
 			} else {
 				uncheckRowsInSection(indexPath.section)
 				if let previousSelectedOrgPermit = selectedPermits.value.filter({$0.organization.id == row.organization.id}).first {
@@ -298,7 +304,7 @@ extension AirMapRequiredPermitsViewController: UITableViewDelegate {
 				}
 				
 				selectedPermits.value.append((organization: row.organization, permit: row.availablePermit!, pilotPermit: pilotPermit))
-				cell?.imageView?.highlighted = true
+				cell?.imageView?.isHighlighted = true
 				trackEvent(.tap, label: "Selected Permit")
 			}
 		} else {

@@ -21,50 +21,50 @@ extension Loading where Self: UIViewController {
 				loading ? vc.showLoader() : vc.hideLoader()
 				}.asObserver()
 	}
-	
-	private func showLoader() {
+
+	fileprivate func showLoader() {
 		
-		view.inputAccessoryView?.userInteractionEnabled = false
-		view.inputView?.userInteractionEnabled = false
+		view.inputAccessoryView?.isUserInteractionEnabled = false
+		view.inputView?.isUserInteractionEnabled = false
 			
 		LoadingWindow.sharedInstance.makeKeyAndVisible()
 
-		UIView.animateWithDuration(0.25, delay: 0, options: .BeginFromCurrentState, animations: {
+		UIView.animate(withDuration: 0.25, delay: 0, options: .beginFromCurrentState, animations: {
 			LoadingWindow.sharedInstance.alpha = 1
 			}, completion: nil)
 	}
 	
-	private func hideLoader() {
+	fileprivate func hideLoader() {
 		
 		let animations = {
 			LoadingWindow.sharedInstance.alpha = 0
 		}
 		
 		let completion = { (completed: Bool) in
-			LoadingWindow.sharedInstance.hidden = true
-			UIApplication.sharedApplication().windows.first?.makeKeyAndVisible()
-			self.view.inputAccessoryView?.userInteractionEnabled = true
-			self.view.inputView?.userInteractionEnabled = true
+			LoadingWindow.sharedInstance.isHidden = true
+			UIApplication.shared.windows.first?.makeKeyAndVisible()
+			self.view.inputAccessoryView?.isUserInteractionEnabled = true
+			self.view.inputView?.isUserInteractionEnabled = true
 		}
 		
-		UIView.animateWithDuration(0.25, delay: 0, options: .BeginFromCurrentState, animations: animations, completion: completion)
+		UIView.animate(withDuration: 0.25, delay: 0, options: .beginFromCurrentState, animations: animations, completion: completion)
 	}
 	
 }
 
 class LoadingWindow: UIWindow {
 	
-	private class LoadingRootViewController: UIViewController {
-		private override func preferredStatusBarStyle() -> UIStatusBarStyle {
-			return .LightContent
+	fileprivate class LoadingRootViewController: UIViewController {
+		fileprivate override var preferredStatusBarStyle : UIStatusBarStyle {
+			return .lightContent
 		}
 	}
 
 	static let sharedInstance: LoadingWindow = {
 
-		let window = LoadingWindow(frame: UIScreen.mainScreen().bounds)
+		let window = LoadingWindow(frame: UIScreen.main.bounds)
 		window.rootViewController = LoadingRootViewController()
-		window.backgroundColor = UIColor.airMapGray().colorWithAlphaComponent(0.75)
+		window.backgroundColor = UIColor.airMapDarkGray.withAlphaComponent(0.75)
 		window.windowLevel = UIWindowLevelAlert + 1
 		window.addSubview(window.indicator)
 		window.indicator.center = window.center
@@ -73,6 +73,6 @@ class LoadingWindow: UIWindow {
 		return window
 	}()
 	
-	let indicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+	let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
 	
 }

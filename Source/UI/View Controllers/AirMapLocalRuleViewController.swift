@@ -9,12 +9,12 @@
 import UIKit
 import SafariServices
 
-public class AirMapLocalRuleViewController: UIViewController {
+open class AirMapLocalRuleViewController: UIViewController {
 	
 	var rule: AirMapLocalRule!
 	@IBOutlet weak var ruleText: UITextView!
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
 		
 		let m = view.layoutMargins
@@ -27,8 +27,8 @@ public class AirMapLocalRuleViewController: UIViewController {
 			let webView = UIWebView()
 			view.addSubview(webView)
 			webView.frame = view.bounds
-			webView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-			let request = NSURLRequest(URL: url)
+			webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+			let request = URLRequest(url: url as URL)
 			webView.loadRequest(request)
 			
 		} else {

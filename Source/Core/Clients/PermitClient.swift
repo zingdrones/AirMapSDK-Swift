@@ -11,21 +11,21 @@ import RxSwift
 internal class PermitClient: HTTPClient {
 
 	init() {
-		super.init(Config.AirMapApi.permitUrl)
+		super.init(basePath: Config.AirMapApi.permitUrl)
 	}
 
-	func list(permitIds: [String]? = nil, organizationId: String? = nil) -> Observable<[AirMapAvailablePermit]> {
-		AirMap.logger.debug("Get Permit", permitIds, organizationId)
+	func list(_ permitIds: [String]? = nil, organizationId: String? = nil) -> Observable<[AirMapAvailablePermit]> {
+		AirMap.logger.debug("Get Permit", permitIds as Any, organizationId as Any)
 
-		var params = [String : AnyObject]()
-		params["ids"] = permitIds?.joinWithSeparator(",")
-		params["organization_id"] = organizationId
+		var params = [String: Any]()
+		params["ids"] = permitIds?.joined(separator: ",") as Any
+		params["organization_id"] = organizationId as Any
 
-		return call(.GET, params: params)
+		return perform(method: .get, params: params)
 	}
 
-	func apply(permit: AirMapAvailablePermit) -> Observable<AirMapPilotPermit> {
+	func apply(for permit: AirMapAvailablePermit) -> Observable<AirMapPilotPermit> {
 		AirMap.logger.debug("Apply for Permit", permit)
-		return call(.POST, url:"/\(permit.id)/apply", params: permit.params())
+		return perform(method: .post, path:"/\(permit.id)/apply", params: permit.params())
 	}
 }

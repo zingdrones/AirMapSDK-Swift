@@ -14,29 +14,31 @@ import CocoaAsyncSocket
 typealias AirMap_Internal = AirMap
 extension AirMap_Internal {
 
-	@nonobjc internal static let aircraftClient = AircraftClient()
-	@nonobjc internal static let airspaceClient = AirspaceClient()
-	@nonobjc internal static let flightClient = FlightClient()
-	@nonobjc internal static let permitClient = PermitClient()
-	@nonobjc internal static let pilotClient = PilotClient()
-	@nonobjc internal static let statusClient = StatusClient()
-	@nonobjc internal static let rulesClient = RulesClient()
-	@nonobjc internal static let mappingService = MappingService()
-	@nonobjc internal static let authSession = AirMapAuthSession()
-	@nonobjc internal static let authClient = AirMapAuthClient()
+	internal static let aircraftClient = AircraftClient()
+	internal static let airspaceClient = AirspaceClient()
+	internal static let auth0Client = Auth0Client()
+    internal static let authClient = AuthClient()
+	internal static let flightClient = FlightClient()
+	internal static let permitClient = PermitClient()
+	internal static let pilotClient = PilotClient()
+	internal static let rulesClient = RulesClient()
+	internal static let statusClient = StatusClient()
+	
+	internal static let mappingService = MappingService()
+	internal static let authSession = AirMapAuthSession()
 
 	#if AIRMAP_TELEMETRY
-	@nonobjc internal static let telemetryClient = AirMapTelemetry.Client()
-	@nonobjc internal static let telemetrySocket = GCDAsyncUdpSocket()
+	internal static let telemetryClient = AirMapTelemetry.Client()
+	internal static let telemetrySocket = GCDAsyncUdpSocket()
 	#endif
 
 	#if AIRMAP_TRAFFIC
-	@nonobjc internal static let trafficService  = TrafficService()
+	internal static let trafficService  = TrafficService()
 	#endif
 
-	@nonobjc internal static let disposeBag = DisposeBag()
+	internal static let disposeBag = DisposeBag()
 
-	@nonobjc internal static func hasValidCredentials() -> Bool {
+	internal static func hasValidCredentials() -> Bool {
 		return authSession.hasValidCredentials()
 	}
 

@@ -16,13 +16,12 @@ class AirMapFlightNoticeCell: UITableViewCell {
 		didSet {
             
             if let organization = advisory.organization {
-                name.text = (advisory.type != .Airport) ? organization.name : advisory.name
+                name.text = (advisory.type != .airport) ? organization.name : advisory.name
             } else {
                 name.text = advisory.name
             }
             
-            
-            let phoneStr = phoneStringFromE164(advisoryPhoneNumber) ?? UIConstants.Instructions.noPhoneNumberProvided
+            let phoneStr = phoneStringFromE164(advisoryPhoneNumber) ?? LocalizedStrings.Advisory.phoneNumberNotProvided
             phoneNumber?.text = phoneStr
 		}
 	}
@@ -30,16 +29,16 @@ class AirMapFlightNoticeCell: UITableViewCell {
 	@IBOutlet weak var name: UILabel!
 	@IBOutlet weak var phoneNumber: UITextView?
 	
-	private var advisoryPhoneNumber: String? {
+	fileprivate var advisoryPhoneNumber: String? {
 		return advisory.requirements?.notice?.phoneNumber
 	}
 	
-	private func phoneStringFromE164(number: String?) -> String? {
+	fileprivate func phoneStringFromE164(_ number: String?) -> String? {
 		
 		let util = AirMapFlightNoticeCell.phoneUtil
 		if let number = number,
-			phoneNumberObject = try? util.parse(number, defaultRegion: nil),
-			displayString = try? util.format(phoneNumberObject, numberFormat: NBEPhoneNumberFormat.NATIONAL) {
+			let phoneNumberObject = try? util.parse(number, defaultRegion: nil),
+			let displayString = try? util.format(phoneNumberObject, numberFormat: NBEPhoneNumberFormat.NATIONAL) {
 			return displayString
 		} else {
 			return number

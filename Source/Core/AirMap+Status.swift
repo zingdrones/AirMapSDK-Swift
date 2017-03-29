@@ -6,104 +6,97 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-private typealias AirMap_Status = AirMap
+public typealias AirMap_Status = AirMap
 extension AirMap_Status {
 	
-	public typealias AirMapStatusHandler = (AirMapStatus?, NSError?) -> Void
+	public typealias AirMapStatusHandler = (AirMapStatus?, Error?) -> Void
 	
-	/**
-	
-	Check the `AirMapStatus` of a single point & radius-based flight
-	
-	- parameter coordinate: The lat/lng center of a flight
-	- parameter buffer: Number of meters to buffer around a flight's center coordinate
-	- parameter types: Array Map Layer types to include in the calculation & response
-	- parameter ignoredTypes: Array Map Layer types to ignore in the calculation & response
-	- parameter weather: If set to true, shows current weather conditions in the response
-	- parameter date: Date and time for planned flight
-	- parameter handler: `(AirMapStatus?, NSError?) -> Void`
-	
-	*/
-	public class func checkCoordinate(coordinate: CLLocationCoordinate2D,
-	                                  buffer: Double,
-	                                  types: [AirMapAirspaceType]? = nil,
-	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
-	                                  weather: Bool = false,
-	                                  date: NSDate = NSDate(),
-	                                  handler: AirMapStatusHandler) {
+	/// Check the airspace status of a given point & buffer (radius)
+	///
+	/// - Parameters:
+	///   - coordinate: The latitude longitude of the point to check
+	///   - buffer: The distance in meters to buffer around the center coordinate
+	///   - types: Airspace types to include in the calculation & response.
+	///   - ignoredTypes: Airspace types to ignore in the calculation & response
+	///   - weather: Include current weather conditions in the response
+	///   - date: Date and time for the status
+	///   - completion: A completion handler to call with the Result
+	public static func checkCoordinate(coordinate: Coordinate2D,
+	                                   buffer: Meters,
+	                                   types: [AirMapAirspaceType]? = nil,
+	                                   ignoredTypes: [AirMapAirspaceType]? = nil,
+	                                   weather: Bool = false,
+	                                   date: Date = Date(),
+	                                   completion: @escaping (Result<AirMapStatus>) -> Void) {
 		
-		statusClient.checkCoordinate(coordinate,
-			buffer: buffer,
-			types: types,
-			ignoredTypes: ignoredTypes,
-			weather: weather,
-			date: date)
-			.subscribe(handler)
+		statusClient
+			.checkCoordinate(
+				coordinate: coordinate,
+				buffer: buffer,
+				types: types,
+				ignoredTypes: ignoredTypes,
+				weather: weather,
+				date: date)
+			.subscribe(completion)
 	}
 	
-	/**
-	
-	Check the `AirMapStatus` of a multi-point path-based flight
-	
-	- parameter path: Array of lat/lngs along a flight path
-	- parameter buffer: Path buffer in meters
-	- parameter takeOffPoint: The take off point along the flight path
-	- parameter types: Array Map Layer types to include in the calculation & response
-	- parameter ignoredTypes: Array Map Layer types to ignore in the calculation & response
-	- parameter weather: If set to true, shows current weather conditions in the response
-	- parameter date: Date for planned flight
-	- parameter handler: `(AirMapStatus?, NSError?) -> Void`
-	
-	*/
-	public class func checkFlightPath(path: [CLLocationCoordinate2D],
-	                                  buffer: Int,
-	                                  takeOffPoint: CLLocationCoordinate2D,
-	                                  types: [AirMapAirspaceType]? = nil,
-	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
-	                                  weather: Bool = false,
-	                                  date: NSDate = NSDate(),
-	                                  handler: AirMapStatusHandler) {
+	/// Check the airspace status of a given path & buffer
+	///
+	/// - Parameters:
+	///   - path: Array of lat/lngs waypoints along a flight path
+	///   - buffer: Buffer distance in meters from flight path center line
+	///   - takeOffPoint: The take off point along the flight path
+	///   - types: Airspace types to include in the calculation & response.
+	///   - ignoredTypes: Airspace types to ignore in the calculation & response
+	///   - weather: Include current weather conditions in the response
+	///   - date: Date and time for the status
+	///   - completion: A completion handler to call with the Result
+	public static func checkFlightPath(path: [Coordinate2D],
+	                                   buffer: Meters,
+	                                   takeOffPoint: Coordinate2D,
+	                                   types: [AirMapAirspaceType]? = nil,
+	                                   ignoredTypes: [AirMapAirspaceType]? = nil,
+	                                   weather: Bool = false,
+	                                   date: Date = Date(),
+	                                   completion: @escaping (Result<AirMapStatus>) -> Void) {
 		
-		statusClient.checkFlightPath(
-			path,
-			buffer: buffer,
-			takeOffPoint: takeOffPoint,
-			types: types,
-			ignoredTypes: ignoredTypes,
-			weather: weather,
-			date: date)
-			.subscribe(handler)
+		statusClient
+			.checkFlightPath(
+				path: path,
+				buffer: buffer,
+				takeOffPoint: takeOffPoint,
+				types: types,
+				ignoredTypes: ignoredTypes,
+				weather: weather,
+				date: date)
+			.subscribe(completion)
 	}
 	
-	/**
-	
-	Check the `AirMapStatus` of a polygon-based flight area
-	
-	- parameter geometry: Array of lat/lngs for a flight area
-	- parameter takeOffPoint: The take off point along the flight path
-	- parameter types: Array Map Layer types to include in the calculation & response
-	- parameter ignoredTypes: Array Map Layer types to ignore in the calculation & response
-	- parameter weather: If set to true, shows current weather conditions in the response
-	- parameter date: Date for planned flight
-	- parameter handler: `(AirMapStatus?, NSError?) -> Void`
-	
-	*/
-	public class func checkPolygon(geometry: [CLLocationCoordinate2D],
-	                               takeOffPoint: CLLocationCoordinate2D,
-	                               types: [AirMapAirspaceType]? = nil,
-	                               ignoredTypes: [AirMapAirspaceType]? = nil,
-	                               weather: Bool = false,
-	                               date: NSDate = NSDate(),
-	                               handler: AirMapStatusHandler) {
+	/// Check the airspace status of a given polygon (area) & buffer
+	///
+	/// - Parameters:
+	///   - geometry: Array of lat/lngs for a flight area perimeter
+	///   - takeOffPoint: The take off point within the flight area
+	///   - types: Airspace types to include in the calculation & response.
+	///   - ignoredTypes: Airspace types to ignore in the calculation & response
+	///   - weather: Include current weather conditions in the response
+	///   - date: Date and time for the status
+	///   - completion: A completion handler to call with the Result
+	public static func checkPolygon(geometry: [Coordinate2D],
+	                                takeOffPoint: Coordinate2D,
+	                                types: [AirMapAirspaceType]? = nil,
+	                                ignoredTypes: [AirMapAirspaceType]? = nil,
+	                                weather: Bool = false,
+	                                date: Date = Date(),
+	                                completion: @escaping (Result<AirMapStatus>) -> Void) {
 		
-		statusClient.checkPolygon(
-			geometry,
-			takeOffPoint: takeOffPoint,
-			types: types,
-			ignoredTypes: ignoredTypes,
-			weather: weather,
-			date: date)
-			.subscribe(handler)
+		statusClient
+			.checkPolygon(geometry: geometry,
+			              takeOffPoint: takeOffPoint,
+			              types: types,
+			              ignoredTypes: ignoredTypes,
+			              weather: weather,
+			              date: date)
+			.subscribe(completion)
 	}
-	
 }

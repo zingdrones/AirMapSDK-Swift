@@ -8,12 +8,12 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusRequirementNotice: NSObject {
+open class AirMapStatusRequirementNotice {
 	
-	public var digital = false
-	public var phoneNumber: String?
+	open var digital = false
+	open var phoneNumber: String?
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusRequirementNotice: Mappable {

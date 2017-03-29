@@ -8,18 +8,18 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusWeather: NSObject {
+open class AirMapStatusWeather {
 
-	public var condition: String!
-	public var wind: AirMapStatusWeatherWind!
-	public var humidity: Float!
-	public var visibility: Float!
-	public var precipitation: Float!
-	public var temperature: Float!
-	public var icon: String!
+	open var condition: String!
+	open var wind: AirMapStatusWeatherWind!
+	open var humidity: Double!
+	open var visibility: Double!
+	open var precipitation: Double!
+	open var temperature: Celcius!
+	open var icon: String!
 	
 	#if os(iOS) || os(tvOS) || os(watchOS)
-	public lazy var iconImage: UIImage? = {
+	open lazy var iconImage: UIImage? = {
 		return AirMapImage.image(named: self.icon)
 	}()
 	#elseif os(OSX)
@@ -28,7 +28,7 @@ import ObjectMapper
 	}()
 	#endif
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusWeather: Mappable {

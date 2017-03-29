@@ -1,0 +1,493 @@
+/* Label for advisories that are stup to receive digital notice */
+"ADVISORY_ACCEPTS_DIGITAL_NOTICE" = "Accepts Digital Notice";
+
+/* Displayed when an advisory has not provided a contact phone */
+"ADVISORY_PHONE_NOT_PROVIDED" = "No Phone Number Provided";
+
+/* Label and format for displaying the end time of temporary flight restriction */
+"ADVISORY_TFR_ENDS_FORMAT" = "Ends: %1$@";
+
+/* Never ending duration for a TFR */
+"ADVISORY_TFR_PERMANENT" = "Permanent";
+
+/* Label and format for displaying the start time of temporary flight restriction */
+"ADVISORY_TFR_STARTS_FORMAT" = "Starts: %1$@";
+
+/* Format and unit for wildfire advisory in the area unit acres */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_ACRES" = "%1$@ Acres";
+
+/* Format and unit for wildfire advisory in the area unit hectares */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES" = "%1$@ Hectares";
+
+/* Label for wildfire advisory cells where size is unknown */
+"ADVISORY_WILDFIRE_SIZE_UNKNOWN" = "Size Unknown";
+
+/* Call to action when a user has not selected an aircraft */
+"AIRCRAFT_SELECT_AIRCRAFT" = "Select Aircraft";
+
+/* Title to display for the view creating a new aircraft */
+"AIRCRAFT_TITLE_CREATE_NEW" = "Create Aircraft";
+
+/* Title to display for the view when updating an existing aircraft */
+"AIRCRAFT_TITLE_UPDATE_EXISTING" = "Update Aircraft";
+
+/* Name for airspace type Aerial Recreational Area */
+"AIRSPACE_TYPE_AERIAL_REC_AREA" = "Aerial Recreational Area";
+
+/* Name for airspace type Airport */
+"AIRSPACE_TYPE_AIRPORT" = "Airport";
+
+/* Name for airspace type City */
+"AIRSPACE_TYPE_CITY" = "City";
+
+/* Name for airspace type Controlled Airspace */
+"AIRSPACE_TYPE_CONTROLLED" = "Controlled Airspace";
+
+/* Name for airspace type Custom */
+"AIRSPACE_TYPE_CUSTOM" = "Custom";
+
+/* Name for airspace type Emergency */
+"AIRSPACE_TYPE_EMERGENCY" = "Emergency";
+
+/* Name for airspace type Fire */
+"AIRSPACE_TYPE_FIRE" = "Fire";
+
+/* Name for airspace type Hazard Area */
+"AIRSPACE_TYPE_HAZARD_AREA" = "Hazard Area";
+
+/* Name for airspace type Heliport */
+"AIRSPACE_TYPE_HELIPORT" = "Heliport";
+
+/* Name for airspace type Hospital */
+"AIRSPACE_TYPE_HOSPITAL" = "Hospital";
+
+/* Name for airspace type National Park */
+"AIRSPACE_TYPE_NATIONAL_PARK" = "National Park";
+
+/* Name for airspace type Power Plant */
+"AIRSPACE_TYPE_POWER_PLANT" = "Power Plant";
+
+/* Name for airspace type Prison */
+"AIRSPACE_TYPE_PRISON" = "Prison";
+
+/* Name for airspace type School */
+"AIRSPACE_TYPE_SCHOOL" = "School";
+
+/* Name for airspace type Special Use Airspace */
+"AIRSPACE_TYPE_SPECIAL_USE" = "Special Use Airspace";
+
+/* Name for airspace type Stadium */
+"AIRSPACE_TYPE_STADIUM" = "Stadium";
+
+/* Name for airspace type FAA Temporary Flight Restriction */
+"AIRSPACE_TYPE_TFR_FAA" = "Temporary Flight Restriction";
+
+/* Name for airspace type University */
+"AIRSPACE_TYPE_UNIVERSITY" = "University";
+
+/* Name for airspace type WildFire */
+"AIRSPACE_TYPE_WILDFIRE" = "WildFire";
+
+/* Login message when a user's account has been blacklisted. */
+"AUTH_ERROR_ACCOUNT_BLACKLISTED" = "Your account has been blacklisted. Please contact security@airmap.com";
+
+/* Login message when a user must verify their email address */
+"AUTH_ERROR_EMAIL_NEEDS_VERIFICATION_REQUIRED" = "Your email address needs to be verified. Please check your inbox.";
+
+/* Login message when a user failed to authenticate */
+"AUTH_ERROR_UNAUTHORIZED" = "Unauthorized";
+
+/* Navigation title for failed login attempt */
+"AUTH_FAILED_LOGIN_TITLE" = "Alert";
+
+/* Title for table section header of available permits the user may apply for */
+"AVAILABLE_PERMITS_SECTION_HEADER_AVAILABLE" = "Available Permits";
+
+/* Title for table section header of existing permits the user has */
+"AVAILABLE_PERMITS_SECTION_HEADER_EXISTING" = "Existing Permits";
+
+/* Title for table section header of permits which are not available to the user */
+"AVAILABLE_PERMITS_SECTION_HEADER_UNAVAILABLE" = "Unavailable Permits";
+
+/* Header copy describing the permits listed below */
+"AVAILABLE_PERMITS_TABLE_HEADER" = "The following existing & available permits meets the requirements for operation in the flight area.";
+
+/* Header copy describing that the flight area overlaps with multiple areas, each with differing permit requirements. No one single permit is able to satisfy all requirements. */
+"AVAILABLE_PERMITS_TABLE_HEADER_CONFLICTING_REQUIREMENTS" = "Only a single permit can be used to fly in this operating area. Your flight path intersects with multiple areas requiring different permits.";
+
+/* Title for the row that describes if the permit can be used more than once. */
+"AVAILABLE_PERMIT_ROW_TITLE_SINGLE_USE" = "Single use";
+
+/* Title for the row that shows the temporal validity or expiration of the permit */
+"AVAILABLE_PERMIT_ROW_TITLE_VALIDITY" = "Valid for";
+
+/* Value for when single use is false */
+"AVAILABLE_PERMIT_ROW_VALUE_SINGLE_USE_FALSE" = "No";
+
+/* Value for when single use is true */
+"AVAILABLE_PERMIT_ROW_VALUE_SINGLE_USE_TRUE" = "Yes";
+
+/* Title for the Custom Properties section of the permit detail view. '*' denotes a required field */
+"AVAILABLE_PERMIT_SECTION_HEADER_CUSTOM_PROPERTIES" = "Form Fields (* Required)";
+
+/* Title for the Description section of the permit detail view */
+"AVAILABLE_PERMIT_SECTION_HEADER_DESCRIPTION" = "Description";
+
+/* Title for the Details section of the permit detail view */
+"AVAILABLE_PERMIT_SECTION_HEADER_DETAILS" = "Details";
+
+/* Abbreviation for East */
+"CARDINAL_DIRECTION_E" = "E";
+
+/* Abbreviation for East North East */
+"CARDINAL_DIRECTION_ENE" = "ENE";
+
+/* Abbreviation for East South East */
+"CARDINAL_DIRECTION_ESE" = "ESE";
+
+/* Abbreviation for North */
+"CARDINAL_DIRECTION_N" = "N";
+
+/* Abbreviation for North East */
+"CARDINAL_DIRECTION_NE" = "NE";
+
+/* Abbreviation for North North East */
+"CARDINAL_DIRECTION_NNNE" = "NNE";
+
+/* Abbreviation for North North West */
+"CARDINAL_DIRECTION_NNW" = "NNW";
+
+/* Abbreviation for North West */
+"CARDINAL_DIRECTION_NW" = "NW";
+
+/* Abbreviation for South */
+"CARDINAL_DIRECTION_S" = "S";
+
+/* Abbreviation for South East */
+"CARDINAL_DIRECTION_SE" = "SE";
+
+/* Abbreviation for South South East */
+"CARDINAL_DIRECTION_SSE" = "SSE";
+
+/* Abbreviation for South South West */
+"CARDINAL_DIRECTION_SSW" = "SSW";
+
+/* Abbreviation for South West */
+"CARDINAL_DIRECTION_SW" = "SW";
+
+/* Abbreviation for West */
+"CARDINAL_DIRECTION_W" = "W";
+
+/* Abbreviation for West North West */
+"CARDINAL_DIRECTION_WNW" = "WNW";
+
+/* Abbreviation for West South West */
+"CARDINAL_DIRECTION_WSW" = "WSW";
+
+/* A generic server error message with an associated error code */
+"ERROR_GENERIC_FORMAT" = "The server returned an error. (%@)";
+
+/* Response serialization failure error */
+"ERROR_SERIALIZATION" = "The server returned an unprocessible response.";
+
+/* Server failure error */
+"ERROR_SERVER" = "The server could not complete your request.";
+
+/* Authorization failure error */
+"ERROR_UNAUTHORIZED" = "Unauthorized. Please check login credentials.";
+
+/* Label for text input button */
+"FLIGHT_DATA_CELL_BUTTON_DONE" = "DONE";
+
+/* Label for start time when the start is immediate */
+"FLIGHT_DATA_CELL_NOW" = "Now";
+
+/* The radius around a point-based flight's center */
+"FLIGHT_DRAWING_RADIUS" = "Radius";
+
+/* Call to action to fine-tune the geometry of a flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_MODIFY_GEOMETRY" = "Drag any point to move. Drag any midpoint to add a new point.";
+
+/* Call to action to drag a point to the trash to delete. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_TRASH_TO_DELETE" = "Drag point to trash to delete";
+
+/* Call to action to draw an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_AREA" = "Draw a freehand area";
+
+/* Call to action to draw a path-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_PATH" = "Draw a freehand path";
+
+/* Call to action to drag the center position of a point-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_POSTIION_POINT" = "Drag the center point to position your flight area.";
+
+/* Call to action to tap the icon to begin drawing a flight area. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA" = "Tap the hand icon to freehand draw any area.";
+
+/* Call to action to tap the icon to begin drawing a flight path. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH" = "Tap the hand icon to freehand draw any path.";
+
+/* Displayed when the user has drawn an invalid shaping, overlapping with conflicting permitted zones */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_OVERLAPPING_PERMIT_AREAS" = "Flight area cannot overlap with conflicting permit requirement zones.";
+
+/* Call to action to fix self-intersecting geometries of an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_SELF_INTERSECTING_GEOMETRY" = "Invalid flight area. Adjust flight area so that it does not overlap with itself.";
+
+/* The width of a path-based flight extending outward from the centerline */
+"FLIGHT_DRAWING_WIDTH" = "Width";
+
+/* Title for the button to advance to the next screen */
+"FLIGHT_PLAN_BUTTON_TITLE_NEXT" = "Next";
+
+/* Title for the button to save and create the flight */
+"FLIGHT_PLAN_BUTTON_TITLE_SAVE" = "Save";
+
+/* Call to action title for the user to select an aircraft */
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT" = "Select Aircraft";
+
+/* Title for the row displaying flight plan altitude */
+"FLIGHT_PLAN_ROW_TITLE_ALTITUDE" = "Altitude";
+
+/* Title for the row displaying flight plan duration */
+"FLIGHT_PLAN_ROW_TITLE_DURATION" = "Duration";
+
+/* Call to action title for the user to select a pilot profile */
+"FLIGHT_PLAN_ROW_TITLE_PILOT" = "Select Pilot Profile";
+
+/* Title for the row displaying flight plan start time */
+"FLIGHT_PLAN_ROW_TITLE_START_TIME" = "Starts";
+
+/* Title for the section displaying the pilot and aircraft details */
+"FLIGHT_PLAN_SECTION_HEADER_ASSOCIATED" = "Pilot & Aircraft";
+
+/* Title for the section displaying flight plan details */
+"FLIGHT_PLAN_SECTION_HEADER_FLIGHT" = "Flight";
+
+/* Title for the section displaying social sharing features */
+"FLIGHT_PLAN_SECTION_HEADER_SHARE" = "Share My Flight";
+
+/* Title for the section displaying flight plan start time & duration */
+"FLIGHT_PLAN_SECTION_HEADER_TIME" = "Date & Time";
+
+/* Table section title for other selectable countries */
+"PHONE_COUNTRY_SECTION_OTHER_COUNTRY" = "Other";
+
+/* Table section title for the currently selected country */
+"PHONE_COUNTRY_SECTION_SELECTED_COUNTRY" = "Selected Country";
+
+/* Format for pilot permit expiration */
+"PILOT_PERMIT_EXPIRATION_FORMAT" = "Expires %1$@";
+
+/* Table row label for FAA registration number */
+"PILOT_PROFILE_FAA_REGISTRATION" = "FAA Registration Number";
+
+/* Label for the pilot profile email */
+"PILOT_PROFILE_LABEL_EMAIL" = "Email";
+
+/* Label for the pilot profile first name */
+"PILOT_PROFILE_LABEL_FIRST_NAME" = "First Name";
+
+/* Label for the pilot profile last name */
+"PILOT_PROFILE_LABEL_LAST_NAME" = "Last Name";
+
+/* Label for the pilot profile phone */
+"PILOT_PROFILE_LABEL_PHONE" = "Phone";
+
+/* Label for the pilot profile username */
+"PILOT_PROFILE_LABEL_USERNAME" = "Username";
+
+/* Section header for the pilot profile additional info section */
+"PILOT_PROFILE_SECTION_ADDITIONAL" = "Additional Info";
+
+/* Section header for the pilot profile personal info section */
+"PILOT_PROFILE_SECTION_PERSONAL" = "Personal Info";
+
+/* Format for displaying a user's number of aircraft and flights */
+"PILOT_PROFILE_STATISTICS_FORMAT" = "%1$@ Aircraft, %2$@ Flights";
+
+/* Call to action row text for selecting a different permit than the one displayed above */
+"REQUIRED_PERMITS_SELECT_DIFFERENT_PERMIT" = "Select a different permit";
+
+/* Call to action row text for selecting a permit */
+"REQUIRED_PERMITS_SELECT_PERMIT" = "Select permit";
+
+/* Title for the flight plan review view */
+"REVIEW_FLIGHT_PLANE_TITLE" = "Flight Plan";
+
+/* 'Yes' Value for the public flight row */
+"REVIEW_FLIGHT_PLAN_DETAILS_PUBLIC_FLIGHT_VALUE_TRUE" = "Yes";
+
+/* Label for the Buffer or radius surrounding a point or path */
+"REVIEW_FLIGHT_PLAN_DETAILS_RADIUS" = "Radius";
+
+/* Label for the aircraft row */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_AIRCRAFT" = "Aircraft";
+
+/* Label for the maximum altitude for a flight */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ALTITUDE" = "Altitude";
+
+/* Label for a flight's duration */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_DURATION" = "Ends";
+
+/* Label for a flight's end time */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ENDS" = "Ends";
+
+/* Label for the flight review 'is public' row */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_PUBLIC" = "Public";
+
+/* Label for a flight's start time */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_STARTS" = "Starts";
+
+/* Header label for the flight review aircraft section */
+"REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_AIRCRAFT" = "Aircraft";
+
+/* Header label for the flight review details section */
+"REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_DETAILS" = "Details";
+
+/* Header label for the flight review social sharing section */
+"REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_SOCIAL" = "Share My Flight";
+
+/* Time for flights that start immediately */
+"REVIEW_FLIGHT_PLAN_DETAILS_START_TIME_NOW" = "Now";
+
+/* Displayed for authorities that are setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_ACCEPTS_NOTICE" = "Accepts Digital Notice";
+
+/* Displayed for authorities that are NOT setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_DOES_NOT_ACCEPT_NOTICE" = "The following authorities in this area do not accept digital notice";
+
+/* Displayed in the flight plan review notices tab when there are no notices to display */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "There are no notices for this flight.";
+
+/* Title for the Review Flight, digital notices tab */
+"REVIEW_FLIGHT_PLAN_TAB_TITLE_DIGITAL_NOTICE" = "Notices";
+
+/* Title for the Review Flight, flight Details tab */
+"REVIEW_FLIGHT_PLAN_TAB_TITLE_FLIGHT" = "Flight";
+
+/* Title for the Review Flight, permits tab */
+"REVIEW_FLIGHT_PLAN_TAB_TITLE_PERMITS" = "Permits";
+
+/* Title for the Local Rules view when a locality name is unavailable */
+"RULES_GENERIC_TITLE" = "Locality Rules";
+
+/* Description for status advisory color Green */
+"STATUS_GREEN_DESCRIPTION" = "Informational";
+
+/* Description for status advisory color Red */
+"STATUS_RED_DESCRIPTION" = "Flight Strictly Regulated";
+
+/* Description for status advisory color Yellow */
+"STATUS_YELLOW_DESCRIPTION" = "Advisories";
+
+/* Name for map layer Aerial Recreational Areas */
+"TILE_LAYER_AERIAL_REC_AREAS" = "Aerial Recreational Areas";
+
+/* Name for map layer Commercial Airports */
+"TILE_LAYER_AIRPORTS" = "Airports";
+
+/* Name for map layer Cities */
+"TILE_LAYER_CITIES" = "Cities";
+
+/* Name for map layer Class B Airspace */
+"TILE_LAYER_CLASS_B" = "Class B Controlled Airspace";
+
+/* Name for map layer Class C Airspace */
+"TILE_LAYER_CLASS_C" = "Class C Controlled Airspace";
+
+/* Name for map layer Class D Airspace */
+"TILE_LAYER_CLASS_D" = "Class D Controlled Airspace";
+
+/* Name for map layer Class E Airspace */
+"TILE_LAYER_CLASS_E" = "Class E Controlled Airspace";
+
+/* Name for map layer Controlled Airspace */
+"TILE_LAYER_CONTROLLED_AIRSPACE" = "Controlled Airspace (B, C, D & E)";
+
+/* Name for map layer Custom */
+"TILE_LAYER_CUSTOM" = "Custom";
+
+/* Name for map layer First Responder Activity */
+"TILE_LAYER_EMERGENCIES" = "First Responder Activity";
+
+/* Name for map layer Fires */
+"TILE_LAYER_FIRES" = "Fires";
+
+/* Name for map layer Hazard Areas */
+"TILE_LAYER_HAZARD_AREAS" = "Hazard Areas";
+
+/* Name for map layer Heliports */
+"TILE_LAYER_HELIPORTS" = "Heliports";
+
+/* Name for map layer Hospitals */
+"TILE_LAYER_HOSPITALS" = "Hospitals";
+
+/* Name for map layer National Parks */
+"TILE_LAYER_NATIONAL_PARKS" = "National Parks";
+
+/* Name for map layer NOAA Marine Protection Areas */
+"TILE_LAYER_NOAA" = "NOAA Marine Protection Areas";
+
+/* Name for map layer Power Plants */
+"TILE_LAYER_POWER_PLANTS" = "Power Plants";
+
+/* Name for map layer Prisons */
+"TILE_LAYER_PRISONS" = "Prisons";
+
+/* Name for map layer Private Airports */
+"TILE_LAYER_PRIVATE_AIRPORTS" = "Private Airports";
+
+/* Name for map layer Prohibited Airspace */
+"TILE_LAYER_PROHIBITED" = "Prohibited Airspace";
+
+/* Name for map layer Restricted Airspace */
+"TILE_LAYER_RESTRICTED_AIRSPACE" = "Restricted Airspace";
+
+/* Name for map layer Schools */
+"TILE_LAYER_SCHOOLS" = "Schools";
+
+/* Name for map layer FAA Temporary Flight Restrictions */
+"TILE_LAYER_TFR_FAA" = "Temporary Flight Restrictions";
+
+/* Name for map layer Universities */
+"TILE_LAYER_UNIVERSITIES" = "Universities";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "Traffic %1$@
+Altitude %2$@
+%3$@ %4$@ %5$@";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "Traffic %1$@
+Altitude %2$@
+%3$@";
+
+/* Name for the imperial system of measurement */
+"UNITS_IMPERIAL" = "Imperial";
+
+/* Name for the metric system of measurement */
+"UNITS_METRIC" = "Metric";
+
+/* Unit and format for displaying nautical miles */
+"UNITS_NAUTICAL_MILE_FORMAT" = "%@ NM";
+
+/* Unit and format for displaying speed in knots */
+"UNITS_SPEED_FORMAT_KNOTS" = "%@ kts";
+
+/* Unit and format for displaying speed in meters per second */
+"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "%@ m/s";
+
+/* Unit and format for displaying speed in miles per hour */
+"UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "%@ mph";
+
+/* Unit and format for displaying a speed range in meters per second */
+"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "%1$@-%2$@ m/s";
+
+/* Unit and format for displaying a speed range in miles per hour */
+"UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "%1$@-%2$@ mph";
+
+/* Unit and format for displaying temperature in Celcius */
+"UNITS_TEMPERATURE_CELCIUS_FORMAT" = "%1$@°C";
+
+/* Unit and format for displaying temperature in Fahrenheit */
+"UNITS_TEMPERATURE_FAHRENHEIT_FORMAT" = "%1$@°F";
+

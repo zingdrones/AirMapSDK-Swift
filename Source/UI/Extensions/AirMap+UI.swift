@@ -18,10 +18,10 @@ extension AirMap_UI {
 	- parameter airMapAuthDelegate: The delegate to be notified when authentication succeeds or fails
 	
 	*/
-	public class func phoneVerificationViewController(pilot: AirMapPilot, phoneVerificationDelegate: AirMapPhoneVerificationDelegate) -> AirMapPhoneVerificationNavController {
+	public class func phoneVerificationViewController(_ pilot: AirMapPilot, phoneVerificationDelegate: AirMapPhoneVerificationDelegate) -> AirMapPhoneVerificationNavController {
 		
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
-		let nav = storyboard.instantiateViewControllerWithIdentifier("VerifyPhoneNumber") as! AirMapPhoneVerificationNavController
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
+		let nav = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumber") as! AirMapPhoneVerificationNavController
 		nav.phoneVerificationDelegate = phoneVerificationDelegate
 		let phoneVerificationVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
 		phoneVerificationVC.pilot = pilot
@@ -39,12 +39,12 @@ extension AirMap_UI {
 	- returns: An AirMapFlightPlanNavigationController if Pilot is Authenticated, otherwise nil.
 
 	*/
-	public class func flightPlanViewController(location location: CLLocationCoordinate2D, flightPlanDelegate: AirMapFlightPlanDelegate, mapTheme: AirMapMapTheme = .Standard, mapLayers: [AirMapLayerType] = []) -> AirMapFlightPlanNavigationController? {
+	public class func flightPlanViewController(location: Coordinate2D, flightPlanDelegate: AirMapFlightPlanDelegate, mapTheme: AirMapMapTheme = .standard, mapLayers: [AirMapLayerType] = []) -> AirMapFlightPlanNavigationController? {
 
 		// FIXME:
 		guard AirMap.authSession.hasValidCredentials() else { return nil }
 
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
 
 		let flightPlanNav = storyboard.instantiateInitialViewController() as! AirMapFlightPlanNavigationController
 		flightPlanNav.flightPlanDelegate = flightPlanDelegate
@@ -64,12 +64,12 @@ extension AirMap_UI {
 	- returns: An UINavigationController if Pilot is Authenticated, otherwise nil.
 	
 	*/
-	public class func flightPlanViewController(flight: AirMapFlight) -> UINavigationController? {
+	public class func flightPlanViewController(_ flight: AirMapFlight) -> UINavigationController? {
 		
 		guard AirMap.authSession.hasValidCredentials() else { return nil }
 		
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
-		let aircraftVC = storyboard.instantiateViewControllerWithIdentifier(String(AirMapReviewFlightPlanViewController)) as! AirMapReviewFlightPlanViewController
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
+		let aircraftVC = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapReviewFlightPlanViewController.self)) as! AirMapReviewFlightPlanViewController
 		aircraftVC.existingFlight = Variable(flight)
 		
 		let nav = UINavigationController(navigationBarClass: AirMapNavBar.self, toolbarClass: nil)
@@ -88,16 +88,16 @@ extension AirMap_UI {
 	- returns: An AirMapAircraftModelNavController if Pilot is Authenticated, otherwise nil.
 	
 	*/
-	public class func aircraftNavController(aircraft: AirMapAircraft?, delegate: AirMapAircraftNavControllerDelegate) -> AirMapAircraftNavController? {
+	public class func aircraftNavController(_ aircraft: AirMapAircraft?, delegate: AirMapAircraftNavControllerDelegate) -> AirMapAircraftNavController? {
 		
 		guard AirMap.authSession.hasValidCredentials() else {
 			AirMap.logger.error(AirMap.self, "Cannot create or modify aicraft; user not authenticated")
 			return nil
 		}
 		
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
 		
-		let aircraftNav = storyboard.instantiateViewControllerWithIdentifier(String(AirMapAircraftNavController)) as! AirMapAircraftNavController
+		let aircraftNav = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapAircraftNavController.self)) as! AirMapAircraftNavController
 		aircraftNav.aircraftDelegate = delegate
 		
 		let aircraftVC = aircraftNav.viewControllers.first as! AirMapCreateAircraftViewController
@@ -115,15 +115,15 @@ extension AirMap_UI {
 	- returns: An AirMapAircraftModelNavController if Pilot is Authenticated, otherwise nil.
 
 	*/
-	public class func aircraftModelViewController(aircraftSelectionDelegate: AirMapAircraftModelSelectionDelegate) -> AirMapAircraftModelNavController? {
+	public class func aircraftModelViewController(_ aircraftSelectionDelegate: AirMapAircraftModelSelectionDelegate) -> AirMapAircraftModelNavController? {
 
 		guard AirMap.authSession.hasValidCredentials() else {
 			return nil
 		}
 
-		let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
+		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
 
-		let aircraftNav = storyboard.instantiateViewControllerWithIdentifier(String(AirMapAircraftModelNavController)) as! AirMapAircraftModelNavController
+		let aircraftNav = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapAircraftModelNavController.self)) as! AirMapAircraftModelNavController
 		aircraftNav.aircraftModelSelectionDelegate = aircraftSelectionDelegate
 
 		return aircraftNav
@@ -139,10 +139,32 @@ extension AirMap_UI {
 	
 	*/
 	
-	public class func authViewController(authHandler: AirMapAuthHandler) -> AirMapAuthViewController {
+	public class func authViewController(_ authHandler: @escaping AirMapAuthHandler) -> AirMapAuthViewController {
+        
 		let authController = AirMapAuthViewController(authHandler: authHandler)
 		return authController
 	}
+    
+    
+    /**
+     
+     Creates an AirMapSMSLoginNavController that can be presented to the user.
+     
+     - parameter delegate: The block that is called upon completion/error of login flow
+     
+     - returns: An AirMapSMSLoginNavController
+     
+     */
+    
+    public class func smsLoginController(delegate: AirMapSMSLoginDelegate?) -> AirMapSMSLoginNavController {
+        
+        let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
+        
+        let authController = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapSMSLoginNavController.self)) as! AirMapSMSLoginNavController
+        authController.smsLoginDelegate = delegate
+        return authController
+    }
+    
     
     /**
      
@@ -153,10 +175,10 @@ extension AirMap_UI {
      - returns: UINavigationController
      
      */
-    public class func statusAdvisoriesViewController(status: AirMapStatus, delegate:AirMapAdvisoriesViewControllerDelegate?) -> UINavigationController? {
+    public class func statusAdvisoriesViewController(_ status: AirMapStatus, delegate: AirMapAdvisoriesViewControllerDelegate?) -> UINavigationController? {
         
-        let storyboard = UIStoryboard(name: "AirMapUI", bundle: NSBundle(forClass: AirMap.self))
-        let statusVC = storyboard.instantiateViewControllerWithIdentifier(String(AirMapAdvisoriesViewController)) as! AirMapAdvisoriesViewController
+        let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
+        let statusVC = storyboard.instantiateViewController(withIdentifier: String(describing: AirMapAdvisoriesViewController.self)) as! AirMapAdvisoriesViewController
 		statusVC.status.value = status
         statusVC.delegate = delegate
         

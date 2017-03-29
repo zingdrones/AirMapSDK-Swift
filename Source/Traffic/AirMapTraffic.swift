@@ -9,43 +9,44 @@
 import ObjectMapper
 import CoreLocation
 
-@objc public class AirMapTraffic: NSObject {
+@objc open class AirMapTraffic: NSObject {
 
 	public enum TrafficType: Int {
-		case Alert
-		case SituationalAwareness
+		case alert
+		case situationalAwareness
 	}
 
-	public var id: String!
-	public var direction: Double = 0
-	public var altitude: Double = 0
-	public var groundSpeedKt: Int = 0
-	public var trueHeading: Int = 0
-	public var timestamp: NSDate = NSDate()
-	public var recordedTime: NSDate = NSDate()
-	public var properties = AirMapTrafficProperties()
-	public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
-	public var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
-	public var createdAt: NSDate = NSDate()
-	public var trafficType = TrafficType.SituationalAwareness {
+	open var id: String!
+	open var direction: Double = 0
+	open var altitude: Meters = 0
+	open var groundSpeed: Knots = 0
+	open var trueHeading: Int = 0
+	open var timestamp: Date = Date()
+	open var recordedTime: Date = Date()
+	open var properties = AirMapTrafficProperties()
+	open var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+	open var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+	open var createdAt: Date = Date()
+	open var trafficType = TrafficType.situationalAwareness {
 		willSet {
-			trafficTypeDidChangeToAlert =  trafficType == .SituationalAwareness && newValue == .Alert
+			trafficTypeDidChangeToAlert =  trafficType == .situationalAwareness && newValue == .alert
 		}
 	}
-	public var trafficTypeDidChangeToAlert = false
+	open var trafficTypeDidChangeToAlert = false
 
 	public override init() {
 		super.init()
+		
 	}
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 
-	public func isExpired() -> Bool {
+	open func isExpired() -> Bool {
 		let expirationInterval = Config.AirMapTraffic.expirationInterval
-		return createdAt.dateByAddingTimeInterval(expirationInterval).lessThanDate(NSDate())
+		return createdAt.addingTimeInterval(expirationInterval).lessThanDate(Date())
 	}
 
-	public override func isEqual(object: AnyObject?) -> Bool {
+	open override func isEqual(_ object: Any?) -> Bool {
 		if let object = object as? AirMapTraffic {
 			return object.properties.aircraftId == self.properties.aircraftId
 		} else {
@@ -63,7 +64,7 @@ extension AirMapTraffic: Mappable {
 		id            <-  map["id"]
 		direction     <- (map["direction"], StringToDoubleTransform())
 		altitude      <- (map["altitude"], StringToDoubleTransform())
-		groundSpeedKt <- (map["ground_speed_kts"], StringToIntTransform())
+		groundSpeed   <- (map["ground_speed_kts"], StringToDoubleTransform())
 		trueHeading   <- (map["true_heading"], StringToIntTransform())
 		properties    <-  map["properties"]
 		timestamp     <- (map["timestamp"], dateTransform)
@@ -74,7 +75,7 @@ extension AirMapTraffic: Mappable {
 		latitude      <-  map["latitude"]
 		longitude     <-  map["longitude"]
 
-		if let lat = Double(latitude), lng = Double(longitude) {
+		if let lat = Double(latitude), let lng = Double(longitude) {
 			initialCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
 			coordinate = initialCoordinate
 		}
@@ -83,24 +84,76 @@ extension AirMapTraffic: Mappable {
 
 extension AirMapTraffic {
 
-	public override var description: String {
+	open override var description: String {
 		
-		let usesMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem)!.boolValue!
-		let alt = usesMetric ? "\(Int(altitude)) m" : "\(Int(AirMapTrafficServiceUtils.metersToFeet(altitude))) ft"
+		let lengthFormatter = LengthFormatter()
+		lengthFormatter.unitStyle = .medium
+		lengthFormatter.numberFormatter.maximumFractionDigits = 0
+
+		let timeFormatter = DateComponentsFormatter()
+		timeFormatter.allowsFractionalUnits = false
+		timeFormatter.allowedUnits = [.minute, .second]
+		timeFormatter.unitsStyle = .abbreviated
+		
+		let speedFormatter = NumberFormatter()
+		speedFormatter.maximumFractionDigits = 0
+		
+		let altitudeString: String
+		let localizedGroundSpeedString: String
+
+		let localizedUnits = LocalizedStrings.Units.self
+
+		lengthFormatter.numberFormatter.roundingIncrement = 50
+		switch AirMap.configuration.distanceUnits {
+		case .metric:
+			let groundSpeedMpsString = speedFormatter.string(from: NSNumber(value: groundSpeed.metersPerSecond))!
+			localizedGroundSpeedString = String(format: localizedUnits.speedFormatMetersPerSecond, groundSpeedMpsString)
+			altitudeString = lengthFormatter.string(fromValue: altitude, unit: .meter)
+		case .imperial:
+			let feet = altitude.feet
+			let groundSpeedKnotsString = speedFormatter.string(from: NSNumber(value: groundSpeed))!
+			localizedGroundSpeedString = String(format: localizedUnits.speedFormatKnots, groundSpeedKnotsString)
+			altitudeString = lengthFormatter.string(fromValue: feet, unit: .foot)
+		}
+		
+		let aircraftId = properties.aircraftId ?? ""
 
 		if let flightLocation = AirMap.trafficService.currentFlightLocation() {
 
 			let trafficLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
 			let direction = flightLocation.initialDirectionToLocation(trafficLocation)
-			let distance = trafficLocation.distanceFromLocation(flightLocation)
-			let milesOrMeters = usesMetric ?  "\(distance) m" : "\(AirMapTrafficServiceUtils.metersToMiles(distance)) mi"
-			let seconds = AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKt)
-			let (_, m, s) = seconds.secondsToHoursMinutesSeconds()
-			let trafficTitle = properties.aircraftId == nil ? "Traffic" : "\(properties.aircraftId)"
 			
-			return "Traffic \(trafficTitle)\nAltitude \(alt)\n\(milesOrMeters) \(direction) \(m) min \(s) sec"
-		}
+			let distance = trafficLocation.distance(from: flightLocation)
+			let distanceString: String
 
-		return "Traffic \(properties.aircraftId)\nAltitude \(alt)\n\(Int(groundSpeedKt))kts \(String.coordinateString(coordinate.latitude, longitude:coordinate.longitude) )"
+			switch AirMap.configuration.distanceUnits {
+			case .metric:
+				if distance < 950 {
+					lengthFormatter.numberFormatter.roundingIncrement = 100
+					lengthFormatter.numberFormatter.maximumFractionDigits = 0
+					distanceString = lengthFormatter.string(fromValue: distance, unit: .meter)
+				} else {
+					lengthFormatter.numberFormatter.roundingIncrement = 0.5
+					lengthFormatter.numberFormatter.maximumFractionDigits = 1
+					distanceString = lengthFormatter.string(fromValue: distance/1000, unit: .kilometer)
+				}
+			case .imperial:
+				lengthFormatter.numberFormatter.roundingIncrement = 0.5
+				lengthFormatter.numberFormatter.maximumFractionDigits = 1
+				let miles = distance.nauticalMiles
+				distanceString = lengthFormatter.string(fromValue: miles, unit: .mile)
+			}
+
+			let seconds = Int(AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeed))
+			let timeString = timeFormatter.string(from: DateComponents(second: seconds))!
+			
+			let alertFormat = LocalizedStrings.Traffic.alertWithAircraftIdAndDistanceFormat
+			return String(format: alertFormat, aircraftId, altitudeString, distanceString, direction, timeString)
+			
+		} else {
+
+			let alertFormat = LocalizedStrings.Traffic.alertWithAircraftIdFormat
+			return String(format: alertFormat, aircraftId, altitudeString, localizedGroundSpeedString)
+		}
 	}
 }

@@ -1,26 +1,22 @@
 //
-//  AirMap+MapTileService.swift
+//  AirMap+MapTypeService.swift
 //  AirMapSDK
 //
-//  Created by Rocky Demoff on 7/6/16.
-//  Copyright © 2016 AirMap, Inc. All rights reserved.
+//  Created by Rocky Demoff on 2/12/17.
+//  Copyright © 2016-2017 AirMap, Inc. All rights reserved.
 //
 
 typealias AirMap_MapTileService = AirMap
 extension AirMap_MapTileService {
+    
+    /// Generates and returns map tile source url based upon Map Layers & Theme
+    ///
+    /// - Parameters:
+    ///   - layers: layers:[AirMapMapLayer] An array of AirMapMapLayer's.
+    ///   - theme: theme:[AirMapMapTheme] An AirMapMapTheme.
 
-	/**
-
-	Generates and returns map tile source url based upon Map Layers & Theme
-
-	- parameter layers:[AirMapMapLayer] An array of AirMapMapLayer's.
-	- parameter theme:[AirMapMapTheme] An AirMapMapTheme.
-
-	- returns: NSURL?
-
-	*/
-	public class func getTileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> NSURL? {
-		return mappingService.tileSourceUrl(layers, theme: theme)
-	}
-
+    public class func getTileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> URL? {
+        return mappingService.tileSourceUrl(layers: layers, theme: theme) as URL?
+    }
+    
 }

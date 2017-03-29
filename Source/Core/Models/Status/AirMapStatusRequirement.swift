@@ -8,17 +8,17 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusRequirements: NSObject {
+open class AirMapStatusRequirements {
 	
-	public var id: String!
-	public var notice: AirMapStatusRequirementNotice?
+	open var id: String!
+	open var notice: AirMapStatusRequirementNotice?
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusRequirements: Mappable {
 	
 	public func mapping(map: Map) {
-		notice              <-  map["notice"]
+		notice   <-  map["notice"]
 	}
 }

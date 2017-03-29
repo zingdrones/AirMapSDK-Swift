@@ -9,136 +9,189 @@
 import UIKit
 import AirMap
 import Mapbox
-import RxSwift
 
 class MapViewController: UIViewController {
-
+	
 	@IBOutlet weak var mapView: AirMapMapView!
-
-	let disposeBag = DisposeBag()
+	
+	private let mapLayers: [AirMapLayerType] = [.essentialAirspace, .tfrs]
+	private let mapTheme: AirMapMapTheme = .standard
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		AirMap.logger.minLevel = .Debug
+		
+		AirMap.logger.minLevel = .debug
 		AirMap.authSessionDelegate = self
 		AirMap.trafficDelegate = self
-//		AirMap.configuration.distanceUnits = .Meters
-//		AirMap.configuration.temperatureUnits = .Celcius
+		AirMap.configuration.distanceUnits = .metric // or .metric
+		AirMap.configuration.temperatureUnits = .fahrenheit // or .celcius
 		
-		mapView.configure(layers: [.EssentialAirspace, .TFRs], theme: .Standard)
+		mapView.configure(layers: mapLayers, theme: mapTheme)
+		
+	
+		getAirMapAircraft(name: "DJI Phantom Pro 4") { aircraft in
+			print(aircraft?.nickname ?? "")
+		}
+		
+	}
+	
+	func getAirMapAircraft(name: String, complete: @escaping (AirMapAircraft?) -> Void) {
+		
+		AirMap.listAircraft { aircraftResult in
+			switch aircraftResult {
+			case .error:
+				complete(nil)
+			case .value(let aircrafts):
+				if let existingAircraft = aircrafts.filter({ $0.nickname == name }).first {
+					complete(existingAircraft)
+				} else {
+					AirMap.listModels{ modelsResult in
+						switch modelsResult {
+						case .error:
+							complete(nil)
+						case .value(let models):
+							if let model = models.filter({ $0.name == name }).first {
+								let newAircraft = AirMapAircraft()
+								newAircraft.model = model
+								newAircraft.nickname = name
+								complete(newAircraft)
+							} else {
+								complete(nil)
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	@IBAction func addFlight() {
-
-		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self, mapTheme: .Light, mapLayers: [.TFRs, .EssentialAirspace]) {
-			presentViewController(flightPlanController, animated: true, completion: nil)
+		
+		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self, mapTheme: mapTheme, mapLayers: mapLayers) {
+			present(flightPlanController, animated: true, completion: nil)
 		} else {
 			showAuthController()
 		}
 	}
 	
-	func showActiveFlight() {
+//	func showActiveFlight() {
+//		
+//		AirMap.getCurrentAuthenticatedPilotFlight { result in
+//			switch result {
+//			case .error(let error):
+//				AirMap.logger.error(error)
+//			case .value(let flight):
+//				if let flight = flight {
+//					let nav = AirMap.flightPlanViewController(flight)!
+//					self.present(nav, animated: true, completion: nil)
+//				}
+//			}
+//		}
+//	}
+	
+	fileprivate func showAuthController() {
 		
-		AirMap.rx_getCurrentAuthenticatedPilotFlight()
-			.unwrap()
-			.subscribeNext { [weak self] (flight) in
-				let nav = AirMap.flightPlanViewController(flight)!
-				self?.presentViewController(nav, animated: true, completion: nil)
-			}
-			.addDisposableTo(disposeBag)
-	}
-
-	private func showAuthController() {
-
 		let authViewController = AirMap.authViewController(handleLogin)
-//		authViewController.registerLogo("<YOUR_LOGO_CONNECT_WITH_AIRMAP>", bundle: NSBundle.mainBundle())
+//				authViewController.registerLogo("<YOUR_LOGO_CONNECT_WITH_AIRMAP>", bundle: NSBundle.mainBundle())
 		
-		presentViewController(authViewController, animated: true, completion: nil)
+		present(authViewController, animated: true, completion: nil)
 	}
 	
-	private func handleLogin(pilot: AirMapPilot?, error: NSError?) {
+	fileprivate func handleLogin(result: Result<AirMapPilot>) {
 		
-		guard let pilot = pilot where error == nil else {
+		switch result {
+		case .error(let error):
 			AirMap.logger.error(error)
-			return
+		case .value(let pilot):
+			dismiss(animated: true, completion: {
+				if pilot.phoneVerified == false {
+					let verification = AirMap.phoneVerificationViewController(pilot, phoneVerificationDelegate: self)
+					self.present(verification, animated: true, completion: nil)
+				} else {
+					self.addFlight()
+				}
+			})
 		}
-		
-		dismissViewControllerAnimated(true, completion: {
-			
-			if pilot.phoneVerified == false {
-				let verification = AirMap.phoneVerificationViewController(pilot, phoneVerificationDelegate: self)
-				self.presentViewController(verification, animated: true, completion: nil)
-			} else {
-				self.addFlight()
-			}
-		})
 	}
 }
+
+//extension MapViewController: AirMapSMSLoginDelegate {
+//    
+//    func smsLoginDidAuthenticate() {
+//        dismiss(animated: true, completion: addFlight)
+//    }
+//    func smsLogindidFailToAuthenticate(error:Auth0Error) {
+//        print(error.localizedDescription)
+//    }
+//}
 
 extension MapViewController: AirMapPhoneVerificationDelegate {
 	
 	func phoneVerificationDidVerifyPhoneNumber() {
-		dismissViewControllerAnimated(true, completion: nil)
+		dismiss(animated: true, completion: nil)
 	}
 }
 
 extension MapViewController: AirMapAuthSessionDelegate {
-
+	
 	func airmapSessionShouldAuthenticate() {
-
+		
 	}
-
-	func airMapAuthSessionDidAuthenticate(pilot: AirMapPilot) {
-		dismissViewControllerAnimated(true, completion: addFlight)
-
+	
+	func airMapAuthSessionDidAuthenticate(_ pilot: AirMapPilot) {
+		if presentedViewController?.childViewControllers.first is AirMapAuthViewController {
+			dismiss(animated: true, completion: addFlight)
+		}
 	}
-	func airMapAuthSessionAuthenticationDidFail(error: NSError) {
-		print(error.localizedDescription)
+	
+	func airMapAuthSessionAuthenticationDidFail(_ error: Error) {
+		AirMap.logger.error(error)
 	}
 }
 
 extension MapViewController: AirMapFlightPlanDelegate {
-
-
-	func airMapFlightPlanDidCreate(flight: AirMapFlight) {
+	
+	func airMapFlightPlanDidEncounter(_ error: Error) {
+		AirMap.logger.error(error)
+	}
+	
+	func airMapFlightPlanDidCreate(_ flight: AirMapFlight) {
 		mapView.addAnnotation(flight)
-		dismissViewControllerAnimated(true, completion: nil)
-		
+		if presentedViewController is AirMapFlightPlanNavigationController {
+			dismiss(animated: true, completion: nil)
+		}
 		let coordinate = mapView.centerCoordinate
 		try! AirMap.sendTelemetryData(flight, coordinate: coordinate, altitudeAgl: 100, altitudeMsl: nil)
 	}
-
-	func airMapFlightPlanDidEncounter(error: NSError) {
-		print(error)
-	}
+	
 }
 
 extension AirMapTraffic: MGLAnnotation {
-
+	
 	public var title: String? {
 		return properties.aircraftId
 	}
 }
 
 extension MapViewController: AirMapTrafficObserver {
-
-	func airMapTrafficServiceDidAdd(traffic: [AirMapTraffic]) {
+	
+	func airMapTrafficServiceDidAdd(_ traffic: [AirMapTraffic]) {
+		NSLog("%@", traffic)
 		mapView.addAnnotations(traffic)
 	}
-
-	func airMapTrafficServiceDidUpdate(traffic: [AirMapTraffic]) {
+	
+	func airMapTrafficServiceDidUpdate(_ traffic: [AirMapTraffic]) {
 		// annotations are updated via KVO
 	}
-
-	func airMapTrafficServiceDidRemove(traffic: [AirMapTraffic]) {
+	
+	func airMapTrafficServiceDidRemove(_ traffic: [AirMapTraffic]) {
 		mapView.removeAnnotations(traffic)
 	}
-
+	
 	func airMapTrafficServiceDidConnect() {
 		print("Connected")
 	}
-
+	
 	func airMapTrafficServiceDidDisconnect() {
 		print("Disconnected")
 	}
@@ -146,38 +199,36 @@ extension MapViewController: AirMapTrafficObserver {
 
 extension MapViewController: MGLMapViewDelegate {
 	
-	func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+	func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
 		
-
 	}
 	
-	func mapView(mapView: MGLMapView, didSelectAnnotation annotation: MGLAnnotation) {
+	func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
 		if let flight = annotation as? AirMapFlight,
-			flightNav = AirMap.flightPlanViewController(flight) {
-			presentViewController(flightNav, animated: true, completion: nil)
+			let flightNav = AirMap.flightPlanViewController(flight) {
+			present(flightNav, animated: true, completion: nil)
 		}
 	}
-
-	func mapView(mapView: MGLMapView, imageForAnnotation annotation: MGLAnnotation) -> MGLAnnotationImage? {
+	
+	func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
 		
 		switch annotation {
-		
+			
 		case is AirMapFlight:
-			let image = AirMapImage.flightIcon(.Active)!
-			return MGLAnnotationImage(image: image, reuseIdentifier: "flightIcon")
-		
-		case is AirMapTraffic:
-			let traffic = annotation as! AirMapTraffic
-			let image = AirMapImage.trafficIcon(traffic.trafficType, heading: traffic.trueHeading)!
-			return MGLAnnotationImage(image: image, reuseIdentifier: traffic.id)
-		
+			let flightIcon = AirMapImage.flightIcon(.active)!
+			return MGLAnnotationImage(image: flightIcon, reuseIdentifier: "flightIcon")
+			
+		case let traffic as AirMapTraffic:
+			let trafficIcon = AirMapImage.trafficIcon(type: traffic.trafficType, heading: traffic.trueHeading)!
+			return MGLAnnotationImage(image: trafficIcon, reuseIdentifier: traffic.id)
+			
 		default:
 			return nil
 		}
 	}
-
-	func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+	
+	func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
 		return true
 	}
-
+	
 }

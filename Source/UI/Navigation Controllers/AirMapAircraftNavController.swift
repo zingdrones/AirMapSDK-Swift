@@ -9,10 +9,10 @@
 import UIKit
 
 public protocol AirMapAircraftNavControllerDelegate: class {
-	func aircraftNavController(navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft)
+	func aircraftNavController(_ navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft)
 }
 
-public class AirMapAircraftNavController: UINavigationController {
+open class AirMapAircraftNavController: UINavigationController {
 
 	weak var aircraftDelegate: AirMapAircraftNavControllerDelegate?
 	

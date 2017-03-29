@@ -1,30 +1,18 @@
 use_frameworks!
 
 target 'AirMapSDK-Example-iOS' do
-	platform :ios, '8.0'
+	platform :ios, '9.0'
+	pod 'Alamofire', '~> 4.0'
 	pod 'AirMapSDK', :path => '../'
 	pod 'Mapbox-iOS-SDK'
 	pod 'SwiftTurf'
 end
 
-target 'AirMapSDK-Example-macOS' do
-	platform :osx, '10.10'
-	pod 'AirMapSDK', :path => '../'
-end
-
 target 'AirMapSDKTests' do
-	platform :ios, '8.0'
+	platform :ios, '9.0'
 	pod 'AirMapSDK', :path => '../'
-	pod 'Quick', '< 0.10'
-	pod 'Nimble', '< 5'
+	pod 'Quick'
+	pod 'Nimble'
 	pod 'OHHTTPStubs'
 	pod 'OHHTTPStubs/Swift'
-end
-
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            config.build_settings['SWIFT_VERSION'] = '2.3'
-        end
-    end
 end

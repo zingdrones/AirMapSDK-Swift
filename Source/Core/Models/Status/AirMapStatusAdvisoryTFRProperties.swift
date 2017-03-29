@@ -8,13 +8,13 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatusAdvisoryTFRProperties: NSObject {
+open class AirMapStatusAdvisoryTFRProperties {
 
-	public var url: String = ""
-	public var startTime: NSDate?
-	public var endTime: NSDate?
+	open var url: String = ""
+	open var startTime: Date?
+	open var endTime: Date?
 
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapStatusAdvisoryTFRProperties: Mappable {
@@ -23,7 +23,7 @@ extension AirMapStatusAdvisoryTFRProperties: Mappable {
 
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
-		url			<- map["url"]
+		url			<-  map["url"]
 		startTime	<- (map["effective_start"], dateTransform)
 		endTime		<- (map["effective_end"], dateTransform)
 	}

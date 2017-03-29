@@ -21,34 +21,43 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
     @IBOutlet weak var starts: UILabel!
     @IBOutlet weak var ends: UILabel!
     
-	func setObject(object: ObjectType?) {
+	func setObject(_ object: ObjectType?) {
 		advisory = object
 		configure()
 	}
 
-	private var advisory: AirMapStatusAdvisory!
+	fileprivate var advisory: AirMapStatusAdvisory!
 	
-	private func configure() {
+	fileprivate func configure() {
 		
+		let localized = LocalizedStrings.Advisory.self
 		organizationName?.text = advisory.organization?.name
 		advisoryName.text = advisory.name
-        type?.text = advisory.type?.title
+		type?.text = advisory.type?.title
         starts?.text = ""
         ends?.text = ""
-        phone?.text = UIConstants.Instructions.noPhoneNumberProvided
-		phone?.userInteractionEnabled = false
+		phone?.text = localized.phoneNumberNotProvided
+
+		phone?.isUserInteractionEnabled = false
         colorView.backgroundColor = advisory.color.colorRepresentation
+		
+		// Fires & Emergencies
+		if let type = advisory.type {
+			if  (type == .fire || type == .emergency) && advisory.city.characters.count > 0 && advisory.state.characters.count > 0  {
+				advisoryName.text = "\(advisory.city), \(advisory.state)"
+			}
+		}
         
         // TFRS
         if let trfs = advisory.tfrProperties {
 
             if let effectiveDate = trfs.startTime {
-                starts?.text = "Starts: \(effectiveDate.shortDateString())"
+				starts?.text = String(format: localized.tfrStartsFormat, effectiveDate.shortDateString())
             }
             if let expireDate = trfs.endTime {
-                ends?.text = "Ends: \(expireDate.shortDateString())"
+                ends?.text = String(format: localized.tfrStartsFormat, expireDate.shortDateString())
             } else {
-                ends?.text = "Permanent"
+                ends?.text = localized.tfrPermanent
             }
         }
         
@@ -60,18 +69,23 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             }
             
             if let size = wildfires.size {
-                ends?.text = "\(size) Acres"
+				switch AirMap.configuration.distanceUnits {
+				case .metric:
+					ends?.text = String(format: localized.wildfireSizeFormatHectares, size)
+				case .imperial:
+					ends?.text = String(format: localized.wildfireSizeFormatAcres, size)
+				}
             } else {
-                ends?.text = "Size Unknown"
+                ends?.text = localized.wildfireSizeUnknown
             }
         }
         
         // Airport
         else if let properties = advisory.airportProperties {
 			
-			if let phoneTxt = properties.phone where !phoneTxt.isEmpty {
+			if let phoneTxt = properties.phone, !phoneTxt.isEmpty {
 				phone?.text = phoneStringFromE164(phoneTxt)
-				phone?.userInteractionEnabled = true
+				phone?.isUserInteractionEnabled = true
             }
         }
         
@@ -80,18 +94,17 @@ class AirMapAdvisoryCell: UITableViewCell, Dequeueable, ObjectAssignable {
             
             if let phoneTxt = properties.phoneNumber {
                 phone?.text = phoneStringFromE164(phoneTxt)
-				phone?.userInteractionEnabled = true
+				phone?.isUserInteractionEnabled = true
             }
             
             if properties.digital  {
-                phone?.text = "Accepts Digital Notice"
+                phone?.text = localized.acceptsDigitalNotice
             }
         }
         
-        
 	}
     
-   private func phoneStringFromE164(number: String) -> String? {
+   fileprivate func phoneStringFromE164(_ number: String) -> String? {
         do {
             let util = AirMapFlightNoticeCell.phoneUtil
             let phoneNumberObject = try util.parse(number, defaultRegion: nil)

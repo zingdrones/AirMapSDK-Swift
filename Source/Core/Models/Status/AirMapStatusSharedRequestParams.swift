@@ -6,31 +6,25 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import CoreLocation
-
 internal struct AirMapStatusSharedRequestParams {
 	
-	var coordinate: CLLocationCoordinate2D?
+	var coordinate: Coordinate2D?
 	var types: [AirMapAirspaceType]?
 	var ignoredTypes: [AirMapAirspaceType]?
 	var weather: Bool?
-	var date: NSDate?
+	var date: Date?
 	
-	func params() -> [String: AnyObject] {
+	func params() -> [String: Any] {
 		
-		var params = [String: AnyObject]()
+		var params = [String: Any]()
 		
-		if let coordinate = coordinate where CLLocationCoordinate2DIsValid(coordinate) {
+		if let coordinate = coordinate, coordinate.isValid {
 			params["latitude"] = coordinate.latitude
 			params["longitude"] = coordinate.longitude
 		}
 		
-		
-		if types?.count > 0 {
-			params["types"] = types?.flatMap({$0.type}).joinWithSeparator(",")
-		}
-		
-		params["ignored_types"] = ignoredTypes?.flatMap({$0.type}).joinWithSeparator(",")
+		params["types"] = types?.map{$0.rawValue}.joined(separator: ",")
+		params["ignored_types"] = ignoredTypes?.flatMap{$0.rawValue}.joined(separator: ",")
 		params["weather"] = weather?.description
 		params["datetime"] = date?.ISO8601String()
 		

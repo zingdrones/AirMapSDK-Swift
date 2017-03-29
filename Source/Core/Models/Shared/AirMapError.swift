@@ -1,133 +1,171 @@
 //
-//  AirMapErrorResponse.swift
+//  AirMapError.swift
+//  AirMapSDK
 //
-//  Created by Rocky Demoff on 7/19/16
+//  Created by Adolfo Martinelli on 2/3/17.
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import ObjectMapper
 
-public class AirMapApiError: Mappable {
+public enum AirMapError: Error {
+	
+	case network(Error)
+	
+	case unauthorized
+	case invalidRequest(Error)
 
-	public var message: String = ""
-	public var messages = [AirMapApiValidationErrors]()
-	public var code: Int!
+	case client(Error)
+	case server
+	
+	case serialization(AirMapSerializationError)
+	
+	case unknown(underlying: Error)
+}
 
-	required public init?(_ map: Map) {}
+extension AirMapError: RawRepresentable {
+	
+	public typealias RawValue = (request: URLRequest?, response: HTTPURLResponse, data: Data)
 
-	public func mapping(map: Map) {
-		message		<-  map["message"]
-		messages	<-  map["errors"]
-		code		<-  map["code"]
+	public var rawValue: RawValue {
+		fatalError("RawValue getter unavailable")
 	}
-
-	public func errorDescription() -> String {
+	
+	public init?(rawValue: RawValue) {
 		
+		let code = rawValue.response.statusCode
+		
+		switch code {
+			
+		case 400:
+			let error = AirMapError.error(from: rawValue)
+			self = .invalidRequest(error)
+			
+		case 401:
+			self = .unauthorized
+			
+		case 404:
+			let path = rawValue.request!.url!.path
+			let error = AirMapApiError(message: "Invalid URL: \(path)", code: code)
+			self = .client(error)
+			
+		case 422:
+			let error = AirMapError.error(from: rawValue)
+			self = .invalidRequest(error)
+			
+		case 400..<500:
+			let error = AirMapError.error(from: rawValue)
+			self = .client(error)
+			
+		case 500..<600:
+			self = .server
+			
+		default:
+			return nil
+		}
+	}
+	
+	private static func error(from rawValue: RawValue) -> Error {
+
+		if let json = try? JSONSerialization.jsonObject(with: rawValue.data, options: .allowFragments),
+			let error = Mapper<AirMapApiError>().map(JSONObject: json) {
+			return error
+		} else {
+			let code = rawValue.response.statusCode
+			return AirMapApiError(message: String(format: LocalizedStrings.Error.genericFormat, code.description), code: code)
+		}
+	}
+}
+
+extension AirMapError: CustomStringConvertible {
+	
+	public var description: String {
+		
+		let localized = LocalizedStrings.Error.self
+		
+		switch self {
+		case .network(let error):
+			return error.localizedDescription
+		case .unauthorized:
+			return localized.unauthorized
+		case .invalidRequest(let error):
+			return error.localizedDescription
+		case .client(let error):
+			return error.localizedDescription
+		case .server:
+			return localized.server
+		case .serialization:
+			return localized.serialization
+		case .unknown(let error):
+			return error.localizedDescription
+		}
+	}
+}
+
+public enum AirMapSerializationError: Error {
+	
+	case invalidData
+	case invalidJson
+	case invalidObject
+}
+
+public struct AirMapApiError: Mappable, LocalizedError {
+	
+	public internal(set) var message: String!
+	public internal(set) var messages = [AirMapApiParameterError]()
+	public internal(set) var code: Int!
+	
+	internal init(message: String, code: Int) {
+		self.message = message
+		self.code = code
+	}
+	
+	public init?(map: Map) {
+		
+		if let status = map.JSON["status"] as? String {
+			if status != "fail" {
+				return nil
+			}
+		}
+	}
+	
+	public mutating func mapping(map: Map) {
+		message   <-  map["data.message"]
+		messages  <-  map["data.errors"]
+		code      <-  map["data.code"]
+		
+		// Auth0
+		if message == nil && messages.count == 0 {
+			message <- map["error_description"]
+		}
+	}
+	
+	public var localizedDescription: String {
 		if messages.count == 0 {
 			return message
-		}
-		
-		return messages
-			.map { $0.name + ":" + $0.message }
-			.joinWithSeparator("\n")
-	}
-
-	/// Returns an AirMapError from a Status Code
-	class func airMapErrorType(statusCode: Int) -> AirMapError {
-
-		switch statusCode {
-		case AirMapError.Server.rawValue:
-			return .Server
-		case AirMapError.Unauthorized.rawValue:
-			return .Unauthorized
-		case AirMapError.PaymentRequired.rawValue:
-			return .PaymentRequired
-		case AirMapError.Forbidden.rawValue:
-			return .Forbidden
-		case AirMapError.NotFound.rawValue:
-			return .NotFound
-		case AirMapError.BadRequest.rawValue:
-			return .BadRequest
-		case AirMapError.Custom.rawValue:
-			return .BadRequest
-		default:
-			return .Unknown
+		} else {
+			return messages.map { $0.name + ": " + $0.message }.joined(separator: "\n")
 		}
 	}
 }
 
-public class AirMapApiValidationErrors: Mappable {
+public struct AirMapApiParameterError: Mappable {
+	
+	public internal(set) var name: String!
+	public internal(set) var message: String!
 
-	public var name: String = ""
-	public var message: String = ""
-
-	required public init?(_ map: Map) {}
-
-	public func mapping(map: Map) {
+	public init?(map: Map) {
+		guard (map.JSON["name"] as? String != nil || map.JSON["param"] as? String != nil), (map.JSON["message"] as? String != nil || map.JSON["msg"] as? String != nil) else {
+			return nil
+		}
+	}
+	
+	public mutating func mapping(map: Map) {
 		name     <-  map["name"]
 		message  <-  map["message"]
-	}
-}
-
-public enum AirMapErrorType: ErrorType {
-
-	case Server
-	case Unauthorized
-	case PaymentRequired
-	case Forbidden
-	case NotFound
-	case BadRequest
-	case Custom
-	case Unknown
-}
-
-public enum AirMapError: Int {
-
-	case Unknown = -1
-	case Custom = 0
-	case BadRequest = 400
-	case Unauthorized = 401
-	case PaymentRequired = 402
-	case Forbidden = 403
-	case NotFound = 404
-	case Server = 500
-
-	func localizedUserInfo(description: String?) -> [String: String] {
 		
-		var localizedDescription: String
-
-		switch self {
-		case Unauthorized:
-			localizedDescription = NSLocalizedString("Unauthorized.", comment: "Unauthorized")
-		case NotFound:
-			localizedDescription = NSLocalizedString("Not Found.", comment: "Not Found")
-		case BadRequest:
-			localizedDescription = NSLocalizedString("Bad Request.", comment: "Bad Request")
-		case .Forbidden:
-			localizedDescription = NSLocalizedString("Forbidden.", comment: "Bad Request")
-		default:
-			localizedDescription = NSLocalizedString("Unknown Error.", comment: "Unknown Error")
-		}
-
-		if let paramDescription = description {
-			localizedDescription = NSLocalizedString(paramDescription, comment: paramDescription)
-		}
-
-		return [
-			NSLocalizedDescriptionKey: localizedDescription,
-			NSLocalizedFailureReasonErrorKey: "",
-			NSLocalizedRecoverySuggestionErrorKey: ""
-		]
-	}
-}
-
-extension NSError {
-
-	public convenience init(type: AirMapError) {
-		self.init(domain: "com.airmap.error", code: type.rawValue, userInfo: type.localizedUserInfo(nil))
-	}
-
-	public convenience init(type: AirMapError, description: String, code: Int) {
-		self.init(domain: "com.airmap.error", code: code, userInfo: type.localizedUserInfo(description))
+		if name == nil { name <- map["param"] }
+		if message == nil { message <- map["msg"]}
 	}
 }

@@ -8,10 +8,10 @@
 
 import Mapbox
 
-public class AirMapMapView: MGLMapView {
+open class AirMapMapView: MGLMapView {
 	
-	public static let defaultLayers: [AirMapLayerType] = [.EssentialAirspace, .TFRs, .Wildfires]
-	public static let defaultTheme: AirMapMapTheme = .Light
+	open static let defaultLayers: [AirMapLayerType] = [.essentialAirspace, .tfrs, .fires, .emergencies]
+	open static let defaultTheme: AirMapMapTheme = .light
 	
 	public convenience init(frame: CGRect, layers: [AirMapLayerType], theme: AirMapMapTheme) {
 		self.init(frame: frame)
@@ -32,11 +32,11 @@ public class AirMapMapView: MGLMapView {
 		setupMapView()
 	}
 	
-	public func configure(layers layers: [AirMapLayerType], theme: AirMapMapTheme) {
-		styleURL = AirMap.getTileSourceUrl(layers, theme: theme)
+	open func configure(layers: [AirMapLayerType], theme: AirMapMapTheme) {
+		styleURL = AirMap.mappingService.tileSourceUrl(layers: layers, theme: theme)
 	}
 	
-	private func setupMapView() {
+	fileprivate func setupMapView() {
 		
 		guard let mapboxAccessToken = AirMap.configuration.mapboxAccessToken else {
 			fatalError("A Mapbox access token is required to use the AirMap SDK UI components.")
@@ -44,9 +44,8 @@ public class AirMapMapView: MGLMapView {
 		
 		MGLAccountManager.setAccessToken(mapboxAccessToken)
 		
-		let bundle = NSBundle(forClass: AirMap.self)
-		let image = UIImage(named: "info_icon", inBundle: bundle, compatibleWithTraitCollection: nil)!
-		attributionButton.setImage(image.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
+		let image = UIImage(named: "info_icon", in: AirMapBundle.ui, compatibleWith: nil)!
+		attributionButton.setImage(image.withRenderingMode(.alwaysOriginal), for: UIControlState())
 		
 		configure(layers: AirMapMapView.defaultLayers, theme: AirMapMapView.defaultTheme)
 	}

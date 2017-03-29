@@ -11,12 +11,12 @@ import RxCocoa
 
 class AirMapFlightSocialCell: UITableViewCell, Dequeueable {
 	
-	static let reuseIdentifier = String(AirMapFlightSocialCell)
+	static let reuseIdentifier = String(describing: AirMapFlightSocialCell.self)
 	
 	@IBOutlet weak var toggle: UISwitch!
 	@IBOutlet weak var logoImage: UIImageView!
 	
-	private let disposeBag = DisposeBag()
+	fileprivate let disposeBag = DisposeBag()
 	
 	var model: SocialSharingRow! {
 		didSet {
@@ -25,11 +25,11 @@ class AirMapFlightSocialCell: UITableViewCell, Dequeueable {
 		}
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		model.value
 			.asObservable()
-			.bindTo(toggle.rx_selected)
-			.addDisposableTo(disposeBag)
+			.bindTo(toggle.rx.isSelected)
+			.disposed(by: disposeBag)
 	}
 
 }

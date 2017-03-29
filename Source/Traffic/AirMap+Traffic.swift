@@ -7,22 +7,17 @@
 //
 
 @objc public protocol AirMapTrafficObserver: class {
-	func airMapTrafficServiceDidAdd(traffic: [AirMapTraffic])
-	func airMapTrafficServiceDidUpdate(traffic: [AirMapTraffic])
-	func airMapTrafficServiceDidRemove(traffic: [AirMapTraffic])
-	optional func airMapTrafficServiceDidConnect()
-	optional func airMapTrafficServiceDidDisconnect()
-	optional func airMapTrafficServiceDidReceive(message: String)
+	func airMapTrafficServiceDidAdd(_ traffic: [AirMapTraffic])
+	func airMapTrafficServiceDidUpdate(_ traffic: [AirMapTraffic])
+	func airMapTrafficServiceDidRemove(_ traffic: [AirMapTraffic])
+	@objc optional func airMapTrafficServiceDidConnect()
+	@objc optional func airMapTrafficServiceDidDisconnect()
+	@objc optional func airMapTrafficServiceDidReceive(_ message: String)
 }
 
-private typealias AirMapTrafficServices = AirMap
-extension AirMapTrafficServices {
+public typealias AirMap_Traffic = AirMap
+extension AirMap_Traffic {
 	
-	/**
-	
-	Setting the traffic delegate automatically
-	
-	*/
 	public static var trafficDelegate: AirMapTrafficObserver? {
 		didSet { trafficService.delegate = trafficDelegate }
 	}

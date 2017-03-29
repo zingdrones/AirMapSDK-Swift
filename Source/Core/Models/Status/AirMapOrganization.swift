@@ -8,25 +8,16 @@
 
 import ObjectMapper
 
-public class AirMapOrganization: NSObject {
+open class AirMapOrganization: Hashable, Equatable {
 
-	public private(set) var id: String!
-	public private(set) var name: String = ""
+	open fileprivate(set) var id: String!
+	open fileprivate(set) var name: String = ""
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
 	
-	override public var hashValue: Int {
+	open var hashValue: Int {
 		return id.hashValue
 	}
-	
-	override public func isEqual(object: AnyObject?) -> Bool {
-		if let org = object as? AirMapOrganization {
-			return org == self
-		} else {
-			return false
-		}
-	}
-
 }
 
 extension AirMapOrganization: Mappable {

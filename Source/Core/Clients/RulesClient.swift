@@ -6,22 +6,21 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-import CoreLocation
 import RxSwift
 
 internal class RulesClient: HTTPClient {
 	
 	init() {
-		super.init(Config.AirMapApi.rulesUrl)
+		super.init(basePath: Config.AirMapApi.rulesUrl)
 	}
 	
-	func getLocalRules(location: CLLocationCoordinate2D) -> Observable<[AirMapLocalRule]> {
+	func listLocalRules(at location: Coordinate2D) -> Observable<[AirMapLocalRule]> {
 		AirMap.logger.debug("GET Local Rules", location)
 		let params = [
 			"latitude": location.latitude,
 			"longitude": location.longitude
 		]
-		return call(.GET, url: "/locale", params: params)
+		return perform(method: .get, path: "/locale", params: params)
 	}
 	
 }

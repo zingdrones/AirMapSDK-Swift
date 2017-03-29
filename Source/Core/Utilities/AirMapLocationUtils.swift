@@ -1,5 +1,5 @@
 //
-//  AirMapLocaitonUtils.swift
+//  AirMapLocationUtils.swift
 //  AirMapSDK
 //
 //  Created by Rocky Demoff on 6/2/16.
@@ -7,7 +7,7 @@
 //
 
 
-func convertDegreesToNearestCompassRose(degree: Int) -> Int {
+func convertDegreesToNearestCompassRose(_ degree: Int) -> Int {
 	
 	if degree > 0 && degree <= 45 {
 		return 45
@@ -37,5 +37,5 @@ func convertDegreesToNearestCompassRose(degree: Int) -> Int {
 		return 360
 	}
 	
-	return 360
+	return 0
 }

@@ -11,12 +11,12 @@ import RxCocoa
 
 class AirMapFlightAircraftCell: UITableViewCell, Dequeueable {
 	
-	static let reuseIdentifier = String(AirMapFlightAircraftCell)
+	static let reuseIdentifier = String(describing: AirMapFlightAircraftCell.self)
 	
 	@IBOutlet weak var selectedAircraft: UILabel!
 
 	let aircraft = Variable(nil as AirMapAircraft?)
-	private let disposeBag = DisposeBag()
+	fileprivate let disposeBag = DisposeBag()
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -24,13 +24,16 @@ class AirMapFlightAircraftCell: UITableViewCell, Dequeueable {
 		setupBindings()
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
 		aircraft
 			.asObservable()
 			.subscribeOn(MainScheduler.instance)
-			.map { $0?.nickname ?? "Select Aircraft" }
-			.bindTo(selectedAircraft.rx_text)
-			.addDisposableTo(disposeBag)
+			.map {
+				let selectAircraftTitle = LocalizedStrings.Aircraft.selectAircraft
+				return $0?.nickname ?? selectAircraftTitle
+			}
+			.bindTo(selectedAircraft.rx.text)
+			.disposed(by: disposeBag)
 	}
 }

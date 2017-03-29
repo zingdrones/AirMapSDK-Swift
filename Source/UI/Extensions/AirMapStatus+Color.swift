@@ -11,16 +11,12 @@ import UIKit
 extension AirMapStatus.StatusColor {
 	
 	// UIColor or NSColor representation of status
-	public var colorRepresentation: ColorType {
+	public var colorRepresentation: Color {
 		switch self {
-		case .Red:
-			return .airMapRed()
-		case .Yellow:
-			return .airMapYellow()
-		case .Green:
-			return .airMapGreen()
-		case .Gray:
-			return .airMapGray()
+		case .red:      return .airMapRed
+		case .yellow:   return .airMapYellow
+		case .green:    return .airMapGreen
+		case .gray:     return .airMapDarkGray
 		}
 	}
 }

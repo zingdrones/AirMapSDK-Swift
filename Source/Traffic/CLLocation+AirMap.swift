@@ -10,10 +10,10 @@ import CoreLocation
 
 extension CLLocation {
 	
-	func initialDirectionToLocation(location: CLLocation) -> String {
+	func initialDirectionToLocation(_ location: CLLocation) -> String {
 		
-		let bearing = self.initialBearingToLocation(location)
-		let directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+		let bearing = initialBearing(to: location)
+		let directions = AirMapTrafficServiceUtils.compassDirections()
 		let index = Int((bearing/22.5) + 0.5) % 16
 		return directions[index]
 	}

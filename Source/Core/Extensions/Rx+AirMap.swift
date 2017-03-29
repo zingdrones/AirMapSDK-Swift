@@ -17,11 +17,11 @@ extension ObservableType {
 
 	public func asOptional() -> Observable<E?> {
 		return self.map {
-			Optional.Some($0)
+			Optional.some($0)
 		}
 	}
 	
-	public func rateLimit(limit: NSTimeInterval, scheduler: SerialDispatchQueueScheduler) -> Observable<E> {
+	public func rateLimit(_ limit: TimeInterval, scheduler: SerialDispatchQueueScheduler) -> Observable<E> {
 		return self
 			.buffer(timeSpan: limit, count: .max, scheduler: scheduler)
 			.filter { $0.count > 0 }
@@ -31,15 +31,14 @@ extension ObservableType {
 
 extension Observable where Element: Equatable {
 	
-	public func filter(value: E) -> Observable<E> {
+	public func filter(_ value: E) -> Observable<E> {
 		return filter { $0 == value }
 	}
 }
 
-extension Driver {
+extension SharedSequence {
 	
-	public func mapToVoid() -> Driver<Void> {
-		return self.map { _ -> Void in }
+	public func mapToVoid() -> SharedSequence<S, Void> {
+		return map { _ in Void() }
 	}
-
 }

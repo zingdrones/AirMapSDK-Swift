@@ -1,6 +1,9 @@
 # AirMap
 *airmap.config.json
 
+# PhraseApp
+.phraseapp-auth.yml
+
 # Xcode
 
 ## Build generated

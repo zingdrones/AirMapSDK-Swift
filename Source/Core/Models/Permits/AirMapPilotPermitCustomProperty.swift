@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-@objc public class AirMapPilotPermitCustomProperty: NSObject {
+public class AirMapPilotPermitCustomProperty {
 
 	public var id = ""
 	public var value = ""
@@ -16,11 +16,8 @@ import ObjectMapper
 	public var type = ""
     public var required = true
 
-	public required init?(_ map: Map) {}
-
-	internal override init() {
-		super.init()
-	}
+	internal init() {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapPilotPermitCustomProperty: Mappable {
@@ -33,21 +30,14 @@ extension AirMapPilotPermitCustomProperty: Mappable {
 		label     <-  map["label"]
         required  <-  map["required"]
 	}
+	
+	func params() -> [String: String] {
 
-	/**
-	Returns key value parameters
-
-	- returns: [String: AnyObject]
-	*/
-
-	func params() -> [String: AnyObject] {
-
-		var params = [String: AnyObject]()
-		params["id"] = id
-		params["value"] = value
-		params["label"] = label
-        
-		return params
+		return [
+			"id":    id,
+			"value": value,
+			"label": label
+		]
 	}
 
 }

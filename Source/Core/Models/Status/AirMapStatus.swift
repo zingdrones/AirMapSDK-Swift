@@ -8,38 +8,41 @@
 
 import ObjectMapper
 
-@objc public class AirMapStatus: NSObject {
+open class AirMapStatus {
 
 	public enum StatusColor: String {
-		case Red    = "red"
-		case Yellow = "yellow"
-		case Green  = "green"
-		case Gray   = "gray"
+		case red
+		case yellow
+		case green
+		case gray
 		
 		public static var allColors: [StatusColor] {
-			return [.Red, .Yellow, .Green, .Gray]
+			return [.red, .yellow, .green, .gray]
 		}
 		
 		public var description: String {
+			
+			let localized = LocalizedStrings.Status.self
+			
 			switch self {
-			case .Red:
-				return "Flight Strictly Regulated"
-			case .Yellow:
-				return "Advisories"
-			case .Green, .Gray:
-				return "Informational"
+			case .red:
+				return localized.redDescription
+			case .yellow:
+				return localized.yellowDescription
+			case .green, .gray:
+				return localized.greenDescription
 			}
 		}
 	}
 
-	public private(set) var maxSafeDistance = 0
-	public private(set) var advisoryColor = StatusColor.Gray
-	public private(set) var advisories = [AirMapStatusAdvisory]()
-	public private(set) var applicablePermits = [AirMapAvailablePermit]()
-	public private(set) var organizations = [AirMapOrganization]()
-	public private(set) var weather: AirMapStatusWeather?
+	public fileprivate(set) var maxSafeDistance = 0
+	public fileprivate(set) var advisoryColor = StatusColor.gray
+	public fileprivate(set) var advisories = [AirMapStatusAdvisory]()
+	public fileprivate(set) var applicablePermits = [AirMapAvailablePermit]()
+	public fileprivate(set) var organizations = [AirMapOrganization]()
+	public fileprivate(set) var weather: AirMapStatusWeather?
 	
-	public required init(_ map: Map) {}
+	public required init(map: Map) {}
 
 	public var requiresPermits: Bool {
 		return availablePermits.count > 0
@@ -59,17 +62,17 @@ import ObjectMapper
             .count > 0
     }
 	
-	public var availablePermits: [AirMapAvailablePermit] {
+	internal var availablePermits: [AirMapAvailablePermit] {
 		return Array(Set(advisories.flatMap { $0.availablePermits }))
 	}
 	
-	public func availablePermitsFor(organization: AirMapOrganization) -> [AirMapAvailablePermit] {
+	internal func availablePermitsFor(_ organization: AirMapOrganization) -> [AirMapAvailablePermit] {
 		return availablePermits.filter {
 			$0.organizationId == organization.id
 		}
 	}
 	
-	public func applicablePermitsFor(organization: AirMapOrganization) -> [AirMapAvailablePermit] {
+	internal func applicablePermitsFor(_ organization: AirMapOrganization) -> [AirMapAvailablePermit] {
 		return applicablePermits.filter {
 			$0.organizationId == organization.id
 		}
@@ -79,6 +82,7 @@ import ObjectMapper
 extension AirMapStatus: Mappable {
 
 	public func mapping(map: Map) {
+		
 		organizations     <- map["organizations"]
 		maxSafeDistance   <- map["max_safe_distance"]
 		advisories        <- map["advisories"]
@@ -92,7 +96,6 @@ extension AirMapStatus: Mappable {
 				permit.organizationId = advisory.organizationId!
 			}
 		}
-		
-
 	}
+	
 }

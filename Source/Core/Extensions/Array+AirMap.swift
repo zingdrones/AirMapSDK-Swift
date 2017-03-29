@@ -8,25 +8,24 @@
 
 extension Array where Element: Equatable {
 	
-	mutating func removeObject(object: Element) {
-		if let index = self.indexOf(object) {
-			self.removeAtIndex(index)
+	mutating func removeObject(_ object: Element) {
+		if let index = self.index(of: object) {
+			self.remove(at: index)
 		}
 	}
 	
-	mutating func removeObjectsInArray(array: [Element]) {
+	mutating func removeObjectsInArray(_ array: [Element]) {
 		for object in array {
 			self.removeObject(object)
 		}
 	}
     
-    
-    func filterDuplicates(@noescape includeElement: (lhs:Element, rhs:Element) -> Bool) -> [Element]{
+    func filterDuplicates(_ includeElement: @escaping (_ lhs: Element, _ rhs: Element) -> Bool) -> [Element]{
         var results = [Element]()
         
         forEach { (element) in
             let existingElements = results.filter {
-                return includeElement(lhs: element, rhs: $0)
+                return includeElement(element, $0)
             }
             if existingElements.count == 0 {
                 results.append(element)

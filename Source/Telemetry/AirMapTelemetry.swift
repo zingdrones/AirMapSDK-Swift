@@ -14,22 +14,22 @@ import RxSwift
 
 struct AirMapTelemetry {
 	
-	static let serialQueue = dispatch_queue_create("com.airmap.serialqueue", dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0))
+	static let serialQueue = DispatchQueue(label: "com.airmap.serialqueue", qos: .utility, attributes: DispatchQueue.Attributes(), autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.inherit)
 	
 	class Client {
 		
-		func sendTelemetry(flight: AirMapFlight, message: ProtoBufMessage) {
+		func sendTelemetry(_ flight: AirMapFlight, message: ProtoBufMessage) {
 			telemetry.onNext((flight, message))
 		}
 		
-		private let telemetry = PublishSubject<(flight: AirMapFlight, message: ProtoBufMessage)>()
-		private let disposeBag = DisposeBag()
+		fileprivate let telemetry = PublishSubject<(flight: AirMapFlight, message: ProtoBufMessage)>()
+		fileprivate let disposeBag = DisposeBag()
 		
 		init() {
 			setupBindings()
 		}
 		
-		private func setupBindings() {
+		fileprivate func setupBindings() {
 
 			// TODO: setup background serial queue
 			let scheduler = MainScheduler.asyncInstance
@@ -39,12 +39,13 @@ struct AirMapTelemetry {
 				.distinctUntilChanged()
 				.flatMap { flight in
 					AirMap.flightClient
-						.getCommKey(flight)
+						.getCommKey(flight: flight)
 						.map { Session(flight: flight, commKey: $0) }
 				}
 			
 			let flightMessages = Observable
 				.combineLatest(session, telemetry) { $0 }
+				.share()
 				.filter { flightSession, telemetry in
 					telemetry.flight == flightSession.flight
 				}
@@ -70,13 +71,14 @@ struct AirMapTelemetry {
 				.filter { $0.1 is Airmap.Telemetry.Barometer }
 				.sample(Observable<Int>.timer(0, period: frequency.barometer, scheduler: scheduler))
 			
-			[position, attitude, speed, barometer].toObservable().merge()
+			Observable.from([position, attitude, speed, barometer]).merge()
 				.buffer(timeSpan: 1, count: 20, scheduler: scheduler)
-				.subscribeNext(Client.sendMessages)
-				.addDisposableTo(disposeBag)
+				.do(onNext: Client.sendMessages)
+				.subscribe()
+				.disposed(by: disposeBag)
 		}
 		
-		private static func sendMessages(telemetry: [(session: Session, message: ProtoBufMessage)]) {
+		fileprivate static func sendMessages(_ telemetry: [(session: Session, message: ProtoBufMessage)]) {
             
             guard telemetry.count > 0 else {
                 return
@@ -96,41 +98,44 @@ struct AirMapTelemetry {
 		
 		static var socket = Socket(socketQueue: serialQueue)
 		
-		private let encryption = Packet.EncryptionType.AES256CBC
-		private var serialNumber: UInt32 = 0
+		fileprivate let encryption = Packet.EncryptionType.aes256cbc
+		fileprivate var serialNumber: UInt32 = 0
 				
 		init(flight: AirMapFlight, commKey: CommKey) {
 			self.flight = flight
 			self.commKey = commKey
 		}
 		
-		func send(messages: [ProtoBufMessage]) {
+		func send(_ messages: [ProtoBufMessage]) {
 
-			let payload = messages.map { msg in msg.telemetryData() }.data()
+			let payload = messages.flatMap { msg in msg.telemetryBytes() }
 			let packet: Packet
 			let serial = nextPacketId()
-			let flightId = flight.flightId
+			guard let flightId = flight.flightId else { return }
 			
 			switch encryption {
-			case .AES256CBC:
+			case .aes256cbc:
 				let iv = AirMapTelemetry.generateIV()
-				let encryptedPayload = payload.AES256CBCEncrypt(key: commKey.binaryKey(), iv: iv)!
+				let key = commKey.bytes()
+				let encryptedPayload = try! AES(key: key, iv: iv, blockMode: .CBC).encrypt(payload)
+
 				packet = Packet(
 					serial: serial, flightId: flightId, payload: encryptedPayload,
-					encryption: encryption, encryptionData: NSData(bytes: iv)
+					encryption: encryption, iv: iv
 				)
-			case .None:
+			case .none:
 				packet = Packet(
 					serial: serial, flightId: flightId, payload: payload,
-					encryption: encryption, encryptionData: NSData()
+					encryption: encryption, iv: []
 				)
 			}
 
-			Session.socket.sendData(packet.data())
+			let data = Data(bytes: packet.bytes())
+			Session.socket.sendData(data)
 		}
 		
-		private func nextPacketId() -> UInt32 {
-			dispatch_sync(serialQueue) {
+		fileprivate func nextPacketId() -> UInt32 {
+			serialQueue.sync {
 				serialNumber += 1
 			}
 			return serialNumber
@@ -142,46 +147,47 @@ struct AirMapTelemetry {
 		var host = Config.AirMapTelemetry.host
 		var port = Config.AirMapTelemetry.port
 
-		func sendData(data: NSData) {
-			sendData(data, toHost: host, port: port, withTimeout: 15, tag: 0)
+		func sendData(_ data: Data) {
+			send(data, toHost: host, port: port, withTimeout: 15, tag: 0)
 		}
 	}
 	
 	struct Packet {
 		
 		enum EncryptionType: UInt8 {
-			case None = 0 // Unsupported by backend; for testing only
-			case AES256CBC = 1
+			case none = 0 // Unsupported by backend; for testing only
+			case aes256cbc = 1
 		}
 
 		let serial: UInt32
 		let flightId: String
-		let payload: NSData
+		let payload: [UInt8]
 		let encryption: EncryptionType
-		let encryptionData: NSData
+		let iv: [UInt8]
 		
-		func data() -> NSData {
+		func bytes() -> [UInt8] {
 			
-			let id = flightId.dataUsingEncoding(NSUTF8StringEncoding)!
-			let header = NSMutableData()
-			header.appendData(serial.data)
-			header.appendData(UInt8(id.length).data)
-			header.appendData(id)
-			header.appendData(encryption.rawValue.data)
+			let id = flightId.data(using: .utf8)!.bytes
+			var header = [UInt8]()
+			header += serial.bigEndian.bytes
+			header += UInt8(id.count).bytes
+			header += id
+			header += encryption.rawValue.bytes
 			
 			switch encryption {
-			case .AES256CBC:
-				assert(encryptionData.length == 16)
-				header.appendData(encryptionData)
-			case .None:
+			case .aes256cbc:
+				assert(iv.count == 16)
+				header += iv
+			case .none:
 				break
 			}
 			
-			return [header, payload].data()
+			return header + payload
 		}
 	}
 	
 	static func generateIV() -> [UInt8] {
+		
 		return AES.randomIV(AES.blockSize)
 	}
 	

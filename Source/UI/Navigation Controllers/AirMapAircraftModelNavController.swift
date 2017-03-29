@@ -8,10 +8,10 @@
 
 public protocol AirMapAircraftModelSelectionDelegate: class {
 	
-	func didSelectAircraftModel(model: AirMapAircraftModel?)
+	func didSelectAircraftModel(_ model: AirMapAircraftModel?)
 }
 
-public class AirMapAircraftModelNavController: UINavigationController {
+open class AirMapAircraftModelNavController: UINavigationController {
 	
-	public weak var aircraftModelSelectionDelegate: AirMapAircraftModelSelectionDelegate?
+	open weak var aircraftModelSelectionDelegate: AirMapAircraftModelSelectionDelegate?
 }

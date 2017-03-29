@@ -12,42 +12,42 @@ protocol Dequeueable {
 
 extension Dequeueable {
 	static var reuseIdentifier: String {
-		return String(Self)
+		return String(describing: type(of: self))
 	}
 }
 
 protocol ObjectAssignable {
 	associatedtype ObjectType
-	func setObject(object: ObjectType?)
+	func setObject(_ object: ObjectType?)
 }
 
 extension UITableView {
 	
-	func dequeueCell<T: Dequeueable>(at indexPath: NSIndexPath) -> T {
-		return self.dequeueReusableCellWithIdentifier(T.reuseIdentifier, forIndexPath: indexPath) as! T
+	func dequeueCell<T: Dequeueable>(at indexPath: IndexPath) -> T {
+		return self.dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as! T
 	}
 	
 	func cellWith
-		<T: ObjectAssignable where T: Dequeueable, T: UITableViewCell>
-		(object: T.ObjectType?, at indexPath: NSIndexPath) -> T {
+		<T: ObjectAssignable>
+		(_ object: T.ObjectType?, at indexPath: IndexPath) -> T where T: Dequeueable, T: UITableViewCell {
 		
-		let cell = dequeueReusableCellWithIdentifier(T.reuseIdentifier, forIndexPath: indexPath) as! T
+		let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as! T
 		cell.setObject(object)
 		return cell
 	}
 	
 	func cellWith
-		<T: ObjectAssignable where T: Dequeueable, T: UITableViewCell>
-		(object: T.ObjectType, at indexPath: NSIndexPath, withIdentifier: String) -> T {
+		<T: ObjectAssignable>
+		(_ object: T.ObjectType, at indexPath: IndexPath, withIdentifier: String) -> T where T: Dequeueable, T: UITableViewCell {
 		
-		let cell = dequeueReusableCellWithIdentifier(withIdentifier, forIndexPath: indexPath) as! T
+		let cell = dequeueReusableCell(withIdentifier: withIdentifier, for: indexPath) as! T
 		cell.setObject(object)
 		return cell
 	}
 	
-	func deselectSelectedRows(animated: Bool) {
+	func deselectSelectedRows(_ animated: Bool) {
 		for indexPath in indexPathsForSelectedRows ?? [] {
-			deselectRowAtIndexPath(indexPath, animated: animated)
+			deselectRow(at: indexPath, animated: animated)
 		}
 	}
 
@@ -57,7 +57,7 @@ extension UITableView {
 			header.setNeedsLayout()
 			header.layoutIfNeeded()
 			var frame = header.frame
-			frame.size.height = header.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+			frame.size.height = header.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
 			header.frame = frame
 			tableHeaderView = header
 		}

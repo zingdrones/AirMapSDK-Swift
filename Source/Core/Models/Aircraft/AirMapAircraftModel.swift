@@ -8,18 +8,16 @@
 
 import ObjectMapper
 
-@objc public class AirMapAircraftModel: NSObject {
+public class AirMapAircraftModel {
 
-	public var modelId: String!
-	public var name: String!
-	public var manufacturer: AirMapAircraftManufacturer!
-	public var metadata = [String : AnyObject]()
-
-	internal override init() {
-		super.init()
-	}
+	open var modelId: String!
+	open var name: String!
+	open var manufacturer: AirMapAircraftManufacturer!
+	open var metadata = [String : AnyObject]()
 	
-	public required init?(_ map: Map) {}
+	public required init?(map: Map) {}
+	
+	internal init() {}
 }
 
 extension AirMapAircraftModel: Mappable {

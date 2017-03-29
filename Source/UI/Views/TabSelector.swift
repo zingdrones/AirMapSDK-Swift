@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 protocol TabSelectorDelegate: class {
-	func tabSelectorDidSelectItemAtIndex(index: Int)
+	func tabSelectorDidSelectItemAtIndex(_ index: Int)
 }
 
 class TabSelectorView: UIView {
@@ -20,37 +20,39 @@ class TabSelectorView: UIView {
 	}
 	weak var delegate: TabSelectorDelegate?
 	
-	private var buttons = [UIButton]()
-	private let disposeBag = DisposeBag()
+	fileprivate var buttons = [UIButton]()
+	fileprivate let disposeBag = DisposeBag()
 	
-	private func setupView() {
+	fileprivate func setupView() {
 		
 		buttons.forEach { $0.removeFromSuperview() }
 		
-		buttons = items.enumerate().map { index, item in
+		buttons = items.enumerated().map { (index: Int, item) in
 			
 			let button = UIButton()
-			button.setTitle(item, forState: .Normal)
-			button.titleLabel?.font = UIFont.boldSystemFontOfSize(15)
-			button.setTitleColor(UIColor.whiteColor().colorWithAlphaComponent(0.5), forState: .Highlighted)
+			button.setTitle(item, for: UIControlState())
+			button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+			button.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
 			button.titleEdgeInsets = UIEdgeInsets(top: 6, left: 0, bottom: 0, right: 0)
-			button.rx_controlEvent(UIControlEvents.TouchUpInside)
-				.subscribeNext { [weak self] _ in self?.delegate?.tabSelectorDidSelectItemAtIndex(index) }
-				.addDisposableTo(disposeBag)
+			button.rx.controlEvent(UIControlEvents.touchUpInside)
+				.subscribe(onNext: { [weak self] _ in
+					self?.delegate?.tabSelectorDidSelectItemAtIndex(index)
+				})
+				.disposed(by: disposeBag)
 			return button
 		}
 		
-		buttons.forEach { addSubview($0) }
+		buttons.forEach { button in addSubview(button) }
 	}
 	
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		
-		for (index, button) in buttons.enumerate() {
+		for (index, button) in buttons.enumerated() {
 			button.frame = bounds
 			button.frame.size.width = bounds.width / CGFloat(buttons.count)
 			button.frame.origin.x = button.frame.width * CGFloat(index)
-			button.frame = CGRectIntegral(button.frame)
+			button.frame = button.frame.integral
 		}
 	}
 

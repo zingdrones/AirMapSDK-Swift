@@ -12,30 +12,21 @@ import RxDataSources
 
 class AirMapReviewFlightDetailsViewController: UIViewController {
 	
-	private let dateFormatter: NSDateFormatter = {
-		$0.dateStyle = .MediumStyle
-		$0.timeStyle = .ShortStyle
+	fileprivate let dateFormatter: DateFormatter = {
+		$0.dateStyle = .medium
+		$0.timeStyle = .short
 		return $0
-	}(NSDateFormatter())
-	
-	private let durationFormatter: NSDateComponentsFormatter = {
-		$0.allowedUnits = [.Hour, .Minute]
-		$0.zeroFormattingBehavior = .DropAll
-		$0.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-		$0.allowsFractionalUnits = false
-		$0.unitsStyle = .Full
-		return $0
-	}(NSDateComponentsFormatter())
-	
+	}(DateFormatter())
+		
 	@IBOutlet var tableView: UITableView!
 	
 	var flight: Variable<AirMapFlight>!
 
-	private typealias SectionData = String
-	private typealias RowData = (name: String, value: String?)
+	fileprivate typealias SectionData = String
+	fileprivate typealias RowData = (name: String, value: String?)
 
-	private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<SectionData,RowData>>()
-	private let disposeBag = DisposeBag()
+	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<SectionData,RowData>>()
+	fileprivate let disposeBag = DisposeBag()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -44,38 +35,40 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 		setupBindings()
 	}
 	
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		flight?.asObservable()
 			.map(unowned(self, AirMapReviewFlightDetailsViewController.tableDataFromFlight))
-			.bindTo(tableView.rx_itemsWithDataSource(dataSource))
-			.addDisposableTo(disposeBag)
+			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.disposed(by: disposeBag)
 	}
 	
-	private func setupTable() {
+	fileprivate func setupTable() {
 		dataSource.configureCell = { [unowned self] dataSource, tableView, indexPath, rowData in
 			switch rowData.name {
 			case "Public":
-				return tableView.dequeueReusableCellWithIdentifier("airMapCell", forIndexPath: indexPath)
+				return tableView.dequeueReusableCell(withIdentifier: "airMapCell", for: indexPath)
 			case "Aircraft":
-				let cell = tableView.dequeueReusableCellWithIdentifier("aircraftCell", forIndexPath: indexPath)
+				let cell = tableView.dequeueReusableCell(withIdentifier: "aircraftCell", for: indexPath)
 				let aircraft = self.flight.value.aircraft!
 				cell.textLabel?.text = aircraft.nickname
-				cell.detailTextLabel?.text = [aircraft.model.manufacturer.name, aircraft.model.name].flatMap{$0}.joinWithSeparator(" ")
+				cell.detailTextLabel?.text = [aircraft.model.manufacturer.name, aircraft.model.name].flatMap{$0}.joined(separator: " ")
 				return cell
 			default:
-				let cell = tableView.dequeueReusableCellWithIdentifier("flightDetailsCell", forIndexPath: indexPath)
+				let cell = tableView.dequeueReusableCell(withIdentifier: "flightDetailsCell", for: indexPath)
 				cell.textLabel?.text = rowData.name
 				cell.detailTextLabel?.text = rowData.value
 				return cell
 			}
 		}
-		dataSource.titleForHeaderInSection = { [weak self] indexPath in
-			self?.dataSource.sectionAtIndex(indexPath.section).identity
+		
+		dataSource.titleForHeaderInSection = { dataSource, index in
+			dataSource.sectionModels[index].identity
 		}
 	}
 	
-	private func tableDataFromFlight(flight: AirMapFlight) -> [SectionModel<SectionData,RowData>] {
+	fileprivate func tableDataFromFlight(_ flight: AirMapFlight) -> [SectionModel<SectionData,RowData>] {
 		
+		let localized = LocalizedStrings.ReviewFlightPlanDetails.self
 		var sections = [SectionModel<SectionData,RowData>]()
 
 		let df = dateFormatter
@@ -84,48 +77,54 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 		let altitude: String
 
 		switch AirMap.configuration.distanceUnits {
-		case .Feet:
-			radius = Int(flight.buffer! / UIConstants.metersPerFoot).description + " ft"
-			altitude = Int(flight.maxAltitude! / UIConstants.metersPerFoot).description + " ft"
-		case .Meters:
-			radius = Int(flight.buffer!).description + " m"
-			altitude = Int(flight.maxAltitude!).description + " m"
+		case .metric:
+			radius = UIConstants.flightDistanceFormatter.string(fromValue: flight.buffer!, unit: .meter)
+			altitude = UIConstants.flightDistanceFormatter.string(fromValue: flight.maxAltitude!, unit: .meter)
+		case .imperial:
+			let radiusFeet = flight.buffer!.feet
+			radius = UIConstants.flightDistanceFormatter.string(fromValue: radiusFeet, unit: .foot)
+			let altitudeFeet = flight.maxAltitude!.feet
+			altitude = UIConstants.flightDistanceFormatter.string(fromValue: altitudeFeet, unit: .foot)
 		}
 		
-		let startTime = flight.startTime == nil ? "Now" : df.stringFromDate(flight.startTime!)
-		let endTime = flight.endTime == nil ? (nil as String?) : df.stringFromDate(flight.endTime!)
-		let duration = durationFormatter.stringFromTimeInterval(flight.duration)
+		let startTime = flight.startTime == nil ? localized.startTimeNow : df.string(from: flight.startTime!)
+		let endTime = flight.endTime == nil ? (nil as String?) : df.string(from: flight.endTime!)
+		let duration = UIConstants.flightDurationFormatter.string(from: flight.duration)
 		
 		let items: [RowData] = [
-			("Radius", radius),
-			("Altitude", altitude),
-			("Starts", startTime),
-			("Ends", endTime),
-			("Duration", duration)
+			
+			(localized.rowTitleRadius,   radius),
+			(localized.rowTitleAltitude, altitude),
+			(localized.rowTitleStarts,   startTime),
+			(localized.rowTitleEnds,     endTime),
+			(localized.rowTitleDuration, duration)
+			
 			].filter { $0.value != nil }
 
-		let detailsSection = SectionModel(model: "Details", items: items)
+		let detailsSection = SectionModel(model: localized.sectionHeaderDetails, items: items)
 		sections.append(detailsSection)
 		
-		if let aircraft = flight.aircraft where aircraft.aircraftId != nil {
-			let items = [RowData("Aircraft", aircraft.nickname)]
-			let aircraftSection = SectionModel(model: "Aircraft", items: items)
+		if let aircraft = flight.aircraft, aircraft.aircraftId != nil {
+			let items = [RowData(localized.rowLabelAircraft, aircraft.nickname)]
+			let aircraftSection = SectionModel(model: localized.sectionHeaderAircraft, items: items)
 			sections.append(aircraftSection)
 		}
 
 		if flight.isPublic {
-			let items = [RowData("Public", "Yes")]
-			let socialSection = SectionModel(model: "Share My Flight", items: items)
+			
+			let items = [RowData(localized.rowTitlePublic, localized.yes)]
+			let socialSection = SectionModel(model: localized.sectionHeaderSocial, items: items)
+			
 			sections.append(socialSection)
 		}
 		
 		return sections
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
 		if segue.identifier == "modalFAQ" {
-			let nav = segue.destinationViewController as! UINavigationController
+			let nav = segue.destination as! UINavigationController
 			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
 			faqVC.section = .LetOthersKnow
 		}

@@ -6,152 +6,48 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-private typealias AirMap_Pilot = AirMap
+public typealias AirMap_Pilot = AirMap
 extension AirMap_Pilot {
 	
-	public typealias AirMapPilotPermitCollectionHandler = ([AirMapPilotPermit]?, NSError?) -> Void
-	public typealias AirMapPilotHandler = (AirMapPilot?, NSError?) -> Void
-	public typealias AirMapPilotVerificationResponseHandler = (AirMapPilotVerified?, NSError?) -> Void
-	
-	/**
-	
-	Get a pilot by id
-	
-	- parameter pilotId: The Identifier of the Pilot
-	- parameter handler: `(AirMapPilot?, NSError?) -> Void`
-	
-	*/
-	public class func getPilot(pilotId: String, handler: AirMapPilotHandler) {
-		pilotClient.get(pilotId).subscribe(handler)
+	/// Get a pilot by its identifier
+	///
+	/// - Parameters:
+	///   - pilotId: The unique identifier associated with the pilot
+	///   - completion: A completion handler to call with the Result
+	public static func getPilot(_ pilotId: String, completion: @escaping (Result<AirMapPilot>) -> Void) {
+		pilotClient.get(pilotId).subscribe(completion)
 	}
 	
-	/*
-	
-	Get the authenticated pilot
-	
-	- parameter handler: `(AirMapPilot?, NSError?) -> Void`
-	
-	*/
-	public class func getAuthenticatedPilot(handler: AirMapPilotHandler) {
-		pilotClient.getAuthenticatedPilot().subscribe(handler)
+	/// Get the currently authenticated pilot
+	///
+	/// - Parameter completion: A completion handler to call with the Result
+	public static func getAuthenticatedPilot(_ completion: @escaping (Result<AirMapPilot>) -> Void) {
+		pilotClient.getAuthenticatedPilot().subscribe(completion)
 	}
 	
-	/**
-	
-	Update a pilot
-	
-	- parameter pilot: The `AirMapPilot` to update
-	- parameter handler: `(AirMapPilot?, NSError?) -> Void`
-	
-	*/
-	public class func updatePilot(pilot: AirMapPilot, handler: AirMapPilotHandler) {
-		pilotClient.update(pilot).subscribe(handler)
+	/// Update the currently authenticated pilot
+	///
+	/// - Parameters:
+	///   - pilot: The pilot to update
+	///   - completion: A completion handler to call with the Result
+	public static func updatePilot(_ pilot: AirMapPilot, completion: @escaping (Result<AirMapPilot>) -> Void) {
+		pilotClient.update(pilot).subscribe(completion)
 	}
 	
-	/**
-	
-	List Pilot Permits for authenticated user
-	
-	- parameter handler: `([AirMapPilotPermit]?, NSError?) -> Void`
-	
-	*/
-	public class func listPilotPermits(handler: AirMapPilotPermitCollectionHandler) {
-		pilotClient.listPilotPermits().subscribe(handler)
+	/// Send an SMS verification token to the currently authenticated pilot's mobile device
+	///
+	/// - Parameter completion: A completion handler to call with the Result
+	public static func sendSMSVerificationToken(_ completion: @escaping (Result<Void>) -> Void) {
+		pilotClient.sendVerificationToken().subscribe(completion)
 	}
 	
-	/**
-	
-	Delete Pilot Permit
-	
-	- parameter pilot: The `pilotId` String
-	- parameter pilot: The `AirMapPilotPermit`
-	- parameter handler: `(AirMapPilot?, NSError?) -> Void`
-	
-	*/
-	public class func deletePilotPermit(pilotId: String, permit: AirMapPilotPermit, handler: AirMapErrorHandler) {
-		pilotClient.deletePilotPermit(pilotId, permit: permit).subscribe(handler)
-	}
-	
-	/**
-	
-	Send Verification Token
-	
-	- parameter handler: `(AirMapPilot?, NSError?) -> Void`
-	
-	*/
-	public class func verifySMS(handler: AirMapErrorHandler) {
-		pilotClient.sendVerificationToken().subscribe(handler)
-	}
-	
-	/**
-	
-	Verify Token
-	
-	- parameter token: `String` The token sent to the device via SMS
-	- parameter handler: `(AirMapPilot?, NSError?) -> Void`
-	
-	*/
-	public class func verifySMS(token: String, handler: AirMapPilotVerificationResponseHandler) {
-		pilotClient.verifySMS(token).subscribe(handler)
-	}
-	
-}
-
-
-private typealias AirMap_Aircraft = AirMap
-extension AirMap_Aircraft {
-	
-	public typealias AirMapAircraftHandler = (AirMapAircraft?, NSError?) -> Void
-	public typealias AirMapAircraftCollectionHandler = ([AirMapAircraft]?, NSError?) -> Void
-	public typealias AirMapAircraftErrorHandler = (error: NSError?) -> Void
-	
-	/**
-	
-	List authenticated users aircraft
-	
-	- parameter id: `String`
-	- parameter handler: `(AirMapAircraft?, NSError?) -> Void`
-	
-	*/
-	public class func listAircraft(handler: AirMapAircraftCollectionHandler) {
-		pilotClient.listAircraft().subscribe(handler)
-	}
-	
-	/**
-	
-	Create a new aircraft for the authenticated user
-	
-	- parameter pilot: `AirMapPilot`
-	- parameter aircraft: The `AirMapAircarft` to create
-	- parameter handler: `(AirMapAircraft?, NSError?) -> Void`
-	
-	*/
-	public class func createAircraft(aircraft: AirMapAircraft, handler: AirMapAircraftHandler) {
-		pilotClient.createAircraft(aircraft).subscribe(handler)
-	}
-	
-	/**
-	
-	Update an aircraft for the authenticated user
-	
-	- parameter aircraft: The `AirMapAircarft` to update
-	- parameter handler: `(AirMapAircraft?, NSError?) -> Void`
-	
-	*/
-	public class func updateAircraft(aircraft: AirMapAircraft, handler: AirMapAircraftHandler) {
-		pilotClient.updateAircraft(aircraft).subscribe(handler)
-	}
-	
-	/**
-	
-	Delete an aircraft
-	
-	- parameter aircraft: The `AirMapAircarft` to update
-	- parameter handler: `(NSError?) -> Void`
-	
-	*/
-	public class func deleteAircraft(aircraft: AirMapAircraft, handler: AirMapErrorHandler) {
-		pilotClient.deleteAircraft(aircraft).subscribe(handler)
+	/// Verify the received SMS token submitted by the pilot
+	///
+	/// - Parameters:
+	///   - token: The SMS token to verify
+	///   - completion: A completion handler to call with the Result
+	public static func verifySMS(_ token: String, completion: @escaping (Result<AirMapPilotVerified>) -> Void) {
+		pilotClient.verifySMS(token: token).subscribe(completion)
 	}
 	
 }

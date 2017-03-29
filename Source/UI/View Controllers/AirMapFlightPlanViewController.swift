@@ -65,17 +65,17 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var nextButton: UIButton!
 	
-	private let altitude = Variable(0 as Double)
-	private var startsAt = Variable(nil as NSDate?)
-	private let duration = Variable(UIConstants.defaultDurationPreset.value)
-	private let pilot    = Variable(nil as AirMapPilot?)
-	private let aircraft = Variable(nil as AirMapAircraft?)
+	fileprivate let altitude = Variable(0 as Double)
+	fileprivate var startsAt = Variable(nil as Date?)
+	fileprivate let duration = Variable(UIConstants.defaultDurationPreset)
+	fileprivate let pilot    = Variable(nil as AirMapPilot?)
+	fileprivate let aircraft = Variable(nil as AirMapAircraft?)
 
-	private var sections = [TableSection]()
-	private let disposeBag = DisposeBag()
-	private let activityIndicator = ActivityIndicator()
+	fileprivate var sections = [TableSection]()
+	fileprivate let disposeBag = DisposeBag()
+	fileprivate let activityIndicator = ActivityIndicator()
 	
-	private let mapViewDelegate = AirMapMapboxMapViewDelegate()
+	fileprivate let mapViewDelegate = AirMapMapboxMapViewDelegate()
 
 	override var navigationController: AirMapFlightPlanNavigationController? {
 		return super.navigationController as? AirMapFlightPlanNavigationController
@@ -85,55 +85,55 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		super.viewDidLoad()
 		
 		switch AirMap.configuration.distanceUnits {
-		case .Feet:
-			altitude.value = UIConstants.defaultAltitudePresetFeet.value
-		case .Meters:
-			altitude.value = UIConstants.defaultAltitudePresetMeters.value
+		case .metric:
+			altitude.value = UIConstants.defaultAltitudePresetMetric
+		case .imperial:
+			altitude.value = UIConstants.defaultAltitudePresetImperial
 		}
 		
 		setupTable()
 		setupMap()
 		setupBindings()
 
-		AirMap.rx_getAuthenticatedPilot()
+		AirMap.rx.getAuthenticatedPilot()
 			.trackActivity(activityIndicator)
 			.asOptional()
-			.doOnNext { [weak self] pilot in
+			.do( onNext: { [weak self] pilot in
 				self?.navigationController?.flight.value.pilot = pilot
-			}
+			})
 			.bindTo(pilot)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard let identifier = segue.identifier else { return }
 
 		switch identifier {
 
 		case "modalAircraft":
 			let cell = sender as! AirMapFlightAircraftCell
-			let nav = segue.destinationViewController as! UINavigationController
+			let nav = segue.destination as! UINavigationController
 			let aircraftVC = nav.viewControllers.last as! AirMapAircraftViewController
 			let selectedAircraft = aircraftVC.selectedAircraft.asObservable()
-			selectedAircraft.delaySubscription(1.0, scheduler: MainScheduler.instance).bindTo(cell.aircraft).addDisposableTo(disposeBag)
-			selectedAircraft.bindTo(aircraft).addDisposableTo(disposeBag)
+			selectedAircraft.delaySubscription(1.0, scheduler: MainScheduler.instance).bindTo(cell.aircraft).disposed(by: disposeBag)
+			selectedAircraft.bindTo(aircraft).disposed(by: disposeBag)
 			aircraftVC.selectedAircraft.value = aircraft.value
 			trackEvent(.tap, label: "Select Aircraft")
 
 		case "modalProfile":
-			let nav = segue.destinationViewController as! UINavigationController
+			let nav = segue.destination as! UINavigationController
 			let profileVC = nav.viewControllers.last as! AirMapPilotProfileViewController
 			profileVC.pilot = pilot
 			trackEvent(.tap, label: "Select Pilot")
 
 		case "modalFAQ":
-			let nav = segue.destinationViewController as! UINavigationController
+			let nav = segue.destination as! UINavigationController
 			let faqVC = nav.viewControllers.last as! AirMapFAQViewController
 			faqVC.section = .LetOthersKnow
 			
@@ -142,46 +142,56 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		}
 	}
 
-	@IBAction func unwindToFlightPlan(segue: UIStoryboardSegue) { /* unwind segue hook; keep */ }
+	@IBAction func unwindToFlightPlan(_ segue: UIStoryboardSegue) { /* unwind segue hook; keep */ }
 
-	private func setupTable() {
+	fileprivate func setupTable() {
 		
-		let altitudeValues: [(title: String, value: CLLocationDistance)]
+		let localized = LocalizedStrings.FlightPlan.self
+		
+		let altitudeValues: [(title: String, value: Meters)]
+		let altitudeFormatter = UIConstants.flightDistanceFormatter
+		
 		switch AirMap.configuration.distanceUnits {
-		case .Meters:
-			altitudeValues = UIConstants.altitudePresetsInMeters
-		case .Feet:
-			altitudeValues = UIConstants.altitudePresetsInFeet
+		case .metric:
+			altitudeValues = UIConstants.altitudePresetsMetric.map {
+				(altitudeFormatter.string(fromValue: $0, unit: .meter), $0)
+			}
+		case .imperial:
+			altitudeValues = UIConstants.altitudePresetsImperial.map {
+				(altitudeFormatter.string(fromValue: $0.feet, unit: .foot), $0)
+			}
 		}
 
-		let flightDataSection =  DataSection(title: "Flight", rows: [
-			FlightPlanDataTableRow(title: Variable("Altitude"), value: altitude, values: altitudeValues),
+		let flightDataSection =  DataSection(title: localized.sectionHeaderFlight, rows: [
+			FlightPlanDataTableRow(title: Variable(localized.rowTitleAltitude), value: altitude, values: altitudeValues),
 			])
 		sections.append(flightDataSection)
 
-		let flightTimeSection =  DataSection(title: "Date & Time", rows: [
-			FlightPlanDataTableRow(title: Variable("Starts"), value: startsAt, values: nil),
-			FlightPlanDataTableRow(title: Variable("Duration"), value: duration, values: UIConstants.durationPresets)
+		let durationPresets = UIConstants.durationPresets
+			.map { (UIConstants.flightDurationFormatter.string(from: $0)!, $0) }
+		
+		let flightTimeSection =  DataSection(title: localized.sectionHeaderFlightTime, rows: [
+			FlightPlanDataTableRow(title: Variable(localized.rowTitleStartTime), value: startsAt, values: nil),
+			FlightPlanDataTableRow(title: Variable(localized.rowTitleDuration), value: duration, values: durationPresets)
 			])
 		sections.append(flightTimeSection)
 
-		let associatedModels = AssociatedObjectsSection(title: "Pilot & Aircraft", rows: [
-			AssociatedPilotModelRow(title: Variable("Select Pilot Profile"), value: pilot),
-			AssociatedAircraftModelRow(title: Variable("Select Aircraft"), value: aircraft)
+		let associatedModels = AssociatedObjectsSection(title: localized.sectionHeaderAssociated, rows: [
+			AssociatedPilotModelRow(title: Variable(localized.rowTitlePilot), value: pilot),
+			AssociatedAircraftModelRow(title: Variable(localized.rowTitleAircraft), value: aircraft)
 			]
 		)
 		sections.append(associatedModels)
 
-		let bundle = NSBundle(forClass: AirMap.self)
-		let image = UIImage(named: "airmap_share_logo", inBundle: bundle, compatibleWithTraitCollection: nil)
+		let image = UIImage(named: "airmap_share_logo", in: AirMapBundle.ui, compatibleWith: nil)
 
-		let shareSection = SocialSection(title: "Share My Flight", rows: [
+		let shareSection = SocialSection(title: localized.sectionHeaderSocial, rows: [
 			SocialSharingRow(logo: image!, value: navigationController!.shareFlight)
 			])
 		sections.append(shareSection)
 	}
 	
-	private func setupMap() {
+	fileprivate func setupMap() {
 		
 		let flight = navigationController!.flight.value
 		mapView.configure(layers: navigationController!.mapLayers, theme: navigationController!.mapTheme)
@@ -189,93 +199,94 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		
 		if let annotations = flight.annotationRepresentations() {
 			mapView.addAnnotations(annotations)
-			dispatch_async(dispatch_get_main_queue()) {
+			DispatchQueue.main.async {
 				self.mapView.showAnnotations(annotations, edgePadding: UIEdgeInsetsMake(10, 40, 10, 40), animated: true)
 			}
 		}
 	}
 
-	private func setupBindings() {
+	fileprivate func setupBindings() {
 		
 		let flight = navigationController!.flight
 		let status = navigationController!.status
 		let shareFlight = navigationController!.shareFlight
 
 		altitude.asObservable()
-			.subscribeNext {
+			.subscribe(onNext: {
 				flight.value.maxAltitude = $0
-			}
-			.addDisposableTo(disposeBag)
+			})
+			.disposed(by: disposeBag)
 		
 		altitude.asObservable()
 			.skip(1)
-			.subscribeNext { [unowned self] alt in
-				self.trackEvent(.slide, label: "Altitude Slider", value: alt)
-			}
-			.addDisposableTo(disposeBag)
+			.subscribe(onNext: { [unowned self] alt in
+				self.trackEvent(.slide, label: "Altitude Slider", value: NSNumber(value: alt))
+			})
+			.disposed(by: disposeBag)
 
 		aircraft.asObservable()
-			.subscribeNext { flight.value.aircraft = $0 }
-			.addDisposableTo(disposeBag)
+			.subscribe(onNext: { flight.value.aircraft = $0 })
+			.disposed(by: disposeBag)
 		
 		pilot.asObservable()
 			.unwrap()
-			.subscribeNext { flight.value.pilotId = $0.pilotId }
-			.addDisposableTo(disposeBag)
+			.subscribe(onNext: { flight.value.pilotId = $0.pilotId })
+			.disposed(by: disposeBag)
 
 		status.asObservable()
 			.map {
 				let hasNextSteps = $0?.supportsNotice ?? true || $0?.requiresPermits ?? true
-				return hasNextSteps ? "Next" : "Save"
+				let localized = LocalizedStrings.FlightPlan.self
+				return hasNextSteps ? localized.buttonTitleNext : localized.buttonTitleSave
 			}
-			.subscribeNext { [unowned self] title in
-				self.nextButton.setTitle(title, forState: .Normal)
-			}
-			.addDisposableTo(disposeBag)
+			.subscribe(onNext: { [unowned self] title in
+				self.nextButton.setTitle(title, for: .normal)
+			})
+			.disposed(by: disposeBag)
 
 		shareFlight.asObservable()
-			.subscribeNext { flight.value.isPublic = $0 }
-			.addDisposableTo(disposeBag)
+			.subscribe(onNext: { flight.value.isPublic = $0 })
+			.disposed(by: disposeBag)
 		
-		tableView.rx_itemSelected.subscribeNext { [unowned self] indexPath in
-			self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-			self.tableView.cellForRowAtIndexPath(indexPath)?.becomeFirstResponder()
-			}
-			.addDisposableTo(disposeBag)
+		tableView.rx.itemSelected.subscribe(onNext: { [unowned self] indexPath in
+			self.tableView.deselectRow(at: indexPath, animated: true)
+			self.tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
+			})
+			.disposed(by: disposeBag)
 
 		Driver.combineLatest(startsAt.asDriver(), duration.asDriver()) { ($0, $1)}
-			.driveNext { start, duration in
+			.drive(onNext: { start, duration in
 				flight.value.startTime = start
 				flight.value.duration = duration
-			}
-			.addDisposableTo(disposeBag)
+			})
+			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bindTo(rx_loading)
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 		
 		shareFlight.asObservable()
 			.skip(1)
-			.subscribeNext { [unowned self] bool in
-				self.trackEvent(.toggle, label: "AirMap Public Flight", value: bool ? 1 : 0)
-			}
-			.addDisposableTo(disposeBag)
+			.subscribe(onNext: { [unowned self] bool in
+				self.trackEvent(.toggle, label: "AirMap Public Flight", value: NSNumber(value: bool ? 1 : 0))
+			})
+			.disposed(by: disposeBag)
 		
 		startsAt.asDriver()
 			.skip(1)
-			.driveNext { [unowned self] date in
+			.drive(onNext: { [unowned self] date in
 				self.trackEvent(.tap, label: "Flight Start Time")
-			}
-			.addDisposableTo(disposeBag)
+			})
+			.disposed(by: disposeBag)
 		
 		duration.asDriver()
 			.skip(1)
-			.driveNext { [unowned self] duration in
+			.drive(onNext: { [unowned self] duration in
 				self.trackEvent(.tap, label: "Flight End Time")
-			}
-			.addDisposableTo(disposeBag)
+			})
+			.disposed(by: disposeBag)
 	}
 
 	@IBAction func next() {
@@ -285,17 +296,17 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		let status = navigationController!.status.value!
 
 		if status.requiresPermits {
-			performSegueWithIdentifier("pushPermits", sender: self)
+			performSegue(withIdentifier: "pushPermits", sender: self)
 		} else if status.supportsNotice {
-			performSegueWithIdentifier("pushNotices", sender: self)
+			performSegue(withIdentifier: "pushNotices", sender: self)
 		} else {
-			AirMap.rx_createFlight(navigationController!.flight.value)
+			AirMap.rx.createFlight(navigationController!.flight.value)
 				.trackActivity(activityIndicator)
-				.doOnError { [weak self] error in
-					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error as NSError)
-				}
-				.subscribeNext(navigationController!.flightPlanDelegate.airMapFlightPlanDidCreate)
-				.addDisposableTo(disposeBag)
+				.do(onError: { [weak self] error in
+					self?.navigationController!.flightPlanDelegate.airMapFlightPlanDidEncounter(error)
+				})
+				.subscribe(onNext: navigationController!.flightPlanDelegate.airMapFlightPlanDidCreate)
+				.disposed(by: disposeBag)
 		}
 	}
 	
@@ -303,15 +314,15 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 
 extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDelegate {
 
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return sections.count
 	}
 
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return sections[section].rows.count
 	}
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		let section = sections[indexPath.section]
 		let row = section.rows[indexPath.row]
@@ -323,12 +334,12 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 			switch row {
 				
 			case let doubleRow as FlightPlanDataTableRow<Double>:
-				let cell = tableView.dequeueReusableCellWithIdentifier("flightDataCell", forIndexPath: indexPath) as! AirMapFlightDataCell
+				let cell = tableView.dequeueReusableCell(withIdentifier: "flightDataCell", for: indexPath) as! AirMapFlightDataCell
 				cell.model = doubleRow
 				return cell
 
-			case let dateRow as FlightPlanDataTableRow<NSDate?>:
-				let cell = tableView.dequeueReusableCellWithIdentifier("startsAtCell", forIndexPath: indexPath) as! AirMapFlightDataDateCell
+			case let dateRow as FlightPlanDataTableRow<Date?>:
+				let cell = tableView.dequeueReusableCell(withIdentifier: "startsAtCell", for: indexPath) as! AirMapFlightDataDateCell
 				cell.model = dateRow
 				return cell
 				
@@ -347,7 +358,7 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 
 			case is AssociatedAircraftModelRow:
 				let cell = tableView.dequeueCell(at: indexPath) as AirMapFlightAircraftCell
-				cell.aircraft.asObservable().bindTo(aircraft).addDisposableTo(disposeBag)
+				cell.aircraft.asObservable().bindTo(aircraft).disposed(by: disposeBag)
 				return cell
 
 			default:
@@ -359,7 +370,7 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 			let cell = tableView.dequeueCell(at: indexPath) as AirMapFlightSocialCell
 			let row = row as! SocialSharingRow
 			cell.model = row
-			cell.toggle.rx_value.asObservable().bindTo(row.value).addDisposableTo(disposeBag)
+			cell.toggle.rx.value.asObservable().bindTo(row.value).disposed(by: disposeBag)
 			return cell
 
 		default:
@@ -367,11 +378,11 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 		}
 	}
 
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return sections[section].title == nil ? 0 : 25
 	}
 
-	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return sections[section].title
 	}
 

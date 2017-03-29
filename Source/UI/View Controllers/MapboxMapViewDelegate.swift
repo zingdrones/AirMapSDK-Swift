@@ -12,32 +12,32 @@ class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
 	
 	weak var controlPointDelegate: ControlPointDelegate?
 	
-	func mapView(mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+	func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
 		mapView.hideObscuredMidPointControls()
 	}
 	
-	func mapView(mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
-		return .airMapGray()
+	func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
+		return .airMapDarkGray
 	}
 	
-	func mapView(mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
+	func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
 		return 2.5
 	}
 	
-	func mapView(mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
+	func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
 
 		switch annotation {
 		case is RedAdvisory:
-			return .airMapRed()
+			return .airMapRed
 		case is PermitAdvisory:
 			let permitAdvisory = annotation as! PermitAdvisory
-			return permitAdvisory.hasPermit ? .airMapGreen() : .airMapYellow()
+			return permitAdvisory.hasPermit ? .airMapGreen : .airMapYellow
 		default:
-			return .airMapLightBlue()
+			return .airMapLightBlue
 		}
 	}
 	
-	func mapView(mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
+	func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
 		switch annotation {
 		case is MGLPolyline:
 			return 1.0
@@ -48,10 +48,10 @@ class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
 		}
 	}
 	
-	func mapView(mapView: MGLMapView, viewForAnnotation annotation: MGLAnnotation) -> MGLAnnotationView? {
+	func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
 		
 		if let controlPoint = annotation as? ControlPoint {
-			if let controlPointView = mapView.dequeueReusableAnnotationViewWithIdentifier(String(controlPoint.type)) as? ControlPointView {
+			if let controlPointView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: controlPoint.type)) as? ControlPointView {
 				return controlPointView
 			} else {
 				let controlPointView = ControlPointView(type: controlPoint.type)
@@ -61,7 +61,7 @@ class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
 		}
 		
 		if annotation is InvalidIntersection {
-			if let invalidIntersectionView = mapView.dequeueReusableAnnotationViewWithIdentifier(String(InvalidIntersectionView)) as? InvalidIntersectionView {
+			if let invalidIntersectionView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: InvalidIntersectionView.self)) as? InvalidIntersectionView {
 				return invalidIntersectionView
 			} else {
 				return InvalidIntersectionView()

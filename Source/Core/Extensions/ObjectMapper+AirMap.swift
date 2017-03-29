@@ -9,17 +9,18 @@
 import ObjectMapper
 
 class StringToIntTransform: TransformType {
+	
 	typealias Object = Int
 	typealias JSON = String
 	
-	func transformFromJSON(value: AnyObject?) -> Int? {
+	func transformFromJSON(_ value: Any?) -> Int? {
 		if let string = value as? String {
 			return Int(string)
 		}
 		return nil
 	}
 	
-	func transformToJSON(value: Int?) -> String? {
+	func transformToJSON(_ value: Int?) -> String? {
 		if let int = value {
 			return String(int)
 		}
@@ -28,17 +29,18 @@ class StringToIntTransform: TransformType {
 }
 
 class StringToDoubleTransform: TransformType {
+	
 	typealias Object = Double
 	typealias JSON = String
 	
-	func transformFromJSON(value: AnyObject?) -> Double? {
+	func transformFromJSON(_ value: Any?) -> Double? {
 		if let string = value as? String {
 			return Double(string)
 		}
 		return nil
 	}
 	
-	func transformToJSON(value: Double?) -> String? {
+	func transformToJSON(_ value: Double?) -> String? {
 		if let double = value {
 			return String(double)
 		}
@@ -47,66 +49,65 @@ class StringToDoubleTransform: TransformType {
 }
 
 class CsvToArrayTransform: TransformType {
+	
 	typealias Object = [String]
 	typealias JSON = String
 	
-	func transformFromJSON(value: AnyObject?) -> [String]? {
+	func transformFromJSON(_ value: Any?) -> [String]? {
 		if let string = value as? String {
-			return string.componentsSeparatedByString(",")
+			return string.components(separatedBy: ",")
 		}
 		return nil
 	}
 	
-	func transformToJSON(value: [String]?) -> String? {
+	func transformToJSON(_ value: [String]?) -> String? {
 		if let array = value {
-			return array.joinWithSeparator(",")
+			return array.joined(separator: ",")
 		}
 		return nil
 	}
 }
 
-
 class GeoJSONToAirMapGeometryTransform: TransformType {
+	
 	typealias Object = AirMapGeometry
 	typealias JSON = String
 	
-	func transformFromJSON(value: AnyObject?) -> AirMapGeometry? {
+	func transformFromJSON(_ value: Any?) -> AirMapGeometry? {
 		
-		guard
-			let geometry = value as? [String : AnyObject],
-			let type = geometry["type"] as? String
-			else {
-				return nil
-		}
+		guard let geometry = value as? [String: Any], let type = geometry["type"] as? String else { return nil }
 		
 		switch type {
 		case "Polygon":
-			if let coordinates = geometry["coordinates"] as? [[[Double]]] {
+			guard let points = geometry["coordinates"] as? [[[Double]]]  else { return nil }
 				
-				let polygon = AirMapPolygon()
-				let coords: [[CLLocationCoordinate2D]] = coordinates
-					.map { poly in poly.map { ($0[1], $0[0]) }
-						.map(CLLocationCoordinate2D.init)
-					}
-				
-				polygon.coordinates = coords
+			let coords: [[Coordinate2D]] = points
+				.map { poly in poly.map { ($0[1], $0[0]) }
+					.map(Coordinate2D.init)
+				}
+			
+			return AirMapPolygon(coordinates: coords)
 
-				return polygon
-			}
-		case "Point":
-			return geometry["coordinates"] as? AirMapPoint
 		case "LineString":
-			return geometry["coordinates"] as? AirMapPath
+			guard let pointString = geometry["coordinates"] as? [[Double]] else { return nil }
+			let coords: [Coordinate2D] = pointString
+				.map { point in
+					Coordinate2D(latitude: point[0], longitude: point[1])
+				}
+			return AirMapPath(coordinates: coords)
+			
+		case "Point":
+			guard let points = geometry["coordinates"] as? [Double], points.count == 2 else { return nil }
+			let coord: Coordinate2D = Coordinate2D(latitude: points[0], longitude: points[1])
+			return AirMapPoint(coordinate: coord)
+		
 		default:
 			return nil
 		}
-		return nil
 	}
 	
-	func transformToJSON(value: AirMapGeometry?) -> String? {
-		if let obj = value {
-			return obj.description
-		}
+	func transformToJSON(_ value: AirMapGeometry?) -> String? {
+
 		return nil
 	}
 }

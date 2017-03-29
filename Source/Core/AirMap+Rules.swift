@@ -6,22 +6,21 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-private typealias AirMap_Rules = AirMap
+import Foundation
+
+public typealias AirMap_Rules = AirMap
 extension AirMap_Rules {
 	
-	public typealias AirMapLocalRulesHandler = ([AirMapLocalRule]?, NSError?) -> Void
+	public typealias AirMapLocalRulesHandler = ([AirMapLocalRule]?, Error?) -> Void
 	
-	/**
-	
-	Get the local jurisdiction(s) rules for a give location
-	
-	- parameter location: A coordinate to search for rules
-	- parameter handler: `([AirMapLocalRule]?, NSError?) -> Void`
-	
-	*/
-	public class func getLocalRules(location: CLLocationCoordinate2D, handler: AirMapLocalRulesHandler) {
+	/// List the local jurisdiction rules applicable to a given location
+	///
+	/// - Parameters:
+	///   - location: The coordinate for which to list rules
+	///   - completion: A completion handler to call with the Result
+	public static func listLocalRules(location: Coordinate2D, completion: @escaping (Result<[AirMapLocalRule]>) -> Void) {
 		
-		rulesClient.getLocalRules(location).subscribe(handler)
+		rulesClient.listLocalRules(at: location).subscribe(completion)
 	}
 
 }

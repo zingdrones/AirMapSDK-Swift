@@ -13,7 +13,7 @@ class AirMapAircraftManufacturerViewController: UITableViewController, Analytics
 	
 	var screenName = "Create Aircraft - Manufacturers"
 	
-	private let disposeBag = DisposeBag()
+	fileprivate let disposeBag = DisposeBag()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -21,27 +21,27 @@ class AirMapAircraftManufacturerViewController: UITableViewController, Analytics
 		tableView.dataSource = nil
 		
 		AirMap
-			.rx_listManufacturers()
-			.map { $0.sort {$0.name < $1.name } }
-			.bindTo(tableView.rx_itemsWithCellIdentifier("Cell")) { index, manufacturer, cell in
+			.rx.listManufacturers()
+			.map { $0.sorted {$0.name < $1.name } }
+			.bindTo(tableView.rx.items(cellIdentifier: "Cell")) { index, manufacturer, cell in
 				cell.textLabel?.text = manufacturer.name
 			}
-			.addDisposableTo(disposeBag)
+			.disposed(by: disposeBag)
 	}
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "pushModel" {
 			trackEvent(.tap, label: "Select Manufacturer")
 			let cell = sender as! UITableViewCell
-			let indexPath = tableView.indexPathForCell(cell)!
-			let modelVC = segue.destinationViewController as! AirMapAircraftModelViewController
-			modelVC.manufacturer = try! tableView.rx_modelAtIndexPath(indexPath)
+			let indexPath = tableView.indexPath(for: cell)!
+			let modelVC = segue.destination as! AirMapAircraftModelViewController
+			modelVC.manufacturer = try! tableView.rx.model(at: indexPath)
 		}
 	}
 	

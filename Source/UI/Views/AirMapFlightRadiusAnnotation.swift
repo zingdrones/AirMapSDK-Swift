@@ -12,7 +12,7 @@ import SwiftTurf
 
 class AirMapFlightRadiusAnnotation: MGLPolygon {
 	
-	class func polygon(location: CLLocationCoordinate2D, radius: CLLocationDistance) -> MGLPolygon {
+	class func polygon(_ location: CLLocationCoordinate2D, radius: CLLocationDistance) -> MGLPolygon {
 		
 		let point = Point(geometry: location)
 		let bufferedPoint = SwiftTurf.buffer(point, distance: radius, units: .Meters)

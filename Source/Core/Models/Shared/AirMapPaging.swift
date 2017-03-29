@@ -7,15 +7,15 @@
 
 import ObjectMapper
 
-public class AirMapPaging: NSObject {
+open class AirMapPaging {
 
-	public var total: Int?
-	public var limit: Int = 100
-	public var offset: Int?
-	public var prev: String?
-	public var next: String?
+	open var total: Int?
+	open var limit: Int = 100
+	open var offset: Int?
+	open var prev: String?
+	open var next: String?
 
-	required public init?(_ map: Map) {}
+	required public init?(map: Map) {}
 }
 
 extension AirMapPaging: Mappable {

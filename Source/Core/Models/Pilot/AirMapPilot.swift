@@ -8,44 +8,32 @@
 
 import ObjectMapper
 
-@objc public class AirMapPilot: NSObject {
+open class AirMapPilot {
 
-	public var pilotId: String!
-	public var email: String!
-	public var firstName: String?
-	public var lastName: String?
-	public var username: String?
-	public var pictureUrl: String!
-	public var phone: String?
-	public var phoneVerified: Bool = false
-	public var emailVerified: Bool = false
-	public var statistics: AirMapPilotStats!
+	open var pilotId: String!
+	open var email: String!
+	open var firstName: String?
+	open var lastName: String?
+	open var username: String?
+	open var pictureUrl: String!
+	open var phone: String?
+	open var phoneVerified: Bool = false
+	open var emailVerified: Bool = false
+	open var statistics: AirMapPilotStats!
 
-	private var _userMetadata = [String: AnyObject]()
-	private var _appMetadata = [String: AnyObject]()
+	fileprivate var _userMetadata = [String: Any]()
+	fileprivate var _appMetadata = [String: Any]()
 	
-	public func appMetadata() -> [String: AnyObject] {
+	open func appMetadata() -> [String: Any] {
 		return _appMetadata
 	}
 	
-	public func setAppMetadata(value: AnyObject?, forKey: String) {
+	open func setAppMetadata(value: Any?, forKey: String) {
 		_appMetadata[forKey] = value
 	}
-	
-	public override init() {
-		super.init()
-	}
 
-	public required init?(_ map: Map) {}
-	
-	public typealias BuildPilotClosure = (AirMapPilot) -> Void
-	
-	public convenience init(build: BuildPilotClosure) {
-		self.init()
-		
-		build(self)
-	}
-
+	internal init() {}
+	public required init?(map: Map) {}
 }
 
 extension AirMapPilot: Mappable {
@@ -65,24 +53,20 @@ extension AirMapPilot: Mappable {
 		statistics     <-  map["statistics"]
 	}
 
-	/**
-	Returns key value parameters
+	internal func params() -> [String: Any] {
 
-	- returns: [String: AnyObject]
-	*/
-
-	func params() -> [String: AnyObject] {
-
-		var params = [String: AnyObject]()
-
-		params["first_name"] = firstName
-		params["last_name"] = lastName
-		params["user_metadata"] = _userMetadata
-		params["app_metadata"] = _appMetadata
-		params["username"] = username
-		params["phone"] = phone
-
-		return params
+		return [
+			"first_name":    firstName as Any,
+			"last_name":     lastName as Any,
+			"user_metadata": _userMetadata,
+			"app_metadata":  _appMetadata,
+		]
 	}
+}
 
+extension AirMapPilot {
+
+	public var fullName: String {
+		return [firstName, lastName].flatMap({$0}).joined(separator: " ")
+	}
 }

@@ -30,9 +30,9 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 	private let disposeBag = DisposeBag()
 	
 	private enum PermitStatus {
-		case Existing
-		case Available
-		case Unavailable
+		case existing
+		case available
+		case unavailable
 	}
 
 	// MARK: - View Lifecycle
@@ -45,9 +45,11 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 		setupBindings()
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard let identifier = segue.identifier else { return }
+		
 		switch identifier {
+
 		case "pushNewPermit", "pushExistingPermit":
 			if identifier == "pushNewPermit" {
 				trackEvent(.tap, label: "Select Permit")
@@ -55,18 +57,21 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 				trackEvent(.tap, label: "Permit Details")
 			}
 			let cell = sender as! UITableViewCell
-			let indexPath = tableView.indexPathForCell(cell)!
-			let permitVC = segue.destinationViewController as! AirMapAvailablePermitViewController
-			permitVC.permit = Variable(dataSource.itemAtIndexPath(indexPath).availablePermit)
+			let indexPath = tableView.indexPath(for: cell)!
+			let permitVC = segue.destination as! AirMapAvailablePermitViewController
+			
+			let row = dataSource.sectionModels[indexPath.section].items[indexPath.row]
+			permitVC.permit = Variable(row.availablePermit)
 			permitVC.organization = organization
+
 		case "unwindFromExistingPermit":
 			let cell = sender as! UITableViewCell
-			let indexPath = tableView.indexPathForCell(cell)!
-			let permit = dataSource.itemAtIndexPath(indexPath)
-			let permitVC = segue.destinationViewController as! AirMapRequiredPermitsViewController
+			let indexPath = tableView.indexPath(for: cell)!
+			let row = dataSource.sectionModels[indexPath.section].items[indexPath.row]
+			let permitVC = segue.destination as! AirMapRequiredPermitsViewController
 		
-			var selectedPermits = permitVC.selectedPermits.value.filter { $0.permit.id != permit.availablePermit.id }
-			selectedPermits.append((organization, permit.availablePermit, permit.pilotPermit!))
+			var selectedPermits = permitVC.selectedPermits.value.filter { $0.permit.id != row.availablePermit.id }
+			selectedPermits.append((organization, row.availablePermit, row.pilotPermit!))
 			
 			permitVC.selectedPermits.value = selectedPermits
 
@@ -87,12 +92,12 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 		
 		dataSource.configureCell = { dataSource, tableView, indexPath, row in
 			let cell: AirMapPilotPermitCell
-			switch dataSource.sectionAtIndex(indexPath.section).model {
-			case .Existing:
+			switch dataSource.sectionModels[indexPath.section].model {
+			case .existing:
 				cell = tableView.cellWith(row, at: indexPath, withIdentifier: "availableExistingPermitCell")
-			case .Available:
+			case .available:
 				cell = tableView.cellWith(row, at: indexPath, withIdentifier: "availablePermitCell")
-			case .Unavailable:
+			case .unavailable:
 				cell = tableView.cellWith(row, at: indexPath, withIdentifier: "unavailablePermitCell")
 				cell.alpha = 0.333
 			}
@@ -100,13 +105,14 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 		}
 		
 		dataSource.titleForHeaderInSection = { dataSource, section in
-			switch dataSource.sectionAtIndex(section).model {
-			case .Existing:
-				return "Existing Permits"
-			case .Available:
-				return "Available Permits"
-			case .Unavailable:
-				return "Unavailable Permits"
+			let localized = LocalizedStrings.AvailablePermits.self
+			switch dataSource.sectionModels[section].model {
+			case .existing:
+				return localized.sectionHeaderExisting
+			case .available:
+				return localized.sectionHeaderAvailable
+			case .unavailable:
+				return localized.sectionHeaderUnavailable
 			}
 		}
 	}
@@ -114,84 +120,71 @@ class AirMapAvailablePermitsViewController: UITableViewController, AnalyticsTrac
 	private func setupBindings() {
 		
 		Driver.of(sectionModel(status, existingPermits: existingPermits, draftPermits: draftPermits))
-			.drive(tableView.rx_itemsWithDataSource(dataSource))
-			.addDisposableTo(disposeBag)
+			.drive(tableView.rx.items(dataSource: dataSource))
+			.disposed(by: disposeBag)
 	}
 	
 	// MARK: - Helper Functions
 	
-	private func sectionModel(status: AirMapStatus, existingPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [SectionData] {
+	private func sectionModel(_ status: AirMapStatus, existingPermits: [AirMapPilotPermit], draftPermits: [AirMapPilotPermit]) -> [SectionData] {
 		
 		let data = status.availablePermitsFor(organization)
 			.map(rowData(existingPermits + draftPermits))
-			.sort(availablePermitNameAscending)
+			.sorted(by: availablePermitNameAscending)
         
         let existing = data.filter(isApplicable).filter(isIssued)
         let available = data.filter(isApplicable).filter(isNotIssued)
         let unavailable = data.filter(isUnapplicable)
-        
+		
         // update the header copy
         header.text = headerCopy(available.count, existingPermitCount: existing.count)
         
-		let sections = [
-			SectionData(model: .Existing, items: existing),
-			SectionData(model: .Available, items: available),
-			SectionData(model: .Unavailable, items: unavailable)
+		let sections: [SectionData] = [
+			SectionData(model: .existing, items: existing),
+			SectionData(model: .available, items: available),
+			SectionData(model: .unavailable, items: unavailable)
 		]
 		
 		return sections.filter { $0.items.count > 0 }
 	}
-    
-    
-    private func headerCopy(availablePermitCount:Int, existingPermitCount:Int)->String {
-    
-        var headerCopy = "The following exisiting & available permits meets the requirements for operation in the flight area."
         
-        if existingPermitCount > 0 && availablePermitCount == 0 {
-            let plural1 = existingPermitCount == 1 ? "" : "s"
-            let plural2 = existingPermitCount == 1 ? "s" : ""
-            headerCopy = "The following exisiting permit\(plural1) meet\(plural2) the requirements for operation in the flight area."
-        }
-        
-        if existingPermitCount == 0 && availablePermitCount > 0 {
-            let plural1 = availablePermitCount == 1 ? "" : "s"
-            let plural2 = availablePermitCount == 1 ? "s" : ""
-            headerCopy = "The following available permit\(plural1) meet\(plural2) the requirements for operation in the flight area."
-        }
-        
-        if status.applicablePermits.count == 0 {
-            headerCopy = "Only a single permit can be used to fly in this operating area. Your flight path intersects with multiple areas requiring different permits."
-        }
-        
-       return headerCopy
+    private func headerCopy(_ availablePermitCount: Int, existingPermitCount: Int)->String {
+		
+		let localized = LocalizedStrings.AvailablePermits.self
+
+		if status.applicablePermits.count > 0 {
+			return localized.tableHeaderAvailablePermits
+		} else {
+			return localized.tableHeaderConflictingRequirements
+		}
     }
 	
-	private func rowData(pilotPermits: [AirMapPilotPermit]) -> AirMapAvailablePermit -> RowData {
+	private func rowData(_ pilotPermits: [AirMapPilotPermit]) -> (AirMapAvailablePermit) -> RowData {
 		return { availablePermit in
 			let pilotPermit = pilotPermits.filter { $0.permitId == availablePermit.id }.first
 			return RowData(availablePermit, pilotPermit)
 		}
 	}
 	
-	private func availablePermitNameAscending(lhs: RowData, rhs: RowData) -> Bool {
+	private func availablePermitNameAscending(_ lhs: RowData, rhs: RowData) -> Bool {
 		return lhs.availablePermit.name < rhs.availablePermit.name
 	}
 	
-	private func isIssued(row: RowData) -> Bool {
+	private func isIssued(_ row: RowData) -> Bool {
 		return row.pilotPermit != nil
 	}
 	
-	private func isNotIssued(row: RowData) -> Bool {
+	private func isNotIssued(_ row: RowData) -> Bool {
 		return !isIssued(row)
 	}
 	
-	private func isApplicable(row: RowData) -> Bool {
+	private func isApplicable(_ row: RowData) -> Bool {
 		return status.applicablePermitsFor(organization)
 			.filter { $0.id == row.availablePermit.id }
 			.count > 0
 	}
 	
-	private func isUnapplicable(row: RowData) -> Bool {
+	private func isUnapplicable(_ row: RowData) -> Bool {
 		return !isApplicable(row)
 	}
 	

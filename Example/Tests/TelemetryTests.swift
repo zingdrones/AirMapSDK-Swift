@@ -12,13 +12,17 @@ import XCTest
 import Nimble
 import CocoaAsyncSocket
 import ProtocolBuffers
+import CryptoSwift
+
 
 class TelemetryTests: TestCase {
 	
 	let iv = AirMapTelemetry.generateIV()
-	let key: [UInt8] = [201, 49, 58, 234, 67, 135, 252, 215, 251, 132, 90, 119, 192, 127, 77, 39,
-	                    234, 70, 138, 229, 75, 193, 234, 177, 147, 236, 126, 245, 219, 47, 242, 86]
+	let key: [UInt8] = "00001111222233334444555566667777".data(using: .utf8)!.bytes
 	
+	lazy var aes: AES = {
+		return try! AES(key: self.key, iv: self.iv, blockMode: .CBC)
+	}()
 
 	let position: Airmap.Telemetry.Position = {
 
@@ -33,22 +37,22 @@ class TelemetryTests: TestCase {
 	
 	class MockTelemetryServerSocket: GCDAsyncUdpSocket, GCDAsyncUdpSocketDelegate {
 		
-		var messageHandler: (NSData -> Void)!
+		var messageHandler: ((Data) -> Void)!
 		
 		func bind() {
-			try! bindToPort(Config.AirMapTelemetry.port, interface: "loopback")
+			try! bind(toPort: Config.AirMapTelemetry.port, interface: "loopback")
 			try! beginReceiving()
 		}
 		
-		@objc func udpSocket(sock: GCDAsyncUdpSocket, didReceiveData data: NSData, fromAddress address: NSData, withFilterContext filterContext: AnyObject?) {
+		@objc func udpSocket(_ sock: GCDAsyncUdpSocket, didReceive data: Data, fromAddress address: Data, withFilterContext filterContext: Any?) {
 			messageHandler(data)
 		}
 	}
 	
 	class MockTelemetryClientSocket: AirMapTelemetry.Socket, GCDAsyncUdpSocketDelegate {
 		
-		override func sendData(data: NSData) {
-			sendData(data, toHost: "loopback", port: Config.AirMapTelemetry.port, withTimeout: 10, tag: 0)
+		override func sendData(_ data: Data) {
+			send(data, toHost: "loopback", port: Config.AirMapTelemetry.port, withTimeout: 10, tag: 0)
 		}
 	}
 	
@@ -61,13 +65,12 @@ class TelemetryTests: TestCase {
 
 		let clientSocket = MockTelemetryClientSocket()
 		
-		let payload = position.telemetryData().AES256CBCEncrypt(key: key, iv: iv)!
+		let payload = try! aes.encrypt(position.telemetryBytes())
 		let flightId = "flight|1234567890abcdef"
-		let packet = AirMapTelemetry.Packet(serial: 1, flightId: flightId, payload: payload, encryption: .AES256CBC, encryptionData: NSData(bytes: iv))
-		let packetData = packet.data()
+		let packet = AirMapTelemetry.Packet(serial: 1, flightId: flightId, payload: payload, encryption: .aes256cbc, iv: iv)
+		let packetData = Data(packet.bytes())
 		
 		waitUntil { done in
-			
 			serverSocket.messageHandler = { receivedData in
 				expect(receivedData).to(equal(packetData))
 				serverSocket.close()
@@ -81,92 +84,88 @@ class TelemetryTests: TestCase {
 	func testMessageType() {
 		
 		expect(Airmap.Telemetry.Position().messageType)
-			.to(equal(ProtoBufMessage.MessageType.Position))
+			.to(equal(ProtoBufMessage.MessageType.position))
 		
+		expect(Airmap.Telemetry.Attitude().messageType)
+			.to(equal(ProtoBufMessage.MessageType.attitude))
+
 		expect(Airmap.Telemetry.Speed().messageType)
-			.to(equal(ProtoBufMessage.MessageType.Speed))
+			.to(equal(ProtoBufMessage.MessageType.speed))
 		
 		expect(Airmap.Telemetry.Barometer().messageType)
-			.to(equal(ProtoBufMessage.MessageType.Barometer))
+			.to(equal(ProtoBufMessage.MessageType.barometer))
 	}
 	
+	func scan<T: UnsignedInteger>(_ type: T.Type, from bytes: [UInt8], offset: inout Int) -> T {
+		
+		let size = MemoryLayout<T>.size
+		let slice = bytes[offset..<offset+size]
+		offset = offset.advanced(by: size)
+		
+		let newType = slice.withUnsafeBufferPointer { pointer in
+			pointer.baseAddress?.withMemoryRebound(to: T.self, capacity: size, { pointer in
+				return pointer.pointee
+			})
+		}
+		
+		return newType!
+	}
+
 	func testMessageSerialization() {
 		
-		let messageData = position.telemetryData()
-
-		var range = NSRange()
+		let bytes = position.telemetryBytes()
+		var offset = bytes.startIndex
 		
-		var messageType: UInt16 = 0
-		range.length = sizeofValue(messageType)
-		messageData.getBytes(&messageType, range: range)
-		messageType = CFSwapInt16BigToHost(messageType)
-		range.location += range.length
-		expect(messageType).to(equal(ProtoBufMessage.MessageType.Position.rawValue))
+		let messageType = scan(UInt16.self, from: bytes, offset: &offset).bigEndian
+		expect(Airmap.Telemetry.Position.MessageType(rawValue: messageType)).to(equal(Airmap.Telemetry.Position.MessageType.position))
 		
-		var payloadLength: UInt16 = 0
-		range.length = sizeofValue(payloadLength)
-		messageData.getBytes(&payloadLength, range: range)
-		payloadLength = CFSwapInt16BigToHost(payloadLength)
-		range.location += range.length
-		expect(Int(payloadLength)).to(equal(position.data().length))
+		let payloadLength = scan(UInt16.self, from: bytes, offset: &offset).bigEndian
+		expect(payloadLength).to(equal(UInt16(position.serializedSize())))
 
-		range.length = Int(payloadLength)
-		let telemetryPayload = messageData.subdataWithRange(range)
-		expect(telemetryPayload).to(equal(position.data()))
+		let payload = bytes.suffix(from: offset)
+		expect(Data(payload)).to(equal(position.data()))
 	}
+	
 	
 	func testPacketSerialization() {
 		
-		let payload = position.telemetryData().AES256CBCEncrypt(key: key, iv: iv)!
+		let encryptedPayload = try! aes.encrypt(position.telemetryBytes())
 
 		let flightId = "flight|1234567890abcdef"
-		let ivData = NSData(bytes: iv)
-		let packet = AirMapTelemetry.Packet(serial: 123, flightId: flightId, payload: payload, encryption: .AES256CBC, encryptionData: ivData)
-		let packetData = packet.data()
+		let packet = AirMapTelemetry.Packet(serial: 123, flightId: flightId, payload: encryptedPayload, encryption: .aes256cbc, iv: iv)
+		let bytes = packet.bytes()
 		
-		var range = NSRange()
+		var offset = bytes.startIndex
 		
-		var serial: UInt32 = 0
-		range.length = sizeofValue(serial)
-		packetData.getBytes(&serial, range: range)
-		serial = CFSwapInt32BigToHost(serial)
-		range.location += range.length
+		let serial = scan(UInt32.self, from: bytes, offset: &offset).bigEndian
 		expect(serial).to(equal(123))
 		
-		var flightIdLength: UInt8 = 0
-		range.length = sizeofValue(flightIdLength)
-		packetData.getBytes(&flightIdLength, range: range)
-		range.location += range.length
+		let flightIdLength = scan(UInt8.self, from: bytes, offset: &offset)
+		expect(Int(flightIdLength)).to(equal(flightId.utf8.count))
+
+		let flightIdBytes = bytes[offset..<offset+Int(flightIdLength)]
+		offset = offset.advanced(by: Int(flightIdLength))
+
+		let flightIdString = String(data: Data(flightIdBytes), encoding: .utf8)
+		expect(flightIdString).to(equal(flightId))
+
+		let encryption = scan(UInt8.self, from: bytes, offset: &offset)
+		expect(encryption).to(equal(AirMapTelemetry.Packet.EncryptionType.aes256cbc.rawValue))
 		
-		var flightIdData = [UInt8](count: Int(flightIdLength), repeatedValue: 0)
-		range.length = flightIdData.count
-		packetData.getBytes(&flightIdData, range: range)
-		range.location += range.length
-		expect(String(bytes: flightIdData, encoding: NSUTF8StringEncoding)).to(equal(flightId))
+		let ivBytes = bytes[offset..<offset+16]
+		offset = offset.advanced(by: ivBytes.count)
+		expect(Array(ivBytes)).to(equal(iv))
 		
-		var encryption: UInt8 = 0
-		range.length = sizeofValue(encryption)
-		packetData.getBytes(&encryption, range: range)
-		range.location += range.length
-		expect(encryption).to(equal(AirMapTelemetry.Packet.EncryptionType.AES256CBC.rawValue))
-		
-		var ivBytes = [UInt8](count: 16, repeatedValue: 0)
-		range.length = ivBytes.count
-		packetData.getBytes(&ivBytes, range: range)
-		range.location += range.length
-		expect(ivBytes).to(equal(iv))
-		
-		range.length = packetData.length - range.location
-		let packetPayload = packetData.subdataWithRange(range)
-		expect(packetPayload).to(equal(payload))
+		let packetPayload = bytes[offset..<bytes.endIndex]
+		expect(Array(packetPayload)).to(equal(encryptedPayload))
 	}
 	
 	func testEncryption() {
 		
-		let secret = "s3cr3t".utf8Data
-		let encypted = secret.AES256CBCEncrypt(key: key, iv: iv)
-		let decrypted = encypted?.AES256CBCDecrypt(key: key, iv: iv)
-		expect(decrypted).to(equal(secret))
+		let secret = "s3cr3t".data(using: .utf8)!
+		let encypted = try! aes.encrypt(secret)
+		let decrypted = try! aes.decrypt(encypted)
+		expect(decrypted).to(equal(secret.bytes))
 	}
 	
 	func testSendingTelemetry() {
@@ -179,18 +178,17 @@ class TelemetryTests: TestCase {
 		let clientSocket = MockTelemetryClientSocket()
 		AirMapTelemetry.Session.socket = clientSocket
 		
-		let payload = position.telemetryData().AES256CBCEncrypt(key: key, iv: iv)!
+		let encryptedPayload = try! aes.encrypt(position.telemetryBytes())
 		
 		let flightId = "flight|1234567890abcdef"
-		let ivData = NSData(bytes: iv)
-		let packet = AirMapTelemetry.Packet(serial: 123, flightId: flightId, payload: payload, encryption: .AES256CBC, encryptionData: ivData)
-		let packetData = packet.data()
+		let packet = AirMapTelemetry.Packet(serial: 123, flightId: flightId, payload: encryptedPayload, encryption: .aes256cbc, iv: iv)
+		let packetData = packet.bytes()
 
 		let flight = AirMapFlight()
 		flight.flightId = flightId
 		
 		serverSocket.messageHandler = { receivedData in
-			expect(receivedData).to(equal(packetData))
+			expect(receivedData).to(equal(Data(bytes: packetData)))
 		}
 		
 		let coordinate = CLLocationCoordinate2D(latitude: position.latitude, longitude: position.longitude)
@@ -199,123 +197,76 @@ class TelemetryTests: TestCase {
 	
 	func testDecryptPacket() {
 		
-		let key = "00001111222233334444555566667777".dataUsingEncoding(NSASCIIStringEncoding)!.arrayOfBytes()
+		let key = "00001111222233334444555566667777".data(using: .utf8)!.bytes
 		let iv = Array(key[0..<16])
+		let flightId = "flight|JvzMvdJFgD0E9yFNpRQ6AhpO2ZZw"
 		
 		expect(key.count).to(equal(32))
 		expect(iv.count).to(equal(16))
 		
 		let packetBase64 = "AAAAASNmbGlnaHR8SnZ6TXZkSkZnRDBFOXlGTnBSUTZBaHBPMlpadwEwMDAwMTExMTIyMjIzMzMzb2yXSrFrZxNNmZ6LwjLT6aSp9BXiF0E/d9ASIuwI4YmyJYccplg+XPTG9L1NRqxLbAD7QuUOcI/6R8xjBCzCVA=="
-		let packetData = NSData(base64EncodedString: packetBase64, options: NSDataBase64DecodingOptions())!
+		let bytes = Data(base64Encoded: packetBase64, options: Data.Base64DecodingOptions())!.bytes
 		
-		var range = NSRange()
+		var offset = bytes.startIndex
 		
-		var serial: UInt32 = 0
-		range.length = sizeofValue(serial)
-		packetData.getBytes(&serial, range: range)
-		serial = CFSwapInt32BigToHost(serial)
-		range.location += range.length
+		let serial = scan(UInt32.self, from: bytes, offset: &offset).bigEndian
 		expect(serial).to(equal(1))
 		
-		var flightIdLength: UInt8 = 0
-		range.length = sizeofValue(flightIdLength)
-		packetData.getBytes(&flightIdLength, range: range)
-		range.location += range.length
+		let flightIdLength = scan(UInt8.self, from: bytes, offset: &offset)
+		expect(Int(flightIdLength)).to(equal(flightId.utf8.count))
 		
-		var flightIdData = [UInt8](count: Int(flightIdLength), repeatedValue: 0)
-		range.length = flightIdData.count
-		packetData.getBytes(&flightIdData, range: range)
-		range.location += range.length
-		expect(String(bytes: flightIdData, encoding: NSUTF8StringEncoding)).to(equal("flight|JvzMvdJFgD0E9yFNpRQ6AhpO2ZZw"))
+		let flightIdBytes = bytes[offset..<offset+Int(flightIdLength)]
+		offset = offset.advanced(by: Int(flightIdLength))
 		
-		var encryption: UInt8 = 0
-		range.length = sizeofValue(encryption)
-		packetData.getBytes(&encryption, range: range)
-		range.location += range.length
-		expect(encryption).to(equal(AirMapTelemetry.Packet.EncryptionType.AES256CBC.rawValue))
+		let flightIdString = String(data: Data(flightIdBytes), encoding: .utf8)
+		expect(flightIdString).to(equal(flightId))
 		
-		var ivBytes = [UInt8](count: 16, repeatedValue: 0)
-		range.length = ivBytes.count
-		packetData.getBytes(&ivBytes, range: range)
-		range.location += range.length
-		expect(ivBytes).to(equal(iv))
+		let encryption = scan(UInt8.self, from: bytes, offset: &offset)
+		expect(encryption).to(equal(AirMapTelemetry.Packet.EncryptionType.aes256cbc.rawValue))
 		
-		expect(range.location).to(equal(57))
+		let ivBytes = bytes[offset..<offset+16]
+		offset = offset.advanced(by: ivBytes.count)
+		expect(Array(ivBytes)).to(equal(iv))
 		
-		range.length = packetData.length - range.location
-		let encryptedPayload = packetData.subdataWithRange(range)
-		let payload = encryptedPayload.AES256CBCDecrypt(key: key, iv: iv)!
-		
-		range.location = 0
-		
+		let encryptedPayload = bytes[offset..<bytes.endIndex]
+
+		// 57 byte header size
+		expect(offset).to(equal(57))
+
+		let payload = try! AES(key: key, iv: iv, blockMode: .CBC).decrypt(encryptedPayload)
 		var messages = [GeneratedMessage?]()
 		
-		while range.location < payload.length {
+		offset = payload.startIndex
+
+		while offset < payload.count {
 			
-			var messageType: UInt16 = 0
-			range.length = sizeofValue(messageType)
-			payload.getBytes(&messageType, range: range)
-			messageType = CFSwapInt16BigToHost(messageType)
-			range.location += range.length
+			let messageType = scan(UInt16.self, from: payload, offset: &offset).bigEndian
+			let messageLength = scan(UInt16.self, from: payload, offset: &offset).bigEndian
 			
-			var messageSize: UInt16 = 0
-			range.length = sizeofValue(messageSize)
-			payload.getBytes(&messageSize, range: range)
-			messageSize = CFSwapInt16BigToHost(messageSize)
-			range.location += range.length
-			
-			range.length = Int(messageSize)
-			let messageData = payload.subdataWithRange(range)
-			range.location += range.length
+			let messageData = Data(payload[offset..<offset+Int(messageLength)])
+			offset = offset.advanced(by: Int(messageLength))
 			
 			var message: GeneratedMessage? = nil
 			switch messageType {
-			case ProtoBufMessage.MessageType.Position.rawValue:
-				message = try? Airmap.Telemetry.Position.parseFromData(messageData)
+			case ProtoBufMessage.MessageType.position.rawValue:
+				message = try? Airmap.Telemetry.Position.parseFrom(data: messageData)
 				expect(message).toNot(beNil())
-			case ProtoBufMessage.MessageType.Attitude.rawValue:
-				message = try? Airmap.Telemetry.Attitude.parseFromData(messageData)
+			case ProtoBufMessage.MessageType.attitude.rawValue:
+				message = try? Airmap.Telemetry.Attitude.parseFrom(data: messageData)
 				expect(message).toNot(beNil())
-			case ProtoBufMessage.MessageType.Speed.rawValue:
-				message = try? Airmap.Telemetry.Speed.parseFromData(messageData)
+			case ProtoBufMessage.MessageType.speed.rawValue:
+				message = try? Airmap.Telemetry.Speed.parseFrom(data: messageData)
 				expect(message).toNot(beNil())
-			case ProtoBufMessage.MessageType.Barometer.rawValue:
-				message = try? Airmap.Telemetry.Barometer.parseFromData(messageData)
+			case ProtoBufMessage.MessageType.barometer.rawValue:
+				message = try? Airmap.Telemetry.Barometer.parseFrom(data: messageData)
 				expect(message).toNot(beNil())
 			default:
 				fail("unexpected type")
 			}
-		
 			messages.append(message)
 		}
+		
+		expect(messages.count).to(equal(4)); return
 	}
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
