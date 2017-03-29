@@ -55,12 +55,22 @@ extension AirMapPilot: Mappable {
 
 	internal func params() -> [String: Any] {
 
-		return [
+		var params = [
 			"first_name":    firstName as Any,
 			"last_name":     lastName as Any,
 			"user_metadata": _userMetadata,
 			"app_metadata":  _appMetadata,
 		]
+		
+		if let phone = phone {
+			params["phone"] = phone
+		}
+		
+		if let username = username {
+			params["username"] = username
+		}
+		
+		return params
 	}
 }
 
