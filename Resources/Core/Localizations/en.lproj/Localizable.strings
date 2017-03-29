@@ -47,7 +47,7 @@
 "AIRSPACE_TYPE_CUSTOM" = "Custom";
 
 /* Name for airspace type Emergency */
-"AIRSPACE_TYPE_EMERGENCY" = "Emergency";
+"AIRSPACE_TYPE_EMERGENCY" = "First Responder Activity";
 
 /* Name for airspace type Fire */
 "AIRSPACE_TYPE_FIRE" = "Fire";
