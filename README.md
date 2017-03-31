@@ -1,15 +1,15 @@
-![AirMap: The Airspace Platform for Developers](Assets/AirMap.png)
-![Swift 2.3](https://img.shields.io/badge/Swift-2.3-lightgray.svg) [![Version](https://img.shields.io/cocoapods/v/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![License](https://img.shields.io/cocoapods/l/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![Platform](https://img.shields.io/cocoapods/p/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK)
+![AirMap: The Airspace Platform for Developers](Resources/Core/AirMap.png)
+![Swift 2.3](https://img.shields.io/badge/Swift-3.0-lightgray.svg) [![Version](https://img.shields.io/cocoapods/v/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![License](https://img.shields.io/cocoapods/l/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![Platform](https://img.shields.io/cocoapods/p/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK)
 
 Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.
 
 ## Requirements
 
 ### Environment
-* iOS 8.0+, 
+* iOS 9.0+, 
 * macOS 10.10+, 
-* Swift 2.3 &  
-* Xcode 8.0
+* Swift 3.0 or 3.1
+* Xcode 8.2+
 
 ### Sign up for an [AirMap Developer Account.](https://dashboard.airmap.io/developer/)
 
@@ -22,53 +22,77 @@ Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.
 
 ### CocoaPods
 
-Requires CocoaPods 1.0.0+
+Requires CocoaPods 1.2.0+
 
 The AirMap SDK is a CocoaPod written in Swift. CocoaPods is a dependency manager for Cocoa projects. If you don't have CocoaPods, You can install it with the following command:
 
-`$ sudo gem install cocoapods `
+`$ sudo gem install cocoapods`
 
 
 ### Example Project
 
-***You must have Xcode 8.0 to run the example.***
+***You must have Xcode 8.2+ to run the example.***
 
 To run the example project, run `pod try AirMapSDK`.  This should install the SDK and launch Xcode.
 
-### Integration into Your project
+### Integrating into your project
 
-To integrate the AirMap SDK into your Xcode project, navigate to the directory that contains your project and create a new **Podfile** with `pod init` or open an existing one, then add `pod ‘AirMapSDK’` to the main target. If you are using the Swift SDK, make sure to add the line `use_frameworks!`.
+To integrate the AirMap SDK into your Xcode project, navigate to the directory that contains your project and create a new **Podfile** with `pod init` or open an existing one, then add `pod 'AirMapSDK'` to the main target. Make sure to add the line `use_frameworks!`.
 
 ```ruby
-use_frameworks!
-target 'Your Project Target Name' do
+target 'MyApp' do
+  use_frameworks!
 	pod 'AirMapSDK'
 end
 ```
 
-Then, run the following command to install the dependency:
+Then, run the following command to install the dependencies:
 
 `$ pod install`
 
-For Objective-C projects, set the **Embedded Content Contains Swift Code** flag in your project to **Yes** (found under **Build Options** in the **Build Settings** tab).
+Going forward, open the `MyProject.xcworkspace` file instead of the `MyProject.xcodeproj` file.
 
-
-To interact with the AirMap SDK, make sure you **import AirMap** to the class that is utilizing the SDK methods.
+Make sure you import the framework before using the SDK.
 
 ```swift
 import AirMap
-import UIKit
+```
 
-class ViewController : UIViewController {
+## Examples
 
-  override viewDidLoad(){
-    super.viewDidLoad()
+### Getting Airspace Status
 
-    // example of getting the current flight of the authenticated pilot.
-    AirMap.getCurrentAuthenticatedPilotFlight { (flight, error) in
-      ...
-    }
-  }
+```swift
+// Create a coordinate or source one from the device's GPS
+let myCoord = CLLocationCoordinate2D(latitude: 34.02, longitude: -118.50)
+
+// Check the coordinate with a buffer of 100 Meters
+AirMap.checkCoordinate(coordinate: myCoord, buffer: 100) { (result: Result<AirMapStatus>) in
+	
+	// The result is either an error or a value
+	switch result {
+	
+	case .error(let error):
+		// handle the error
+		print(error)
+
+	case .value(let status):
+		
+		// print the overall airspace status color (i.e. red, yellow, green)
+		print("Airspace Status Color:", status.advisoryColor)
+
+		// print the number of airspace advisories returned
+		print("Number of Advisories:", status.advisories.count)
+		
+		// print out details for each advisory
+		for advisory in status.advisories {
+			print("\n")
+			print("Name:     ", advisory.name)
+			print("Type:     ", advisory.type.title)
+			print("Color:    ", advisory.color)
+			print("Distance: ", advisory.distance, "meters")
+		}
+	}
 }
 ```
 
