@@ -12,13 +12,13 @@ open class AirMapStatusAdvisory: Hashable, Equatable {
 
 	open fileprivate(set) var id: String!
 	open fileprivate(set) var name: String = ""
-	open fileprivate(set) var type: AirMapAirspaceType?
+	open fileprivate(set) var type: AirMapAirspaceType!
 	open fileprivate(set) var city: String = ""
 	open fileprivate(set) var state: String = ""
 	open fileprivate(set) var country: String = ""
 	open fileprivate(set) var lastUpdated: Date = Date()
 	open fileprivate(set) var color = AirMapStatus.StatusColor.gray
-	open fileprivate(set) var distance: Int = 0
+	open fileprivate(set) var distance: Meters = 0
 	open fileprivate(set) var latitude: Double = 0
 	open fileprivate(set) var longitude: Double = 0
 	open fileprivate(set) var requirements: AirMapStatusRequirements?
@@ -35,7 +35,12 @@ open class AirMapStatusAdvisory: Hashable, Equatable {
 	
 	internal fileprivate(set) var organizationId: String?
 
-	public required init?(map: Map) {}
+	public required init?(map: Map) {
+		guard (try? map.value("type") as AirMapAirspaceType) != nil else {
+			AirMap.logger.warning("Unexpected advisory type", map.JSON["type"] ?? "")
+			return nil
+		}
+	}
 	
 	open var hashValue: Int {
 		return id.hashValue
