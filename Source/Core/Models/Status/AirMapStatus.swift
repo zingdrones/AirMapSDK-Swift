@@ -8,6 +8,7 @@
 
 import ObjectMapper
 
+/// A list of all airspace objects intersecting with the proposed area. Includes status color and distance.
 open class AirMapStatus {
 
 	public enum StatusColor: String {
@@ -35,7 +36,7 @@ open class AirMapStatus {
 		}
 	}
 
-	public fileprivate(set) var maxSafeDistance = 0
+	public fileprivate(set) var maxSafeDistance: Meters = 0
 	public fileprivate(set) var advisoryColor = StatusColor.gray
 	public fileprivate(set) var advisories = [AirMapStatusAdvisory]()
 	public fileprivate(set) var applicablePermits = [AirMapAvailablePermit]()
