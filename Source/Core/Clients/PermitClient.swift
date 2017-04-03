@@ -18,14 +18,17 @@ internal class PermitClient: HTTPClient {
 		AirMap.logger.debug("Get Permit", permitIds as Any, organizationId as Any)
 
 		var params = [String: Any]()
-		params["ids"] = permitIds?.joined(separator: ",") as Any
-		params["organization_id"] = organizationId as Any
+		params["ids"] = permitIds?.joined(separator: ",") ?? []
+		
+		if let organizationId = organizationId {
+			params["organization_id"] = organizationId
+		}
 
 		return perform(method: .get, params: params)
 	}
 
 	func apply(for permit: AirMapAvailablePermit) -> Observable<AirMapPilotPermit> {
 		AirMap.logger.debug("Apply for Permit", permit)
-		return perform(method: .post, path:"/\(permit.id)/apply", params: permit.params())
+		return perform(method: .post, path:"/\(permit.id ?? "")/apply", params: permit.params())
 	}
 }
