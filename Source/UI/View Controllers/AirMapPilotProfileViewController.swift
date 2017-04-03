@@ -86,8 +86,6 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		guard pilot.value == nil else { return }
-		
 		AirMap.rx.getAuthenticatedPilot().asOptional()
 			.trackActivity(activityIndicator)
 			.bindTo(pilot)
@@ -287,6 +285,6 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 extension AirMapPilotProfileViewController: AirMapPhoneVerificationDelegate {
 	
 	func phoneVerificationDidVerifyPhoneNumber() {
-		dismiss(animated: true, completion: nil)
+		dismiss(animated: true, completion:nil)
 	}
 }
