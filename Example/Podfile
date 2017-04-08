@@ -2,10 +2,7 @@ use_frameworks!
 
 target 'AirMapSDK-Example-iOS' do
 	platform :ios, '9.0'
-	pod 'Alamofire', '~> 4.0'
 	pod 'AirMapSDK', :path => '../'
-	pod 'Mapbox-iOS-SDK'
-	pod 'SwiftTurf'
 end
 
 target 'AirMapSDKTests' do
