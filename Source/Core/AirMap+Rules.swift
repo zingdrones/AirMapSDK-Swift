@@ -11,16 +11,17 @@ import Foundation
 public typealias AirMap_Rules = AirMap
 extension AirMap_Rules {
 	
-	public typealias AirMapLocalRulesHandler = ([AirMapLocalRule]?, Error?) -> Void
-	
-	/// List the local jurisdiction rules applicable to a given location
+	/// List the airspace rules for a given area, optionally providing the rulesets under which a flight shall be conducted
 	///
 	/// - Parameters:
-	///   - location: The coordinate for which to list rules
-	///   - completion: A completion handler to call with the Result
-	public static func listLocalRules(location: Coordinate2D, completion: @escaping (Result<[AirMapLocalRule]>) -> Void) {
-		
-		rulesClient.listLocalRules(at: location).subscribe(completion)
+	///   - ruleSets: Array of rule sets
+	///   - completion: Completion handler
+	public static func listRules(for ruleSets: [AirMapRuleSet], completion: @escaping (Result<[AirMapRule]>) -> Void) {
+		ruleClient.listRules(for: ruleSets).subscribe(completion)
+	}
+
+	public static func getRuleSet(by identifier: String, completion: @escaping (Result<AirMapRuleSet>) -> Void) {
+		ruleClient.getRuleSet(by: identifier).subscribe(completion)
 	}
 
 }

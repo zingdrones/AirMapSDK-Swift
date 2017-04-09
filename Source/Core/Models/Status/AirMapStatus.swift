@@ -12,6 +12,7 @@ import ObjectMapper
 open class AirMapStatus {
 
 	public enum StatusColor: String {
+		
 		case red
 		case yellow
 		case green

@@ -12,6 +12,9 @@ struct Config {
 
 		static let host = "https://api.airmap.com"
 
+		static var advisoryUrl: String {
+			return AirMapApi.urlForResource("advisory", version: "v1")
+		}
 		static var aircraftUrl: String {
             return AirMapApi.urlForResource("aircraft", version: "v2")
 		}
@@ -33,7 +36,7 @@ struct Config {
 		static var statusUrl: String {
 			return AirMapApi.urlForResource("status", version: "v2")
 		}
-		static var rulesUrl: String {
+		static var ruleUrl: String {
 			return AirMapApi.urlForResource("rules", version: "v1")
 		}
 		static var mapTilesUrl: String {
