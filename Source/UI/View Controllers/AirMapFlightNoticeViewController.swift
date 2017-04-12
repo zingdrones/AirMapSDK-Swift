@@ -26,6 +26,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 	fileprivate typealias RowData = AirMapStatusAdvisory
 	fileprivate typealias SectionDataModel = SectionModel<SectionData, RowData>
 
+	fileprivate var anyAdvisoriesAcceptDigitalNotice = false
 	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionDataModel>()
 	fileprivate let disposeBag = DisposeBag()
 	
@@ -57,6 +58,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
             .filter { $0.requirements?.notice?.digital == true }
         
         if digitalNotices.count > 0 {
+			anyAdvisoriesAcceptDigitalNotice = true
 			let digitalSection = SectionDataModel(model: (digital: true, headerView: submitNoticeHeader), items: digitalNotices)
 			sections.append(digitalSection)
 		}
@@ -113,7 +115,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			let submitDigitalNotice = true//submitNoticeSwitch.on
 			if verified {
 				return true
-			} else if submitDigitalNotice && !verified {
+			} else if anyAdvisoriesAcceptDigitalNotice && submitDigitalNotice && !verified {
 				performSegue(withIdentifier: "modalVerifyId", sender: self)
 				return false
 			}
