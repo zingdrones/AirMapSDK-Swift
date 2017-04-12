@@ -94,7 +94,11 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		setupTable()
 		setupMap()
 		setupBindings()
-
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
 		AirMap.rx.getAuthenticatedPilot()
 			.trackActivity(activityIndicator)
 			.asOptional()
@@ -103,10 +107,6 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 			})
 			.bindTo(pilot)
 			.disposed(by: disposeBag)
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
 		
 		trackView()
 	}
