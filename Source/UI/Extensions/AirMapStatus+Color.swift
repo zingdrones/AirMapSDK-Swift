@@ -14,6 +14,7 @@ extension AirMapStatus.StatusColor {
 	public var colorRepresentation: Color {
 		switch self {
 		case .red:      return .airMapRed
+		case .orange:   return .airMapOrange
 		case .yellow:   return .airMapYellow
 		case .green:    return .airMapGreen
 		case .gray:     return .airMapDarkGray

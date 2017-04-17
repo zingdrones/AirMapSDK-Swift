@@ -812,7 +812,7 @@ extension AirMapCreateFlightTypeViewController {
 	fileprivate func applyAdvisoryColorToNextButton(advisoryColor: AirMapStatus.StatusColor) {
 		
 		switch advisoryColor {
-		case .red, .gray:
+		case .red, .orange, .gray:
 			inputViewContainer.backgroundColor = advisoryColor.colorRepresentation
 			inputViewContainer.tintColor = .white
 		case .yellow, .green:

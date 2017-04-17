@@ -18,19 +18,19 @@ internal class AdvisoryClient: HTTPClient {
 		case invalidPolygon
 	}
 	
-	func listAdvisories(within polygon: [Coordinate2D], under ruleSets: [AirMapRuleSet]? = nil) -> Observable<[AirMapAdvisory]> {
+	func getAirspaceStatus(within polygon: [Coordinate2D], under ruleSets: [AirMapRuleSet]? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		let ruleSetIdentifiers = (ruleSets ?? []).identifiers
 		AirMap.logger.debug("GET Rules under", ruleSetIdentifiers)
 		guard polygon.count >= 3, polygon.first == polygon.last else {
 			return Observable.error(AdvisoryClientError.invalidPolygon)
 		}
-		let polygon = polygon.flatMap {"\($0.latitude) \($0.longitude)"}.joined(separator: ", ")
+		let polygon = polygon.flatMap {"\($0.longitude) \($0.latitude)"}.joined(separator: ", ")
 		let params: [String: Any] = [
 			"geometry": "POLYGON(\(polygon))",
 			"rulesets": ruleSetIdentifiers
 		]
 		
-		return perform(method: .get, path: "/rule", params: params)
+		return perform(method: .get, path: "/airspace", params: params)
 	}
 }
 

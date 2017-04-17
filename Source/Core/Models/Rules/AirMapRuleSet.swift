@@ -18,6 +18,17 @@ public enum AirMapRuleSetType: String {
 	case optional
 	case pickOne = "pick1"
 	case required
+	
+	public var name: String {
+		switch self {
+		case .optional:
+			return "Optional"
+		case .pickOne:
+			return "Pick One"
+		case .required:
+			return "Required"
+		}
+	}
 }
 
 public class AirMapRuleSet: Mappable, Equatable, Comparable, Hashable {
@@ -39,6 +50,10 @@ public class AirMapRuleSet: Mappable, Equatable, Comparable, Hashable {
 		return id.hashValue
 	}
 	
+	enum MappingError: Error {
+		case unknownType
+	}
+
 	public required init?(map: Map) {
 		do {
 			id        = try map.value("id")
@@ -49,8 +64,9 @@ public class AirMapRuleSet: Mappable, Equatable, Comparable, Hashable {
 			if let context = map.context as? DataOrigin, context == .tileService {
 				rules   = []
 				summary = ""
-				layers  = try map.value("layers")
 				isDefault = try map.value("default")
+				layers = try map.value("layers") as [String]
+
 			} else {
 				rules     = try map.value("rules")
 				summary   = try map.value("summary")

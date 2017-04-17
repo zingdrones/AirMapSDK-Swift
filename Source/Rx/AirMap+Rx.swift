@@ -210,6 +210,15 @@ extension Reactive where Base: AirMap_Rules {
 
 }
 
+/// Documentation found in AirMap+Advisories.swift
+extension Reactive where Base: AirMap_Advisories {
+	
+	public static func getAirspaceStatus(geometry: [Coordinate2D], ruleSets: [AirMapRuleSet]? = []) -> Observable<AirMapAirspaceAdvisoryStatus> {
+		return AirMap.advisoryClient.getAirspaceStatus(within: geometry, under: ruleSets)
+	}
+	
+}
+
 extension Reactive where Base: AirMap_Airspace {
 
 	static func getAirspace(_ airspaceId: String) -> Observable<AirMapAirspace> {

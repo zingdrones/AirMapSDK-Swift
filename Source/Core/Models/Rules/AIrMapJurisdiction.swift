@@ -56,7 +56,7 @@ public class AirMapJurisdiction: Mappable, Equatable, Comparable, Hashable {
 	}
 	
 	public var defaultPickOneRuleSet: AirMapRuleSet? {
-		return pickOneRuleSets.first(where: { $0.type == .pickOne && $0.isDefault })
+		return pickOneRuleSets.first(where: { $0.isDefault }) ?? pickOneRuleSets.first
 	}
 	
 	public var optionalRuleSets: [AirMapRuleSet] {

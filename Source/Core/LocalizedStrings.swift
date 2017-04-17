@@ -16,6 +16,8 @@ public struct LocalizedStrings {
 		
 		public static let redDescription = NSLocalizedString("STATUS_RED_DESCRIPTION", bundle: bundle, value: "Flight Strictly Regulated", comment: "Description for status advisory color Red")
 		
+		public static let orangeDescription = NSLocalizedString("STATUS_ORANGE_DESCRIPTION", bundle: bundle, value: "Action Required", comment: "Description for status advisory color Orange")
+		
 		public static let yellowDescription = NSLocalizedString("STATUS_YELLOW_DESCRIPTION", bundle: bundle, value: "Advisories", comment: "Description for status advisory color Yellow")
 		
 		public static let greenDescription = NSLocalizedString("STATUS_GREEN_DESCRIPTION", bundle: bundle, value: "Informational", comment: "Description for status advisory color Green")

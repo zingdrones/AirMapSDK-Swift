@@ -14,12 +14,13 @@ open class AirMapStatus {
 	public enum StatusColor: String {
 		
 		case red
+		case orange
 		case yellow
 		case green
 		case gray
 		
 		public static var allColors: [StatusColor] {
-			return [.red, .yellow, .green, .gray]
+			return [.red, .orange, .yellow, .green, .gray]
 		}
 		
 		public var description: String {
@@ -29,11 +30,16 @@ open class AirMapStatus {
 			switch self {
 			case .red:
 				return localized.redDescription
+			case .orange:
+				return localized.orangeDescription
 			case .yellow:
 				return localized.yellowDescription
 			case .green, .gray:
 				return localized.greenDescription
 			}
+		}
+		public var order: Int {
+			return StatusColor.allColors.index(of: self)!
 		}
 	}
 
