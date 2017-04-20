@@ -40,6 +40,13 @@ struct Config {
 			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
 		}
 		static func urlForResource(_ named: String, version: String) -> String {
+			
+			if let env = AirMap.configuration.environment {
+				if env == "stage" && named == "status" && version == "alpha" {
+					return "\(host)/\(named)/alpha/stage"
+				}
+			}
+			
 			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "\(version)")
 		}
 
