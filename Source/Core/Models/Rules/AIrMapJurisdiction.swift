@@ -14,11 +14,12 @@ public class AirMapJurisdiction: Mappable, Equatable, Comparable, Hashable {
 	public enum Region: String {
 		case federal
 		case state
+		case county
 		case city
 		case local
 		
 		var order: Int {
-			return [.federal, .state, .city, .local].index(of: self)!
+			return [.federal, .state, .county, .city, .local].index(of: self)!
 		}
 	}
 	
