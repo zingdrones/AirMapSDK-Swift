@@ -27,7 +27,7 @@ class AirMapReviewPermitsViewController: UIViewController {
 		selectedPermits
 			.asObservable()
 			.map(unowned(self, AirMapReviewPermitsViewController.permitsToSectionModels))
-			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: disposeBag)
 
 		dataSource.configureCell = { dataSource, tableView, indexPath, rowData in

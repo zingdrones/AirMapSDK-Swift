@@ -33,7 +33,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 		AirMap
 			.rx.listAircraft()
 			.trackActivity(activityIndicator)
-			.bindTo(aircraft)
+			.bind(to: aircraft)
 			.disposed(by: disposeBag)
 	}
 	
@@ -48,7 +48,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 		
 		aircraft
 			.asObservable()
-			.bindTo(tableView.rx.items(cellIdentifier: "aircraftCell")) {
+			.bind(to: tableView.rx.items(cellIdentifier: "aircraftCell")) {
 				(index, aircraft, cell) in
 				cell.textLabel?.text = aircraft.nickname
 				cell.detailTextLabel?.text = [aircraft.model.manufacturer.name, aircraft.model.name]
@@ -61,7 +61,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 				self?.dismiss(animated: true, completion: nil)
 			})
 			.asOptional()
-			.bindTo(selectedAircraft)
+			.bind(to: selectedAircraft)
 			.disposed(by: disposeBag)
 		
 		tableView
@@ -84,13 +84,13 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 			.flatMap(AirMap.rx.listAircraft)
 			.do(onError: { AirMap.logger.error($0) })
 			.ignoreErrors()
-			.bindTo(aircraft)
+			.bind(to: aircraft)
 			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
-			.bindTo(rx_loading)
+			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
 	}
 	

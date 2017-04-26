@@ -28,7 +28,7 @@ class AirMapFlightSocialCell: UITableViewCell, Dequeueable {
 	fileprivate func setupBindings() {
 		model.value
 			.asObservable()
-			.bindTo(toggle.rx.isSelected)
+			.bind(to: toggle.rx.isSelected)
 			.disposed(by: disposeBag)
 	}
 

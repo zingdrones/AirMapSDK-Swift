@@ -73,7 +73,7 @@ class AirMapFlightDataDateCell: UITableViewCell {
 				let now = NSLocalizedString("FLIGHT_DATA_CELL_NOW", bundle: AirMapBundle.core, value: "Now", comment: "Label for start time when the start is immediate")
 				return date == nil ? now : AirMapFlightDataDateCell.dateFormatter.string(from: date!)
 			}
-			.bindTo(date.rx.text)
+			.bind(to: date.rx.text)
 			.disposed(by: disposeBag)
 		
 		datePicker.rx.date.asDriver()

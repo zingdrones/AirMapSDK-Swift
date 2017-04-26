@@ -215,7 +215,7 @@ extension AirMapCreateFlightTypeViewController {
 		typealias $ = AirMapCreateFlightTypeViewController
 		
 		AirMap.rx.listPilotPermits()
-			.bindTo(userPermits)
+			.bind(to: userPermits)
 			.disposed(by: disposeBag)
 		
 		let geoType = selectedGeoType.asDriver().distinctUntilChanged()

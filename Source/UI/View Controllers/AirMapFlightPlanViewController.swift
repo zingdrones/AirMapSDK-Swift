@@ -101,7 +101,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 			.do( onNext: { [weak self] pilot in
 				self?.navigationController?.flight.value.pilot = pilot
 			})
-			.bindTo(pilot)
+			.bind(to: pilot)
 			.disposed(by: disposeBag)
 	}
 	
@@ -121,8 +121,8 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 			let nav = segue.destination as! UINavigationController
 			let aircraftVC = nav.viewControllers.last as! AirMapAircraftViewController
 			let selectedAircraft = aircraftVC.selectedAircraft.asObservable()
-			selectedAircraft.delaySubscription(1.0, scheduler: MainScheduler.instance).bindTo(cell.aircraft).disposed(by: disposeBag)
-			selectedAircraft.bindTo(aircraft).disposed(by: disposeBag)
+			selectedAircraft.delaySubscription(1.0, scheduler: MainScheduler.instance).bind(to: cell.aircraft).disposed(by: disposeBag)
+			selectedAircraft.bind(to: aircraft).disposed(by: disposeBag)
 			aircraftVC.selectedAircraft.value = aircraft.value
 			trackEvent(.tap, label: "Select Aircraft")
 
@@ -264,7 +264,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
-			.bindTo(rx_loading)
+			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
 		
 		shareFlight.asObservable()
@@ -358,7 +358,7 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 
 			case is AssociatedAircraftModelRow:
 				let cell = tableView.dequeueCell(at: indexPath) as AirMapFlightAircraftCell
-				cell.aircraft.asObservable().bindTo(aircraft).disposed(by: disposeBag)
+				cell.aircraft.asObservable().bind(to: aircraft).disposed(by: disposeBag)
 				return cell
 
 			default:
@@ -370,7 +370,7 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 			let cell = tableView.dequeueCell(at: indexPath) as AirMapFlightSocialCell
 			let row = row as! SocialSharingRow
 			cell.model = row
-			cell.toggle.rx.value.asObservable().bindTo(row.value).disposed(by: disposeBag)
+			cell.toggle.rx.value.asObservable().bind(to: row.value).disposed(by: disposeBag)
 			return cell
 
 		default:
