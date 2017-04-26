@@ -90,7 +90,7 @@ public func ==(lhs: AirMapRuleSet, rhs: AirMapRuleSet) -> Bool {
 
 public func <(lhs: AirMapRuleSet, rhs: AirMapRuleSet) -> Bool {
 	
-	return lhs.order < rhs.order
+	return lhs.order < rhs.order && lhs.name < rhs.name
 }
 
 extension Sequence where Iterator.Element == AirMapRuleSet {
