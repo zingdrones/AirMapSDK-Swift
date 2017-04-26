@@ -38,7 +38,11 @@ public extension Color {
 	}
 	
 	public static var airMapOrange: Color {
-		return .orange
+		return Color(red: 252.0/255.0, green: 76.0/255.0, blue: 3.0/255.0, alpha: 1.0)
+	}
+	
+	public static var airMapLightGray: Color {
+		return Color(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
 	}
 	
 	public static var airMapRed: Color {
