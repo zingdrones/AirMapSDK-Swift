@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-open class AirMapAircraft: Hashable, Equatable {
+open class AirMapAircraft {
 	
 	open var aircraftId: String!
 	open var nickname: String!
@@ -16,10 +16,6 @@ open class AirMapAircraft: Hashable, Equatable {
 	
 	public required init?(map: Map) {}
 	public init() { }
-	
-	public var hashValue: Int {
-		return aircraftId.hashValue
-	}
 }
 
 extension AirMapAircraft: Mappable {
@@ -39,6 +35,13 @@ extension AirMapAircraft: Mappable {
 	}
 }
 
-public func ==(lhs: AirMapAircraft, rhs: AirMapAircraft) -> Bool {
-	return lhs.aircraftId == rhs.aircraftId
+extension AirMapAircraft: Equatable, Hashable {
+	
+	public static func ==(lhs: AirMapAircraft, rhs: AirMapAircraft) -> Bool {
+		return lhs.aircraftId == rhs.aircraftId
+	}
+
+	public var hashValue: Int {
+		return aircraftId.hashValue
+	}
 }

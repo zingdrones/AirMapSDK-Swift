@@ -153,6 +153,9 @@ extension AirMapFlight: Mappable {
 	}
 }
 
-public func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {
-	return lhs.flightId == rhs.flightId
+extension AirMapFlight {
+	
+	static public func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {
+		return lhs.flightId == rhs.flightId
+	}
 }

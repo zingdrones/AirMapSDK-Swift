@@ -8,16 +8,12 @@
 
 import ObjectMapper
 
-open class AirMapOrganization: Hashable, Equatable {
+public class AirMapOrganization {
 
-	open fileprivate(set) var id: String!
-	open fileprivate(set) var name: String = ""
+	public fileprivate(set) var id: String!
+	public fileprivate(set) var name: String = ""
 	
 	public required init?(map: Map) {}
-	
-	open var hashValue: Int {
-		return id.hashValue
-	}
 }
 
 extension AirMapOrganization: Mappable {
@@ -28,6 +24,13 @@ extension AirMapOrganization: Mappable {
 	}
 }
 
-public func ==(lhs: AirMapOrganization, rhs: AirMapOrganization) -> Bool {
-	return lhs.id == rhs.id
+extension AirMapOrganization: Hashable, Equatable {
+	
+	static public func ==(lhs: AirMapOrganization, rhs: AirMapOrganization) -> Bool {
+		return lhs.id == rhs.id
+	}
+	
+	open var hashValue: Int {
+		return id.hashValue
+	}
 }

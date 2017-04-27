@@ -8,30 +8,30 @@
 
 import ObjectMapper
 
-open class AirMapStatusAdvisory: Hashable, Equatable {
+public class AirMapStatusAdvisory {
 
-	open fileprivate(set) var id: String!
-	open fileprivate(set) var name: String = ""
-	open fileprivate(set) var type: AirMapAirspaceType!
-	open fileprivate(set) var city: String = ""
-	open fileprivate(set) var state: String = ""
-	open fileprivate(set) var country: String = ""
-	open fileprivate(set) var lastUpdated: Date = Date()
-	open fileprivate(set) var color = AirMapStatus.StatusColor.gray
-	open fileprivate(set) var distance: Meters = 0
-	open fileprivate(set) var latitude: Double = 0
-	open fileprivate(set) var longitude: Double = 0
-	open fileprivate(set) var requirements: AirMapStatusRequirements?
-	open fileprivate(set) var airportProperties: AirMapStatusAdvisoryAirportProperties?
-	open fileprivate(set) var parkProperties: AirMapStatusAdvisoryParkProperties?
-	open fileprivate(set) var powerPlantProperties: AirMapStatusAdvisoryPowerPlantProperties?
-	open fileprivate(set) var specialUseProperties: AirMapStatusAdvisorySpecialUseProperties?
-	open fileprivate(set) var schoolProperties: AirMapStatusAdvisorySchoolProperties?
-	open fileprivate(set) var tfrProperties: AirMapStatusAdvisoryTFRProperties?
-	open fileprivate(set) var controlledAirspaceProperties: AirMapStatusAdvisoryControlledAirspaceProperties?
-	open fileprivate(set) var wildfireProperties : AirMapStatusAdvisoryWildfireProperties?
-	open fileprivate(set) var availablePermits = [AirMapAvailablePermit]()
-	open internal(set) var organization: AirMapOrganization?
+	public fileprivate(set) var id: String!
+	public fileprivate(set) var name: String = ""
+	public fileprivate(set) var type: AirMapAirspaceType!
+	public fileprivate(set) var city: String = ""
+	public fileprivate(set) var state: String = ""
+	public fileprivate(set) var country: String = ""
+	public fileprivate(set) var lastUpdated: Date = Date()
+	public fileprivate(set) var color = AirMapStatus.StatusColor.gray
+	public fileprivate(set) var distance: Meters = 0
+	public fileprivate(set) var latitude: Double = 0
+	public fileprivate(set) var longitude: Double = 0
+	public fileprivate(set) var requirements: AirMapStatusRequirements?
+	public fileprivate(set) var airportProperties: AirMapStatusAdvisoryAirportProperties?
+	public fileprivate(set) var parkProperties: AirMapStatusAdvisoryParkProperties?
+	public fileprivate(set) var powerPlantProperties: AirMapStatusAdvisoryPowerPlantProperties?
+	public fileprivate(set) var specialUseProperties: AirMapStatusAdvisorySpecialUseProperties?
+	public fileprivate(set) var schoolProperties: AirMapStatusAdvisorySchoolProperties?
+	public fileprivate(set) var tfrProperties: AirMapStatusAdvisoryTFRProperties?
+	public fileprivate(set) var controlledAirspaceProperties: AirMapStatusAdvisoryControlledAirspaceProperties?
+	public fileprivate(set) var wildfireProperties : AirMapStatusAdvisoryWildfireProperties?
+	public fileprivate(set) var availablePermits = [AirMapAvailablePermit]()
+	public internal(set) var organization: AirMapOrganization?
 	
 	internal fileprivate(set) var organizationId: String?
 
@@ -42,21 +42,13 @@ open class AirMapStatusAdvisory: Hashable, Equatable {
 		}
 	}
 	
-	open var hashValue: Int {
-		return id.hashValue
-	}
-	
-	open func isEqual(_ object: Any?) -> Bool {
+	public func isEqual(_ object: Any?) -> Bool {
 		if let object = object as? AirMapStatusAdvisory {
 			return object.id == self.id
 		} else {
 			return false
 		}
 	}
-}
-
-public func ==(lhs: AirMapStatusAdvisory, rhs: AirMapStatusAdvisory) -> Bool {
-	return lhs.id == rhs.id
 }
 
 extension AirMapStatusAdvisory: Mappable {
@@ -94,5 +86,16 @@ extension AirMapStatusAdvisory: Mappable {
 				break
 			}
 		}
+	}
+}
+
+extension AirMapStatusAdvisory: Hashable, Equatable {
+	
+	public static func ==(lhs: AirMapStatusAdvisory, rhs: AirMapStatusAdvisory) -> Bool {
+		return lhs.id == rhs.id
+	}
+
+	open var hashValue: Int {
+		return id.hashValue
 	}
 }

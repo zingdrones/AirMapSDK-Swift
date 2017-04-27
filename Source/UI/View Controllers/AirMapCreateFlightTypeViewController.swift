@@ -15,34 +15,38 @@ import RxSwiftExt
 import SwiftTurf
 
 enum DrawingUIState: Equatable {
+	
 	case panning
 	case drawing
 	case editing(ControlPoint)
-}
-
-func ==(lhs: DrawingUIState, rhs: DrawingUIState) -> Bool {
-	switch (lhs, rhs) {
-	case (.panning, .panning):
-		return true
-	case (.drawing, .drawing):
-		return true
-	case (.editing(let point1), .editing(let point2)):
-		return point1 === point2
-	default:
-		return false
+	
+	static func ==(lhs: DrawingUIState, rhs: DrawingUIState) -> Bool {
+		switch (lhs, rhs) {
+		case (.panning, .panning):
+			return true
+		case (.drawing, .drawing):
+			return true
+		case (.editing(let point1), .editing(let point2)):
+			return point1 === point2
+		default:
+			return false
+		}
 	}
 }
 
 class RedAdvisory: MGLPolygon {}
+
 class PermitAdvisory: MGLPolygon {
+
 	var hasPermit = false
 	var airspace: AirMapAirspace!
 	var hasValue: Int { return airspace.id.hashValue }
+	
+	static func ==(lhs: PermitAdvisory, rhs: PermitAdvisory) -> Bool {
+		return lhs.airspace.id == rhs.airspace.id
+	}
 }
 
-func ==(lhs: PermitAdvisory, rhs: PermitAdvisory) -> Bool {
-	return lhs.airspace.id == rhs.airspace.id
-}
 
 class Buffer: MGLPolygon {}
 

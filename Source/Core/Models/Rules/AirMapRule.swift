@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-public class AirMapRule: Mappable, Hashable, Equatable {
+public class AirMapRule: Mappable {
 	
 	public let id: Int
 	public let summary: String
@@ -28,12 +28,15 @@ public class AirMapRule: Mappable, Hashable, Equatable {
 	}
 	
 	public func mapping(map: Map) {}
+}
+
+extension AirMapRule: Hashable, Equatable {
 	
+	static public func ==(lhs: AirMapRule, rhs: AirMapRule) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+
 	public var hashValue: Int {
 		return id.hashValue
 	}
-}
-
-public func ==(lhs: AirMapRule, rhs: AirMapRule) -> Bool {
-	return lhs.hashValue == rhs.hashValue
 }

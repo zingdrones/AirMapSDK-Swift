@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-public class AirMapFlightFeature: Mappable, Equatable, Hashable {
+public class AirMapFlightFeature: Mappable {
 	
 	public let id: Int
 	public let feature: String
@@ -31,12 +31,16 @@ public class AirMapFlightFeature: Mappable, Equatable, Hashable {
 	}
 	
 	public func mapping(map: Map) {}
+}
+
+extension AirMapFlightFeature: Equatable, Hashable {
 	
+	static public func ==(lhs: AirMapFlightFeature, rhs: AirMapFlightFeature) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+
 	public var hashValue: Int {
 		return id.hashValue
 	}
 }
 
-public func ==(lhs: AirMapFlightFeature, rhs: AirMapFlightFeature) -> Bool {
-	return lhs.hashValue == rhs.hashValue
-}

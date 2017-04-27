@@ -31,7 +31,7 @@ public enum AirMapRuleSetType: String {
 	}
 }
 
-public class AirMapRuleSet: Mappable, Equatable, Comparable, Hashable {
+public class AirMapRuleSet: Mappable {
 	
 	public let id: String
 	public let name: String
@@ -84,13 +84,16 @@ public class AirMapRuleSet: Mappable, Equatable, Comparable, Hashable {
 	public func mapping(map: Map) {}
 }
 
-public func ==(lhs: AirMapRuleSet, rhs: AirMapRuleSet) -> Bool {
-	return lhs.hashValue == rhs.hashValue
-}
-
-public func <(lhs: AirMapRuleSet, rhs: AirMapRuleSet) -> Bool {
+extension AirMapRuleSet: Hashable, Equatable, Comparable {
 	
-	return lhs.order < rhs.order && lhs.name < rhs.name
+	public static func ==(lhs: AirMapRuleSet, rhs: AirMapRuleSet) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+	
+	public static func <(lhs: AirMapRuleSet, rhs: AirMapRuleSet) -> Bool {
+		
+		return lhs.order < rhs.order && lhs.name < rhs.name
+	}
 }
 
 extension Sequence where Iterator.Element == AirMapRuleSet {

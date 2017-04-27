@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-public class AirMapJurisdiction: Mappable, Equatable, Comparable, Hashable {
+public class AirMapJurisdiction: Mappable {
 	
 	public enum Region: String {
 		case federal
@@ -44,10 +44,6 @@ public class AirMapJurisdiction: Mappable, Equatable, Comparable, Hashable {
 	
 	public func mapping(map: Map) {}
 	
-	public var hashValue: Int {
-		return id.hashValue
-	}
-	
 	public var requiredRuleSets: [AirMapRuleSet] {
 		return ruleSets.filter { $0.type == .required }
 	}
@@ -65,10 +61,17 @@ public class AirMapJurisdiction: Mappable, Equatable, Comparable, Hashable {
 	}
 }
 
-public func ==(lhs: AirMapJurisdiction, rhs: AirMapJurisdiction) -> Bool {
-	return lhs.hashValue == rhs.hashValue
-}
-
-public func <(lhs: AirMapJurisdiction, rhs: AirMapJurisdiction) -> Bool {
-	return lhs.region.order < rhs.region.order
+extension AirMapJurisdiction: Hashable, Equatable, Comparable {
+	
+	public static func ==(lhs: AirMapJurisdiction, rhs: AirMapJurisdiction) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+	
+	public static func <(lhs: AirMapJurisdiction, rhs: AirMapJurisdiction) -> Bool {
+		return lhs.region.order < rhs.region.order
+	}
+	
+	public var hashValue: Int {
+		return id.hashValue
+	}
 }

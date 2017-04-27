@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-final class AirMapAirspace: Equatable, Hashable {
+final class AirMapAirspace {
 	
 	public fileprivate(set) var id: String!
 	public fileprivate(set) var name: String!
@@ -21,10 +21,6 @@ final class AirMapAirspace: Equatable, Hashable {
 	public fileprivate(set) var rules = [AirMapAirspaceRule]()
 	
 	public required init?(map: Map) {}
-	
-	public var hashValue: Int {
-		return id.hashValue
-	}
 }
 
 extension AirMapAirspace: Mappable {
@@ -42,6 +38,14 @@ extension AirMapAirspace: Mappable {
 	}
 }
 
-internal func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
-	return lhs.id == rhs.id
+extension AirMapAirspace: Equatable, Hashable {
+	
+	internal static func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
+		return lhs.id == rhs.id
+	}
+
+	public var hashValue: Int {
+		return id.hashValue
+	}
 }
+

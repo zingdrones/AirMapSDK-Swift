@@ -59,8 +59,9 @@ public class AirMapAdvisory: Mappable, Hashable, Equatable {
 	}
 	
 	public func mapping(map: Map) {}
-}
+	
+	public static func ==(lhs: AirMapAdvisory, rhs: AirMapAdvisory) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
 
-public func ==(lhs: AirMapAdvisory, rhs: AirMapAdvisory) -> Bool {
-	return lhs.hashValue == rhs.hashValue
 }

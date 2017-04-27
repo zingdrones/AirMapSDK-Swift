@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-public class AirMapPilotPermit: Hashable, Equatable {
+public class AirMapPilotPermit {
 
 	public enum PermitStatus: String {
 		case accepted
@@ -30,11 +30,6 @@ public class AirMapPilotPermit: Hashable, Equatable {
 	public init() {}
 	
 	public required init?(map: Map) {}
-	
-	public var hashValue: Int {
-		return id.isEmpty ? permitId.hashValue : id.hashValue
-	}
-	
 }
 
 extension AirMapPilotPermit: Mappable {
@@ -66,13 +61,19 @@ extension AirMapPilotPermit: Mappable {
 			"custom_properties": customProperties.toJSON()
 		]
 	}
-
 }
 
-public func ==(lhs: AirMapPilotPermit, rhs: AirMapPilotPermit) -> Bool {
-	if lhs.id.isEmpty || rhs.id.isEmpty {
-		return lhs.permitId == rhs.permitId
-	} else {
-		return lhs.id == rhs.id
+extension AirMapPilotPermit: Hashable, Equatable {
+	
+	static public func ==(lhs: AirMapPilotPermit, rhs: AirMapPilotPermit) -> Bool {
+		if lhs.id.isEmpty || rhs.id.isEmpty {
+			return lhs.permitId == rhs.permitId
+		} else {
+			return lhs.id == rhs.id
+		}
+	}
+
+	public var hashValue: Int {
+		return id.isEmpty ? permitId.hashValue : id.hashValue
 	}
 }

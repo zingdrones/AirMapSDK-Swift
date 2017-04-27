@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-public class AirMapAvailablePermit: Hashable, Equatable {
+public class AirMapAvailablePermit {
 
 	public internal(set) var id = ""
 	public fileprivate(set) var name = ""
@@ -35,10 +35,6 @@ public class AirMapAvailablePermit: Hashable, Equatable {
 	public func validityString() -> String? {
 		guard let minutes = validForInMinutes else { return nil }
 		return AirMapAvailablePermit.validityFormatter.string(from: TimeInterval(minutes * 60))
-	}
-	
-	public var hashValue: Int {
-		return id.hashValue
 	}
 }
 
@@ -68,7 +64,13 @@ extension AirMapAvailablePermit: Mappable {
 	}
 }
 
-public func ==(lhs: AirMapAvailablePermit, rhs: AirMapAvailablePermit) -> Bool {
-	return lhs.id == rhs.id
+extension AirMapAvailablePermit: Hashable, Equatable {
+	
+	public var hashValue: Int {
+		return id.hashValue
+	}
+	
+	public static func ==(lhs: AirMapAvailablePermit, rhs: AirMapAvailablePermit) -> Bool {
+		return lhs.id == rhs.id
+	}
 }
-
