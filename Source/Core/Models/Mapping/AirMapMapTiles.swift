@@ -27,10 +27,13 @@ public enum AirMapLayerType: String {
 	case airportsRecreational           = "airports_recreational"
 	case airportsRecreationalPrivate    = "airports_recreational_private"
 	case cities                         = "cities"
+	case classA                         = "class_a"
 	case classB                         = "class_b"
 	case classC                         = "class_c"
 	case classD                         = "class_d"
-	case classE                         = "class_e0"  // ClassE *at the surface
+	case classE                         = "class_e0"  // "0" = At the surface
+	case classF                         = "class_f"
+	case classG                         = "class_g"
 	case custom                         = "custom"
 	case essentialAirspace				= "class_b,class_c,class_d,class_e0"
 	case hazardAreas                    = "hazard_areas"
@@ -56,10 +59,13 @@ public enum AirMapLayerType: String {
 		airportsRecreational,
 		airportsRecreationalPrivate,
 		cities,
+		classA,
 		classB,
 		classC,
 		classD,
 		classE,
+		classF,
+		classG,
 		hazardAreas,
 		heliports,
 		hospitals,
@@ -90,10 +96,13 @@ public enum AirMapLayerType: String {
 		case .airportsCommercialPrivate:    return localized.airportsPrivate
 		case .airportsRecreationalPrivate:  return localized.airportsPrivate
 		case .cities:                       return localized.cities
+		case .classA:                       return localized.classA
 		case .classB:                       return localized.classB
 		case .classC:                       return localized.classC
 		case .classD:                       return localized.classD
 		case .classE:                       return localized.classE
+		case .classF:                       return localized.classF
+		case .classG:                       return localized.classG
 		case .custom:                       return localized.custom
 		case .essentialAirspace:            return localized.essentionalAirspace
 		case .hazardAreas:                  return localized.hazardAreas
@@ -135,10 +144,13 @@ public enum AirMapLayerType: String {
 		case .cities:
 			return .cities
 			
-		case .classB,
+		case .classA,
+		     .classB,
 		     .classC,
 		     .classD,
 		     .classE,
+		     .classF,
+		     .classG,
 		     .essentialAirspace:
 			return .controlledAirspace
 			
