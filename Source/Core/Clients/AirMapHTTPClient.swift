@@ -47,7 +47,7 @@ internal class HTTPClient {
 		self.basePath = basePath
 	}
 	
-	internal func perform<T: Mappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T> {
+	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T> {
 		
 		return Observable.create { (observer: AnyObserver<T>) -> Disposable in
 			
@@ -70,7 +70,7 @@ internal class HTTPClient {
 		}
 	}
 	
-	internal func perform<T: Mappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T?> {
+	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T?> {
 		
 		return Observable.create { (observer: AnyObserver<T?>) -> Disposable in
 			
@@ -93,7 +93,7 @@ internal class HTTPClient {
 		}
 	}
 	
-	internal func perform<T: Mappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", checkAuth: Bool = false) -> Observable<[T]> {
+	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", checkAuth: Bool = false) -> Observable<[T]> {
 		
 		return Observable.create { (observer: AnyObserver<[T]>) -> Disposable in
 			
@@ -192,14 +192,14 @@ class AuthenticationAdapter: RequestAdapter {
 
 extension DataRequest {
 	
-	/// Converts the response into a Mappable object
+	/// Converts the response into a BaseMappable object
 	func airMapResponseObject<T: BaseMappable>(keyPath: String? = nil, mapTo object: T? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
 		
 		let serializer: DataResponseSerializer<T> = DataRequest.airMapSerializer(keyPath, mapToObject: object, context: context)
 		return response(queue: nil, responseSerializer: serializer, completionHandler: completionHandler)
 	}
 	
-	/// Converts the response into an array of Mappable objects
+	/// Converts the response into an array of BaseMappable objects
 	func airMapResponseArray<T: BaseMappable>(keyPath: String? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
 		
 		let serializer: DataResponseSerializer<[T]> = DataRequest.airMapSerializer(keyPath, context: context)

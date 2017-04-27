@@ -1,5 +1,5 @@
 //
-//  DroneManufacturer.swift
+//  AirMapAircraftManufacturer.swift
 //  AirMapSDK
 //
 //  Created by Rocky Demoff on 6/15/16.
@@ -8,20 +8,24 @@
 
 import ObjectMapper
 
-open class AirMapAircraftManufacturer {
+final public class AirMapAircraftManufacturer: Mappable {
 
-	open var id: String!
-	open var name: String!
+	public let id: String
+	public let name: String
 
-	required public init?(map: Map) {}
-	
-	internal init() {}
-}
-
-extension AirMapAircraftManufacturer: Mappable {
-
-	public func mapping(map: Map) {
-		id   <- map["id"]
-		name <- map["name"]
+	required public init?(map: Map) {
+		do {
+			id   = try map.value("id")
+			name = try map.value("name")
+		}
+		catch let error {
+			AirMap.logger.error(error)
+			return nil
+		}
 	}
+	
+	public func mapping(map: Map) {
+		id  >>>  map["id"]
+	}
+
 }

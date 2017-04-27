@@ -12,7 +12,7 @@ import RxDataSources
 
 class AirMapAvailablePermitViewController: UITableViewController, AnalyticsTrackable {
 	
-	var screenName = "Permit Details"
+	var screenName = "Permit Details"	
 	
 	enum Mode {
 		case select

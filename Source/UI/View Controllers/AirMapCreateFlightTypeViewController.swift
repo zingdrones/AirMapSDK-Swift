@@ -959,7 +959,7 @@ extension AirMapCreateFlightTypeViewController {
 		let redGeometries: [RedAdvisory] = airspaces
 			.flatMap { advisory -> AirMapPolygon? in
                 switch advisory.type {
-                case .airport? :
+                case .airport:
                      return advisory.propertyBoundary as? AirMapPolygon
                 default:
                     return advisory.geometry as? AirMapPolygon

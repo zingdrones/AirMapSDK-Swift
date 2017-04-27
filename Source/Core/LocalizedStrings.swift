@@ -31,6 +31,8 @@ public struct LocalizedStrings {
 		
 		public static let cities = NSLocalizedString("TILE_LAYER_CITIES", bundle: bundle, value: "Cities", comment: "Name for map layer Cities")
 		
+		public static let classA = NSLocalizedString("TILE_LAYER_CLASS_A", bundle: bundle, value: "Class A Controlled Airspace", comment: "Name for map layer Class A Airspace")
+
 		public static let classB = NSLocalizedString("TILE_LAYER_CLASS_B", bundle: bundle, value: "Class B Controlled Airspace", comment: "Name for map layer Class B Airspace")
 		
 		public static let classC = NSLocalizedString("TILE_LAYER_CLASS_C", bundle: bundle, value: "Class C Controlled Airspace", comment: "Name for map layer Class C Airspace")
@@ -38,6 +40,10 @@ public struct LocalizedStrings {
 		public static let classD = NSLocalizedString("TILE_LAYER_CLASS_D", bundle: bundle, value: "Class D Controlled Airspace", comment: "Name for map layer Class D Airspace")
 		
 		public static let classE = NSLocalizedString("TILE_LAYER_CLASS_E", bundle: bundle, value: "Class E Controlled Airspace", comment: "Name for map layer Class E Airspace")
+
+		public static let classF = NSLocalizedString("TILE_LAYER_CLASS_F", bundle: bundle, value: "Class F Controlled Airspace", comment: "Name for map layer Class F Airspace")
+		
+		public static let classG = NSLocalizedString("TILE_LAYER_CLASS_G", bundle: bundle, value: "Class G Controlled Airspace", comment: "Name for map layer Class G Airspace")
 		
 		public static let custom = NSLocalizedString("TILE_LAYER_CUSTOM", bundle: bundle, value: "Custom", comment: "Name for map layer Custom")
 		

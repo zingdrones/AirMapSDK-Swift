@@ -8,44 +8,46 @@
 
 import ObjectMapper
 
-final class AirMapAirspace {
+final internal class AirMapAirspace: Mappable {
 	
-	public fileprivate(set) var id: String!
-	public fileprivate(set) var name: String!
-	public fileprivate(set) var type: AirMapAirspaceType!
-	public fileprivate(set) var country: String!
-	public fileprivate(set) var state: String!
-	public fileprivate(set) var city: String!
-	public fileprivate(set) var geometry: AirMapGeometry!
-	public fileprivate(set) var propertyBoundary: AirMapGeometry!
-	public fileprivate(set) var rules = [AirMapAirspaceRule]()
+	let id: String
+	let name: String
+	let type: AirMapAirspaceType
+	let country: String
+	let state: String?
+	let city: String?
+	let geometry: AirMapGeometry
+	let propertyBoundary: AirMapGeometry?
 	
-	public required init?(map: Map) {}
-}
-
-extension AirMapAirspace: Mappable {
-	
-	public func mapping(map: Map) {
-		id               <-  map["id"]
-		name             <-  map["name"]
-		country          <-  map["country"]
-		state            <-  map["state"]
-		city             <-  map["city"]
-		geometry         <- (map["geometry"], GeoJSONToAirMapGeometryTransform())
-		rules            <-  map["rules"]
-		propertyBoundary <- (map["related_geometry.property_boundary.geometry"], GeoJSONToAirMapGeometryTransform())
-		type             <-  map["type"]
+	required init?(map: Map) {
+		
+		do {
+			id        =  try  map.value("id")
+			name      =  try  map.value("name")
+			type      =  try  map.value("type")
+			country   =  try  map.value("country")
+			state     =  try? map.value("state")
+			city      =  try? map.value("city")
+			geometry  =  try  map.value("geometry", using: GeoJSONToAirMapGeometryTransform())
+			propertyBoundary
+				      =  try? map.value("related_geometry.property_boundary.geometry", using: GeoJSONToAirMapGeometryTransform())
+		}
+		catch let error {
+			AirMap.logger.error(error.localizedDescription)
+			return nil
+		}
 	}
+
+	func mapping(map: Map) {}
 }
 
 extension AirMapAirspace: Equatable, Hashable {
 	
-	internal static func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
+	static func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
 		return lhs.id == rhs.id
 	}
 
-	public var hashValue: Int {
+	var hashValue: Int {
 		return id.hashValue
 	}
 }
-

@@ -8,24 +8,30 @@
 
 import ObjectMapper
 
-public class AirMapAircraftModel {
-
-	open var modelId: String!
-	open var name: String!
-	open var manufacturer: AirMapAircraftManufacturer!
-	open var metadata = [String : AnyObject]()
+final public class AirMapAircraftModel: Mappable {
 	
-	public required init?(map: Map) {}
+	public let modelId: String
+	public let name: String
+	public let manufacturer: AirMapAircraftManufacturer
+	public let metadata: [String: AnyObject]?
 	
-	internal init() {}
+	public required init?(map: Map) {
+		do {
+			modelId      = try  map.value("id")
+			name         = try  map.value("name")
+			manufacturer = try  map.value("manufacturer")
+			metadata     = try? map.value("metadata")
+		}
+		catch let error {
+			AirMap.logger.error(error)
+			return nil
+		}
+	}
 }
 
-extension AirMapAircraftModel: Mappable {
-
+extension AirMapAircraftModel {
+	
 	public func mapping(map: Map) {
-		modelId       <-  map["id"]
-		name          <-  map["name"]
-		manufacturer  <-  map["manufacturer"]
-		metadata      <-  map["metadata"]
+		modelId  >>>  map["id"]
 	}
 }

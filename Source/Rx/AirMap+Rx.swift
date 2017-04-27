@@ -227,8 +227,6 @@ extension Reactive where Base: AirMap_Airspace {
 	
 	static func listAirspace(_ airspaceIds: [String]) -> Observable<[AirMapAirspace]> {
 		return AirMap.airspaceClient.listAirspace(airspaceIds)
-			// Unlikely, but remove nil or empty airspace ids
-			.map { $0.filter { airspace in airspace.id != nil && !airspace.id!.isEmpty } }
 	}
 
 }

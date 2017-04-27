@@ -203,7 +203,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 				self.mapView.showAnnotations(annotations, edgePadding: UIEdgeInsetsMake(10, 40, 10, 40), animated: true)
 			}
 		}
-	}
+	}	
 
 	fileprivate func setupBindings() {
 		

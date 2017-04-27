@@ -101,7 +101,7 @@ extension AirMap_UI {
 		aircraftNav.aircraftDelegate = delegate
 		
 		let aircraftVC = aircraftNav.viewControllers.first as! AirMapCreateAircraftViewController
-		aircraftVC.aircraft = aircraft ?? AirMapAircraft()
+		aircraftVC.aircraft = aircraft
 		
 		return aircraftNav
 	}
