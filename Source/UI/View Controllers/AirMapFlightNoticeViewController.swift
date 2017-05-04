@@ -9,6 +9,7 @@
 import RxSwift
 import RxCocoa
 import RxDataSources
+import SafariServices
 
 class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 	
@@ -74,7 +75,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 		
 		Observable
 			.just(sections)
-			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: disposeBag)
 		
 		tableView.rx.setDelegate(self)
@@ -121,6 +122,26 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			}
 		}
 		return true
+	}
+	
+	
+	@IBAction func openFAQAction(_ sender: Any) {
+		
+		guard let url = URL(string: UIConstants.faqUrl), UIApplication.shared.canOpenURL(url) else {
+			return
+		}
+		
+		let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+		vc.delegate = self
+		present(vc, animated: true)
+		
+	}
+}
+
+extension AirMapFlightNoticeViewController: SFSafariViewControllerDelegate {
+	
+	func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+		controller.dismiss(animated: true, completion: nil)
 	}
 }
 

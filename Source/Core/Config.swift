@@ -31,7 +31,7 @@ struct Config {
             return AirMapApi.urlForResource("auth", version: "v1")
         }
 		static var statusUrl: String {
-			return AirMapApi.urlForResource("status", version: "v2")
+			return AirMapApi.urlForResource("status", version: "alpha")
 		}
 		static var rulesUrl: String {
 			return AirMapApi.urlForResource("rules", version: "v1")

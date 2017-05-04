@@ -10,6 +10,8 @@ import libPhoneNumber_iOS
 
 class AirMapFlightNoticeCell: UITableViewCell {
 	
+	@IBOutlet weak var type: UILabel!
+	
 	static let phoneUtil = NBPhoneNumberUtil()
 	
 	var advisory: AirMapStatusAdvisory! {
@@ -20,7 +22,9 @@ class AirMapFlightNoticeCell: UITableViewCell {
             } else {
                 name.text = advisory.name
             }
-            
+			
+			type?.text = advisory.type?.title
+			
             let phoneStr = phoneStringFromE164(advisoryPhoneNumber) ?? LocalizedStrings.Advisory.phoneNumberNotProvided
             phoneNumber?.text = phoneStr
 		}
