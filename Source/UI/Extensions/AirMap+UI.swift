@@ -140,8 +140,8 @@ extension AirMap_UI {
 	*/
 	
 	public class func authViewController(_ authHandler: @escaping AirMapAuthHandler) -> AirMapAuthViewController {
-        
-		let authController = AirMapAuthViewController(authHandler: authHandler)
+		
+		let authController = AirMapAuthViewController()
 		return authController
 	}
     
