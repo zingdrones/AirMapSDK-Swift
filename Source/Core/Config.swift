@@ -51,7 +51,7 @@ struct Config {
 		}
 
 		struct Auth {
-			static let ssoUrl    = "https://sso.airmap.io"
+			static let ssoDomain = "sso.airmap.io"
 			static let scope     = "openid+offline_access"
 			static let grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer"
 			static let keychainKeyRefreshToken = "com.airmap.airmapsdk.refresh_token"

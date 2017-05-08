@@ -12,7 +12,7 @@ import Alamofire
 internal class Auth0Client: HTTPClient {
 
 	init() {
-		super.init(basePath: Config.AirMapApi.Auth.ssoUrl)
+		super.init(basePath: "https://" + Config.AirMapApi.Auth.ssoDomain)
 	}
 
 	func refreshAccessToken() -> Observable<AirMapToken> {
