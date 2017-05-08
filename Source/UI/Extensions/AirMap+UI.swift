@@ -164,9 +164,8 @@ extension AirMap_UI {
 			.withStyle { style in
 				style.logo = LazyImage(name: "airmap_login_logo", bundle: Bundle(for: AirMap.self))
 				style.hideTitle = true
-				style.headerColor = .airMapDarkGray
-				style.primaryColor = UIColor.airMapLightBlue
-				style.buttonTintColor = .airMapDarkGray
+				style.headerColor = UIColor(white: 0.9, alpha: 1.0)
+				style.primaryColor = .airMapLightBlue
 			}
 			.onAuth { credentials in
 				AirMap.authToken = credentials.idToken
