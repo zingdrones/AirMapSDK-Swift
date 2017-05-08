@@ -707,6 +707,7 @@ extension AirMapCreateFlightTypeViewController {
 	}
 		
 	@IBAction func dismiss() {
+		resignFirstResponder()
 		trackEvent(.tap, label: "Cancel Button")
 		self.dismiss(animated: true, completion: nil)
 	}
