@@ -80,8 +80,8 @@ internal class Auth0Client: HTTPClient {
         
         return perform(method: .post, path:"/oauth/ro", params: params, keyPath: nil)
             .do(onNext: { credentials in
-                AirMap.authToken = credentials.idToken
-                AirMap.authSession.saveRefreshToken(credentials.refreshToken)                
+                AirMap.authSession.authToken = credentials.idToken
+                AirMap.authSession.refreshToken = credentials.refreshToken
             }, onError: { error in
                 AirMap.logger.debug("ERROR: \(error)")
             })

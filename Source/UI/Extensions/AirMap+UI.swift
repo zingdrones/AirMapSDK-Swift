@@ -163,9 +163,9 @@ extension AirMap_UI {
 				style.primaryColor = .airMapLightBlue
 			}
 			.onAuth { credentials in
-				AirMap.authToken = credentials.idToken
-				AirMap.authSession.saveRefreshToken(credentials.refreshToken)
-				AirMap.rx.getAuthenticatedPilot().subscribe(authHandler)
+				authSession.authToken = credentials.idToken
+				authSession.refreshToken = credentials.refreshToken
+				rx.getAuthenticatedPilot().subscribe(authHandler)
 			}
 			.onError { error in
 				let airMapError = AirMapError.client(error)
@@ -173,7 +173,7 @@ extension AirMap_UI {
 			}
 			.present(from: viewController)
 	}
-	
+		
 	/**
 	
 	Creates an AirMapSMSLoginNavController that can be presented to the user.
