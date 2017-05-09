@@ -133,7 +133,6 @@ extension AirMap_UI {
 	public typealias AirMapAuthHandler = (Result<AirMapPilot>) -> Void
 	
 	public enum AirMapAuthError: Error {
-		case emailVerificationNeeded(resendLink: String)
 		case emailBlacklisted
 		case error(description: String)
 	}
