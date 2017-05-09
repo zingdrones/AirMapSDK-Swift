@@ -149,10 +149,6 @@ extension AirMap_UI {
 		
 		Lock
 			.classic(clientId: AirMap.configuration.auth0ClientId, domain: Config.AirMapApi.Auth.ssoDomain)
-			.withConnections { connections in
-				connections.database(name: "Username-Password-Authentication", requiresUsername: false)
-				connections.social(name: "google-oauth2", style: .Google)
-			}
 			.withOptions { options in
 				options.scope = "openid offline_access"
 				options.parameters = ["device": Bundle.main.bundleIdentifier ?? "AirMap SDK iOS"]
