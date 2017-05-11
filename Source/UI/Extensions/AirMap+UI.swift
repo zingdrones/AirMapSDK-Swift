@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import Lock
 
 private typealias AirMap_UI = AirMap
 extension AirMap_UI {
@@ -129,33 +130,60 @@ extension AirMap_UI {
 		return aircraftNav
 	}
 	
+	public typealias AirMapAuthHandler = (Result<AirMapPilot>) -> Void
+	
+	public enum AirMapAuthError: Error {
+		case emailBlacklisted
+		case error(description: String)
+	}
+
 	/**
 	
-	Creates an AirMapAuthViewController that can be presented to the user.
+	Presents a login view for the user to authenticate with the AirMap platform
 	
+	- parameter viewController: The viewController from which to present the login view
 	- parameter authHandler: The block that is called upon completion of login flow
 	
-	- returns: An AirMapAuthViewController
+	*/
+	public class func login(from viewController: UIViewController, with authHandler: @escaping AirMapAuthHandler) {
+		
+		Lock
+			.classic(clientId: AirMap.configuration.auth0ClientId, domain: Config.AirMapApi.Auth.ssoDomain)
+			.withOptions { options in
+				options.scope = "openid offline_access"
+				options.parameters = ["device": Bundle.main.bundleIdentifier ?? "AirMap SDK iOS"]
+				options.termsOfService = "https://www.airmap.com/terms"
+				options.privacyPolicy = "https://www.airmap.com/privacy"
+				options.closable = true
+			}
+			.withStyle { style in
+				style.logo = LazyImage(name: "airmap_login_logo", bundle: Bundle(for: AirMap.self))
+				style.hideTitle = true
+				style.headerColor = UIColor(white: 0.9, alpha: 1.0)
+				style.primaryColor = .airMapLightBlue
+			}
+			.onAuth { credentials in
+				authSession.authToken = credentials.idToken
+				authSession.refreshToken = credentials.refreshToken
+				rx.getAuthenticatedPilot().subscribe(authHandler)
+			}
+			.onError { error in
+				let airMapError = AirMapError.client(error)
+				authHandler(Result<AirMapPilot>.error(airMapError))
+			}
+			.present(from: viewController)
+	}
+		
+	/**
+	
+	Creates an AirMapSMSLoginNavController that can be presented to the user.
+	
+	- parameter delegate: The block that is called upon completion/error of login flow
+	
+	- returns: An AirMapSMSLoginNavController
 	
 	*/
 	
-	public class func authViewController(_ authHandler: @escaping AirMapAuthHandler) -> AirMapAuthViewController {
-        
-		let authController = AirMapAuthViewController(authHandler: authHandler)
-		return authController
-	}
-    
-    
-    /**
-     
-     Creates an AirMapSMSLoginNavController that can be presented to the user.
-     
-     - parameter delegate: The block that is called upon completion/error of login flow
-     
-     - returns: An AirMapSMSLoginNavController
-     
-     */
-    
     public class func smsLoginController(delegate: AirMapSMSLoginDelegate?) -> AirMapSMSLoginNavController {
         
         let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
@@ -164,8 +192,7 @@ extension AirMap_UI {
         authController.smsLoginDelegate = delegate
         return authController
     }
-    
-    
+	
     /**
      
      Creates an AirMapAdvisoriesViewController that can be presented to the user.

@@ -34,7 +34,7 @@ struct Config {
             return AirMapApi.urlForResource("auth", version: "v1")
         }
 		static var statusUrl: String {
-			return AirMapApi.urlForResource("status", version: "v2")
+			return AirMapApi.urlForResource("status", version: "alpha")
 		}
 		static var ruleUrl: String {
 			return AirMapApi.urlForResource("rules", version: "v1")
@@ -54,7 +54,7 @@ struct Config {
 		}
 
 		struct Auth {
-			static let ssoUrl    = "https://sso.airmap.io"
+			static let ssoDomain = "sso.airmap.io"
 			static let scope     = "openid+offline_access"
 			static let grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer"
 			static let keychainKeyRefreshToken = "com.airmap.airmapsdk.refresh_token"

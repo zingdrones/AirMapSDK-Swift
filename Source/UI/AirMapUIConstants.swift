@@ -43,4 +43,6 @@ public struct UIConstants {
 
 	public static let durationPresets: [TimeInterval] = [5, 10, 15, 30, 45, 60, 90, 120, 150, 180, 210, 240].map { $0 * 60 }
 	public static let defaultDurationPreset = durationPresets[5]
+	
+	public static let faqUrl = "https://support.airmap.com/hc/en-us/articles/115006598947?utm_source=ios%20app"
 }

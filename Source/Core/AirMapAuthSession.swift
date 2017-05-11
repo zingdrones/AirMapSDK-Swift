@@ -19,8 +19,13 @@ class AirMapAuthSession {
 				decodeToken(authToken)
 			} else {
 				userId = ""
-                saveRefreshToken(nil)
+				AirMapAuthSession.saveRefreshToken(nil)
 			}
+		}
+	}
+	var refreshToken: String? {
+		didSet {
+			AirMapAuthSession.saveRefreshToken(refreshToken)
 		}
 	}
 
@@ -94,7 +99,7 @@ class AirMapAuthSession {
 		return authToken != nil && !authToken!.isEmpty && !tokenIsExpired()
 	}
 
-	internal func saveRefreshToken(_ token: String?) {
+	internal static func saveRefreshToken(_ token: String?) {
 		if let token = token {
 			A0SimpleKeychain().setString(token, forKey: Config.AirMapApi.Auth.keychainKeyRefreshToken)
 		} else {
