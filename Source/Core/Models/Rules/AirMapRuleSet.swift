@@ -40,7 +40,7 @@ public class AirMapRuleSet: Mappable {
 	public let layers: [String]
 	public let isDefault: Bool
 	public let rules: [AirMapRule]
-	public let summary: String
+	public let description: String
 	
 	internal var order: Int {
 		return [.pickOne, .optional, .required].index(of: self.type)!
@@ -59,18 +59,19 @@ public class AirMapRuleSet: Mappable {
 			id        = try map.value("id")
 			name      = try map.value("name")
 			shortName = try map.value("short_name")
-			type      = try map.value("type")
 			
 			if let context = map.context as? DataOrigin, context == .tileService {
-				rules   = []
-				summary = ""
-				isDefault = try map.value("default")
-				layers = try map.value("layers") as [String]
+                type        = try map.value("type")
+				rules       = []
+				description = "N/A"
+				layers      = try map.value("layers") as [String]
+                isDefault   = try map.value("default")
 
 			} else {
-				rules     = try map.value("rules")
-				summary   = try map.value("summary")
-				layers    = []
+                type        = try map.value("selection_type")
+				rules       = try map.value("rules")
+				description = try map.value("description")
+				layers      = []
 				// FIXME: Remove once API returns default
 				isDefault = false
 			}

@@ -194,7 +194,6 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 	fileprivate func setupMap() {
 		
 		let flight = navigationController!.flight.value
-		mapView.configure(layers: navigationController!.mapLayers, theme: navigationController!.mapTheme)
 		mapView.delegate = mapViewDelegate
 		
 		if let annotations = flight.annotationRepresentations() {
@@ -230,7 +229,7 @@ class AirMapFlightPlanViewController: UIViewController, AnalyticsTrackable {
 		
 		pilot.asObservable()
 			.unwrap()
-			.subscribe(onNext: { flight.value.pilotId = $0.pilotId })
+			.subscribe(onNext: { flight.value.pilotId = $0.id })
 			.disposed(by: disposeBag)
 
 		status.asObservable()

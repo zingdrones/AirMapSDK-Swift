@@ -57,7 +57,7 @@ internal class TrafficService: MQTTSessionDelegate {
 		let state = connectionState.asObservable()
 
 		let flight = currentFlight.asObservable()
-			.distinctUntilChanged { flight in flight?.flightId ?? "" }
+			.distinctUntilChanged { flight in flight?.id ?? "" }
 
 		let flightState = Observable.combineLatest(flight, state) { ($0, $1) }
 
@@ -159,7 +159,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 			observer.onNext(.connecting)
 
-			self.client.username = flight.flightId
+			self.client.username = flight.id
 			self.client.password = AirMap.authSession.authToken
 
 			self.client.connect { succeeded, error in
@@ -178,8 +178,8 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	func subscribeToTraffic(_ flight: AirMapFlight) -> Observable<Void> {
 		
-		let sa    = self.subscribe(flight, to: Config.AirMapTraffic.trafficSituationalAwarenessChannel + flight.flightId!)
-		let alert = self.subscribe(flight, to: Config.AirMapTraffic.trafficAlertChannel + flight.flightId!)
+		let sa    = self.subscribe(flight, to: Config.AirMapTraffic.trafficSituationalAwarenessChannel + flight.id!)
+		let alert = self.subscribe(flight, to: Config.AirMapTraffic.trafficAlertChannel + flight.id!)
 
 		return unsubscribeFromAllChannels().concat(sa).concat(alert)
 	}

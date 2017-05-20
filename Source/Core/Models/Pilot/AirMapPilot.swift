@@ -10,6 +10,8 @@ import ObjectMapper
 
 open class AirMapPilot {
 
+    open var id: String!
+    @available(*, unavailable, renamed: "id")
 	open var pilotId: String!
 	open var email: String!
 	open var firstName: String?
@@ -39,7 +41,7 @@ open class AirMapPilot {
 extension AirMapPilot: Mappable {
 	
 	public func mapping(map: Map) {
-		pilotId        <-  map["id"]
+		id             <-  map["id"]
 		email          <-  map["email"]
 		firstName      <-  map["first_name"]
 		lastName       <-  map["last_name"]

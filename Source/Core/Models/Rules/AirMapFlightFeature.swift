@@ -13,15 +13,15 @@ public class AirMapFlightFeature: Mappable {
 	public let id: Int
 	public let feature: String
 	public let description: String
-	public let type: String
+	public let inputType: String
 	
 	public required init?(map: Map) {
 
 		do {
 			id          = try map.value("id")
-			feature     = try map.value("feature")
+			feature     = try map.value("flight_feature")
 			description = try map.value("description")
-			type        = try map.value("type")
+			inputType   = try map.value("input_type")
 		}
 		
 		catch let error {

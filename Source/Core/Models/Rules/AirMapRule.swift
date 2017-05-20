@@ -12,14 +12,14 @@ import ObjectMapper
 public class AirMapRule: Mappable {
 	
 	public let id: Int
-	public let summary: String
+	public let description: String
 	public let features: [AirMapFlightFeature]
 	
 	public required init?(map: Map) {
 		do {
-			id       = try map.value("id")
-			summary  = try map.value("summary")
-			features = try map.value("flight_features")
+			id           = try map.value("id")
+			description  = try map.value("description")
+			features     = try map.value("flight_features")
 		}
 		catch let error {
 			print(error)

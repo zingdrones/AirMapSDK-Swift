@@ -14,7 +14,7 @@ final public class AirMapAircraft: Mappable {
 	public private(set) var model: AirMapAircraftModel
 	public var nickname: String
 
-	@available(*, renamed: "id")
+	@available(*, unavailable, renamed: "id")
 	public var aircraftId: String! {
 		return id
 	}
@@ -59,10 +59,10 @@ final public class AirMapAircraft: Mappable {
 extension AirMapAircraft: Equatable, Hashable {
 	
 	public static func ==(lhs: AirMapAircraft, rhs: AirMapAircraft) -> Bool {
-		return lhs.aircraftId == rhs.aircraftId
+		return lhs.id == rhs.id
 	}
 
 	public var hashValue: Int {
-		return aircraftId.hashValue
+		return id.hashValue
 	}
 }

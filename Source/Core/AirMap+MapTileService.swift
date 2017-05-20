@@ -15,6 +15,7 @@ extension AirMap_MapTileService {
     ///   - layers: layers:[AirMapMapLayer] An array of AirMapMapLayer's.
     ///   - theme: theme:[AirMapMapTheme] An AirMapMapTheme.
 
+	@available (*, deprecated)
     public class func getTileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> URL? {
         return mappingService.tileSourceUrl(layers: layers, theme: theme) as URL?
     }

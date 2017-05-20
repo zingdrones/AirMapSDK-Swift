@@ -104,7 +104,7 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 		let detailsSection = SectionModel(model: localized.sectionHeaderDetails, items: items)
 		sections.append(detailsSection)
 		
-		if let aircraft = flight.aircraft, aircraft.aircraftId != nil {
+		if let aircraft = flight.aircraft, aircraft.id != nil {
 			let items = [RowData(localized.rowLabelAircraft, aircraft.nickname)]
 			let aircraftSection = SectionModel(model: localized.sectionHeaderAircraft, items: items)
 			sections.append(aircraftSection)

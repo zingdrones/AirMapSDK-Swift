@@ -111,7 +111,7 @@ struct AirMapTelemetry {
 			let payload = messages.flatMap { msg in msg.telemetryBytes() }
 			let packet: Packet
 			let serial = nextPacketId()
-			guard let flightId = flight.flightId else { return }
+			guard let flightId = flight.id else { return }
 			
 			switch encryption {
 			case .aes256cbc:

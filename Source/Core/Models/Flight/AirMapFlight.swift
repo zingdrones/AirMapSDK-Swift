@@ -25,7 +25,7 @@ open class AirMapFlight: NSObject {
 		case future
 	}
 
-	public var flightId: String?
+    public var id: String?
 	public var createdAt: Date = Date()
 	public var startTime: Date?
 	public var endTime: Date? {
@@ -41,10 +41,10 @@ open class AirMapFlight: NSObject {
 	public var permitsIds = [String]()
 	public var pilotId: String!
 	public var pilot: AirMapPilot? {
-		didSet { pilotId = pilot?.pilotId }
+		didSet { pilotId = pilot?.id }
 	}
 	public var aircraft: AirMapAircraft? {
-		didSet { aircraftId = aircraft?.aircraftId }
+		didSet { aircraftId = aircraft?.id }
 	}
 	public var aircraftId: String!
 	public var statuses = [AirMapFlightStatus]()
@@ -67,10 +67,13 @@ open class AirMapFlight: NSObject {
 	}
 	
 	override open var hashValue: Int {
-		return flightId?.hashValue ?? super.hashValue
+		return id?.hashValue ?? super.hashValue
 	}
 	
 	public override init() {}
+    
+    @available(*, unavailable, renamed: "id")
+    public var flightId: String?
 }
 
 extension AirMapFlight: Mappable {
@@ -90,7 +93,7 @@ extension AirMapFlight: Mappable {
 
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
-		flightId    <-  map["id"]
+		id          <-  map["id"]
 		createdAt   <- (map["creation_date"], dateTransform)
 		startTime   <- (map["start_time"], dateTransform)
 		maxAltitude <-  map["max_altitude"]
@@ -156,6 +159,6 @@ extension AirMapFlight: Mappable {
 extension AirMapFlight {
 	
 	static public func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {
-		return lhs.flightId == rhs.flightId
+		return lhs.id == rhs.id
 	}
 }

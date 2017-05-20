@@ -13,9 +13,10 @@ public enum AirMapMapTheme: String {
 	case dark
 	case light
 	case satellite
+	case hybrid
 	
 	public static var allThemes: [AirMapMapTheme] {
-		return [.standard, .dark, .light, .satellite]
+		return [.standard, .dark, .light, .satellite, .hybrid]
 	}
 }
 
@@ -35,7 +36,9 @@ public enum AirMapLayerType: String {
 	case classF                         = "class_f"
 	case classG                         = "class_g"
 	case custom                         = "custom"
-	case essentialAirspace				= "class_b,class_c,class_d,class_e0"
+	case emergencies                    = "emergencies"
+	case essentialAirspace              = "class_b,class_c,class_d,class_e0"
+	case fires                          = "fires"
 	case hazardAreas                    = "hazard_areas"
 	case heliports                      = "heliports"
 	case hospitals                      = "hospitals"
@@ -49,9 +52,7 @@ public enum AirMapLayerType: String {
 	case schools                        = "schools"
 	case tfrs                           = "tfrs"
 	case universities                   = "universities"
-	case fires                          = "fires"
 	case wildfires                      = "wildfires"
-	case emergencies                    = "emergencies"
 	
 	public static let allLayerTypes = [
 		airportsCommercial,
@@ -66,23 +67,23 @@ public enum AirMapLayerType: String {
 		classE,
 		classF,
 		classG,
+		custom,
+		emergencies,
+		fires,
 		hazardAreas,
 		heliports,
 		hospitals,
 		nationalParks,
 		noaa,
 		powerPlants,
+		prisons,
 		prohibited,
 		recreationalAreas,
 		restricted,
 		schools,
 		tfrs,
-		fires,
-		wildfires,
-		emergencies,
-		custom,
-		prisons,
 		universities,
+		wildfires,
 	]
 	
 	/// A descriptive title for the layer
@@ -104,7 +105,9 @@ public enum AirMapLayerType: String {
 		case .classF:                       return localized.classF
 		case .classG:                       return localized.classG
 		case .custom:                       return localized.custom
+		case .emergencies:                  return localized.emergencies
 		case .essentialAirspace:            return localized.essentionalAirspace
+		case .fires:                        return localized.fires
 		case .hazardAreas:                  return localized.hazardAreas
 		case .heliports:                    return localized.heliports
 		case .hospitals:                    return localized.hospitals
@@ -118,14 +121,12 @@ public enum AirMapLayerType: String {
 		case .schools:                      return localized.schools
 		case .tfrs:                         return localized.tfrs
 		case .universities:                 return localized.universities
-		case .fires:                        return localized.fires
 		case .wildfires:                    return localized.wildfires
-		case .emergencies:                  return localized.emergencies
 		}
 	}
 	
 	/// The airspace type the layer belongs to
-	public var airSpaceType: AirMapAirspaceType {
+	public var airspaceType: AirMapAirspaceType {
 		
 		switch self {
 		case .airportsCommercial,
@@ -157,6 +158,12 @@ public enum AirMapLayerType: String {
 		case .custom:
 			return .custom
 			
+		case .emergencies:
+			return .emergency
+			
+		case .fires:
+			return .fire
+			
 		case .hazardAreas:
 			return .hazardArea
 			
@@ -169,12 +176,12 @@ public enum AirMapLayerType: String {
 		case .prisons:
 			return .prison
 			
+		case .prohibited,
+		     .restricted:
+			return .specialUse
+			
 		case .recreationalAreas:
 			return .recreationalArea
-			
-		case .restricted,
-		     .prohibited:
-			return .specialUse
 			
 		case .schools:
 			return .school
@@ -184,15 +191,9 @@ public enum AirMapLayerType: String {
 			
 		case .universities:
 			return .university
-
-		case .fires:
-			return .fire
 			
 		case .wildfires:
 			return .wildfire
-			
-		case .emergencies:
-			return .emergency
 		}
 	}
 }
@@ -201,15 +202,17 @@ public enum AirMapLayerType: String {
 public enum AirMapAirspaceType: String {
 	
 	case airport             = "airport"
-	case city				= "city"
+	case city                = "city"
 	case controlledAirspace  = "controlled_airspace"
 	case custom              = "custom"
+	case emergency           = "emergency"
+	case fire                = "fire"
 	case hazardArea          = "hazard_area"
 	case heliport            = "heliport"
 	case hospital            = "hospital"
 	case park                = "park"
 	case powerPlant          = "power_plant"
-	case prison              = "prisons"
+	case prison              = "prison"
 	case recreationalArea    = "recreational_area"
 	case school              = "school"
 	case specialUse          = "special_use_airspace"
@@ -217,14 +220,14 @@ public enum AirMapAirspaceType: String {
 	case tfr                 = "tfr"
 	case university          = "universities"
 	case wildfire            = "wildfire"
-	case fire                = "fire"
-	case emergency           = "emergency"
 	
 	public static let allAirspaceTypes: [AirMapAirspaceType] = [
 		.airport,
 		.city,
 		.controlledAirspace,
 		.custom,
+		.emergency,
+		.fire,
 		.hazardArea,
 		.heliport,
 		.hospital,
@@ -238,8 +241,6 @@ public enum AirMapAirspaceType: String {
 		.tfr,
 		.university,
 		.wildfire,
-		.fire,
-		.emergency,
 	]
 	
 	/// A descriptive title for the airspace type
@@ -249,9 +250,11 @@ public enum AirMapAirspaceType: String {
 
 		switch self {
 		case .airport:              return localized.airport
-		case .city:					return localized.city
+		case .city:                 return localized.city
 		case .controlledAirspace:   return localized.controlledAirspace
 		case .custom:               return localized.custom
+		case .emergency:            return localized.emergency
+		case .fire:                 return localized.fire
 		case .hazardArea:           return localized.hazardArea
 		case .heliport:             return localized.heliport
 		case .hospital:             return localized.hospital
@@ -265,8 +268,6 @@ public enum AirMapAirspaceType: String {
 		case .tfr:                  return localized.tfr
 		case .university:           return localized.university
 		case .wildfire:             return localized.wildfire
-		case .fire:                 return localized.fire
-		case .emergency:            return localized.emergency
 		}
 	}
 }
@@ -279,6 +280,7 @@ public class MappingService {
 	///   - layers: Layers to include in the map tile set data
 	///   - theme: Map theme used to display the data
 	/// - Returns: A tile source url
+	@available (*, deprecated)
 	public func tileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> URL? {
 		guard let apiKey = AirMap.configuration.airMapApiKey else {
 			AirMap.logger.error("An API Key is required to access the AirMap Map Tile Service")

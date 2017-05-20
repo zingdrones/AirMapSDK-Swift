@@ -14,39 +14,6 @@ import RxCocoa
 import RxSwiftExt
 import SwiftTurf
 
-enum DrawingUIState: Equatable {
-	
-	case panning
-	case drawing
-	case editing(ControlPoint)
-	
-	static func ==(lhs: DrawingUIState, rhs: DrawingUIState) -> Bool {
-		switch (lhs, rhs) {
-		case (.panning, .panning):
-			return true
-		case (.drawing, .drawing):
-			return true
-		case (.editing(let point1), .editing(let point2)):
-			return point1 === point2
-		default:
-			return false
-		}
-	}
-}
-
-class RedAdvisory: MGLPolygon {}
-
-class PermitAdvisory: MGLPolygon {
-
-	var hasPermit = false
-	var airspace: AirMapAirspace!
-	var hasValue: Int { return airspace.id.hashValue }
-	
-	static func ==(lhs: PermitAdvisory, rhs: PermitAdvisory) -> Bool {
-		return lhs.airspace.id == rhs.airspace.id
-	}
-}
-
 
 class Buffer: MGLPolygon {}
 
@@ -102,7 +69,6 @@ class AirMapCreateFlightTypeViewController: UIViewController, AnalyticsTrackable
 			return "Create Flight - Polygon"
 		}
 	}
-	typealias AirspacePermitting = (airspace: AirMapAirspace, hasPermit: Bool)
 
 	@IBOutlet weak var mapView: AirMapMapView!
 	@IBOutlet weak var actionButton: UIButton!
@@ -113,37 +79,23 @@ class AirMapCreateFlightTypeViewController: UIViewController, AnalyticsTrackable
 	@IBOutlet weak var bottomToolTip: UILabel!
 	
 	@IBOutlet var flightTypeButtons: [AirMapFlightTypeButton]!
-	@IBOutlet weak var nextButton: UIButton!
-	@IBOutlet weak var advisoriesInfoButton: UIButton!
-	@IBOutlet weak var inputViewContainer: UIView!
 	
 	fileprivate let drawingOverlayView = AirMapDrawingOverlayView()
-	fileprivate let editingOverlayView = AirMapPointEditingOverlay()
+	fileprivate let editingOverlayView = AirMapEditingOverlayView()
 	fileprivate let mapViewDelegate = AirMapMapboxMapViewDelegate()
 
 	fileprivate let geoTypes: [AirMapFlight.FlightGeometryType] = [.point, .path, .polygon]
 	fileprivate let selectedGeoType = Variable(AirMapFlight.FlightGeometryType.point)
 	fileprivate let controlPoints = Variable([ControlPoint]())
-	fileprivate let userPermits = Variable([AirMapPilotPermit]())
-	fileprivate let state = Variable(DrawingUIState.panning)
-	fileprivate let buffer = Variable(Meters(304.8))
+	fileprivate let state = Variable(InteractionState.panning)
+	fileprivate let buffer = Variable(Feet(1000).meters)
 	
 	fileprivate let controlPointsHidden = Variable(false)
-	
-	override var navigationController: AirMapFlightPlanNavigationController {
-		return super.navigationController as! AirMapFlightPlanNavigationController
-	}
-	
-	fileprivate var flight: AirMapFlight {
-		return navigationController.flight.value
-	}
+		
+	fileprivate var flight: AirMapFlight!
 	
 	fileprivate let disposeBag = DisposeBag()
-	
-	override var inputAccessoryView: UIView? {
-		return inputViewContainer
-	}
-	
+		
 	// MARK: View Lifecycle
 	
 	override func viewDidLoad() {
@@ -173,55 +125,12 @@ class AirMapCreateFlightTypeViewController: UIViewController, AnalyticsTrackable
 		}
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		
-		guard let identifier = segue.identifier else { return }
-		
-		switch identifier {
-		case "pushFlightDetails":
-			let flightDetails = segue.destination as! AirMapFlightPlanViewController
-			flightDetails.location = Variable(flight.coordinate)
-			trackEvent(.next, label: "Next Button")
-		case "modalAdvisories":
-			let nav = segue.destination as! UINavigationController
-			let advisoriesVC = nav.viewControllers.first as! AirMapAdvisoriesViewController
-			let status = navigationController.status.value!
-			advisoriesVC.status.value = status
-            advisoriesVC.delegate = self
-			trackEvent(.tap, label: "Advisory Icon")
-		default:
-			break
-		}
-	}
-	
-	@IBAction func unwindToFlightPlanMap(_ segue: UIStoryboardSegue) { /* IB hook; keep */ }
-	
-	override var canBecomeFirstResponder : Bool {
-		return true
-	}
-	
-}
-
-extension AirMapCreateFlightTypeViewController: AirMapAdvisoriesViewControllerDelegate {
-	
-	func advisoriesViewControllerDidTapDismissButton() {
-		self.dismiss(animated: true, completion: nil)
-	}
-	
-}
-
-extension AirMapCreateFlightTypeViewController {
-	
 	// MARK: Setup
 
 	fileprivate func setupBindings() {
 		
 		typealias $ = AirMapCreateFlightTypeViewController
-		
-		AirMap.rx.listPilotPermits()
-			.bind(to: userPermits)
-			.disposed(by: disposeBag)
-		
+				
 		let geoType = selectedGeoType.asDriver().distinctUntilChanged()
 		let coordinates = controlPoints.asDriver()
 			.map { $0.filter { $0.type == ControlPointType.vertex }.map { $0.coordinate } }
@@ -230,15 +139,9 @@ extension AirMapCreateFlightTypeViewController {
 			.drive(onNext: unowned(self, $.configureForType))
 			.disposed(by: disposeBag)
 		
-		geoType
+        Driver.combineLatest(geoType, buffer.asDriver()) { $0 }
+            .mapToVoid()
 			.throttle(0.25)
-			.mapToVoid()
-			.drive(onNext: unowned(self, $.centerFlightPlan))
-			.disposed(by: disposeBag)
-		
-		buffer.asDriver()
-			.throttle(0.25)
-			.mapToVoid()
 			.drive(onNext: unowned(self, $.centerFlightPlan))
 			.disposed(by: disposeBag)
 
@@ -285,111 +188,6 @@ extension AirMapCreateFlightTypeViewController {
 			.drive(onNext: unowned(self, $.drawFlightArea))
 			.disposed(by: disposeBag)
 
-		let status = navigationController.status
-		
-		validatedInput
-			.asObservable()
-            .filter { $0.3.valid }
-			.flatMapLatest {[unowned self] input in
-				unowned(self, $.getStatus)(input)
-					.map { Optional.some($0) }
-					.asDriver(onErrorJustReturn: nil)
-			}
-			.shareReplayLatestWhileConnected()
-			.asDriver(onErrorJustReturn: nil)
-			.drive(status)
-			.disposed(by: disposeBag)
-
-		status
-			.asDriver()
-			.map { $0?.advisoryColor ?? .gray }
-			.drive(onNext: unowned(self, $.applyAdvisoryColorToNextButton))
-			.disposed(by: disposeBag)
-		
-		status
-			.asDriver()
-			.map { ($0?.requiresPermits ?? false) && ($0?.applicablePermits.count ?? 0) == 0 }
-			.drive(onNext: {[unowned self] required in
-				self.bottomToolTip.superview!.superview!.isHidden = !required
-				self.bottomToolTip.superview!.backgroundColor = .airMapRed
-				self.bottomToolTip.text = LocalizedStrings.FlightDrawing.tooltipErrorOverlappingPermitAreas
-			})
-			.disposed(by: disposeBag)
-		
-		status
-			.asObservable()
-			.unwrap()
-			.map { $0.advisories.filter { $0.color == .red } }
-			.map { $0.flatMap { $0.id as String? } }
-			.flatMapLatest { ids -> Observable<[AirMapAirspace]> in
-				if ids.count == 0 {
-					return .just([])
-				} else {
-                    return AirMap.rx.listAirspace(ids)
-				}
-			}
-			.asDriver(onErrorJustReturn: [])
-			.drive(onNext: unowned(self, $.drawRedAdvisoryAirspaces))
-			.disposed(by: disposeBag)
-		
-		Observable
-			.combineLatest(status.asObservable().unwrap(), userPermits.asObservable()) { status, permits in
-				let permitableAdvisories = Set(status.advisories.filter { $0.availablePermits.count > 0  })
-				let airspaceIds = Set(permitableAdvisories.map { $0.id as String })
-                let userPermits = permits.filter { $0.expiresAt == nil || $0.expiresAt.greaterThanDate(Date()) }
-				return (status, userPermits, Array(permitableAdvisories), Array(airspaceIds))
-			}
-			.distinctUntilChanged () { [unowned self] lhs, rhs in
-				lhs.3.sorted() == rhs.3.sorted() &&
-					// always refetch airspace when permit advisories have been cleared
-					(self.mapView.annotations?.filter { $0 is PermitAdvisory }.count ?? 0)  > 0
-			}
-			.flatMapLatest { (status: AirMapStatus, permits: [AirMapPilotPermit], advisories: [AirMapStatusAdvisory], airspaceIds: [String]) -> Observable<[AirspacePermitting]> in
-
-				if airspaceIds.count == 0 {
-					return .just([AirspacePermitting]())
-				}
-				
-				return AirMap.rx.listAirspace(airspaceIds)
-					.map { airspaces in
-						Set(airspaces).flatMap { airspace in
-							
-							guard let permitableAdvisory = advisories.filter({ $0.id == airspace.id }).first else {
-								return nil
-							}
-							
-							let availablePermitIds = permitableAdvisory.availablePermits.map { $0.id }
-							let pilotPermitIds = permits.map { $0.permitId }
-							let hasPermit = Set(availablePermitIds).intersection(Set(pilotPermitIds)).count > 0
-							return (airspace, hasPermit)
-						}
-				}
-			}
-			.asDriver(onErrorJustReturn: [AirspacePermitting]())
-			.drive(onNext: unowned(self, $.drawPermitAdvisoryAirspaces))
-			.disposed(by: disposeBag)
-
-		let canAdvance = Observable
-            .combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
-				status != nil && input.3.valid
-					&& ((status!.requiresPermits && status!.applicablePermits.count > 0) || !status!.requiresPermits)
-			}
-			.asDriver(onErrorJustReturn: false)
-        
-        canAdvance
-            .drive(nextButton.rx.isEnabled)
-            .disposed(by: disposeBag)
-        
-        let canAdvanceInfo = Observable
-            .combineLatest(status.asObservable(), validatedInput.asObservable()) { status, input in
-                status != nil && input.3.valid
-            }
-            .asDriver(onErrorJustReturn: false)
-		
-		canAdvanceInfo
-			.drive(advisoriesInfoButton.rx.isEnabled)
-			.disposed(by: disposeBag)
-		
 		controlPointsHidden.asDriver()
 			.drive(onNext: mapView.hideControlPoints)
 			.disposed(by: disposeBag)
@@ -397,10 +195,6 @@ extension AirMapCreateFlightTypeViewController {
 	
 	fileprivate func setupMap() {
 		
-		mapView.centerCoordinate = flight.coordinate
-		mapView.configure(layers: navigationController.mapLayers, theme: navigationController.mapTheme)
-		mapView.minimumZoomLevel = 8
-		mapView.maximumZoomLevel = 22
 		mapView.delegate = mapViewDelegate
 		mapViewDelegate.controlPointDelegate = self
 		
@@ -421,7 +215,6 @@ extension AirMapCreateFlightTypeViewController {
 	}
 	
 	fileprivate func setupDrawingOverlay() {
-		
 		drawingOverlayView.delegate = self
 		drawingOverlayView.isMultipleTouchEnabled = false
 		drawingOverlayView.backgroundColor = UIColor.airMapDarkGray.withAlphaComponent(0.333)
@@ -429,7 +222,6 @@ extension AirMapCreateFlightTypeViewController {
 	}
 	
 	fileprivate func setupEditingOverlay() {
-		
 		editingOverlayView.backgroundColor = .clear
 		editingOverlayView.isUserInteractionEnabled = false
 		// Editing overlay is inserted into the view hierarchy in viewDidLayoutSubviews
@@ -438,9 +230,6 @@ extension AirMapCreateFlightTypeViewController {
 	// MARK: Configure
 
 	func configureForType(_ type: AirMapFlight.FlightGeometryType) {
-		
-		navigationController.status.value = nil
-		
 		if let annotations = mapView.annotations {
 			mapView.removeAnnotations(annotations)
 		}
@@ -490,7 +279,7 @@ extension AirMapCreateFlightTypeViewController {
 		UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: animations, completion: nil)
 	}
 	
-	func configureForState(_ state: DrawingUIState) {
+	func configureForState(_ state: InteractionState) {
 	
 		let bundle = AirMapBundle.ui
 		let localized = LocalizedStrings.FlightDrawing.self
@@ -512,7 +301,6 @@ extension AirMapCreateFlightTypeViewController {
 
 			// No existing shape
 			if controlPoints.value.count == 0 {
-				
 				
 				switch selectedGeoType.value {
 				case .path:     toolTip.text = localized.toolTipCtaTapToDrawPath
@@ -597,6 +385,8 @@ extension AirMapCreateFlightTypeViewController {
 			if selectedGeoType.value != .point {
 				mapView.hideControlPoints(true)
 			}
+		case .finished:
+			break
 		}
 		
 		mapView.hideObscuredMidPointControls()
@@ -699,7 +489,6 @@ extension AirMapCreateFlightTypeViewController {
 	@IBAction func deleteShape(_ sender: AnyObject?) {
 		
 		controlPoints.value = []
-		navigationController.status.value = nil
 		
 		if sender is UIButton {
 			trackEvent(.tap, label: "Trash Icon")
@@ -799,34 +588,6 @@ extension AirMapCreateFlightTypeViewController {
 		}
 	}
 	
-	// MARK: Status
-	
-	fileprivate func getStatus(_ type: AirMapFlight.FlightGeometryType, coordinates: [CLLocationCoordinate2D], buffer: Meters = 0, validation: (isValid: Bool, kinks: FeatureCollection?)) -> Observable<AirMapStatus> {
-		
-		switch type {
-		case .point:
-			return AirMap.rx.checkCoordinate(coordinate: coordinates.first!, buffer: buffer)
-		case .polygon:
-			return AirMap.rx.checkPolygon(geometry: coordinates, takeOffPoint: coordinates.first!)
-		case .path:
-			// Divide the width by 2 to get the left/right buffer
-			return AirMap.rx.checkFlightPath(path: coordinates, buffer: round(buffer/2), takeOffPoint: coordinates.first!)
-		}
-	}
-	
-	fileprivate func applyAdvisoryColorToNextButton(advisoryColor: AirMapStatus.StatusColor) {
-		
-		switch advisoryColor {
-		case .red, .orange, .gray:
-			inputViewContainer.backgroundColor = advisoryColor.colorRepresentation
-			inputViewContainer.tintColor = .white
-		case .yellow, .green:
-			inputViewContainer.backgroundColor = advisoryColor.colorRepresentation
-			inputViewContainer.tintColor = .airMapDarkGray
-		}
-		nextButton.setTitleColor(nextButton.tintColor.withAlphaComponent(0.5), for: .disabled)
-	}
-	
 	// MARK: Drawing
 	
 	fileprivate func drawControlPoints(_ points: [ControlPoint]) {
@@ -877,7 +638,7 @@ extension AirMapCreateFlightTypeViewController {
 		controlPointsHidden.value = false
 
 		mapView.annotations?
-			.filter { ($0 is MGLPolygon || $0 is MGLPolyline || $0 is InvalidIntersection) && !($0 is RedAdvisory) && !($0 is PermitAdvisory) }
+			.filter { ($0 is MGLPolygon || $0 is MGLPolyline || $0 is InvalidIntersection) }
 			.forEach { mapView.removeAnnotation($0) }
 		
 		switch geoType {
@@ -935,85 +696,9 @@ extension AirMapCreateFlightTypeViewController {
 			mapView.addAnnotation(invalidIntersection)
 		}
 	}
-	
-	fileprivate func drawRedAdvisoryAirspaces(_ airspaces: [AirMapAirspace]) {
-		
-		let existingRedAdvisories = mapView.annotations?.flatMap { $0 as? RedAdvisory} ?? []
-		mapView.remove(existingRedAdvisories)
-		
-		let polygonMapper = { (polygon: AirMapPolygon) -> RedAdvisory in
-			var coords = polygon.coordinates as [[CLLocationCoordinate2D]]
-			var outerCoords = coords.first!
 			
-			if coords.count > 1 {
-				let innerCoords = coords[1..<coords.count]
-				let innerPolygons = innerCoords.map { coords -> MGLPolygon in
-					var coords = coords
-					return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
-				}
-				return RedAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count), interiorPolygons: innerPolygons)
-			} else {
-				return RedAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count))
-			}
-		}
-		
-		let redGeometries: [RedAdvisory] = airspaces
-			.flatMap { advisory -> AirMapPolygon? in
-                switch advisory.type {
-                case .airport:
-                     return advisory.propertyBoundary as? AirMapPolygon
-                default:
-                    return advisory.geometry as? AirMapPolygon
-                }
-            }
-			.map(polygonMapper)
-		
-        let redPropertyBounderies: [RedAdvisory] = airspaces
-            .flatMap { $0.propertyBoundary as? AirMapPolygon }
-			.map(polygonMapper)
-		
-		mapView.add(redGeometries + redPropertyBounderies)
-	}
-	
-	fileprivate func drawPermitAdvisoryAirspaces(_ airspacePermits: [AirspacePermitting]) {
-		
-		let existingPermitAdvisories = mapView.annotations?.flatMap { $0 as? PermitAdvisory} ?? []
-		
-		let newAdvisories: [PermitAdvisory] = airspacePermits
-			.filter { $0.airspace.geometry as? AirMapPolygon != nil }
-			.map { airspacePermit in
-
-				let polygon = airspacePermit.airspace.geometry as! AirMapPolygon
-				var coords = polygon.coordinates as [[CLLocationCoordinate2D]]
-				var outerCoords = coords.first!
-				
-				if coords.count > 1 {
-					let innerCoords = coords[1..<coords.count]
-					let innerPolygons = innerCoords.map { coords -> MGLPolygon in
-						var coords = coords
-						return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
-					}
-					let advisory = PermitAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count), interiorPolygons: innerPolygons)
-					advisory.airspace = airspacePermit.airspace
-					advisory.hasPermit = airspacePermit.hasPermit
-					return advisory
-				} else {
-					let advisory = PermitAdvisory(coordinates: &outerCoords, count: UInt(outerCoords.count))
-                    advisory.airspace = airspacePermit.airspace
-                    advisory.hasPermit = airspacePermit.hasPermit
-					return advisory
-				}
-			}
-		
-		let orphans = Set(existingPermitAdvisories).subtracting(Set(newAdvisories))
-		mapView.remove(Array(orphans))
-		
-		let new = Set(newAdvisories).subtracting(existingPermitAdvisories)
-		mapView.add(Array(new))
-	}
-	
 	fileprivate func centerFlightPlan() {
-		if let annotations = mapView.annotations?.filter( { !($0 is RedAdvisory) }) {
+		if let annotations = mapView.annotations {
 			
 			let insets: UIEdgeInsets
 			switch selectedGeoType.value {

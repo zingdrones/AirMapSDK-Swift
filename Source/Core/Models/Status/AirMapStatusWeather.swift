@@ -43,3 +43,4 @@ extension AirMapStatusWeather: Mappable {
 		icon		  <- map["icon"]
 	}
 }
+

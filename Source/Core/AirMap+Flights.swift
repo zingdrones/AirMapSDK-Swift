@@ -29,7 +29,7 @@ extension AirMap_Flight {
 	///   - limit: The maximum number of flights to return. Optional
 	///   - completion: A completion handler to call with the Result
 	public static func listFlights(for pilot: AirMapPilot, limit: Int? = 100, completion: @escaping (Result<[AirMapFlight]>) -> Void) {
-		flightClient.list(limit: limit, pilotId: pilot.pilotId).subscribe(completion)
+		flightClient.list(limit: limit, pilotId: pilot.id).subscribe(completion)
 	}
 	
 	/// Get the current flight belonging to the currently authenticated pilot

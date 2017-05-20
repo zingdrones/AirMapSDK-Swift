@@ -127,10 +127,11 @@ extension AirMapTelemetryServices {
 			throw TelemetryError.invalidCredentials
 		}
 		
-		guard flight.flightId != nil else {
+		guard flight.id != nil else {
 			logger.error(self, "Flight must exist before sending telemetry data. Call AirMap.createFlight(_:handler:)) before sending data.")
 			throw TelemetryError.invalidFlight
 		}
 	}
 	
 }
+

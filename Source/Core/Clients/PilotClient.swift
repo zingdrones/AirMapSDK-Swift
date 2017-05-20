@@ -26,7 +26,7 @@ internal class PilotClient: HTTPClient {
 
 	func update(_ pilot: AirMapPilot) -> Observable<AirMapPilot> {
 		AirMap.logger.debug("Update Pilot", pilot)
-		return perform(method: .patch, path:"/\(pilot.pilotId ?? "")", params: pilot.params())
+		return perform(method: .patch, path:"/\(pilot.id ?? "")", params: pilot.params())
 	}
 	
 	func sendVerificationToken() -> Observable<Void> {
@@ -62,12 +62,12 @@ extension PilotClient_Aircraft {
 	func updateAircraft(_ aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
 		AirMap.logger.debug("Update Aircraft", aircraft)
 		let params = ["nickname": aircraft.nickname as Any]
-		return perform(method: .patch, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.aircraftId ?? "")", params: params, update: aircraft)
+		return perform(method: .patch, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.id ?? "")", params: params, update: aircraft)
 	}
 
 	func deleteAircraft(_ aircraft: AirMapAircraft) -> Observable<Void> {
 		AirMap.logger.debug("Delete Aircraft", aircraft)
-		return perform(method: .delete, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.aircraftId ?? "")")
+		return perform(method: .delete, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.id ?? "")")
 	}
 }
 

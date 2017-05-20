@@ -25,24 +25,13 @@ class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
 	}
 	
 	func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
-
-		switch annotation {
-		case is RedAdvisory:
-			return .airMapRed
-		case is PermitAdvisory:
-			let permitAdvisory = annotation as! PermitAdvisory
-			return permitAdvisory.hasPermit ? .airMapGreen : .airMapYellow
-		default:
-			return .airMapLightBlue
-		}
+        return .airMapLightBlue
 	}
 	
 	func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
 		switch annotation {
 		case is MGLPolyline:
 			return 1.0
-		case is RedAdvisory:
-			return 0.333
 		default:
 			return 0.5
 		}

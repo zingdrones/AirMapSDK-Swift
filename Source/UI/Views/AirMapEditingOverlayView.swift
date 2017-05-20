@@ -1,5 +1,5 @@
 //
-//  AirMapPointEditingOverlay.swift
+//  AirMapEditingOverlayView.swift
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 9/13/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AirMapPointEditingOverlay: UIView {
+class AirMapEditingOverlayView: UIView {
 	
 	fileprivate var points = [[CGPoint]]()
 		

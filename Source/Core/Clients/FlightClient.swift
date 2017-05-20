@@ -21,7 +21,7 @@ internal class FlightClient: HTTPClient {
 	/// - Parameter flight: The flight for which to request an encryption key
 	/// - Returns: A comm key Observable
 	func getCommKey(flight: AirMapFlight) -> Observable<CommKey> {
-		return perform(method: .post, path: "/\(flight.flightId!)/start-comm")
+		return perform(method: .post, path: "/\(flight.id!)/start-comm")
 	}
 
 	/// Called when a device no longer wants to receive push notifications for traffic alerts
@@ -29,7 +29,7 @@ internal class FlightClient: HTTPClient {
 	/// - Parameter flight: The flight for which to request an encryption key
 	/// - Returns: A Void Observable
 	func clearCommKey(flight: AirMapFlight) -> Observable<Void> {
-		return perform(method: .post, path: "/\(flight.flightId!)/end-comm")
+		return perform(method: .post, path: "/\(flight.id!)/end-comm")
 	}
 	#endif
 
@@ -102,11 +102,11 @@ internal class FlightClient: HTTPClient {
 
 	func end(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("End flight", flight)
-		return perform(method: .post, path:"/\(flight.flightId!)/end", update: flight)
+		return perform(method: .post, path:"/\(flight.id!)/end", update: flight)
 	}
 
 	func delete(_ flight: AirMapFlight) -> Observable<Void> {
 		AirMap.logger.debug("Delete flight", flight)
-		return perform(method: .post, path:"/\(flight.flightId!)/delete")
+		return perform(method: .post, path:"/\(flight.id!)/delete")
 	}
 }

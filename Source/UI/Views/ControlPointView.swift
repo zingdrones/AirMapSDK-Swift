@@ -33,13 +33,13 @@ class ControlPoint: MGLPointAnnotation {
 	}
 }
 
-protocol ControlPointDelegate: class {
+public protocol ControlPointDelegate: class {
 	func didStartDragging(_ controlPoint: ControlPointView)
 	func didDrag(_ controlPoint: ControlPointView, to point: CGPoint)
 	func didEndDragging(_ controlPoint: ControlPointView)
 }
 
-class ControlPointView: MGLAnnotationView {
+public class ControlPointView: MGLAnnotationView {
 	
 	weak var delegate: ControlPointDelegate?
 	
@@ -75,11 +75,11 @@ class ControlPointView: MGLAnnotationView {
 		layer.borderColor = UIColor.clear.cgColor
 	}
 	
-	required init?(coder aDecoder: NSCoder) {
+	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
-	override func layoutSubviews() {
+	public override func layoutSubviews() {
 		super.layoutSubviews()
 		layer.cornerRadius = bounds.size.width / 2
 	}
@@ -109,7 +109,7 @@ class ControlPointView: MGLAnnotationView {
 		}
 	}
 	
-	override func setDragState(_ dragState: MGLAnnotationViewDragState, animated: Bool) {
+	public override func setDragState(_ dragState: MGLAnnotationViewDragState, animated: Bool) {
 		super.setDragState(dragState, animated: animated)
 		
 		switch dragState {

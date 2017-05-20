@@ -13,13 +13,15 @@ public class AirMapJurisdiction: Mappable {
 	
 	public enum Region: String {
 		case federal
+        case federalBackup = "federal backup"
+        case federalStructureBackup = "federal structure backup"
 		case state
 		case county
 		case city
 		case local
 		
 		var order: Int {
-			return [.federal, .state, .county, .city, .local].index(of: self)!
+			return [.federal, .federal, .federalStructureBackup, .state, .county, .city, .local].index(of: self)!
 		}
 	}
 	
