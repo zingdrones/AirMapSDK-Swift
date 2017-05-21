@@ -39,7 +39,7 @@ PODS:
   - AirMapSDK/UI (1.0.2):
     - AirMapSDK/Core
     - libPhoneNumber-iOS
-    - Lock (< 2.0.0)
+    - Lock
     - Mapbox-iOS-SDK
     - PhoneNumberKit
     - RxDataSources
@@ -64,7 +64,7 @@ PODS:
   - Lock/WebView (1.29.0):
     - Lock/CoreUI
   - Log (1.0)
-  - Mapbox-iOS-SDK (3.5.2)
+  - Mapbox-iOS-SDK (3.5.4)
   - Masonry (0.6.4)
   - Nimble (6.1.0)
   - ObjectMapper (2.2.5)
@@ -119,7 +119,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AirMapSDK: a80468c4750c680a51fa88f32f2d4fd55d7db3c4
+  AirMapSDK: df2b5907c5908d3b00b62e4a618a65ab3cd6eccd
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
   CryptoSwift: f21ea03ed3a94e79d241648ce26652cd4810508a
@@ -127,7 +127,7 @@ SPEC CHECKSUMS:
   libPhoneNumber-iOS: 36044ed9658b5c11ee3cb3011751e47251d34992
   Lock: 4ab412117882b11e37b49bdff11c2a936d7a8d1a
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
-  Mapbox-iOS-SDK: d0d58079e56e4eed4f0d8726afdbd49a76de8e5a
+  Mapbox-iOS-SDK: 81197829dcf4c4ed9a593b7a95462881b5f1309a
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   Nimble: c53e6903fee94041b90ded74f135820437d8bf59
   ObjectMapper: fb30f71e08470d1e5a20b199fafe1246281db898

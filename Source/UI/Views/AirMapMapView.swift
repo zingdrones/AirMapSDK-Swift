@@ -10,6 +10,7 @@ import UIKit
 import Mapbox
 import RxSwift
 import ObjectMapper
+import GLKit
 
 open class AirMapMapView: MGLMapView {
 	
@@ -29,7 +30,6 @@ open class AirMapMapView: MGLMapView {
 
 	let drawingOverlay = AirMapDrawingOverlayView()
 	let editingOverlay = AirMapEditingOverlayView()
-	var flightComposeState: FlightComposeState?
 	
 	// MARK: - Setup
 	
@@ -102,6 +102,17 @@ open class AirMapMapView: MGLMapView {
 		let uniqueJurisdictions = Array(Set(visibleJurisdictions))
 		
 		return uniqueJurisdictions
+	}
+	
+	// MARK: - View Lifecycle
+	
+	open override func layoutSubviews() {
+		super.layoutSubviews()
+		
+		// Insert the editing view below the annotations view
+		if let mapGLKView = subviews.first(where: {$0 is GLKView }) {
+			mapGLKView.insertSubview(editingOverlay, at: 0)
+		}
 	}
 	
 	// MARK: - Private

@@ -16,6 +16,8 @@ class AirMapFlightTypeButton: UIButton {
 		adjustInsets()
 	}
 	
+	// center align the text label below the image
+	
 	fileprivate func adjustInsets() {
 		
 		let spacing: CGFloat = 3.0
