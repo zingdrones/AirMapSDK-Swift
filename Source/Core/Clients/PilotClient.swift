@@ -1,5 +1,5 @@
 //
-//  DataClient.swift
+//  PilotClient.swift
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 6/28/16.

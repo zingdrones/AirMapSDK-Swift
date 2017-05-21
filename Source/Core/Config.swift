@@ -30,6 +30,9 @@ struct Config {
 		static var pilotUrl: String {
 			return AirMapApi.urlForResource("pilot", version: "v2")
 		}
+		static var flightPlanUrl: String {
+			return AirMapApi.urlForResource("plan", version: "v1")
+		}
         static var authUrl: String {
             return AirMapApi.urlForResource("auth", version: "v1")
         }
@@ -106,6 +109,8 @@ struct Config {
 		static let minimumRadius: Meters = 10
 		static let maximumRadius: Meters = 1_000
 		static let feetPerMeters: Feet = 3.2808
+		static let tileMinimumZoomLevel = 7
+		static let tileMaximumZoomLevel = 15
 	}
 	
 }

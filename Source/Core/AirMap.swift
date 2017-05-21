@@ -20,7 +20,7 @@ public enum Result<T> {
 /// The pricipal AirMapSDK class that is extended by individual services such as Status, Flight, Pilot, Rules, etc.
 public class AirMap {
 	
-	// The current environment settings and configuration of the AirMap SDK
+	/// The current environment settings and configuration of the AirMap SDK
 	public internal(set) static var configuration = AirMapConfiguration.loadConfig()
 
 	/// A JWT auth token that identifies the logged in user accessing the service. Required for all authenticated endpoints.

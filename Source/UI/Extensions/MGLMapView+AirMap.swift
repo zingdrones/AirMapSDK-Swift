@@ -202,8 +202,8 @@ extension MGLVectorSource {
 		
 		let layerNames = ruleSet.layers.map{$0}.joined(separator: ",")
 		let options = [
-			MGLTileSourceOption.minimumZoomLevel: 7,
-			MGLTileSourceOption.maximumZoomLevel: 16
+			MGLTileSourceOption.minimumZoomLevel: Config.Maps.tileMinimumZoomLevel,
+			MGLTileSourceOption.maximumZoomLevel: Config.Maps.tileMaximumZoomLevel
 		]
 		let urlTemplate = "http://ec2-54-200-159-247.us-west-2.compute.amazonaws.com:3000/\(ruleSet.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey!)"
 		
