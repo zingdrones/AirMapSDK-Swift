@@ -15,18 +15,16 @@ public class AirMapRule: Mappable {
 		case conflicting
 		case notConflicting = "not_conflicting"
 		case missingInfo = "missing_info"
-//		case informational
+		case informational
 	}
 	
-	public let id: Int
-	public let shortText: String
 	public let description: String
+	public let shortText: String?
 	public let status: Status
 	
 	public required init?(map: Map) {
 		do {
-			id           =  try  map.value("id")
-			shortText    =  try  map.value("short_text")
+			shortText    =  try? map.value("short_text")
 			description  =  try  map.value("description")
 			status       = (try? map.value("status")) ?? .unevaluated
 		}
@@ -37,15 +35,4 @@ public class AirMapRule: Mappable {
 	}
 	
 	public func mapping(map: Map) {}
-}
-
-extension AirMapRule: Hashable, Equatable {
-	
-	static public func ==(lhs: AirMapRule, rhs: AirMapRule) -> Bool {
-		return lhs.hashValue == rhs.hashValue
-	}
-
-	public var hashValue: Int {
-		return id.hashValue
-	}
 }

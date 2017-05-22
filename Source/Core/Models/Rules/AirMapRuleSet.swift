@@ -13,29 +13,29 @@ public enum DataOrigin: MapContext {
 	case airMapApi
 }
 
-public enum AirMapRuleSetType: String {
-	case optional
-	case pickOne = "pick1"
-	case required
+public class AirMapRuleSet: Mappable {
 	
-	public var name: String {
-		switch self {
-		case .optional:
-			return "Optional"
-		case .pickOne:
-			return "Pick One"
-		case .required:
-			return "Required"
+	public enum SelectionType: String {
+		case optional
+		case pickOne = "pick1"
+		case required
+		
+		public var name: String {
+			switch self {
+			case .optional:
+				return "Optional"
+			case .pickOne:
+				return "Pick One"
+			case .required:
+				return "Required"
+			}
 		}
 	}
-}
-
-public class AirMapRuleSet: Mappable {
 	
 	public let id: String
 	public let name: String
 	public let shortName: String
-	public let type: AirMapRuleSetType
+	public let type: SelectionType
 	public let layers: [String]
 	public let isDefault: Bool
 	public let rules: [AirMapRule]
@@ -63,7 +63,7 @@ public class AirMapRuleSet: Mappable {
 			if let context = map.context as? DataOrigin, context == .tileService {
                 type        = try map.value("type")
 				rules       = []
-				description = "N/A"
+				description = try map.value("short_description")
 				layers      = try map.value("layers") as [String]
                 isDefault   = try map.value("default")
 				jurisdictionName = nil
