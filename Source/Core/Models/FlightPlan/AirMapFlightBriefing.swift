@@ -10,6 +10,7 @@ import ObjectMapper
 
 public class AirMapFlightBriefing: Mappable {
 	
+	public let flightPlan: AirMapFlightPlan
 	public let color: AirMapStatus.StatusColor
 	public let createdAt: Date
 	public let rulesets: [AirMapRuleSet]
@@ -17,10 +18,11 @@ public class AirMapFlightBriefing: Mappable {
 	
 	public required init?(map: Map) {
 		do {
-			color       = try map.value("color")
-			createdAt   = try map.value("created_at")
-			rulesets    = try map.value("rulesets")
-			airspace    = try map.value("airspace")
+			flightPlan  = try map.value("plan")
+			color       = try map.value("briefing.color")
+			createdAt   = try map.value("briefing.created_at")
+			rulesets    = try map.value("briefing.rulesets")
+			airspace    = try map.value("briefing.airspace")
 		}
 		catch let error {
 			print(error)

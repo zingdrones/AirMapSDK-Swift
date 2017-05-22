@@ -14,12 +14,18 @@ import RxCocoa
 import RxSwiftExt
 import SwiftTurf
 
-/// A protocol any class can conform to that enables it to compose a new point+radius,
-/// path+buffer, or area flight plan.
+public protocol AirMapFlightComposerDelegate: class {
+	func flightComposerDidUpdate(geometry: AirMapGeometry, buffer: Meters)
+}
+
+/// A helper class for creating point, path, or area flight plan on an AirMapMapView.
 public class AirMapFlightComposer {
 
 	/// The map view that will contain the draft flight plan
 	public var mapView: AirMapMapView
+	
+	/// A delegate to be notified of changes to the composed flight
+	public weak var delegate: AirMapFlightComposerDelegate?
 
 	// FIXME: Remove these
 	public var actionButton: UIButton!
@@ -720,6 +726,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		}
 		
 		state.value = .panning
+		
+		delegate?.flightComposerDidUpdate(geometry: flight.geometry!, buffer: flight.buffer!)
 	}
 	
 	fileprivate func drawInvalidIntersections(_ kinks: FeatureCollection?) {
@@ -742,7 +750,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			case .area:
 				insets = UIEdgeInsetsMake(80, 45, 20, 45)
 			case .point:
-				insets = UIEdgeInsetsMake(10, 45, 60, 45)
+				insets = UIEdgeInsetsMake(60, 45, 360, 45)
 			}
 			
 			mapView.showAnnotations(annotations, edgePadding: insets, animated: true)
@@ -946,4 +954,3 @@ extension AirMapFlightComposer: ControlPointDelegate {
 	}
 	
 }
-

@@ -43,6 +43,18 @@ extension Reactive where Base: AirMap_Flight {
 	}
 }
 
+/// Documentation found in AirMap+Flights.swift
+extension Reactive where Base: AirMap_FlightPlan {
+	
+	public static func createFlightPlan(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightBriefing> {
+		return AirMap.flightPlanClient.create(flightPlan)
+	}
+
+	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightBriefing> {
+		return AirMap.flightPlanClient.update(flightPlan)
+	}
+}
+
 /// Documentation found in AirMap+Aircraft.swift
 extension Reactive where Base: AirMap_Aircraft {
 

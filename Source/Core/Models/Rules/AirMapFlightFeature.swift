@@ -9,10 +9,17 @@
 import ObjectMapper
 
 public class AirMapFlightFeature: Mappable {
-	
-	public enum InputType {
-		case bool(Bool)
-		case float(Double)
+		
+	public enum InputType: String {
+		case bool
+		case float
+		
+		var type: Any.Type {
+			switch self {
+			case .bool:  return Bool.self
+			case .float: return Double.self
+			}
+		}
 	}
 	
 	public let id: Int
@@ -36,20 +43,6 @@ public class AirMapFlightFeature: Mappable {
 	}
 	
 	public func mapping(map: Map) {}
-	
-//	func objectForMapping(map: Map) -> BaseMappable? {
-//		
-//		guard let type: String = map["input_type"].value() else { return nil }
-//	
-//		switch type {
-//		case "bool":
-//			return AirMapFlightFeature<Bool>.self
-//		case "float":
-//			return AirMapFlightFeature<Double>.self
-//		default:
-//			return nil
-//		}
-//	}
 }
 
 extension AirMapFlightFeature: Equatable, Hashable {

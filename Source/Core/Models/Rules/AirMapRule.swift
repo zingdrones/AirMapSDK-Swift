@@ -10,15 +10,25 @@ import ObjectMapper
 
 public class AirMapRule: Mappable {
 	
+	public enum Status: String {
+		case unevaluated
+		case conflicting
+		case notConflicting = "not_conflicting"
+		case missingInfo = "missing_info"
+//		case informational
+	}
+	
 	public let id: Int
+	public let shortText: String
 	public let description: String
-	public let features: [AirMapFlightFeature]
+	public let status: Status
 	
 	public required init?(map: Map) {
 		do {
-			id           = try map.value("id")
-			description  = try map.value("description")
-			features     = try map.value("flight_features")
+			id           =  try  map.value("id")
+			shortText    =  try  map.value("short_text")
+			description  =  try  map.value("description")
+			status       = (try? map.value("status")) ?? .unevaluated
 		}
 		catch let error {
 			print(error)

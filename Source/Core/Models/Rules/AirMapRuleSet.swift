@@ -40,6 +40,7 @@ public class AirMapRuleSet: Mappable {
 	public let isDefault: Bool
 	public let rules: [AirMapRule]
 	public let description: String
+	public let jurisdictionName: String?
 	
 	internal var order: Int {
 		return [.pickOne, .optional, .required].index(of: self.type)!
@@ -65,14 +66,14 @@ public class AirMapRuleSet: Mappable {
 				description = "N/A"
 				layers      = try map.value("layers") as [String]
                 isDefault   = try map.value("default")
-
+				jurisdictionName = nil
 			} else {
                 type        = try map.value("selection_type")
 				rules       = try map.value("rules")
 				description = try map.value("description")
 				layers      = []
-				// FIXME: Remove once API returns default
-				isDefault = false
+				isDefault   = try map.value("default")
+				jurisdictionName = try map.value("jurisdiction_name")
 			}
 		}
 		catch let error {

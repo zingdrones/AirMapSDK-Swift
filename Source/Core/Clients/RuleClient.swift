@@ -42,4 +42,3 @@ internal class RuleClient: HTTPClient {
 		return perform(method: .get, path: "/rule", params: params)
 	}
 }
-

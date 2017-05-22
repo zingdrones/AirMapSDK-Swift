@@ -74,5 +74,27 @@ extension AirMap_Flight {
 	public static func deleteFlight(_ flight: AirMapFlight, completion: @escaping (Result<Void>) -> Void) {
 		flightClient.delete(flight).subscribe(completion)
 	}
+	
+}
 
+public typealias AirMap_FlightPlan = AirMap
+extension AirMap_FlightPlan {
+
+	/// Create a flight plan and receive a briefing
+	///
+	/// - Parameters:
+	///   - flightPlan: The flight plan to create
+	///   - completion: A completion handler with the briefing result
+	public static func createFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightBriefing>) -> Void) {
+		flightPlanClient.create(flightPlan).subscribe(completion)
+	}
+
+	/// Update a flight plan and receive a briefing
+	///
+	/// - Parameters:
+	///   - flightPlan: The flight plan to update
+	///   - completion: A completion handler with the udpated briefing result
+	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightBriefing>) -> Void) {
+		flightPlanClient.update(flightPlan).subscribe(completion)
+	}
 }

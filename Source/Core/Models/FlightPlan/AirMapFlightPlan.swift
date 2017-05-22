@@ -6,7 +6,9 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import ObjectMapper
+import SwiftTurf
 
 public class AirMapFlightPlan: Mappable {
 	
@@ -18,7 +20,7 @@ public class AirMapFlightPlan: Mappable {
 	
 	// Temporal constraints
 	public var startTime = Date()
-	public var endTime = Date()
+	public var endTime = Date().addingTimeInterval(60*60) // 1 hour default duration
 	
 	// Spatial constraints
 	public var takeoffLatitude: Double
@@ -62,11 +64,10 @@ public class AirMapFlightPlan: Mappable {
 		takeoffLongitude    <-  map["takeoff_longitude"]
 		targetAltitudeAGL   <-  map["target_altitude_agl"]
 		buffer              <-  map["buffer"]
-		geometry            <-  map["geometry"]
+		geometry            <- (map["geometry"], GeoJSONToAirMapGeometryTransform())
 		maximumAltitudeAGL  <-  map["max_altitude_agl"]
 		minimumAltitudeAGL  <-  map["min_altitude_agl"]
 		targetAltitudeAGL   <-  map["target_altitude_agl"]
 	}
-	
 	
 }

@@ -50,6 +50,7 @@ Pod::Spec.new do |s|
 		ui.dependency 'Lock'
 		ui.dependency 'SwiftSimplify'
 		ui.dependency 'SwiftTurf'
+		ui.dependency 'FZAccordionTableView'
 		ui.source_files = 'Source/UI/**/{*.swift}'
 		ui.resources = ['Resources/UI/*.{xcassets}', 'Resources/UI/Localizations/**/*']
 	end

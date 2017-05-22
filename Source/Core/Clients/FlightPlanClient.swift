@@ -7,22 +7,30 @@
 //
 
 import RxSwift
+import ObjectMapper
 
 internal class FlightPlanClient: HTTPClient {
 	
+	enum FlightPlanClientError: Error {
+		case flightPlanDoesntExistCreateFirst
+	}
+
 	init() {
 		super.init(basePath: Config.AirMapApi.flightPlanUrl)
 	}
 	
-	func create(_ flightPlan: AirMapFlight) -> Observable<AirMapAircraft> {
-		AirMap.logger.debug("Update Aircraft", aircraft)
-		let params = ["nickname": aircraft.nickname as Any]
-		return perform(method: .patch, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.id ?? "")", params: params, update: aircraft)
+	func create(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightBriefing> {
+		AirMap.logger.debug("Create Flight Plan", flightPlan)
+		let params = flightPlan.toJSON()
+		return perform(method: .post, path:"/plan/", params: params)
 	}
 	
-	func updateAircraft(_ aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
-		AirMap.logger.debug("Update Aircraft", aircraft)
-		let params = ["nickname": aircraft.nickname as Any]
-		return perform(method: .patch, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.id ?? "")", params: params, update: aircraft)
+	func update(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightBriefing> {
+		AirMap.logger.debug("Update Flight Plan", flightPlan)
+		guard let flightPlanId = flightPlan.id else {
+			return Observable.error(FlightPlanClientError.flightPlanDoesntExistCreateFirst)
+		}
+		let params = flightPlan.toJSON()
+		return perform(method: .patch, path:"/plan/\(flightPlanId)", params: params)
 	}
 }

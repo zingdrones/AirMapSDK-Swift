@@ -71,11 +71,11 @@ class CsvToArrayTransform: TransformType {
 class GeoJSONToAirMapGeometryTransform: TransformType {
 	
 	typealias Object = AirMapGeometry
-	typealias JSON = String
+	typealias JSON = [String: Any]
 	
 	func transformFromJSON(_ value: Any?) -> AirMapGeometry? {
 		
-		guard let geometry = value as? [String: Any], let type = geometry["type"] as? String else { return nil }
+		guard let geometry = value as? JSON, let type = geometry["type"] as? String else { return nil }
 		
 		switch type {
 		case "Polygon":
@@ -106,8 +106,8 @@ class GeoJSONToAirMapGeometryTransform: TransformType {
 		}
 	}
 	
-	func transformToJSON(_ value: AirMapGeometry?) -> String? {
+	func transformToJSON(_ value: AirMapGeometry?) -> JSON? {
 
-		return nil
+		return value?.params()
 	}
 }

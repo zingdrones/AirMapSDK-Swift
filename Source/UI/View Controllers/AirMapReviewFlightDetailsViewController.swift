@@ -131,3 +131,4 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 	}
 	
 }
+

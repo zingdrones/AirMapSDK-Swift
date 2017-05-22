@@ -386,3 +386,4 @@ extension AirMapFlightPlanViewController: UITableViewDataSource, UITableViewDele
 	}
 
 }
+
