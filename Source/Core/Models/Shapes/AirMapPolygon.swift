@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-internal class AirMapPolygon: AirMapGeometry, Mappable {
+public class AirMapPolygon: AirMapGeometry, Mappable {
 
 	public var coordinates: [[Coordinate2D]]!
 		
@@ -16,7 +16,7 @@ internal class AirMapPolygon: AirMapGeometry, Mappable {
 		return .polygon
 	}
 	
-	internal init(coordinates: [[Coordinate2D]]) {
+	public init(coordinates: [[Coordinate2D]]) {
 		self.coordinates = coordinates
 	}
 

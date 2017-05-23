@@ -16,7 +16,7 @@ public class AirMapPoint: AirMapGeometry, Mappable {
 		return .point
 	}
 	
-	init(coordinate: Coordinate2D) {
+	public init(coordinate: Coordinate2D) {
 		self.coordinate = coordinate
 	}
 	

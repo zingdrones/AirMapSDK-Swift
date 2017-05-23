@@ -41,9 +41,9 @@ public class AirMapRuleSet: Mappable {
 	public let rules: [AirMapRule]
 	public let description: String
 	public let jurisdictionName: String?
-	
+
 	internal var order: Int {
-		return [.pickOne, .optional, .required].index(of: self.type)!
+		return [.pickOne, .optional, .required].index(of: type)!
 	}
 
 	public var hashValue: Int {
@@ -59,16 +59,15 @@ public class AirMapRuleSet: Mappable {
 			id        = try map.value("id")
 			name      = try map.value("name")
 			shortName = try map.value("short_name")
+			type      = try map.value("selection_type")
 			
 			if let context = map.context as? DataOrigin, context == .tileService {
-                type        = try map.value("type")
 				rules       = []
 				description = try map.value("short_description")
 				layers      = try map.value("layers") as [String]
                 isDefault   = try map.value("default")
 				jurisdictionName = nil
 			} else {
-                type        = try map.value("selection_type")
 				rules       = try map.value("rules")
 				description = try map.value("description")
 				layers      = []

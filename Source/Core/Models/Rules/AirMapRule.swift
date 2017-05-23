@@ -21,12 +21,14 @@ public class AirMapRule: Mappable {
 	public let description: String
 	public let shortText: String?
 	public let status: Status
+	public let flightFeatures: [AirMapFlightFeature]
 	
 	public required init?(map: Map) {
 		do {
-			shortText    =  try? map.value("short_text")
-			description  =  try  map.value("description")
-			status       = (try? map.value("status")) ?? .unevaluated
+			shortText      =  try? map.value("short_text")
+			description    =  try  map.value("description")
+			flightFeatures = (try? map.value("flight_features")) ?? []
+			status         = (try? map.value("status")) ?? .unevaluated
 		}
 		catch let error {
 			print(error)

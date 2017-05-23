@@ -11,7 +11,7 @@ import Foundation
 public typealias AirMap_Advisories = AirMap
 extension AirMap_Advisories {
 	
-	public static func getAirspaceStatus(geometry: [Coordinate2D], ruleSets: [AirMapRuleSet]? = [], completion: @escaping (Result<AirMapAirspaceAdvisoryStatus>) -> Void) {
+	public static func getAirspaceStatus(geometry: AirMapGeometry, ruleSets: [AirMapRuleSet], completion: @escaping (Result<AirMapAirspaceAdvisoryStatus>) -> Void) {
 		advisoryClient.getAirspaceStatus(within: geometry, under: ruleSets).subscribe(completion)
 	}
 	

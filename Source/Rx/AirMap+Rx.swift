@@ -6,6 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Swift
 import RxSwift
 
 // Reactive extension for AirMap methods.
@@ -46,11 +47,11 @@ extension Reactive where Base: AirMap_Flight {
 /// Documentation found in AirMap+Flights.swift
 extension Reactive where Base: AirMap_FlightPlan {
 	
-	public static func createFlightPlan(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightBriefing> {
+	public static func createFlightPlan(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
 		return AirMap.flightPlanClient.create(flightPlan)
 	}
 
-	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightBriefing> {
+	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
 		return AirMap.flightPlanClient.update(flightPlan)
 	}
 }
@@ -207,6 +208,7 @@ extension Reactive where Base: AirMap_Auth {
         
         return AirMap.auth0Client.performLoginWithCode(phoneNumber:phoneNumber, code:code)
     }
+	
 }
 
 /// Documentation found in AirMap+Rules.swift
@@ -220,12 +222,16 @@ extension Reactive where Base: AirMap_Rules {
 		return AirMap.ruleClient.getRuleSet(by: identifier)
 	}
 
+	public static func getRuleSets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleSet]> {
+		return AirMap.ruleClient.getRuleSets(intersecting: geometry)
+	}
+
 }
 
 /// Documentation found in AirMap+Advisories.swift
 extension Reactive where Base: AirMap_Advisories {
 	
-	public static func getAirspaceStatus(geometry: [Coordinate2D], ruleSets: [AirMapRuleSet]? = []) -> Observable<AirMapAirspaceAdvisoryStatus> {
+	public static func getAirspaceStatus(geometry: AirMapGeometry, ruleSets: [AirMapRuleSet]) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		return AirMap.advisoryClient.getAirspaceStatus(within: geometry, under: ruleSets)
 	}
 	

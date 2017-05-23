@@ -24,4 +24,8 @@ extension AirMap_Rules {
 		ruleClient.getRuleSet(by: identifier).subscribe(completion)
 	}
 
+	public static func getRuleSets(intersecting geometry: AirMapGeometry, completion: @escaping (Result<[AirMapRuleSet]>) -> Void) {
+		ruleClient.getRuleSets(intersecting: geometry).subscribe(completion)
+	}
+
 }

@@ -22,6 +22,13 @@ internal class RuleClient: HTTPClient {
 		return perform(method: .get, path: "/" + identifier)
 	}
 	
+	func getRuleSets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleSet]> {
+		let params: [String: Any] = [
+			"geometry": geometry.params()
+		]
+		return perform(method: .get, path: "/", params: params)
+	}
+	
 	func listRules(for ruleSets: [AirMapRuleSet]) -> Observable<[AirMapRule]> {
 		AirMap.logger.debug("Getting rules for ruleset:", ruleSets.identifiers)
 		let params = ["rulesets": ruleSets.identifiers]

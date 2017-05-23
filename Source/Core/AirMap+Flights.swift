@@ -80,21 +80,21 @@ extension AirMap_Flight {
 public typealias AirMap_FlightPlan = AirMap
 extension AirMap_FlightPlan {
 
-	/// Create a flight plan and receive a briefing
+	/// Create a flight plan
 	///
 	/// - Parameters:
 	///   - flightPlan: The flight plan to create
-	///   - completion: A completion handler with the briefing result
-	public static func createFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightBriefing>) -> Void) {
+	///   - completion: A completion handler with the flight plan result
+	public static func createFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
 		flightPlanClient.create(flightPlan).subscribe(completion)
 	}
 
-	/// Update a flight plan and receive a briefing
+	/// Update a flight plan
 	///
 	/// - Parameters:
 	///   - flightPlan: The flight plan to update
-	///   - completion: A completion handler with the udpated briefing result
-	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightBriefing>) -> Void) {
+	///   - completion: A completion handler with the udpated flight plan result
+	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
 		flightPlanClient.update(flightPlan).subscribe(completion)
 	}
 }
