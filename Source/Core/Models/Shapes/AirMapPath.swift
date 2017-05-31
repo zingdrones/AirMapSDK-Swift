@@ -23,7 +23,7 @@ public class AirMapPath: AirMapGeometry, Mappable {
 	required public init?(map: Map) {}
 
 	public func params() -> [String: Any] {
-
+		
 		return [
 			"type": "LineString",
 			"coordinates": coordinates?.map({ [$0.longitude, $0.latitude] }) as Any

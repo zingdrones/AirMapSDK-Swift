@@ -7,6 +7,7 @@
 //
 
 import ObjectMapper
+import SwiftTurf
 
 public class AirMapPoint: AirMapGeometry, Mappable {
 
@@ -33,5 +34,4 @@ public class AirMapPoint: AirMapGeometry, Mappable {
 			"coordinates": [coordinate.latitude, coordinate.longitude]
 		]
 	}
-
 }

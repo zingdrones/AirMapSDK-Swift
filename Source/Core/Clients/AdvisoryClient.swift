@@ -6,8 +6,8 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import RxSwift
-import SwiftTurf
 
 internal class AdvisoryClient: HTTPClient {
 	
@@ -22,27 +22,13 @@ internal class AdvisoryClient: HTTPClient {
 	func getAirspaceStatus(within geometry: AirMapGeometry, under ruleSets: [AirMapRuleSet]) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		let ruleSetIdentifiers = ruleSets.identifiers
 		AirMap.logger.debug("GET Rules under", ruleSetIdentifiers)
+		let geometryData = try! JSONSerialization.data(withJSONObject: geometry.geoJSONDictionary, options: [])
+		let geometryJSON = String(data: geometryData, encoding: .utf8)
 		let params: [String: Any] = [
-			"geometry": geometry.geoJSONDictionary,
+			"geometry": geometryJSON ?? "",
 			"rulesets": ruleSetIdentifiers
 		]
 		
 		return perform(method: .get, path: "/airspace", params: params)
-	}
-}
-
-extension AirMapGeometry {
-	
-	var geoJSONDictionary: GeoJSONDictionary {
-		switch self {
-		case let point as AirMapPoint:
-			return Point(geometry: point.coordinate).geoJSONRepresentation()
-		case let polygon as AirMapPolygon:
-			return Polygon(geometry: polygon.coordinates).geoJSONRepresentation()
-		case let path as AirMapPath:
-			return LineString(geometry: path.coordinates).geoJSONRepresentation()
-		default:
-			fatalError()
-		}
 	}
 }

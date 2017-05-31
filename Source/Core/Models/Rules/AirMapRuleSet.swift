@@ -41,6 +41,7 @@ public class AirMapRuleSet: Mappable {
 	public let rules: [AirMapRule]
 	public let description: String
 	
+	public internal(set) var jurisdictionId: Int!
 	public internal(set) var jurisdictionName: String!
 	public internal(set) var jurisdictionRegion: AirMapJurisdiction.Region!
 
@@ -74,8 +75,9 @@ public class AirMapRuleSet: Mappable {
 				layers      = []
 				isDefault   = try map.value("default")
 
-				jurisdictionName   = try? map.value("jurisdiction_name")
-				jurisdictionRegion = try? map.value("region")
+				jurisdictionId     = try? map.value("jurisdiction.id")
+				jurisdictionName   = try? map.value("jurisdiction.name")
+				jurisdictionRegion = try? map.value("jurisdiction.region")
 			}
 		}
 		catch let error {
@@ -123,19 +125,17 @@ extension Sequence where Iterator.Element == AirMapRuleSet {
 	
 	public var jurisdictions: [AirMapJurisdiction] {
 		return self
-			.reduce([String: String]()) { (dict, next) -> [String: String] in
+			.reduce([Int: Int]()) { (dict, next) -> [Int: Int] in
 				var dict = dict
-				dict[next.jurisdictionName] = next.jurisdictionName
+				dict[next.jurisdictionId] = next.jurisdictionId
 				return dict
 			}
 			.keys
-			.map { (name) -> AirMapJurisdiction in
-				let rs = filter({ $0.jurisdictionName == name })
+			.map { (id) -> AirMapJurisdiction in
+				let rs = filter({ $0.jurisdictionId == id })
 				let j = rs.first!
-				return AirMapJurisdiction(name: j.jurisdictionName, region: j.jurisdictionRegion, ruleSets: rs)
+				return AirMapJurisdiction(id: j.jurisdictionId, name: j.jurisdictionName, region: j.jurisdictionRegion, ruleSets: rs)
 		}
 		
 	}
 }
-
-

@@ -26,10 +26,10 @@ public class AirMapFlightPlan: Mappable {
 	public var takeoffLatitude: Double
 	public var takeoffLongitude: Double
 	public var geometry: AirMapGeometry?
-	public var buffer: Double?
-	public var minimumAltitudeAGL: Double?
-	public var maximumAltitudeAGL: Double?
-	public var targetAltitudeAGL: Double?
+	public var buffer: Meters?
+	public var minimumAltitudeAGL: Meters?
+	public var maximumAltitudeAGL: Meters?
+	public var targetAltitudeAGL: Meters?
 	
 	// Rulesets
 	public var ruleSetsIds = [String]()
