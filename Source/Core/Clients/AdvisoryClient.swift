@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import SwiftTurf
 
 internal class AdvisoryClient: HTTPClient {
 	
@@ -18,11 +19,11 @@ internal class AdvisoryClient: HTTPClient {
 		case invalidPolygon
 	}
 	
-	func getAirspaceStatus(within polygon: AirMapGeometry, under ruleSets: [AirMapRuleSet]) -> Observable<AirMapAirspaceAdvisoryStatus> {
+	func getAirspaceStatus(within geometry: AirMapGeometry, under ruleSets: [AirMapRuleSet]) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		let ruleSetIdentifiers = ruleSets.identifiers
 		AirMap.logger.debug("GET Rules under", ruleSetIdentifiers)
 		let params: [String: Any] = [
-			"geometry": polygon.params,
+			"geometry": geometry.geoJSONDictionary,
 			"rulesets": ruleSetIdentifiers
 		]
 		
@@ -30,3 +31,18 @@ internal class AdvisoryClient: HTTPClient {
 	}
 }
 
+extension AirMapGeometry {
+	
+	var geoJSONDictionary: GeoJSONDictionary {
+		switch self {
+		case let point as AirMapPoint:
+			return Point(geometry: point.coordinate).geoJSONRepresentation()
+		case let polygon as AirMapPolygon:
+			return Polygon(geometry: polygon.coordinates).geoJSONRepresentation()
+		case let path as AirMapPath:
+			return LineString(geometry: path.coordinates).geoJSONRepresentation()
+		default:
+			fatalError()
+		}
+	}
+}

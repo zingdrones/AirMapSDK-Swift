@@ -40,7 +40,9 @@ public class AirMapRuleSet: Mappable {
 	public let isDefault: Bool
 	public let rules: [AirMapRule]
 	public let description: String
-	public let jurisdictionName: String?
+	
+	public internal(set) var jurisdictionName: String!
+	public internal(set) var jurisdictionRegion: AirMapJurisdiction.Region!
 
 	internal var order: Int {
 		return [.pickOne, .optional, .required].index(of: type)!
@@ -66,13 +68,14 @@ public class AirMapRuleSet: Mappable {
 				description = try map.value("short_description")
 				layers      = try map.value("layers") as [String]
                 isDefault   = try map.value("default")
-				jurisdictionName = nil
 			} else {
 				rules       = try map.value("rules")
 				description = try map.value("description")
 				layers      = []
 				isDefault   = try map.value("default")
-				jurisdictionName = try map.value("jurisdiction_name")
+
+				jurisdictionName   = try? map.value("jurisdiction_name")
+				jurisdictionRegion = try? map.value("region")
 			}
 		}
 		catch let error {
@@ -98,7 +101,41 @@ extension AirMapRuleSet: Hashable, Equatable, Comparable {
 
 extension Sequence where Iterator.Element == AirMapRuleSet {
 	
-	var identifiers: String {
+	public var identifiers: String {
 		return self.map { $0.id }.joined(separator: ",")
 	}
+	
+	public var requiredRuleSets: [AirMapRuleSet] {
+		return filter { $0.type == .required }
+	}
+	
+	public var pickOneRuleSets: [AirMapRuleSet] {
+		return filter { $0.type == .pickOne }
+	}
+	
+	public var defaultPickOneRuleSet: AirMapRuleSet? {
+		return pickOneRuleSets.first(where: { $0.isDefault }) ?? pickOneRuleSets.first
+	}
+	
+	public var optionalRuleSets: [AirMapRuleSet] {
+		return filter { $0.type == .optional }
+	}
+	
+	public var jurisdictions: [AirMapJurisdiction] {
+		return self
+			.reduce([String: String]()) { (dict, next) -> [String: String] in
+				var dict = dict
+				dict[next.jurisdictionName] = next.jurisdictionName
+				return dict
+			}
+			.keys
+			.map { (name) -> AirMapJurisdiction in
+				let rs = filter({ $0.jurisdictionName == name })
+				let j = rs.first!
+				return AirMapJurisdiction(name: j.jurisdictionName, region: j.jurisdictionRegion, ruleSets: rs)
+		}
+		
+	}
 }
+
+

@@ -24,7 +24,7 @@ public class AirMapJurisdiction: Mappable {
 		}
 	}
 	
-	public let id: Int
+//	public let id: Int
 	public let name: String
 	public let region: Region
 	public let ruleSets: [AirMapRuleSet]
@@ -32,15 +32,27 @@ public class AirMapJurisdiction: Mappable {
 	required public init?(map: Map) {
 		
 		do {
-			id       = try map.value("id")
+//			id       = try map.value("id")
 			name     = try map.value("name")
 			region   = try map.value("region")
 			ruleSets = try map.value("rulesets")
+			
+			ruleSets.forEach { ruleSet in
+				ruleSet.jurisdictionName = name
+				ruleSet.jurisdictionRegion = region
+			}
 		}
 		catch let error {
 			print(error)
 			return nil
 		}
+	}
+	
+	public init(name: String, region: Region, ruleSets: [AirMapRuleSet]) {
+//		self.id = id
+		self.name = name
+		self.region = region
+		self.ruleSets = ruleSets
 	}
 	
 	public func mapping(map: Map) {}
@@ -73,6 +85,7 @@ extension AirMapJurisdiction: Hashable, Equatable, Comparable {
 	}
 	
 	public var hashValue: Int {
-		return id.hashValue
+		return name.hashValue
+//		return id.hashValue
 	}
 }
