@@ -22,7 +22,7 @@ internal class RuleClient: HTTPClient {
 	func getRuleSet(by identifier: String) -> Observable<AirMapRuleSet> {
 		return perform(method: .get, path: "/" + identifier)
 	}
-	
+
 	func getRuleSets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleSet]> {
 		let geometryData = try! JSONSerialization.data(withJSONObject: geometry.params(), options: [])
 		let geometryJSON = String(data: geometryData, encoding: .utf8)
@@ -35,10 +35,10 @@ internal class RuleClient: HTTPClient {
 				ruleSets.filter { $0.shortName != "AMD"}
 			})
 	}
-	
-	func listRules(for ruleSets: [AirMapRuleSet]) -> Observable<[AirMapRule]> {
-		AirMap.logger.debug("Getting rules for ruleset:", ruleSets.identifiers)
-		let params = ["rulesets": ruleSets.identifiers]
+		
+	func listRules(for ruleSetIds: [String]) -> Observable<[AirMapRule]> {
+		AirMap.logger.debug("Getting rules for ruleset:", ruleSetIds)
+		let params = ["rulesets": ruleSetIds.joined(separator: ",")]
 		return perform(method: .get, path: "/rule", params: params)
 	}	
 }

@@ -16,8 +16,8 @@ extension AirMap_Rules {
 	/// - Parameters:
 	///   - ruleSets: Array of rule sets
 	///   - completion: Completion handler
-	public static func listRules(for ruleSets: [AirMapRuleSet], completion: @escaping (Result<[AirMapRule]>) -> Void) {
-		ruleClient.listRules(for: ruleSets).subscribe(completion)
+	public static func listRules(for ruleSetIds: [String], completion: @escaping (Result<[AirMapRule]>) -> Void) {
+		ruleClient.listRules(for: ruleSetIds).subscribe(completion)
 	}
 
 	public static func getRuleSet(by identifier: String, completion: @escaping (Result<AirMapRuleSet>) -> Void) {

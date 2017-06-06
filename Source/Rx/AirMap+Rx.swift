@@ -214,8 +214,8 @@ extension Reactive where Base: AirMap_Auth {
 /// Documentation found in AirMap+Rules.swift
 extension Reactive where Base: AirMap_Rules {
 
-	public static func listRules(for ruleSets: [AirMapRuleSet]) -> Observable<[AirMapRule]> {
-		return AirMap.ruleClient.listRules(for: ruleSets)
+	public static func listRules(for ruleSetIds: [String]) -> Observable<[AirMapRule]> {
+		return AirMap.ruleClient.listRules(for: ruleSetIds)
 	}
 	
 	public static func getRuleSet(by identifier: String) -> Observable<AirMapRuleSet> {
