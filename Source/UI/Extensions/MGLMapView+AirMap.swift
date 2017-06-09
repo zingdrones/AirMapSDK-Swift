@@ -205,8 +205,7 @@ extension MGLVectorSource {
 			MGLTileSourceOption.minimumZoomLevel: Config.Maps.tileMinimumZoomLevel,
 			MGLTileSourceOption.maximumZoomLevel: Config.Maps.tileMaximumZoomLevel
 		]
-//		let urlTemplate = "https://api.airmap.com/tiledata/stage/\(ruleSet.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey!)"
-		let urlTemplate = "http://ec2-54-200-159-247.us-west-2.compute.amazonaws.com:3000/\(ruleSet.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey!)"
+		let urlTemplate = "https://api.airmap.com/tiledata/stage/\(ruleSet.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey!)"
 		
 		self.init(identifier: ruleSet.tileSourceIdentifier, tileURLTemplates: [urlTemplate], options: options)
 	}

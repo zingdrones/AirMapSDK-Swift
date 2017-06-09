@@ -11,7 +11,7 @@ import ObjectMapper
 
 public class AirMapFlightFeature: Mappable {
 	
-	public let feature: String
+	public let code: String
 	public let description: String
 	public let inputType: InputType
 	public let measurementType: MeasurementType
@@ -44,7 +44,7 @@ public class AirMapFlightFeature: Mappable {
 	public required init?(map: Map) {
 
 		do {
-			feature         =  try  map.value("flight_feature")
+			code            =  try  map.value("flight_feature")
 			description     =  try  map.value("description")
 			inputType       =  try  map.value("input_type")
 			measurementType = (try? map.value("measurement_type")) ?? .binary

@@ -60,6 +60,7 @@ public class AirMapRuleSet: Mappable {
 	public required init?(map: Map) {
 		do {
 			id        = try map.value("id")
+			print(id)
 			name      = try map.value("name")
 			shortName = try map.value("short_name")
 			type      = try map.value("selection_type")
