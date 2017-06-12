@@ -746,11 +746,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			let insets: UIEdgeInsets
 			switch geoType.value {
 			case .path:
-				insets = UIEdgeInsetsMake(80, 45, 70, 45)
+				insets = UIEdgeInsetsMake(80, 45, 120, 45)
 			case .area:
-				insets = UIEdgeInsetsMake(80, 45, 20, 45)
+				insets = UIEdgeInsetsMake(80, 45, 120, 45)
 			case .point:
-				insets = UIEdgeInsetsMake(60, 45, 360, 45)
+				insets = UIEdgeInsetsMake(60, 45, 120, 45)
 			}
 			
 			mapView.showAnnotations(annotations, edgePadding: insets, animated: true)
