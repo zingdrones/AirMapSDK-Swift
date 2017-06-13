@@ -19,8 +19,11 @@ public class AirMapFlightPlan: Mappable {
 	public var aircraftId: String?
 	
 	// Temporal constraints
-	public var startTime = Date()
-	public var endTime = Date().addingTimeInterval(60*60) // 1 hour default duration
+	public var startTime: Date?
+	public var endTime: Date? {
+		return startTime?.addingTimeInterval(duration)
+	}
+	public var duration: TimeInterval = 60*60 // 1 hour default duration
 	
 	// Spatial constraints
 	public var takeoffLatitude: Double
@@ -55,19 +58,29 @@ public class AirMapFlightPlan: Mappable {
 	}
 
 	public func mapping(map: Map) {
+		
+		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
+		let geoJSONTransform = GeoJSONToAirMapGeometryTransform()
+
 		id                  <-  map["id"]
 		pilotId             <-  map["pilot_id"]
 		aircraftId          <-  map["aircraft_id"]
-		startTime           <-  map["start_time"]
-		endTime             <-  map["end_time"]
 		takeoffLatitude     <-  map["takeoff_latitude"]
 		takeoffLongitude    <-  map["takeoff_longitude"]
 		targetAltitudeAGL   <-  map["target_altitude_agl"]
 		buffer              <-  map["buffer"]
-		geometry            <- (map["geometry"], GeoJSONToAirMapGeometryTransform())
+		geometry            <- (map["geometry"], geoJSONTransform)
 		maximumAltitudeAGL  <-  map["max_altitude_agl"]
 		minimumAltitudeAGL  <-  map["min_altitude_agl"]
 		targetAltitudeAGL   <-  map["target_altitude_agl"]
+		startTime           <- (map["start_time"], dateTransform)
+
+		// derive duration from start and end time
+		var endTime: Date?
+		endTime <- (map["end_time"], dateTransform)
+		if let startTime = startTime, let endTime = endTime {
+			duration = endTime.timeIntervalSince(startTime)
+		}
 	}
 	
 }
