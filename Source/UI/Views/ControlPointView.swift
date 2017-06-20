@@ -14,7 +14,7 @@ enum ControlPointType {
 	case midPoint
 }
 
-class ControlPoint: MGLPointAnnotation {
+public class ControlPoint: MGLPointAnnotation {
 	
 	var type: ControlPointType
 	
@@ -24,11 +24,11 @@ class ControlPoint: MGLPointAnnotation {
 		self.coordinate = coordinate
 	}
 	
-	required init?(coder aDecoder: NSCoder) {
+	required public init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	override var hashValue: Int {
+	override public var hashValue: Int {
 		return coordinate.latitude.hashValue & coordinate.longitude.hashValue & type.hashValue
 	}
 }

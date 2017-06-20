@@ -97,4 +97,23 @@ extension AirMap_FlightPlan {
 	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
 		flightPlanClient.update(flightPlan).subscribe(completion)
 	}
+	
+	/// Get a flight plan
+	///
+	/// - Parameters:
+	///   - flightPlanId: The identifier for the flight plan
+	///   - completion: A completion handler with the flight plan result
+	public static func getFlightPlan(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
+		flightPlanClient.get(flightPlanId).subscribe(completion)
+	}
+	
+	/// Get a flight plan briefing
+	///
+	/// - Parameters:
+	///   - flightPlanId: The identifier of the flight plan for which to retrieve a briefing
+	///   - completion: A completion handler with the flight plan briefing result
+	public static func getFlightBriefing(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightBriefing>) -> Void) {
+		flightPlanClient.getBriefing(flightPlanId).subscribe(completion)
+	}
+
 }

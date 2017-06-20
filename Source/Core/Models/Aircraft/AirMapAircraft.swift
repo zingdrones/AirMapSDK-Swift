@@ -12,7 +12,7 @@ final public class AirMapAircraft: Mappable {
 	
 	public private(set) var id: String!
 	public private(set) var model: AirMapAircraftModel
-	public var nickname: String
+	public var nickname: String!
 
 	@available(*, unavailable, renamed: "id")
 	public var aircraftId: String! {
@@ -24,7 +24,7 @@ final public class AirMapAircraft: Mappable {
 		do {
 			id        = try map.value("id")
 			model     = try map.value("model")
-			nickname  = try map.value("nickname")
+			nickname  = try? map.value("nickname")
 		}
 		catch let error {
 			AirMap.logger.error(error)
@@ -51,7 +51,7 @@ final public class AirMapAircraft: Mappable {
 		
 		return [
 			"model_id": model.modelId,
-			"nickname": nickname
+			"nickname": nickname as Any
 		]
 	}
 }

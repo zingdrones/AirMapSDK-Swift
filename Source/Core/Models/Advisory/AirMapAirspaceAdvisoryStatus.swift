@@ -17,7 +17,7 @@ public class AirMapAirspaceAdvisoryStatus: Mappable {
 	public required init?(map: Map) {
 		
 		do {
-			color        = try map.value("color")
+			color        = (try? map.value("color")) ?? .green
 			advisories   = try map.value("advisories")
 		}
 			

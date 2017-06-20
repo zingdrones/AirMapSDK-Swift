@@ -29,10 +29,14 @@ public class AirMapFlightPlan: Mappable {
 	public var takeoffLatitude: Double
 	public var takeoffLongitude: Double
 	public var geometry: AirMapGeometry?
-	public var buffer: Meters?
+	public var buffer: Meters = 0
 	public var minimumAltitudeAGL: Meters?
 	public var maximumAltitudeAGL: Meters?
 	public var targetAltitudeAGL: Meters?
+	
+	public var takeoffCoordinate: Coordinate2D {
+		return Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
+	}
 	
 	// Rulesets
 	public var ruleSetsIds = [String]()
@@ -74,7 +78,9 @@ public class AirMapFlightPlan: Mappable {
 		minimumAltitudeAGL  <-  map["min_altitude_agl"]
 		targetAltitudeAGL   <-  map["target_altitude_agl"]
 		startTime           <- (map["start_time"], dateTransform)
-
+		ruleSetsIds         <-  map["rulesets"]
+		flightFeaturesValue <-  map["flight_features"]
+		
 		// derive duration from start and end time
 		var endTime: Date?
 		endTime <- (map["end_time"], dateTransform)
@@ -83,4 +89,30 @@ public class AirMapFlightPlan: Mappable {
 		}
 	}
 	
+	func params() -> [String: Any] {
+		
+		var params = [String: Any]()
+		
+		params["id"] = id
+		params["pilot_id"] = pilotId
+		params["aircraft_id"] = aircraftId
+		params["takeoff_latitude"] = takeoffLatitude
+		params["takeoff_longitude"] = takeoffLongitude
+		params["aircraft_id"] = aircraftId
+		params["geometry"] = geometry?.params()
+		params["buffer"] = buffer
+		params["max_altitude_agl"] = maximumAltitudeAGL ?? 0
+		params["rulesets"] = ruleSetsIds
+		params["flight_features"] = flightFeaturesValue
+		
+		if let startTime = startTime, let endTime = endTime {
+			params["start_time"] = startTime.ISO8601String()
+			params["end_time"] = endTime.ISO8601String()
+		} else {
+			let now = Date()
+			params["start_time"] = now.ISO8601String()
+			params["end_time"] = now.addingTimeInterval(duration).ISO8601String()
+		}
+		return params
+	}
 }

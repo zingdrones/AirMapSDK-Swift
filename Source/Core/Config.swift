@@ -110,7 +110,7 @@ struct Config {
 		static let maximumRadius: Meters = 1_000
 		static let feetPerMeters: Feet = 3.2808
 		static let tileMinimumZoomLevel = 7
-		static let tileMaximumZoomLevel = 15
+		static let tileMaximumZoomLevel = 12
 	}
 	
 }

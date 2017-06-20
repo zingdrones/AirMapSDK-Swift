@@ -15,7 +15,7 @@ public class AirMapFlightFeature: Mappable {
 	public let description: String
 	public let inputType: InputType
 	public let measurementType: MeasurementType
-	public let measurementUnit: MeasurementUnit
+	public let measurementUnit: MeasurementUnit?
 
 	public enum InputType: String {
 		case bool
@@ -30,6 +30,7 @@ public class AirMapFlightFeature: Mappable {
 	}
 	
 	public enum MeasurementType: String {
+		case speed
 		case weight
 		case distance
 		case binary
@@ -39,18 +40,17 @@ public class AirMapFlightFeature: Mappable {
 		case meters
 		case kilograms
 		case boolean
+		case metersPerSecond = "meters_per_sec"
 	}
 	
 	public required init?(map: Map) {
-
 		do {
 			code            =  try  map.value("flight_feature")
 			description     =  try  map.value("description")
 			inputType       =  try  map.value("input_type")
 			measurementType = (try? map.value("measurement_type")) ?? .binary
-			measurementUnit = (try? map.value("measurement_unit")) ?? .boolean
+			measurementUnit =  try? map.value("measurement_unit")
 		}
-		
 		catch let error {
 			print(error)
 			return nil

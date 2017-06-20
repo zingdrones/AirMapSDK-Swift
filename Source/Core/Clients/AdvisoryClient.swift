@@ -20,6 +20,7 @@ internal class AdvisoryClient: HTTPClient {
 	}
 	
 	func getAirspaceStatus(within geometry: AirMapGeometry, under ruleSets: [AirMapRuleSet]) -> Observable<AirMapAirspaceAdvisoryStatus> {
+		
 		let ruleSetIdentifiers = ruleSets.identifiers
 		AirMap.logger.debug("GET Rules under", ruleSetIdentifiers)
 		let geometryData = try! JSONSerialization.data(withJSONObject: geometry.geoJSONDictionary, options: [])
@@ -30,5 +31,17 @@ internal class AdvisoryClient: HTTPClient {
 		]
 		
 		return perform(method: .get, path: "/airspace", params: params)
+	}
+	
+	func getWeatherForecast(at coordinate: Coordinate2D, from: Date?, to: Date?) -> Observable<AirMapWeatherForecast> {
+		
+		AirMap.logger.debug("GET Weather", coordinate)
+		var params = [String: Any]()
+		params["latitude"] = coordinate.latitude
+		params["longitude"] = coordinate.longitude
+		params["start"] = from?.ISO8601String()
+		params["end"] = to?.ISO8601String()
+		
+		return perform(method: .get, path: "/weather", params: params)
 	}
 }

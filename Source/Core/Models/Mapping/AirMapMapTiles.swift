@@ -218,7 +218,7 @@ public enum AirMapAirspaceType: String {
 	case specialUse          = "special_use_airspace"
 	case stadium             = "stadium"
 	case tfr                 = "tfr"
-	case university          = "universities"
+	case university          = "university"
 	case wildfire            = "wildfire"
 	
 	public static let allAirspaceTypes: [AirMapAirspaceType] = [

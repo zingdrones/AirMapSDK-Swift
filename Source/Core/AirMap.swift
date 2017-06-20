@@ -27,7 +27,7 @@ public class AirMap {
 	public static var authToken: String? {
 		didSet { authSession.authToken = authToken }
 	}
-
+	
 	/// A Boolean value, if true, will use pinned certificates to validate the AirMap server trust.  Defaults to false.
 	public static var pinCertificates: Bool = false {
 		didSet { authSession.enableCertificatePinning = pinCertificates }

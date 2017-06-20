@@ -15,7 +15,7 @@ import RxSwiftExt
 import SwiftTurf
 
 public protocol AirMapFlightComposerDelegate: class {
-	func flightComposerDidUpdate(geometry: AirMapGeometry, buffer: Meters)
+	func flightComposerDidUpdate(type: ComposeFlightType, geometry: AirMapGeometry, buffer: Meters)
 }
 
 /// A helper class for creating point, path, or area flight plan on an AirMapMapView.
@@ -33,8 +33,7 @@ public class AirMapFlightComposer {
 	public var bufferTitleLabel: UILabel!
 	public var bufferValueLabel: UILabel!
 	public var toolTip: UILabel!
-	public var bottomToolTip: UILabel!
-
+	
 	public var flight: AirMapFlight
 	
 	public init(mapView: AirMapMapView, flight: AirMapFlight) {
@@ -48,6 +47,7 @@ public class AirMapFlightComposer {
 		setupDrawingOverlay()
 		setupEditingOverlay()
 		setupBindings()
+		setOverlays(hidden: true, animated: false)
 	}
 	
 	@IBOutlet var flightTypeButtons: [AirMapFlightTypeButton]!
@@ -79,6 +79,13 @@ public class AirMapFlightComposer {
 		self.geoType.value = type
 		self.buffer.value = buffer
 		self.state.value = .drawing
+		setOverlays(hidden: false)
+	}
+	
+	/// Cancels the composition of a flight plan
+	public func cancelComposingFlight() {
+		state.value = .finished
+		setOverlays(hidden: true)
 	}
 	
 	/// Completes flight composing and returns a flight plan if it contains valid
@@ -86,7 +93,8 @@ public class AirMapFlightComposer {
 	///
 	/// - Returns: A flight plan if a valid one is available
 	public func finishComposingFlight() -> AirMapFlight {
-		self.state.value = .finished
+		state.value = .finished
+		setOverlays(hidden: true)
 		return flight
 	}
 	
@@ -104,6 +112,14 @@ public class AirMapFlightComposer {
 	public func hasValidFlightGeometry() -> Bool {
 	 // FIXME: evaluate geometry
 		return true
+	}
+	
+	fileprivate func setOverlays(hidden: Bool, animated: Bool = true) {
+		UIView.animate(withDuration: animated ? 0.3 : 0, delay: hidden ? 0 : 0.3, options: [.beginFromCurrentState], animations: {
+			let alpha: CGFloat = hidden ? 0 : 1
+			self.toolTip.superview?.superview?.alpha = alpha
+			self.actionButton.alpha = alpha
+		}, completion: nil)
 	}
 }
 
@@ -286,15 +302,14 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		let radiusSliderOffset: CGFloat = 50
 		var radiusSliderTransform: CGAffineTransform = CGAffineTransform(translationX: 0, y: -radiusSliderOffset)
 		
-		toolTip.superview?.superview?.isHidden = false
-		bottomToolTip.superview!.superview!.isHidden = false
+		toolTip.superview?.superview?.alpha = 1.0
 		
 		switch type {
 			
 		case .point:
 			actionButton.isHidden = true
 			bufferTitleLabel.text = LocalizedStrings.FlightDrawing.radius
-			toolTip.superview!.superview!.isHidden = true
+			toolTip.superview!.superview!.alpha = 0.0
 			controlPoints.value = [
 				ControlPoint(type: .vertex, coordinate: mapView.centerCoordinate)
 			]
@@ -321,7 +336,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			self.mapView.attributionButton.transform = radiusSliderTransform
 			self.bufferSlider.superview?.transform = radiusSliderTransform.concatenating(CGAffineTransform(translationX: 0, y: radiusSliderOffset))
 			self.bufferSlider.superview?.alpha = radiusSliderAlpha
-			self.bottomToolTip.superview?.superview?.transform = self.bufferSlider.superview!.transform
 		}
 		
 		UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: animations, completion: nil)
@@ -344,8 +358,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		switch state {
 			
 		case .panning:
-			
-			editingOverlayView.clearPath()
 			
 			// No existing shape
 			if controlPoints.value.count == 0 {
@@ -386,7 +398,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			actionButton.isHighlighted = false
 			
 			mapView.isUserInteractionEnabled = true
-			drawingOverlayView.isHidden = true
+			drawingOverlayView.removeFromSuperview()
+			
 			editingOverlayView.clearPath()
 			
 			if geoType.value != .point {
@@ -415,7 +428,10 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			actionButton.isHighlighted = false
 			actionButton.addTarget(self, action: #selector(toggleDrawing), for: .touchUpInside)
 			
-			mapView.isUserInteractionEnabled = false
+ 			mapView.isUserInteractionEnabled = false
+			
+			mapView.superview?.insertSubview(drawingOverlayView, aboveSubview: mapView)
+			drawingOverlayView.frame = mapView.frame
 			drawingOverlayView.isHidden = false
 			
 		case .editing(let controlPoint):
@@ -429,12 +445,19 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			actionButton.addTarget(self, action: #selector(deleteShape), for: .touchUpInside)
 			
 			mapView.isUserInteractionEnabled = true
-			drawingOverlayView.isHidden = true
+			drawingOverlayView.removeFromSuperview()
+			editingOverlayView.isHidden = false
+			
 			if geoType.value != .point {
 				mapView.hideControlPoints(true)
 			}
+			mapView.isUserInteractionEnabled = true
+			
 		case .finished:
 			controlPoints.value = []
+			mapView.isUserInteractionEnabled = true
+			drawingOverlayView.removeFromSuperview()
+			editingOverlayView.isHidden = true
 		}
 		
 		mapView.hideObscuredMidPointControls()
@@ -713,7 +736,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		case .area:
 			guard coordinates.count >= 3 else { return }
 			
-			let polygonGeometry = AirMapPolygon(coordinates: [coordinates])
+			let closedPoints = coordinates + [coordinates.first!]
+			let polygonGeometry = AirMapPolygon(coordinates: [closedPoints])
 			
 			flight.geometry = polygonGeometry
 			flight.coordinate = coordinates.first!
@@ -727,7 +751,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		state.value = .panning
 		
-		delegate?.flightComposerDidUpdate(geometry: flight.geometry!, buffer: flight.buffer!)
+		delegate?.flightComposerDidUpdate(type: geoType, geometry: flight.geometry!, buffer: flight.buffer!)
 	}
 	
 	fileprivate func drawInvalidIntersections(_ kinks: FeatureCollection?) {
@@ -746,11 +770,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			let insets: UIEdgeInsets
 			switch geoType.value {
 			case .path:
-				insets = UIEdgeInsetsMake(80, 45, 120, 45)
+				insets = UIEdgeInsetsMake(90, 45, 150, 60)
 			case .area:
-				insets = UIEdgeInsetsMake(80, 45, 120, 45)
+				insets = UIEdgeInsetsMake(90, 45, 150, 60)
 			case .point:
-				insets = UIEdgeInsetsMake(60, 45, 120, 45)
+				insets = UIEdgeInsetsMake(60, 45, 150, 45)
 			}
 			
 			mapView.showAnnotations(annotations, edgePadding: insets, animated: true)
@@ -868,7 +892,8 @@ extension AirMapFlightComposer: ControlPointDelegate {
 			
 			if canDelete(controlPoint) {
 				actionButton.isHighlighted = true
-				if actionButton.bounds.contains(point) {
+				let actionButtonRect = mapView.convert(actionButton.frame, to: mapView)
+				if actionButtonRect.contains(point) {
 					actionButton.isHighlighted = false
 					actionButton.isSelected = true
 				}
@@ -894,8 +919,10 @@ extension AirMapFlightComposer: ControlPointDelegate {
 				trackEvent(.drag, label: "Drag Polygon Point")
 			}
 			
+			let actionButtonRect = mapView.convert(actionButton.frame, to: mapView)
+			
 			let hitPoint = mapView.convert(controlPoint.coordinate, toPointTo: mapView)
-			let shouldDeletePoint = canDelete(controlPoint) && actionButton.bounds.contains(hitPoint)
+			let shouldDeletePoint = canDelete(controlPoint) && actionButtonRect.contains(hitPoint)
 			
 			switch controlPoint.type {
 				

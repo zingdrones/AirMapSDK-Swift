@@ -62,23 +62,25 @@ public class AirMapRuleSet: Mappable {
 			id        = try map.value("id")
 			print(id)
 			name      = try map.value("name")
-			shortName = try map.value("short_name")
+			shortName = (try? map.value("short_name")) ?? "?"
 			type      = try map.value("selection_type")
+			isDefault = try map.value("default")
 			
-			if let context = map.context as? DataOrigin, context == .tileService {
-				rules       = []
-				description = try map.value("short_description")
-				layers      = try map.value("layers") as [String]
-                isDefault   = try map.value("default")
-			} else {
+			switch map.context as? DataOrigin ?? .airMapApi {
+				
+			case .airMapApi:
 				rules       = try map.value("rules")
 				description = try map.value("description")
 				layers      = []
-				isDefault   = try map.value("default")
-
+				
 				jurisdictionId     = try? map.value("jurisdiction.id")
 				jurisdictionName   = try? map.value("jurisdiction.name")
 				jurisdictionRegion = try? map.value("jurisdiction.region")
+				
+			case .tileService:
+				rules       = []
+				description = (try? map.value("short_description")) ?? ""
+				layers      = try map.value("layers") as [String]
 			}
 		}
 		catch let error {

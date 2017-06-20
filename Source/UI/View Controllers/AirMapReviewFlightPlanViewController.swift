@@ -251,5 +251,4 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		tabSelectionIndicator.transform = CGAffineTransform(translationX: scrollView.contentOffset.x / CGFloat(embeddedViews.count), y: 0)
 	}
-		
 }

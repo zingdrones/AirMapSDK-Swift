@@ -54,6 +54,14 @@ extension Reactive where Base: AirMap_FlightPlan {
 	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
 		return AirMap.flightPlanClient.update(flightPlan)
 	}
+	
+	public static func getFlightPlan(_ flightPlanId: String) -> Observable<AirMapFlightPlan> {
+		return AirMap.flightPlanClient.get(flightPlanId)
+	}
+	
+	public static func getFlightBriefing(_ flightPlanId: String) -> Observable<AirMapFlightBriefing> {
+		return AirMap.flightPlanClient.getBriefing(flightPlanId)
+	}
 }
 
 /// Documentation found in AirMap+Aircraft.swift
@@ -235,6 +243,9 @@ extension Reactive where Base: AirMap_Advisories {
 		return AirMap.advisoryClient.getAirspaceStatus(within: geometry, under: ruleSets)
 	}
 	
+	public static func getWeatherForecast(at coordinate: Coordinate2D, from: Date? = nil, to: Date? = nil) -> Observable<AirMapWeatherForecast> {
+		return AirMap.advisoryClient.getWeatherForecast(at: coordinate, from: from, to: to)
+	}
 }
 
 extension Reactive where Base: AirMap_Airspace {

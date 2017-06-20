@@ -171,3 +171,4 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
 		_ = navigationController?.popViewController(animated: true)
 	}
 }
+

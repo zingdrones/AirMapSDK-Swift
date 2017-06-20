@@ -61,11 +61,11 @@ extension MGLMapView {
 	/// - Returns: Returns a new style styled with the visual properties of the existing layer, and configured with the appropriate source, layer, and ruleset.
 	func newLayerClone(of existingLayer: MGLVectorStyleLayer, with ruleSet: AirMapRuleSet, from source: MGLSource) -> MGLVectorStyleLayer? {
 		
-		let commonProps = [
+		let commonProps: [String] = [
 			"predicate",
 			"visible"
 		]
-		let lineProps = [
+		let lineProps: [String] = [
 			// Layout
 			"lineCap",
 			"lineJoin",
@@ -83,12 +83,12 @@ extension MGLMapView {
 			"lineDashPattern",
 			"linePattern"
 		]
-		let fillProps = [
+		let fillProps: [String] = [
 			"fillOpacity",
 			"fillColor",
 			"fillPattern"
 		]
-		let symbolProps = [
+		let symbolProps: [String] = [
 			// Layout
 			"symbolPlacement",
 			"symbolSpacing",
@@ -202,8 +202,8 @@ extension MGLVectorSource {
 		
 		let layerNames = ruleSet.layers.map{$0}.joined(separator: ",")
 		let options = [
-			MGLTileSourceOption.minimumZoomLevel: Config.Maps.tileMinimumZoomLevel,
-			MGLTileSourceOption.maximumZoomLevel: Config.Maps.tileMaximumZoomLevel
+			MGLTileSourceOption.minimumZoomLevel: NSNumber(value: Config.Maps.tileMinimumZoomLevel),
+			MGLTileSourceOption.maximumZoomLevel: NSNumber(value: Config.Maps.tileMaximumZoomLevel)
 		]
 		let urlTemplate = "https://api.airmap.com/tiledata/stage/\(ruleSet.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey!)"
 		
