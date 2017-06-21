@@ -101,7 +101,7 @@ extension AirMap_FlightPlan {
 	///
 	/// - Parameters:
 	///   - flightPlan: The flight plan to update
-	///   - completion: A completion handler with the udpated flight plan result
+	///   - completion: A completion handler to call with the updated flight plan result
 	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
 		flightPlanClient.update(flightPlan).subscribe(completion)
 	}
@@ -119,9 +119,17 @@ extension AirMap_FlightPlan {
 	///
 	/// - Parameters:
 	///   - flightPlanId: The identifier of the flight plan for which to retrieve a briefing
-	///   - completion: A completion handler with the flight plan briefing result
+	///   - completion: A completion handler to call with the flight plan briefing result
 	public static func getFlightBriefing(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightBriefing>) -> Void) {
 		flightPlanClient.getBriefing(flightPlanId).subscribe(completion)
 	}
-
+	
+	/// Submit a flight plan
+	///
+	/// - Parameters:
+	///   - flightPlanId: The identifier of the flight plan to submit
+	///   - completion: A completion handler to call with the flight plan result
+	public static func submitFlightPlan(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
+		flightPlanClient.submitFlightPlan(flightPlanId).subscribe(completion)
+	}
 }

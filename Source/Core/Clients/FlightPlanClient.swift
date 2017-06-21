@@ -40,4 +40,8 @@ internal class FlightPlanClient: HTTPClient {
 	func getBriefing(_ flightPlanId: String) -> Observable<AirMapFlightBriefing> {
 		return perform(method: .get, path: "/plan/\(flightPlanId)/briefing")
 	}
+	
+	func submitFlightPlan(_ flightPlanId: String) -> Observable<AirMapFlightPlan> {
+		return perform(method: .post, path: "/plan/\(flightPlanId)/submit")
+	}
 }
