@@ -42,6 +42,10 @@ extension Reactive where Base: AirMap_Flight {
 	public static func deleteFlight(_ flight: AirMapFlight) -> Observable<Void> {
 		return AirMap.flightClient.delete(flight)
 	}
+	
+	public static func getFlightPlan(by flightId: String) -> Observable<AirMapFlightPlan> {
+		return AirMap.flightClient.getFlightPlan(by: flightId)
+	}
 }
 
 /// Documentation found in AirMap+Flights.swift
@@ -222,8 +226,8 @@ extension Reactive where Base: AirMap_Auth {
 /// Documentation found in AirMap+Rules.swift
 extension Reactive where Base: AirMap_Rules {
 
-	public static func listRules(for ruleSetIds: [String]) -> Observable<[AirMapRule]> {
-		return AirMap.ruleClient.listRules(for: ruleSetIds)
+	public static func getRuleSets(by ruleSetIds: [String]) -> Observable<[AirMapRuleSet]> {
+		return AirMap.ruleClient.getRuleSets(by: ruleSetIds)
 	}
 	
 	public static func getRuleSet(by identifier: String) -> Observable<AirMapRuleSet> {

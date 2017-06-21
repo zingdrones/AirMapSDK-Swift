@@ -36,7 +36,7 @@ internal class FlightPlanClient: HTTPClient {
 		AirMap.logger.debug("Get Flight Plan", flightPlanId)
 		return perform(method: .get, path: "/plan/\(flightPlanId)")
 	}
-	
+		
 	func getBriefing(_ flightPlanId: String) -> Observable<AirMapFlightBriefing> {
 		return perform(method: .get, path: "/plan/\(flightPlanId)/briefing")
 	}

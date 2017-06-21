@@ -11,13 +11,8 @@ import Foundation
 public typealias AirMap_Rules = AirMap
 extension AirMap_Rules {
 	
-	/// List the airspace rules for a given area, optionally providing the rulesets under which a flight shall be conducted
-	///
-	/// - Parameters:
-	///   - ruleSets: Array of rule sets
-	///   - completion: Completion handler
-	public static func listRules(for ruleSetIds: [String], completion: @escaping (Result<[AirMapRule]>) -> Void) {
-		ruleClient.listRules(for: ruleSetIds).subscribe(completion)
+	public static func getRuleSets(by ruleSetIds: [String], completion: @escaping (Result<[AirMapRuleSet]>) -> Void) {
+		ruleClient.getRuleSets(by: ruleSetIds).subscribe(completion)
 	}
 
 	public static func getRuleSet(by identifier: String, completion: @escaping (Result<AirMapRuleSet>) -> Void) {

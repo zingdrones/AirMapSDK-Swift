@@ -36,9 +36,10 @@ internal class RuleClient: HTTPClient {
 			})
 	}
 		
-	func listRules(for ruleSetIds: [String]) -> Observable<[AirMapRule]> {
+	func getRuleSets(by ruleSetIds: [String]) -> Observable<[AirMapRuleSet]> {
 		AirMap.logger.debug("Getting rules for ruleset:", ruleSetIds)
 		let params = ["rulesets": ruleSetIds.joined(separator: ",")]
 		return perform(method: .get, path: "/rule", params: params)
 	}	
 }
+
