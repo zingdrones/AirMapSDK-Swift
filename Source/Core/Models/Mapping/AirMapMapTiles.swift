@@ -215,6 +215,7 @@ public enum AirMapAirspaceType: String {
 	case prison              = "prison"
 	case recreationalArea    = "recreational_area"
 	case school              = "school"
+	case seaplaneBase        = "seaplane_base"
 	case specialUse          = "special_use_airspace"
 	case stadium             = "stadium"
 	case tfr                 = "tfr"
@@ -236,6 +237,7 @@ public enum AirMapAirspaceType: String {
 		.prison,
 		.recreationalArea,
 		.school,
+		.seaplaneBase,
 		.specialUse,
 		.stadium,
 		.tfr,
@@ -263,6 +265,7 @@ public enum AirMapAirspaceType: String {
 		case .prison:               return localized.prison
 		case .recreationalArea:     return localized.recreationalArea
 		case .school:               return localized.school
+		case .seaplaneBase:         return localized.seaplaneBase
 		case .specialUse:           return localized.specialUse
 		case .stadium:              return localized.stadium
 		case .tfr:                  return localized.tfr

@@ -109,6 +109,8 @@ public struct LocalizedStrings {
 		
 		public static let school = NSLocalizedString("AIRSPACE_TYPE_SCHOOL", bundle: bundle, value: "School", comment: "Name for airspace type School")
 		
+		public static let seaplaneBase = NSLocalizedString("AIRSPACE_TYPE_SEAPLANE_BASE", bundle: bundle, value: "Seaplane Base", comment: "Name for airspace type Seaplane Base")
+		
 		public static let specialUse = NSLocalizedString("AIRSPACE_TYPE_SPECIAL_USE", bundle: bundle, value: "Special Use Airspace", comment: "Name for airspace type Special Use Airspace")
 		
 		public static let stadium = NSLocalizedString("AIRSPACE_TYPE_STADIUM", bundle: bundle, value: "Stadium", comment: "Name for airspace type Stadium")

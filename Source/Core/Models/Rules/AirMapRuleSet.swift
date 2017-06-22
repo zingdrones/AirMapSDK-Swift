@@ -71,6 +71,7 @@ public class AirMapRuleSet: Mappable {
 			case .airMapApi:
 				rules       = try map.value("rules")
 				description = try map.value("description")
+//				layers      = try map.value("airspace_types") as [String]
 				layers      = []
 				
 				jurisdictionId     = try? map.value("jurisdiction.id")
