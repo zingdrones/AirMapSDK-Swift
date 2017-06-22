@@ -60,7 +60,6 @@ public class AirMapRuleSet: Mappable {
 	public required init?(map: Map) {
 		do {
 			id        = try map.value("id")
-			print(id)
 			name      = try map.value("name")
 			shortName = (try? map.value("short_name")) ?? "?"
 			type      = try map.value("selection_type")
@@ -71,8 +70,7 @@ public class AirMapRuleSet: Mappable {
 			case .airMapApi:
 				rules       = try map.value("rules")
 				description = try map.value("description")
-//				layers      = try map.value("airspace_types") as [String]
-				layers      = []
+				layers      = try map.value("airspace_types") as [String]
 				
 				jurisdictionId     = try? map.value("jurisdiction.id")
 				jurisdictionName   = try? map.value("jurisdiction.name")

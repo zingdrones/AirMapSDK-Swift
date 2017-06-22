@@ -9,23 +9,23 @@
 import RxSwift
 import RxCocoa
 
-class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
+public class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 	
 	var screenName = "List Aircraft"
 	
-	let selectedAircraft = Variable(nil as AirMapAircraft?)
+	public let selectedAircraft = Variable(nil as AirMapAircraft?)
 	
 	fileprivate let activityIndicator = ActivityIndicator()
 	fileprivate let aircraft = Variable([AirMapAircraft]())
 	fileprivate let disposeBag = DisposeBag()
 	
-	override func viewDidLoad() {
+	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		setupBindings()
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
+	public override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
@@ -94,7 +94,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 			.disposed(by: disposeBag)
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard let identifier = segue.identifier else { return }
 		
 		switch identifier {
@@ -124,7 +124,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 
 extension AirMapAircraftViewController: AirMapAircraftNavControllerDelegate {
 	
-	func aircraftNavController(_ navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
+	public func aircraftNavController(_ navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
 		selectedAircraft.value = aircraft
 		navigationController?.dismiss(animated: true, completion: nil)
 	}

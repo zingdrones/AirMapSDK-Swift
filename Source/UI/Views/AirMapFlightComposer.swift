@@ -294,7 +294,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	// MARK: Configure
 	
 	func configureForType(_ type: ComposeFlightType) {
-		if let annotations = mapView.annotations {
+		
+		if let annotations = mapView.annotations?.filter({ $0 is ControlPoint }) {
 			mapView.removeAnnotations(annotations)
 		}
 		
@@ -777,7 +778,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 				insets = UIEdgeInsetsMake(60, 45, 150, 45)
 			}
 			
-			mapView.showAnnotations(annotations, edgePadding: insets, animated: true)
+			let controlPoints = annotations.filter { $0 is ControlPoint }
+			mapView.showAnnotations(controlPoints, edgePadding: insets, animated: true)
 		}
 	}
 	

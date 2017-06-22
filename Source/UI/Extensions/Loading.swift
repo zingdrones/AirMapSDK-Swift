@@ -9,13 +9,13 @@
 import RxSwift
 import RxCocoa
 
-protocol Loading {}
+public protocol Loading {}
 
 extension UIViewController: Loading { }
 
 extension Loading where Self: UIViewController {
 	
-	var rx_loading: AnyObserver<Bool> {
+	public var rx_loading: AnyObserver<Bool> {
 		return
 			UIBindingObserver(UIElement: self) { vc, loading in
 				loading ? vc.showLoader() : vc.hideLoader()
