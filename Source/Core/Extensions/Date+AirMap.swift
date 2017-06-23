@@ -99,7 +99,8 @@ public extension Date {
 	
 	func nearest15Minutes() -> Date {
 		var comps = Date.components(self)
-		comps?.minute = (((((comps?.minute)! - 8) / 15) * 15) + 15)
+		let minutes = (((((comps?.minute)! - 8) / 15) * 15) + 15)
+		comps?.minute = minutes
 		comps?.second = 0
 		return Calendar.current.date(from: comps!)!
 	}

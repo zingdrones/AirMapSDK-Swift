@@ -21,12 +21,6 @@ extension ObservableType {
 		}
 	}
 	
-	public func rateLimit(_ limit: TimeInterval, scheduler: SerialDispatchQueueScheduler) -> Observable<E> {
-		return self
-			.buffer(timeSpan: limit, count: .max, scheduler: scheduler)
-			.filter { $0.count > 0 }
-			.map { $0.last! }
-	}
 }
 
 extension Observable where Element: Equatable {

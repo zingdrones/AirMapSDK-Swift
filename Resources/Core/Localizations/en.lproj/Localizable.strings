@@ -212,19 +212,19 @@
 "FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_TRASH_TO_DELETE" = "Drag point to trash to delete";
 
 /* Call to action to draw an area-based flight. */
-"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_AREA" = "Draw a freehand area";
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_AREA" = "Draw a freehand flight area";
 
 /* Call to action to draw a path-based flight. */
-"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_PATH" = "Draw a freehand path";
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_PATH" = "Draw a freehand flight path";
 
 /* Call to action to drag the center position of a point-based flight. */
 "FLIGHT_DRAWING_TOOLTIP_CTA_POSTIION_POINT" = "Drag the center point to position your flight area.";
 
 /* Call to action to tap the icon to begin drawing a flight area. */
-"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA" = "Tap the hand icon to freehand draw any area.";
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA" = "Tap the hand icon to freehand draw a flight area.";
 
 /* Call to action to tap the icon to begin drawing a flight path. */
-"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH" = "Tap the hand icon to freehand draw any path.";
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH" = "Tap the hand icon to freehand draw a flight path.";
 
 /* Displayed when the user has drawn an invalid shaping, overlapping with conflicting permitted zones */
 "FLIGHT_DRAWING_TOOLTIP_ERROR_OVERLAPPING_PERMIT_AREAS" = "Flight area cannot overlap with conflicting permit requirement zones.";

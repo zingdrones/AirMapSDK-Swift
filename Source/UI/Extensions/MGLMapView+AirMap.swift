@@ -25,7 +25,8 @@ extension MGLMapView {
 		UIView.animate(withDuration: 0.15, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: animations, completion: nil)
 	}
 	
-	func hideObscuredMidPointControls() {
+	/// Hides mid control points that are in close proximity to control points
+	public func hideObscuredMidPointControls() {
 		
 		guard let annotations = annotations else { return }
 		let controlPoints = annotations.flatMap { $0 as? ControlPoint }

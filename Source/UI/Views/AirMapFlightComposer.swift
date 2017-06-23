@@ -27,7 +27,6 @@ public class AirMapFlightComposer {
 	/// A delegate to be notified of changes to the composed flight
 	public weak var delegate: AirMapFlightComposerDelegate?
 
-	// FIXME: Remove these
 	public var actionButton: UIButton!
 	public var bufferSlider: UISlider!
 	public var bufferTitleLabel: UILabel!
@@ -43,11 +42,13 @@ public class AirMapFlightComposer {
 	}
 	
 	public func setup() {
-		setupMap()
+		
 		setupDrawingOverlay()
 		setupEditingOverlay()
 		setupBindings()
 		setOverlays(hidden: true, animated: false)
+		
+		mapView.layoutSubviews()
 	}
 	
 	@IBOutlet var flightTypeButtons: [AirMapFlightTypeButton]!
@@ -106,12 +107,24 @@ public class AirMapFlightComposer {
 		self.buffer.value = buffer
 	}
 	
-	/// Verify that the flight composed contains valid geometry
-	///
-	/// - Returns: A Bool indicating the flight geometry validity
-	public func hasValidFlightGeometry() -> Bool {
-	 // FIXME: evaluate geometry
-		return true
+	public func annotationView(for controlPoint: ControlPoint) -> ControlPointView {
+		
+		if let controlPointView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: controlPoint.type)) as? ControlPointView {
+			return controlPointView
+		} else {
+			let controlPointView = ControlPointView(type: controlPoint.type)
+			controlPointView.delegate = self
+			return controlPointView
+		}
+	}
+	
+	public func annotationView(for invalidIntersection: InvalidIntersection) -> InvalidIntersectionView {
+		
+		if let invalidIntersectionView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: InvalidIntersectionView.self)) as? InvalidIntersectionView {
+			return invalidIntersectionView
+		} else {
+			return InvalidIntersectionView()
+		}
 	}
 	
 	fileprivate func setOverlays(hidden: Bool, animated: Bool = true) {
@@ -154,16 +167,16 @@ extension InteractionState: Equatable {
 	}
 }
 
-class InvalidIntersection: NSObject, MGLAnnotation {
+public class InvalidIntersection: NSObject, MGLAnnotation {
 	
-	var coordinate: CLLocationCoordinate2D
+	public var coordinate: CLLocationCoordinate2D
 	
 	init(coordinate: CLLocationCoordinate2D) {
 		self.coordinate = coordinate
 	}
 }
 
-class InvalidIntersectionView: MGLAnnotationView {
+public class InvalidIntersectionView: MGLAnnotationView {
 	
 	init() {
 		super.init(reuseIdentifier: String(describing: InvalidIntersection.self))
@@ -182,11 +195,11 @@ class InvalidIntersectionView: MGLAnnotationView {
 		layer.borderColor = UIColor.airMapRed.cgColor
 	}
 	
-	required init?(coder aDecoder: NSCoder) {
+	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
-	override func layoutSubviews() {
+	public override func layoutSubviews() {
 		super.layoutSubviews()
 		layer.cornerRadius = bounds.size.width / 2
 	}
@@ -211,7 +224,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	
 	fileprivate func setupBindings() {
 		
-		typealias FCM = AirMapFlightComposer
+		typealias FC = AirMapFlightComposer
 		
 		let geoType = self.geoType.asDriver().distinctUntilChanged()
 		
@@ -219,34 +232,34 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			.map { $0.filter { $0.type == ControlPointType.vertex }.map { $0.coordinate } }
 		
 		geoType
-			.drive(onNext: unowned(self, FCM.configureForType))
+			.drive(onNext: unowned(self, FC.configureForType))
 			.disposed(by: disposeBag)
 		
 		Driver.combineLatest(geoType, buffer.asDriver()) { $0 }
 			.mapToVoid()
-			.throttle(0.25)
-			.drive(onNext: unowned(self, FCM.centerFlightPlan))
+			.debounce(0.1)
+			.drive(onNext: unowned(self, FC.centerFlightPlan))
 			.disposed(by: disposeBag)
 		
 		state.asDriver()
-			.throttle(0.01)
-			.drive(onNext: unowned(self, FCM.configureForState))
+			.throttle(0.1)
+			.drive(onNext: unowned(self, FC.configureForState))
 			.disposed(by: disposeBag)
 		
 		controlPoints.asDriver()
-			.drive(onNext: unowned(self, FCM.drawControlPoints))
+			.drive(onNext: unowned(self, FC.drawControlPoints))
 			.disposed(by: disposeBag)
 		
 		let snappedBuffer = bufferSlider.rx.value.asDriver()
 			.distinctUntilChanged()
-			.map(unowned(self, FCM.sliderValueToBuffer))
+			.map(unowned(self, FC.sliderValueToBuffer))
 		
 		snappedBuffer.map { $0.displayString }
 			.drive(bufferValueLabel.rx.text)
 			.disposed(by: disposeBag)
 		
 		snappedBuffer.map { $0.buffer }
-			.drive(onNext: unowned(self, FCM.drawNewProposedRadius))
+			.drive(onNext: unowned(self, FC.drawNewProposedRadius))
 			.disposed(by: disposeBag)
 		
 		snappedBuffer.map { $0.buffer }
@@ -268,14 +281,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		}
 		
 		validatedInput
-			.drive(onNext: unowned(self, FCM.drawFlightArea))
+			.drive(onNext: unowned(self, FC.drawFlightArea))
 			.disposed(by: disposeBag)
-	}
-	
-	fileprivate func setupMap() {
-		
-		mapView.delegate = mapViewDelegate
-		mapViewDelegate.controlPointDelegate = self
 	}
 	
 	fileprivate func setupDrawingOverlay() {
@@ -288,6 +295,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	fileprivate func setupEditingOverlay() {
 		editingOverlayView.backgroundColor = .clear
 		editingOverlayView.isUserInteractionEnabled = false
+		mapView.addSubview(editingOverlayView)
 		// Editing overlay is inserted into the view hierarchy in viewDidLayoutSubviews
 	}
 	
@@ -850,6 +858,8 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 		centerFlightPlan()
 	}
 }
+
+// MARK: - ControlPointDelegate
 
 extension AirMapFlightComposer: ControlPointDelegate {
 	

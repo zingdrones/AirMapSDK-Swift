@@ -12,30 +12,6 @@ class AirMapMapboxMapViewDelegate: NSObject, MGLMapViewDelegate {
 	
 	weak var controlPointDelegate: ControlPointDelegate?
 	
-	func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-		mapView.hideObscuredMidPointControls()
-	}
-	
-	func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
-		return .airMapDarkGray
-	}
-	
-	func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-		return 2.5
-	}
-	
-	func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
-        return .airMapLightBlue
-	}
-	
-	func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
-		switch annotation {
-		case is MGLPolyline:
-			return 1.0
-		default:
-			return 0.5
-		}
-	}
 	
 	func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
 		
