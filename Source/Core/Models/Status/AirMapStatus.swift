@@ -11,7 +11,7 @@ import ObjectMapper
 /// A list of all airspace objects intersecting with the proposed area. Includes status color and distance.
 open class AirMapStatus {
 
-	public enum StatusColor: String {
+	public enum StatusColor: String, Comparable {
 		
 		case red
 		case orange
@@ -40,6 +40,10 @@ open class AirMapStatus {
 		}
 		public var order: Int {
 			return StatusColor.allColors.index(of: self)!
+		}
+		
+		public static func <(lhs: StatusColor, rhs: StatusColor) -> Bool {
+			return lhs.order < rhs.order
 		}
 	}
 
