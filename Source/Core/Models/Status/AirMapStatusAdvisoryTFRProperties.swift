@@ -13,8 +13,8 @@ open class AirMapStatusAdvisoryTFRProperties {
 	open var url: String = ""
 	open var startTime: Date?
 	open var endTime: Date?
-    open var type: String?
-    open var notamReason: String?
+	open var type: String?
+	open var notamReason: String?
 
 	public required init?(map: Map) {}
 }
@@ -28,7 +28,7 @@ extension AirMapStatusAdvisoryTFRProperties: Mappable {
 		url             <-  map["url"]
 		startTime       <- (map["effective_start"], dateTransform)
 		endTime         <- (map["effective_end"], dateTransform)
-        type            <- map["type"]
-        notamReason 	<- map["notam_reason"]
+		type            <- map["type"]
+		notamReason 	<- map["notam_reason"]
 	}
 }
