@@ -29,6 +29,6 @@ extension AirMapStatusAdvisoryTFRProperties: Mappable {
 		startTime       <- (map["effective_start"], dateTransform)
 		endTime         <- (map["effective_end"], dateTransform)
 		type            <- map["type"]
-		notamReason 	<- map["notam_reason"]
+		notamReason     <- map["notam_reason"]
 	}
 }
