@@ -415,7 +415,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			return
 		}
         
-        let traffic = Mapper<AirMapTraffic>().mapArray(JSONArray: trafficArray)
+		let traffic = Mapper<AirMapTraffic>().mapArray(JSONArray: trafficArray)
         
 		delegate?.airMapTrafficServiceDidReceive?(jsonString)
 
