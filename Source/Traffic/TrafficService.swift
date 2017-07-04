@@ -409,13 +409,14 @@ internal class TrafficService: MQTTSessionDelegate {
 			connectionState.value == .connected,
 			let jsonString = String(data: data, encoding: String.Encoding.utf8),
 			let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-			let trafficArray = jsonDict?["traffic"] as? [[String: Any]],
-			let traffic = Mapper<AirMapTraffic>().mapArray(JSONArray: trafficArray)
+			let trafficArray = jsonDict?["traffic"] as? [[String: Any]]
 		else {
 			AirMap.logger.error(TrafficService.self, "Failed to parse JSON message")
 			return
 		}
-
+        
+		let traffic = Mapper<AirMapTraffic>().mapArray(JSONArray: trafficArray)
+        
 		delegate?.airMapTrafficServiceDidReceive?(jsonString)
 
 		let receivedTraffic = traffic.map { t -> AirMapTraffic in
