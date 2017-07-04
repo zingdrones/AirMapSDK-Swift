@@ -30,18 +30,20 @@ public class AirMapAdvisory: Mappable, Hashable, Equatable {
 	public required init?(map: Map) {
 
 		do {
-			id            = try  map.value("id")
-			color         = try  map.value("color")
-			name          = try  map.value("name")
-			lastUpdated   = try  map.value("last_updated", using: AirMapAdvisory.dateTransform)
-			distance      = try  map.value("distance")
-			type          = try  map.value("type")
-			city          = try? map.value("city")
-			state         = try? map.value("state")
-			country       = try  map.value("country")
-			ruleId        = try  map.value("rule_id")
-			ruleSetId     = try  map.value("ruleset_id")
-			properties    = try  map.value("properties")
+			id            =  try  map.value("id")
+			color         =  try  map.value("color")
+			lastUpdated   =  try  map.value("last_updated", using: AirMapAdvisory.dateTransform)
+			distance      =  try  map.value("distance")
+			type          =  try  map.value("type")
+			city          =  try? map.value("city")
+			state         =  try? map.value("state")
+			country       =  try  map.value("country")
+			ruleId        =  try  map.value("rule_id")
+			ruleSetId     =  try  map.value("ruleset_id")
+			properties    =  try  map.value("properties")
+			
+			let airspaceType = try map.value("type") as AirMapAirspaceType
+			name          = (try? map.value("name") as String) ?? airspaceType.title
 
 			let latitude  = try  map.value("latitude") as Double
 			let longitude = try  map.value("longitude") as Double
@@ -65,3 +67,4 @@ public class AirMapAdvisory: Mappable, Hashable, Equatable {
 	}
 
 }
+

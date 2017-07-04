@@ -87,6 +87,8 @@ public struct LocalizedStrings {
 		
 		public static let airport = NSLocalizedString("AIRSPACE_TYPE_AIRPORT", bundle: bundle, value: "Airport", comment: "Name for airspace type Airport")
 		
+		public static let amaField = NSLocalizedString("AIRSPACE_TYPE_AMA_FIELD", bundle: bundle, value: "AMA Field", comment: "Name for airspace type AMA Field (Academy of Model Aeronautics)")
+		
 		public static let city = NSLocalizedString("AIRSPACE_TYPE_CITY", bundle: bundle, value: "City", comment: "Name for airspace type City")
 		
 		public static let controlledAirspace = NSLocalizedString("AIRSPACE_TYPE_CONTROLLED", bundle: bundle, value: "Controlled Airspace", comment: "Name for airspace type Controlled Airspace")
@@ -167,15 +169,15 @@ public struct LocalizedStrings {
 		
 		public static let tooltipErrorSelfIntersectingGeometry = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_ERROR_SELF_INTERSECTING_GEOMETRY", bundle: bundle, value: "Invalid flight area. Adjust flight area so that it does not overlap with itself.", comment: "Call to action to fix self-intersecting geometries of an area-based flight.")
 		
-		public static let toolTipCtaDrawFreehandPath = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_PATH", bundle: bundle, value: "Draw a freehand flight path", comment: "Call to action to draw a path-based flight.")
+		public static let toolTipCtaDrawFreehandPath = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_PATH", bundle: bundle, value: "Draw a flight path", comment: "Call to action to draw a path-based flight.")
 		
-		public static let toolTipCtaDrawFreehandArea = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_AREA", bundle: bundle, value: "Draw a freehand flight area", comment: "Call to action to draw an area-based flight.")
+		public static let toolTipCtaDrawFreehandArea = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_AREA", bundle: bundle, value: "Draw a flight area", comment: "Call to action to draw an area-based flight.")
 		
-		public static let toolTipCtaTapToDrawPath = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH", bundle: bundle, value: "Tap the hand icon to freehand draw a flight path.", comment: "Call to action to tap the icon to begin drawing a flight path.")
+		public static let toolTipCtaTapToDrawPath = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH", bundle: bundle, value: "Tap the hand icon to draw a flight path.", comment: "Call to action to tap the icon to begin drawing a flight path.")
 		
 		public static let toolTipCtaDragPointToModifyGeometry = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_MODIFY_GEOMETRY", bundle: bundle, value: "Drag any point to move. Drag any midpoint to add a new point.", comment: "Call to action to fine-tune the geometry of a flight.")
 		
-		public static let toolTipCtaTapToDrawArea = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA", bundle: bundle, value: "Tap the hand icon to freehand draw a flight area.", comment: "Call to action to tap the icon to begin drawing a flight area.")
+		public static let toolTipCtaTapToDrawArea = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA", bundle: bundle, value: "Tap the hand icon to draw a flight area.", comment: "Call to action to tap the icon to begin drawing a flight area.")
 		
 		public static let toolTipCtaTapToDrawPoint = NSLocalizedString("FLIGHT_DRAWING_TOOLTIP_CTA_POSTIION_POINT", bundle: bundle, value: "Drag the center point to position your flight area.", comment: "Call to action to drag the center position of a point-based flight.")
 		

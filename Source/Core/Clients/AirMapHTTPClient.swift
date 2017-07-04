@@ -20,7 +20,6 @@ internal class HTTPClient {
 	enum Header: String {
 		case accept        = "Accept"
 		case authorization = "Authorization"
-		case cacheControl  = "Cache-Control"
 		case apiKey        = "X-API-Key"
 	}
 	

@@ -36,7 +36,7 @@ open class AirMapMapView: MGLMapView {
 	func setup() {
 		
 		guard let mapboxAccessToken = AirMap.configuration.mapboxAccessToken else {
-			fatalError("A Mapbox access token is required to use the AirMap SDK UI components.")
+			fatalError("A Mapbox access token is required to use the AirMap SDK UI map components.")
 		}
 		
 		MGLAccountManager.setAccessToken(mapboxAccessToken)
@@ -85,6 +85,8 @@ open class AirMapMapView: MGLMapView {
 		ruleSets
 			.filter { newSourceIds.contains($0.tileSourceIdentifier) }
 			.forEach(addRuleSet)
+		
+		updateTemporalFilters()
 	}
 	
 	/// Getter for the jurisidiction present in the map's view port / bounding box
@@ -109,7 +111,7 @@ open class AirMapMapView: MGLMapView {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
 		
-		// Insert the editing view below the annotations view
+		// Ensure the editing view remains below the annotations view
 		if let mapGLKView = subviews.first(where: {$0 is GLKView }) {
 			mapGLKView.insertSubview(editingOverlay, at: 0)
 		}
@@ -157,6 +159,18 @@ open class AirMapMapView: MGLMapView {
 					AirMap.logger.error("Could not add layer:", baseLayerStyle.sourceLayerIdentifier ?? "?")
 				}
 		}
+	}
+	
+	private func updateTemporalFilters() {
+		
+		style?.layers
+			.filter { $0.identifier.hasPrefix("airmap|tfr") }
+			.flatMap { $0 as? MGLVectorStyleLayer }
+			.forEach({ (layer) in
+				let start = Int(Date().addingTimeInterval(60*60*4).timeIntervalSince1970)
+				let end = Int(Date().timeIntervalSince1970)
+				layer.predicate = NSPredicate(format: "start < %i && end > %i", start, end)
+			})
 	}
 }
 

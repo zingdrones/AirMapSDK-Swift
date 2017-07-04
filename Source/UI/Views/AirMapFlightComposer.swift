@@ -15,6 +15,8 @@ import RxSwiftExt
 import SwiftTurf
 
 public protocol AirMapFlightComposerDelegate: class {
+	var mapView: AirMapMapView { get }
+	var flightPlan: AirMapFlightPlan? { get set }
 	func flightComposerDidUpdate(type: ComposeFlightType, geometry: AirMapGeometry, buffer: Meters)
 }
 
@@ -22,23 +24,27 @@ public protocol AirMapFlightComposerDelegate: class {
 public class AirMapFlightComposer {
 
 	/// The map view that will contain the draft flight plan
-	public var mapView: AirMapMapView
 	
 	/// A delegate to be notified of changes to the composed flight
-	public weak var delegate: AirMapFlightComposerDelegate?
-
+	public weak var delegate: AirMapFlightComposerDelegate!
+	
+	// The views to update based on the flight composer's current state
 	public var actionButton: UIButton!
 	public var bufferSlider: UISlider!
 	public var bufferTitleLabel: UILabel!
 	public var bufferValueLabel: UILabel!
 	public var toolTip: UILabel!
 	
-	public var flight: AirMapFlight
+	var mapView: AirMapMapView {
+		return delegate.mapView
+	}
 	
-	public init(mapView: AirMapMapView, flight: AirMapFlight) {
-		self.mapView = mapView
-		self.flight = flight
-		trackView()
+	var flightPlan: AirMapFlightPlan? {
+		return delegate.flightPlan
+	}
+	
+	public init(delegate: AirMapFlightComposerDelegate) {
+		self.delegate = delegate
 	}
 	
 	public func setup() {
@@ -57,7 +63,6 @@ public class AirMapFlightComposer {
 	let state = Variable(InteractionState.panning)
 	let buffer = Variable(Feet(1000).meters)
 	
-	
 	fileprivate var drawingOverlayView: AirMapDrawingOverlayView {
 		return mapView.drawingOverlay
 	}
@@ -70,16 +75,18 @@ public class AirMapFlightComposer {
 	fileprivate let controlPoints = Variable([ControlPoint]())
 	
 	fileprivate let disposeBag = DisposeBag()
-
 	
 	/// Begins the flight composing process
 	///
 	/// - Parameter type: A flight type to begin with. Defaults to point and radius.
 	public func startComposingFlight(type: ComposeFlightType = .point, buffer: Meters) {
-		flight.coordinate = mapView.centerCoordinate
+		if flightPlan == nil {
+			delegate.flightPlan = AirMapFlightPlan(coordinate: mapView.centerCoordinate)
+		}
 		self.geoType.value = type
 		self.buffer.value = buffer
 		self.state.value = .drawing
+		
 		setOverlays(hidden: false)
 	}
 	
@@ -93,10 +100,10 @@ public class AirMapFlightComposer {
 	/// geometry. Call hasValidFlightGeometry() to verify flight before finishing
 	///
 	/// - Returns: A flight plan if a valid one is available
-	public func finishComposingFlight() -> AirMapFlight {
+	public func finishComposingFlight() -> AirMapFlightPlan? {
 		state.value = .finished
 		setOverlays(hidden: true)
-		return flight
+		return flightPlan
 	}
 	
 	/// Configure the compose view for the desired flight type and buffer
@@ -289,7 +296,9 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		drawingOverlayView.delegate = self
 		drawingOverlayView.isMultipleTouchEnabled = false
 		drawingOverlayView.backgroundColor = UIColor.airMapDarkGray.withAlphaComponent(0.333)
-		mapView.insertSubview(drawingOverlayView, at: 0)
+		UIView.performWithoutAnimation {
+			self.mapView.insertSubview(self.drawingOverlayView, at: 0)
+		}
 	}
 	
 	fileprivate func setupEditingOverlay() {
@@ -710,6 +719,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	
 	fileprivate func drawFlightArea(_ geoType: ComposeFlightType, coordinates: [CLLocationCoordinate2D], buffer: Meters = 0, validation: (valid: Bool, kinks: FeatureCollection?)) {
 		
+		guard let flightPlan = flightPlan else { return }
+		
 		mapView.annotations?
 			.filter { ($0 is MGLPolygon || $0 is MGLPolyline || $0 is InvalidIntersection) }
 			.forEach { mapView.removeAnnotation($0) }
@@ -721,11 +732,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			
 			let point = AirMapPoint(coordinate: coordinates.first!)
 			
-			flight.geometry = point
-			flight.coordinate = point.coordinate
-			flight.buffer = buffer
+			flightPlan.geometry = point
+			flightPlan.takeoffCoordinate = point.coordinate
+			flightPlan.buffer = buffer
 			
-			if let annotations = flight.annotationRepresentations() {
+			if let annotations = flightPlan.annotationRepresentations() {
 				mapView.addAnnotations(annotations)
 			}
 			
@@ -734,11 +745,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			
 			let pathGeometry = AirMapPath(coordinates: coordinates)
 			
-			flight.geometry = pathGeometry
-			flight.coordinate = coordinates.first!
-			flight.buffer = buffer / 2
+			flightPlan.geometry = pathGeometry
+			flightPlan.takeoffCoordinate = coordinates.first!
+			flightPlan.buffer = buffer / 2
 			
-			if let annotations = flight.annotationRepresentations() {
+			if let annotations = flightPlan.annotationRepresentations() {
 				mapView.addAnnotations(annotations)
 			}
 			
@@ -748,11 +759,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			let closedPoints = coordinates + [coordinates.first!]
 			let polygonGeometry = AirMapPolygon(coordinates: [closedPoints])
 			
-			flight.geometry = polygonGeometry
-			flight.coordinate = coordinates.first!
-			flight.buffer = buffer
+			flightPlan.geometry = polygonGeometry
+			flightPlan.takeoffCoordinate = coordinates.first!
+			flightPlan.buffer = buffer
 			
-			if let annotations = flight.annotationRepresentations() {
+			if let annotations = flightPlan.annotationRepresentations() {
 				mapView.addAnnotations(annotations)
 			}
 			drawInvalidIntersections(validation.kinks)
@@ -760,7 +771,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		state.value = .panning
 		
-		delegate?.flightComposerDidUpdate(type: geoType, geometry: flight.geometry!, buffer: flight.buffer!)
+		delegate.flightComposerDidUpdate(type: geoType, geometry: flightPlan.geometry!, buffer: flightPlan.buffer!)
 	}
 	
 	fileprivate func drawInvalidIntersections(_ kinks: FeatureCollection?) {
@@ -806,6 +817,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		midControlPoint.coordinate = mapView.convert(midPoint, toCoordinateFrom: mapView)
 	}
 }
+
+// MARK: - DrawingOverlayDelegate
 
 extension AirMapFlightComposer: DrawingOverlayDelegate {
 	

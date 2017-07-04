@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 import SwiftTurf
 
-public class AirMapFlightPlan: Mappable {
+public class AirMapFlightPlan: NSObject, Mappable {
 	
 	public private(set) var id: String?
 	
@@ -29,13 +29,19 @@ public class AirMapFlightPlan: Mappable {
 	public var takeoffLatitude: Double
 	public var takeoffLongitude: Double
 	public var geometry: AirMapGeometry?
-	public var buffer: Meters = 0
+	public var buffer: Meters? = 0
 	public var minimumAltitudeAGL: Meters?
 	public var maximumAltitudeAGL: Meters?
 	public var targetAltitudeAGL: Meters?
 	
 	public var takeoffCoordinate: Coordinate2D {
-		return Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
+		get {
+			return Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
+		}
+		set {
+			takeoffLatitude = takeoffCoordinate.latitude
+			takeoffLongitude = takeoffCoordinate.longitude
+		}
 	}
 	
 	// Rulesets
