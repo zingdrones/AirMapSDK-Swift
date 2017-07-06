@@ -45,6 +45,10 @@ open class AirMapMapView: MGLMapView {
 		attributionButton.setImage(image.withRenderingMode(.alwaysOriginal), for: UIControlState())
 		
 		setupOverlays()
+		
+		gestureRecognizers?.forEach({ (recognizer) in
+			recognizer.delegate = self
+		})
 	}
 	
 	func setupOverlays() {
@@ -55,6 +59,11 @@ open class AirMapMapView: MGLMapView {
 			overlay.isHidden = true
 			addSubview(overlay)
 		}
+		
+		drawingOverlay.isMultipleTouchEnabled = false
+		drawingOverlay.backgroundColor = UIColor.airMapDarkGray.withAlphaComponent(0.333)
+		editingOverlay.backgroundColor = .clear
+		editingOverlay.isUserInteractionEnabled = false
 	}
 	
 	// MARK: - Configure
@@ -115,6 +124,7 @@ open class AirMapMapView: MGLMapView {
 		if let mapGLKView = subviews.first(where: {$0 is GLKView }) {
 			mapGLKView.insertSubview(editingOverlay, at: 0)
 		}
+		bringSubview(toFront: drawingOverlay)
 	}
 	
 	// MARK: - Private
@@ -130,7 +140,7 @@ open class AirMapMapView: MGLMapView {
 			.forEach(style.removeLayer)
 		
 		if let source = style.source(withIdentifier: identifier) {
-			print("removing", identifier)
+			AirMap.logger.debug("Removing", identifier)
 			style.removeSource(source)
 		}
 	}
@@ -171,6 +181,17 @@ open class AirMapMapView: MGLMapView {
 				let end = Int(Date().timeIntervalSince1970)
 				layer.predicate = NSPredicate(format: "start < %i && end > %i", start, end)
 			})
+	}
+}
+
+extension AirMapMapView: UIGestureRecognizerDelegate {
+	
+	public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+		if drawingOverlay.isHidden {
+			return true
+		} else {
+			return false
+		}
 	}
 }
 

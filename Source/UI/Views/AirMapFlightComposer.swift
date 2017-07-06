@@ -50,16 +50,13 @@ public class AirMapFlightComposer {
 	public func setup() {
 		
 		setupDrawingOverlay()
-		setupEditingOverlay()
 		setupBindings()
 		setOverlays(hidden: true, animated: false)
-		
-		mapView.layoutSubviews()
 	}
 	
 	@IBOutlet var flightTypeButtons: [AirMapFlightTypeButton]!
 	
-	let geoType = Variable(ComposeFlightType.path)
+	let geoType = Variable(ComposeFlightType.point)
 	let state = Variable(InteractionState.panning)
 	let buffer = Variable(Feet(1000).meters)
 	
@@ -80,12 +77,14 @@ public class AirMapFlightComposer {
 	///
 	/// - Parameter type: A flight type to begin with. Defaults to point and radius.
 	public func startComposingFlight(type: ComposeFlightType = .point, buffer: Meters) {
+		// TODO: Update takeoff coordinate once map viewport changes
 		if flightPlan == nil {
 			delegate.flightPlan = AirMapFlightPlan(coordinate: mapView.centerCoordinate)
+		} else {
+			flightPlan?.takeoffCoordinate = mapView.centerCoordinate
 		}
-		self.geoType.value = type
 		self.buffer.value = buffer
-		self.state.value = .drawing
+		self.geoType.value = type
 		
 		setOverlays(hidden: false)
 	}
@@ -104,14 +103,6 @@ public class AirMapFlightComposer {
 		state.value = .finished
 		setOverlays(hidden: true)
 		return flightPlan
-	}
-	
-	/// Configure the compose view for the desired flight type and buffer
-	///
-	/// - Parameter type: A flight type.
-	public func configure(type: ComposeFlightType, buffer: Meters) {
-		self.geoType.value = type
-		self.buffer.value = buffer
 	}
 	
 	public func annotationView(for controlPoint: ControlPoint) -> ControlPointView {
@@ -137,7 +128,9 @@ public class AirMapFlightComposer {
 	fileprivate func setOverlays(hidden: Bool, animated: Bool = true) {
 		UIView.animate(withDuration: animated ? 0.3 : 0, delay: hidden ? 0 : 0.3, options: [.beginFromCurrentState], animations: {
 			let alpha: CGFloat = hidden ? 0 : 1
-			self.toolTip.superview?.superview?.alpha = alpha
+			if self.geoType.value != .point || hidden {
+				self.toolTip.superview?.superview?.alpha = alpha
+			}
 			self.actionButton.alpha = alpha
 		}, completion: nil)
 	}
@@ -233,81 +226,74 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		typealias FC = AirMapFlightComposer
 		
-		let geoType = self.geoType.asDriver().distinctUntilChanged()
-		
-		let coordinates = controlPoints.asDriver()
-			.map { $0.filter { $0.type == ControlPointType.vertex }.map { $0.coordinate } }
-		
-		geoType
-			.drive(onNext: unowned(self, FC.configureForType))
+		geoType.asObservable()
+			.distinctUntilChanged()
+			.subscribeNext(weak: self, FC.configureForType)
 			.disposed(by: disposeBag)
 		
-		Driver.combineLatest(geoType, buffer.asDriver()) { $0 }
-			.mapToVoid()
-			.debounce(0.1)
-			.drive(onNext: unowned(self, FC.centerFlightPlan))
+//		geoType
+//			.flatMapLatest { [unowned self] (type) -> Observable<Void> in
+//				self.buffer.asObservable()
+//					.debounce(0.5, scheduler: MainScheduler.instance)
+//					.mapToVoid()
+//					.do(onNext: unowned(self, FC.centerFlightPlan))
+//			}
+//			.subscribe()
+//			.disposed(by: disposeBag)
+		
+		Observable.combineLatest(state.asObservable(), geoType.asObservable()) { $0 }
+			.subscribeNext(weak: self, FC.configureForState)
 			.disposed(by: disposeBag)
 		
-		state.asDriver()
-			.throttle(0.1)
-			.drive(onNext: unowned(self, FC.configureForState))
+		controlPoints.asObservable()
+			.do(onNext: unowned(self, FC.drawControlPoints))
+			.mapTo(InteractionState.panning)
+			.bind(to: state)
 			.disposed(by: disposeBag)
 		
-		controlPoints.asDriver()
-			.drive(onNext: unowned(self, FC.drawControlPoints))
-			.disposed(by: disposeBag)
-		
-		let snappedBuffer = bufferSlider.rx.value.asDriver()
+		let snappedBuffer = bufferSlider.rx.value
 			.distinctUntilChanged()
 			.map(unowned(self, FC.sliderValueToBuffer))
 		
 		snappedBuffer.map { $0.displayString }
-			.drive(bufferValueLabel.rx.text)
+			.throttle(0.1, scheduler: MainScheduler.instance)
+			.bind(to: bufferValueLabel.rx.text)
 			.disposed(by: disposeBag)
 		
 		snappedBuffer.map { $0.buffer }
-			.drive(onNext: unowned(self, FC.drawNewProposedRadius))
+			.subscribeNext(weak: self, FC.drawNewProposedRadius)
 			.disposed(by: disposeBag)
 		
 		snappedBuffer.map { $0.buffer }
-			.throttle(0.25)
-			.drive(buffer)
+			.debounce(0.5, scheduler: MainScheduler.instance)
+			.bind(to: buffer)
 			.disposed(by: disposeBag)
 		
-		snappedBuffer.map { $0.buffer }
-			.throttle(1)
-			.distinctUntilChanged()
-			.drive(onNext: { [unowned self] meters in
-				self.trackEvent(.slide, label: "Buffer", value: NSNumber(value: meters))
-			})
-			.disposed(by: disposeBag)
+		// Analytics
+//		snappedBuffer.map { $0.buffer }
+//			.debounce(2)
+//			.distinctUntilChanged()
+//			.drive(onNext: { [unowned self] meters in
+//				self.trackEvent(.slide, label: "Buffer", value: NSNumber(value: meters))
+//			})
+//			.disposed(by: disposeBag)
 		
-		let validatedInput = Driver
-			.combineLatest(geoType, coordinates, buffer.asDriver()) { [unowned self] geoType, coordinates, buffer in
-				(geoType, coordinates, buffer, self.geometryValidation(geoType, coordinates: coordinates))
-		}
+		let coordinates = controlPoints.asObservable()
+			.map { $0.filter { $0.type == ControlPointType.vertex }.map { $0.coordinate } }
 		
-		validatedInput
-			.drive(onNext: unowned(self, FC.drawFlightArea))
+		let validation = Observable.combineLatest(geoType.asObservable(), coordinates) { $0 }
+			.map(unowned(self, FC.geometryValidation))
+		
+		Observable
+			.combineLatest(geoType.asObservable(), coordinates, buffer.asObservable(), validation) { $0 }
+			.subscribeNext(weak: self, FC.drawFlightArea)
 			.disposed(by: disposeBag)
 	}
 	
 	fileprivate func setupDrawingOverlay() {
 		drawingOverlayView.delegate = self
-		drawingOverlayView.isMultipleTouchEnabled = false
-		drawingOverlayView.backgroundColor = UIColor.airMapDarkGray.withAlphaComponent(0.333)
-		UIView.performWithoutAnimation {
-			self.mapView.insertSubview(self.drawingOverlayView, at: 0)
-		}
 	}
-	
-	fileprivate func setupEditingOverlay() {
-		editingOverlayView.backgroundColor = .clear
-		editingOverlayView.isUserInteractionEnabled = false
-		mapView.addSubview(editingOverlayView)
-		// Editing overlay is inserted into the view hierarchy in viewDidLayoutSubviews
-	}
-	
+		
 	// MARK: Configure
 	
 	func configureForType(_ type: ComposeFlightType) {
@@ -316,9 +302,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			mapView.removeAnnotations(annotations)
 		}
 		
-		var radiusSliderAlpha: CGFloat = 1
-		let radiusSliderOffset: CGFloat = 50
-		var radiusSliderTransform: CGAffineTransform = CGAffineTransform(translationX: 0, y: -radiusSliderOffset)
+		let radiusSliderAlpha: CGFloat
 		
 		toolTip.superview?.superview?.alpha = 1.0
 		
@@ -331,35 +315,37 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			controlPoints.value = [
 				ControlPoint(type: .vertex, coordinate: mapView.centerCoordinate)
 			]
+			radiusSliderAlpha = 1
+			state.value = .drawing
 			state.value = .panning
 			
 		case .path:
-			drawingOverlayView.discardsDuplicateClosingPoint = false
 			actionButton.isHidden = false
 			bufferTitleLabel.text = LocalizedStrings.FlightDrawing.width
 			controlPoints.value = []
+			radiusSliderAlpha = 1
+			drawingOverlayView.discardsDuplicateClosingPoint = false
 			state.value = .drawing
 			
 		case .area:
-			drawingOverlayView.discardsDuplicateClosingPoint = true
 			actionButton.isHidden = false
 			controlPoints.value = []
-			radiusSliderTransform = CGAffineTransform.identity
 			radiusSliderAlpha = 0
+			drawingOverlayView.discardsDuplicateClosingPoint = true
 			state.value = .drawing
 		}
 		
-		let animations = {
-			self.mapView.logoView.transform = radiusSliderTransform
-			self.mapView.attributionButton.transform = radiusSliderTransform
-			self.bufferSlider.superview?.transform = radiusSliderTransform.concatenating(CGAffineTransform(translationX: 0, y: radiusSliderOffset))
+		let animations: () -> Void = {
 			self.bufferSlider.superview?.alpha = radiusSliderAlpha
 		}
 		
 		UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: animations, completion: nil)
 	}
 	
-	func configureForState(_ state: InteractionState) {
+	func configureForState(_ state: InteractionState, type: ComposeFlightType) {
+		
+//		editingOverlayView.frame = mapView.bounds
+//		drawingOverlayView.frame = mapView.bounds
 		
 		let bundle = AirMapBundle.ui
 		let localized = LocalizedStrings.FlightDrawing.self
@@ -380,7 +366,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			// No existing shape
 			if controlPoints.value.count == 0 {
 				
-				switch geoType.value {
+				switch type {
 				case .point:  toolTip.text = localized.toolTipCtaTapToDrawPoint
 				case .path:   toolTip.text = localized.toolTipCtaTapToDrawPath
 				case .area:   toolTip.text = localized.toolTipCtaTapToDrawArea
@@ -391,14 +377,13 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 				actionButton.setImage(drawIconSelected, for: .selected)
 				actionButton.addTarget(self, action: #selector(toggleDrawing), for: .touchUpInside)
 				
-				// Has existing shape
-			} else {
+			} else { // Has existing shape
 				
 				let coordinates = controlPoints.value
 					.filter { $0.type == .vertex }
 					.map { $0.coordinate }
 				
-				let validation = geometryValidation(geoType.value, coordinates: coordinates)
+				let validation = geometryValidation(type, coordinates: coordinates)
 				
 				if (validation.kinks?.features.count ?? 0) > 0 {
 					toolTip.text = localized.tooltipErrorSelfIntersectingGeometry
@@ -415,28 +400,26 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			actionButton.isSelected = false
 			actionButton.isHighlighted = false
 			
-			mapView.isUserInteractionEnabled = true
-			drawingOverlayView.removeFromSuperview()
-			
+			drawingOverlayView.isHidden = true
 			editingOverlayView.clearPath()
 			
-			if geoType.value != .point {
+			if type != .point {
 				mapView.hideControlPoints(false)
 			}
 			
 		case .drawing:
 			
-			editingOverlayView.clearPath()
-			
-			switch geoType.value {
+			switch type {
+			case .point:
+				drawingOverlayView.isHidden = true
 			case .path:
+				drawingOverlayView.isHidden = false
 				toolTip.text = localized.toolTipCtaDrawFreehandPath
 				drawingOverlayView.tolerance = 8
 			case .area:
+				drawingOverlayView.isHidden = false
 				toolTip.text = localized.toolTipCtaDrawFreehandArea
 				drawingOverlayView.tolerance = 11
-			case .point:
-				break
 			}
 			
 			actionButton.setImage(drawIcon, for: UIControlState())
@@ -446,13 +429,12 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			actionButton.isHighlighted = false
 			actionButton.addTarget(self, action: #selector(toggleDrawing), for: .touchUpInside)
 			
- 			mapView.isUserInteractionEnabled = false
-			
-			mapView.superview?.insertSubview(drawingOverlayView, aboveSubview: mapView)
-			drawingOverlayView.frame = mapView.frame
-			drawingOverlayView.isHidden = false
+			editingOverlayView.clearPath()
 			
 		case .editing(let controlPoint):
+			
+			editingOverlayView.isHidden = false
+			drawingOverlayView.isHidden = true
 			
 			if canDelete(controlPoint) {
 				toolTip.text = localized.toolTipCtaDragToTrashToDelete
@@ -462,22 +444,17 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			actionButton.setImage(trashIconSelected, for: .selected)
 			actionButton.addTarget(self, action: #selector(deleteShape), for: .touchUpInside)
 			
-			mapView.isUserInteractionEnabled = true
-			drawingOverlayView.removeFromSuperview()
-			editingOverlayView.isHidden = false
-			
-			if geoType.value != .point {
+			if type != .point {
 				mapView.hideControlPoints(true)
 			}
-			mapView.isUserInteractionEnabled = true
 			
 		case .finished:
-			controlPoints.value = []
-			mapView.isUserInteractionEnabled = true
-			drawingOverlayView.removeFromSuperview()
+			drawingOverlayView.isHidden = true
 			editingOverlayView.isHidden = true
+			editingOverlayView.clearPath()
 		}
 		
+		mapView.bringSubview(toFront: drawingOverlayView)
 		mapView.hideObscuredMidPointControls()
 	}
 	
@@ -676,19 +653,16 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	
 	fileprivate func drawControlPoints(_ points: [ControlPoint]) {
 		
-		let drawnPoints = Set(points)
-		let existingPoints = Set(mapView.annotations?.flatMap({ $0 as? ControlPoint }) ?? [])
-		
-		let oldPoints = existingPoints.subtracting(drawnPoints)
-		mapView.removeAnnotations(Array(oldPoints))
-		
-		let newPoints = drawnPoints.subtracting(existingPoints)
-		mapView.addAnnotations(Array(newPoints))
+		let existingPoints = mapView.annotations?.flatMap({ $0 as? ControlPoint }) ?? []
+		mapView.removeAnnotations(existingPoints)
+		mapView.addAnnotations(points)
 	}
 	
 	fileprivate func drawNewProposedRadius(_ radius: Meters = 0) {
 		
 		guard controlPoints.value.count > 0 else { return }
+		
+		editingOverlayView.isHidden = false
 		
 		switch self.geoType.value {
 			
@@ -769,8 +743,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			drawInvalidIntersections(validation.kinks)
 		}
 		
-		state.value = .panning
-		
 		delegate.flightComposerDidUpdate(type: geoType, geometry: flightPlan.geometry!, buffer: flightPlan.buffer!)
 	}
 	
@@ -785,10 +757,14 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	}
 	
 	fileprivate func centerFlightPlan() {
-		if let annotations = mapView.annotations {
+		
+		guard let annotations = mapView.annotations else { return }
+		
+		let controlPoints = annotations.filter { $0 is ControlPoint || (!($0 is AirMapFlight) && !($0 is AirMapTraffic)) }
+		if controlPoints.count > 0 {
 			
 			let insets: UIEdgeInsets
-			switch geoType.value {
+				switch geoType.value {
 			case .path:
 				insets = UIEdgeInsetsMake(90, 45, 150, 60)
 			case .area:
@@ -797,7 +773,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 				insets = UIEdgeInsetsMake(60, 45, 150, 45)
 			}
 			
-			let controlPoints = annotations.filter { $0 is ControlPoint }
 			mapView.showAnnotations(controlPoints, edgePadding: insets, animated: true)
 		}
 	}
@@ -851,7 +826,7 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 			let polygon = Polygon(geometry: [coordinates])
 			guard (SwiftTurf.kinks(polygon)?.features.count ?? 0) <= 5 else { return }
 		case .point:
-			fatalError("Point-based shapes don't draw freehand geometry")
+			return
 		}
 		
 		let vertexControlPoints: [ControlPoint] = coordinates.map {
@@ -865,10 +840,6 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 		}
 		
 		self.controlPoints.value = controlPoints
-		
-		state.value = .panning
-		
-		centerFlightPlan()
 	}
 }
 
@@ -889,9 +860,9 @@ extension AirMapFlightComposer: ControlPointDelegate {
 		state.value = .editing(controlPoint)
 		
 		// shrink the control point so that the drag can break out sooner
-		UIView.performWithoutAnimation {
-			controlPointView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-		}
+//		UIView.performWithoutAnimation {
+//			controlPointView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+//		}
 		
 		switch geoType.value {
 			
@@ -928,7 +899,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 	
 	public func didEndDragging(_ controlPointView: ControlPointView) {
 		
-		controlPointView.transform = CGAffineTransform.identity
+//		controlPointView.transform = CGAffineTransform.identity
 		
 		guard let controlPoint = controlPointView.controlPoint else { return }
 		
@@ -1002,7 +973,6 @@ extension AirMapFlightComposer: ControlPointDelegate {
 		
 		controlPoints.value = controlPoints.value
 		editingOverlayView.clearPath()
-		state.value = .panning
 	}
 	
 }

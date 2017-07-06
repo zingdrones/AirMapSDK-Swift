@@ -21,7 +21,7 @@ class AirMapDrawingOverlayView: UIView {
 	var discardsDuplicateClosingPoint = false
 	
 	fileprivate var points = [CGPoint]()
-	
+		
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		
 		points = []

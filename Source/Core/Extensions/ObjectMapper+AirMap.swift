@@ -98,7 +98,7 @@ class GeoJSONToAirMapGeometryTransform: TransformType {
 			
 		case "Point":
 			guard let points = geometry["coordinates"] as? [Double], points.count == 2 else { return nil }
-			let coord: Coordinate2D = Coordinate2D(latitude: points[0], longitude: points[1])
+			let coord: Coordinate2D = Coordinate2D(latitude: points[1], longitude: points[0])
 			return AirMapPoint(coordinate: coord)
 		
 		default:

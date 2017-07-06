@@ -6,9 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
-
-public class AirMapPath: AirMapGeometry, Mappable {
+public class AirMapPath: AirMapGeometry {
 
 	public var coordinates: [Coordinate2D]!
 	
@@ -20,8 +18,6 @@ public class AirMapPath: AirMapGeometry, Mappable {
 		self.coordinates = coordinates
 	}
 
-	required public init?(map: Map) {}
-
 	public func params() -> [String: Any] {
 		
 		return [
@@ -29,10 +25,4 @@ public class AirMapPath: AirMapGeometry, Mappable {
 			"coordinates": coordinates?.map({ [$0.longitude, $0.latitude] }) as Any
 		]
 	}
-	
-	public func mapping(map: Map) {
-		
-		coordinates	<-  map["coordinates"]
-	}
-
 }

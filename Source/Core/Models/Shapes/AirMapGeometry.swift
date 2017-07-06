@@ -6,9 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
-
-public protocol AirMapGeometry: Mappable {
+public protocol AirMapGeometry {
 	
 	var type: AirMapFlight.FlightGeometryType { get }
 	func params() -> [String: Any]

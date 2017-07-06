@@ -6,10 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
-import SwiftTurf
-
-public class AirMapPoint: AirMapGeometry, Mappable {
+public class AirMapPoint: AirMapGeometry {
 
 	public var coordinate: Coordinate2D!
 
@@ -21,17 +18,12 @@ public class AirMapPoint: AirMapGeometry, Mappable {
 		self.coordinate = coordinate
 	}
 	
-	required public init?(map: Map) {}
-
-	public func mapping(map: Map) {
-		coordinate	<-  map["coordinates"]
-	}
-
 	public func params() -> [String: Any] {
 		
 		return [
 			"type": "Point",
-			"coordinates": [coordinate.latitude, coordinate.longitude]
+			"coordinates": [coordinate.longitude, coordinate.latitude]
 		]
 	}
 }
+

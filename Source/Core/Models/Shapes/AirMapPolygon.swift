@@ -6,9 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
-
-public class AirMapPolygon: AirMapGeometry, Mappable {
+public class AirMapPolygon: AirMapGeometry {
 
 	public var coordinates: [[Coordinate2D]]!
 		
@@ -19,9 +17,7 @@ public class AirMapPolygon: AirMapGeometry, Mappable {
 	public init(coordinates: [[Coordinate2D]]) {
 		self.coordinates = coordinates
 	}
-
-	required public init?(map: Map) {}
-
+	
 	public func params() -> [String: Any] {
 		
 		var params = [String: Any]()
@@ -42,15 +38,4 @@ public class AirMapPolygon: AirMapGeometry, Mappable {
 		return params
 	}
 
-	open func mapping(map: Map) {
-		var coords: [[[Double]]] = []
-		coords      <-  map["coordinates"]
-		coordinates = coords
-			.map { polygon in
-				polygon
-					.map { ($0[1], $0[0]) }
-					.map(Coordinate2D.init)
-			}
-	}
-	
 }
