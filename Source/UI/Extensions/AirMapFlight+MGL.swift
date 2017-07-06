@@ -32,10 +32,12 @@ extension AnnotationRepresentable {
 			
 			let point = Point(geometry: centerCoordinate)
 			let bufferedPoint = SwiftTurf.buffer(point, distance: buffer, units: .Meters)
-			var coordinates = bufferedPoint?.geometry.first ?? []
+			
+			guard var coordinates = bufferedPoint?.geometry.first
+				else { return nil }
+			
 			let circlePolygon = MGLPolygon(coordinates: &coordinates, count: UInt(coordinates.count))
 			let circleLine = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
-			
 			return [circlePolygon, circleLine]
 			
 		case .path:

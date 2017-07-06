@@ -84,14 +84,15 @@ public class AirMapFlightComposer {
 	public func startComposingFlight(type: AirMapFlightGeometryType = .point, buffer: Meters) {
 		if flightPlan == nil {
 			flightPlan = AirMapFlightPlan(coordinate: mapView.centerCoordinate)
-			delegate.flightComposerDidUpdate(flightPlan!)
 		} else {
 			flightPlan?.takeoffCoordinate = mapView.centerCoordinate
 		}
-		self.buffer.value = buffer
+		// Order is important here as we first want to set the type, then configure buffer
 		self.geoType.value = type
+		self.buffer.value = buffer
 		
 		setOverlays(hidden: false)
+		delegate.flightComposerDidUpdate(flightPlan!)
 	}
 	
 	/// Cancels the composition of a flight plan
@@ -225,73 +226,71 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		typealias FC = AirMapFlightComposer
 		
-		geoType.asObservable()
-			.distinctUntilChanged()
-			.subscribeNext(weak: self, FC.configureForType)
+		let latestType = geoType.asObservable().distinctUntilChanged().share()
+		let latestState = state.asObservable().distinctUntilChanged().share()
+		let latestBuffer = buffer.asObservable().share()
+		
+		// Configure for the flight geometry type
+		latestType.subscribeNext(weak: self, FC.configureForType)
 			.disposed(by: disposeBag)
 		
-		buffer.asObservable()
-			.mapToVoid()
-			.subscribeNext(weak: self, FC.centerFlightPlan)
-			.disposed(by: disposeBag)
-		
-		Observable.combineLatest(state.asObservable(), geoType.asObservable()) { $0 }
+		// Configure for the flight geometry type and interaction state
+		Observable.combineLatest(latestType, latestState) { $0 }
 			.subscribeNext(weak: self, FC.configureForState)
 			.disposed(by: disposeBag)
 		
+		// Add the control points to the map
 		controlPoints.asObservable()
-			.do(onNext: unowned(self, FC.drawControlPoints))
-			.subscribe()
-//			.mapTo(InteractionState.panning)
-//			.bind(to: state)
+			.subscribeNext(weak: self, FC.drawControlPoints)
 			.disposed(by: disposeBag)
 		
-		let snappedBuffer = bufferSlider.rx.value
+		// Convert the slider buffer value to a display string & value tuple
+		let sliderBuffer = bufferSlider.rx.value
 			.distinctUntilChanged()
 			.map(unowned(self, FC.sliderValueToBuffer))
 		
-		snappedBuffer.map { $0.displayString }
+		// Display the buffer string value
+		sliderBuffer.map { $0.displayString }
 			.throttle(0.1, scheduler: MainScheduler.instance)
 			.bind(to: bufferValueLabel.rx.text)
 			.disposed(by: disposeBag)
 		
-		snappedBuffer.map { $0.buffer }
+		// Draw the new proposed radius as the user interacts with the slider
+		sliderBuffer.map { $0.buffer }
 			.subscribeNext(weak: self, FC.drawNewProposedRadius)
 			.disposed(by: disposeBag)
 		
-		snappedBuffer.map { $0.buffer }
+		// After a debounce, commit the slider's buffer value to the flight plan's buffer
+		sliderBuffer.map { $0.buffer }
 			.debounce(0.5, scheduler: MainScheduler.instance)
 			.bind(to: buffer)
 			.disposed(by: disposeBag)
 		
-		// Analytics
-//		snappedBuffer.map { $0.buffer }
-//			.debounce(2)
-//			.distinctUntilChanged()
-//			.drive(onNext: { [unowned self] meters in
-//				self.trackEvent(.slide, label: "Buffer", value: NSNumber(value: meters))
-//			})
-//			.disposed(by: disposeBag)
-		
-		let coordinates = controlPoints.asObservable()
+		// Get the coordinates for all the control point vertices
+		let latestCoordinates = controlPoints.asObservable()
 			.map { $0.filter { $0.type == ControlPointType.vertex }.map { $0.coordinate } }
 		
+		// Validate that the coordinates for the geo type are valid
 		let validation = Observable
-			.combineLatest(geoType.asObservable(), coordinates) { $0 }
+			.combineLatest(latestType, latestCoordinates) { $0 }
 			.map(unowned(self, FC.geometryValidation))
 		
+		// Update the flight plan object with the latest properties
 		let updatedFlightPlan = Observable
-			.combineLatest(flightPlanVariable.asObservable().unwrap(), geoType.asObservable(), coordinates, buffer.asObservable()) { $0 }
+			.combineLatest(flightPlanVariable.asObservable().unwrap(), latestType, latestCoordinates, latestBuffer) { $0 }
 			.map(unowned(self, FC.updatedFlightPlan))
 		
+		// Build the annotations that will be added to the map representing the flight plan and any invalid kinks, etc.
 		let flightAnnotations = Observable
 			.combineLatest(updatedFlightPlan, validation) { $0 }
 			.map(unowned(self, FC.flightAnnotations))
 			
+		// Add the latest flight plan annotations to the map
 		flightAnnotations
 			.subscribeNext(weak: self, FC.updateMap)
 			.disposed(by: disposeBag)
 		
+		// Validate the flight plan and notify the delegate
 		Observable
 			.combineLatest(updatedFlightPlan, validation) { $0 }
 			.map(unowned(self, FC.validatedFlightPlan))
@@ -299,6 +298,20 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 				self?.delegate?.flightComposerDidUpdate(flightPlan)
 			})
 			.subscribe()
+			.disposed(by: disposeBag)
+		
+		// Center the flight plan geometry within the view after adjusting the buffer
+		latestBuffer.asObservable()
+			.withLatestFrom(Observable.combineLatest(flightAnnotations, latestType) { $0 })
+			.subscribeNext(weak: self, FC.centerFlightPlan)
+			.disposed(by: disposeBag)
+		
+		// Analytics
+		sliderBuffer.map { $0.buffer }
+			.debounce(2, scheduler: MainScheduler.instance)
+			.subscribe(onNext: { [unowned self] meters in
+				self.trackEvent(.slide, label: "Buffer", value: NSNumber(value: meters))
+			})
 			.disposed(by: disposeBag)
 	}
 	
@@ -324,7 +337,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 				ControlPoint(type: .vertex, coordinate: mapView.centerCoordinate)
 			]
 			radiusSliderAlpha = 1
-			state.value = .drawing
 			state.value = .panning
 			
 		case .path:
@@ -350,7 +362,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: animations, completion: nil)
 	}
 	
-	func configureForState(_ state: InteractionState, type: AirMapFlightGeometryType) {
+	func configureForState(type: AirMapFlightGeometryType, state: InteractionState) {
 		
 		let bundle = AirMapBundle.ui
 		let localized = LocalizedStrings.FlightDrawing.self
@@ -372,9 +384,9 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			if controlPoints.value.count == 0 {
 				
 				switch type {
-				case .point:  toolTip.text = localized.toolTipCtaTapToDrawPoint
-				case .path:   toolTip.text = localized.toolTipCtaTapToDrawPath
-				case .polygon:   toolTip.text = localized.toolTipCtaTapToDrawArea
+				case .point:    toolTip.text = localized.toolTipCtaTapToDrawPoint
+				case .path:     toolTip.text = localized.toolTipCtaTapToDrawPath
+				case .polygon:  toolTip.text = localized.toolTipCtaTapToDrawArea
 				}
 				
 				actionButton.setImage(drawIcon, for: UIControlState())
@@ -413,6 +425,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			}
 			
 		case .drawing:
+			
+			mapView.bringSubview(toFront: drawingOverlayView)
 			
 			switch type {
 			case .point:
@@ -459,7 +473,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			editingOverlayView.clearPath()
 		}
 		
-		mapView.bringSubview(toFront: drawingOverlayView)
 		mapView.hideObscuredMidPointControls()
 	}
 	
@@ -774,14 +787,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		mapView.addAnnotations(annotations)
 	}
 	
-	fileprivate func centerFlightPlan() {
+	fileprivate func centerFlightPlan(annotations: [MGLAnnotation], type: AirMapFlightGeometryType) {
 		
-		guard let annotations = mapView.annotations?.filter({ $0 is MGLPolygon }), annotations.count > 0
-			else { return }
-		
-//		let controlPoints = annotations.filter { $0 is ControlPoint || (!($0 is AirMapFlight) && !($0 is AirMapTraffic)) }
 		let insets: UIEdgeInsets
-			switch geoType.value {
+		
+		switch type {
 		case .path:
 			insets = UIEdgeInsetsMake(90, 45, 150, 60)
 		case .polygon:
@@ -789,7 +799,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		case .point:
 			insets = UIEdgeInsetsMake(60, 45, 150, 45)
 		}
-			
+		
 		mapView.showAnnotations(annotations, edgePadding: insets, animated: true)
 	}
 	
@@ -856,6 +866,7 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 		}
 		
 		self.controlPoints.value = controlPoints
+		state.value = .panning
 	}
 }
 
@@ -982,6 +993,8 @@ extension AirMapFlightComposer: ControlPointDelegate {
 				position(left, between: neighbors(of: left, distance: 1))
 				position(right, between: neighbors(of: right, distance: 1))
 			}
+
+			state.value = .panning
 			
 		case .point:
 			trackEvent(.drag, label: "Drag Point")
