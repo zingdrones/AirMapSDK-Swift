@@ -8,7 +8,7 @@
 
 public protocol AirMapGeometry {
 	
-	var type: AirMapFlight.FlightGeometryType { get }
+	var type: AirMapFlightGeometryType { get }
 	func params() -> [String: Any]
 }
 

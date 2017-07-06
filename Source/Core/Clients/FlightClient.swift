@@ -96,7 +96,7 @@ internal class FlightClient: HTTPClient {
 
 	func create(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("Create flight", flight)
-		let type: AirMapFlight.FlightGeometryType = flight.geometry?.type ?? .point
+		let type: AirMapFlightGeometryType = flight.geometry?.type ?? .point
 		return perform(method: .post, path:"/\(type.rawValue)", params: flight.params(), update: flight)
 	}
 

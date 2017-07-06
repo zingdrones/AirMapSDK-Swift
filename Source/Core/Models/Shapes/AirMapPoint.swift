@@ -10,7 +10,7 @@ public class AirMapPoint: AirMapGeometry {
 
 	public var coordinate: Coordinate2D!
 
-	public var type: AirMapFlight.FlightGeometryType {
+	public var type: AirMapFlightGeometryType {
 		return .point
 	}
 	

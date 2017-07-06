@@ -9,16 +9,16 @@
 import Foundation
 import ObjectMapper
 
+public enum AirMapFlightGeometryType: String {
+	case point
+	case path
+	case polygon
+}
+
 // FIXME: Remove NSObject dependency
 open class AirMapFlight: NSObject {
 //open class AirMapFlight: Hashable, Equatable {
-
-	public enum FlightGeometryType: String {
-		case point
-		case path
-		case polygon
-	}
-
+	
 	public enum FlightType: String {
 		case past
 		case active

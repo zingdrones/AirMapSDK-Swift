@@ -10,7 +10,7 @@ public class AirMapPolygon: AirMapGeometry {
 
 	public var coordinates: [[Coordinate2D]]!
 		
-	public var type: AirMapFlight.FlightGeometryType {
+	public var type: AirMapFlightGeometryType {
 		return .polygon
 	}
 	

@@ -16,8 +16,7 @@ import SwiftTurf
 
 public protocol AirMapFlightComposerDelegate: class {
 	var mapView: AirMapMapView { get }
-	var flightPlan: AirMapFlightPlan? { get set }
-	func flightComposerDidUpdate(type: ComposeFlightType, geometry: AirMapGeometry, buffer: Meters)
+	func flightComposerDidUpdate(_ flightPlan: AirMapFlightPlan)
 }
 
 /// A helper class for creating point, path, or area flight plan on an AirMapMapView.
@@ -40,7 +39,12 @@ public class AirMapFlightComposer {
 	}
 	
 	var flightPlan: AirMapFlightPlan? {
-		return delegate.flightPlan
+		set {
+			flightPlanVariable.value = newValue
+		}
+		get {
+			return flightPlanVariable.value
+		}
 	}
 	
 	public init(delegate: AirMapFlightComposerDelegate) {
@@ -56,9 +60,10 @@ public class AirMapFlightComposer {
 	
 	@IBOutlet var flightTypeButtons: [AirMapFlightTypeButton]!
 	
-	let geoType = Variable(ComposeFlightType.point)
+	let geoType = Variable(AirMapFlightGeometryType.point)
 	let state = Variable(InteractionState.panning)
 	let buffer = Variable(Feet(1000).meters)
+	let flightPlanVariable = Variable(nil as AirMapFlightPlan?)
 	
 	fileprivate var drawingOverlayView: AirMapDrawingOverlayView {
 		return mapView.drawingOverlay
@@ -76,10 +81,10 @@ public class AirMapFlightComposer {
 	/// Begins the flight composing process
 	///
 	/// - Parameter type: A flight type to begin with. Defaults to point and radius.
-	public func startComposingFlight(type: ComposeFlightType = .point, buffer: Meters) {
-		// TODO: Update takeoff coordinate once map viewport changes
+	public func startComposingFlight(type: AirMapFlightGeometryType = .point, buffer: Meters) {
 		if flightPlan == nil {
-			delegate.flightPlan = AirMapFlightPlan(coordinate: mapView.centerCoordinate)
+			flightPlan = AirMapFlightPlan(coordinate: mapView.centerCoordinate)
+			delegate.flightComposerDidUpdate(flightPlan!)
 		} else {
 			flightPlan?.takeoffCoordinate = mapView.centerCoordinate
 		}
@@ -134,12 +139,6 @@ public class AirMapFlightComposer {
 			self.actionButton.alpha = alpha
 		}, completion: nil)
 	}
-}
-
-public enum ComposeFlightType {
-	case point
-	case path
-	case area
 }
 
 class Buffer: MGLPolygon {}
@@ -215,7 +214,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			return "Create Flight - Point"
 		case .path:
 			return "Create Flight - Path"
-		case .area:
+		case .polygon:
 			return "Create Flight - Polygon"
 		}
 	}
@@ -231,15 +230,10 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			.subscribeNext(weak: self, FC.configureForType)
 			.disposed(by: disposeBag)
 		
-//		geoType
-//			.flatMapLatest { [unowned self] (type) -> Observable<Void> in
-//				self.buffer.asObservable()
-//					.debounce(0.5, scheduler: MainScheduler.instance)
-//					.mapToVoid()
-//					.do(onNext: unowned(self, FC.centerFlightPlan))
-//			}
-//			.subscribe()
-//			.disposed(by: disposeBag)
+		buffer.asObservable()
+			.mapToVoid()
+			.subscribeNext(weak: self, FC.centerFlightPlan)
+			.disposed(by: disposeBag)
 		
 		Observable.combineLatest(state.asObservable(), geoType.asObservable()) { $0 }
 			.subscribeNext(weak: self, FC.configureForState)
@@ -247,8 +241,9 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		controlPoints.asObservable()
 			.do(onNext: unowned(self, FC.drawControlPoints))
-			.mapTo(InteractionState.panning)
-			.bind(to: state)
+			.subscribe()
+//			.mapTo(InteractionState.panning)
+//			.bind(to: state)
 			.disposed(by: disposeBag)
 		
 		let snappedBuffer = bufferSlider.rx.value
@@ -281,12 +276,29 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		let coordinates = controlPoints.asObservable()
 			.map { $0.filter { $0.type == ControlPointType.vertex }.map { $0.coordinate } }
 		
-		let validation = Observable.combineLatest(geoType.asObservable(), coordinates) { $0 }
+		let validation = Observable
+			.combineLatest(geoType.asObservable(), coordinates) { $0 }
 			.map(unowned(self, FC.geometryValidation))
 		
+		let updatedFlightPlan = Observable
+			.combineLatest(flightPlanVariable.asObservable().unwrap(), geoType.asObservable(), coordinates, buffer.asObservable()) { $0 }
+			.map(unowned(self, FC.updatedFlightPlan))
+		
+		let flightAnnotations = Observable
+			.combineLatest(updatedFlightPlan, validation) { $0 }
+			.map(unowned(self, FC.flightAnnotations))
+			
+		flightAnnotations
+			.subscribeNext(weak: self, FC.updateMap)
+			.disposed(by: disposeBag)
+		
 		Observable
-			.combineLatest(geoType.asObservable(), coordinates, buffer.asObservable(), validation) { $0 }
-			.subscribeNext(weak: self, FC.drawFlightArea)
+			.combineLatest(updatedFlightPlan, validation) { $0 }
+			.map(unowned(self, FC.validatedFlightPlan))
+			.do(onNext: { [weak self] (flightPlan) in
+				self?.delegate?.flightComposerDidUpdate(flightPlan)
+			})
+			.subscribe()
 			.disposed(by: disposeBag)
 	}
 	
@@ -296,11 +308,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 	// MARK: Configure
 	
-	func configureForType(_ type: ComposeFlightType) {
-		
-		if let annotations = mapView.annotations?.filter({ $0 is ControlPoint }) {
-			mapView.removeAnnotations(annotations)
-		}
+	func configureForType(_ type: AirMapFlightGeometryType) {
 		
 		let radiusSliderAlpha: CGFloat
 		
@@ -327,7 +335,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			drawingOverlayView.discardsDuplicateClosingPoint = false
 			state.value = .drawing
 			
-		case .area:
+		case .polygon:
 			actionButton.isHidden = false
 			controlPoints.value = []
 			radiusSliderAlpha = 0
@@ -342,10 +350,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: animations, completion: nil)
 	}
 	
-	func configureForState(_ state: InteractionState, type: ComposeFlightType) {
-		
-//		editingOverlayView.frame = mapView.bounds
-//		drawingOverlayView.frame = mapView.bounds
+	func configureForState(_ state: InteractionState, type: AirMapFlightGeometryType) {
 		
 		let bundle = AirMapBundle.ui
 		let localized = LocalizedStrings.FlightDrawing.self
@@ -369,7 +374,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 				switch type {
 				case .point:  toolTip.text = localized.toolTipCtaTapToDrawPoint
 				case .path:   toolTip.text = localized.toolTipCtaTapToDrawPath
-				case .area:   toolTip.text = localized.toolTipCtaTapToDrawArea
+				case .polygon:   toolTip.text = localized.toolTipCtaTapToDrawArea
 				}
 				
 				actionButton.setImage(drawIcon, for: UIControlState())
@@ -416,7 +421,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 				drawingOverlayView.isHidden = false
 				toolTip.text = localized.toolTipCtaDrawFreehandPath
 				drawingOverlayView.tolerance = 8
-			case .area:
+			case .polygon:
 				drawingOverlayView.isHidden = false
 				toolTip.text = localized.toolTipCtaDrawFreehandArea
 				drawingOverlayView.tolerance = 11
@@ -525,7 +530,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		button.isSelected = true
 		
 		let index = flightTypeButtons.index(of: button)!
-		let geoTypes: [ComposeFlightType] = [.point, .path, .area]
+		let geoTypes: [AirMapFlightGeometryType] = [.point, .path, .polygon]
 		let geoType = geoTypes[index]
 		
 		switch geoType {
@@ -535,7 +540,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		case .path:
 			bufferSlider.value = 20/1000
 			trackEvent(.tap, label: "Path")
-		case .area:
+		case .polygon:
 			trackEvent(.tap, label: "Polygon")
 		}
 		
@@ -629,17 +634,17 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			return false
 		case .path:
 			return isVertex && vertexCount > 2
-		case .area:
+		case .polygon:
 			return isVertex && vertexCount > 3
 		}
 	}
 	
-	fileprivate func geometryValidation(_ geoType: ComposeFlightType, coordinates: [CLLocationCoordinate2D]) -> (valid: Bool, kinks: FeatureCollection?) {
+	fileprivate func geometryValidation(_ geoType: AirMapFlightGeometryType, coordinates: [CLLocationCoordinate2D]) -> (valid: Bool, kinks: FeatureCollection?) {
 		
 		switch geoType {
 		case .point:
 			return (coordinates.count == 1, nil)
-		case .area:
+		case .polygon:
 			guard coordinates.count >= 3 else { return (false, nil) }
 			let polygon = Polygon(geometry: [coordinates + [coordinates.first!]])
 			let kinks = SwiftTurf.kinks(polygon)!
@@ -685,96 +690,107 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			}
 			editingOverlayView.drawProposedPath(along: proposedPoints)
 			
-		case .area:
+		case .polygon:
 			// Polygons don't support a buffer -- yet
 			break
 		}
 	}
 	
-	fileprivate func drawFlightArea(_ geoType: ComposeFlightType, coordinates: [CLLocationCoordinate2D], buffer: Meters = 0, validation: (valid: Bool, kinks: FeatureCollection?)) {
+	fileprivate func updatedFlightPlan(flightPlan: AirMapFlightPlan, geoType: AirMapFlightGeometryType, coordinates: [CLLocationCoordinate2D], buffer: Meters) -> AirMapFlightPlan {
 		
-		guard let flightPlan = flightPlan else { return }
+		switch geoType {
+			
+		case .point:
+			let coordinate = coordinates.first ?? mapView.centerCoordinate
+			let point = AirMapPoint(coordinate: coordinate)
+			flightPlan.geometry = point
+			flightPlan.takeoffCoordinate = coordinate
+			flightPlan.buffer = buffer
+			
+		case .path:
+			if coordinates.count >= 2 {
+				flightPlan.geometry = AirMapPath(coordinates: coordinates)
+			} else {
+				flightPlan.geometry = nil
+			}
+			flightPlan.takeoffCoordinate = coordinates.first ?? mapView.centerCoordinate
+			flightPlan.buffer = buffer / 2
+			
+		case .polygon:
+			if coordinates.count >= 3 {
+				let closedPoints = coordinates + [coordinates.first!]
+				flightPlan.geometry = AirMapPolygon(coordinates: [closedPoints])
+				flightPlan.takeoffCoordinate = coordinates.first!
+			} else {
+				flightPlan.geometry = nil
+				flightPlan.takeoffCoordinate = mapView.centerCoordinate
+			}
+			flightPlan.buffer = buffer
+		}
+		
+		return flightPlan
+	}
+	
+	fileprivate func validatedFlightPlan(flightPlan: AirMapFlightPlan, validation: (valid: Bool, kinks: FeatureCollection?)) -> AirMapFlightPlan {
+		
+		if validation.valid == false {
+			flightPlan.geometry = nil
+		}
+		return flightPlan
+	}
+	
+	fileprivate func flightAnnotations(flightPlan: AirMapFlightPlan, validation: (valid: Bool, kinks: FeatureCollection?)) -> [MGLAnnotation] {
+		
+		guard let geometry = flightPlan.geometry else { return [] }
+		
+		switch geometry.type {
+			
+		case .point, .path:
+			return flightPlan.annotationRepresentations() ?? []
+			
+		case .polygon:
+			let flightPlanAnnotations = flightPlan.annotationRepresentations() ?? []
+			let kinkAnnotations = invalidIntersections(from: validation.kinks)
+			return flightPlanAnnotations + kinkAnnotations
+		}
+	}
+	
+	fileprivate func invalidIntersections(from kinks: FeatureCollection?) -> [InvalidIntersection] {
+		
+		return kinks?.features
+			.flatMap({$0 as? Point})
+			.map({ $0.geometry })
+			.map(InvalidIntersection.init) ?? []
+	}
+	
+	fileprivate func updateMap(annotations: [MGLAnnotation]) {
+		
+		editingOverlayView.isHidden = true
 		
 		mapView.annotations?
 			.filter { ($0 is MGLPolygon || $0 is MGLPolyline || $0 is InvalidIntersection) }
 			.forEach { mapView.removeAnnotation($0) }
 		
-		switch geoType {
-			
-		case .point:
-			guard coordinates.count == 1 else { return }
-			
-			let point = AirMapPoint(coordinate: coordinates.first!)
-			
-			flightPlan.geometry = point
-			flightPlan.takeoffCoordinate = point.coordinate
-			flightPlan.buffer = buffer
-			
-			if let annotations = flightPlan.annotationRepresentations() {
-				mapView.addAnnotations(annotations)
-			}
-			
-		case .path:
-			guard coordinates.count >= 2 else { return }
-			
-			let pathGeometry = AirMapPath(coordinates: coordinates)
-			
-			flightPlan.geometry = pathGeometry
-			flightPlan.takeoffCoordinate = coordinates.first!
-			flightPlan.buffer = buffer / 2
-			
-			if let annotations = flightPlan.annotationRepresentations() {
-				mapView.addAnnotations(annotations)
-			}
-			
-		case .area:
-			guard coordinates.count >= 3 else { return }
-			
-			let closedPoints = coordinates + [coordinates.first!]
-			let polygonGeometry = AirMapPolygon(coordinates: [closedPoints])
-			
-			flightPlan.geometry = polygonGeometry
-			flightPlan.takeoffCoordinate = coordinates.first!
-			flightPlan.buffer = buffer
-			
-			if let annotations = flightPlan.annotationRepresentations() {
-				mapView.addAnnotations(annotations)
-			}
-			drawInvalidIntersections(validation.kinks)
-		}
-		
-		delegate.flightComposerDidUpdate(type: geoType, geometry: flightPlan.geometry!, buffer: flightPlan.buffer!)
-	}
-	
-	fileprivate func drawInvalidIntersections(_ kinks: FeatureCollection?) {
-		
-		guard let kinks = kinks else { return }
-		
-		for kink in kinks.features.flatMap({ $0 as? Point }) {
-			let invalidIntersection = InvalidIntersection(coordinate: kink.geometry)
-			mapView.addAnnotation(invalidIntersection)
-		}
+		mapView.addAnnotations(annotations)
 	}
 	
 	fileprivate func centerFlightPlan() {
 		
-		guard let annotations = mapView.annotations else { return }
+		guard let annotations = mapView.annotations?.filter({ $0 is MGLPolygon }), annotations.count > 0
+			else { return }
 		
-		let controlPoints = annotations.filter { $0 is ControlPoint || (!($0 is AirMapFlight) && !($0 is AirMapTraffic)) }
-		if controlPoints.count > 0 {
-			
-			let insets: UIEdgeInsets
-				switch geoType.value {
-			case .path:
-				insets = UIEdgeInsetsMake(90, 45, 150, 60)
-			case .area:
-				insets = UIEdgeInsetsMake(90, 45, 150, 60)
-			case .point:
-				insets = UIEdgeInsetsMake(60, 45, 150, 45)
-			}
-			
-			mapView.showAnnotations(controlPoints, edgePadding: insets, animated: true)
+//		let controlPoints = annotations.filter { $0 is ControlPoint || (!($0 is AirMapFlight) && !($0 is AirMapTraffic)) }
+		let insets: UIEdgeInsets
+			switch geoType.value {
+		case .path:
+			insets = UIEdgeInsetsMake(90, 45, 150, 60)
+		case .polygon:
+			insets = UIEdgeInsetsMake(90, 45, 150, 60)
+		case .point:
+			insets = UIEdgeInsetsMake(60, 45, 150, 45)
 		}
+			
+		mapView.showAnnotations(annotations, edgePadding: insets, animated: true)
 	}
 	
 	fileprivate func position(_ midControlPoint: ControlPoint, between controlpoints: (prev: ControlPoint?, next: ControlPoint?)) {
@@ -819,7 +835,7 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 			guard loc0.distance(from: loc1) > 25 else {
 				return
 			}
-		case .area:
+		case .polygon:
 			guard coordinates.count > 2 else { return }
 			trackEvent(.draw, label: "Draw Polygon", value: coordinates.count as NSNumber)
 			// Discard polygons with too many self-intersections
@@ -860,9 +876,9 @@ extension AirMapFlightComposer: ControlPointDelegate {
 		state.value = .editing(controlPoint)
 		
 		// shrink the control point so that the drag can break out sooner
-//		UIView.performWithoutAnimation {
-//			controlPointView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-//		}
+		UIView.performWithoutAnimation {
+			controlPointView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+		}
 		
 		switch geoType.value {
 			
@@ -876,7 +892,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 			let points = coordinates.map { mapView.convert($0, toPointTo: mapView) }
 			editingOverlayView.drawProposedPath(along: [points])
 			
-		case .area, .path:
+		case .polygon, .path:
 			
 			let distance = controlPoint.type == .midPoint ? 1 : 2
 			let neighbors = self.neighbors(of: controlPoint, distance: distance)
@@ -899,19 +915,19 @@ extension AirMapFlightComposer: ControlPointDelegate {
 	
 	public func didEndDragging(_ controlPointView: ControlPointView) {
 		
-//		controlPointView.transform = CGAffineTransform.identity
+		controlPointView.transform = CGAffineTransform.identity
 		
 		guard let controlPoint = controlPointView.controlPoint else { return }
 		
 		switch geoType.value {
 			
-		case .path, .area:
+		case .path, .polygon:
 			
 			if geoType.value == .path {
 				trackEvent(.drag, label: "Drag Path Point")
 			}
 			
-			if geoType.value == .area {
+			if geoType.value == .polygon {
 				trackEvent(.drag, label: "Drag Polygon Point")
 			}
 			
