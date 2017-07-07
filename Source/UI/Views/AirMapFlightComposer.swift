@@ -169,7 +169,7 @@ extension InteractionState: Equatable {
 
 public class FlightPlanArea: MGLPolygon {
 	
-	public var statusColor: AirMapStatus.StatusColor = .yellow
+	public var statusColor: AirMapStatus.StatusColor = .gray
 }
 
 public class InvalidIntersection: NSObject, MGLAnnotation {
@@ -868,8 +868,8 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 			controlPoints.append(vertexControlPoints.last!)
 		}
 		
-		self.controlPoints.value = controlPoints
 		state.value = .panning
+		self.controlPoints.value = controlPoints
 	}
 }
 
