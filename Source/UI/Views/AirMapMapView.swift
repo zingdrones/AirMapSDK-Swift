@@ -212,5 +212,5 @@ extension AirMapMapView {
 
 	@available (*, unavailable, message: "Configure map using rulesets")
 	public func configure(layers: [AirMapLayerType], theme: AirMapMapTheme) {}
-
+	
 }

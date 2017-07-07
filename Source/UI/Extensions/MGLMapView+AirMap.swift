@@ -19,7 +19,7 @@ extension MGLMapView {
 			.flatMap { $0 as? ControlPointView } ?? []
 	}
 	
-	func hideControlPoints(_ hidden: Bool) {
+	func setControlPoints(hidden: Bool) {
 		
 		let animations = { self.controlPointViews().forEach { $0.alpha = hidden ? 0 : 1 } }
 		UIView.animate(withDuration: 0.15, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: animations, completion: nil)

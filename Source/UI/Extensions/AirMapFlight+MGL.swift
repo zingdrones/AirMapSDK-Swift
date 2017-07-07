@@ -36,7 +36,7 @@ extension AnnotationRepresentable {
 			guard var coordinates = bufferedPoint?.geometry.first
 				else { return nil }
 			
-			let circlePolygon = MGLPolygon(coordinates: &coordinates, count: UInt(coordinates.count))
+			let circlePolygon = FlightPlanArea(coordinates: &coordinates, count: UInt(coordinates.count))
 			let circleLine = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
 			return [circlePolygon, circleLine]
 			
@@ -61,7 +61,7 @@ extension AnnotationRepresentable {
 			}
 			interiorPolygons.removeFirst()
 			
-			let bufferPolygon = Buffer(coordinates: &outerCoordinates, count: UInt(outerCoordinates.count), interiorPolygons: interiorPolygons)
+			let bufferPolygon = FlightPlanArea(coordinates: &outerCoordinates, count: UInt(outerCoordinates.count), interiorPolygons: interiorPolygons)
 			let pathPolyline = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
 			
 			return [bufferPolygon, pathPolyline]
@@ -79,18 +79,18 @@ extension AnnotationRepresentable {
 			var outer = polygons.first!
 			outer.append(outer.first!)
 			
-			let fill: MGLAnnotation
+			let fill: FlightPlanArea
 			let strokes: [MGLAnnotation]
 			
 			if polygons.count == 1 {
-				fill = MGLPolygon(coordinates: &outer, count: UInt(outer.count))
+				fill = FlightPlanArea(coordinates: &outer, count: UInt(outer.count))
 				strokes = [MGLPolyline(coordinates: &outer, count: UInt(outer.count))]
 			} else {
 				let interiorPolygons: [MGLPolygon] = polygons[1..<polygons.count].map {
 					var coords = $0
 					return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
 				}
-				fill = MGLPolygon(coordinates: &outer, count: UInt(outer.count), interiorPolygons: interiorPolygons)
+				fill = FlightPlanArea(coordinates: &outer, count: UInt(outer.count), interiorPolygons: interiorPolygons)
 				strokes = interiorPolygons.map { polygon in
 					MGLPolyline(coordinates: polygon.coordinates, count: UInt(interiorPolygons.count))
 				}

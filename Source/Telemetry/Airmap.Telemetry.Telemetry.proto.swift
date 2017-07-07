@@ -6,7 +6,6 @@
 import Foundation
 import ProtocolBuffers
 
-
 public struct Airmap { public struct Telemetry { }}
 
 public extension Airmap.Telemetry {

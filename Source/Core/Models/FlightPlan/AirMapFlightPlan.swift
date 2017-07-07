@@ -34,6 +34,9 @@ public class AirMapFlightPlan: NSObject, Mappable {
 	public var maximumAltitudeAGL: Meters?
 	public var targetAltitudeAGL: Meters?
 	
+	// Assigned once a flight is created
+	public var flightId: String?
+	
 	public var takeoffCoordinate: Coordinate2D {
 		get {
 			return Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
@@ -86,6 +89,7 @@ public class AirMapFlightPlan: NSObject, Mappable {
 		startTime           <- (map["start_time"], dateTransform)
 		ruleSetsIds         <-  map["rulesets"]
 		flightFeaturesValue <-  map["flight_features"]
+		flightId            <-  map["flight_id"]
 		
 		// derive duration from start and end time
 		var endTime: Date?

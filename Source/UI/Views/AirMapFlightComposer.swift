@@ -144,8 +144,6 @@ public class AirMapFlightComposer {
 	}
 }
 
-class Buffer: MGLPolygon {}
-
 // MARK: - Internal
 
 enum InteractionState {
@@ -167,6 +165,11 @@ extension InteractionState: Equatable {
 			return false
 		}
 	}
+}
+
+public class FlightPlanArea: MGLPolygon {
+	
+	public var statusColor: AirMapStatus.StatusColor = .yellow
 }
 
 public class InvalidIntersection: NSObject, MGLAnnotation {
@@ -422,7 +425,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			drawingOverlayView.isHidden = true
 			editingOverlayView.clearPath()
 			
-			mapView.hideControlPoints(false)
+			mapView.setControlPoints(hidden: false)
 			
 		case .drawing:
 			
@@ -464,7 +467,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			actionButton.addTarget(self, action: #selector(deleteShape), for: .touchUpInside)
 			
 			if type != .point {
-				mapView.hideControlPoints(true)
+				mapView.setControlPoints(hidden: true)
 			}
 			
 		case .finished:
@@ -876,7 +879,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 	
 	public func didStartDragging(_ controlPoint: ControlPointView) {
 		
-		mapView.hideControlPoints(true)
+		mapView.setControlPoints(hidden: true)
 	}
 	
 	public func didDrag(_ controlPointView: ControlPointView, to point: CGPoint) {
