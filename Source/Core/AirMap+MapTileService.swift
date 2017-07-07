@@ -8,6 +8,14 @@
 
 typealias AirMap_MapTileService = AirMap
 extension AirMap_MapTileService {
+	
+	/// Generates and returns a style url based upon Map Theme
+	///
+	/// - Parameter theme: <#theme description#>
+	/// - Returns: <#return value description#>
+	public class func getMapStyleUrl(theme: AirMapMapTheme) -> URL? {
+		return mappingService.styleUrl(theme: theme) as URL?
+	}
     
     /// Generates and returns map tile source url based upon Map Layers & Theme
     ///
