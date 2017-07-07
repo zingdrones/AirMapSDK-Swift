@@ -21,7 +21,12 @@ extension ObservableType {
 		}
 	}
 	
+	public func then(onNext: ((E) throws -> Void)? = nil, onError: ((Swift.Error) throws -> Void)? = nil, onCompleted: (() throws -> Void)? = nil, onSubscribe: (() -> ())? = nil, onSubscribed: (() -> ())? = nil, onDispose: (() -> ())? = nil)
+		-> Observable<E> {
+			return `do`(onNext: onNext, onError: onError, onCompleted: onCompleted, onSubscribe: onSubscribe, onSubscribed: onSubscribed, onDispose: onDispose)
+	}
 }
+
 
 extension Observable where Element: Equatable {
 	

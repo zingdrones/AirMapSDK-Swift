@@ -105,7 +105,8 @@ public class AirMapFlightPlan: NSObject, Mappable {
 		params["takeoff_latitude"] = takeoffLatitude
 		params["takeoff_longitude"] = takeoffLongitude
 		params["aircraft_id"] = aircraftId
-		params["geometry"] = geometry?.params()
+		// FIXME: See func polygonGeometry() below
+		params["geometry"] = polygonGeometry()?.params()
 		params["buffer"] = buffer
 		params["max_altitude_agl"] = maximumAltitudeAGL ?? 0
 		params["rulesets"] = ruleSetsIds
@@ -121,9 +122,42 @@ public class AirMapFlightPlan: NSObject, Mappable {
 		}
 		return params
 	}
+	
+	// FIXME: This is here because the API does not currently support anything other than polygons
+	func polygonGeometry() -> AirMapPolygon? {
+		
+		guard let geometry = geometry else { return nil }
+		
+		switch geometry {
+			
+		case let point as AirMapPoint:
+			let point = Point(geometry: point.coordinate)
+			if let bufferedPoint = SwiftTurf.buffer(point, distance: buffer ?? 0) {
+				return AirMapPolygon(coordinates: bufferedPoint.geometry)
+			} else {
+				return nil
+			}
+			
+		case let path as AirMapPath:
+			let path = LineString(geometry: path.coordinates)
+			if let bufferedPath = SwiftTurf.buffer(path, distance: buffer ?? 0) {
+				return AirMapPolygon(coordinates: bufferedPath.geometry)
+			} else {
+				return nil
+			}
+			
+		case let polygon as AirMapPolygon:
+			return polygon
+				
+		default:
+			break
+		}
+		
+		return nil
+	}
 }
 
-// Fix for issue with API returning a string or double sometimes
+// FIXME: Fix for issue with API returning a string or double sometimes
 class StringOrDoubleTransform: TransformType {
 	public typealias Object = Double
 	public typealias JSON = Double

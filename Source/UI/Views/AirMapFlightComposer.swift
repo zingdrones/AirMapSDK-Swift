@@ -82,11 +82,13 @@ public class AirMapFlightComposer {
 	///
 	/// - Parameter type: A flight type to begin with. Defaults to point and radius.
 	public func startComposingFlight(type: AirMapFlightGeometryType = .point, buffer: Meters) {
+		
 		if flightPlan == nil {
 			flightPlan = AirMapFlightPlan(coordinate: mapView.centerCoordinate)
-		} else {
-			flightPlan?.takeoffCoordinate = mapView.centerCoordinate
 		}
+		
+		flightPlan?.takeoffCoordinate = mapView.centerCoordinate
+		
 		// Order is important here as we first want to set the type, then configure buffer
 		self.geoType.value = type
 		self.buffer.value = buffer
@@ -420,9 +422,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			drawingOverlayView.isHidden = true
 			editingOverlayView.clearPath()
 			
-			if type != .point {
-				mapView.hideControlPoints(false)
-			}
+			mapView.hideControlPoints(false)
 			
 		case .drawing:
 			
@@ -993,15 +993,13 @@ extension AirMapFlightComposer: ControlPointDelegate {
 				position(left, between: neighbors(of: left, distance: 1))
 				position(right, between: neighbors(of: right, distance: 1))
 			}
-
-			state.value = .panning
 			
 		case .point:
 			trackEvent(.drag, label: "Drag Point")
 		}
 		
 		controlPoints.value = controlPoints.value
-		editingOverlayView.clearPath()
+		state.value = .panning
 	}
 	
 }
