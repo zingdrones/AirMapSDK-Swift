@@ -37,7 +37,6 @@ extension MGLMapView {
 			for vertex in vertexPoints {
 				if distance(from: midPoint, to: vertex) < 40 {
 					controlPointViews().filter { $0.annotation === midPoint }.first?.isHidden = true
-					break
 				} else {
 					controlPointViews().filter { $0.annotation === midPoint }.first?.isHidden = false
 				}
@@ -151,7 +150,7 @@ extension MGLMapView {
 			newLayer = MGLSymbolStyleLayer(identifier: layerId, source: source)
 			properties = commonProps+symbolProps
 		default:
-			print("Unsupported layer type:", existingLayer)
+			AirMap.logger.warning("Unsupported layer type:", existingLayer)
 			return nil
 		}
 		
@@ -189,8 +188,7 @@ extension MGLStyleLayer {
 	var airspaceType: AirMapAirspaceType? {
 		let components = identifier.components(separatedBy: "|")
 		if components.count > 1 {
-			let typeString = identifier.components(separatedBy: "|")[1]
-			return AirMapAirspaceType(rawValue: typeString)
+			return AirMapAirspaceType(rawValue: components[1])
 		} else {
 			return nil
 		}

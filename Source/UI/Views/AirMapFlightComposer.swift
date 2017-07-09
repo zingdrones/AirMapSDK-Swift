@@ -47,6 +47,8 @@ public class AirMapFlightComposer {
 		}
 	}
 	
+	private var flightShapeSource = MGLShapeSource(identifier: "flight-shape")
+	
 	public init(delegate: AirMapFlightComposerDelegate) {
 		self.delegate = delegate
 	}
@@ -55,7 +57,7 @@ public class AirMapFlightComposer {
 		
 		setupDrawingOverlay()
 		setupBindings()
-		setOverlays(hidden: true, animated: false)
+		setOverlays(hidden: true, animated: false)		
 	}
 	
 	@IBOutlet var flightTypeButtons: [AirMapFlightTypeButton]!
@@ -101,6 +103,7 @@ public class AirMapFlightComposer {
 	public func cancelComposingFlight() {
 		state.value = .finished
 		setOverlays(hidden: true)
+		mapView.draftFlightSource?.shape = nil
 	}
 	
 	/// Completes flight composing and returns a flight plan if it contains valid
@@ -170,6 +173,7 @@ extension InteractionState: Equatable {
 public class FlightPlanArea: MGLPolygon {
 	
 	public var statusColor: AirMapStatus.StatusColor = .gray
+	
 }
 
 public class InvalidIntersection: NSObject, MGLAnnotation {
@@ -234,18 +238,20 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		let latestType = geoType.asObservable().distinctUntilChanged().share()
 		let latestState = state.asObservable().distinctUntilChanged().share()
 		let latestBuffer = buffer.asObservable().share()
+		let latestPoints = controlPoints.asObservable().share()
 		
 		// Configure for the flight geometry type
 		latestType.subscribeNext(weak: self, FC.configureForType)
 			.disposed(by: disposeBag)
 		
 		// Configure for the flight geometry type and interaction state
-		Observable.combineLatest(latestType, latestState) { $0 }
+		Observable.combineLatest(latestType, latestState, latestPoints) { $0 }
+//			.debounce(0.1, scheduler: MainScheduler.instance)
 			.subscribeNext(weak: self, FC.configureForState)
 			.disposed(by: disposeBag)
 		
 		// Add the control points to the map
-		controlPoints.asObservable()
+		latestPoints
 			.subscribeNext(weak: self, FC.drawControlPoints)
 			.disposed(by: disposeBag)
 		
@@ -253,10 +259,10 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		let sliderBuffer = bufferSlider.rx.value
 			.distinctUntilChanged()
 			.map(unowned(self, FC.sliderValueToBuffer))
+			.share()
 		
 		// Display the buffer string value
 		sliderBuffer.map { $0.displayString }
-			.throttle(0.1, scheduler: MainScheduler.instance)
 			.bind(to: bufferValueLabel.rx.text)
 			.disposed(by: disposeBag)
 		
@@ -272,24 +278,28 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			.disposed(by: disposeBag)
 		
 		// Get the coordinates for all the control point vertices
-		let latestCoordinates = controlPoints.asObservable()
+		let latestCoordinates = latestPoints
 			.map { $0.filter { $0.type == ControlPointType.vertex }.map { $0.coordinate } }
+			.share()
 		
 		// Validate that the coordinates for the geo type are valid
 		let validation = Observable
 			.combineLatest(latestType, latestCoordinates) { $0 }
 			.map(unowned(self, FC.geometryValidation))
+			.share()
 		
 		// Update the flight plan object with the latest properties
 		let updatedFlightPlan = Observable
 			.combineLatest(flightPlanVariable.asObservable().unwrap(), latestType, latestCoordinates, latestBuffer) { $0 }
 			.map(unowned(self, FC.updatedFlightPlan))
+			.share()
 		
 		// Build the annotations that will be added to the map representing the flight plan and any invalid kinks, etc.
 		let flightAnnotations = Observable
 			.combineLatest(updatedFlightPlan, validation) { $0 }
 			.map(unowned(self, FC.flightAnnotations))
-			
+			.share()
+		
 		// Add the latest flight plan annotations to the map
 		flightAnnotations
 			.subscribeNext(weak: self, FC.updateMap)
@@ -303,6 +313,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 				self?.delegate?.flightComposerDidUpdate(flightPlan)
 			})
 			.subscribe()
+			.disposed(by: disposeBag)
+		
+		// Update the map source that displays a draft flight plan
+		Observable.combineLatest(updatedFlightPlan, latestBuffer) { ($0.0.geometry, $0.1) }
+			.subscribeNext(weak: mapView, AirMapMapView.updateDraftFlightPlan)
 			.disposed(by: disposeBag)
 		
 		// Center the flight plan geometry within the view after adjusting the buffer
@@ -367,7 +382,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: animations, completion: nil)
 	}
 	
-	func configureForState(type: AirMapFlightGeometryType, state: InteractionState) {
+	func configureForState(type: AirMapFlightGeometryType, state: InteractionState, controlPoints: [ControlPoint]) {
 		
 		let bundle = AirMapBundle.ui
 		let localized = LocalizedStrings.FlightDrawing.self
@@ -386,7 +401,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		case .panning:
 			
 			// No existing shape
-			if controlPoints.value.count == 0 {
+			if controlPoints.count == 0 {
 				
 				switch type {
 				case .point:    toolTip.text = localized.toolTipCtaTapToDrawPoint
@@ -401,7 +416,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 				
 			} else { // Has existing shape
 				
-				let coordinates = controlPoints.value
+				let coordinates = controlPoints
 					.filter { $0.type == .vertex }
 					.map { $0.coordinate }
 				
@@ -429,16 +444,16 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			
 		case .drawing:
 			
-			mapView.bringSubview(toFront: drawingOverlayView)
-			
 			switch type {
 			case .point:
 				drawingOverlayView.isHidden = true
 			case .path:
+				mapView.bringSubview(toFront: drawingOverlayView)
 				drawingOverlayView.isHidden = false
 				toolTip.text = localized.toolTipCtaDrawFreehandPath
 				drawingOverlayView.tolerance = 8
 			case .polygon:
+				mapView.bringSubview(toFront: drawingOverlayView)
 				drawingOverlayView.isHidden = false
 				toolTip.text = localized.toolTipCtaDrawFreehandArea
 				drawingOverlayView.tolerance = 11
@@ -576,7 +591,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	
 	@objc func deleteShape(_ sender: AnyObject?) {
 		
-		controlPoints.value = []
+		geoType.value = geoType.value
 		
 		if sender is UIButton {
 			trackEvent(.tap, label: "Trash Icon")
@@ -689,11 +704,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			
 		case .point:
 			let centerPoint = controlPoints.value.first!
-			state.value = .editing(centerPoint)
 			let point = Point(geometry: centerPoint.coordinate)
 			let bufferedPoint = SwiftTurf.buffer(point, distance: radius, units: .Meters)
 			let proposedCoords = bufferedPoint?.geometry.first ?? []
 			let proposedPoints = proposedCoords.map { mapView.convert($0, toPointTo: mapView) }
+//			state.value = .editing(centerPoint)
 			editingOverlayView.drawProposedPath(along: [proposedPoints])
 			
 		case .path:
@@ -760,14 +775,10 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		guard let geometry = flightPlan.geometry else { return [] }
 		
 		switch geometry.type {
-			
 		case .point, .path:
-			return flightPlan.annotationRepresentations() ?? []
-			
+			return []
 		case .polygon:
-			let flightPlanAnnotations = flightPlan.annotationRepresentations() ?? []
-			let kinkAnnotations = invalidIntersections(from: validation.kinks)
-			return flightPlanAnnotations + kinkAnnotations
+			return invalidIntersections(from: validation.kinks)
 		}
 	}
 	
@@ -868,8 +879,8 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 			controlPoints.append(vertexControlPoints.last!)
 		}
 		
-		state.value = .panning
 		self.controlPoints.value = controlPoints
+		state.value = .panning
 	}
 }
 
@@ -1006,4 +1017,3 @@ extension AirMapFlightComposer: ControlPointDelegate {
 	}
 	
 }
-

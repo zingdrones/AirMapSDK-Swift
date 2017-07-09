@@ -37,6 +37,7 @@ extension AnnotationRepresentable {
 				else { return nil }
 			
 			let circlePolygon = FlightPlanArea(coordinates: &coordinates, count: UInt(coordinates.count))
+			circlePolygon.statusColor = .yellow
 			let circleLine = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
 			return [circlePolygon, circleLine]
 			
@@ -62,6 +63,8 @@ extension AnnotationRepresentable {
 			interiorPolygons.removeFirst()
 			
 			let bufferPolygon = FlightPlanArea(coordinates: &outerCoordinates, count: UInt(outerCoordinates.count), interiorPolygons: interiorPolygons)
+			bufferPolygon.statusColor = .yellow
+			
 			let pathPolyline = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
 			
 			return [bufferPolygon, pathPolyline]
@@ -105,22 +108,6 @@ extension AnnotationRepresentable {
 
 extension AirMapFlight: MGLAnnotation, AnnotationRepresentable {
 		
-	public var title: String? {
-		guard let startTime = startTime else { return nil }
-		let dateFormatter = DateFormatter()
-		dateFormatter.doesRelativeDateFormatting = true
-		dateFormatter.dateStyle = .medium
-		dateFormatter.timeStyle = .long
-		return dateFormatter.string(from: startTime)
-	}
-}
-
-extension AirMapFlightPlan: MGLAnnotation, AnnotationRepresentable {
-	
-	public var coordinate: CLLocationCoordinate2D {
-		return takeoffCoordinate
-	}
-	
 	public var title: String? {
 		guard let startTime = startTime else { return nil }
 		let dateFormatter = DateFormatter()

@@ -65,7 +65,7 @@ open class AirMapMapView: MGLMapView {
 		editingOverlay.backgroundColor = .clear
 		editingOverlay.isUserInteractionEnabled = false
 	}
-	
+		
 	// MARK: - Configure
 	
 	
@@ -213,4 +213,115 @@ extension AirMapMapView {
 	@available (*, unavailable, message: "Configure map using rulesets")
 	public func configure(layers: [AirMapLayerType], theme: AirMapMapTheme) {}
 	
+}
+
+import SwiftTurf
+
+extension AirMapMapView {
+	
+	public var draftFlightSource: MGLShapeSource? {
+		return style?.source(withIdentifier: "draft-flight-source") as? MGLShapeSource
+	}
+	
+	public var draftFlightFillLayer: MGLFillStyleLayer? {
+		return style?.layer(withIdentifier: "draft-flight|fill") as? MGLFillStyleLayer
+	}
+	
+	public func setupDraftFlightSource() {
+		
+		guard self.draftFlightSource == nil else { return }
+		
+		let draftFlightSource = MGLShapeSource(identifier: "draft-flight-source", shape: nil, options: nil)
+		style?.addSource(draftFlightSource)
+		
+		let fill = MGLFillStyleLayer(identifier: "draft-flight|fill", source: draftFlightSource)
+		fill.fillColor = MGLStyleValue<UIColor>(rawValue: .airMapDarkGray)
+		fill.predicate = NSPredicate(format: "%K == %@", "$type", "Polygon")
+		fill.fillOpacity = MGLStyleValue<NSNumber>(rawValue: 0.5)
+		style?.addLayer(fill)
+		
+		let line = MGLLineStyleLayer(identifier: "draft-flight|line", source: draftFlightSource)
+		line.predicate = NSPredicate(format: "%K == %@", "shows_stroke", NSNumber(booleanLiteral: true))
+		line.lineColor = MGLStyleValue<UIColor>(rawValue: .airMapDarkGray)
+		line.lineWidth = MGLStyleValue<NSNumber>(rawValue: 2.5)
+		style?.addLayer(line)
+	}
+	
+	public func updateDraftFlightPlan(geometry: AirMapGeometry?, buffer: Meters = 0) {
+		
+		guard let draftFlightSource = draftFlightSource else {
+			return
+		}
+		
+		if let geometry = geometry {
+			
+			switch geometry {
+				
+			case let point as AirMapPoint:
+				
+				let point = Point(geometry: point.coordinate)
+				guard let bufferedPoint = SwiftTurf.buffer(point, distance: buffer, units: .Meters) else { return }
+				var coordinates = bufferedPoint.geometry.first!
+				let circlePolygon = MGLPolygonFeature(coordinates: &coordinates, count: UInt(coordinates.count))
+				circlePolygon.attributes["shows_stroke"] = true
+				
+				draftFlightSource.shape = circlePolygon
+				
+			case let path as AirMapPath:
+				
+				let path = LineString(geometry: path.coordinates)
+				guard let bufferedPath = SwiftTurf.buffer(path, distance: buffer/2) else { return }
+				
+				var outerCoordinates = bufferedPath.geometry.first!
+				
+				var interiorPolygons: [MGLPolygon] = bufferedPath.geometry.map {
+					var coordinates = $0
+					return MGLPolygonFeature(coordinates: &coordinates, count: UInt(coordinates.count))
+				}
+				interiorPolygons.removeFirst()
+				
+				let bufferPolygon = MGLPolygonFeature(coordinates: &outerCoordinates, count: UInt(outerCoordinates.count), interiorPolygons: interiorPolygons)
+				
+				let lineStringFeature = MGLPolylineFeature(coordinates: path.geometry, count: UInt(path.geometry.count))
+				lineStringFeature.attributes["shows_stroke"] = true
+				
+				let featureCollection = MGLShapeCollectionFeature(shapes: [bufferPolygon, lineStringFeature])
+				draftFlightSource.shape = featureCollection
+				
+			case let area as AirMapPolygon:
+				
+				var polygons = area.coordinates!
+				
+				var outer = polygons.first!
+				outer.append(outer.first!)
+				
+				let fill: MGLPolygonFeature
+				let strokes: [MGLPolylineFeature]
+				
+				if polygons.count == 1 {
+					fill = MGLPolygonFeature(coordinates: &outer, count: UInt(outer.count))
+					let stroke = MGLPolylineFeature(coordinates: &outer, count: UInt(outer.count))
+					stroke.attributes["shows_stroke"] = true
+					strokes = [stroke]
+				} else {
+					let interiorPolygons: [MGLPolygonFeature] = polygons[1..<polygons.count].map {
+						var coords = $0
+						return MGLPolygonFeature(coordinates: &coords, count: UInt(coords.count))
+					}
+					fill = MGLPolygonFeature(coordinates: &outer, count: UInt(outer.count), interiorPolygons: interiorPolygons)
+					strokes = interiorPolygons.map { polygon in
+						let stroke = MGLPolylineFeature(coordinates: polygon.coordinates, count: UInt(interiorPolygons.count))
+						stroke.attributes["shows_stroke"] = true
+						return stroke
+					}
+				}
+				
+				let featureCollection = MGLShapeCollectionFeature(shapes: [fill] + strokes)
+				draftFlightSource.shape = featureCollection
+				
+			default:
+				break
+			}
+		}
+	}
 }

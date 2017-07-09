@@ -20,7 +20,9 @@ class AirMapDrawingOverlayView: UIView {
 	var tolerance: Float = 10
 	var discardsDuplicateClosingPoint = false
 	
-	fileprivate var points = [CGPoint]()
+	private var points = [CGPoint]() {
+		didSet { setNeedsDisplay() }
+	}
 		
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		
@@ -34,7 +36,6 @@ class AirMapDrawingOverlayView: UIView {
 		
 		let point = touches.first!.location(in: self)
 		points.append(point)
-		setNeedsDisplay()
 	}
 	
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -51,7 +52,6 @@ class AirMapDrawingOverlayView: UIView {
 		delegate?.overlayDidDraw(geometry: points)
 		
 		points = []
-		setNeedsDisplay()
 	}
 	
 	override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -68,12 +68,14 @@ class AirMapDrawingOverlayView: UIView {
 		UIColor.airMapDarkGray.setStroke()
 		
 		let uiPath = UIBezierPath(cgPath: cgPath)
-		uiPath.setLineDash([6,6], count: 2, phase: 0)
-		uiPath.lineWidth = 2
+		uiPath.setLineDash([6], count: 1, phase: 0)
+		uiPath.lineWidth = 2.5
+		uiPath.miterLimit = 2
+		uiPath.lineJoinStyle = .round
 		uiPath.stroke()
 	}
 	
-	fileprivate func discardDuplicateClosingPoint(within tolerance: Float) {
+	private func discardDuplicateClosingPoint(within tolerance: Float) {
 		
 		guard points.count >= 2 else { return }
 		
@@ -84,7 +86,6 @@ class AirMapDrawingOverlayView: UIView {
 		if distance < tolerance {
 			points.removeLast()
 		}
-		
 	}
 
 }
