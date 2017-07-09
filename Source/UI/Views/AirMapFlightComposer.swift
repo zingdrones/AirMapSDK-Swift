@@ -13,6 +13,7 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 import SwiftTurf
+import AudioToolbox
 
 public protocol AirMapFlightComposerDelegate: class {
 	var mapView: AirMapMapView { get }
@@ -57,7 +58,8 @@ public class AirMapFlightComposer {
 		
 		setupDrawingOverlay()
 		setupBindings()
-		setOverlays(hidden: true, animated: false)		
+		setupFeedback()
+		setOverlays(hidden: true, animated: false)
 	}
 	
 	@IBOutlet var flightTypeButtons: [AirMapFlightTypeButton]!
@@ -66,6 +68,9 @@ public class AirMapFlightComposer {
 	let state = Variable(InteractionState.panning)
 	let buffer = Variable(Feet(1000).meters)
 	let flightPlanVariable = Variable(nil as AirMapFlightPlan?)
+	
+	var lightFeedback: Any!
+	var mediumFeedback: Any!
 	
 	fileprivate var drawingOverlayView: AirMapDrawingOverlayView {
 		return mapView.drawingOverlay
@@ -338,6 +343,18 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	fileprivate func setupDrawingOverlay() {
 		drawingOverlayView.delegate = self
 	}
+	
+	fileprivate func setupFeedback() {
+		
+		if #available(iOS 10.0, *) {
+			let lightFeedback = UIImpactFeedbackGenerator(style: .light)
+			let mediumFeedback = UIImpactFeedbackGenerator(style: .medium)
+			lightFeedback.prepare()
+			mediumFeedback.prepare()
+			self.lightFeedback = lightFeedback
+			self.mediumFeedback = mediumFeedback
+		}
+	}
 		
 	// MARK: Configure
 	
@@ -591,6 +608,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	
 	@objc func deleteShape(_ sender: AnyObject?) {
 		
+		controlPoints.value = []		
 		geoType.value = geoType.value
 		
 		if sender is UIButton {
@@ -850,21 +868,18 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 			guard coordinates.count > 1 && coordinates.count <= 25 else { return }
 			trackEvent(.draw, label: "Draw Path", value: coordinates.count as NSNumber)
 			// Ensure points first two points are at least 25m apart. This catches paths created when double tapping the map.
-			
 			let (coord0, coord1) = (coordinates[0], coordinates[1])
-			
 			let loc0 = CLLocation(latitude: coord0.latitude, longitude: coord0.longitude)
 			let loc1 = CLLocation(latitude: coord1.latitude, longitude: coord1.longitude)
+			guard loc0.distance(from: loc1) > 25 else { return }
 			
-			guard loc0.distance(from: loc1) > 25 else {
-				return
-			}
 		case .polygon:
 			guard coordinates.count > 2 else { return }
 			trackEvent(.draw, label: "Draw Polygon", value: coordinates.count as NSNumber)
 			// Discard polygons with too many self-intersections
 			let polygon = Polygon(geometry: [coordinates])
 			guard (SwiftTurf.kinks(polygon)?.features.count ?? 0) <= 5 else { return }
+			
 		case .point:
 			return
 		}
@@ -879,8 +894,10 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 			controlPoints.append(vertexControlPoints.last!)
 		}
 		
+		state.value = .panning
 		self.controlPoints.value = controlPoints
 		state.value = .panning
+		self.controlPoints.value = controlPoints
 	}
 }
 
@@ -931,6 +948,18 @@ extension AirMapFlightComposer: ControlPointDelegate {
 				actionButton.isHighlighted = true
 				let actionButtonRect = mapView.convert(actionButton.frame, to: mapView)
 				if actionButtonRect.contains(point) {
+					if #available(iOS 10.0, *) {
+						if !actionButton.isSelected {
+							switch UIDevice.current.type {
+							case .iPhone7, .iPhone7plus:
+								let feedback = self.lightFeedback as! UIImpactFeedbackGenerator
+								feedback.impactOccurred()
+							default:
+								// Fallback and play weak "pop" feedback
+								AudioServicesPlaySystemSound(1519)
+							}
+						}
+					}
 					actionButton.isHighlighted = false
 					actionButton.isSelected = true
 				}
@@ -982,6 +1011,17 @@ extension AirMapFlightComposer: ControlPointDelegate {
 							position(midPoint, between: vertices)
 					}
 					trackEvent(.drop, label: "Drop Point Trash Icon")
+					
+					if #available(iOS 10.0, *) {
+						switch UIDevice.current.type {
+						case .iPhone7, .iPhone7plus:
+							let feedback = self.mediumFeedback as! UIImpactFeedbackGenerator
+							feedback.impactOccurred()
+						default:
+							// Fallback and play weak "pop" feedback
+							AudioServicesPlaySystemSound(1520)
+						}
+					}
 				} else {
 					for midPoint in [midPoints.prev, midPoints.next].flatMap({$0}) {
 						let vertices = neighbors(of: midPoint, distance: 1)

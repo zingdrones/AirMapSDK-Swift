@@ -34,7 +34,7 @@ class AirMapEditingOverlayView: UIView {
 			
 			let uiPath = UIBezierPath(cgPath: cgPath)
 			uiPath.setLineDash([6], count: 1, phase: 0)
-			uiPath.lineWidth = 2.5
+			uiPath.lineWidth = 2
 			uiPath.miterLimit = 2
 			uiPath.lineJoinStyle = .round
 			uiPath.stroke()
