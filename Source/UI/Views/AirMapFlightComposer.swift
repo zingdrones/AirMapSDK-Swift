@@ -93,22 +93,23 @@ public class AirMapFlightComposer {
 		if flightPlan == nil {
 			flightPlan = AirMapFlightPlan(coordinate: mapView.centerCoordinate)
 		}
-		
+		flightPlan?.geometry = nil
 		flightPlan?.takeoffCoordinate = mapView.centerCoordinate
+		delegate.flightComposerDidUpdate(flightPlan!)
 		
 		// Order is important here as we first want to set the type, then configure buffer
+		self.controlPoints.value = []
 		self.geoType.value = type
 		self.buffer.value = buffer
 		
 		setOverlays(hidden: false)
-		delegate.flightComposerDidUpdate(flightPlan!)
 	}
 	
 	/// Cancels the composition of a flight plan
 	public func cancelComposingFlight() {
+		controlPoints.value = []
 		state.value = .finished
 		setOverlays(hidden: true)
-		mapView.draftFlightSource?.shape = nil
 	}
 	
 	/// Completes flight composing and returns a flight plan if it contains valid
@@ -241,7 +242,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		typealias FC = AirMapFlightComposer
 		
 		let latestType = geoType.asObservable().distinctUntilChanged().share()
-		let latestState = state.asObservable().distinctUntilChanged().share()
+		let latestState = state.asObservable().share()
 		let latestBuffer = buffer.asObservable().share()
 		let latestPoints = controlPoints.asObservable().share()
 		
@@ -251,13 +252,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		// Configure for the flight geometry type and interaction state
 		Observable.combineLatest(latestType, latestState, latestPoints) { $0 }
-//			.debounce(0.1, scheduler: MainScheduler.instance)
 			.subscribeNext(weak: self, FC.configureForState)
-			.disposed(by: disposeBag)
-		
-		// Add the control points to the map
-		latestPoints
-			.subscribeNext(weak: self, FC.drawControlPoints)
 			.disposed(by: disposeBag)
 		
 		// Convert the slider buffer value to a display string & value tuple
@@ -490,7 +485,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			editingOverlayView.isHidden = false
 			drawingOverlayView.isHidden = true
 			
-			if canDelete(controlPoint) {
+			if canDelete(controlPoint, from: controlPoints) {
 				toolTip.text = localized.toolTipCtaDragToTrashToDelete
 			}
 			actionButton.setImage(trashIcon, for: UIControlState())
@@ -498,9 +493,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			actionButton.setImage(trashIconSelected, for: .selected)
 			actionButton.addTarget(self, action: #selector(deleteShape), for: .touchUpInside)
 			
-			if type != .point {
-				mapView.setControlPoints(hidden: true)
-			}
+			mapView.setControlPoints(hidden: true)
 			
 		case .finished:
 			drawingOverlayView.isHidden = true
@@ -508,6 +501,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			editingOverlayView.clearPath()
 		}
 		
+		let existingPoints = mapView.annotations?.flatMap({ $0 as? ControlPoint }) ?? []
+		let old = Set(existingPoints).subtracting(controlPoints)
+		let new = Set(controlPoints).subtracting(existingPoints)
+		mapView.removeAnnotations(Array(old))
+		mapView.addAnnotations(Array(new))
 		mapView.hideObscuredMidPointControls()
 	}
 	
@@ -673,10 +671,10 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		}
 	}
 	
-	fileprivate func canDelete(_ controlPoint: ControlPoint) -> Bool {
+	fileprivate func canDelete(_ controlPoint: ControlPoint, from controlPoints: [ControlPoint]) -> Bool {
 		
 		let isVertex = controlPoint.type == .vertex
-		let vertexCount = controlPoints.value.filter{ $0.type == .vertex }.count
+		let vertexCount = controlPoints.filter{ $0.type == .vertex }.count
 		
 		switch geoType.value {
 		case .point:
@@ -704,13 +702,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	}
 	
 	// MARK: Drawing
-	
-	fileprivate func drawControlPoints(_ points: [ControlPoint]) {
-		
-		let existingPoints = mapView.annotations?.flatMap({ $0 as? ControlPoint }) ?? []
-		mapView.removeAnnotations(existingPoints)
-		mapView.addAnnotations(points)
-	}
 	
 	fileprivate func drawNewProposedRadius(_ radius: Meters = 0) {
 		
@@ -944,7 +935,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 			
 			editingOverlayView.drawProposedPath(along: [points])
 			
-			if canDelete(controlPoint) {
+			if canDelete(controlPoint, from: controlPoints.value) {
 				actionButton.isHighlighted = true
 				let actionButtonRect = mapView.convert(actionButton.frame, to: mapView)
 				if actionButtonRect.contains(point) {
@@ -988,7 +979,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 			let actionButtonRect = mapView.convert(actionButton.frame, to: mapView)
 			
 			let hitPoint = mapView.convert(controlPoint.coordinate, toPointTo: mapView)
-			let shouldDeletePoint = canDelete(controlPoint) && actionButtonRect.contains(hitPoint)
+			let shouldDeletePoint = canDelete(controlPoint, from: controlPoints.value) && actionButtonRect.contains(hitPoint)
 			
 			switch controlPoint.type {
 				
@@ -1053,6 +1044,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 		}
 		
 		controlPoints.value = controlPoints.value
+		editingOverlayView.clearPath()
 		state.value = .panning
 	}
 	
