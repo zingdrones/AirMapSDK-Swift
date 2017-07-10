@@ -13,6 +13,8 @@ import ObjectMapper
 
 internal class HTTPClient {
 	
+	static let activity = ActivityIndicator()
+	
 	enum MimeType: String {
 		case JSON = "application/json"
 	}
@@ -48,94 +50,103 @@ internal class HTTPClient {
 	
 	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T> {
 		
-		return Observable.create { (observer: AnyObserver<T>) -> Disposable in
-			
-			let request = self.manager
-				.checkAuth(checkAuth)
-				.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
-				.airMapResponseObject(keyPath: keyPath, mapTo: object) { response in
-					if let error = response.result.error {
-						AirMap.logger.error(method, String(describing: T.self), path, error)
-						observer.onError(error)
-                    } else {
-						AirMap.logger.debug(String(describing: T.self), "response:", response.result.value!)
-						observer.on(.next(response.result.value!))
-						observer.on(.completed)
-					}
+		return Observable
+			.create { (observer: AnyObserver<T>) -> Disposable in
+				
+				let request = self.manager
+					.checkAuth(checkAuth)
+					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
+					.airMapResponseObject(keyPath: keyPath, mapTo: object) { response in
+						if let error = response.result.error {
+							AirMap.logger.error(method, String(describing: T.self), path, error)
+							observer.onError(error)
+						} else {
+							AirMap.logger.debug(String(describing: T.self), "response:", response.result.value!)
+							observer.on(.next(response.result.value!))
+							observer.on(.completed)
+						}
+				}
+				
+				return Disposables.create {
+					request.cancel()
+				}
 			}
-			return Disposables.create {
-				request.cancel()
-			}
-		}
+			.trackActivity(HTTPClient.activity)
 	}
 	
 	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T?> {
 		
-		return Observable.create { (observer: AnyObserver<T?>) -> Disposable in
-			
-			let request = self.manager
-				.checkAuth(checkAuth)
-				.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
-				.airMapResponseObject(keyPath: keyPath, mapTo: object) { response in
-					if let error = response.result.error {
-						AirMap.logger.error(method, String(describing: T.self), path, error)
-						observer.onError(error)
-					} else {
-						AirMap.logger.debug(String(describing: T.self), "response:", response.result.value as Any)
-						observer.on(.next(response.result.value ?? nil))
-						observer.on(.completed)
-					}
+		return Observable
+			.create { (observer: AnyObserver<T?>) -> Disposable in
+				
+				let request = self.manager
+					.checkAuth(checkAuth)
+					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
+					.airMapResponseObject(keyPath: keyPath, mapTo: object) { response in
+						if let error = response.result.error {
+							AirMap.logger.error(method, String(describing: T.self), path, error)
+							observer.onError(error)
+						} else {
+							AirMap.logger.debug(String(describing: T.self), "response:", response.result.value as Any)
+							observer.on(.next(response.result.value ?? nil))
+							observer.on(.completed)
+						}
+				}
+				return Disposables.create {
+					request.cancel()
+				}
 			}
-			return Disposables.create {
-				request.cancel()
-			}
-		}
+			.trackActivity(HTTPClient.activity)
 	}
 	
 	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", checkAuth: Bool = false) -> Observable<[T]> {
 		
-		return Observable.create { (observer: AnyObserver<[T]>) -> Disposable in
-			
-			let request = self.manager
-				.checkAuth(checkAuth)
-				.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
-				.airMapResponseArray(keyPath: keyPath) { (response: DataResponse<[T]>) in
-					if let error = response.result.error {
-						AirMap.logger.error(method, String(describing: T.self), path, error)
-						observer.onError(error)
-					} else {
-						let resultValue = response.result.value!
-						AirMap.logger.debug("Response:", resultValue.count, String(describing: T.self)+"s")
-						observer.on(.next(resultValue))
-						observer.on(.completed)
-					}
+		return Observable
+			.create { (observer: AnyObserver<[T]>) -> Disposable in
+				
+				let request = self.manager
+					.checkAuth(checkAuth)
+					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
+					.airMapResponseArray(keyPath: keyPath) { (response: DataResponse<[T]>) in
+						if let error = response.result.error {
+							AirMap.logger.error(method, String(describing: T.self), path, error)
+							observer.onError(error)
+						} else {
+							let resultValue = response.result.value!
+							AirMap.logger.debug("Response:", resultValue.count, String(describing: T.self)+"s")
+							observer.on(.next(resultValue))
+							observer.on(.completed)
+						}
+				}
+				return Disposables.create() {
+					request.cancel()
+				}
 			}
-			return Disposables.create() {
-				request.cancel()
-			}
-		}
+			.trackActivity(HTTPClient.activity)
 	}
 	
 	internal func perform(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", checkAuth: Bool = false) -> Observable<Void> {
 
-		return Observable.create { (observer: AnyObserver<Void>) -> Disposable in
-			
-			let request = self.manager
-				.checkAuth(checkAuth)
-				.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
-				.airMapVoidResponse { (response: DataResponse<Void>) in
-					if let error = response.error {
-						AirMap.logger.error(method, path, error)
-						observer.onError(error)
-					} else {
-						observer.on(.next())
-						observer.on(.completed)
-					}
+		return Observable
+			.create { (observer: AnyObserver<Void>) -> Disposable in
+				
+				let request = self.manager
+					.checkAuth(checkAuth)
+					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
+					.airMapVoidResponse { (response: DataResponse<Void>) in
+						if let error = response.error {
+							AirMap.logger.error(method, path, error)
+							observer.onError(error)
+						} else {
+							observer.on(.next())
+							observer.on(.completed)
+						}
+				}
+				return Disposables.create() {
+					request.cancel()
+				}
 			}
-			return Disposables.create() {
-				request.cancel()
-			}
-		}
+			.trackActivity(HTTPClient.activity)
 	}
 	
 	private func encoding(_ method: HTTPMethod) -> ParameterEncoding {

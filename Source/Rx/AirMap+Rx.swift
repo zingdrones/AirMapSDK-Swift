@@ -12,6 +12,13 @@ import RxSwift
 // Reactive extension for AirMap methods.
 extension AirMap: ReactiveCompatible {}
 
+extension Reactive where Base: AirMap {
+	
+	public static var networkActivity: ActivityIndicator {
+		return HTTPClient.activity
+	}
+}
+
 /// Documentation found in AirMap+Flights.swift
 extension Reactive where Base: AirMap_Flight {
 	
