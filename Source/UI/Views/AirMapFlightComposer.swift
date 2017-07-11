@@ -17,7 +17,7 @@ import AudioToolbox
 
 public protocol AirMapFlightComposerDelegate: class {
 	var mapView: AirMapMapView { get }
-	func flightComposerDidUpdate(_ flightPlan: AirMapFlightPlan)
+	func flightComposerDidUpdate(_ flightPlan: AirMapFlightPlan, isValidGeometry: Bool)
 }
 
 /// A helper class for creating point, path, or area flight plan on an AirMapMapView.
@@ -95,7 +95,7 @@ public class AirMapFlightComposer {
 		}
 		flightPlan?.geometry = nil
 		flightPlan?.takeoffCoordinate = mapView.centerCoordinate
-		delegate.flightComposerDidUpdate(flightPlan!)
+		delegate.flightComposerDidUpdate(flightPlan!, isValidGeometry: false)
 		
 		// Order is important here as we first want to set the type, then configure buffer
 		self.controlPoints.value = []
@@ -308,11 +308,9 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		// Validate the flight plan and notify the delegate
 		Observable
 			.combineLatest(updatedFlightPlan, validation) { $0 }
-			.map(unowned(self, FC.validatedFlightPlan))
-			.do(onNext: { [weak self] (flightPlan) in
-				self?.delegate?.flightComposerDidUpdate(flightPlan)
+			.subscribe(onNext: { [weak self] (flightPlan, validation) in
+				self?.delegate?.flightComposerDidUpdate(flightPlan, isValidGeometry: validation.valid)
 			})
-			.subscribe()
 			.disposed(by: disposeBag)
 		
 		// Update the map source that displays a draft flight plan
@@ -768,14 +766,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			flightPlan.buffer = buffer
 		}
 		
-		return flightPlan
-	}
-	
-	fileprivate func validatedFlightPlan(flightPlan: AirMapFlightPlan, validation: (valid: Bool, kinks: FeatureCollection?)) -> AirMapFlightPlan {
-		
-		if validation.valid == false {
-			flightPlan.geometry = nil
-		}
 		return flightPlan
 	}
 	
