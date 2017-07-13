@@ -115,6 +115,29 @@ open class AirMapMapView: MGLMapView {
 		return uniqueJurisdictions
 	}
 	
+	
+	public func zoomToDraftFlightPlan(with padding: UIEdgeInsets, duration: TimeInterval) {
+		
+		if let collection = draftFlightSource?.shape as? MGLShapeCollectionFeature {
+			let polygon = collection.shapes.flatMap { $0 as? MGLPolygonFeature }.first
+			if let bounds = polygon?.overlayBounds {
+				let camera = cameraThatFitsCoordinateBounds(bounds, edgePadding: padding)
+				setCamera(camera, withDuration: duration, animationTimingFunction: nil)
+			}
+		}
+	}
+	
+	public func zoomToSpan(of meters: Meters, duration: TimeInterval) {
+		
+		let metersPerPoint = self.metersPerPoint(atLatitude: centerCoordinate.latitude)
+		let points = CGFloat(meters/metersPerPoint)
+		let rect = CGRect(x: center.x, y: center.y, width: 0, height: 0)
+		let bufferedRect = rect.insetBy(dx: -(points/2), dy: -(points/2))
+		let bounds = convert(bufferedRect, toCoordinateBoundsFrom: self)
+		let camera = cameraThatFitsCoordinateBounds(bounds)
+		setCamera(camera, withDuration: duration, animationTimingFunction: nil)
+	}
+	
 	// MARK: - View Lifecycle
 	
 	open override func layoutSubviews() {
