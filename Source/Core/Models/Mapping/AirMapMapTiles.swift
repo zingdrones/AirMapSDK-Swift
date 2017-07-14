@@ -13,10 +13,9 @@ public enum AirMapMapTheme: String {
 	case dark
 	case light
 	case satellite
-	case hybrid
 	
 	public static var allThemes: [AirMapMapTheme] {
-		return [.standard, .dark, .light, .satellite, .hybrid]
+		return [.standard, .dark, .light, .satellite]
 	}
 }
 
@@ -290,7 +289,7 @@ public class MappingService {
 			AirMap.logger.error("An API Key is required to access the AirMap Map Service")
 			return nil
 		}
-		let urlString = "https://cdn.airmap.com/static/map-styles/0.5.0/\(theme.rawValue).json"
+		let urlString = "https://cdn.airmap.com/static/map-styles/v0.5/\(theme.rawValue).json"
 		return URL(string: urlString)
 	}
 	
