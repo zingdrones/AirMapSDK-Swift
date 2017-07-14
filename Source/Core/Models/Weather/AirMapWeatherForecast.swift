@@ -37,7 +37,7 @@ public struct AirMapWeatherForecast: Mappable {
 		public let dewPoint: Double
 		public let pressure: Double
 		public let humidity: Double
-		public let visibility: Double
+		public let visibility: Double?
 		public let precipitation: Double
 		public let temperature: Celcius
 		public let windHeading: Double
@@ -54,7 +54,7 @@ public struct AirMapWeatherForecast: Mappable {
 				dewPoint      =  try  map.value("dew_point")
 				pressure      =  try  map.value("mslp")
 				humidity      =  try  map.value("humidity")
-				visibility    =  try  map.value("visibility")
+				visibility    =  try? map.value("visibility")
 				precipitation =  try  map.value("precipitation")
 				temperature   =  try  map.value("temperature")
 				windHeading   =  try  map.value("wind.heading")
