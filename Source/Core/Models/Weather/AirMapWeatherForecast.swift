@@ -34,10 +34,10 @@ public struct AirMapWeatherForecast: Mappable {
 		public let time: Date
 		public let condition: String
 		public let icon: String
-		public let dewPoint: Double
+		public let dewPoint: Celcius
 		public let pressure: Double
 		public let humidity: Double
-		public let visibility: Double?
+		public let visibility: Kilometers?
 		public let precipitation: Double
 		public let temperature: Celcius
 		public let windHeading: Double

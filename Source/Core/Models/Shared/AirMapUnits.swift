@@ -62,13 +62,12 @@ class AirMapUnitFormatter {
 			return distance.string(fromValue: meters.feet, unit: .foot)
 		}
 	}
-	
-	
 
 }
 
 public typealias Feet = Double
 public typealias Meters = Double
+public typealias Kilometers = Double
 public typealias StatuteMiles = Double
 public typealias NauticalMiles = Double
 
@@ -90,12 +89,15 @@ public extension Meters {
 		return self / Meters.metersPerNauticalMile
 	}
 	
-	public var statuteMiles: StatuteMiles {
-		return self / Meters.metersPerStatuteMile
-	}
-	
 	public var feet: Feet {
 		return self / Feet.metersPerFoot
+	}
+}
+
+public extension Kilometers {
+	
+	public var statuteMiles: StatuteMiles {
+		return self * 1000 / Meters.metersPerStatuteMile
 	}
 }
 
@@ -117,6 +119,10 @@ public extension KilometersPerHour {
 	
 	public var milesPerHour: MilesPerHour {
 		return self * 0.621371
+	}
+	
+	public var knots: Knots {
+		return self * 0.539957
 	}
 }
 
