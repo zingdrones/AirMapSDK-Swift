@@ -118,6 +118,11 @@ open class AirMapMapView: MGLMapView {
 	
 	public func zoomToDraftFlightPlan(with padding: UIEdgeInsets, duration: TimeInterval) {
 		
+		if let polygon = draftFlightSource?.shape as? MGLPolygon {
+			let camera = cameraThatFitsCoordinateBounds(polygon.overlayBounds, edgePadding: padding)
+			setCamera(camera, withDuration: duration, animationTimingFunction: nil)
+		}
+		
 		if let collection = draftFlightSource?.shape as? MGLShapeCollectionFeature {
 			let polygon = collection.shapes.flatMap { $0 as? MGLPolygonFeature }.first
 			if let bounds = polygon?.overlayBounds {
@@ -286,7 +291,9 @@ extension AirMapMapView {
 		case let point as AirMapPoint:
 			
 			let point = Point(geometry: point.coordinate)
-			guard let bufferedPoint = SwiftTurf.buffer(point, distance: buffer, units: .Meters) else { return }
+			guard let bufferedPoint = SwiftTurf.buffer(point, distance: buffer, units: .Meters) else {
+				return
+			}
 			var coordinates = bufferedPoint.geometry.first!
 			let circlePolygon = MGLPolygonFeature(coordinates: &coordinates, count: UInt(coordinates.count))
 			circlePolygon.attributes["shows_stroke"] = true

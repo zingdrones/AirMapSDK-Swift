@@ -104,16 +104,7 @@ public class AirMapFlightComposer {
 	public func cancelComposingFlight() {
 		controlPoints.value = []
 		state.value = .finished
-	}
-	
-	/// Completes flight composing and returns a flight plan if it contains valid
-	/// geometry. Call hasValidFlightGeometry() to verify flight before finishing
-	///
-	/// - Returns: A flight plan if a valid one is available
-	public func finishComposingFlight() -> AirMapFlightPlan? {
-		state.value = .finished
-		setOverlays(hidden: true)
-		return flightPlan
+		mapView.draftFlightSource?.shape = nil
 	}
 	
 	public func annotationView(for controlPoint: ControlPoint) -> ControlPointView {
@@ -174,7 +165,6 @@ extension InteractionState: Equatable {
 public class FlightPlanArea: MGLPolygon {
 	
 	public var statusColor: AirMapStatus.StatusColor = .gray
-	
 }
 
 public class InvalidIntersection: NSObject, MGLAnnotation {
@@ -314,8 +304,8 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			.disposed(by: disposeBag)
 		
 		// Center the flight plan geometry within the view after adjusting the buffer
-		latestBuffer.asObservable()
-			.withLatestFrom(Observable.combineLatest(flightAnnotations, latestType) { $0 })
+		latestBuffer.asObservable().mapToVoid()
+			.delay(0.5, scheduler: MainScheduler.instance)
 			.subscribeNext(weak: self, FC.centerFlightPlan)
 			.disposed(by: disposeBag)
 		
@@ -491,9 +481,9 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			mapView.setControlPoints(hidden: true)
 			
 		case .finished:
+			editingOverlayView.clearPath()
 			drawingOverlayView.isHidden = true
 			editingOverlayView.isHidden = true
-			editingOverlayView.clearPath()
 			setOverlays(hidden: true)
 		}
 		
@@ -643,8 +633,9 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		return midPointControlPoints
 	}
 	
-	fileprivate func neighbors(of controlPoint: ControlPoint, from controlPoints: [ControlPoint], distance: Int) -> (prev: ControlPoint?, next: ControlPoint?) {
+	fileprivate func neighbors(of controlPoint: ControlPoint, distance: Int) -> (prev: ControlPoint?, next: ControlPoint?) {
 		
+		let controlPoints = self.controlPoints.value
 		let index = controlPoints.index(of: controlPoint)! + controlPoints.endIndex // add endIndex to enable wrapping
 		
 		let prevIndex = (index-distance) % controlPoints.endIndex
@@ -798,11 +789,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		mapView.addAnnotations(annotations)
 	}
 	
-	fileprivate func centerFlightPlan(annotations: [MGLAnnotation], type: AirMapFlightGeometryType) {
+	fileprivate func centerFlightPlan() {
 		
 		let insets: UIEdgeInsets
 		
-		switch type {
+		switch geoType.value {
 		case .path:
 			insets = UIEdgeInsetsMake(90, 45, 150, 60)
 		case .polygon:
@@ -811,9 +802,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			insets = UIEdgeInsetsMake(60, 45, 150, 45)
 		}
 		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-			self.mapView.zoomToDraftFlightPlan(with: insets, duration: 2)
-		}
+		mapView.zoomToDraftFlightPlan(with: insets, duration: 2)
 	}
 	
 	fileprivate func position(_ midControlPoint: ControlPoint, between controlpoints: (prev: ControlPoint?, next: ControlPoint?)) {
@@ -918,7 +907,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 		case .polygon, .path:
 			
 			let distance = controlPoint.type == .midPoint ? 1 : 2
-			let neighbors = self.neighbors(of: controlPoint, from: controlPoints.value, distance: distance)
+			let neighbors = self.neighbors(of: controlPoint, distance: distance)
 			let points = [neighbors.prev, ControlPoint(coordinate: controlPointCoordinate), neighbors.next]
 				.flatMap { $0 }
 				.map { mapView.convert($0.coordinate, toPointTo: mapView) }
@@ -975,7 +964,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 				
 			case .vertex:
 				
-				let midPoints = neighbors(of: controlPoint, from: controlPoints.value, distance: 1)
+				let midPoints = neighbors(of: controlPoint, distance: 1)
 				if shouldDeletePoint {
 					let controlPointsToDelete: [ControlPoint]
 					if controlPoint == controlPoints.value.first {
@@ -988,7 +977,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 						.flatMap { $0 as? ControlPoint }
 						.filter { $0.type == .midPoint }
 						.forEach { midPoint in
-							let vertices = neighbors(of: midPoint, from: controlPoints.value, distance: 1)
+							let vertices = neighbors(of: midPoint, distance: 1)
 							position(midPoint, between: vertices)
 					}
 					trackEvent(.drop, label: "Drop Point Trash Icon")
@@ -1005,7 +994,7 @@ extension AirMapFlightComposer: ControlPointDelegate {
 					}
 				} else {
 					for midPoint in [midPoints.prev, midPoints.next].flatMap({$0}) {
-						let vertices = neighbors(of: midPoint, from: controlPoints.value, distance: 1)
+						let vertices = neighbors(of: midPoint, distance: 1)
 						position(midPoint, between: vertices)
 					}
 				}
@@ -1025,8 +1014,8 @@ extension AirMapFlightComposer: ControlPointDelegate {
 				controlPoints.value.insert(left, at: index)
 				controlPoints.value.insert(right, at: index+2)
 				
-				position(left, between: neighbors(of: left, from: controlPoints.value, distance: 1))
-				position(right, between: neighbors(of: right, from: controlPoints.value, distance: 1))
+				position(left, between: neighbors(of: left, distance: 1))
+				position(right, between: neighbors(of: right, distance: 1))
 			}
 			
 		case .point:
