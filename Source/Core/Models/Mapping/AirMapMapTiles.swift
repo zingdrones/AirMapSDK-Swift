@@ -210,6 +210,7 @@ public enum AirMapAirspaceType: String {
 	case hazardArea          = "hazard_area"
 	case heliport            = "heliport"
 	case hospital            = "hospital"
+	case notam               = "notam"
 	case park                = "park"
 	case powerPlant          = "power_plant"
 	case prison              = "prison"
@@ -233,6 +234,7 @@ public enum AirMapAirspaceType: String {
 		.hazardArea,
 		.heliport,
 		.hospital,
+		.notam,
 		.park,
 		.powerPlant,
 		.prison,
@@ -262,6 +264,7 @@ public enum AirMapAirspaceType: String {
 		case .hazardArea:           return localized.hazardArea
 		case .heliport:             return localized.heliport
 		case .hospital:             return localized.hospital
+		case .notam:                return localized.notam
 		case .park:                 return localized.park
 		case .powerPlant:           return localized.powerPlant
 		case .prison:               return localized.prison
