@@ -73,6 +73,10 @@ public class AirMapJurisdiction: Mappable {
 	public var optionalRuleSets: [AirMapRuleSet] {
 		return ruleSets.filter { $0.type == .optional }
 	}
+	
+	public var airMapRecommendedRuleSets: [AirMapRuleSet] {
+		return ruleSets.filter { $0.shortName.uppercased() == "AIRMAP" }
+	}
 }
 
 extension AirMapJurisdiction: Hashable, Equatable, Comparable {
