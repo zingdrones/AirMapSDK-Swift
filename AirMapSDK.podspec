@@ -47,7 +47,7 @@ Pod::Spec.new do |s|
 		ui.dependency 'PhoneNumberKit'
 		ui.dependency 'RxDataSources'
 		ui.dependency 'Mapbox-iOS-SDK'
-		ui.dependency 'Lock'
+		ui.dependency 'Lock', '>= 2.3.1'
 		ui.dependency 'SwiftSimplify'
 		ui.dependency 'SwiftTurf'
 		ui.dependency 'FZAccordionTableView'
