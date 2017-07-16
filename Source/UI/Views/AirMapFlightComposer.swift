@@ -162,11 +162,6 @@ extension InteractionState: Equatable {
 	}
 }
 
-public class FlightPlanArea: MGLPolygon {
-	
-	public var statusColor: AirMapStatus.StatusColor = .gray
-}
-
 public class InvalidIntersection: NSObject, MGLAnnotation {
 	
 	public var coordinate: CLLocationCoordinate2D
