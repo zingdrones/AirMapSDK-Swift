@@ -305,7 +305,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		// Center the flight plan geometry within the view after adjusting the buffer
 		latestBuffer.asObservable().mapToVoid()
-			.delay(0.5, scheduler: MainScheduler.instance)
 			.subscribeNext(weak: self, FC.centerFlightPlan)
 			.disposed(by: disposeBag)
 		
@@ -791,18 +790,38 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	
 	fileprivate func centerFlightPlan() {
 		
+		guard let flightPlan = flightPlan else { return }
+		
 		let insets: UIEdgeInsets
 		
 		switch geoType.value {
-		case .path:
-			insets = UIEdgeInsetsMake(90, 45, 150, 60)
-		case .polygon:
-			insets = UIEdgeInsetsMake(90, 45, 150, 60)
 		case .point:
-			insets = UIEdgeInsetsMake(60, 45, 150, 45)
+			insets = UIEdgeInsetsMake(40, 45, 200, 45)
+		case .path:
+			insets = UIEdgeInsetsMake(110, 30, 220, 60)
+		case .polygon:
+			insets = UIEdgeInsetsMake(120, 45, 200, 75)
 		}
 		
-		mapView.zoomToDraftFlightPlan(with: insets, duration: 2)
+		guard let polygon = flightPlan.polygonGeometry() else { return }
+		
+		var innerPolygons: [MGLPolygon]? = nil
+		var coordinates = polygon.coordinates.first!
+			
+		if polygon.coordinates.count > 1 {
+			innerPolygons = polygon.coordinates
+				.suffix(from: 1)
+				.map({ (innerCoordinates) -> MGLPolygon in
+					return MGLPolygon(coordinates: innerCoordinates, count: UInt(innerCoordinates.count))
+				})
+		}
+			
+		let mglPolygon = MGLPolygon(coordinates: &coordinates, count: UInt(coordinates.count), interiorPolygons: innerPolygons)
+		let bounds = mglPolygon.overlayBounds
+		let camera = mapView.cameraThatFitsCoordinateBounds(bounds, edgePadding: insets)
+		mapView.setCamera(camera, withDuration: 0.6, animationTimingFunction: nil) {
+			
+		}
 	}
 	
 	fileprivate func position(_ midControlPoint: ControlPoint, between controlpoints: (prev: ControlPoint?, next: ControlPoint?)) {
@@ -866,8 +885,11 @@ extension AirMapFlightComposer: DrawingOverlayDelegate {
 		
 		state.value = .panning
 		self.controlPoints.value = controlPoints
-		state.value = .panning
-		self.controlPoints.value = controlPoints
+		
+		// Trigger animation to fill view with shape
+		DispatchQueue.main.async {
+			self.buffer.value = self.buffer.value
+		}
 	}
 }
 
