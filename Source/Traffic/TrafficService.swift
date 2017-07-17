@@ -76,7 +76,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			.filter {[unowned self] _ in AirMap.hasValidCredentials() && self.delegate != nil}
 			.flatMap(unowned(self, TrafficService.connectWithFlight))
 			.catchError({ _ in return Observable.just( .disconnected) })
-			.bindTo(connectionState)
+			.bind(to: connectionState)
 			.disposed(by: disposeBag)
 
 		whenConnected
@@ -113,7 +113,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			.debug("refreshCurrentFlight")
 			.skipWhile({[unowned self] _ in !AirMap.hasValidCredentials() || self.delegate == nil})
 			.flatMap(AirMap.rx.getCurrentAuthenticatedPilotFlight)
-			.bindTo(currentFlight)
+			.bind(to: currentFlight)
 			.disposed(by: disposeBag)
 
 		let trafficProjectionTimer = Observable<Int>.interval(0.25, scheduler: MainScheduler.asyncInstance).mapToVoid()
@@ -137,7 +137,7 @@ internal class TrafficService: MQTTSessionDelegate {
 				disconnect()
 			}
 
-			AirMap.rx.getCurrentAuthenticatedPilotFlight().bindTo(currentFlight).disposed(by: disposeBag)
+			AirMap.rx.getCurrentAuthenticatedPilotFlight().bind(to: currentFlight).disposed(by: disposeBag)
 		}
 	}
 
