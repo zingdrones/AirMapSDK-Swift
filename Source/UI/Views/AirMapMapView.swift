@@ -185,12 +185,18 @@ open class AirMapMapView: MGLMapView {
 	private func updateTemporalFilters() {
 		
 		style?.layers
-			.filter { $0.identifier.hasPrefix("airmap|tfr") }
+			.filter { $0.identifier.hasPrefix("airmap|tfr") || $0.identifier.hasPrefix("airmap|notam") }
 			.flatMap { $0 as? MGLVectorStyleLayer }
 			.forEach({ (layer) in
-				let start = Int(Date().addingTimeInterval(60*60*4).timeIntervalSince1970)
-				let end = Int(Date().timeIntervalSince1970)
-				layer.predicate = NSPredicate(format: "start < %i && end > %i", start, end)
+				let now = Int(Date().timeIntervalSince1970)
+				let nearFuture = Int(Date().timeIntervalSince1970 + Config.Maps.futureTemporalWindow)
+				let overlapsWithNow = NSPredicate(format: "start < %i && end > %i", now, now)
+				let startsSoon = NSPredicate(format: "start > %i && end < %i", now, nearFuture)
+				let isPermanent = NSPredicate(format: "permanent == YES")
+				let hasNoEnd = NSPredicate(format: "end == NULL")
+				let isNotBase = NSPredicate(format: "base == NULL")
+				let timePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [overlapsWithNow, startsSoon, isPermanent, hasNoEnd])
+				layer.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timePredicate, isNotBase])
 			})
 	}
 }

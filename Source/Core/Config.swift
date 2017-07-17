@@ -111,6 +111,7 @@ struct Config {
 		static let feetPerMeters: Feet = 3.2808
 		static let tileMinimumZoomLevel = 7
 		static let tileMaximumZoomLevel = 12
+		static let futureTemporalWindow: TimeInterval = 4*60*60
 	}
 	
 }
