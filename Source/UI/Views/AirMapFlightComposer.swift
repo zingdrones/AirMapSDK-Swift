@@ -17,7 +17,7 @@ import AudioToolbox
 
 public protocol AirMapFlightComposerDelegate: class {
 	var mapView: AirMapMapView { get }
-	func flightComposerDidUpdate(_ flightPlan: AirMapFlightPlan, isValidGeometry: Bool)
+	func flightComposerDidUpdate(_ flightPlan: AirMapFlightPlan?, isValidGeometry: Bool)
 }
 
 /// A helper class for creating point, path, or area flight plan on an AirMapMapView.
@@ -84,16 +84,15 @@ public class AirMapFlightComposer {
 	/// Begins the flight composing process
 	///
 	/// - Parameter type: A flight type to begin with. Defaults to point and radius.
-	public func startComposingFlight(type: AirMapFlightGeometryType = .point, buffer: Meters) {
+	public func startComposingFlight(type: AirMapFlightGeometryType = .point, at coordinate: CLLocationCoordinate2D, buffer: Meters) {
 		
 		if flightPlan == nil {
-			flightPlan = AirMapFlightPlan(coordinate: mapView.centerCoordinate)
+			flightPlan = AirMapFlightPlan(coordinate: coordinate)
 		}
 		flightPlan?.geometry = nil
-		flightPlan?.takeoffCoordinate = mapView.centerCoordinate
-		delegate.flightComposerDidUpdate(flightPlan!, isValidGeometry: false)
+		flightPlan?.takeoffCoordinate = coordinate
+		delegate.flightComposerDidUpdate(flightPlan, isValidGeometry: false)
 		
-		// Order is important here as we first want to set the type, then configure buffer
 		self.geoType.value = type
 		self.buffer.value = buffer
 		
@@ -105,6 +104,8 @@ public class AirMapFlightComposer {
 		controlPoints.value = []
 		state.value = .finished
 		mapView.draftFlightSource?.shape = nil
+		flightPlan = nil
+		delegate.flightComposerDidUpdate(flightPlan, isValidGeometry: false)
 	}
 	
 	public func annotationView(for controlPoint: ControlPoint) -> ControlPointView {
@@ -262,6 +263,15 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			.map { $0.filter { $0.type == ControlPointType.vertex }.map { $0.coordinate } }
 			.share()
 		
+		// Set the takeoff coordinate to the first point
+		latestCoordinates
+			.map({$0.first})
+			.unwrap()
+			.subscribe(onNext: { [unowned self] (coordinate) in
+				self.flightPlan?.takeoffCoordinate = coordinate
+			})
+			.disposed(by: disposeBag)
+		
 		// Validate that the coordinates for the geo type are valid
 		let validation = Observable
 			.combineLatest(latestType, latestCoordinates) { $0 }
@@ -342,9 +352,13 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			actionButton.isHidden = true
 			bufferTitleLabel.text = LocalizedStrings.FlightDrawing.radius
 			toolTip.superview!.superview!.alpha = 0.0
-			controlPoints.value = [
-				ControlPoint(type: .vertex, coordinate: mapView.centerCoordinate)
-			]
+			if let coordinate = flightPlan?.takeoffCoordinate {
+				controlPoints.value = [
+					ControlPoint(type: .vertex, coordinate: coordinate)
+				]
+			} else {
+				controlPoints.value = []
+			}
 			radiusSliderAlpha = 1
 			state.value = .panning
 			
@@ -719,13 +733,14 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	
 	fileprivate func updatedFlightPlan(flightPlan: AirMapFlightPlan, geoType: AirMapFlightGeometryType, coordinates: [CLLocationCoordinate2D], buffer: Meters) -> AirMapFlightPlan {
 		
+		let takeoffCoordinate = coordinates.first ?? flightPlan.takeoffCoordinate
+		flightPlan.takeoffCoordinate = takeoffCoordinate
+		
 		switch geoType {
 			
 		case .point:
-			let coordinate = coordinates.first ?? mapView.centerCoordinate
-			let point = AirMapPoint(coordinate: coordinate)
+			let point = AirMapPoint(coordinate: takeoffCoordinate)
 			flightPlan.geometry = point
-			flightPlan.takeoffCoordinate = coordinate
 			flightPlan.buffer = buffer
 			
 		case .path:
@@ -734,17 +749,14 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			} else {
 				flightPlan.geometry = nil
 			}
-			flightPlan.takeoffCoordinate = coordinates.first ?? mapView.centerCoordinate
 			flightPlan.buffer = buffer / 2
 			
 		case .polygon:
 			if coordinates.count >= 3 {
 				let closedPoints = coordinates + [coordinates.first!]
 				flightPlan.geometry = AirMapPolygon(coordinates: [closedPoints])
-				flightPlan.takeoffCoordinate = coordinates.first!
 			} else {
 				flightPlan.geometry = nil
-				flightPlan.takeoffCoordinate = mapView.centerCoordinate
 			}
 			flightPlan.buffer = buffer
 		}

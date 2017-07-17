@@ -17,8 +17,8 @@ extension AirMap_Advisories {
 	///   - geometry: The geographic area to search
 	///   - ruleSets: The rulesets under which to constrain the search
 	///   - completion: The handler to call with the airspace advisory status result
-	public static func getAirspaceStatus(geometry: AirMapGeometry, ruleSets: [AirMapRuleSet], completion: @escaping (Result<AirMapAirspaceAdvisoryStatus>) -> Void) {
-		advisoryClient.getAirspaceStatus(within: geometry, under: ruleSets).subscribe(completion)
+	public static func getAirspaceStatus(geometry: AirMapGeometry, ruleSetIds: [String], completion: @escaping (Result<AirMapAirspaceAdvisoryStatus>) -> Void) {
+		advisoryClient.getAirspaceStatus(within: geometry, under: ruleSetIds).subscribe(completion)
 	}
 	
 	/// Get an hourly weather forecast for a given location and time window

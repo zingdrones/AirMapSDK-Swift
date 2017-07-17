@@ -78,10 +78,10 @@ extension AirMap_Flight {
 	/// Get a flight plan by flight id
 	///
 	/// - Parameters:
-	///   - flightId: The identifier for the flight
+	///   - id: The identifier for the flight
 	///   - completion: A completion handler with the flight plan result
-	public static func getFlightPlan(by flightId: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
-		flightClient.getFlightPlan(by: flightId).subscribe(completion)
+	public static func getFlightPlanByFlightId(_ id: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
+		flightClient.getFlightPlanByFlightId(id).subscribe(completion)
 	}
 }
 

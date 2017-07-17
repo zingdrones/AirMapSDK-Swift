@@ -19,15 +19,14 @@ internal class AdvisoryClient: HTTPClient {
 		case invalidPolygon
 	}
 	
-	func getAirspaceStatus(within geometry: AirMapGeometry, under ruleSets: [AirMapRuleSet]) -> Observable<AirMapAirspaceAdvisoryStatus> {
+	func getAirspaceStatus(within geometry: AirMapGeometry, under ruleSetIds: [String]) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		
-		let ruleSetIdentifiers = ruleSets.identifiers
-		AirMap.logger.debug("GET Rules under", ruleSetIdentifiers)
+		AirMap.logger.debug("GET Rules under", ruleSetIds)
 		let geometryData = try! JSONSerialization.data(withJSONObject: geometry.geoJSONDictionary, options: [])
 		let geometryJSON = String(data: geometryData, encoding: .utf8)
 		let params: [String: Any] = [
 			"geometry": geometryJSON ?? "",
-			"rulesets": ruleSetIdentifiers
+			"rulesets": ruleSetIds.joined(separator: ",")
 		]
 		
 		return perform(method: .get, path: "/airspace", params: params)
