@@ -66,7 +66,7 @@ extension AirMapError: RawRepresentable {
 		}
 	}
 	
-	private static func error(from rawValue: RawValue) -> Error {
+	private static func error(from rawValue: RawValue) -> AirMapApiError {
 
 		if let json = try? JSONSerialization.jsonObject(with: rawValue.data, options: .allowFragments),
 			let error = Mapper<AirMapApiError>().map(JSONObject: json) {
