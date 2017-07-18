@@ -24,7 +24,6 @@ internal class RuleClient: HTTPClient {
 	}
 
 	func getRuleSets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleSet]> {
-		AirMap.logger.debug("Getting rulesest within geometry")
 		let params = ["geometry": geometry.params()]
 		return perform(method: .post, path: "/", params: params)
 	}
