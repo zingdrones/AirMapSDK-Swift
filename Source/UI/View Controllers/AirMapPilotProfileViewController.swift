@@ -47,13 +47,13 @@ class AirMapFormTextField: UITableViewCell {
 	@IBOutlet weak var label: UILabel!
 }
 
-class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackable {
+public class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackable {
 	
 	var screenName = "Pilot Profile"
 	
 	var customFields = [AirMapPilotProfileField]()
 
-	var pilot: Variable<AirMapPilot?>!
+	public var pilot: Variable<AirMapPilot?>!
 	
 	@IBOutlet weak var fullName: UILabel!
 	@IBOutlet weak var statisticsLabel: UILabel!
@@ -69,7 +69,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		case customInfo
 	}
 	
-	override func viewDidLoad() {
+	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		tableView.dataSource = nil
@@ -83,7 +83,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		setupTableView()
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
+	public override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		AirMap.rx.getAuthenticatedPilot().asOptional()
@@ -94,11 +94,11 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		trackView()
 	}
 	
-	override var canBecomeFirstResponder : Bool {
+	public override var canBecomeFirstResponder : Bool {
 		return true
 	}
 	
-	override var inputAccessoryView: UIView? {
+	public override var inputAccessoryView: UIView? {
 		return saveButton
 	}
 	
@@ -256,11 +256,12 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 				self.dismiss(animated: true, completion: nil)
 				self.trackEvent(.save, label: "Success")
 			})
-			.subscribe()
+			.asOptional()
+			.bind(to: self.pilot)
 			.disposed(by: disposeBag)
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "modalUpdatePhoneNumber" {
 			let nav = segue.destination as! AirMapPhoneVerificationNavController
 			nav.phoneVerificationDelegate = self
@@ -274,8 +275,14 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	}
 	
 	fileprivate func configureStats(_ pilot: AirMapPilot) {
+		guard let stats = pilot.statistics else { return }
 		let statsFormat = LocalizedStrings.PilotProfile.statisticsFormat
-		statisticsLabel.text = String(format: statsFormat, pilot.statistics.totalAircraft.description, pilot.statistics.totalFlights.description)
+		statisticsLabel.text = String(format: statsFormat, stats.totalAircraft.description, stats.totalFlights.description)
+	}
+	
+	@IBAction func dismiss() {
+		
+		dismiss(animated: true, completion: nil)
 	}
 	
 	@IBAction func unwindToPilotProfile(_ segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }
@@ -284,7 +291,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 
 extension AirMapPilotProfileViewController: AirMapPhoneVerificationDelegate {
 	
-	func phoneVerificationDidVerifyPhoneNumber() {
+	public func phoneVerificationDidVerifyPhoneNumber() {
 		dismiss(animated: true, completion:nil)
 	}
 }
