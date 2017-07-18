@@ -90,6 +90,12 @@ public class AirMapFlightComposer {
 		
 		if flightPlan == nil {
 			flightPlan = AirMapFlightPlan(coordinate: coordinate)
+			switch AirMap.configuration.distanceUnits {
+			case .imperial:
+				flightPlan?.maximumAltitudeAGL = Feet(200).meters
+			case .metric:
+				flightPlan?.maximumAltitudeAGL = Meters(100)
+			}
 		}
 		flightPlan?.geometry = nil
 		flightPlan?.buffer = buffer
