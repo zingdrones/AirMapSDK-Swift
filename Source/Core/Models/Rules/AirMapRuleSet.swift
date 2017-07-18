@@ -59,11 +59,11 @@ public class AirMapRuleSet: Mappable {
 
 	public required init?(map: Map) {
 		do {
-			id        = try map.value("id")
-			name      = try map.value("name")
+			id        =  try  map.value("id")
+			name      =  try  map.value("name")
 			shortName = (try? map.value("short_name")) ?? "?"
-			type      = try map.value("selection_type")
-			isDefault = try map.value("default")
+			type      =  try  map.value("selection_type")
+			isDefault =  try  map.value("default")
 			
 			switch map.context as? DataOrigin ?? .airMapApi {
 				
