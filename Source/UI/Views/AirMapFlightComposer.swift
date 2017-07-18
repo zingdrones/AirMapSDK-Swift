@@ -86,11 +86,15 @@ public class AirMapFlightComposer {
 	/// - Parameter type: A flight type to begin with. Defaults to point and radius.
 	public func startComposingFlight(type: AirMapFlightGeometryType = .point, at coordinate: CLLocationCoordinate2D, buffer: Meters) {
 		
+		mapView.draftFlightSource?.shape = nil
+		
 		if flightPlan == nil {
 			flightPlan = AirMapFlightPlan(coordinate: coordinate)
 		}
 		flightPlan?.geometry = nil
+		flightPlan?.buffer = buffer
 		flightPlan?.takeoffCoordinate = coordinate
+		
 		delegate.flightComposerDidUpdate(flightPlan, isValidGeometry: false)
 		
 		self.geoType.value = type
@@ -101,11 +105,9 @@ public class AirMapFlightComposer {
 	
 	/// Cancels the composition of a flight plan
 	public func cancelComposingFlight() {
+		flightPlan = nil
 		controlPoints.value = []
 		state.value = .finished
-		mapView.draftFlightSource?.shape = nil
-		flightPlan = nil
-		delegate.flightComposerDidUpdate(flightPlan, isValidGeometry: false)
 	}
 	
 	public func annotationView(for controlPoint: ControlPoint) -> ControlPointView {
@@ -280,7 +282,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		// Update the flight plan object with the latest properties
 		let updatedFlightPlan = Observable
-			.combineLatest(flightPlanVariable.asObservable().unwrap(), latestType, latestCoordinates, latestBuffer) { $0 }
+			.combineLatest(flightPlanVariable.asObservable(), latestType, latestCoordinates, latestBuffer) { $0 }
 			.map(unowned(self, FC.updatedFlightPlan))
 			.share()
 		
@@ -305,7 +307,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			.disposed(by: disposeBag)
 		
 		// Update the map source that displays a draft flight plan
-		Observable.combineLatest(updatedFlightPlan, latestBuffer) { ($0.0.geometry, $0.1) }
+		Observable.combineLatest(updatedFlightPlan, latestBuffer) { ($0.0?.geometry, $0.1) }
 			.debounce(0.1, scheduler: MainScheduler.instance)
 			.subscribeNext(weak: mapView, AirMapMapView.updateDraftFlightPlan)
 			.disposed(by: disposeBag)
@@ -733,42 +735,46 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		}
 	}
 	
-	fileprivate func updatedFlightPlan(flightPlan: AirMapFlightPlan, geoType: AirMapFlightGeometryType, coordinates: [CLLocationCoordinate2D], buffer: Meters) -> AirMapFlightPlan {
+	fileprivate func updatedFlightPlan(flightPlan: AirMapFlightPlan?, geoType: AirMapFlightGeometryType, coordinates: [CLLocationCoordinate2D], buffer: Meters) -> AirMapFlightPlan? {
 		
-		let takeoffCoordinate = coordinates.first ?? flightPlan.takeoffCoordinate
-		flightPlan.takeoffCoordinate = takeoffCoordinate
+		guard let plan = flightPlan else {
+			return flightPlan
+		}
+		
+		let takeoffCoordinate = coordinates.first ?? plan.takeoffCoordinate
+		plan.takeoffCoordinate = takeoffCoordinate
 		
 		switch geoType {
 			
 		case .point:
 			let point = AirMapPoint(coordinate: takeoffCoordinate)
-			flightPlan.geometry = point
-			flightPlan.buffer = buffer
+			plan.geometry = point
+			plan.buffer = buffer
 			
 		case .path:
 			if coordinates.count >= 2 {
-				flightPlan.geometry = AirMapPath(coordinates: coordinates)
+				plan.geometry = AirMapPath(coordinates: coordinates)
 			} else {
-				flightPlan.geometry = nil
+				plan.geometry = nil
 			}
-			flightPlan.buffer = buffer / 2
+			plan.buffer = buffer / 2
 			
 		case .polygon:
 			if coordinates.count >= 3 {
 				let closedPoints = coordinates + [coordinates.first!]
-				flightPlan.geometry = AirMapPolygon(coordinates: [closedPoints])
+				plan.geometry = AirMapPolygon(coordinates: [closedPoints])
 			} else {
-				flightPlan.geometry = nil
+				plan.geometry = nil
 			}
-			flightPlan.buffer = buffer
+			plan.buffer = buffer
 		}
 		
-		return flightPlan
+		return plan
 	}
 	
-	fileprivate func flightAnnotations(flightPlan: AirMapFlightPlan, validation: (valid: Bool, kinks: FeatureCollection?)) -> [MGLAnnotation] {
+	fileprivate func flightAnnotations(flightPlan: AirMapFlightPlan?, validation: (valid: Bool, kinks: FeatureCollection?)) -> [MGLAnnotation] {
 		
-		guard let geometry = flightPlan.geometry else { return [] }
+		guard let geometry = flightPlan?.geometry else { return [] }
 		
 		switch geometry.type {
 		case .point, .path:
