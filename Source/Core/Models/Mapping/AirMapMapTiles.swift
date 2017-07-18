@@ -292,7 +292,7 @@ public class MappingService {
 			AirMap.logger.error("An API Key is required to access the AirMap Map Service")
 			return nil
 		}
-		let urlString = "https://cdn.airmap.com/static/map-styles/v0.5/\(theme.rawValue).json"
+		let urlString = "https://cdn.airmap.com/static/map-styles/v0.6/\(theme.rawValue).json"
 		return URL(string: urlString)
 	}
 	
