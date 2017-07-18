@@ -21,21 +21,19 @@ internal class AdvisoryClient: HTTPClient {
 	
 	func getAirspaceStatus(within geometry: AirMapGeometry, under ruleSetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		
-		AirMap.logger.debug("GET Rules under", ruleSetIds)
-		let geometryData = try! JSONSerialization.data(withJSONObject: geometry.geoJSONDictionary, options: [])
-		let geometryJSON = String(data: geometryData, encoding: .utf8)
+		AirMap.logger.debug("Get Rules under", ruleSetIds)
 		var params = [String: Any]()
-		params["geometry"] = geometryJSON ?? ""
+		params["geometry"] = geometry.params()
 		params["rulesets"] = ruleSetIds.joined(separator: ",")
 		params["start"] = start?.ISO8601String()
 		params["end"] = end?.ISO8601String()
 		
-		return perform(method: .get, path: "/airspace", params: params)
+		return perform(method: .post, path: "/airspace", params: params)
 	}
 	
 	func getWeatherForecast(at coordinate: Coordinate2D, from: Date?, to: Date?) -> Observable<AirMapWeatherForecast> {
 		
-		AirMap.logger.debug("GET Weather", coordinate)
+		AirMap.logger.debug("Get Weather", coordinate)
 		var params = [String: Any]()
 		params["latitude"] = coordinate.latitude
 		params["longitude"] = coordinate.longitude

@@ -24,16 +24,9 @@ internal class RuleClient: HTTPClient {
 	}
 
 	func getRuleSets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleSet]> {
-		let geometryData = try! JSONSerialization.data(withJSONObject: geometry.params(), options: [])
-		let geometryJSON = String(data: geometryData, encoding: .utf8)
-		let params: [String: Any] = [
-			"geometry": geometryJSON ?? ""
-		]
-		return perform(method: .get, path: "/", params: params)
-			// FIXME: Removing AMD airspace
-			.map({ (ruleSets: [AirMapRuleSet]) -> [AirMapRuleSet] in
-				ruleSets.filter { $0.shortName != "AMD"}
-			})
+		AirMap.logger.debug("Getting rulesest within geometry")
+		let params = ["geometry": geometry.params()]
+		return perform(method: .post, path: "/", params: params)
 	}
 		
 	func getRuleSets(by ruleSetIds: [String]) -> Observable<[AirMapRuleSet]> {
