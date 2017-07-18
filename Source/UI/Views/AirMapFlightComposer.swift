@@ -298,6 +298,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		// Validate the flight plan and notify the delegate
 		Observable
 			.combineLatest(updatedFlightPlan, validation) { $0 }
+			.debounce(0.1, scheduler: MainScheduler.instance)
 			.subscribe(onNext: { [weak self] (flightPlan, validation) in
 				self?.delegate?.flightComposerDidUpdate(flightPlan, isValidGeometry: validation.valid)
 			})
@@ -305,6 +306,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		// Update the map source that displays a draft flight plan
 		Observable.combineLatest(updatedFlightPlan, latestBuffer) { ($0.0.geometry, $0.1) }
+			.debounce(0.1, scheduler: MainScheduler.instance)
 			.subscribeNext(weak: mapView, AirMapMapView.updateDraftFlightPlan)
 			.disposed(by: disposeBag)
 		
