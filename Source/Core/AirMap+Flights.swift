@@ -11,7 +11,7 @@ import Foundation
 public typealias AirMap_Flight = AirMap
 extension AirMap_Flight {
 
-	/// List all public flights including the authenticated user's private flights
+	/// List all public flights. A user's non-public flights are excluded.
 	///
 	/// - Parameters:
 	///   - fromDate: The start of search window. Optional

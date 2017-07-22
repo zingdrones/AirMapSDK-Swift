@@ -79,16 +79,7 @@ internal class FlightClient: HTTPClient {
 
 		AirMap.logger.debug("Get Public Flights", endAfterNow as Any, endAfter as Any, startBefore as Any, startBeforeNow as Any)
 
-		let publicFlights = list(limit: limit, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow)
-
-		if AirMap.authSession.hasValidCredentials() {
-			let pilotFlights = list(limit: limit, pilotId: AirMap.authSession.userId, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow)
-			return Observable.zip([publicFlights, pilotFlights]) { flights in
-				return Array(Set(flights.flatMap({$0})))
-			}
-		} else {
-			return publicFlights
-		}
+		return list(limit: limit, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow, within: geometry)
 	}
 
 	func get(_ flightId: String) -> Observable<AirMapFlight> {
