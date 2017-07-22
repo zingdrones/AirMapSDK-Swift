@@ -86,7 +86,7 @@ public class AirMapFlightComposer {
 	/// - Parameter type: A flight type to begin with. Defaults to point and radius.
 	public func startComposingFlight(type: AirMapFlightGeometryType = .point, at coordinate: CLLocationCoordinate2D, buffer: Meters) {
 		
-		mapView.draftFlightSource?.shape = nil
+		mapView.updateDraftFlightPlan(geometry: nil)
 		
 		if flightPlan == nil {
 			flightPlan = AirMapFlightPlan(coordinate: coordinate)
