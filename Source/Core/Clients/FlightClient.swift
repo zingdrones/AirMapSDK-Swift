@@ -10,6 +10,10 @@ import Foundation
 import RxSwift
 
 internal class FlightClient: HTTPClient {
+	
+	enum FlightClientError: Error {
+		case FlightDoesNotExist
+	}
 
 	init() {
 		super.init(basePath: Config.AirMapApi.flightUrl)
@@ -102,12 +106,20 @@ internal class FlightClient: HTTPClient {
 
 	func end(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("End flight", flight)
-		return perform(method: .post, path:"/\(flight.id!)/end", update: flight)
+		guard let flightId = flight.id else {
+			AirMap.logger.error(self, FlightClientError.FlightDoesNotExist)
+			return .error(FlightClientError.FlightDoesNotExist)
+		}
+		return perform(method: .post, path:"/\(flightId)/end", update: flight)
 	}
 
 	func delete(_ flight: AirMapFlight) -> Observable<Void> {
 		AirMap.logger.debug("Delete flight", flight)
-		return perform(method: .post, path:"/\(flight.id!)/delete")
+		guard let flightId = flight.id else {
+			AirMap.logger.error(self, FlightClientError.FlightDoesNotExist)
+			return .error(FlightClientError.FlightDoesNotExist)
+		}
+		return perform(method: .post, path:"/\(flightId)/delete")
 	}
 	
 	func getFlightPlanByFlightId(_ id: String) -> Observable<AirMapFlightPlan> {
