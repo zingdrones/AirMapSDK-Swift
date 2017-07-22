@@ -22,8 +22,8 @@ extension Reactive where Base: AirMap {
 /// Documentation found in AirMap+Flights.swift
 extension Reactive where Base: AirMap_Flight {
 	
-	public static func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
-		return AirMap.flightClient.listPublicFlights(from: fromDate, to: toDate, limit: limit)
+	public static func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil, within geometry: AirMapGeometry? = nil) -> Observable<[AirMapFlight]> {
+		return AirMap.flightClient.listPublicFlights(from: fromDate, to: toDate, limit: limit, within: geometry)
 	}
 
 	public static func listFlights(_ pilot: AirMapPilot, limit: Int = 100) -> Observable<[AirMapFlight]> {

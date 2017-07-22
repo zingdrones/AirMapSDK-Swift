@@ -50,6 +50,7 @@ internal class FlightClient: HTTPClient {
 	          city: String? = nil,
 	          state: String? = nil,
 	          country: String? = nil,
+	          within geometry: AirMapGeometry? = nil,
 	          enhanced: Bool? = true,
 	          checkAuth: Bool? = false) -> Observable<[AirMapFlight]> {
 		
@@ -65,12 +66,13 @@ internal class FlightClient: HTTPClient {
 		params["state"       ] = state
 		params["country"     ] = country
 		params["enhance"     ] = String(enhanced ?? false)
+		params["geometry"    ] = geometry?.params()
 
 		AirMap.logger.debug("Get Flights", params)
         return perform(method: .get, params: params, keyPath: "data.results", checkAuth: checkAuth ?? false)
 	}
 
-	func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
+	func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil, within geometry: AirMapGeometry? = nil) -> Observable<[AirMapFlight]> {
 
 		let endAfterNow = fromDate == nil
 		let endAfter = fromDate
