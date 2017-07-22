@@ -42,8 +42,8 @@ public class AirMapFlightPlan: NSObject, Mappable {
 			return Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
 		}
 		set {
-			takeoffLatitude = takeoffCoordinate.latitude
-			takeoffLongitude = takeoffCoordinate.longitude
+			takeoffLatitude = newValue.latitude
+			takeoffLongitude = newValue.longitude
 		}
 	}
 	
