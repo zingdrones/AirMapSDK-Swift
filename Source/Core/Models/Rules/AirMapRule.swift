@@ -22,7 +22,7 @@ public class AirMapRule: Mappable {
 	public let shortText: String?
 	public let status: Status
 	public let flightFeatures: [AirMapFlightFeature]
-	public let displayOrder: Int?
+	public let displayOrder: Int
 	
 	public required init?(map: Map) {
 		do {
@@ -30,7 +30,7 @@ public class AirMapRule: Mappable {
 			description    =  try  map.value("description")
 			flightFeatures = (try? map.value("flight_features")) ?? []
 			status         = (try? map.value("status")) ?? .unevaluated
-			displayOrder   =  try? map.value("display_order")
+			displayOrder   = (try? map.value("display_order")) ?? Int.max
 		}
 		catch let error {
 			print(error)
