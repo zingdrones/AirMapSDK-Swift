@@ -16,7 +16,7 @@ internal class FlightPlanClient: HTTPClient {
 	}
 
 	init() {
-		super.init(basePath: Config.AirMapApi.flightPlanUrl)
+		super.init(basePath: Config.AirMapApi.flightUrl)
 	}
 	
 	func create(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
