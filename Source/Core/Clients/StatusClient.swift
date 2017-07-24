@@ -34,7 +34,8 @@ internal class StatusClient: HTTPClient {
 	                     weather: Bool = false,
 	                     date: Date = Date()) -> Observable<AirMapStatus> {
 
-
+		AirMap.logger.warning("AirMap.checkCoordinate is deprecated. Use AirMap.getAirspaceStatus::::")
+		
 		let sharedParams = AirMapStatusSharedRequestParams(coordinate: coordinate,
 		                                                   types: types,
 		                                                   ignoredTypes: ignoredTypes,
@@ -42,7 +43,7 @@ internal class StatusClient: HTTPClient {
 		                                                   date: date)
 		var params = sharedParams.params()
 		params["buffer"] = buffer
-
+		
 		return perform(method: .get, path: "/point", params: params)
 	}
 
@@ -67,6 +68,8 @@ internal class StatusClient: HTTPClient {
 	                     ignoredTypes: [AirMapAirspaceType]? = nil,
 	                     weather: Bool = false,
 	                     date: Date = Date()) -> Observable<AirMapStatus> {
+		
+		AirMap.logger.warning("AirMap.checkCoordinate is deprecated. Use AirMap.getAirspaceStatus::::")
 		
 		let geo = geometricStringRepresentation(for: path)
 
@@ -103,6 +106,8 @@ internal class StatusClient: HTTPClient {
 	                  weather: Bool = false,
 	                  date: Date = Date()) -> Observable<AirMapStatus> {
 
+		AirMap.logger.warning("AirMap.checkCoordinate is deprecated. Use AirMap.getAirspaceStatus::::")
+		
 		let geo = geometricStringRepresentation(for: geometry + [geometry.first!])
 
 		let sharedParams = AirMapStatusSharedRequestParams(coordinate: takeOffPoint,

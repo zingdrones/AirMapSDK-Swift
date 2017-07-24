@@ -21,6 +21,7 @@ extension AirMap_Status {
 	///   - weather: Include current weather conditions in the response
 	///   - date: Date and time for the status
 	///   - completion: A completion handler to call with the Result
+	@available (*, deprecated, message: "Use AirMap.getAirspaceStatus::::")
 	public static func checkCoordinate(coordinate: Coordinate2D,
 	                                   buffer: Meters,
 	                                   types: [AirMapAirspaceType]? = nil,
@@ -51,6 +52,7 @@ extension AirMap_Status {
 	///   - weather: Include current weather conditions in the response
 	///   - date: Date and time for the status
 	///   - completion: A completion handler to call with the Result
+	@available (*, deprecated, message: "Use AirMap.getAirspaceStatus::::")
 	public static func checkFlightPath(path: [Coordinate2D],
 	                                   buffer: Meters,
 	                                   takeOffPoint: Coordinate2D,
@@ -82,6 +84,7 @@ extension AirMap_Status {
 	///   - weather: Include current weather conditions in the response
 	///   - date: Date and time for the status
 	///   - completion: A completion handler to call with the Result
+	@available (*, deprecated, message: "Use AirMap.getAirspaceStatus::::")
 	public static func checkPolygon(geometry: [Coordinate2D],
 	                                takeOffPoint: Coordinate2D,
 	                                types: [AirMapAirspaceType]? = nil,
