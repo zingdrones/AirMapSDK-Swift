@@ -97,9 +97,14 @@ public class AirMapFlightComposer {
 				flightPlan?.maximumAltitudeAGL = Meters(100)
 			}
 		}
+		
 		flightPlan?.geometry = nil
 		flightPlan?.buffer = buffer
 		flightPlan?.takeoffCoordinate = coordinate
+		
+		let sliderValue = self.sliderValue(from: buffer)
+		bufferValueLabel.text = sliderValueToBuffer(sliderValue: sliderValue).displayString
+		bufferSlider.value = sliderValue
 		
 		delegate.flightComposerDidUpdate(flightPlan, isValidGeometry: false)
 		
@@ -246,7 +251,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		// Convert the slider buffer value to a display string & value tuple
 		let sliderBuffer = bufferSlider.rx.value
-			.distinctUntilChanged()
 			.map(unowned(self, FC.sliderValueToBuffer))
 			.share()
 		
@@ -371,7 +375,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			}
 			radiusSliderAlpha = 1
 			state.value = .panning
-			buffer.value = 0.5
 			
 		case .path:
 			actionButton.isHidden = false
@@ -387,7 +390,6 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			radiusSliderAlpha = 0
 			drawingOverlayView.discardsDuplicateClosingPoint = true
 			state.value = .drawing
-			buffer.value = 0
 		}
 		
 		let animations: () -> Void = {
@@ -517,59 +519,47 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	
 	fileprivate func sliderValueToBuffer(sliderValue: Float) -> (buffer: Meters, displayString: String) {
 		
-		let ramp = Config.Maps.bufferSliderLinearity
-		let sliderValue = pow(Double(sliderValue), ramp)
-		
-		let usesMetric = AirMap.configuration.distanceUnits == .metric
-		let distancePerStep: Double
-		
+		let value = bufferValue(from: sliderValue)
 		let formatter = UIConstants.flightDistanceFormatter
-		let bufferValue: (buffer: Meters, displayString: String)
 		
-		if usesMetric {
-			
-			let minRadius = Meters(5.0)
-			let maxRadius = Meters(1000.0)
-			var meters = (sliderValue * (maxRadius - minRadius)) + minRadius
-			switch meters {
-			case 50..<200:
-				distancePerStep = 10
-			case 200..<750:
-				distancePerStep = 50
-			case 750..<1000:
-				distancePerStep = 100
-			default:
-				distancePerStep = 5
-			}
-			meters = ceil(meters / distancePerStep) * distancePerStep
-			
-			bufferValue = (meters, formatter.string(fromValue: meters, unit: .meter))
-			
-		} else {
-			
-			let minRadius = Feet(25).meters
-			let maxRadius = Feet(3000).meters
-			let meters = (sliderValue * (maxRadius - minRadius)) + minRadius
-			var feet = meters.feet
-			
-			switch feet {
-			case 200..<500:
-				distancePerStep = 50
-			case 500..<1000:
-				distancePerStep = 100
-			case 1000..<2000:
-				distancePerStep = 250
-			case 2000..<3000:
-				distancePerStep = 500
-			default:
-				distancePerStep = 25
-			}
-			feet = ceil(feet / distancePerStep) * distancePerStep
-			
-			bufferValue = (feet.meters, formatter.string(fromValue: feet, unit: .foot))
+		switch AirMap.configuration.distanceUnits {
+		case .metric:
+			return (value, formatter.string(fromValue: value, unit: .meter))
+		case .imperial:
+			return (value, formatter.string(fromValue: value.feet, unit: .foot))
 		}
+	}
+	
+	fileprivate func availableBufferValues() -> [Meters] {
 		
-		return bufferValue
+		switch AirMap.configuration.distanceUnits {
+		case .metric:
+			return [10, 20, 40, 60, 80, 100, 150, 200, 250, 300]
+		case .imperial:
+			let feet: [Feet] = [25, 50, 75, 100, 150, 200, 250, 300, 500, 750, 1000]
+			return feet.map { $0.meters }
+		}
+	}
+	
+	fileprivate func bufferValue(from sliderValue: Float) -> Meters {
+		
+		let values = availableBufferValues()
+		let index = Int(round(Float(values.count-1) * sliderValue))
+		let meters = values[index]
+		
+		return meters
+	}
+	
+	fileprivate func sliderValue(from bufferValue: Meters) -> Float {
+		
+		let values = availableBufferValues()
+		
+		let diffs = values.map({ abs($0 - bufferValue) })
+		let sorted = diffs.enumerated().sorted { $0.0.element < $0.1.element }
+		let nearest = sorted.first!
+		let index = nearest.offset
+		
+		return Float(index) / Float(values.count-1)
 	}
 	
 	// MARK: Actions
