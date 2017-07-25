@@ -52,7 +52,11 @@ struct Config {
 		}
 		static var mapStylePath: String {
 			let env = AirMap.configuration.environment ?? "prod"
-			return "https://cdn.airmap.com/static/map-styles/\(env)/0.6.7/"
+			if env == "prod" {
+				return "https://cdn.airmap.com/static/map-styles/0.7.0/"
+			} else {
+				return "https://cdn.airmap.com/static/map-styles/next/"
+			}
 		}
 		
 		struct Auth {
