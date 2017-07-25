@@ -371,6 +371,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			}
 			radiusSliderAlpha = 1
 			state.value = .panning
+			buffer.value = 0.5
 			
 		case .path:
 			actionButton.isHidden = false
@@ -386,6 +387,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			radiusSliderAlpha = 0
 			drawingOverlayView.discardsDuplicateClosingPoint = true
 			state.value = .drawing
+			buffer.value = 0
 		}
 		
 		let animations: () -> Void = {
@@ -824,7 +826,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			insets = UIEdgeInsetsMake(120, 45, 200, 75)
 		}
 		
-		guard let polygon = flightPlan.polygonGeometry() else { return }
+		guard let polygon = flightPlan.polygonGeometry(), polygon.coordinates.count > 0 else { return }
 		
 		var innerPolygons: [MGLPolygon]? = nil
 		var coordinates = polygon.coordinates.first!
