@@ -43,16 +43,18 @@ struct Config {
 			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
 		}
 		static func urlForResource(_ named: String, version: String) -> String {
-			
 			if let env = AirMap.configuration.environment {
 				if env == "stage" && named == "status" && version == "alpha" {
 					return "\(host)/\(named)/alpha/stage"
 				}
 			}
-			
 			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "\(version)")
 		}
-
+		static var mapStylePath: String {
+			let env = AirMap.configuration.environment ?? "prod"
+			return "https://cdn.airmap.com/static/map-styles/\(env)/0.6.7/"
+		}
+		
 		struct Auth {
 			static let ssoDomain = "sso.airmap.io"
 			static let scope     = "openid+offline_access"

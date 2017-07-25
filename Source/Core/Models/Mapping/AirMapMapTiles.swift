@@ -292,7 +292,7 @@ public class MappingService {
 			AirMap.logger.error("An API Key is required to access the AirMap Map Service")
 			return nil
 		}
-		return try? "https://cdn.airmap.com/static/map-styles/0.6.7/\(theme.rawValue).json".asURL()
+		return try? (Config.AirMapApi.mapStylePath+"/0.6.7/\(theme.rawValue).json").asURL()
 	}
 	
 	/// Constructs a map tile source url for the map layers and theme provided
