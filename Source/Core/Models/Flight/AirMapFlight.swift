@@ -144,16 +144,6 @@ extension AirMapFlight: Mappable {
 		
 		return params
 	}
-
-	fileprivate func polygonStringFromCoordinates(_ coordinates: [Coordinate2D]) -> String {
-		let polygonString = coordinates.flatMap {"\($0.latitude) \($0.longitude)"}.joined(separator: ", ")
-		return "POLYGON(\(polygonString))"
-	}
-
-	fileprivate func lineStringFromCoordinates(_ coordinates: [Coordinate2D]) -> String {
-		let lineString = coordinates.flatMap {"\($0.latitude) \($0.longitude)"}.joined(separator: ", ")
-		return "LINESTRING(\(lineString))"
-	}
 }
 
 extension AirMapFlight {
