@@ -803,11 +803,11 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 	
 	fileprivate func centerFlightPlan() {
 		
-		guard let flightPlan = flightPlan else { return }
+		guard let flightPlan = flightPlan, let geometry = flightPlan.geometry, let buffer = flightPlan.buffer else { return }
 		
 		let insets: UIEdgeInsets
 		
-		switch geoType.value {
+		switch geometry.type {
 		case .point:
 			insets = UIEdgeInsetsMake(40, 45, 200, 45)
 		case .path:
@@ -816,25 +816,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 			insets = UIEdgeInsetsMake(120, 45, 200, 75)
 		}
 		
-		guard let polygon = flightPlan.polygonGeometry(), polygon.coordinates.count > 0 else { return }
-		
-		var innerPolygons: [MGLPolygon]? = nil
-		var coordinates = polygon.coordinates.first!
-			
-		if polygon.coordinates.count > 1 {
-			innerPolygons = polygon.coordinates
-				.suffix(from: 1)
-				.map({ (innerCoordinates) -> MGLPolygon in
-					return MGLPolygon(coordinates: innerCoordinates, count: UInt(innerCoordinates.count))
-				})
-		}
-			
-		let mglPolygon = MGLPolygon(coordinates: &coordinates, count: UInt(coordinates.count), interiorPolygons: innerPolygons)
-		let bounds = mglPolygon.overlayBounds
-		let camera = mapView.cameraThatFitsCoordinateBounds(bounds, edgePadding: insets)
-		mapView.setCamera(camera, withDuration: 0.6, animationTimingFunction: nil) {
-			
-		}
+		mapView.centerGeometry(geometry, buffer: buffer, insets: insets)
 	}
 	
 	fileprivate func position(_ midControlPoint: ControlPoint, between controlpoints: (prev: ControlPoint?, next: ControlPoint?)) {

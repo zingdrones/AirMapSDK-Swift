@@ -312,11 +312,6 @@ extension AirMapMapView {
 	
 	public func updateDraftFlightPlan(geometry: AirMapGeometry?, buffer: Meters? = 0) {
 		
-		guard let geometry = geometry else {
-			draftFlightSource?.shape = nil
-			return
-		}
-		
 		let flight = AirMapFlight()
 		flight.geometry = geometry
 		flight.buffer = buffer
@@ -356,6 +351,53 @@ extension AirMapMapView {
 			activeFlightSource?.shape = nil
 		}
 	}
+	
+	public func centerGeometry(_ geometry: AirMapGeometry, buffer: Meters? = 0, insets: UIEdgeInsets) {
+		
+		var polygon: AirMapPolygon? = nil
+		
+		switch geometry {
+			
+		case let shape as AirMapPoint:
+			let point = Point(geometry: shape.coordinate)
+			if let bufferedPoint = SwiftTurf.buffer(point, distance: buffer ?? 0) {
+				polygon = AirMapPolygon(coordinates: bufferedPoint.geometry)
+			}
+			
+		case let shape as AirMapPath:
+			let path = LineString(geometry: shape.coordinates)
+			if let bufferedPath = SwiftTurf.buffer(path, distance: buffer ?? 0) {
+				polygon = AirMapPolygon(coordinates: bufferedPath.geometry)
+			}
+			
+		case let shape as AirMapPolygon:
+			polygon = shape
+			
+		default:
+			break
+		}
+		
+		if let polygon = polygon {
+		
+			var innerPolygons: [MGLPolygon]? = nil
+			var coordinates = polygon.coordinates.first!
+			
+			if polygon.coordinates.count > 1 {
+				innerPolygons = polygon.coordinates
+					.suffix(from: 1)
+					.map({ (innerCoordinates) -> MGLPolygon in
+						return MGLPolygon(coordinates: innerCoordinates, count: UInt(innerCoordinates.count))
+					})
+			}
+			
+			let mglPolygon = MGLPolygon(coordinates: &coordinates, count: UInt(coordinates.count), interiorPolygons: innerPolygons)
+			let bounds = mglPolygon.overlayBounds
+			let camera = cameraThatFitsCoordinateBounds(bounds, edgePadding: insets)
+			setCamera(camera, withDuration: 0.6, animationTimingFunction: nil) {}
+		}
+	}	
+	
+	// MARK: - Private
 	
 	private func shapesForPilotFlight(_ flight: AirMapFlight) -> [MGLShape]? {
 		return shapesForFlight(flight, showsStroke: true)
