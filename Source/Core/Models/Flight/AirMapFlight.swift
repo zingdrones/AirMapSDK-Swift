@@ -151,4 +151,12 @@ extension AirMapFlight {
 	static public func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {
 		return lhs.id == rhs.id
 	}
+	
+	open override func isEqual(_ object: Any?) -> Bool {
+		if let flight = object as? AirMapFlight {
+			return self.id == flight.id
+		} else {
+			return false
+		}
+	}
 }
