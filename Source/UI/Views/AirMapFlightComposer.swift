@@ -318,7 +318,7 @@ extension AirMapFlightComposer: AnalyticsTrackable {
 		
 		// Update the map source that displays a draft flight plan
 		Observable.combineLatest(updatedFlightPlan, latestBuffer) { ($0.0?.geometry, $0.1) }
-			.debounce(0.1, scheduler: MainScheduler.instance)
+			.debounce(0.01, scheduler: MainScheduler.instance)
 			.subscribeNext(weak: mapView, AirMapMapView.updateDraftFlightPlan)
 			.disposed(by: disposeBag)
 		
