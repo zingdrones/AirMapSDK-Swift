@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-open class AirMapStatusAdvisoryControlledAirspaceProperties {
+open class AirMapStatusAdvisoryControlledAirspaceProperties: AdvisoryProperties {
 
 	open var classAirspace: String = ""
 	open var airportIdentifier: Date?

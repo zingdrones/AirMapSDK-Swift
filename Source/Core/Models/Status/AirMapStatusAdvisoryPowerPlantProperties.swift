@@ -8,8 +8,9 @@
 
 import ObjectMapper
 
-open class AirMapStatusAdvisoryPowerPlantProperties {
+open class AirMapStatusAdvisoryPowerPlantProperties: AdvisoryProperties {
 
+	open var technology: String?
 	open var generatorType: String?
 	open var output: Int?
 
@@ -19,6 +20,7 @@ open class AirMapStatusAdvisoryPowerPlantProperties {
 extension AirMapStatusAdvisoryPowerPlantProperties: Mappable {
 
 	public func mapping(map: Map) {
+		technology          <- map["tech"]
 		generatorType		<- map["generator_type"]
 		output				<- map["output"]
 	}

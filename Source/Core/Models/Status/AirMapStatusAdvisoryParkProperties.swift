@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-open class AirMapStatusAdvisoryParkProperties {
+open class AirMapStatusAdvisoryParkProperties: AdvisoryProperties {
 
 	open var size: Int? // size of park
 

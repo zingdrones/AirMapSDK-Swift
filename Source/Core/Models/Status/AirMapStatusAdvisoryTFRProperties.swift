@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-open class AirMapStatusAdvisoryTFRProperties {
+open class AirMapStatusAdvisoryTFRProperties: AdvisoryProperties {
 
 	open var url: String = ""
 	open var startTime: Date?

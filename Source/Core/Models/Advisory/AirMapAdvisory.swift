@@ -23,7 +23,8 @@ public class AirMapAdvisory: Mappable, Hashable, Equatable {
 	public let country: String
 	public let ruleId: Int
 	public let ruleSetId: String
-	public let properties: [String: Any]
+	public let properties: AdvisoryProperties?
+	public let requirements: AirMapStatusRequirements?
 	
 	private static let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 	
@@ -40,11 +41,34 @@ public class AirMapAdvisory: Mappable, Hashable, Equatable {
 			country       =  try  map.value("country")
 			ruleId        =  try  map.value("rule_id")
 			ruleSetId     =  try  map.value("ruleset_id")
-			properties    =  try  map.value("properties")
+			requirements  =  try? map.value("requirements")
 			
 			let airspaceType = try map.value("type") as AirMapAirspaceType
-			name          = (try? map.value("name") as String) ?? airspaceType.title
-
+			name = (try? map.value("name") as String) ?? airspaceType.title
+			
+			let props: [String: Any] = try map.value("properties")
+			
+			switch airspaceType {
+			case .airport, .heliport:
+				properties = AirMapStatusAdvisoryAirportProperties(JSON: props)
+			case .park:
+				properties = AirMapStatusAdvisoryParkProperties(JSON: props)
+			case .tfr:
+				properties = AirMapStatusAdvisoryTFRProperties(JSON: props)
+			case .specialUse:
+				properties = AirMapStatusAdvisorySpecialUseProperties(JSON: props)
+			case .powerPlant:
+				properties = AirMapStatusAdvisoryPowerPlantProperties(JSON: props)
+			case .school:
+				properties = AirMapStatusAdvisorySchoolProperties(JSON: props)
+			case .controlledAirspace:
+				properties = AirMapStatusAdvisoryControlledAirspaceProperties(JSON: props)
+			case .wildfire:
+				properties = AirMapStatusAdvisoryWildfireProperties(JSON: props)
+			default:
+				properties = nil
+			}
+			
 			let latitude  = try  map.value("latitude") as Double
 			let longitude = try  map.value("longitude") as Double
 			coordinate = Coordinate2D(latitude: latitude, longitude: longitude)
@@ -68,3 +92,4 @@ public class AirMapAdvisory: Mappable, Hashable, Equatable {
 
 }
 
+public protocol AdvisoryProperties: Mappable {}
