@@ -127,13 +127,13 @@ open class AirMapAdvisoriesViewController: UITableViewController, AnalyticsTrack
 	
     func openWebView(_ url: String) {
        
-        if let nsurl = URL(string: url) {
+        if let url = URL(string: url) {
             if #available(iOS 9.0, *) {
-                let svc = SFSafariViewController(url: nsurl)
+                let svc = SFSafariViewController(url: url)
                 svc.view.tintColor = .airMapLightBlue
                 present(svc, animated: true, completion: nil)
             } else {
-               UIApplication.shared.openURL(nsurl)
+               UIApplication.shared.openURL(url)
             }
         }
     }
