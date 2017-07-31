@@ -4007,7 +4007,7 @@ AirMap will send you a text message when your digital notice has been successful
     <resources>
         <image name="airmap_share_logo" width="87" height="20"/>
         <image name="area_flight_icon_deselected" width="43" height="42"/>
-        <image name="area_flight_icon_selected" width="49" height="48"/>
+        <image name="area_flight_icon_selected" width="43" height="42"/>
         <image name="close_icon" width="29" height="29"/>
         <image name="draw_icon" width="35" height="45"/>
         <image name="info_icon" width="23" height="22"/>
