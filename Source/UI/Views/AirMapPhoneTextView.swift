@@ -8,10 +8,10 @@
 
 import UIKit
 
-class AirMapPhoneTextView: UITextView {
+public class AirMapPhoneTextView: UITextView {
 	
 	// Prevent the user from performing the following actions
-	override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+	public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
 		if action == #selector(UITextView.select)
 			|| action == #selector(UITextView.selectAll)
 			|| action == #selector(UITextView.cut)
