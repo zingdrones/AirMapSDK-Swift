@@ -172,7 +172,7 @@ open class AirMapMapView: MGLMapView {
 		AirMap.logger.debug("Adding", ruleSetTileSource.identifier)
 		
 		style.airMapBaseStyleLayers
-			.filter { ruleSet.layers.contains($0.airspaceType!.rawValue) }
+			.filter { ruleSet.airspaceTypeIds.contains($0.airspaceType!.rawValue) }
 			.forEach { baseLayerStyle in
 				if let newLayerStyle = newLayerClone(of: baseLayerStyle, with: ruleSet, from: ruleSetTileSource) {
 					style.insertLayer(newLayerStyle, above: baseLayerStyle)
