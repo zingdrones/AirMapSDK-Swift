@@ -53,7 +53,7 @@ struct Config {
 		static var mapStylePath: String {
 			let env = AirMap.configuration.environment ?? "prod"
 			if env == "prod" {
-				return "https://cdn.airmap.com/static/map-styles/0.7.0/"
+				return "https://cdn.airmap.com/static/map-styles/0.7.1/"
 			} else {
 				return "https://cdn.airmap.com/static/map-styles/next/"
 			}
