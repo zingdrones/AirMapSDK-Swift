@@ -199,7 +199,7 @@ extension MGLVectorSource {
 	
 	convenience init(ruleSet: AirMapRuleSet) {
 		
-		let layerNames = ruleSet.layers.map{$0}.joined(separator: ",")
+		let layerNames = ruleSet.airspaceTypeIds.map{$0}.joined(separator: ",")
 		let options = [
 			MGLTileSourceOption.minimumZoomLevel: NSNumber(value: Config.Maps.tileMinimumZoomLevel),
 			MGLTileSourceOption.maximumZoomLevel: NSNumber(value: Config.Maps.tileMaximumZoomLevel)
