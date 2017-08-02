@@ -70,11 +70,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fti-S4-xfH" customClass="AirMapFlightTypeButton" customModule="AirMap">
-                                        <rect key="frame" x="29.5" y="1" width="100" height="60"/>
+                                        <rect key="frame" x="59" y="1" width="70" height="60"/>
                                         <accessibility key="accessibilityConfiguration" identifier="MAP_"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="7Lg-S0-kgc"/>
-                                            <constraint firstAttribute="width" constant="100" id="JDo-uE-gAH"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="JDo-uE-gAH"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                         <state key="normal" title="Point" image="point_flight_icon_deselected">
@@ -99,10 +99,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAP-O7-VzM" customClass="AirMapFlightTypeButton" customModule="AirMap">
-                                        <rect key="frame" x="137.5" y="1" width="100" height="60"/>
+                                        <rect key="frame" x="156.5" y="1" width="62" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="CMa-iW-y89"/>
-                                            <constraint firstAttribute="width" constant="100" id="jMF-1q-rtD"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="jMF-1q-rtD"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                         <state key="normal" title="Path" image="path_flight_icon_deselected">
@@ -127,9 +127,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yyg-xF-uSz" customClass="AirMapFlightTypeButton" customModule="AirMap">
-                                        <rect key="frame" x="245.5" y="1" width="100" height="60"/>
+                                        <rect key="frame" x="245" y="1" width="73" height="60"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="0eH-Cd-9nK"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="0eH-Cd-9nK"/>
                                             <constraint firstAttribute="height" constant="60" id="9Mf-Uq-3nj"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
@@ -1281,6 +1281,7 @@ AirMap will send you a text message when your digital notice has been successful
                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="2Na-rR-yZi" secondAttribute="trailing" constant="30" id="2eG-hk-gpU"/>
+                                <constraint firstItem="2Na-rR-yZi" firstAttribute="centerX" secondItem="Q8Y-aH-mj6" secondAttribute="centerX" id="JQc-Te-iLE"/>
                                 <constraint firstItem="2Na-rR-yZi" firstAttribute="leading" secondItem="Q8Y-aH-mj6" secondAttribute="leading" constant="30" id="R4z-SL-GWQ"/>
                                 <constraint firstItem="2Na-rR-yZi" firstAttribute="centerY" secondItem="Q8Y-aH-mj6" secondAttribute="centerY" id="asB-R5-0oI"/>
                             </constraints>
@@ -1296,15 +1297,16 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Country Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGv-95-foG">
-                                                    <rect key="frame" x="15" y="12" width="116" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="343" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="EGv-95-foG" firstAttribute="leading" secondItem="q0x-Vg-prq" secondAttribute="leading" constant="15" id="DRk-AT-tNp"/>
+                                                <constraint firstItem="EGv-95-foG" firstAttribute="leading" secondItem="q0x-Vg-prq" secondAttribute="leadingMargin" constant="8" id="DRk-AT-tNp"/>
                                                 <constraint firstItem="EGv-95-foG" firstAttribute="centerY" secondItem="q0x-Vg-prq" secondAttribute="centerY" id="IT8-rO-6hG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="EGv-95-foG" secondAttribute="trailing" constant="8" id="y5x-em-VTQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1319,7 +1321,7 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vme-QM-SG8" customClass="PhoneNumberTextField" customModule="PhoneNumberKit">
-                                                    <rect key="frame" x="15" y="2" width="345" height="40"/>
+                                                    <rect key="frame" x="16" y="2" width="344" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="YUK-ku-nYM"/>
                                                     </constraints>
@@ -1342,7 +1344,7 @@ AirMap will send you a text message when your digital notice has been successful
                                             <constraints>
                                                 <constraint firstItem="vme-QM-SG8" firstAttribute="centerY" secondItem="fR4-ge-daM" secondAttribute="centerY" id="53m-en-fbM"/>
                                                 <constraint firstAttribute="trailing" secondItem="vme-QM-SG8" secondAttribute="trailing" constant="15" id="BQV-ny-DA6"/>
-                                                <constraint firstItem="vme-QM-SG8" firstAttribute="leading" secondItem="fR4-ge-daM" secondAttribute="leading" constant="15" id="EmP-6m-vlx"/>
+                                                <constraint firstItem="vme-QM-SG8" firstAttribute="leading" secondItem="fR4-ge-daM" secondAttribute="leadingMargin" constant="8" id="EmP-6m-vlx"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3221,7 +3223,7 @@ AirMap will send you a text message when your digital notice has been successful
             <objects>
                 <tableViewController id="GLN-Nc-fFM" customClass="AirMapAircraftManufacturerViewController" customModule="AirMap" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jY1-0m-GFn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -3455,7 +3457,7 @@ AirMap will send you a text message when your digital notice has been successful
             <objects>
                 <tableViewController id="Was-cz-StC" customClass="AirMapAircraftModelViewController" customModule="AirMap" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bOk-bi-V4i">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -4019,10 +4021,10 @@ AirMap will send you a text message when your digital notice has been successful
         <image name="point_flight_icon_selected" width="37" height="37"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6pN-j9-ln7"/>
+        <segue reference="rz8-aj-XVu"/>
+        <segue reference="iLT-bx-RW6"/>
         <segue reference="EBb-de-rWY"/>
         <segue reference="OiG-zl-Hhu"/>
-        <segue reference="iLT-bx-RW6"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
