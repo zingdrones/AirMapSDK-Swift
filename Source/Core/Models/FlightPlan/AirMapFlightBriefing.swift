@@ -110,11 +110,19 @@ import ObjectMapper
 extension AirMapFlightBriefing: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		createdAt      = try map.value("created_at")
-		rulesets       = try map.value("rulesets")
-		status         = try map.value("airspace")
-		authorizations = try map.value("authorizations")
-		validations    = try map.value("validations")
+
+		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
+		do {
+			createdAt      =  try  map.value("created_at", using: dateTransform)
+			rulesets       =  try  map.value("rulesets")
+			status         =  try  map.value("airspace")
+			authorizations = (try? map.value("authorizations")) ?? []
+			validations    = (try? map.value("validations")) ?? []
+		}
+		catch let error {
+			AirMap.logger.error(error)
+			throw error
+		}
 	}
 }
 
@@ -129,33 +137,57 @@ extension AirMapFlightBriefing.Ruleset: ImmutableMappable {
 extension AirMapFlightBriefing.Validation: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		status     = try map.value("status")
-		feature    = try map.value("feature")
-		authority  = try map.value("authority")
-		message    = try map.value("message")
+		do {
+			status     = try map.value("status")
+			feature    = try map.value("feature")
+			authority  = try map.value("authority")
+			message    = try map.value("message")
+		}
+		catch let error {
+			AirMap.logger.error(error)
+			throw error
+		}
 	}
 }
 
 extension AirMapFlightBriefing.Validation.Feature: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		code = try map.value("code")
-		name = try map.value("name")
+		do {
+			code = try map.value("code")
+			name = try map.value("description")
+		}
+		catch let error {
+			AirMap.logger.error(error)
+			throw error
+		}
 	}
 }
 
 extension AirMapAuthority: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		name = try map.value("name")
+		do {
+			name = try map.value("name")
+		}
+		catch let error {
+			AirMap.logger.error(error)
+			throw error
+		}
 	}
 }
 
 extension AirMapFlightBriefing.Authorization: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		authority  = try map.value("authority")
-		status     = try map.value("status")
-		message    = try map.value("message")
+		do {
+			authority  = try map.value("authority")
+			status     = try map.value("status")
+			message    = try map.value("message")
+		}
+		catch let error {
+			AirMap.logger.error(error)
+			throw error
+		}
 	}
 }
