@@ -42,9 +42,7 @@ public struct LocalizedStrings {
 		public static let classE = NSLocalizedString("TILE_LAYER_CLASS_E", bundle: bundle, value: "Class E Controlled Airspace", comment: "Name for map layer Class E Airspace")
 
 		public static let classF = NSLocalizedString("TILE_LAYER_CLASS_F", bundle: bundle, value: "Class F Controlled Airspace", comment: "Name for map layer Class F Airspace")
-		
-		public static let classG = NSLocalizedString("TILE_LAYER_CLASS_G", bundle: bundle, value: "Class G Controlled Airspace", comment: "Name for map layer Class G Airspace")
-		
+				
 		public static let custom = NSLocalizedString("TILE_LAYER_CUSTOM", bundle: bundle, value: "Custom", comment: "Name for map layer Custom")
 		
 		public static let essentionalAirspace = NSLocalizedString("TILE_LAYER_CONTROLLED_AIRSPACE", bundle: bundle, value: "Controlled Airspace (B, C, D & E)", comment: "Name for map layer Controlled Airspace")

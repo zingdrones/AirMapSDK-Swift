@@ -33,7 +33,6 @@ public enum AirMapLayerType: String {
 	case classD                         = "class_d"
 	case classE                         = "class_e0"  // "0" = At the surface
 	case classF                         = "class_f"
-	case classG                         = "class_g"
 	case custom                         = "custom"
 	case emergencies                    = "emergencies"
 	case essentialAirspace              = "class_b,class_c,class_d,class_e0"
@@ -52,7 +51,7 @@ public enum AirMapLayerType: String {
 	case tfrs                           = "tfrs"
 	case universities                   = "universities"
 	case wildfires                      = "wildfires"
-	
+
 	public static let allLayerTypes = [
 		airportsCommercial,
 		airportsCommercialPrivate,
@@ -65,7 +64,6 @@ public enum AirMapLayerType: String {
 		classD,
 		classE,
 		classF,
-		classG,
 		custom,
 		emergencies,
 		fires,
@@ -102,7 +100,6 @@ public enum AirMapLayerType: String {
 		case .classD:                       return localized.classD
 		case .classE:                       return localized.classE
 		case .classF:                       return localized.classF
-		case .classG:                       return localized.classG
 		case .custom:                       return localized.custom
 		case .emergencies:                  return localized.emergencies
 		case .essentialAirspace:            return localized.essentionalAirspace
@@ -150,7 +147,6 @@ public enum AirMapLayerType: String {
 		     .classD,
 		     .classE,
 		     .classF,
-		     .classG,
 		     .essentialAirspace:
 			return .controlledAirspace
 			
