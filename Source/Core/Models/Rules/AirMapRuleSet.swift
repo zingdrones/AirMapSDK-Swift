@@ -61,12 +61,6 @@ public struct AirMapRuleSet {
 			}
 		}
 	}
-	
-	internal mutating func setJurisdiction(_ jurisdiction: AirMapJurisdiction) {
-		jurisdictionId = jurisdiction.id
-		jurisdictionName = jurisdiction.name
-		jurisdictionRegion = jurisdiction.region
-	}
 }
 
 extension AirMapRuleSet: Hashable, Equatable, Comparable {
@@ -120,15 +114,18 @@ extension Sequence where Iterator.Element == AirMapRuleSet {
 	/// A list of jurisdictions derived from a list of rulesets
 	public var jurisdictions: [AirMapJurisdiction] {
 		return self
-			.reduce([Int: Int]()) { (dict, next) -> [Int: Int] in
+			.reduce([Int: Int]()) { (dict, next) in
 				var dict = dict
-				dict[next.jurisdictionId] = next.jurisdictionId
+				if let id = next.jurisdictionId {
+					dict[next.jurisdictionId] = id
+				}
 				return dict
 			}
 			.keys
-			.map { (id) -> AirMapJurisdiction in
+			.flatMap { (id) -> AirMapJurisdiction? in
 				let rs = filter({ $0.jurisdictionId == id })
-				let j = rs.first!
+				guard let j = rs.first else { return nil }
+				
 				return AirMapJurisdiction(id: j.jurisdictionId, name: j.jurisdictionName, region: j.jurisdictionRegion, ruleSets: rs)
 		}
 	}
@@ -140,7 +137,7 @@ import ObjectMapper
 
 extension AirMapRuleSet: ImmutableMappable {
 	
-	/// The origin from where the JSON originated
+	/// The mapping context from where the JSON originated
 	///
 	/// - tileService: data from tile service metadata
 	/// - airMapApi: data from the ruleset API
@@ -150,28 +147,34 @@ extension AirMapRuleSet: ImmutableMappable {
 	}
 	
 	public init(map: Map) throws {
-
-		id        =  try  map.value("id")
-		name      =  try  map.value("name")
-		shortName = (try? map.value("short_name")) ?? "?"
-		type      =  try  map.value("selection_type")
-		isDefault =  try  map.value("default")
 		
-		switch map.context as? Origin ?? .airMapApi {
+		do {
+			id        =  try  map.value("id")
+			name      =  try  map.value("name")
+			shortName = (try? map.value("short_name")) ?? "?"
+			type      =  try  map.value("selection_type")
+			isDefault =  try  map.value("default")
 			
-		case .airMapApi:
-			rules              = try map.value("rules")
-			description        = try map.value("description")
-			airspaceTypeIds    = try map.value("airspace_types") as [String]
+			switch (map.context as? Origin) ?? .airMapApi {
+				
+			case .airMapApi:
+				rules           = try map.value("rules")
+				description     = try map.value("description")
+				airspaceTypeIds = try map.value("airspace_types")
+
+			case .tileService:
+				rules           =  []
+				description     = (try? map.value("short_description")) ?? ""
+				airspaceTypeIds =  try  map.value("layers")
+			}
 
 			jurisdictionId     = try? map.value("jurisdiction.id")
 			jurisdictionName   = try? map.value("jurisdiction.name")
 			jurisdictionRegion = try? map.value("jurisdiction.region")
-			
-		case .tileService:
-			rules       = []
-			description = (try? map.value("short_description")) ?? ""
-			airspaceTypeIds      = try map.value("layers") as [String]
+		}
+		catch let error {
+			AirMap.logger.error(error)
+			throw error
 		}
 	}
 }
