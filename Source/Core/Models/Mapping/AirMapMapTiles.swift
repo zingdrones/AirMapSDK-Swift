@@ -206,6 +206,7 @@ public enum AirMapAirspaceType: String {
 	case hazardArea          = "hazard_area"
 	case heliport            = "heliport"
 	case hospital            = "hospital"
+	case laanc               = "laanc"
 	case notam               = "notam"
 	case park                = "park"
 	case powerPlant          = "power_plant"
@@ -215,7 +216,9 @@ public enum AirMapAirspaceType: String {
 	case seaplaneBase        = "seaplane_base"
 	case specialUse          = "special_use_airspace"
 	case stadium             = "stadium"
+	case state               = "state"
 	case tfr                 = "tfr"
+	case ultralightField     = "ulm_field"
 	case university          = "university"
 	case wildfire            = "wildfire"
 	
@@ -230,6 +233,7 @@ public enum AirMapAirspaceType: String {
 		.hazardArea,
 		.heliport,
 		.hospital,
+		.laanc,
 		.notam,
 		.park,
 		.powerPlant,
@@ -239,7 +243,9 @@ public enum AirMapAirspaceType: String {
 		.seaplaneBase,
 		.specialUse,
 		.stadium,
+		.state,
 		.tfr,
+		.ultralightField,
 		.university,
 		.wildfire,
 	]
@@ -260,6 +266,7 @@ public enum AirMapAirspaceType: String {
 		case .hazardArea:           return localized.hazardArea
 		case .heliport:             return localized.heliport
 		case .hospital:             return localized.hospital
+		case .laanc:                return localized.laanc
 		case .notam:                return localized.notam
 		case .park:                 return localized.park
 		case .powerPlant:           return localized.powerPlant
@@ -269,7 +276,9 @@ public enum AirMapAirspaceType: String {
 		case .seaplaneBase:         return localized.seaplaneBase
 		case .specialUse:           return localized.specialUse
 		case .stadium:              return localized.stadium
+		case .state:                return localized.state
 		case .tfr:                  return localized.tfr
+		case .ultralightField:      return localized.ultralightField
 		case .university:           return localized.university
 		case .wildfire:             return localized.wildfire
 		}

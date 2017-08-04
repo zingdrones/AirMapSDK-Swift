@@ -99,6 +99,8 @@ public struct LocalizedStrings {
 		
 		public static let hospital = NSLocalizedString("AIRSPACE_TYPE_HOSPITAL", bundle: bundle, value: "Hospital", comment: "Name for airspace type Hospital")
 		
+		public static let laanc = NSLocalizedString("AIRSPACE_TYPE_LAANC", bundle: bundle, value: "LAANC", comment: "Name for airspace type LAANC")
+		
 		public static let notam = NSLocalizedString("AIRSPACE_TYPE_NOTAM", bundle: bundle, value: "NOTAM", comment: "Name for airspace type NOTAM")
 		
 		public static let park = NSLocalizedString("AIRSPACE_TYPE_NATIONAL_PARK", bundle: bundle, value: "National Park", comment: "Name for airspace type National Park")
@@ -117,8 +119,12 @@ public struct LocalizedStrings {
 		
 		public static let stadium = NSLocalizedString("AIRSPACE_TYPE_STADIUM", bundle: bundle, value: "Stadium", comment: "Name for airspace type Stadium")
 		
+		public static let state = NSLocalizedString("AIRSPACE_TYPE_STATE", bundle: bundle, value: "State", comment: "Name for airspace type State")
+		
 		public static let tfr = NSLocalizedString("AIRSPACE_TYPE_TFR_FAA", bundle: bundle, value: "Temporary Flight Restriction", comment: "Name for airspace type FAA Temporary Flight Restriction")
 		
+		public static let ultralightField = NSLocalizedString("AIRSPACE_TYPE_ULM_FIELD", bundle: bundle, value: "Ultralight Field", comment: "Name for airspace type Ultralight Field")
+
 		public static let university = NSLocalizedString("AIRSPACE_TYPE_UNIVERSITY", bundle: bundle, value: "University", comment: "Name for airspace type University")
 		
         public static let wildfire = NSLocalizedString("AIRSPACE_TYPE_WILDFIRE", bundle: bundle, value: "WildFire", comment: "Name for airspace type WildFire")
