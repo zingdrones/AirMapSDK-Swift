@@ -208,7 +208,7 @@ extension DataRequest {
 		let serializer: DataResponseSerializer<T> = DataRequest.airMapSerializer(keyPath, mapToObject: object, context: context)
 		return response(queue: nil, responseSerializer: serializer, completionHandler: completionHandler)
 	}
-	
+
 	/// Converts the response into an array of BaseMappable objects
 	func airMapResponseArray<T: BaseMappable>(keyPath: String? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
 		
@@ -351,11 +351,8 @@ extension DataRequest {
 	private static func catchApiError(with response: HTTPURLResponse, from request: URLRequest?, with data: Data) throws {
 
 		if let error = AirMapError(rawValue: (request, response, data)) {
-			
 			throw error
-			
 		} else if let error = Auth0Error(rawValue: (request, response, data)) {
-		
 			throw error
 		}
 	}

@@ -492,5 +492,4 @@ extension AirMapMapView {
 			return nil
 		}
 	}
-	
 }

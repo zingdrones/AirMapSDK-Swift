@@ -104,7 +104,6 @@ extension AirMapError: CustomStringConvertible {
 }
 
 public enum AirMapSerializationError: Error {
-	
 	case invalidData
 	case invalidJson
 	case invalidObject
