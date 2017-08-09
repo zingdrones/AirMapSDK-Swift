@@ -42,6 +42,9 @@ struct Config {
 		static var mapTilesUrl: String {
 			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
 		}
+		static var mapSourceUrl: String {
+			return AirMapApi.urlForResource("tiledata", version: "v1")
+		}
 		static func urlForResource(_ named: String, version: String) -> String {
 			if let env = AirMap.configuration.environment {
 				if env == "stage" && named == "status" && version == "alpha" {
