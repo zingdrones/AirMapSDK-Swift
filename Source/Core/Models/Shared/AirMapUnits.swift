@@ -70,6 +70,8 @@ public typealias Meters = Double
 public typealias Kilometers = Double
 public typealias StatuteMiles = Double
 public typealias NauticalMiles = Double
+public typealias Acres = Double
+public typealias Hectares = Double
 
 public extension Feet {
 	
@@ -98,6 +100,13 @@ public extension Kilometers {
 	
 	public var statuteMiles: StatuteMiles {
 		return self * 1000 / Meters.metersPerStatuteMile
+	}
+}
+
+public extension Acres {
+	
+	public var hectares: Hectares {
+		return self * 0.404686
 	}
 }
 
