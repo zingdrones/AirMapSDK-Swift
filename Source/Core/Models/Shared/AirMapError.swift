@@ -140,6 +140,14 @@ public struct AirMapApiError: Mappable, LocalizedError {
 		}
 	}
 	
+	public var description: String {
+		return localizedDescription
+	}
+	
+	public var errorDescription: String? {
+		return localizedDescription
+	}
+	
 	public var localizedDescription: String {
 		if messages.count == 0 {
 			return message
