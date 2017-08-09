@@ -244,7 +244,7 @@ public struct LocalizedStrings {
 		
 		public static let rowTitleEnds = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ENDS", bundle: bundle, value: "Ends", comment: "Label for a flight's end time")
 		
-		public static let rowTitleDuration = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_DURATION", bundle: bundle, value: "Ends", comment: "Label for a flight's duration")
+		public static let rowTitleDuration = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_DURATION", bundle: bundle, value: "Duration", comment: "Label for a flight's duration")
 		
 		public static let rowTitlePublic = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_PUBLIC", bundle: bundle, value: "Public", comment: "Label for the flight review 'is public' row")
 		
