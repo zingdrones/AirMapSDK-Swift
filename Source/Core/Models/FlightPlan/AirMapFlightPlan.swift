@@ -81,7 +81,7 @@ public class AirMapFlightPlan: NSObject, Mappable {
 		takeoffLatitude     <-  map["takeoff_latitude"]
 		takeoffLongitude    <-  map["takeoff_longitude"]
 		targetAltitudeAGL   <-  map["target_altitude_agl"]
-		buffer              <- (map["buffer"], StringOrDoubleTransform())
+		buffer              <-  map["buffer"]
 		geometry            <- (map["geometry"], geoJSONTransform)
 		maximumAltitudeAGL  <-  map["max_altitude_agl"]
 		minimumAltitudeAGL  <-  map["min_altitude_agl"]
@@ -158,30 +158,5 @@ public class AirMapFlightPlan: NSObject, Mappable {
 		}
 		
 		return nil
-	}
-}
-
-// FIXME: Fix for issue with API returning a string or double sometimes
-class StringOrDoubleTransform: TransformType {
-	public typealias Object = Double
-	public typealias JSON = Double
-	
-	public init() {}
-	
-	open func transformFromJSON(_ value: Any?) -> Double? {
-		switch value {
-		case let double as Double:
-			return double
-		case let string as String:
-			return Double(string)
-		case let number as NSNumber:
-			return number.doubleValue
-		default:
-			return nil
-		}
-	}
-	
-	open func transformToJSON(_ value: Double?) -> Double? {
-		return value
 	}
 }
