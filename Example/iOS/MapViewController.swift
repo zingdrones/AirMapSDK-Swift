@@ -33,10 +33,7 @@ class MapViewController: UIViewController {
 		getAirMapAircraft(name: "DJI Phantom Pro 4") { aircraft in
 			print(aircraft?.nickname ?? "")
 		}
-		
-		AirMap.checkCoordinate(coordinate: CLLocationCoordinate2DMake(34.0, -118.0), buffer: 1000) { result in
-			
-		}
+
 	}
 	
 	func getAirMapAircraft(name: String, complete: @escaping (AirMapAircraft?) -> Void) {
