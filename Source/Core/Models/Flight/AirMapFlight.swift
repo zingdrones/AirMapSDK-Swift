@@ -108,7 +108,7 @@ extension AirMapFlight: Mappable {
 		isPublic    <-  map["public"]
 		statuses    <-  map["statuses"]
 		permitsIds  <-  map["permits"]
-		buffer      <- (map["buffer"], StringOrDoubleTransform())
+		buffer      <-  map["buffer"]
 		geometry    <- (map["geometry"], GeoJSONToAirMapGeometryTransform())
 		
 		var endTime: Date?
