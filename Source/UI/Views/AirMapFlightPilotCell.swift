@@ -28,7 +28,7 @@ class AirMapFlightPilotCell: UITableViewCell, Dequeueable {
 			.subscribeOn(MainScheduler.instance)
 			.unwrap()
 			.map { [unowned self] pilot in self.fullName(pilot.firstName, lastName: pilot.lastName) }
-			.bindTo(pilotLabel!.rx.text)
+			.bind(to: pilotLabel!.rx.text)
 			.disposed(by: disposeBag)
 	}
 	

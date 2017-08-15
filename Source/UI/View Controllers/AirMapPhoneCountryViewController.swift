@@ -64,7 +64,7 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 		]
 		
 		Observable.just(sections)
-			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: disposeBag)
 		
 		dataSource.configureCell = { datasource, tableView, indexPath, row in

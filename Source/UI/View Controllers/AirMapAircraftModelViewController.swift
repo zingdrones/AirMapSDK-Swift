@@ -27,7 +27,7 @@ class AirMapAircraftModelViewController: UITableViewController, AnalyticsTrackab
 			.map { [unowned self] models in
 				models.filter { $0.manufacturer.id == self.manufacturer.id }.sorted {$0.name < $1.name }
 			}
-			.bindTo(tableView.rx.items(cellIdentifier: "Cell")) { index, model, cell in
+			.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { index, model, cell in
 				cell.textLabel?.text = model.name
 			}
 			.disposed(by: disposeBag)

@@ -6,9 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import CoreLocation
-
-extension CLLocationCoordinate2D {
+extension Coordinate2D {
 
 	public var formattedString: String {
 
@@ -28,7 +26,7 @@ extension CLLocationCoordinate2D {
 		let east  = AirMapTrafficServiceUtils.directionFromBearing(090)
 		let west  = AirMapTrafficServiceUtils.directionFromBearing(270)
 		
-		return String(format:"%d°%d'%d\"%@ %d°%d'%d\"%@",
+		return String(format:"%d° %d' %d\" %@, %d° %d' %d\" %@",
 					  abs(latDegrees),
 					  latMinutes,
 					  latSeconds, (latDegrees >= 0 ? north : south),

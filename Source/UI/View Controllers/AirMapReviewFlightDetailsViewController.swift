@@ -38,7 +38,7 @@ class AirMapReviewFlightDetailsViewController: UIViewController {
 	fileprivate func setupBindings() {
 		flight?.asObservable()
 			.map(unowned(self, AirMapReviewFlightDetailsViewController.tableDataFromFlight))
-			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: disposeBag)
 	}
 	

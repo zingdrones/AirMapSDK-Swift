@@ -172,7 +172,7 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
-			.bindTo(rx_loading)
+			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
 	}
 	
@@ -182,7 +182,7 @@ class AirMapRequiredPermitsViewController: UIViewController, AnalyticsTrackable 
 			.rx.listPilotPermits()
 			.trackActivity(activityIndicator)
 			.map(unowned(self, AirMapRequiredPermitsViewController.filterOutInvalidPermits))
-			.bindTo(existingPermits)
+			.bind(to: existingPermits)
 			.disposed(by: disposeBag)
 	}
 	

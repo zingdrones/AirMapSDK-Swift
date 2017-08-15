@@ -29,6 +29,6 @@ internal class PermitClient: HTTPClient {
 
 	func apply(for permit: AirMapAvailablePermit) -> Observable<AirMapPilotPermit> {
 		AirMap.logger.debug("Apply for Permit", permit)
-		return perform(method: .post, path:"/\(permit.id ?? "")/apply", params: permit.params())
+		return perform(method: .post, path:"/\(permit.id)/apply", params: permit.params())
 	}
 }
