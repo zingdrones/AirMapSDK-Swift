@@ -47,7 +47,7 @@ Pod::Spec.new do |s|
 		ui.dependency 'PhoneNumberKit'
 		ui.dependency 'RxDataSources'
 		ui.dependency 'Mapbox-iOS-SDK'
-		ui.dependency 'Lock'
+		ui.dependency 'Lock', '>= 2.3.1'
 		ui.dependency 'SwiftSimplify'
 		ui.dependency 'SwiftTurf'
 		ui.source_files = 'Source/UI/**/{*.swift}'
@@ -66,7 +66,7 @@ Pod::Spec.new do |s|
 		telemetry.dependency 'AirMapSDK/Core'
 		telemetry.dependency 'CocoaAsyncSocket', '~> 7.6.0'
 		telemetry.dependency 'CryptoSwift'
-		telemetry.dependency 'ProtocolBuffers-Swift', '3.0.21'
+		telemetry.dependency 'ProtocolBuffers-Swift', '3.0.22'
 		telemetry.source_files = 'Source/Telemetry/*'
 	end
 	
