@@ -103,10 +103,10 @@ public extension Kilometers {
 	}
 }
 
-public extension Acres {
+public extension Hectares {
 	
-	public var hectares: Hectares {
-		return self * 0.404686
+	public var acres: Acres {
+		return self / 0.404686
 	}
 }
 

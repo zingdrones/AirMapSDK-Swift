@@ -10,7 +10,7 @@ import ObjectMapper
 
 open class AirMapStatusAdvisoryWildfireProperties: AdvisoryProperties {
 
-	open var size: Int?
+	open var size: Hectares?
 	open var dateEffective: Date?
 
 	public required init?(map: Map) {}
