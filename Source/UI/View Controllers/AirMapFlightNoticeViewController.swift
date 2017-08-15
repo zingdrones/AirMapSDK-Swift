@@ -73,11 +73,6 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			sections.append(section)
         }
 		
-		Observable
-			.just(sections)
-			.bind(to: tableView.rx.items(dataSource: dataSource))
-			.disposed(by: disposeBag)
-		
 		tableView.rx.setDelegate(self)
 			.disposed(by: disposeBag)
 		
@@ -91,6 +86,11 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			cell.advisory = advisory
             return cell
 		}
+		
+		Observable
+			.just(sections)
+			.bind(to: tableView.rx.items(dataSource: dataSource))
+			.disposed(by: disposeBag)
         
         navigationController!.flight.value.notify = true
 	}

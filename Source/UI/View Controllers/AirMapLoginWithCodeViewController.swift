@@ -50,13 +50,13 @@ open class AirMapLoginWithCodeViewController: UITableViewController, AnalyticsTr
         
         smsTextField.rx.text.asObservable()
             .map { $0?.characters.count == Config.AirMapApi.smsCodeLength }
-            .bindTo(submitButton.rx.isEnabled)
+            .bind(to: submitButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
         activityIndicator.asObservable()
             .throttle(0.25, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-            .bindTo(rx_loading)
+            .bind(to: rx_loading)
             .disposed(by: disposeBag)
     }
     
