@@ -67,3 +67,14 @@ extension AirMapFlightFeature: ImmutableMappable {
 		measurementUnit =  try? map.value("measurement_unit")
 	}
 }
+
+extension AirMapFlightFeature: Hashable, Equatable {
+	
+	public var hashValue: Int {
+		return code.hashValue
+	}
+	
+	public static func ==(lhs: AirMapFlightFeature, rhs: AirMapFlightFeature) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+}
