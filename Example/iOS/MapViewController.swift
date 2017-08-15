@@ -20,19 +20,20 @@ class MapViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		// Configure AirMap
 		AirMap.logger.minLevel = .debug
-		AirMap.authSessionDelegate = self
 		AirMap.trafficDelegate = self
 		AirMap.configuration.distanceUnits = .metric // or .metric
 		AirMap.configuration.temperatureUnits = .fahrenheit // or .celcius
-		
+
+		//Configure Map
 		mapView.configure(layers: mapLayers, theme: mapTheme)
-		
 	
+		// Get Aircfraft by Name
 		getAirMapAircraft(name: "DJI Phantom Pro 4") { aircraft in
 			print(aircraft?.nickname ?? "")
 		}
-		
+
 	}
 	
 	func getAirMapAircraft(name: String, complete: @escaping (AirMapAircraft?) -> Void) {
@@ -74,27 +75,9 @@ class MapViewController: UIViewController {
 		}
 	}
 	
-//	func showActiveFlight() {
-//		
-//		AirMap.getCurrentAuthenticatedPilotFlight { result in
-//			switch result {
-//			case .error(let error):
-//				AirMap.logger.error(error)
-//			case .value(let flight):
-//				if let flight = flight {
-//					let nav = AirMap.flightPlanViewController(flight)!
-//					self.present(nav, animated: true, completion: nil)
-//				}
-//			}
-//		}
-//	}
-	
 	fileprivate func showAuthController() {
 		
-		let authViewController = AirMap.authViewController(handleLogin)
-//				authViewController.registerLogo("<YOUR_LOGO_CONNECT_WITH_AIRMAP>", bundle: NSBundle.mainBundle())
-		
-		present(authViewController, animated: true, completion: nil)
+		AirMap.login(from: self, with: handleLogin)
 	}
 	
 	fileprivate func handleLogin(result: Result<AirMapPilot>) {
@@ -103,49 +86,20 @@ class MapViewController: UIViewController {
 		case .error(let error):
 			AirMap.logger.error(error)
 		case .value(let pilot):
-			dismiss(animated: true, completion: {
-				if pilot.phoneVerified == false {
-					let verification = AirMap.phoneVerificationViewController(pilot, phoneVerificationDelegate: self)
-					self.present(verification, animated: true, completion: nil)
-				} else {
-					self.addFlight()
-				}
-			})
+			if pilot.phoneVerified == false {
+				let verification = AirMap.phoneVerificationViewController(pilot, phoneVerificationDelegate: self)
+				self.present(verification, animated: true, completion: nil)
+			} else {
+				self.addFlight()
+			}
 		}
 	}
 }
-
-//extension MapViewController: AirMapSMSLoginDelegate {
-//    
-//    func smsLoginDidAuthenticate() {
-//        dismiss(animated: true, completion: addFlight)
-//    }
-//    func smsLogindidFailToAuthenticate(error:Auth0Error) {
-//        print(error.localizedDescription)
-//    }
-//}
 
 extension MapViewController: AirMapPhoneVerificationDelegate {
 	
 	func phoneVerificationDidVerifyPhoneNumber() {
 		dismiss(animated: true, completion: nil)
-	}
-}
-
-extension MapViewController: AirMapAuthSessionDelegate {
-	
-	func airmapSessionShouldAuthenticate() {
-		
-	}
-	
-	func airMapAuthSessionDidAuthenticate(_ pilot: AirMapPilot) {
-		if presentedViewController?.childViewControllers.first is AirMapAuthViewController {
-			dismiss(animated: true, completion: addFlight)
-		}
-	}
-	
-	func airMapAuthSessionAuthenticationDidFail(_ error: Error) {
-		AirMap.logger.error(error)
 	}
 }
 

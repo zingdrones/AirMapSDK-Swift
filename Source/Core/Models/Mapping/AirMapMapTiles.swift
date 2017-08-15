@@ -133,7 +133,7 @@ public enum AirMapLayerType: String {
 			return .park
 			
 		case .cities:
-			return .cities
+			return .city
 			
 		case .classB,
 		     .classC,
@@ -189,7 +189,7 @@ public enum AirMapLayerType: String {
 public enum AirMapAirspaceType: String {
 	
 	case airport             = "airport"
-	case cities              = "cities"
+	case city				= "city"
 	case controlledAirspace  = "controlled_airspace"
 	case custom              = "custom"
 	case hazardArea          = "hazard_area"
@@ -197,20 +197,20 @@ public enum AirMapAirspaceType: String {
 	case hospital            = "hospital"
 	case park                = "park"
 	case powerPlant          = "power_plant"
-	case prison              = "prisons"
+	case prison              = "prison"
 	case recreationalArea    = "recreational_area"
 	case school              = "school"
 	case specialUse          = "special_use_airspace"
 	case stadium             = "stadium"
 	case tfr                 = "tfr"
-	case university          = "universities"
+	case university          = "university"
 	case wildfire            = "wildfire"
 	case fire                = "fire"
 	case emergency           = "emergency"
 	
 	public static let allAirspaceTypes: [AirMapAirspaceType] = [
 		.airport,
-		.cities,
+		.city,
 		.controlledAirspace,
 		.custom,
 		.hazardArea,
@@ -237,7 +237,7 @@ public enum AirMapAirspaceType: String {
 
 		switch self {
 		case .airport:              return localized.airport
-		case .cities:               return localized.city
+		case .city:					return localized.city
 		case .controlledAirspace:   return localized.controlledAirspace
 		case .custom:               return localized.custom
 		case .hazardArea:           return localized.hazardArea

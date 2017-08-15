@@ -26,7 +26,7 @@ class AirMapStatusesViewController: UITableViewController {
 		
 		flight?.asObservable()
 			.map { $0.statuses }
-			.bindTo(tableView.rx.items(cellIdentifier: "StatusCell")) { index, status, cell in
+			.bind(to: tableView.rx.items(cellIdentifier: "StatusCell")) { index, status, cell in
 
 				// TODO: Replace with authority_name once provided by API
 				let nameComponents = status.managerId.components(separatedBy: "|")

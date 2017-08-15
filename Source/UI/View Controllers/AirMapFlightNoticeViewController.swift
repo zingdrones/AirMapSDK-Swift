@@ -9,6 +9,7 @@
 import RxSwift
 import RxCocoa
 import RxDataSources
+import SafariServices
 
 class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 	
@@ -26,6 +27,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 	fileprivate typealias RowData = AirMapStatusAdvisory
 	fileprivate typealias SectionDataModel = SectionModel<SectionData, RowData>
 
+	fileprivate var anyAdvisoriesAcceptDigitalNotice = false
 	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionDataModel>()
 	fileprivate let disposeBag = DisposeBag()
 	
@@ -57,6 +59,7 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
             .filter { $0.requirements?.notice?.digital == true }
         
         if digitalNotices.count > 0 {
+			anyAdvisoriesAcceptDigitalNotice = true
 			let digitalSection = SectionDataModel(model: (digital: true, headerView: submitNoticeHeader), items: digitalNotices)
 			sections.append(digitalSection)
 		}
@@ -69,11 +72,6 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			let section = SectionDataModel(model: (digital: false, headerView: noticeUnavailableHeader), items: notices)
 			sections.append(section)
         }
-		
-		Observable
-			.just(sections)
-			.bindTo(tableView.rx.items(dataSource: dataSource))
-			.disposed(by: disposeBag)
 		
 		tableView.rx.setDelegate(self)
 			.disposed(by: disposeBag)
@@ -88,6 +86,11 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			cell.advisory = advisory
             return cell
 		}
+		
+		Observable
+			.just(sections)
+			.bind(to: tableView.rx.items(dataSource: dataSource))
+			.disposed(by: disposeBag)
         
         navigationController!.flight.value.notify = true
 	}
@@ -113,12 +116,32 @@ class AirMapFlightNoticeViewController: UIViewController, AnalyticsTrackable {
 			let submitDigitalNotice = true//submitNoticeSwitch.on
 			if verified {
 				return true
-			} else if submitDigitalNotice && !verified {
+			} else if anyAdvisoriesAcceptDigitalNotice && submitDigitalNotice && !verified {
 				performSegue(withIdentifier: "modalVerifyId", sender: self)
 				return false
 			}
 		}
 		return true
+	}
+	
+	
+	@IBAction func openFAQAction(_ sender: Any) {
+		
+		guard let url = URL(string: UIConstants.faqUrl), UIApplication.shared.canOpenURL(url) else {
+			return
+		}
+		
+		let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+		vc.delegate = self
+		present(vc, animated: true)
+		
+	}
+}
+
+extension AirMapFlightNoticeViewController: SFSafariViewControllerDelegate {
+	
+	func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+		controller.dismiss(animated: true, completion: nil)
 	}
 }
 

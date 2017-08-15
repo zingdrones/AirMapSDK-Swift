@@ -40,11 +40,18 @@ struct Config {
 			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
 		}
 		static func urlForResource(_ named: String, version: String) -> String {
+			
+			if let env = AirMap.configuration.environment {
+				if env == "stage" && named == "status" && version == "alpha" {
+					return "\(host)/\(named)/alpha/stage"
+				}
+			}
+			
 			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "\(version)")
 		}
 
 		struct Auth {
-			static let ssoUrl    = "https://sso.airmap.io"
+			static let ssoDomain = "sso.airmap.io"
 			static let scope     = "openid+offline_access"
 			static let grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer"
 			static let keychainKeyRefreshToken = "com.airmap.airmapsdk.refresh_token"

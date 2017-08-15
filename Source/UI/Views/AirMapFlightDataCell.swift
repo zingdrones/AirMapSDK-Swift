@@ -26,19 +26,19 @@ class AirMapFlightDataCell: UITableViewCell {
 		
 		model.title
 			.asObservable()
-			.bindTo(label.rx.text)
+			.bind(to: label.rx.text)
 			.disposed(by: disposeBag)
 		
 		slider.rx.value
 			.map(unowned(self, AirMapFlightDataCell.sliderValueToPreset))
 			.map { $0.value}
-			.bindTo(model.value)
+			.bind(to: model.value)
 			.disposed(by: disposeBag)
 		
 		slider.rx.value
 			.map(unowned(self, AirMapFlightDataCell.sliderValueToPreset))
 			.map { $0.title }
-			.bindTo(value.rx.text)
+			.bind(to: value.rx.text)
 			.disposed(by: disposeBag)
 	}
 	

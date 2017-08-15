@@ -88,7 +88,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		
 		AirMap.rx.getAuthenticatedPilot().asOptional()
 			.trackActivity(activityIndicator)
-			.bindTo(pilot)
+			.bind(to: pilot)
 			.disposed(by: disposeBag)
 		
 		trackView()
@@ -208,7 +208,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 			}
 
 			cell.textField.rx.text
-				.bindTo(field.rx_value)
+				.bind(to: field.rx_value)
 				.disposed(by: self.disposeBag)
 			
 			return cell
@@ -225,7 +225,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 			.unwrap()
 			.map(sectionModel)
 			.observeOn(MainScheduler.instance)
-			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: disposeBag)
 		
 		pilot.asObservable()
@@ -237,7 +237,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
-			.bindTo(rx_loading)
+			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
 	}
 	

@@ -33,7 +33,7 @@ class AirMapFlightAircraftCell: UITableViewCell, Dequeueable {
 				let selectAircraftTitle = LocalizedStrings.Aircraft.selectAircraft
 				return $0?.nickname ?? selectAircraftTitle
 			}
-			.bindTo(selectedAircraft.rx.text)
+			.bind(to: selectedAircraft.rx.text)
 			.disposed(by: disposeBag)
 	}
 }

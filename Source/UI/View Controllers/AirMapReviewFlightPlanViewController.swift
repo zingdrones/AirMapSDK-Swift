@@ -89,7 +89,7 @@ class AirMapReviewFlightPlanViewController: UIViewController, UIScrollViewDelega
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
-			.bindTo(rx_loading)
+			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
 	}
 

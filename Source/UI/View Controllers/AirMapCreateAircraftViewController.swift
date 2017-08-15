@@ -97,19 +97,19 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 				self.aircraft.model = model
 			})
 			.map { [$0.manufacturer.name, $0.name].flatMap { $0 }.joined(separator: " ") }
-			.bindTo(makeAndModel.rx.text)
+			.bind(to: makeAndModel.rx.text)
 			.disposed(by: disposeBag)
 		
 		Observable
 			.combineLatest(model.asObservable(), nickName.rx.text) { (model: $0.0, nickName: $0.1) }
 			.map { $0.model != nil && !($0.nickName ?? "").isEmpty }
-			.bindTo(nextButton.rx.isEnabled)
+			.bind(to: nextButton.rx.isEnabled)
 			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
-			.bindTo(rx_loading)
+			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
 	}
 	
