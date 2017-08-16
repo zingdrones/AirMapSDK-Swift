@@ -292,6 +292,6 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 extension AirMapPilotProfileViewController: AirMapPhoneVerificationDelegate {
 	
 	public func phoneVerificationDidVerifyPhoneNumber() {
-		dismiss(animated: true, completion:nil)
+		dismiss(animated: true, completion: nil)
 	}
 }
