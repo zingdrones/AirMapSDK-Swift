@@ -27,4 +27,10 @@ public class AirMapAirspaceAdvisoryStatus: ImmutableMappable {
 		}
 	}
 	
+	public var supportsDigitalNotification: Bool {
+		return advisories.reduce(false, { (current, next) -> Bool in
+			current || (next.requirements?.notice?.digital ?? false)
+		})
+	}
+	
 }
