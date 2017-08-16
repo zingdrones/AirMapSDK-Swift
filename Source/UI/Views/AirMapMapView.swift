@@ -14,7 +14,7 @@ import GLKit
 
 open class AirMapMapView: MGLMapView {
 	
-	public static let defaultTheme: AirMapMapTheme = .light
+	public static let defaultTheme: AirMapMapTheme = .standard
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
