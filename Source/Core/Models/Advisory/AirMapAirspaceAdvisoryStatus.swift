@@ -9,12 +9,12 @@
 import Foundation
 import ObjectMapper
 
-public class AirMapAirspaceAdvisoryStatus: Mappable {
+public class AirMapAirspaceAdvisoryStatus: ImmutableMappable {
 
 	public let color: AirMapStatus.StatusColor
 	public let advisories: [AirMapAdvisory]
 	
-	public required init?(map: Map) {
+	public required init(map: Map) throws {
 		
 		do {
 			color = try map.value("color")
@@ -23,9 +23,8 @@ public class AirMapAirspaceAdvisoryStatus: Mappable {
 			
 		catch let error {
 			print(error)
-			return nil
+			throw error
 		}
 	}
 	
-	public func mapping(map: Map) {}
 }
