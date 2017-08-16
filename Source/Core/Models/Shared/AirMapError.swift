@@ -103,6 +103,13 @@ extension AirMapError: CustomStringConvertible {
 	}
 }
 
+extension AirMapError: LocalizedError {
+	
+	public var errorDescription: String? {
+		return description
+	}
+}
+
 public enum AirMapSerializationError: Error {
 	case invalidData
 	case invalidJson
