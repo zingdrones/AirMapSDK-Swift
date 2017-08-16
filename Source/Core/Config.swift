@@ -53,12 +53,14 @@ struct Config {
 			}
 			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "\(version)")
 		}
+		
+		static let mapStyleVersion = "0.7.2"
 		static var mapStylePath: String {
 			let env = AirMap.configuration.environment ?? "prod"
 			if env == "prod" {
-				return "https://cdn.airmap.com/static/map-styles/0.7.1/"
+				return "https://cdn.airmap.com/static/map-styles/\(mapStyleVersion)/"
 			} else {
-				return "https://cdn.airmap.com/static/map-styles/next/"
+				return "https://cdn.airmap.com/static/map-styles/\(env)/\(mapStyleVersion)/"
 			}
 		}
 		
