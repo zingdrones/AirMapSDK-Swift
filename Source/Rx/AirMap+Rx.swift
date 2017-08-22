@@ -102,8 +102,16 @@ extension Reactive where Base: AirMap_Aircraft {
 		return AirMap.aircraftClient.listManufacturers()
 	}
 	
-	public static func listModels() -> Observable<[AirMapAircraftModel]> {
-		return AirMap.aircraftClient.listModels()
+	public static func searchManufacturers(by name: String) -> Observable<[AirMapAircraftManufacturer]> {
+		return AirMap.aircraftClient.searchManufacturers(by: name)
+	}
+	
+	public static func listModels(by manufacturerId: String) -> Observable<[AirMapAircraftModel]> {
+		return AirMap.aircraftClient.listModels(by: manufacturerId)
+	}
+	
+	public static func searchModels(by name: String) -> Observable<[AirMapAircraftModel]> {
+		return AirMap.aircraftClient.searchModels(by: name)
 	}
 	
 	public static func getModel(_ modelId: String) -> Observable<AirMapAircraftModel> {

@@ -50,11 +50,31 @@ extension AirMap_Aircraft {
 		aircraftClient.listManufacturers().subscribe(completion)
 	}
 
-	/// List all aircraft models (and associated manufacturers)
+	/// Search all aircraft manufacturers by name
 	///
-	/// - Parameter completion: A completion handler to call with the Result
-	public static func listModels(_ completion: @escaping (Result<[AirMapAircraftModel]>) -> Void) {
-		aircraftClient.listModels().subscribe(completion)
+	/// - Parameters:
+	///   - name: The name of the manufacturer to filter the results with
+	///   - completion: A completion handler to call with the Result
+	public static func searchManufacturers(by name: String, _ completion: @escaping (Result<[AirMapAircraftManufacturer]>) -> Void) {
+		aircraftClient.searchManufacturers(by: name).subscribe(completion)
+	}
+
+	/// List all aircraft models by manufacturer
+	///
+	/// - Parameters:
+	///   - manufacturerId: The identifier for the entity that manufactures the model
+	///   - completion: A completion handler to call with the Result
+	public static func listModels(by manufacturerId: String, completion: @escaping (Result<[AirMapAircraftModel]>) -> Void) {
+		aircraftClient.listModels(by: manufacturerId).subscribe(completion)
+	}
+	
+	/// Search all models by an aircraft's name
+	///
+	/// - Parameters:
+	///   - name: The string to search models by
+	///   - completion: A completion handler to call with the Result
+	public static func searchModels(by name: String, completion: @escaping (Result<[AirMapAircraftModel]>) -> Void) {
+		aircraftClient.searchModels(by: name).subscribe(completion)
 	}
 
 	/// Get a specific aircraft model by identifier
