@@ -39,7 +39,7 @@ public class AirMapFlightComposer {
 		return delegate.mapView
 	}
 	
-	var flightPlan: AirMapFlightPlan? {
+	public var flightPlan: AirMapFlightPlan? {
 		set { flightPlanVariable.value = newValue }
 		get { return flightPlanVariable.value }
 	}
