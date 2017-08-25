@@ -49,7 +49,7 @@ class AirMapFormTextField: UITableViewCell {
 
 public class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackable {
 	
-	var screenName = "Pilot Profile"
+	public var screenName = "Pilot Profile"
 	
 	var customFields = [AirMapPilotProfileField]()
 

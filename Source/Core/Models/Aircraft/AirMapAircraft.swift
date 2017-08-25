@@ -15,9 +15,7 @@ final public class AirMapAircraft: Mappable {
 	public var nickname: String!
 
 	@available(*, unavailable, renamed: "id")
-	public var aircraftId: String! {
-		return id
-	}
+	public var aircraftId: String!
 	
 	public required init?(map: Map) {
 		

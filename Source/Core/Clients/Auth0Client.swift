@@ -6,13 +6,13 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import RxSwift
-import Alamofire
 
 internal class Auth0Client: HTTPClient {
 
 	init() {
-		super.init(basePath: "https://" + Config.AirMapApi.Auth.ssoDomain)
+		super.init(basePath: "https://" + AirMap.configuration.auth0Host)
 	}
 
 	func refreshAccessToken() -> Observable<AirMapToken> {
@@ -22,12 +22,11 @@ internal class Auth0Client: HTTPClient {
 			return Observable.error(AirMapError.unauthorized)
 		}
 
-		let params = [
-			"grant_type": Config.AirMapApi.Auth.grantType,
-			"client_id": AirMap.configuration.auth0ClientId as Any,
-			"api_type": "app",
-			"refresh_token": refreshToken
-		]
+		var params = [String: Any]()
+		params["grant_type"] = Config.AirMapApi.Auth.grantType
+		params["client_id"] = AirMap.configuration.auth0ClientId
+		params["api_type"] = "app"
+		params["refresh_token"] = refreshToken
 
 		return perform(method: .post, path:"/delegation", params: params, keyPath: nil)
 			.do(onNext: { token in
@@ -37,28 +36,18 @@ internal class Auth0Client: HTTPClient {
 			})
     }
 	
-	func resendEmailVerification(_ resendLink: String?) {
+    func startPasswordlessLogin(with phoneNumber: String) -> Observable<Void> {
 		
-		if let urlStr = resendLink?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! {
-			Alamofire.request(urlStr, method: .get)
-				.responseJSON { response in
-			}
-		}
-	}
-    
-    func performPhoneNumberLogin(phoneNumber: String) -> Observable<Void> {
-        
-		let params = [
-			"phone_number": phoneNumber,
-			"client_id": AirMap.configuration.auth0ClientId as Any,
-			"connection": "sms",
-			"send": "code"
-		]
+		var params = [String: Any]()
+		params["phone_number"] = phoneNumber
+		params["client_id"] = AirMap.configuration.auth0ClientId
+		params["connection"] = "sms"
+		params["send"] = "code"
 		
         return perform(method: .post, path:"/passwordless/start", params: params, keyPath: nil)
     }
     
-    func performLoginWithCode(phoneNumber:String, code:String) -> Observable<Auth0Credentials> {
+    func verifyPasswordlessLogin(with phoneNumber: String, code: String) -> Observable<Auth0Credentials> {
 		
 		let deviceId: String
 		
@@ -70,13 +59,14 @@ internal class Auth0Client: HTTPClient {
 			deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
 		#endif
 		
-        let params = ["username": phoneNumber,
-                      "password" : code,
-                      "client_id": AirMap.configuration.auth0ClientId as Any,
-                      "connection": "sms",
-                      "grant_type": "password",
-                      "device" : deviceId,
-                      "scope" : "openid offline_access"]
+		var params = [String: Any]()
+		params["username"] = phoneNumber
+		params["password"] = code
+		params["client_id"] = AirMap.configuration.auth0ClientId
+		params["connection"] = "sms"
+		params["grant_type"] = "password"
+		params["device"] = deviceId
+		params["scope"] = Config.AirMapApi.Auth.scope
         
         return perform(method: .post, path:"/oauth/ro", params: params, keyPath: nil)
             .do(onNext: { credentials in
@@ -87,7 +77,4 @@ internal class Auth0Client: HTTPClient {
             })
     }
     
-    func logout() {
-        AirMap.authToken = nil
-    }
 }

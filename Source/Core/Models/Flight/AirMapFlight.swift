@@ -15,9 +15,7 @@ public enum AirMapFlightGeometryType: String {
 	case polygon
 }
 
-// FIXME: Remove NSObject dependency
-open class AirMapFlight: NSObject {
-//open class AirMapFlight: Hashable, Equatable {
+public class AirMapFlight {
 	
 	public enum FlightType: String {
 		case past
@@ -52,6 +50,7 @@ open class AirMapFlight: NSObject {
 	public var isPublic: Bool = false
 	public var geometry: AirMapGeometry?
 	
+	public init() {}
 	public required init?(map: Map) {}
 
 	public func flightType() -> FlightType {
@@ -65,16 +64,20 @@ open class AirMapFlight: NSObject {
 			return .past
 		}
 	}
-	
-	override open var hashValue: Int {
-		return id?.hashValue ?? super.hashValue
-	}
-	
-	public override init() {}
-    
-    @available(*, unavailable, renamed: "id")
-    public var flightId: String?
 }
+
+extension AirMapFlight: Equatable, Hashable {
+	
+	public var hashValue: Int {
+		return id?.hashValue ?? createdAt.hashValue
+	}
+
+	static public func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+}
+
+// MARK: - JSON Serialization
 
 extension AirMapFlight: Mappable {
 
@@ -143,20 +146,5 @@ extension AirMapFlight: Mappable {
 		}
 		
 		return params
-	}
-}
-
-extension AirMapFlight {
-	
-	static public func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {
-		return lhs.id == rhs.id
-	}
-	
-	open override func isEqual(_ object: Any?) -> Bool {
-		if let flight = object as? AirMapFlight {
-			return self.id == flight.id
-		} else {
-			return false
-		}
 	}
 }

@@ -21,10 +21,8 @@ extension AirMap_Internal {
     internal static let authClient = AuthClient()
 	internal static let flightClient = FlightClient()
 	internal static let flightPlanClient = FlightPlanClient()
-	internal static let permitClient = PermitClient()
 	internal static let pilotClient = PilotClient()
 	internal static let ruleClient = RuleClient()
-	internal static let statusClient = StatusClient()
 	
 	internal static let mappingService = MappingService()
 	internal static let authSession = AirMapAuthSession()

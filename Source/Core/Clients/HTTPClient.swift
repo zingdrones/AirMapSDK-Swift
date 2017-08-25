@@ -6,6 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import RxSwift
 import RxCocoa
 import Alamofire
@@ -29,7 +30,7 @@ internal class HTTPClient {
 	
 	private lazy var manager: SessionManager = {
 		
-		let host = NSURL(string: Config.AirMapApi.host)!.host!
+		let host = AirMap.configuration.airMapApiHost
 		let keys = ServerTrustPolicy.publicKeys(in: AirMapBundle.core)
 		
 		let serverTrustPolicies: [String: ServerTrustPolicy] = [
@@ -47,7 +48,7 @@ internal class HTTPClient {
 	init(basePath: String) {
 		self.basePath = basePath
 	}
-	
+		
 	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T> {
 		
 		return Observable

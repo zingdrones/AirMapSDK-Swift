@@ -6,6 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import RxSwift
 
 internal class PilotClient: HTTPClient {
@@ -68,19 +69,5 @@ extension PilotClient_Aircraft {
 	func deleteAircraft(_ aircraft: AirMapAircraft) -> Observable<Void> {
 		AirMap.logger.debug("Delete Aircraft", aircraft)
 		return perform(method: .delete, path:"/\(AirMap.authSession.userId)/aircraft/\(aircraft.id ?? "")")
-	}
-}
-
-typealias PilotClient_Permit = PilotClient
-extension PilotClient_Permit {
-
-	func listPilotPermits() -> Observable<[AirMapPilotPermit]> {
-		AirMap.logger.debug("List Pilot Permits")
-		return perform(method: .get, path:"/\(AirMap.authSession.userId)/permit")
-	}
-
-	func deletePilotPermit(_ pilotId: String, permit: AirMapPilotPermit) -> Observable<Void> {
-		AirMap.logger.debug("Delete Pilot Permit")
-		return perform(method: .delete, path:"/\(pilotId)/permit/\(permit.permitId)")
 	}
 }

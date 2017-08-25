@@ -25,39 +25,42 @@ extension AirMap_Auth {
 
 	/// Refresh the auth token. Also notifies the `AirMapAuthSessionDelegate` upon completion
 	///
-	///   - completion: A completion handler to call with the Result
+	/// - Parameter completion: A completion handler to call with the Result
 	public static func refreshAuthToken(_ completion: @escaping (Result<AirMapToken>) -> Void) {
-		auth0Client.refreshAccessToken().subscribe(completion)
+		auth0Client.refreshAccessToken().thenSubscribe(completion)
 	}
     
     /// Authenticates an Anonymous User associated with the Developer API Key and returns an AuthToken.
+    ///
+    /// - Parameters:
+    ///   - userId: a third-party user id
     ///   - completion: A completion handler to call with the Result
-    public static func performAnonymousLogin(userId:String, completion: @escaping (Result<AirMapToken>) -> Void) {
-        authClient.performAnonymousLogin(userId: userId).subscribe(completion)
+    public static func performAnonymousLogin(userId: String, completion: @escaping (Result<AirMapToken>) -> Void) {
+        authClient.performAnonymousLogin(userId: userId).thenSubscribe(completion)
     }
 	
-    ///  Starts passwordless authentication by sending an sms with an OTP code
-    ///   - completion: A completion handler to call with the Result
-	@available(*, unavailable)
-    public static func performPhoneNumberLogin(phoneNumber:String, completion: @escaping (Result<Void>) -> Void) {
-        auth0Client.performPhoneNumberLogin(phoneNumber: phoneNumber).subscribe(completion)
+	/// Initiates passwordless authentication by sending the provided phone number a verification code via SMS
+	///
+	/// - Parameters:
+	///   - phoneNumber: The phone number to send the verification code to
+	///   - completion: A completion handler to call with the Result
+	public static func startPasswordlessLogin(with phoneNumber: String, completion: @escaping (Result<Void>) -> Void) {
+        auth0Client.startPasswordlessLogin(with: phoneNumber).thenSubscribe(completion)
     }
     
-    ///  Authenticates passwordless authentication with a Code and returns an AuthToken.
-    ///   - completion: A completion handler to call with the Result
-	@available(*, unavailable)
-	public static func performLoginWithCode(phoneNumber:String, code:String, completion: @escaping (Result<Auth0Credentials>) -> Void) {
-        auth0Client.performLoginWithCode(phoneNumber: phoneNumber, code: code).subscribe(completion)
+	/// Completes passwordless login by verifying the phone number and verification code
+	///
+	/// - Parameters:
+	///   - phoneNumber: The phone number to use for authentication
+	///   - code: The SMS verification code that was received
+	///   - completion: A completion handler to call with the Result
+	public static func verifyPasswordlessLogin(with phoneNumber: String, code: String, completion: @escaping (Result<Auth0Credentials>) -> Void) {
+        auth0Client.verifyPasswordlessLogin(with: phoneNumber, code: code).thenSubscribe(completion)
     }
     
     /// Log out the currently authenticated pilot
     public static func logout() {
-        auth0Client.logout()
+        authToken = nil
     }
 	
-	/// Re-send a verification email to the pilot's email address
-	public static func resendEmailVerificationLink(_ resendLink: String?) {
-		auth0Client.resendEmailVerification(resendLink)
-	}
-
 }

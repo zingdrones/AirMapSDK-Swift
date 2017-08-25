@@ -8,20 +8,13 @@
 
 import Foundation
 
-/// An wrapper enum that encapsulates all responses from the AirMapSDK returning only one of two cases: value or error
-///
-/// - value: The requested value
-/// - error: An error describing the failure
-public enum Result<T> {
-	case value(T)
-	case error(AirMapError)
-}
-
-/// The pricipal AirMapSDK class that is extended by individual services such as Status, Flight, Pilot, Rules, etc.
+/// The principal AirMapSDK class that is extended by individual services such as Rules, Advisories, Flight, Pilot, etc.
 public class AirMap {
 	
-	/// The current environment settings and configuration of the AirMap SDK
-	public internal(set) static var configuration = AirMapConfiguration.loadConfig()
+	/// The current environment settings and configuration of the AirMap SDK. May be set explicity or will be lazily loaded from an airmap.config.json file
+	public static var configuration: AirMapConfiguration = {
+		return AirMapConfiguration.defaultConfig()
+	}()
 
 	/// A JWT auth token that identifies the logged in user accessing the service. Required for all authenticated endpoints.
 	public static var authToken: String? {

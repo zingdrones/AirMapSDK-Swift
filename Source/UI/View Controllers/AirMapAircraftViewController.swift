@@ -11,7 +11,7 @@ import RxCocoa
 
 public class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 	
-	var screenName = "List Aircraft"
+	public var screenName = "List Aircraft"
 	
 	public let selectedAircraft = Variable(nil as AirMapAircraft?)
 	

@@ -14,7 +14,7 @@ public class AirMapPath: AirMapGeometry {
 		return .path
 	}
 	
-	init(coordinates: [Coordinate2D]) {
+	public init(coordinates: [Coordinate2D]) {
 		self.coordinates = coordinates
 	}
 

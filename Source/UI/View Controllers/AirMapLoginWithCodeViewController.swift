@@ -13,7 +13,7 @@ import RxCocoa
 
 open class AirMapLoginWithCodeViewController: UITableViewController, AnalyticsTrackable {
     
-    var screenName = "SMS Login - Verify Code"
+    public var screenName = "SMS Login - Verify Code"
     var phoneNumber:String!
     
     @IBOutlet var submitButton: UIButton!

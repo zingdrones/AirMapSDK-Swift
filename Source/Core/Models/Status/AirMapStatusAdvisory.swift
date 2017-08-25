@@ -30,11 +30,7 @@ public class AirMapStatusAdvisory {
 	public fileprivate(set) var tfrProperties: AirMapStatusAdvisoryTFRProperties?
 	public fileprivate(set) var controlledAirspaceProperties: AirMapStatusAdvisoryControlledAirspaceProperties?
 	public fileprivate(set) var wildfireProperties : AirMapStatusAdvisoryWildfireProperties?
-	public fileprivate(set) var availablePermits = [AirMapAvailablePermit]()
-	public internal(set) var organization: AirMapOrganization?
 	
-	internal fileprivate(set) var organizationId: String?
-
 	public required init?(map: Map) {
 		guard (try? map.value("type") as AirMapAirspaceType) != nil else {
 			AirMap.logger.warning("Unexpected advisory type", map.JSON["type"] ?? "")
@@ -58,7 +54,6 @@ extension AirMapStatusAdvisory: Mappable {
 		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
 
 		id               <-  map["id"]
-		organizationId   <-  map["organization_id"]
 		name             <-  map["name"]
 		color            <-  map["color"]
 		city             <-  map["city"]
@@ -69,7 +64,6 @@ extension AirMapStatusAdvisory: Mappable {
 		longitude        <-  map["longitude"]
 		lastUpdated      <- (map["last_updated"], dateTransform)
 		requirements     <-  map["requirements"]
-		availablePermits <-  map["available_permits"]
 		type             <-  map["type"]
 		
 		if let type = type {

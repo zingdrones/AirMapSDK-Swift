@@ -143,103 +143,20 @@ extension Reactive where Base: AirMap_Pilot {
 	}
 }
 
-/// Documentation found in AirMap+Permits.swift
-extension Reactive where Base: AirMap_Permits {
-
-	public static func listPilotPermits() -> Observable<[AirMapPilotPermit]> {
-		return AirMap.pilotClient.listPilotPermits()
-	}
-
-	public static func deletePilotPermit(_ pilotId: String, permit: AirMapPilotPermit) -> Observable<Void> {
-		return AirMap.pilotClient.deletePilotPermit(pilotId, permit: permit)
-	}
-
-	public static func listPermits(_ permitIds: [String]? = nil, organizationId: String? = nil) -> Observable<[AirMapAvailablePermit]> {
-		return AirMap.permitClient.list(permitIds, organizationId: organizationId)
-	}
-
-	public static func getAvailablePermit(_ permitId: String) -> Observable<AirMapAvailablePermit?> {
-		return AirMap.permitClient.list([permitId]).map { $0.first }
-	}
-
-	public static func apply(for permit: AirMapAvailablePermit) -> Observable<AirMapPilotPermit> {
-		return AirMap.permitClient.apply(for: permit)
-	}
-
-}
-
-/// Documentation found in AirMap+Status.swift
-extension Reactive where Base: AirMap_Status {
-
-	public static func checkCoordinate(coordinate: Coordinate2D,
-	                                  buffer: Meters,
-	                                  types: [AirMapAirspaceType]? = nil,
-	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
-	                                  weather: Bool = false,
-	                                  date: Date = Date()) -> Observable<AirMapStatus> {
-
-		return AirMap.statusClient.checkCoordinate(coordinate: coordinate,
-		                                           buffer: buffer,
-		                                           types: types,
-		                                           ignoredTypes: ignoredTypes,
-		                                           weather: weather,
-		                                           date: date)
-	}
-
-	public static func checkFlightPath(path: [Coordinate2D],
-	                                  buffer: Meters,
-	                                  takeOffPoint: Coordinate2D,
-	                                  types: [AirMapAirspaceType]? = nil,
-	                                  ignoredTypes: [AirMapAirspaceType]? = nil,
-	                                  weather: Bool = false,
-	                                  date: Date = Date()) -> Observable<AirMapStatus> {
-
-		return AirMap.statusClient.checkFlightPath(path: path,
-		                                           buffer: buffer,
-		                                           takeOffPoint: takeOffPoint,
-		                                           types: types,
-		                                           ignoredTypes: ignoredTypes,
-		                                           weather: weather,
-		                                           date: date)
-	}
-
-	public static func checkPolygon(geometry: [Coordinate2D],
-	                               takeOffPoint: Coordinate2D,
-	                               types: [AirMapAirspaceType]? = nil,
-	                               ignoredTypes: [AirMapAirspaceType]? = nil,
-	                               weather: Bool = false,
-	                               date: Date = Date()) -> Observable<AirMapStatus> {
-
-		return AirMap.statusClient.checkPolygon(geometry: geometry,
-		                                        takeOffPoint: takeOffPoint,
-		                                        types: types,
-		                                        ignoredTypes: ignoredTypes,
-		                                        weather: weather,
-		                                        date: date)
-	}
-
-}
-
 /// Documentation found in AirMap+Auth.swift
 extension Reactive where Base: AirMap_Auth {
     
     public static func performAnonymousLogin(userId:String) -> Observable<AirMapToken> {
-        
         return AirMap.authClient.performAnonymousLogin(userId: userId)
     }
 	
-    @available(*, unavailable)
-    public static func performPhoneNumberLogin(phoneNumber:String) -> Observable<Void> {
-        
-        return AirMap.auth0Client.performPhoneNumberLogin(phoneNumber: phoneNumber)
+	public static func startPasswordlessLogin(with phoneNumber: String) -> Observable<Void> {
+        return AirMap.auth0Client.startPasswordlessLogin(with: phoneNumber)
     }
 	
-	@available(*, unavailable)
-    public static func performLoginWithCode(phoneNumber:String, code:String) -> Observable<Auth0Credentials> {
-        
-        return AirMap.auth0Client.performLoginWithCode(phoneNumber:phoneNumber, code:code)
+    public static func verifyPasswordlessLogin(with phoneNumber: String, code: String) -> Observable<Auth0Credentials> {
+        return AirMap.auth0Client.verifyPasswordlessLogin(with: phoneNumber, code: code)
     }
-	
 }
 
 /// Documentation found in AirMap+Rules.swift
@@ -256,7 +173,6 @@ extension Reactive where Base: AirMap_Rules {
 	public static func getRuleSets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleSet]> {
 		return AirMap.ruleClient.getRuleSets(intersecting: geometry)
 	}
-
 }
 
 /// Documentation found in AirMap+Advisories.swift
@@ -266,7 +182,7 @@ extension Reactive where Base: AirMap_Advisories {
 		return AirMap.advisoryClient.getAirspaceStatus(within: geometry, under: ruleSetIds, from: start, to: end)
 	}
 	
-	public static func getWeatherForecast(at coordinate: Coordinate2D, from: Date? = nil, to: Date? = nil) -> Observable<AirMapWeatherForecast> {
+	public static func getWeatherForecast(at coordinate: Coordinate2D, from: Date? = nil, to: Date? = nil) -> Observable<AirMapWeather> {
 		return AirMap.advisoryClient.getWeatherForecast(at: coordinate, from: from, to: to)
 	}
 }
@@ -280,7 +196,6 @@ extension Reactive where Base: AirMap_Airspace {
 	static func listAirspace(_ airspaceIds: [String]) -> Observable<[AirMapAirspace]> {
 		return AirMap.airspaceClient.listAirspace(airspaceIds)
 	}
-
 }
 
 #if AIRMAP_TRAFFIC && AIRMAP_UI
@@ -296,7 +211,6 @@ class RxAirMapTrafficObserverProxy: DelegateProxy, DelegateProxyType {
 	static func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {
 		AirMap.trafficDelegate = delegate as? AirMapTrafficObserver
 	}
-
 }
 
 /// Documentation found in AirMap+Traffic.swift
@@ -329,7 +243,6 @@ extension Reactive where Base: AirMap_Traffic {
 	public static var trafficServiceDidRemove: Observable<[AirMapTraffic]> {
 		return trafficDelegate.rx.sentMessage(#selector(AirMapTrafficObserver.airMapTrafficServiceDidRemove(_:)))
 			.map { $0 as! [AirMapTraffic] }
-	}
-	
+	}	
 }
 #endif

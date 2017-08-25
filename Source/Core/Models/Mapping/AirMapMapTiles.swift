@@ -293,30 +293,6 @@ public class MappingService {
 	///   - theme: Map theme used to display the data
 	/// - Returns: A style url
 	public func styleUrl(theme: AirMapMapTheme) -> URL? {
-		guard let _ = AirMap.configuration.airMapApiKey else {
-			AirMap.logger.error("An API Key is required to access the AirMap Map Service")
-			return nil
-		}
 		return try? (Config.AirMapApi.mapStylePath+"\(theme.rawValue).json").asURL()
-	}
-	
-	/// Constructs a map tile source url for the map layers and theme provided
-	///
-	/// - Parameters:
-	///   - layers: Layers to include in the map tile set data
-	///   - theme: Map theme used to display the data
-	/// - Returns: A tile source url
-	@available (*, deprecated)
-	public func tileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> URL? {
-		guard let apiKey = AirMap.configuration.airMapApiKey else {
-			AirMap.logger.error("An API Key is required to access the AirMap Map Tile Service")
-			return nil
-		}
-		let tiles  = layers.count == 0 ? "_-_" : layers.map { $0.rawValue }.joined(separator: ",")
-		// TODO: Verify token shouldn't be the user's auth token instead of the apiKey
-		let urlString = Config.AirMapApi.mapTilesUrl + "/\(tiles)?&theme=\(theme.rawValue)&apikey=\(apiKey)&token=\(apiKey)"
-		
-		return URL(string: urlString)
-	}
-	
+	}	
 }

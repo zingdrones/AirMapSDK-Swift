@@ -3,6 +3,7 @@ use_frameworks!
 target 'AirMapSDK-Example-iOS' do
 	platform :ios, '9.0'
 	pod 'AirMapSDK', :path => '../'
+        pod 'CryptoSwift', :git => 'https://github.com/adolfo/CryptoSwift/', :branch => 'develop'
 end
 
 target 'AirMapSDKTests' do

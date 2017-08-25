@@ -18,16 +18,6 @@ open class AirMapStatusWeather {
 	open var temperature: Celcius!
 	open var icon: String!
 	
-	#if os(iOS) || os(tvOS) || os(watchOS)
-	open lazy var iconImage: UIImage? = {
-		return AirMapImage.image(named: self.icon)
-	}()
-	#elseif os(OSX)
-	public lazy var iconImage: NSImage? = {
-		return AirMapImage.image(named: self.icon)
-	}()
-	#endif
-
 	public required init?(map: Map) {}
 }
 

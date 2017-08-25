@@ -11,47 +11,6 @@ import GLKit
 
 extension MGLMapView {
 	
-	func controlPointViews() -> [ControlPointView] {
-		
-		return subviews
-			.filter { $0 is GLKView }.first?.subviews
-			.filter { String(describing: type(of: $0)) == "MGLAnnotationContainerView"}.first?.subviews
-			.flatMap { $0 as? ControlPointView } ?? []
-	}
-	
-	func setControlPoints(hidden: Bool) {
-		
-		let animations = { self.controlPointViews().forEach { $0.alpha = hidden ? 0 : 1 } }
-		UIView.animate(withDuration: 0.15, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: animations, completion: nil)
-	}
-	
-	/// Hides mid control points that are in close proximity to control points
-	public func hideObscuredMidPointControls() {
-		
-		guard let annotations = annotations else { return }
-		let controlPoints = annotations.flatMap { $0 as? ControlPoint }
-		let midPoints = controlPoints.filter { $0.type == ControlPointType.midPoint }
-		let vertexPoints = controlPoints.filter { $0.type == .vertex }
-		
-		for midPoint in midPoints {
-			for vertex in vertexPoints {
-				if distance(from: midPoint, to: vertex) < 40 {
-					controlPointViews().filter { $0.annotation === midPoint }.first?.isHidden = true
-				} else {
-					controlPointViews().filter { $0.annotation === midPoint }.first?.isHidden = false
-				}
-			}
-		}
-	}
-	
-	func distance(from pointA: ControlPoint, to pointB: ControlPoint) -> CGFloat {
-		
-		let ptA = convert(pointA.coordinate, toPointTo: self)
-		let ptB = convert(pointB.coordinate, toPointTo: self)
-		
-		return hypot(ptA.x-ptB.x, ptA.y-ptB.y)
-	}
-	
 	/// Clones an existing MGLVectorstyleLayer and applies a list of known properties to the new instance
 	///
 	/// - Parameters:
@@ -199,12 +158,12 @@ extension MGLVectorSource {
 	
 	convenience init(ruleSet: AirMapRuleSet) {
 		
-		let layerNames = ruleSet.airspaceTypeIds.map{$0}.joined(separator: ",")
+		let layerNames = ruleSet.airspaceTypeIds.joined(separator: ",")
 		let options = [
 			MGLTileSourceOption.minimumZoomLevel: NSNumber(value: Config.Maps.tileMinimumZoomLevel),
 			MGLTileSourceOption.maximumZoomLevel: NSNumber(value: Config.Maps.tileMaximumZoomLevel)
 		]
-		let sourcePath = Config.AirMapApi.mapSourceUrl + "/\(ruleSet.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey!)"
+		let sourcePath = Config.AirMapApi.mapSourceUrl + "/\(ruleSet.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey)"
 		
 		self.init(identifier: ruleSet.tileSourceIdentifier, tileURLTemplates: [sourcePath], options: options)
 	}

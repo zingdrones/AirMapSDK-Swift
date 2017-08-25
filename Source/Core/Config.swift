@@ -10,8 +10,6 @@ struct Config {
 
 	struct AirMapApi {
 
-		static let host = "https://api.airmap.com"
-
 		static var advisoryUrl: String {
 			return AirMapApi.urlForResource("advisory", version: "v1")
 		}
@@ -39,24 +37,20 @@ struct Config {
 		static var ruleUrl: String {
 			return AirMapApi.urlForResource("rules", version: "v1")
 		}
-		static var mapTilesUrl: String {
-			return AirMapApi.urlForResource("maps", version: "v4") + "/tilejson"
-		}
 		static var mapSourceUrl: String {
 			return AirMapApi.urlForResource("tiledata", version: "v1")
 		}
 		static func urlForResource(_ named: String, version: String) -> String {
-			if let env = AirMap.configuration.environment {
-				if env == "stage" && named == "status" && version == "alpha" {
-					return "\(host)/\(named)/alpha/stage"
-				}
+			if let override = AirMap.configuration.airMapApiOverrides?[named] {
+				return override
+			} else {
+				return "https://\(AirMap.configuration.airMapApiHost)/\(named)/" + (AirMap.configuration.airMapEnvironment ?? version)
 			}
-			return "\(host)/\(named)/" + (AirMap.configuration.environment ?? "\(version)")
 		}
 		
 		static let mapStyleVersion = "0.7.3"
 		static var mapStylePath: String {
-			let env = AirMap.configuration.environment ?? "prod"
+			let env = AirMap.configuration.airMapEnvironment ?? "prod"
 			if env == "prod" {
 				return "https://cdn.airmap.com/static/map-styles/\(mapStyleVersion)/"
 			} else {
@@ -65,10 +59,11 @@ struct Config {
 		}
 		
 		struct Auth {
-			static let ssoDomain = "sso.airmap.io"
-			static let scope     = "openid+offline_access"
+			static let scope = "openid offline_access"
 			static let grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer"
 			static let keychainKeyRefreshToken = "com.airmap.airmapsdk.refresh_token"
+			static let termsOfServiceUrl = "https://www.airmap.com/terms"
+			static let privacyPolicyUrl = "https://www.airmap.com/privacy"
 		}
 		
 		// Used only for API date formatting
@@ -78,7 +73,7 @@ struct Config {
 
 	struct AirMapTelemetry {
 		static var host: String {
-            if let env = AirMap.configuration.environment {
+            if let env = AirMap.configuration.airMapEnvironment {
                 if env == "stage" { return "api-udp-telemetry.\(env).airmap.com" }
             }
 	        return "api-udp-telemetry.airmap.com"
@@ -86,7 +81,7 @@ struct Config {
 		
         static let port = UInt16(16060)
 		
-		struct SampleFrequency {
+		struct SampleRate {
 			static let position: TimeInterval = 1/5
 			static let attitude: TimeInterval = 1/5
 			static let speed: TimeInterval = 1/5
@@ -96,7 +91,7 @@ struct Config {
 
 	struct AirMapTraffic {
 		static var host: String {
-			let env = AirMap.configuration.environment ?? "prod"
+			let env = AirMap.configuration.airMapEnvironment ?? "prod"
 			return "mqtt-\(env).airmap.io"
 		}
 		static let port = UInt16(8883)
@@ -112,14 +107,10 @@ struct Config {
 	}
 
 	struct Maps {
-		static let pointsPerCirclePolygon = CGFloat(90)
-		static let bufferSliderLinearity: Double = 2
-		static let minimumRadius: Meters = 10
-		static let maximumRadius: Meters = 1_000
-		static let feetPerMeters: Feet = 3.2808
 		static let tileMinimumZoomLevel = 7
 		static let tileMaximumZoomLevel = 12
 		static let futureTemporalWindow: TimeInterval = 4*60*60
+		static let ruleSetSourcePrefix = "airmap_ruleset_"
 	}
 	
 }

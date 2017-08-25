@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import SwiftTurf
 
 internal class AdvisoryClient: HTTPClient {
 	
@@ -16,9 +17,33 @@ internal class AdvisoryClient: HTTPClient {
 	}
 	
 	enum AdvisoryClientError: Error {
-		case invalidPolygon
+		case invalidGeometry
 	}
 	
+	// MARK: - Advisories
+
+	func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, ruleSetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
+		
+		let point = Point(geometry: point)
+		guard let polygon = SwiftTurf.buffer(point, distance: buffer) else {
+			return .error(AdvisoryClientError.invalidGeometry)
+		}
+		let geometry = AirMapPolygon(coordinates: polygon.geometry)
+
+		return getAirspaceStatus(within: geometry, under: ruleSetIds, from: start, to: end)
+	}
+
+	func getAirspaceStatus(along path: AirMapPath, buffer: Meters, ruleSetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
+		
+		let lineString = LineString(geometry: path.coordinates)
+		guard let polygon = SwiftTurf.buffer(lineString, distance: buffer) else {
+			return .error(AdvisoryClientError.invalidGeometry)
+		}
+		let geometry = AirMapPolygon(coordinates: polygon.geometry)
+		
+		return getAirspaceStatus(within: geometry, under: ruleSetIds, from: start, to: end)
+	}
+
 	func getAirspaceStatus(within geometry: AirMapGeometry, under ruleSetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		
 		AirMap.logger.debug("Get Rules under", ruleSetIds)
@@ -31,7 +56,9 @@ internal class AdvisoryClient: HTTPClient {
 		return perform(method: .post, path: "/airspace", params: params)
 	}
 	
-	func getWeatherForecast(at coordinate: Coordinate2D, from: Date?, to: Date?) -> Observable<AirMapWeatherForecast> {
+	// MARK: - Weather
+	
+	func getWeatherForecast(at coordinate: Coordinate2D, from: Date?, to: Date?) -> Observable<AirMapWeather> {
 		
 		AirMap.logger.debug("GET Weather", coordinate)
 		var params = [String: Any]()

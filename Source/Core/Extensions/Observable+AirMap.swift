@@ -10,7 +10,7 @@ import RxSwift
 
 extension Observable {
 	
-	func subscribe(_ result: @escaping (Result<Element>) -> Void) {
+	func thenSubscribe(_ result: @escaping (Result<Element>) -> Void) {
 		
 		self
 			.subscribe(

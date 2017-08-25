@@ -23,46 +23,10 @@ class MapViewController: UIViewController {
 		AirMap.logger.minLevel = .debug
 		AirMap.authSessionDelegate = self
 		AirMap.trafficDelegate = self
-		AirMap.configuration.distanceUnits = .metric // or .metric
+		AirMap.configuration.distanceUnits = .imperial // or .metric
 		AirMap.configuration.temperatureUnits = .fahrenheit // or .celcius
 		
 		mapView.configure(layers: mapLayers, theme: mapTheme)
-		
-	
-		getAirMapAircraft(name: "DJI Phantom Pro 4") { aircraft in
-			print(aircraft?.nickname ?? "")
-		}
-		
-	}
-	
-	func getAirMapAircraft(name: String, complete: @escaping (AirMapAircraft?) -> Void) {
-		
-		AirMap.listAircraft { aircraftResult in
-			switch aircraftResult {
-			case .error:
-				complete(nil)
-			case .value(let aircrafts):
-				if let existingAircraft = aircrafts.filter({ $0.nickname == name }).first {
-					complete(existingAircraft)
-				} else {
-					AirMap.listModels{ modelsResult in
-						switch modelsResult {
-						case .error:
-							complete(nil)
-						case .value(let models):
-							if let model = models.filter({ $0.name == name }).first {
-								let newAircraft = AirMapAircraft()
-								newAircraft.model = model
-								newAircraft.nickname = name
-								complete(newAircraft)
-							} else {
-								complete(nil)
-							}
-						}
-					}
-				}
-			}
-		}
 	}
 	
 	@IBAction func addFlight() {
@@ -73,21 +37,6 @@ class MapViewController: UIViewController {
 			showAuthController()
 		}
 	}
-	
-//	func showActiveFlight() {
-//		
-//		AirMap.getCurrentAuthenticatedPilotFlight { result in
-//			switch result {
-//			case .error(let error):
-//				AirMap.logger.error(error)
-//			case .value(let flight):
-//				if let flight = flight {
-//					let nav = AirMap.flightPlanViewController(flight)!
-//					self.present(nav, animated: true, completion: nil)
-//				}
-//			}
-//		}
-//	}
 	
 	fileprivate func showAuthController() {
 		
@@ -114,16 +63,6 @@ class MapViewController: UIViewController {
 		}
 	}
 }
-
-//extension MapViewController: AirMapSMSLoginDelegate {
-//    
-//    func smsLoginDidAuthenticate() {
-//        dismiss(animated: true, completion: addFlight)
-//    }
-//    func smsLogindidFailToAuthenticate(error:Auth0Error) {
-//        print(error.localizedDescription)
-//    }
-//}
 
 extension MapViewController: AirMapPhoneVerificationDelegate {
 	

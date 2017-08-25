@@ -19,7 +19,7 @@ extension AirMap_Flight {
 	///   - limit: The maximum number of flights to return. Optional
 	///   - completion: A completion handler to call with the Result
 	public static func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil, completion: @escaping (Result<[AirMapFlight]>) -> Void) {
-		flightClient.listPublicFlights(from: fromDate, to: toDate, limit: limit).subscribe(completion)
+		flightClient.listPublicFlights(from: fromDate, to: toDate, limit: limit).thenSubscribe(completion)
 	}
 
 	/// List all flights belonging only to the currently authenticated pilot
@@ -29,14 +29,14 @@ extension AirMap_Flight {
 	///   - limit: The maximum number of flights to return. Optional
 	///   - completion: A completion handler to call with the Result
 	public static func listFlights(for pilot: AirMapPilot, limit: Int? = 100, completion: @escaping (Result<[AirMapFlight]>) -> Void) {
-		flightClient.list(limit: limit, pilotId: pilot.id).subscribe(completion)
+		flightClient.list(limit: limit, pilotId: pilot.id).thenSubscribe(completion)
 	}
 	
 	/// Get the current flight belonging to the currently authenticated pilot
 	///
 	/// - Parameter completion: A completion handler to call with the Result
 	public static func getCurrentAuthenticatedPilotFlight(_ completion: @escaping (Result<AirMapFlight?>) -> Void) {
-		flightClient.list(pilotId: AirMap.authSession.userId, startBeforeNow: true, endAfterNow: true, enhanced: true, checkAuth: true).map { $0.first }.subscribe(completion)
+		flightClient.list(pilotId: AirMap.authSession.userId, startBeforeNow: true, endAfterNow: true, enhanced: true, checkAuth: true).map { $0.first }.thenSubscribe(completion)
 	}
 
 	/// Get a flight by its identifer
@@ -45,7 +45,7 @@ extension AirMap_Flight {
 	///   - flightId: The unique identifier associated with the flight
 	///   - completion: A completion handler to call with the Result
 	public static func getFlight(_ flightId: String, completion: @escaping (Result<AirMapFlight>) -> Void) {
-		flightClient.get(flightId).subscribe(completion)
+		flightClient.get(flightId).thenSubscribe(completion)
 	}
 
 	/// Create a new flight for the currently authenticated pilot
@@ -54,7 +54,7 @@ extension AirMap_Flight {
 	///   - flight: The flight to create
 	///   - completion: A completion handler to call with the Result
 	public static func createFlight(_ flight: AirMapFlight, completion: @escaping (Result<AirMapFlight>) -> Void) {
-		flightClient.create(flight).subscribe(completion)
+		flightClient.create(flight).thenSubscribe(completion)
 	}
 
 	/// End a flight, setting its `endTime` to now
@@ -63,7 +63,7 @@ extension AirMap_Flight {
 	///   - flight: The flight to end
 	///   - completion: A completion handler to call with the Result
 	public static func endFlight(_ flight: AirMapFlight, completion: @escaping (Result<AirMapFlight>) -> Void) {
-		flightClient.end(flight).subscribe(completion)
+		flightClient.end(flight).thenSubscribe(completion)
 	}
 
 	/// Delete a flight
@@ -72,7 +72,7 @@ extension AirMap_Flight {
 	///   - flight: The flight to delete
 	///   - completion: A completion handler to call with the Result
 	public static func deleteFlight(_ flight: AirMapFlight, completion: @escaping (Result<Void>) -> Void) {
-		flightClient.delete(flight).subscribe(completion)
+		flightClient.delete(flight).thenSubscribe(completion)
 	}
 	
 	/// Get a flight plan by flight id
@@ -81,55 +81,6 @@ extension AirMap_Flight {
 	///   - id: The identifier for the flight
 	///   - completion: A completion handler with the flight plan result
 	public static func getFlightPlanByFlightId(_ id: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
-		flightClient.getFlightPlanByFlightId(id).subscribe(completion)
-	}
-}
-
-public typealias AirMap_FlightPlan = AirMap
-extension AirMap_FlightPlan {
-
-	/// Create a flight plan
-	///
-	/// - Parameters:
-	///   - flightPlan: The flight plan to create
-	///   - completion: A completion handler with the flight plan result
-	public static func createFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
-		flightPlanClient.create(flightPlan).subscribe(completion)
-	}
-
-	/// Update a flight plan
-	///
-	/// - Parameters:
-	///   - flightPlan: The flight plan to update
-	///   - completion: A completion handler to call with the updated flight plan result
-	public static func updateFlightPlan(_ flightPlan: AirMapFlightPlan, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
-		flightPlanClient.update(flightPlan).subscribe(completion)
-	}
-	
-	/// Get a flight plan
-	///
-	/// - Parameters:
-	///   - flightPlanId: The identifier for the flight plan
-	///   - completion: A completion handler with the flight plan result
-	public static func getFlightPlan(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
-		flightPlanClient.get(flightPlanId).subscribe(completion)
-	}
-	
-	/// Get a flight plan briefing
-	///
-	/// - Parameters:
-	///   - flightPlanId: The identifier of the flight plan for which to retrieve a briefing
-	///   - completion: A completion handler to call with the flight plan briefing result
-	public static func getFlightBriefing(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightBriefing>) -> Void) {
-		flightPlanClient.getBriefing(flightPlanId).subscribe(completion)
-	}
-	
-	/// Submit a flight plan
-	///
-	/// - Parameters:
-	///   - flightPlanId: The identifier of the flight plan to submit
-	///   - completion: A completion handler to call with the flight plan result
-	public static func submitFlightPlan(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
-		flightPlanClient.submitFlightPlan(flightPlanId).subscribe(completion)
+		flightClient.getFlightPlanByFlightId(id).thenSubscribe(completion)
 	}
 }

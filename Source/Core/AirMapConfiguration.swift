@@ -8,84 +8,105 @@
 
 import ObjectMapper
 
-public class AirMapConfiguration {
+/// Configuration class for AirMap SDK
+public class AirMapConfiguration: ImmutableMappable {
 		
-	public var distanceUnits = DistanceUnits.metric
-	public var temperatureUnits = TemperatureUnits.celcius
+	/// System used for displaying distance values
+	public var distanceUnits: DistanceUnits = .metric
+
+	/// Units used for displaying temperature values
+	public var temperatureUnits: TemperatureUnits = .celcius
 	
-	internal fileprivate(set) var environment: String?
-	public fileprivate(set) var airMapApiKey: String?
-	public fileprivate(set) var mapboxAccessToken: String?
+	/// The AirMap API key that was used to initialize the SDK. Required.
+	public let airMapApiKey: String
 
-	internal fileprivate(set) var auth0ClientId: String!
-	internal fileprivate(set) var auth0CallbackUrl: String!
+	/// An optional Mapbox access token to use with any map UI elements.
+	public let mapboxAccessToken: String?
 	
-	internal static func loadConfig() -> AirMapConfiguration {
-
-		#if os(Linux)
-			let configFile = "./config/airmap.config.json"
-			guard
-				let json = try? String(contentsOfFile: configFile) else {
-					fatalError(
-						"The `\(configFile)` file required to configure the AirMapSDK is missing. " +
-						"Please reference the documentation for more information."
-					)
+	/// Designated initializer when not providing an airmap.config.json file at the root of the project
+	///
+	/// - SeeAlso: https://developers.airmap.com/docs/ios-getting-started
+	/// - Parameters:
+	///   - apiKey: The AirMap API key to use with the AirMap API
+	///   - auth0ClientId: A client ID used for user/pilot authentication with AirMap
+	///   - mapboxAccessToken: An optional access token used to configure any map UI elements
+	///   - additionalParameters: Additional configuration parameters. Not required for typical use.
+	public convenience init(apiKey: String, auth0ClientId: String, mapboxAccessToken: String? = nil, additionalParameters: [String: Any]? = nil) {
+		
+		var config = [
+			"airmap": ["api_key": apiKey],
+			"auth0":  ["client_id": auth0ClientId],
+			"mapbox": ["access_token": mapboxAccessToken as Any]
+		]
+		
+		// Merge the base config with additional configuration parameters
+		for baseKey in config.keys {
+			if let additional = additionalParameters?[baseKey] as? [String: Any] {
+				for (key, value) in additional {
+					config[baseKey]?[key] = value
+				}
 			}
-		#else
-			let bundle = Bundle.main
-			guard
-				let configFile = bundle.path(forResource: "airmap.config", ofType: "json"),
-				let json = try? String(contentsOfFile: configFile) else {
-					fatalError(
-						"The `airmap.config.json` file required to configure the AirMapSDK is missing. " +
-							"Please reference the documentation for more information. " +
-						"https://developers.airmap.com/docs/ios-getting-started"
-					)
-			}
-		#endif
-
-		guard
-			let config = Mapper<AirMapConfiguration>().map(JSONString: json)
-			else {
-				fatalError(
-					"Could not parse the AirMap configuration file" +
-					"https://developers.airmap.com/docs/ios-getting-started"
-				)
-		}
-
-		if config.airMapApiKey == nil {
-			fatalError("airmap.config.json is missing an AirMap API Key (airmap.api_key)")
-		}
-
-		if config.auth0ClientId == nil {
-			AirMap.logger.warning("airmap.config.json is missing an Auth0 Client ID (auth0.client_id)")
 		}
 		
-		if config.auth0CallbackUrl == nil {
-			AirMap.logger.warning("airmap.config.json is missing an Auth0 Callback URL (auth0.callback_url)")
-		}
-		
-		if Locale.current.usesMetricSystem {
-			config.temperatureUnits = .celcius
-			config.distanceUnits = .metric
-		} else {
-			config.temperatureUnits = .fahrenheit
-			config.distanceUnits = .imperial
-		}
-		
-		return config
+		try! self.init(JSON: config)
 	}
 	
-	public required init?(map: Map) {}
-}
+	let auth0Host: String
+	let auth0ClientId: String
+	let airMapApiHost: String
+	let airMapApiOverrides: [String: String]?
+	let airMapEnvironment: String?
 
-extension AirMapConfiguration: Mappable {
+	static func defaultConfig() -> AirMapConfiguration {
 
-	public func mapping(map: Map) {
-		environment       <-  map["airmap.environment"]
-		airMapApiKey      <-  map["airmap.api_key"]
-		auth0ClientId     <-  map["auth0.client_id"]
-		auth0CallbackUrl  <-  map["auth0.callback_url"]
-		mapboxAccessToken <-  map["mapbox.access_token"]
+		#if os(Linux)
+			let configPath = "./airmap.config.json"
+		#else
+			let configPath = Bundle.main.path(forResource: "airmap.config", ofType: "json") ?? "missing"
+		#endif
+		
+		do {
+			let jsonString = try String(contentsOfFile: configPath)
+			return try AirMapConfiguration(JSONString: jsonString)
+		}
+		catch {
+			fatalError(
+				"The `airmap.config.json` file required to configure the AirMapSDK is missing. " +
+					"Please reference the documentation for more information. " +
+				"https://developers.airmap.com/docs/ios-getting-started"
+			)
+		}
+	}
+	
+	/// ObjectMapper initializer
+	public required init(map: Map) throws {
+	
+		do {
+			airMapApiKey       =  try  map.value("airmap.api_key")
+			mapboxAccessToken  =  try? map.value("mapbox.access_token")
+			auth0Host          = (try? map.value("auth0.host")) ?? "sso.airmap.io"
+			auth0ClientId      =  try  map.value("auth0.client_id")
+			airMapApiHost      = (try? map.value("airmap.api_host")) ?? "api.airmap.com"
+			airMapEnvironment  =  try? map.value("airmap.environment")
+			airMapApiOverrides =  try? map.value("airmap.api_overrides")
+		}
+			
+		catch let error as MapError {
+			fatalError(
+				"Configuration is missing the required \(error.key!) key and value. If you have recently updated" +
+				"this SDK, you may need to visit the AirMap developer portal at https://dashboard.airmap.io/developer/ " +
+				"for an updated airmap.config.json file."
+			)
+		}
+		
+		#if !os(Linux)
+			if Locale.current.usesMetricSystem {
+				temperatureUnits = .celcius
+				distanceUnits = .metric
+			} else {
+				temperatureUnits = .fahrenheit
+				distanceUnits = .imperial
+			}
+		#endif
 	}
 }

@@ -103,14 +103,3 @@ extension AnnotationRepresentable {
 	
 }
 
-extension AirMapFlight: MGLAnnotation, AnnotationRepresentable {
-		
-	public var title: String? {
-		guard let startTime = startTime else { return nil }
-		let dateFormatter = DateFormatter()
-		dateFormatter.doesRelativeDateFormatting = true
-		dateFormatter.dateStyle = .medium
-		dateFormatter.timeStyle = .long
-		return dateFormatter.string(from: startTime)
-	}
-}

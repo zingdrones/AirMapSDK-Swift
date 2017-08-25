@@ -6,6 +6,7 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import RxSwift
 import ObjectMapper
 

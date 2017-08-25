@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 import SwiftTurf
 
-public class AirMapFlightPlan: NSObject, Mappable {
+public class AirMapFlightPlan: Mappable {
 	
 	public private(set) var id: String?
 	
@@ -110,7 +110,7 @@ public class AirMapFlightPlan: NSObject, Mappable {
 		params["takeoff_longitude"] = takeoffLongitude
 		params["aircraft_id"] = aircraftId
 		// FIXME: See func polygonGeometry() below
-		params["geometry"] = polygonGeometry()?.params()
+		params["geometry"] = geometry?.params() // polygonGeometry()?.params()
 		params["buffer"] = buffer
 		params["max_altitude_agl"] = maximumAltitudeAGL ?? 0
 		params["rulesets"] = ruleSetIds

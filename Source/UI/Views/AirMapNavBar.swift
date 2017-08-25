@@ -10,18 +10,15 @@ open class AirMapNavBar: UINavigationBar {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		
 		setup()
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		
 		setup()
 	}
 
 	fileprivate func setup() {
-	
 		isTranslucent = false
 		barStyle = .black
 		tintColor = .white
