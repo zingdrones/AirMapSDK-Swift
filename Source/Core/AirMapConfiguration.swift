@@ -30,23 +30,13 @@ public class AirMapConfiguration: ImmutableMappable {
 	///   - apiKey: The AirMap API key to use with the AirMap API
 	///   - auth0ClientId: A client ID used for user/pilot authentication with AirMap
 	///   - mapboxAccessToken: An optional access token used to configure any map UI elements
-	///   - additionalParameters: Additional configuration parameters. Not required for typical use.
-	public convenience init(apiKey: String, auth0ClientId: String, mapboxAccessToken: String? = nil, additionalParameters: [String: Any]? = nil) {
+	public convenience init(apiKey: String, auth0ClientId: String, mapboxAccessToken: String? = nil) {
 		
-		var config = [
+		let config = [
 			"airmap": ["api_key": apiKey],
 			"auth0":  ["client_id": auth0ClientId],
 			"mapbox": ["access_token": mapboxAccessToken as Any]
 		]
-		
-		// Merge the base config with additional configuration parameters
-		for baseKey in config.keys {
-			if let additional = additionalParameters?[baseKey] as? [String: Any] {
-				for (key, value) in additional {
-					config[baseKey]?[key] = value
-				}
-			}
-		}
 		
 		try! self.init(JSON: config)
 	}
