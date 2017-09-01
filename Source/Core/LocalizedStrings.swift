@@ -23,64 +23,6 @@ public struct LocalizedStrings {
 		public static let greenDescription = NSLocalizedString("STATUS_GREEN_DESCRIPTION", bundle: bundle, value: "Informational", comment: "Description for status advisory color Green")
 	}
 	
-	public struct TileLayer {
-		
-		public static let airports = NSLocalizedString("TILE_LAYER_AIRPORTS", bundle: bundle, value: "Airports", comment: "Name for map layer Commercial Airports")
-		
-		public static let airportsPrivate = NSLocalizedString("TILE_LAYER_PRIVATE_AIRPORTS", bundle: bundle, value: "Private Airports", comment: "Name for map layer Private Airports")
-		
-		public static let cities = NSLocalizedString("TILE_LAYER_CITIES", bundle: bundle, value: "Cities", comment: "Name for map layer Cities")
-		
-		public static let classA = NSLocalizedString("TILE_LAYER_CLASS_A", bundle: bundle, value: "Class A Controlled Airspace", comment: "Name for map layer Class A Airspace")
-
-		public static let classB = NSLocalizedString("TILE_LAYER_CLASS_B", bundle: bundle, value: "Class B Controlled Airspace", comment: "Name for map layer Class B Airspace")
-		
-		public static let classC = NSLocalizedString("TILE_LAYER_CLASS_C", bundle: bundle, value: "Class C Controlled Airspace", comment: "Name for map layer Class C Airspace")
-		
-		public static let classD = NSLocalizedString("TILE_LAYER_CLASS_D", bundle: bundle, value: "Class D Controlled Airspace", comment: "Name for map layer Class D Airspace")
-		
-		public static let classE = NSLocalizedString("TILE_LAYER_CLASS_E", bundle: bundle, value: "Class E Controlled Airspace", comment: "Name for map layer Class E Airspace")
-
-		public static let classF = NSLocalizedString("TILE_LAYER_CLASS_F", bundle: bundle, value: "Class F Controlled Airspace", comment: "Name for map layer Class F Airspace")
-				
-		public static let custom = NSLocalizedString("TILE_LAYER_CUSTOM", bundle: bundle, value: "Custom", comment: "Name for map layer Custom")
-		
-		public static let essentionalAirspace = NSLocalizedString("TILE_LAYER_CONTROLLED_AIRSPACE", bundle: bundle, value: "Controlled Airspace (B, C, D & E)", comment: "Name for map layer Controlled Airspace")
-		
-		public static let hazardAreas = NSLocalizedString("TILE_LAYER_HAZARD_AREAS", bundle: bundle, value: "Hazard Areas", comment: "Name for map layer Hazard Areas")
-		
-		public static let heliports = NSLocalizedString("TILE_LAYER_HELIPORTS", bundle: bundle, value: "Heliports", comment: "Name for map layer Heliports")
-		
-		public static let hospitals = NSLocalizedString("TILE_LAYER_HOSPITALS", bundle: bundle, value: "Hospitals", comment: "Name for map layer Hospitals")
-		
-		public static let nationalParks = NSLocalizedString("TILE_LAYER_NATIONAL_PARKS", bundle: bundle, value: "National Parks", comment: "Name for map layer National Parks")
-		
-		public static let noaa = NSLocalizedString("TILE_LAYER_NOAA", bundle: bundle, value: "NOAA Marine Protection Areas", comment: "Name for map layer NOAA Marine Protection Areas")
-		
-		public static let powerPlants = NSLocalizedString("TILE_LAYER_POWER_PLANTS", bundle: bundle, value: "Power Plants", comment: "Name for map layer Power Plants")
-		
-		public static let prisons = NSLocalizedString("TILE_LAYER_PRISONS", bundle: bundle, value: "Prisons", comment: "Name for map layer Prisons")
-		
-		public static let prohibited = NSLocalizedString("TILE_LAYER_PROHIBITED", bundle: bundle, value: "Prohibited Airspace", comment: "Name for map layer Prohibited Airspace")
-		
-		public static let recreationalAreas = NSLocalizedString("TILE_LAYER_AERIAL_REC_AREAS", bundle: bundle, value: "Aerial Recreational Areas", comment: "Name for map layer Aerial Recreational Areas")
-		
-		public static let restricted = NSLocalizedString("TILE_LAYER_RESTRICTED_AIRSPACE", bundle: bundle, value: "Restricted Airspace", comment: "Name for map layer Restricted Airspace")
-		
-		public static let schools = NSLocalizedString("TILE_LAYER_SCHOOLS", bundle: bundle, value: "Schools", comment: "Name for map layer Schools")
-		
-		public static let tfrs = NSLocalizedString("TILE_LAYER_TFR_FAA", bundle: bundle, value: "Temporary Flight Restrictions", comment: "Name for map layer FAA Temporary Flight Restrictions")
-		
-		public static let universities = NSLocalizedString("TILE_LAYER_UNIVERSITIES", bundle: bundle, value: "Universities", comment: "Name for map layer Universities")
-        
-        public static let fires = NSLocalizedString("TILE_LAYER_FIRES", bundle: bundle, value: "Fires", comment: "Name for map layer Fires")
-
-		public static let wildfires = NSLocalizedString("TILE_LAYER_WILDFIRES", bundle: bundle, value: "Wildfires", comment: "Name for map layer Wildfires")
-
-        public static let emergencies = NSLocalizedString("TILE_LAYER_EMERGENCIES", bundle: bundle, value: "First Responder Activity", comment: "Name for map layer First Responder Activity")
-
-    }
-	
 	public struct AirspaceType {
 		
 		public static let airport = NSLocalizedString("AIRSPACE_TYPE_AIRPORT", bundle: bundle, value: "Airport", comment: "Name for airspace type Airport")
@@ -200,14 +142,20 @@ public struct LocalizedStrings {
 		
 		public static let sectionHeaderSocial = NSLocalizedString("FLIGHT_PLAN_SECTION_HEADER_SHARE", bundle: bundle, value: "Share My Flight", comment: "Title for the section displaying social sharing features")
 		
-		public static let rowTitleAltitude = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_ALTITUDE", bundle: bundle, value: "Altitude", comment: "Title for the row displaying flight plan altitude")
+		public static let rowTitleMaxAltitudeAGL = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_MAX_ALTITUDE", bundle: bundle, value: "Max Altitude AGL", comment: "Title for the row displaying flight plan max altitude AGL (above ground level)")
 		
+		public static let rowTitleRadius = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_RADIUS", bundle: bundle, value: "Radius", comment: "Title for the row displaying flight plan radius")
+
+		public static let rowTitleBuffer = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_BUFFER", bundle: bundle, value: "Buffer", comment: "Title for the row displaying flight plan buffer")
+
 		public static let rowTitleStartTime = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_START_TIME", bundle: bundle, value: "Starts", comment: "Title for the row displaying flight plan start time")
 		
 		public static let rowTitleDuration = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_DURATION", bundle: bundle, value: "Duration", comment: "Title for the row displaying flight plan duration")
 		
 		public static let rowTitlePilot = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_PILOT", bundle: bundle, value: "Select Pilot Profile", comment: "Call to action title for the user to select a pilot profile")
 		
+		public static let rowTitleAircraftName = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_AIRCRAFT_NAME", bundle: bundle, value: "Aircraft", comment: "Title for the row displaying the name of the aircraft")
+
 		public static let rowTitleAircraft = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_AIRCRAFT", bundle: bundle, value: "Select Aircraft", comment: "Call to action title for the user to select an aircraft")
 		
 		public static let buttonTitleNext = NSLocalizedString("FLIGHT_PLAN_BUTTON_TITLE_NEXT", bundle: bundle, value: "Next", comment: "Title for the button to advance to the next screen")
@@ -215,41 +163,32 @@ public struct LocalizedStrings {
 		public static let buttonTitleSave = NSLocalizedString("FLIGHT_PLAN_BUTTON_TITLE_SAVE", bundle: bundle, value: "Save", comment: "Title for the button to save and create the flight")
 	}
 	
-	public struct ReviewFlightPlan {
-		
-		public static let tabTitleFlight = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_FLIGHT", bundle: bundle, value: "Flight", comment: "Title for the Review Flight, flight Details tab")
-		
-		public static let tabTitlePermits = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_PERMITS", bundle: bundle, value: "Permits", comment: "Title for the Review Flight, permits tab")
-		
-		public static let tabTitleNotices = NSLocalizedString("REVIEW_FLIGHT_PLAN_TAB_TITLE_DIGITAL_NOTICE", bundle: bundle, value: "Notices", comment: "Title for the Review Flight, digital notices tab")
-	}
-	
-	public struct ReviewFlightPlanDetails {
-		
-		public static let startTimeNow = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_START_TIME_NOW", bundle: bundle, value: "Now", comment: "Time for flights that start immediately")
-		
-		public static let sectionHeaderDetails = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_DETAILS", bundle: bundle, value: "Details", comment: "Header label for the flight review details section")
-		
-		public static let sectionHeaderAircraft = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_AIRCRAFT", bundle: bundle, value: "Aircraft", comment: "Header label for the flight review aircraft section")
-		
-		public static let sectionHeaderSocial = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_SOCIAL", bundle: bundle, value: "Share My Flight", comment: "Header label for the flight review social sharing section")
-		
-		public static let rowLabelAircraft = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_AIRCRAFT", bundle: bundle, value: "Aircraft", comment: "Label for the aircraft row")
-		
-		public static let rowTitleRadius = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_RADIUS", bundle: bundle, value: "Radius", comment: "Label for the Buffer or radius surrounding a point or path")
-		
-		public static let rowTitleAltitude = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ALTITUDE", bundle: bundle, value: "Altitude", comment: "Label for the maximum altitude for a flight")
-		
-		public static let rowTitleStarts = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_STARTS", bundle: bundle, value: "Starts", comment: "Label for a flight's start time")
-		
-		public static let rowTitleEnds = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ENDS", bundle: bundle, value: "Ends", comment: "Label for a flight's end time")
-		
-		public static let rowTitleDuration = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_DURATION", bundle: bundle, value: "Duration", comment: "Label for a flight's duration")
-		
-		public static let rowTitlePublic = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_PUBLIC", bundle: bundle, value: "Public", comment: "Label for the flight review 'is public' row")
-		
-		public static let yes = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_PUBLIC_FLIGHT_VALUE_TRUE", bundle: bundle, value: "Yes", comment: "'Yes' Value for the public flight row")
-	}
+//	public struct ReviewFlightPlanDetails {
+//		
+//		public static let startTimeNow = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_START_TIME_NOW", bundle: bundle, value: "Now", comment: "Time for flights that start immediately")
+//		
+//		public static let sectionHeaderDetails = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_DETAILS", bundle: bundle, value: "Details", comment: "Header label for the flight review details section")
+//		
+//		public static let sectionHeaderAircraft = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_AIRCRAFT", bundle: bundle, value: "Aircraft", comment: "Header label for the flight review aircraft section")
+//		
+//		public static let sectionHeaderSocial = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_SOCIAL", bundle: bundle, value: "Share My Flight", comment: "Header label for the flight review social sharing section")
+//		
+//		public static let rowLabelAircraft = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_AIRCRAFT", bundle: bundle, value: "Aircraft", comment: "Label for the aircraft row")
+//		
+//		public static let rowTitleRadius = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_RADIUS", bundle: bundle, value: "Radius", comment: "Label for the Buffer or radius surrounding a point or path")
+//		
+//		public static let rowTitleAltitude = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ALTITUDE", bundle: bundle, value: "Altitude", comment: "Label for the maximum altitude for a flight")
+//		
+//		public static let rowTitleStarts = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_STARTS", bundle: bundle, value: "Starts", comment: "Label for a flight's start time")
+//		
+//		public static let rowTitleEnds = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ENDS", bundle: bundle, value: "Ends", comment: "Label for a flight's end time")
+//		
+//		public static let rowTitleDuration = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_DURATION", bundle: bundle, value: "Duration", comment: "Label for a flight's duration")
+//		
+//		public static let rowTitlePublic = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_PUBLIC", bundle: bundle, value: "Public", comment: "Label for the flight review 'is public' row")
+//		
+//		public static let yes = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_PUBLIC_FLIGHT_VALUE_TRUE", bundle: bundle, value: "Yes", comment: "'Yes' Value for the public flight row")
+//	}
 	
 	public struct ReviewFlightPlanNotices {
 		

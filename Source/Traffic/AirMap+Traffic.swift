@@ -15,8 +15,7 @@
 	@objc optional func airMapTrafficServiceDidReceive(_ message: String)
 }
 
-public typealias AirMap_Traffic = AirMap
-extension AirMap_Traffic {
+extension AirMap {
 	
 	public static var trafficDelegate: AirMapTrafficObserver? {
 		didSet { trafficService.delegate = trafficDelegate }

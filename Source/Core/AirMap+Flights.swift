@@ -8,8 +8,7 @@
 
 import Foundation
 
-public typealias AirMap_Flight = AirMap
-extension AirMap_Flight {
+extension AirMap {
 
 	/// List all public flights. A user's non-public flights are excluded.
 	///

@@ -19,18 +19,18 @@ internal class RuleClient: HTTPClient {
 		case invalidPolygon
 	}
 	
-	func getRuleSet(by identifier: String) -> Observable<AirMapRuleSet> {
+	func getRuleset(by identifier: String) -> Observable<AirMapRuleset> {
 		return perform(method: .get, path: "/" + identifier)
 	}
 
-	func getRuleSets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleSet]> {
+	func getRulesets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleset]> {
 		let params = ["geometry": geometry.params()]
 		return perform(method: .post, path: "/", params: params)
 	}
 		
-	func getRuleSets(by ruleSetIds: [String]) -> Observable<[AirMapRuleSet]> {
-		AirMap.logger.debug("Getting rules for ruleset:", ruleSetIds)
-		let params = ["rulesets": ruleSetIds.joined(separator: ",")]
+	func getRulesets(by rulesetIds: [String]) -> Observable<[AirMapRuleset]> {
+		AirMap.logger.debug("Getting rules for ruleset:", rulesetIds)
+		let params = ["rulesets": rulesetIds.joined(separator: ",")]
 		return perform(method: .get, path: "/rule", params: params)
 	}	
 }

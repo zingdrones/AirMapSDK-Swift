@@ -8,15 +8,16 @@
 
 import ObjectMapper
 
-open class AirMapToken {
+public struct AirMapToken {
 
-	open var authToken: String!
-	public required init?(map: Map) {}
+	public var authToken: String
 }
 
-extension AirMapToken: Mappable {
+// MARK: - JSON Serialization
 
-	public func mapping(map: Map) {
-		authToken	<-  map["id_token"]
+extension AirMapToken: ImmutableMappable {
+	
+	public init(map: Map) throws {
+		authToken = try map.value("id_token")
 	}
 }

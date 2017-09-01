@@ -22,7 +22,7 @@ internal class AdvisoryClient: HTTPClient {
 	
 	// MARK: - Advisories
 
-	func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, ruleSetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
+	func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		
 		let point = Point(geometry: point)
 		guard let polygon = SwiftTurf.buffer(point, distance: buffer) else {
@@ -30,10 +30,10 @@ internal class AdvisoryClient: HTTPClient {
 		}
 		let geometry = AirMapPolygon(coordinates: polygon.geometry)
 
-		return getAirspaceStatus(within: geometry, under: ruleSetIds, from: start, to: end)
+		return getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
 	}
 
-	func getAirspaceStatus(along path: AirMapPath, buffer: Meters, ruleSetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
+	func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		
 		let lineString = LineString(geometry: path.coordinates)
 		guard let polygon = SwiftTurf.buffer(lineString, distance: buffer) else {
@@ -41,15 +41,15 @@ internal class AdvisoryClient: HTTPClient {
 		}
 		let geometry = AirMapPolygon(coordinates: polygon.geometry)
 		
-		return getAirspaceStatus(within: geometry, under: ruleSetIds, from: start, to: end)
+		return getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
 	}
 
-	func getAirspaceStatus(within geometry: AirMapGeometry, under ruleSetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
+	func getAirspaceStatus(within geometry: AirMapGeometry, under rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
 		
-		AirMap.logger.debug("Get Rules under", ruleSetIds)
+		AirMap.logger.debug("Get Rules under", rulesetIds)
 		var params = [String: Any]()
 		params["geometry"] = geometry.params()
-		params["rulesets"] = ruleSetIds.joined(separator: ",")
+		params["rulesets"] = rulesetIds.joined(separator: ",")
 		params["start"] = start?.ISO8601String()
 		params["end"] = end?.ISO8601String()
 		

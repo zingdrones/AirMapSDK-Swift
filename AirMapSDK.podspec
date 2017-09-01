@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
 		core.source_files = ['Source/Core/**/*.{h,m,swift}', 'Source/Rx/*']
 		core.dependency 'Alamofire'
 		core.dependency 'ObjectMapper'
+		core.dependency 'SwiftTurf'
 		core.dependency 'SimpleKeychain'
 		core.dependency 'JWTDecode'
 		core.dependency 'RxSwift'
@@ -49,7 +50,6 @@ Pod::Spec.new do |s|
 		ui.dependency 'Mapbox-iOS-SDK'
 		ui.dependency 'Lock', '>= 2.3.1'
 		ui.dependency 'SwiftSimplify'
-		ui.dependency 'SwiftTurf'
 		ui.source_files = 'Source/UI/**/{*.swift}'
 		ui.resources = ['Resources/UI/*.{xcassets}', 'Resources/UI/Localizations/**/*']
 	end

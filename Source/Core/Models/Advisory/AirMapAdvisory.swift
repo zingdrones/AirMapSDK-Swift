@@ -40,7 +40,7 @@ public struct AirMapAdvisory {
 	public let ruleId: Int
 
 	/// The identifier of the ruleset from which the rule originated
-	public let ruleSetId: String
+	public let rulesetId: String
 	
 	/// Additional metadata specific to the advisory type
 	public let properties: AdvisoryProperties?
@@ -87,11 +87,11 @@ extension AirMapAdvisory: ImmutableMappable {
 			state         =  try? map.value("state")
 			country       =  try  map.value("country")
 			ruleId        =  try  map.value("rule_id")
-			ruleSetId     =  try  map.value("ruleset_id")
+			rulesetId     =  try  map.value("ruleset_id")
 			requirements  =  try? map.value("requirements")
 
-			let latitude  = try  map.value("latitude") as Double
-			let longitude = try  map.value("longitude") as Double
+			let latitude  = try map.value("latitude") as Double
+			let longitude = try map.value("longitude") as Double
 			coordinate = Coordinate2D(latitude: latitude, longitude: longitude)
 
 			let airspaceType = try map.value("type") as AirMapAirspaceType

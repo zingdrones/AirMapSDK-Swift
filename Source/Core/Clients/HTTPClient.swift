@@ -30,7 +30,7 @@ internal class HTTPClient {
 	
 	private lazy var manager: SessionManager = {
 		
-		let host = AirMap.configuration.airMapApiHost
+		let host = AirMap.configuration.airMapDomain
 		let keys = ServerTrustPolicy.publicKeys(in: AirMapBundle.core)
 		
 		let serverTrustPolicies: [String: ServerTrustPolicy] = [
@@ -317,6 +317,14 @@ extension DataRequest {
 	
 	/// Returns a json object from the response payload. Throws an error if unable to serialize.
 	private static func jsonObjectFrom(response: HTTPURLResponse, json data: Data, keyPath: String?) throws -> Any? {
+
+		if let url = response.url {
+			AirMap.logger.trace(url)
+		}
+		
+		if data.count > 0, let body = String(data: data, encoding: .utf8) {
+			AirMap.logger.trace("HTTP Response:", body)
+		}
 		
 		let jsonResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
 		let result = jsonResponseSerializer.serializeResponse(nil, response, data, nil)
@@ -350,7 +358,7 @@ extension DataRequest {
 	
 	/// Adapts a generic underlying error to an AirMapError
 	private static func catchApiError(with response: HTTPURLResponse, from request: URLRequest?, with data: Data) throws {
-
+		
 		if let error = AirMapError(rawValue: (request, response, data)) {
 			throw error
 		} else if let error = Auth0Error(rawValue: (request, response, data)) {

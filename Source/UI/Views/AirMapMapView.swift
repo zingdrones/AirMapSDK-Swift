@@ -12,7 +12,13 @@ import ObjectMapper
 
 open class AirMapMapView: MGLMapView {
 	
+	/// The theme that is enabled by default. Standard street-based styling.
 	public static let defaultTheme: AirMapMapTheme = .standard
+
+	/// The current map theme that controls the styling of the map
+	public var theme: AirMapMapTheme = AirMapMapView.defaultTheme {
+		didSet { self.styleURL = styleUrl(for: theme) }
+	}
 	
 	// MARK: - Init
 
@@ -30,32 +36,32 @@ open class AirMapMapView: MGLMapView {
 	
 	/// Configures the map with the provided rulesets, adding and removing layers as necessary
 	///
-	/// - Parameter ruleSets: an array of rulesets
-	public func configure(ruleSets: [AirMapRuleSet]) {
+	/// - Parameter rulesets: an array of rulesets
+	public func configure(rulesets: [AirMapRuleset]) {
 		
 		guard let style = style else {
-			AirMap.logger.error("Map must be complete initialization before configuring with ruleSets")
+			AirMap.logger.error("Map must be complete initialization before configuring with rulesets")
 			return
 		}
 		
-		let ruleSetSourceIds = ruleSets
+		let rulesetSourceIds = rulesets
 			.map { $0.tileSourceIdentifier }
 		
-		let existingRuleSetSourceIds = style.sources
+		let existingRulesetSourceIds = style.sources
 			.flatMap { $0 as? MGLVectorSource }
 			.flatMap { $0.identifier }
-			.filter { $0.hasPrefix(Config.Maps.ruleSetSourcePrefix) }
+			.filter { $0.hasPrefix(Config.Maps.rulesetSourcePrefix) }
 		
 		// Remove orphaned ruleset sources
-		Set(existingRuleSetSourceIds)
-			.subtracting(ruleSetSourceIds)
-			.forEach(removeRuleSet)
+		Set(existingRulesetSourceIds)
+			.subtracting(rulesetSourceIds)
+			.forEach(removeRuleset)
 		
 		// Add new sources
-		let newSourceIds = Set(ruleSetSourceIds).subtracting(existingRuleSetSourceIds)
-		ruleSets
+		let newSourceIds = Set(rulesetSourceIds).subtracting(existingRulesetSourceIds)
+		rulesets
 			.filter { newSourceIds.contains($0.tileSourceIdentifier) }
-			.forEach(addRuleSet)
+			.forEach(addRuleset)
 		
 		updateTemporalFilters()
 	}
@@ -69,8 +75,11 @@ open class AirMapMapView: MGLMapView {
 		
 		let visibleJurisdictions = visibleJurisdictionFeatures
 			.flatMap { $0.attributes["jurisdiction"] as? String }
-			.flatMap { Mapper<AirMapJurisdiction>(context: AirMapRuleSet.Origin.tileService).map(JSONString: $0) }
-			.filter { $0.ruleSets.count > 0 }
+			.flatMap { (json: String) in
+				print(json)
+				return Mapper<AirMapJurisdiction>(context: AirMapRuleset.Origin.tileService).map(JSONString: json)
+			}
+			.filter { (jurisdiction: AirMapJurisdiction) in jurisdiction.rulesets.count > 0 }
 		
 		let uniqueJurisdictions = Array(Set(visibleJurisdictions))
 		
@@ -94,25 +103,25 @@ open class AirMapMapView: MGLMapView {
 		allowsRotating = false
 	}
 
-	private func addRuleSet(_ ruleSet: AirMapRuleSet) {
+	private func addRuleset(_ ruleset: AirMapRuleset) {
 		
 		guard let style = style else {
-			return AirMap.logger.error("Style not yet loaded. Unable to add ruleset", ruleSet.id)
+			return AirMap.logger.error("Style not yet loaded. Unable to add ruleset", ruleset.id)
 		}
 		
-		guard style.source(withIdentifier: ruleSet.tileSourceIdentifier) == nil else {
-			return AirMap.logger.error("Style already contains ruleset; Skipping", ruleSet.id)
+		guard style.source(withIdentifier: ruleset.tileSourceIdentifier) == nil else {
+			return AirMap.logger.error("Style already contains ruleset; Skipping", ruleset.id)
 		}
 		
-		let ruleSetTileSource = MGLVectorSource(ruleSet: ruleSet)
-		style.addSource(ruleSetTileSource)
+		let rulesetTileSource = MGLVectorSource(ruleset: ruleset)
+		style.addSource(rulesetTileSource)
 		
-		AirMap.logger.debug("Adding", ruleSetTileSource.identifier)
+		AirMap.logger.debug("Adding", rulesetTileSource.identifier)
 		
 		style.airMapBaseStyleLayers
-			.filter { ruleSet.airspaceTypeIds.contains($0.airspaceType!.rawValue) }
+			.filter { ruleset.airspaceTypeIds.contains($0.airspaceType!.rawValue) }
 			.forEach { baseLayerStyle in
-				if let newLayerStyle = newLayerClone(of: baseLayerStyle, with: ruleSet, from: ruleSetTileSource) {
+				if let newLayerStyle = newLayerClone(of: baseLayerStyle, with: ruleset, from: rulesetTileSource) {
 					style.insertLayer(newLayerStyle, above: baseLayerStyle)
 				} else {
 					AirMap.logger.error("Could not add layer:", baseLayerStyle.sourceLayerIdentifier ?? "–")
@@ -120,7 +129,7 @@ open class AirMapMapView: MGLMapView {
 		}
 	}
 
-	private func removeRuleSet(_ identifier: String) {
+	private func removeRuleset(_ identifier: String) {
 		
 		guard let style = style else {
 			return AirMap.logger.error("Style not yet loaded. Unable to remove ruleset", identifier)
@@ -156,11 +165,17 @@ open class AirMapMapView: MGLMapView {
 				layer.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timePredicate, isNotBase])
 			})
 	}
+	
+	/// Constructs a styleUrl based on the AirMap Theme
+	private func styleUrl(for theme: AirMapMapTheme) -> URL {
+		return try! (Config.AirMapApi.mapStylePath+"\(theme.rawValue).json").asURL()
+	}
+
 }
 
-extension AirMapRuleSet {
+extension AirMapRuleset {
 	
 	var tileSourceIdentifier: String {
-		return Config.Maps.ruleSetSourcePrefix + id
+		return Config.Maps.rulesetSourcePrefix + id
 	}
 }

@@ -50,8 +50,8 @@ extension AirMap {
 	}
 }
 
-extension MappingService {
+class MappingService {
 	
-	@available (*, unavailable)
+	@available (*, unavailable, message: "Configure map using AirMapMapView.configure(rulesets:)")
 	public func tileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> URL? { return nil }
 }

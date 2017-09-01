@@ -1,5 +1,5 @@
 //
-//  AirMapRuleSet.swift
+//  AirMapRuleset.swift
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 3/24/17.
@@ -7,7 +7,7 @@
 //
 
 /// A logical grouping of rules under a give jurisdiction
-public struct AirMapRuleSet {
+public struct AirMapRuleset {
 	
 	/// An unique identifier
 	public let id: String
@@ -63,7 +63,7 @@ public struct AirMapRuleSet {
 	}
 }
 
-extension AirMapRuleSet: Hashable, Equatable, Comparable {
+extension AirMapRuleset: Hashable, Equatable, Comparable {
 	
 	internal var order: Int {
 		return [.pickOne, .optional, .required].index(of: type)!
@@ -73,18 +73,18 @@ extension AirMapRuleSet: Hashable, Equatable, Comparable {
 		return id.hashValue
 	}
 
-	public static func ==(lhs: AirMapRuleSet, rhs: AirMapRuleSet) -> Bool {
+	public static func ==(lhs: AirMapRuleset, rhs: AirMapRuleset) -> Bool {
 		return lhs.hashValue == rhs.hashValue
 	}
 	
-	public static func <(lhs: AirMapRuleSet, rhs: AirMapRuleSet) -> Bool {
+	public static func <(lhs: AirMapRuleset, rhs: AirMapRuleset) -> Bool {
 		return lhs.order < rhs.order && lhs.name < rhs.name
 	}
 }
 
 // MARK: - Convenience
 
-extension Sequence where Iterator.Element == AirMapRuleSet {
+extension Sequence where Iterator.Element == AirMapRuleset {
 	
 	/// A comma-separated list of ruleset identifiers
 	public var identifiers: String {
@@ -92,22 +92,22 @@ extension Sequence where Iterator.Element == AirMapRuleSet {
 	}
 	
 	/// A filtered list of all required rulesets
-	public var requiredRuleSets: [AirMapRuleSet] {
+	public var requiredRulesets: [AirMapRuleset] {
 		return filter { $0.type == .required }
 	}
 	
 	/// A filtered list of all pick-one rulesets
-	public var pickOneRuleSets: [AirMapRuleSet] {
+	public var pickOneRulesets: [AirMapRuleset] {
 		return filter { $0.type == .pickOne }
 	}
 	
 	/// A filtered list of all default rulesets
-	public var defaultPickOneRuleSet: AirMapRuleSet? {
-		return pickOneRuleSets.first(where: { $0.isDefault }) ?? pickOneRuleSets.first
+	public var defaultPickOneRuleset: AirMapRuleset? {
+		return pickOneRulesets.first(where: { $0.isDefault }) ?? pickOneRulesets.first
 	}
 	
 	/// A filtered list of all optional rulesets
-	public var optionalRuleSets: [AirMapRuleSet] {
+	public var optionalRulesets: [AirMapRuleset] {
 		return filter { $0.type == .optional }
 	}
 	
@@ -126,7 +126,7 @@ extension Sequence where Iterator.Element == AirMapRuleSet {
 				let rs = filter({ $0.jurisdictionId == id })
 				guard let j = rs.first else { return nil }
 				
-				return AirMapJurisdiction(id: j.jurisdictionId, name: j.jurisdictionName, region: j.jurisdictionRegion, ruleSets: rs)
+				return AirMapJurisdiction(id: j.jurisdictionId, name: j.jurisdictionName, region: j.jurisdictionRegion, rulesets: rs)
 		}
 	}
 }
@@ -135,7 +135,7 @@ extension Sequence where Iterator.Element == AirMapRuleSet {
 
 import ObjectMapper
 
-extension AirMapRuleSet: ImmutableMappable {
+extension AirMapRuleset: ImmutableMappable {
 	
 	/// The mapping context from where the JSON originated
 	///

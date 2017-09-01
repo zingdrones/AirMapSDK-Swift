@@ -48,7 +48,7 @@ public class AirMapFlightPlan: Mappable {
 	}
 	
 	// Rulesets
-	public var ruleSetIds = [String]()
+	public var rulesetIds = [String]()
 	
 	// Flight Features
 	public var flightFeaturesValue = [String: Any]()
@@ -87,7 +87,7 @@ public class AirMapFlightPlan: Mappable {
 		minimumAltitudeAGL  <-  map["min_altitude_agl"]
 		targetAltitudeAGL   <-  map["target_altitude_agl"]
 		startTime           <- (map["start_time"], dateTransform)
-		ruleSetIds          <-  map["rulesets"]
+		rulesetIds          <-  map["rulesets"]
 		flightFeaturesValue <-  map["flight_features"]
 		flightId            <-  map["flight_id"]
 		
@@ -113,7 +113,7 @@ public class AirMapFlightPlan: Mappable {
 		params["geometry"] = geometry?.params() // polygonGeometry()?.params()
 		params["buffer"] = buffer
 		params["max_altitude_agl"] = maximumAltitudeAGL ?? 0
-		params["rulesets"] = ruleSetIds
+		params["rulesets"] = rulesetIds
 		params["flight_features"] = flightFeaturesValue
 		
 		if let startTime = startTime, let endTime = endTime {

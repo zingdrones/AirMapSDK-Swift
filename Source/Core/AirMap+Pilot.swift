@@ -6,8 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-public typealias AirMap_Pilot = AirMap
-extension AirMap_Pilot {
+extension AirMap {
 	
 	/// Get a pilot by its identifier
 	///

@@ -8,34 +8,33 @@
 
 import Foundation
 
-public typealias AirMap_Rules = AirMap
-extension AirMap_Rules {
+extension AirMap {
 	
 	/// Get contextual ruleset information for a given geographic area
 	///
 	/// - Parameters:
 	///   - geometry: The area to query for rulesets
 	///   - completion: The handler to call with the rulesets result
-	public static func getRuleSets(intersecting geometry: AirMapGeometry, completion: @escaping (Result<[AirMapRuleSet]>) -> Void) {
-		ruleClient.getRuleSets(intersecting: geometry).thenSubscribe(completion)
+	public static func getRulesets(intersecting geometry: AirMapGeometry, completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
+		ruleClient.getRulesets(intersecting: geometry).thenSubscribe(completion)
 	}
 
 	/// Get detailed information for a collection of rulesets
 	///
 	/// - Parameters:
-	///   - ruleSetIds: The ruleset identifiers for which to fetch information
+	///   - rulesetIds: The ruleset identifiers for which to fetch information
 	///   - completion: A handler to call with the rulesets result
-	public static func getRuleSets(by ruleSetIds: [String], completion: @escaping (Result<[AirMapRuleSet]>) -> Void) {
-		ruleClient.getRuleSets(by: ruleSetIds).thenSubscribe(completion)
+	public static func getRulesets(by rulesetIds: [String], completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
+		ruleClient.getRulesets(by: rulesetIds).thenSubscribe(completion)
 	}
 
 	/// Get detailed information for a rulesets
-	///
+	///ß
 	/// - Parameters:
-	///   - ruleSetId: The ruleset identifier for which to fetch information
+	///   - rulesetId: The ruleset identifier for which to fetch information
 	///   - completion: A handler to call with the ruleset result
-	public static func getRuleSets(by ruleSetId: String, completion: @escaping (Result<AirMapRuleSet>) -> Void) {
-		ruleClient.getRuleSet(by: ruleSetId).thenSubscribe(completion)
+	public static func getRulesets(by rulesetId: String, completion: @escaping (Result<AirMapRuleset>) -> Void) {
+		ruleClient.getRuleset(by: rulesetId).thenSubscribe(completion)
 	}
 
 }

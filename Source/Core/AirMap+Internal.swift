@@ -11,8 +11,7 @@ import RxSwift
 import CocoaAsyncSocket
 #endif
 
-typealias AirMap_Internal = AirMap
-extension AirMap_Internal {
+extension AirMap {
 
 	internal static let advisoryClient = AdvisoryClient()
 	internal static let aircraftClient = AircraftClient()

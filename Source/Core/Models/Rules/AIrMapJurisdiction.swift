@@ -19,7 +19,7 @@ public struct AirMapJurisdiction {
 	public let region: Region
 
 	/// A list rulesets available under this jurisdiction
-	public let ruleSets: [AirMapRuleSet]
+	public let rulesets: [AirMapRuleset]
 	
 	/// An enumeration of the region types
 	public enum Region: String {
@@ -33,28 +33,28 @@ public struct AirMapJurisdiction {
 	}
 	
 	/// A filtered list of all the required rulesets
-	public var requiredRuleSets: [AirMapRuleSet] {
-		return ruleSets.filter { $0.type == .required }
+	public var requiredRulesets: [AirMapRuleset] {
+		return rulesets.filter { $0.type == .required }
 	}
 	
 	/// A filtered list of all pick-one rulesets
-	public var pickOneRuleSets: [AirMapRuleSet] {
-		return ruleSets.filter { $0.type == .pickOne }
+	public var pickOneRulesets: [AirMapRuleset] {
+		return rulesets.filter { $0.type == .pickOne }
 	}
 	
 	/// The default pick-one ruleset for the jurisdiction
-	public var defaultPickOneRuleSet: AirMapRuleSet? {
-		return pickOneRuleSets.first(where: { $0.isDefault }) ?? pickOneRuleSets.first
+	public var defaultPickOneRuleset: AirMapRuleset? {
+		return pickOneRulesets.first(where: { $0.isDefault }) ?? pickOneRulesets.first
 	}
 	
 	/// A filtered list of all optional rulesets
-	public var optionalRuleSets: [AirMapRuleSet] {
-		return ruleSets.filter { $0.type == .optional }
+	public var optionalRulesets: [AirMapRuleset] {
+		return rulesets.filter { $0.type == .optional }
 	}
 	
 	/// A list of AirMap-recommended rulesets for the jurisdiction
-	public var airMapRecommendedRuleSets: [AirMapRuleSet] {
-		return ruleSets.filter { $0.shortName.uppercased() == "AIRMAP" }
+	public var airMapRecommendedRulesets: [AirMapRuleset] {
+		return rulesets.filter { $0.shortName.uppercased() == "AIRMAP" }
 	}
 }
 
@@ -93,19 +93,19 @@ extension AirMapJurisdiction: ImmutableMappable {
 			name   = try map.value("name")
 			region = try map.value("region")
 			
-			guard let ruleSetJSON = map.JSON["rulesets"] as? [[String: Any]] else {
+			guard let rulesetJSON = map.JSON["rulesets"] as? [[String: Any]] else {
 				throw AirMapError.serialization(.invalidJson)
 			}
 			
 			// Patch the JSON with information about the jurisdiction :/
 			var updatedJSON = [[String: Any]]()
-			for var json in ruleSetJSON {
+			for var json in rulesetJSON {
 				json["jurisdiction"] = ["id": id, "name": name, "region": region.rawValue]
 				updatedJSON.append(json)
 			}
 			
-			let mapper = Mapper<AirMapRuleSet>(context: AirMapRuleSet.Origin.tileService)
-			ruleSets = try mapper.mapArray(JSONArray: updatedJSON)
+			let mapper = Mapper<AirMapRuleset>(context: AirMapRuleset.Origin.tileService)
+			rulesets = try mapper.mapArray(JSONArray: updatedJSON)
 		}
 		catch let error {
 			AirMap.logger.error(error)

@@ -15,10 +15,10 @@ extension MGLMapView {
 	///
 	/// - Parameters:
 	///   - existingLayer: The layer style to clone and from which to source property values
-	///   - ruleSet: The ruleset that defines the classification layers that will back the style layer
+	///   - ruleset: The ruleset that defines the classification layers that will back the style layer
 	///   - source: The tile source to which associate the layer style
 	/// - Returns: Returns a new style styled with the visual properties of the existing layer, and configured with the appropriate source, layer, and ruleset.
-	func newLayerClone(of existingLayer: MGLVectorStyleLayer, with ruleSet: AirMapRuleSet, from source: MGLSource) -> MGLVectorStyleLayer? {
+	func newLayerClone(of existingLayer: MGLVectorStyleLayer, with ruleset: AirMapRuleset, from source: MGLSource) -> MGLVectorStyleLayer? {
 		
 		let commonProps: [String] = [
 			"predicate",
@@ -113,7 +113,7 @@ extension MGLMapView {
 			return nil
 		}
 		
-		newLayer.sourceLayerIdentifier = ruleSet.id + "_" + existingLayer.airspaceType!.rawValue
+		newLayer.sourceLayerIdentifier = ruleset.id + "_" + existingLayer.airspaceType!.rawValue
 		
 		properties.forEach { key in
 			let baseValue = existingLayer.value(forKey: key)
@@ -156,15 +156,15 @@ extension MGLStyleLayer {
 
 extension MGLVectorSource {
 	
-	convenience init(ruleSet: AirMapRuleSet) {
+	convenience init(ruleset: AirMapRuleset) {
 		
-		let layerNames = ruleSet.airspaceTypeIds.joined(separator: ",")
+		let layerNames = ruleset.airspaceTypeIds.joined(separator: ",")
 		let options = [
 			MGLTileSourceOption.minimumZoomLevel: NSNumber(value: Config.Maps.tileMinimumZoomLevel),
 			MGLTileSourceOption.maximumZoomLevel: NSNumber(value: Config.Maps.tileMaximumZoomLevel)
 		]
-		let sourcePath = Config.AirMapApi.mapSourceUrl + "/\(ruleSet.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey)"
+		let sourcePath = Config.AirMapApi.mapSourceUrl + "/\(ruleset.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey)"
 		
-		self.init(identifier: ruleSet.tileSourceIdentifier, tileURLTemplates: [sourcePath], options: options)
+		self.init(identifier: ruleset.tileSourceIdentifier, tileURLTemplates: [sourcePath], options: options)
 	}
 }

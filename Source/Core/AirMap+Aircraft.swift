@@ -8,8 +8,7 @@
 
 import Foundation
 
-public typealias AirMap_Aircraft = AirMap
-extension AirMap_Aircraft {
+extension AirMap {
 	
 	/// List of all aircraft manufacturers
 	///

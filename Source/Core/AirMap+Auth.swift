@@ -8,14 +8,14 @@
 
 import Foundation
 
+/// Protocol for handling AirMap authentication state changes
 public protocol AirMapAuthSessionDelegate: class {
 	func airmapSessionShouldAuthenticate()
 	func airMapAuthSessionDidAuthenticate(_ pilot: AirMapPilot)
 	func airMapAuthSessionAuthenticationDidFail(_ error: Error)
 }
 
-public typealias AirMap_Auth = AirMap
-extension AirMap_Auth {
+extension AirMap {
 
 	/// Setting the auth session delegate automatically calls the delegate whenever a pilot authenticated, fails to
 	/// authenticate or needs to re-authenticate after a token expiration

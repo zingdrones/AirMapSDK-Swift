@@ -9,8 +9,7 @@
 import ProtocolBuffers
 import CoreLocation
 
-private typealias AirMapTelemetryServices = AirMap
-extension AirMapTelemetryServices {
+extension AirMap {
 	
 	public enum TelemetryError: Error {
 		case invalidCredentials

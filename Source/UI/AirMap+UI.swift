@@ -9,8 +9,7 @@
 import RxSwift
 import Lock
 
-private typealias AirMap_UI = AirMap
-extension AirMap_UI {
+extension AirMap {
 	
 	/// Creates an AirMap pilot phone verification view controller
 	///

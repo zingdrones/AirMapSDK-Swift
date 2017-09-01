@@ -11,15 +11,9 @@ import ObjectMapper
 /// Configuration class for AirMap SDK
 public class AirMapConfiguration: ImmutableMappable {
 		
-	/// System used for displaying distance values
-	public var distanceUnits: DistanceUnits = .metric
-
-	/// Units used for displaying temperature values
-	public var temperatureUnits: TemperatureUnits = .celcius
-	
 	/// The AirMap API key that was used to initialize the SDK. Required.
 	public let airMapApiKey: String
-
+	
 	/// An optional Mapbox access token to use with any map UI elements.
 	public let mapboxAccessToken: String?
 	
@@ -41,9 +35,16 @@ public class AirMapConfiguration: ImmutableMappable {
 		try! self.init(JSON: config)
 	}
 	
+	/// System used for displaying distance values
+	public var distanceUnits: DistanceUnits = .metric
+	
+	/// Units used for displaying temperature values
+	public var temperatureUnits: TemperatureUnits = .celcius
+
 	let auth0Host: String
 	let auth0ClientId: String
-	let airMapApiHost: String
+	let airMapDomain: String
+	
 	let airMapApiOverrides: [String: String]?
 	let airMapEnvironment: String?
 
@@ -76,7 +77,7 @@ public class AirMapConfiguration: ImmutableMappable {
 			mapboxAccessToken  =  try? map.value("mapbox.access_token")
 			auth0Host          = (try? map.value("auth0.host")) ?? "sso.airmap.io"
 			auth0ClientId      =  try  map.value("auth0.client_id")
-			airMapApiHost      = (try? map.value("airmap.api_host")) ?? "api.airmap.com"
+			airMapDomain       = (try? map.value("airmap.domain")) ?? "airmap.com"
 			airMapEnvironment  =  try? map.value("airmap.environment")
 			airMapApiOverrides =  try? map.value("airmap.api_overrides")
 		}

@@ -8,8 +8,7 @@
 
 import Foundation
 
-public typealias AirMap_FlightPlan = AirMap
-extension AirMap_FlightPlan {
+extension AirMap {
 	
 	/// Create a new flight plan
 	///

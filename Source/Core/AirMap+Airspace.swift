@@ -8,8 +8,7 @@
 
 import Foundation
 
-public typealias AirMap_Airspace = AirMap
-extension AirMap_Airspace {
+extension AirMap {
 	
 	/// Get detailed information about an airspace object.
 	///
