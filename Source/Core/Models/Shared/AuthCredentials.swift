@@ -6,7 +6,7 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
+import Foundation
 
 public struct Auth0Credentials {
     
@@ -14,16 +14,4 @@ public struct Auth0Credentials {
     let refreshToken: String
 	let tokenType: String
     let idToken: String
-}
-
-// MARK: - JSON Serialization
-
-extension Auth0Credentials: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		accessToken   =  try map.value("access_token")
-		refreshToken  =  try map.value("refresh_token")
-		tokenType     =  try map.value("token_type")
-		idToken       =  try map.value("id_token")
-	}
 }

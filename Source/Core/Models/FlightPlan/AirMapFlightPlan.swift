@@ -12,120 +12,106 @@ import SwiftTurf
 
 public class AirMapFlightPlan: Mappable {
 	
-	public private(set) var id: String?
+	public internal(set) var id: String?
 	
 	// Participants
 	public var pilotId: String?
 	public var aircraftId: String?
 	
 	// Temporal constraints
-	public var startTime: Date?
-	public var endTime: Date? {
-		return startTime?.addingTimeInterval(duration)
-	}
-	public var duration: TimeInterval = 60*60 // 1 hour default duration
+	public var startTime: Date
+	public var duration: TimeInterval
 	
+	// Computed end time; derived from start time + duration
+	public var endTime: Date {
+		return startTime.addingTimeInterval(duration)
+	}
+
 	// Spatial constraints
-	public var takeoffLatitude: Double
-	public var takeoffLongitude: Double
 	public var geometry: AirMapGeometry?
 	public var buffer: Meters? = 0
-	public var minimumAltitudeAGL: Meters?
+	public var takeoffCoordinate: Coordinate2D
 	public var maximumAltitudeAGL: Meters?
-	public var targetAltitudeAGL: Meters?
-	
-	// Assigned once a flight is created
-	public var flightId: String?
-	
-	public var takeoffCoordinate: Coordinate2D {
-		get {
-			return Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
-		}
-		set {
-			takeoffLatitude = newValue.latitude
-			takeoffLongitude = newValue.longitude
-		}
-	}
 	
 	// Rulesets
 	public var rulesetIds = [String]()
-	
+
 	// Flight Features
 	public var flightFeaturesValue = [String: Any]()
-	
-	public init(coordinate: Coordinate2D) {
-		self.takeoffLatitude = coordinate.latitude
-		self.takeoffLongitude = coordinate.longitude
+
+	// Assigned once a flight is created and associated with the flight plan
+	public var flightId: String?
+
+	/// Designated flight plan initializer
+	///
+	/// - Parameters:
+	///   - startTime: The date and time at which the flight will commence
+	///   - duration: The duration of the flight plan
+	///   - takeoffCoordinate: The take off coordinate of the flight plan
+	public init(startTime: Date = Date(), duration: TimeInterval = 60*60, takeoffCoordinate: Coordinate2D) {
+		self.startTime = startTime
+		self.duration = duration
+		self.takeoffCoordinate = takeoffCoordinate
 	}
+
+	// MARK: - JSON Serialization
 	
 	public required init?(map: Map) {
 		
 		do {
-			takeoffLatitude   = try map.value("takeoff_latitude")
-			takeoffLongitude  = try map.value("takeoff_longitude")
+			let dateTransform = Constants.AirMapApi.dateTransform
+			let geoJSONTransform = GeoJSONToAirMapGeometryTransform()
+			
+			id           =  try? map.value("id")
+			pilotId      =  try? map.value("pilot_id")
+			aircraftId   =  try? map.value("aircraft_id")
+			buffer       =  try? map.value("buffer")
+			geometry     =  try? map.value("geometry", using: geoJSONTransform)
+			startTime    =  try  map.value("start_time", using: dateTransform)
+			rulesetIds   = (try? map.value("rulesets")) ?? []
+			flightId     =  try? map.value("flight_id")
+			maximumAltitudeAGL   =  try? map.value("max_altitude_agl")
+			flightFeaturesValue  = (try? map.value("flight_features")) ?? [:]
+			
+			let takeoffLatitude: Double   =  try map.value("takeoff_latitude")
+			let takeoffLongitude: Double  =  try map.value("takeoff_longitude")
+			takeoffCoordinate = Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
+			
+			let endTime: Date = try map.value("end_time")
+			duration = endTime.timeIntervalSince(startTime)
 		}
 		catch let error {
-			print(error)
+			AirMap.logger.error(error)
 			return nil
 		}
 	}
-
+	
 	public func mapping(map: Map) {
 		
-		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
+		let dateTransform = Constants.AirMapApi.dateTransform
 		let geoJSONTransform = GeoJSONToAirMapGeometryTransform()
 
-		id                  <-  map["id"]
-		pilotId             <-  map["pilot_id"]
-		aircraftId          <-  map["aircraft_id"]
-		takeoffLatitude     <-  map["takeoff_latitude"]
-		takeoffLongitude    <-  map["takeoff_longitude"]
-		targetAltitudeAGL   <-  map["target_altitude_agl"]
-		buffer              <-  map["buffer"]
-		geometry            <- (map["geometry"], geoJSONTransform)
-		maximumAltitudeAGL  <-  map["max_altitude_agl"]
-		minimumAltitudeAGL  <-  map["min_altitude_agl"]
-		targetAltitudeAGL   <-  map["target_altitude_agl"]
-		startTime           <- (map["start_time"], dateTransform)
-		rulesetIds          <-  map["rulesets"]
-		flightFeaturesValue <-  map["flight_features"]
-		flightId            <-  map["flight_id"]
+		id                  >>>  map["id"]
+		pilotId             >>>  map["pilot_id"]
+		aircraftId          >>>  map["aircraft_id"]
+		buffer              >>>  map["buffer"]
+		maximumAltitudeAGL  >>>  map["max_altitude_agl"]
+		startTime           >>> (map["start_time"], dateTransform)
+		endTime             >>> (map["end_time"], dateTransform)
+		rulesetIds          >>>  map["rulesets"]
+		flightFeaturesValue >>>  map["flight_features"]
+		flightId            >>>  map["flight_id"]
 		
-		// derive duration from start and end time
-		var endTime: Date?
-		endTime <- (map["end_time"], dateTransform)
-		if let startTime = startTime, let endTime = endTime {
-			duration = endTime.timeIntervalSince(startTime)
-		}
+		takeoffCoordinate.latitude   >>>  map["takeoff_latitude"]
+		takeoffCoordinate.longitude  >>>  map["takeoff_longitude"]
+		
+		// FIXME: See `func polygonGeometry()` below
+		polygonGeometry()  >>> (map["geometry"], geoJSONTransform)
 	}
 	
-	func params() -> [String: Any] {
-		
-		var params = [String: Any]()
-		
-		params["id"] = id
-		params["pilot_id"] = pilotId
-		params["aircraft_id"] = aircraftId
-		params["takeoff_latitude"] = takeoffLatitude
-		params["takeoff_longitude"] = takeoffLongitude
-		params["aircraft_id"] = aircraftId
-		// FIXME: See func polygonGeometry() below
-		params["geometry"] = geometry?.params() // polygonGeometry()?.params()
-		params["buffer"] = buffer
-		params["max_altitude_agl"] = maximumAltitudeAGL ?? 0
-		params["rulesets"] = rulesetIds
-		params["flight_features"] = flightFeaturesValue
-		
-		if let startTime = startTime, let endTime = endTime {
-			params["start_time"] = startTime.ISO8601String()
-			params["end_time"] = endTime.ISO8601String()
-		} else {
-			let now = Date()
-			params["start_time"] = now.ISO8601String()
-			params["end_time"] = now.addingTimeInterval(duration).ISO8601String()
-		}
-		return params
-	}
+}
+
+extension AirMapFlightPlan {
 	
 	// FIXME: This is here because the API does not currently support anything other than polygons
 	func polygonGeometry() -> AirMapPolygon? {

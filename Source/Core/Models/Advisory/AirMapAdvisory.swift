@@ -6,17 +6,17 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-/// An airspace object that interects an intended area of operation.
+/// An airspace object that interects with an intended area of operation.
 public struct AirMapAdvisory {
 	
 	/// The advisory's unique identifier
 	public let id: String
 	
-	/// The airspace classification category
+	/// The airspace classification type
 	public let type: AirMapAirspaceType
 	
 	/// A color representative of the advisory level
-	public let color: AirMapStatus.StatusColor
+	public let color: Color
 	
 	/// A descriptive title
 	public let name: String
@@ -43,88 +43,108 @@ public struct AirMapAdvisory {
 	public let rulesetId: String
 	
 	/// Additional metadata specific to the advisory type
-	public let properties: AdvisoryProperties?
+	public let properties: PropertiesType?
 
 	/// Any requirements necessary to operate within the advisory
-	public let requirements: AirMapStatusRequirements?
+	public let requirements: AirMapAdvisoryRequirements?
 
 	/// The date and time the advisory was last updated
 	public let lastUpdated: Date
-}
-
-public protocol AdvisoryProperties: Mappable {}
-
-// MARK: - Equatable & Hashable
-
-extension AirMapAdvisory: Equatable, Hashable {
 	
-	public var hashValue: Int {
-		return id.hashValue
+	/// A color representative of the action level of the advisory
+	public enum Color: String {
+		case red
+		case orange
+		case yellow
+		case green
 	}
 	
-	public static func ==(lhs: AirMapAdvisory, rhs: AirMapAdvisory) -> Bool {
-		return lhs.hashValue == rhs.hashValue
-	}
-}
-
-// MARK: - JSON Serialization
-
-import ObjectMapper
-
-extension AirMapAdvisory: ImmutableMappable {
-	
-	public init(map: Map) throws {
+	public struct Properties {
 		
-	let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
-		
-		do {
-			id            =  try  map.value("id")
-			color         =  try  map.value("color")
-			lastUpdated   = (try? map.value("last_updated", using: dateTransform)) ?? Date()
-			distance      =  try  map.value("distance")
-			type          =  try  map.value("type")
-			city          =  try? map.value("city")
-			state         =  try? map.value("state")
-			country       =  try  map.value("country")
-			ruleId        =  try  map.value("rule_id")
-			rulesetId     =  try  map.value("ruleset_id")
-			requirements  =  try? map.value("requirements")
-
-			let latitude  = try map.value("latitude") as Double
-			let longitude = try map.value("longitude") as Double
-			coordinate = Coordinate2D(latitude: latitude, longitude: longitude)
-
-			let airspaceType = try map.value("type") as AirMapAirspaceType
-			name = (try? map.value("name") as String) ?? airspaceType.title
-			
-			let props: [String: Any] = try map.value("properties")
-			
-			switch airspaceType {
-			case .airport, .heliport:
-				properties = AirMapStatusAdvisoryAirportProperties(JSON: props)
-			case .park:
-				properties = AirMapStatusAdvisoryParkProperties(JSON: props)
-			case .tfr:
-				properties = AirMapStatusAdvisoryTFRProperties(JSON: props)
-			case .specialUse:
-				properties = AirMapStatusAdvisorySpecialUseProperties(JSON: props)
-			case .powerPlant:
-				properties = AirMapStatusAdvisoryPowerPlantProperties(JSON: props)
-			case .school:
-				properties = AirMapStatusAdvisorySchoolProperties(JSON: props)
-			case .controlledAirspace:
-				properties = AirMapStatusAdvisoryControlledAirspaceProperties(JSON: props)
-			case .wildfire:
-				properties = AirMapStatusAdvisoryWildfireProperties(JSON: props)
-			default:
-				properties = nil
-			}
+		/// Airport advisory properties
+		public struct Airport: PropertiesType {
+			public let identifier: String?
+			public let phone: String?
+			public let tower: Bool?
+			public let paved: Bool?
+			public let longestRunway: Int?
+			public let elevation: Int?
+			public let publicUse: Bool?
 		}
-			
-		catch let error {
-			AirMap.logger.error(error)
-			throw error
+		
+		/// Controlled Airspace advisory properties
+		public struct ControlledAirspace: PropertiesType {
+			public let airspaceClass: String?
+			public let airportIdentifier: String?
+		}
+
+		/// Emergency advisory properties
+		public struct Emergency: PropertiesType {
+			public let effective: Date?
+			public let type: String?
+		}
+	
+		/// Fire advisory properties
+		public struct Fire: PropertiesType {
+			public let effective: Date?
+		}
+		
+		/// Park advisory properties
+		public struct Park: PropertiesType {
+			public let size: Int?
+		}
+
+		/// Power Plant advisory properties
+		public struct PowerPlant: PropertiesType {
+			public let technology: String?
+			public let generatorType: String?
+			public let output: Int?
+		}
+
+		/// School advisory properties
+		public struct School: PropertiesType {
+			public let numberOfStudents: Int?
+		}
+		
+		/// Special Use advisory properties
+		public struct SpecialUse: PropertiesType {
+			public let description: String?
+		}
+		
+		/// TFR advisory properties
+		public struct TFR: PropertiesType {
+			public let url: URL
+			public let startTime: Date?
+			public let endTime: Date?
+		}
+
+		/// Wildfire advisory properties
+		public struct Wildfire: PropertiesType {
+			public let effective: Date?
+			public let size: Hectares?
 		}
 	}
 }
 
+public protocol PropertiesType {}
+
+// MARK: - CustomStringConvertible
+
+extension AirMapAdvisory.Color: CustomStringConvertible {
+	
+	public var description: String {
+		
+		let localized = LocalizedStrings.Status.self
+		
+		switch self {
+		case .red:
+			return localized.redDescription
+		case .orange:
+			return localized.orangeDescription
+		case .yellow:
+			return localized.yellowDescription
+		case .green:
+			return localized.greenDescription
+		}
+	}
+}

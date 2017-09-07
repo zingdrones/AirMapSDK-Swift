@@ -6,10 +6,10 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
+import Foundation
 
-/// Configuration class for AirMap SDK
-public class AirMapConfiguration: ImmutableMappable {
+/// Configuration class for the AirMap SDK. May be initialized programmatically or by using an airmap.config.json file.
+public struct AirMapConfiguration {
 		
 	/// The AirMap API key that was used to initialize the SDK. Required.
 	public let airMapApiKey: String
@@ -24,7 +24,7 @@ public class AirMapConfiguration: ImmutableMappable {
 	///   - apiKey: The AirMap API key to use with the AirMap API
 	///   - auth0ClientId: A client ID used for user/pilot authentication with AirMap
 	///   - mapboxAccessToken: An optional access token used to configure any map UI elements
-	public convenience init(apiKey: String, auth0ClientId: String, mapboxAccessToken: String? = nil) {
+	public init(apiKey: String, auth0ClientId: String, mapboxAccessToken: String? = nil) {
 		
 		let config = [
 			"airmap": ["api_key": apiKey],
@@ -47,9 +47,13 @@ public class AirMapConfiguration: ImmutableMappable {
 	
 	let airMapApiOverrides: [String: String]?
 	let airMapEnvironment: String?
+	let airMapPinCertificates: Bool
+}
 
+extension AirMapConfiguration {
+	
 	static func defaultConfig() -> AirMapConfiguration {
-
+		
 		#if os(Linux)
 			let configPath = "./airmap.config.json"
 		#else
@@ -68,18 +72,25 @@ public class AirMapConfiguration: ImmutableMappable {
 			)
 		}
 	}
+}
+
+// MARK: - JSON Serialization
+
+import ObjectMapper
+
+extension AirMapConfiguration: ImmutableMappable {
 	
-	/// ObjectMapper initializer
-	public required init(map: Map) throws {
+	public init(map: Map) throws {
 	
 		do {
-			airMapApiKey       =  try  map.value("airmap.api_key")
-			mapboxAccessToken  =  try? map.value("mapbox.access_token")
-			auth0Host          = (try? map.value("auth0.host")) ?? "sso.airmap.io"
-			auth0ClientId      =  try  map.value("auth0.client_id")
-			airMapDomain       = (try? map.value("airmap.domain")) ?? "airmap.com"
-			airMapEnvironment  =  try? map.value("airmap.environment")
-			airMapApiOverrides =  try? map.value("airmap.api_overrides")
+			airMapApiKey          =  try  map.value("airmap.api_key")
+			mapboxAccessToken     =  try? map.value("mapbox.access_token")
+			auth0Host             = (try? map.value("auth0.host")) ?? "sso.airmap.io"
+			auth0ClientId         =  try  map.value("auth0.client_id")
+			airMapDomain          = (try? map.value("airmap.domain")) ?? "airmap.com"
+			airMapEnvironment     =  try? map.value("airmap.environment")
+			airMapApiOverrides    =  try? map.value("airmap.api_overrides")
+			airMapPinCertificates = (try? map.value("airmap.pin_certificates")) ?? false
 		}
 			
 		catch let error as MapError {

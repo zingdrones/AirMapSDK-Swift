@@ -13,7 +13,7 @@ import Alamofire
 internal class AuthClient: HTTPClient {
     
     init() {
-        super.init(basePath: Config.AirMapApi.authUrl)
+        super.init(basePath: Constants.AirMapApi.authUrl)
     }
     
     func performAnonymousLogin(userId: String) -> Observable<AirMapToken> {

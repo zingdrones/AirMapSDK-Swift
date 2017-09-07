@@ -34,7 +34,7 @@ internal class TrafficService: MQTTSessionDelegate {
 	}
 
 	fileprivate var activeTraffic = [AirMapTraffic]()
-	fileprivate var expirationInterval = Config.AirMapTraffic.expirationInterval
+	fileprivate var expirationInterval = Constants.AirMapTraffic.expirationInterval
 	fileprivate var client = TrafficClient()
 	fileprivate var connectionState  = Variable(ConnectionState.disconnected)
 	fileprivate var currentFlight    = Variable(nil as AirMapFlight?)
@@ -178,8 +178,8 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	func subscribeToTraffic(_ flight: AirMapFlight) -> Observable<Void> {
 		
-		let sa    = self.subscribe(flight, to: Config.AirMapTraffic.trafficSituationalAwarenessChannel + flight.id!)
-		let alert = self.subscribe(flight, to: Config.AirMapTraffic.trafficAlertChannel + flight.id!)
+		let sa    = self.subscribe(flight, to: Constants.AirMapTraffic.trafficSituationalAwarenessChannel + flight.id!)
+		let alert = self.subscribe(flight, to: Constants.AirMapTraffic.trafficAlertChannel + flight.id!)
 
 		return unsubscribeFromAllChannels().concat(sa).concat(alert)
 	}
@@ -350,7 +350,7 @@ internal class TrafficService: MQTTSessionDelegate {
 	}
 
 	fileprivate func isExpired(_ traffic: AirMapTraffic) -> Bool {
-		return traffic.createdAt.addingTimeInterval(expirationInterval).lessThanDate(Date())
+		return traffic.createdAt.addingTimeInterval(expirationInterval) < Date()
 	}
 
 	fileprivate func hasAircractIdMatching(_ aircraftId: String) -> (AirMapTraffic) -> Bool {
@@ -392,7 +392,7 @@ internal class TrafficService: MQTTSessionDelegate {
 	*/
 	fileprivate func trafficTypeForTopic(_ topic: String) -> AirMapTraffic.TrafficType {
 
-		if topic.hasPrefix(Config.AirMapTraffic.trafficAlertChannel) {
+		if topic.hasPrefix(Constants.AirMapTraffic.trafficAlertChannel) {
 			return .alert
 		} else {
 			return .situationalAwareness

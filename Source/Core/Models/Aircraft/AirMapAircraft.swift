@@ -6,61 +6,29 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
+import Foundation
 
-final public class AirMapAircraft: Mappable {
+final public class AirMapAircraft {
 	
-	public private(set) var id: String!
-	public private(set) var model: AirMapAircraftModel
-	public var nickname: String!
-
-	@available(*, unavailable, renamed: "id")
-	public var aircraftId: String!
-	
-	public required init?(map: Map) {
-		
-		do {
-			id        = try map.value("id")
-			model     = try map.value("model")
-			nickname  = try? map.value("nickname")
-		}
-		catch let error {
-			AirMap.logger.error(error)
-			return nil
-		}
-	}
-	
-	@available (*, unavailable, renamed: "init(model:nickname:)")
-	public init() { fatalError() }
+	public internal(set) var model: AirMapAircraftModel
+	public var nickname: String?
+	public internal(set) var id: String?
 	
 	public init(model: AirMapAircraftModel, nickname: String) {
 		self.model = model
 		self.nickname = nickname
 	}
-	
-	public func mapping(map: Map) {
-		
-		id         <-  map["id"]
-		model      <-  map["model"]
-		nickname   <-  map["nickname"]
-	}
-	
-	internal func params() -> [String: Any] {
-		
-		return [
-			"model_id": model.modelId,
-			"nickname": nickname as Any
-		]
-	}
 }
+import ObjectMapper
 
-extension AirMapAircraft: Equatable, Hashable {
+extension AirMapAircraft: ImmutableMappable {
 	
-	public static func ==(lhs: AirMapAircraft, rhs: AirMapAircraft) -> Bool {
-		return lhs.id == rhs.id
-	}
-
-	public var hashValue: Int {
-		return id.hashValue
+	public convenience init(map: Map) throws {
+		let model: AirMapAircraftModel     =  try  map.value("model")
+		
+		AirMapAircraft(model: model, nickname: "")
+		
+		self.id        =  try? map.value("id")
+		self.nickname  =  try? map.value("nickname")
 	}
 }

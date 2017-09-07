@@ -163,33 +163,6 @@ public struct LocalizedStrings {
 		public static let buttonTitleSave = NSLocalizedString("FLIGHT_PLAN_BUTTON_TITLE_SAVE", bundle: bundle, value: "Save", comment: "Title for the button to save and create the flight")
 	}
 	
-//	public struct ReviewFlightPlanDetails {
-//		
-//		public static let startTimeNow = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_START_TIME_NOW", bundle: bundle, value: "Now", comment: "Time for flights that start immediately")
-//		
-//		public static let sectionHeaderDetails = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_DETAILS", bundle: bundle, value: "Details", comment: "Header label for the flight review details section")
-//		
-//		public static let sectionHeaderAircraft = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_AIRCRAFT", bundle: bundle, value: "Aircraft", comment: "Header label for the flight review aircraft section")
-//		
-//		public static let sectionHeaderSocial = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_SOCIAL", bundle: bundle, value: "Share My Flight", comment: "Header label for the flight review social sharing section")
-//		
-//		public static let rowLabelAircraft = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_AIRCRAFT", bundle: bundle, value: "Aircraft", comment: "Label for the aircraft row")
-//		
-//		public static let rowTitleRadius = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_RADIUS", bundle: bundle, value: "Radius", comment: "Label for the Buffer or radius surrounding a point or path")
-//		
-//		public static let rowTitleAltitude = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ALTITUDE", bundle: bundle, value: "Altitude", comment: "Label for the maximum altitude for a flight")
-//		
-//		public static let rowTitleStarts = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_STARTS", bundle: bundle, value: "Starts", comment: "Label for a flight's start time")
-//		
-//		public static let rowTitleEnds = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ENDS", bundle: bundle, value: "Ends", comment: "Label for a flight's end time")
-//		
-//		public static let rowTitleDuration = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_DURATION", bundle: bundle, value: "Duration", comment: "Label for a flight's duration")
-//		
-//		public static let rowTitlePublic = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_PUBLIC", bundle: bundle, value: "Public", comment: "Label for the flight review 'is public' row")
-//		
-//		public static let yes = NSLocalizedString("REVIEW_FLIGHT_PLAN_DETAILS_PUBLIC_FLIGHT_VALUE_TRUE", bundle: bundle, value: "Yes", comment: "'Yes' Value for the public flight row")
-//	}
-	
 	public struct ReviewFlightPlanNotices {
 		
 		public static let headerNoNotices = NSLocalizedString("REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES", bundle: bundle, value: "There are no notices for this flight.", comment: "Displayed in the flight plan review notices tab when there are no notices to display")

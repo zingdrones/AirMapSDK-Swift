@@ -12,7 +12,7 @@ import RxSwift
 internal class AircraftClient: HTTPClient {
 	
 	init() {
-		super.init(basePath: Config.AirMapApi.aircraftUrl)
+		super.init(basePath: Constants.AirMapApi.aircraftUrl)
 	}
 	
 	func listManufacturers() -> Observable<[AirMapAircraftManufacturer]> {

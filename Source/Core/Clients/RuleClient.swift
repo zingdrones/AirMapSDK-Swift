@@ -12,7 +12,7 @@ import RxSwift
 internal class RuleClient: HTTPClient {
 	
 	init() {
-		super.init(basePath: Config.AirMapApi.ruleUrl)
+		super.init(basePath: Constants.AirMapApi.ruleUrl)
 	}
 	
 	enum RulesClientError: Error {
@@ -32,5 +32,6 @@ internal class RuleClient: HTTPClient {
 		AirMap.logger.debug("Getting rules for ruleset:", rulesetIds)
 		let params = ["rulesets": rulesetIds.joined(separator: ",")]
 		return perform(method: .get, path: "/rule", params: params)
-	}	
+	}
+	
 }

@@ -87,7 +87,7 @@ extension AirMap {
 		Lock
 			.classic(clientId: AirMap.configuration.auth0ClientId, domain: configuration.auth0Host)
 			.withOptions { options in
-				let config = Config.AirMapApi.Auth.self
+				let config = Constants.AirMapApi.Auth.self
 				options.scope = config.scope
 				options.parameters = ["device": Bundle.main.bundleIdentifier ?? "AirMap SDK iOS"]
 				options.termsOfService = config.termsOfServiceUrl

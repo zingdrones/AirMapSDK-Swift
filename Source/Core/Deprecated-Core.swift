@@ -15,6 +15,16 @@ extension AirMapFlight {
 	}
 }
 
+extension AirMapAircraft {
+	
+	@available(*, unavailable, renamed: "id")
+	public var aircraftId: String? {
+		return id
+	}
+}
+
+public class AirMapStatus {}
+
 extension AirMap {
 	
 	@available (*, unavailable, message: "Configure map using AirMapMapView.configure(rulesets:)")

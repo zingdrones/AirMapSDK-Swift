@@ -16,6 +16,11 @@ public protocol AirMapAuthSessionDelegate: class {
 }
 
 extension AirMap {
+	
+	/// A JWT auth token that identifies the logged in user accessing the service. Required for all authenticated endpoints.
+	public static var authToken: String? {
+		didSet { authSession.authToken = authToken }
+	}
 
 	/// Setting the auth session delegate automatically calls the delegate whenever a pilot authenticated, fails to
 	/// authenticate or needs to re-authenticate after a token expiration

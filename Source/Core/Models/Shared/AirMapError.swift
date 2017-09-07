@@ -9,18 +9,13 @@
 import Foundation
 import ObjectMapper
 
-public enum AirMapError: Error {
-	
+public enum AirMapError: Error {	
 	case network(Error)
-	
 	case unauthorized
 	case invalidRequest(Error)
-
 	case client(Error)
 	case server
-	
 	case serialization(AirMapSerializationError)
-	
 	case unknown(underlying: Error)
 }
 

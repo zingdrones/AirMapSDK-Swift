@@ -10,6 +10,15 @@ import Foundation
 
 extension AirMap {
 	
+	/// Get jurisdictions and related rulesets for a given geographic area
+	///
+	/// - Parameters:
+	///   - geometry: The area to query for jurisdictions and rulesets
+	///   - completion: The handler to call with the rulesets result
+	public static func getJurisdictions(intersecting geometry: AirMapGeometry, completion: @escaping (Result<[AirMapJurisdiction]>) -> Void) {
+		jurisdictionClient.getJurisdictions(intersecting: geometry).thenSubscribe(completion)
+	}
+	
 	/// Get contextual ruleset information for a given geographic area
 	///
 	/// - Parameters:

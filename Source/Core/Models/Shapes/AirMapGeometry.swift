@@ -6,13 +6,13 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
+import SwiftTurf
+
 public protocol AirMapGeometry {
-	
 	var type: AirMapFlightGeometryType { get }
 	func params() -> [String: Any]
 }
-
-import SwiftTurf
 
 extension AirMapGeometry {
 	

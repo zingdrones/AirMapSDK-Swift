@@ -56,7 +56,7 @@ struct AirMapTelemetry {
 				}
 				.share()
 
-			let rate = Config.AirMapTelemetry.SampleRate.self
+			let rate = Constants.AirMapTelemetry.SampleRate.self
 			
 			let position = flightMessages
 				.filter { $0.1 is Airmap.Telemetry.Position }
@@ -145,8 +145,8 @@ struct AirMapTelemetry {
 
 	class Socket: GCDAsyncUdpSocket {
 		
-		var host = Config.AirMapTelemetry.host
-		var port = Config.AirMapTelemetry.port
+		var host = Constants.AirMapTelemetry.host
+		var port = Constants.AirMapTelemetry.port
 
 		func sendData(_ data: Data) {
 			send(data, toHost: host, port: port, withTimeout: 15, tag: 0)

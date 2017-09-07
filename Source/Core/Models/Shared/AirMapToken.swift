@@ -6,18 +6,9 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
+import Foundation
 
 public struct AirMapToken {
 
 	public var authToken: String
-}
-
-// MARK: - JSON Serialization
-
-extension AirMapToken: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		authToken = try map.value("id_token")
-	}
 }

@@ -12,7 +12,7 @@ import RxSwift
 internal class AirspaceClient: HTTPClient {
 	
 	init() {
-		super.init(basePath: Config.AirMapApi.airspaceUrl)
+		super.init(basePath: Constants.AirMapApi.airspaceUrl)
 	}
 	
 	func getAirspace(_ airspaceId: String) -> Observable<AirMapAirspace> {
@@ -23,7 +23,7 @@ internal class AirspaceClient: HTTPClient {
 	func listAirspace(_ airspaceIds: [String]) -> Observable<[AirMapAirspace]> {
 		AirMap.logger.debug("Get Airspace", airspaceIds)
 		let params = [
-			"ids": airspaceIds.joined(separator: ",")
+			"ids": airspaceIds.csv
 		]
 		return perform(method: .get, path:"/list", params: params)
 	}

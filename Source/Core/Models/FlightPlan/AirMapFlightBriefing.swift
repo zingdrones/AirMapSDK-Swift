@@ -16,7 +16,7 @@ public struct AirMapFlightBriefing {
 	public let rulesets: [Ruleset]
 	
 	/// The airspace and advisories that intersect with the flight plan
-	public let status: AirMapAirspaceAdvisoryStatus
+	public let status: AirMapAirspaceStatus
 	
 	/// The list of authorizations necessary to perform the flight
 	public let authorizations: [Authorization]
@@ -99,95 +99,7 @@ public struct AirMapFlightBriefing {
 
 /// A representation of an authoritative entity
 public struct AirMapAuthority {
+	
 	/// The name of the authority
 	public let name: String
-}
-
-// MARK: - JSON serialization
-
-import ObjectMapper
-
-extension AirMapFlightBriefing: ImmutableMappable {
-	
-	public init(map: Map) throws {
-
-		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
-		do {
-			createdAt      =  try  map.value("created_at", using: dateTransform)
-			rulesets       =  try  map.value("rulesets")
-			status         =  try  map.value("airspace")
-			authorizations = (try? map.value("authorizations")) ?? []
-			validations    = (try? map.value("validations")) ?? []
-		}
-		catch let error {
-			AirMap.logger.error(error)
-			throw error
-		}
-	}
-}
-
-extension AirMapFlightBriefing.Ruleset: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		id    = try map.value("id")
-		rules = try map.value("rules")
-	}
-}
-
-extension AirMapFlightBriefing.Validation: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		do {
-			status     = try map.value("status")
-			feature    = try map.value("feature")
-			authority  = try map.value("authority")
-			message    = try map.value("message")
-		}
-		catch let error {
-			AirMap.logger.error(error)
-			throw error
-		}
-	}
-}
-
-extension AirMapFlightBriefing.Validation.Feature: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		do {
-			code = try map.value("code")
-			name = try map.value("description")
-		}
-		catch let error {
-			AirMap.logger.error(error)
-			throw error
-		}
-	}
-}
-
-extension AirMapAuthority: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		do {
-			name = try map.value("name")
-		}
-		catch let error {
-			AirMap.logger.error(error)
-			throw error
-		}
-	}
-}
-
-extension AirMapFlightBriefing.Authorization: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		do {
-			authority  = try map.value("authority")
-			status     = try map.value("status")
-			message    = try map.value("message")
-		}
-		catch let error {
-			AirMap.logger.error(error)
-			throw error
-		}
-	}
 }

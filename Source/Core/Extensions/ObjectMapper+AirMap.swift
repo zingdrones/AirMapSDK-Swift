@@ -48,26 +48,6 @@ class StringToDoubleTransform: TransformType {
 	}
 }
 
-class CsvToArrayTransform: TransformType {
-	
-	typealias Object = [String]
-	typealias JSON = String
-	
-	func transformFromJSON(_ value: Any?) -> [String]? {
-		if let string = value as? String {
-			return string.components(separatedBy: ",")
-		}
-		return nil
-	}
-	
-	func transformToJSON(_ value: [String]?) -> String? {
-		if let array = value {
-			return array.joined(separator: ",")
-		}
-		return nil
-	}
-}
-
 class GeoJSONToAirMapGeometryTransform: TransformType {
 	
 	typealias Object = AirMapGeometry

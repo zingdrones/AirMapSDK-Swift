@@ -6,26 +6,10 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
+import Foundation
 
-final public class AirMapAircraftManufacturer: Mappable {
+public struct AirMapAircraftManufacturer {
 
 	public let id: String
 	public let name: String
-
-	required public init?(map: Map) {
-		do {
-			id   = try map.value("id")
-			name = try map.value("name")
-		}
-		catch let error {
-			AirMap.logger.error(error)
-			return nil
-		}
-	}
-	
-	public func mapping(map: Map) {
-		id  >>>  map["id"]
-	}
-
 }

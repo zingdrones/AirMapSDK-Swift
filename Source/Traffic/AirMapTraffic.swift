@@ -42,8 +42,8 @@ import CoreLocation
 	public required init?(map: Map) {}
 
 	open func isExpired() -> Bool {
-		let expirationInterval = Config.AirMapTraffic.expirationInterval
-		return createdAt.addingTimeInterval(expirationInterval).lessThanDate(Date())
+		let expirationInterval = Constants.AirMapTraffic.expirationInterval
+		return createdAt.addingTimeInterval(expirationInterval) < Date()
 	}
 
 	open override func isEqual(_ object: Any?) -> Bool {
@@ -59,7 +59,7 @@ extension AirMapTraffic: Mappable {
 
 	public func mapping(map: Map) {
 
-		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
+		let dateTransform = CustomDateFormatTransform(formatString: Constants.AirMapApi.dateFormat)
 
 		id            <-  map["id"]
 		direction     <- (map["direction"], StringToDoubleTransform())

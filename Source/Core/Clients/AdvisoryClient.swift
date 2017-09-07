@@ -13,7 +13,7 @@ import SwiftTurf
 internal class AdvisoryClient: HTTPClient {
 	
 	init() {
-		super.init(basePath: Config.AirMapApi.advisoryUrl)
+		super.init(basePath: Constants.AirMapApi.advisoryUrl)
 	}
 	
 	enum AdvisoryClientError: Error {
@@ -22,7 +22,7 @@ internal class AdvisoryClient: HTTPClient {
 	
 	// MARK: - Advisories
 
-	func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
+	func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
 		
 		let point = Point(geometry: point)
 		guard let polygon = SwiftTurf.buffer(point, distance: buffer) else {
@@ -33,7 +33,7 @@ internal class AdvisoryClient: HTTPClient {
 		return getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
 	}
 
-	func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
+	func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
 		
 		let lineString = LineString(geometry: path.coordinates)
 		guard let polygon = SwiftTurf.buffer(lineString, distance: buffer) else {
@@ -44,14 +44,14 @@ internal class AdvisoryClient: HTTPClient {
 		return getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
 	}
 
-	func getAirspaceStatus(within geometry: AirMapGeometry, under rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceAdvisoryStatus> {
+	func getAirspaceStatus(within geometry: AirMapGeometry, under rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
 		
 		AirMap.logger.debug("Get Rules under", rulesetIds)
 		var params = [String: Any]()
 		params["geometry"] = geometry.params()
-		params["rulesets"] = rulesetIds.joined(separator: ",")
-		params["start"] = start?.ISO8601String()
-		params["end"] = end?.ISO8601String()
+		params["rulesets"] = rulesetIds.csv
+		params["start"] = start?.iso8601String()
+		params["end"] = end?.iso8601String()
 		
 		return perform(method: .post, path: "/airspace", params: params)
 	}
@@ -64,8 +64,8 @@ internal class AdvisoryClient: HTTPClient {
 		var params = [String: Any]()
 		params["latitude"] = coordinate.latitude
 		params["longitude"] = coordinate.longitude
-		params["start"] = from?.ISO8601String()
-		params["end"] = to?.ISO8601String()
+		params["start"] = from?.iso8601String()
+		params["end"] = to?.iso8601String()
 		
 		return perform(method: .get, path: "/weather", params: params)
 	}

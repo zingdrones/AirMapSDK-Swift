@@ -40,7 +40,7 @@ open class AirMapMapView: MGLMapView {
 	public func configure(rulesets: [AirMapRuleset]) {
 		
 		guard let style = style else {
-			AirMap.logger.error("Map must be complete initialization before configuring with rulesets")
+			AirMap.logger.warning("Map must complete initialization before configuring with rulesets")
 			return
 		}
 		
@@ -50,7 +50,7 @@ open class AirMapMapView: MGLMapView {
 		let existingRulesetSourceIds = style.sources
 			.flatMap { $0 as? MGLVectorSource }
 			.flatMap { $0.identifier }
-			.filter { $0.hasPrefix(Config.Maps.rulesetSourcePrefix) }
+			.filter { $0.hasPrefix(Constants.Maps.rulesetSourcePrefix) }
 		
 		// Remove orphaned ruleset sources
 		Set(existingRulesetSourceIds)
@@ -155,7 +155,7 @@ open class AirMapMapView: MGLMapView {
 			.flatMap { $0 as? MGLVectorStyleLayer }
 			.forEach({ (layer) in
 				let now = Int(Date().timeIntervalSince1970)
-				let nearFuture = Int(Date().timeIntervalSince1970 + Config.Maps.futureTemporalWindow)
+				let nearFuture = Int(Date().timeIntervalSince1970 + Constants.Maps.futureTemporalWindow)
 				let overlapsWithNow = NSPredicate(format: "start < %i && end > %i", now, now)
 				let startsSoon = NSPredicate(format: "start > %i && end < %i", now, nearFuture)
 				let isPermanent = NSPredicate(format: "permanent == YES")
@@ -168,7 +168,7 @@ open class AirMapMapView: MGLMapView {
 	
 	/// Constructs a styleUrl based on the AirMap Theme
 	private func styleUrl(for theme: AirMapMapTheme) -> URL {
-		return try! (Config.AirMapApi.mapStylePath+"\(theme.rawValue).json").asURL()
+		return try! (Constants.AirMapApi.mapStylePath+"\(theme.rawValue).json").asURL()
 	}
 
 }
@@ -176,6 +176,6 @@ open class AirMapMapView: MGLMapView {
 extension AirMapRuleset {
 	
 	var tileSourceIdentifier: String {
-		return Config.Maps.rulesetSourcePrefix + id
+		return Constants.Maps.rulesetSourcePrefix + id
 	}
 }

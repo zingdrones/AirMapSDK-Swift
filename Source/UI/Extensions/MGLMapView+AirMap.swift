@@ -158,12 +158,12 @@ extension MGLVectorSource {
 	
 	convenience init(ruleset: AirMapRuleset) {
 		
-		let layerNames = ruleset.airspaceTypeIds.joined(separator: ",")
+		let layerNames = ruleset.airspaceTypeIds.csv
 		let options = [
-			MGLTileSourceOption.minimumZoomLevel: NSNumber(value: Config.Maps.tileMinimumZoomLevel),
-			MGLTileSourceOption.maximumZoomLevel: NSNumber(value: Config.Maps.tileMaximumZoomLevel)
+			MGLTileSourceOption.minimumZoomLevel: NSNumber(value: Constants.Maps.tileMinimumZoomLevel),
+			MGLTileSourceOption.maximumZoomLevel: NSNumber(value: Constants.Maps.tileMaximumZoomLevel)
 		]
-		let sourcePath = Config.AirMapApi.mapSourceUrl + "/\(ruleset.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey)"
+		let sourcePath = Constants.AirMapApi.mapSourceUrl + "/\(ruleset.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey)"
 		
 		self.init(identifier: ruleset.tileSourceIdentifier, tileURLTemplates: [sourcePath], options: options)
 	}

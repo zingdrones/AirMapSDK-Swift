@@ -26,7 +26,7 @@ struct CommKey {
 	
 	func isValid() -> Bool {
 		
-		return expiresAt.lessThanDate(Date())
+		return expiresAt < Date()
 	}
 	
 	init?(map: Map) {}

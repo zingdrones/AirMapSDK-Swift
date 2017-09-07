@@ -31,6 +31,11 @@ public struct AirMapJurisdiction {
 		case city
 		case local
 	}
+}
+
+// MARK: - Convenience
+
+extension AirMapJurisdiction {
 	
 	/// A filtered list of all the required rulesets
 	public var requiredRulesets: [AirMapRuleset] {
@@ -54,62 +59,6 @@ public struct AirMapJurisdiction {
 	
 	/// A list of AirMap-recommended rulesets for the jurisdiction
 	public var airMapRecommendedRulesets: [AirMapRuleset] {
-		return rulesets.filter { $0.shortName.uppercased() == "AIRMAP" }
-	}
-}
-
-extension AirMapJurisdiction.Region {
-	
-	var order: Int {
-		return [.federal, .federal, .federalStructureBackup, .state, .county, .city, .local].index(of: self)!
-	}
-}
-
-extension AirMapJurisdiction: Hashable, Equatable, Comparable {
-	
-	public static func ==(lhs: AirMapJurisdiction, rhs: AirMapJurisdiction) -> Bool {
-		return lhs.hashValue == rhs.hashValue
-	}
-	
-	public static func <(lhs: AirMapJurisdiction, rhs: AirMapJurisdiction) -> Bool {
-		return lhs.region.order < rhs.region.order
-	}
-	
-	public var hashValue: Int {
-		return id.hashValue
-	}
-}
-
-// MARK: - JSON Serialization
-
-import ObjectMapper
-
-extension AirMapJurisdiction: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		
-		do {
-			id     = try map.value("id")
-			name   = try map.value("name")
-			region = try map.value("region")
-			
-			guard let rulesetJSON = map.JSON["rulesets"] as? [[String: Any]] else {
-				throw AirMapError.serialization(.invalidJson)
-			}
-			
-			// Patch the JSON with information about the jurisdiction :/
-			var updatedJSON = [[String: Any]]()
-			for var json in rulesetJSON {
-				json["jurisdiction"] = ["id": id, "name": name, "region": region.rawValue]
-				updatedJSON.append(json)
-			}
-			
-			let mapper = Mapper<AirMapRuleset>(context: AirMapRuleset.Origin.tileService)
-			rulesets = try mapper.mapArray(JSONArray: updatedJSON)
-		}
-		catch let error {
-			AirMap.logger.error(error)
-			throw error
-		}
+		return optionalRulesets.filter { $0.shortName.uppercased() == "AIRMAP" }
 	}
 }

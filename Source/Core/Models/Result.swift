@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// An wrapper enum that encapsulates all responses from the AirMapSDK returning only one of two cases: value or error
+/// An container enum that encapsulates all responses from the AirMapSDK returning only one of two cases: value or error
 ///
 /// - value: The requested value
 /// - error: An error describing the failure

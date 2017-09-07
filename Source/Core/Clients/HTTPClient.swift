@@ -21,12 +21,12 @@ internal class HTTPClient {
 	}
 	
 	enum Header: String {
-		case accept        = "Accept"
+		case accept = "Accept"
+		case apiKey = "X-API-Key"
 		case authorization = "Authorization"
-		case apiKey        = "X-API-Key"
 	}
 	
-	let basePath: String!
+	let basePath: String
 	
 	private lazy var manager: SessionManager = {
 		

@@ -46,7 +46,7 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 	fileprivate func setupBindings() {
 		
 		smsTextField.rx.text.asObservable()
-			.map { $0?.characters.count == Config.AirMapApi.smsCodeLength }
+			.map { $0?.characters.count == Constants.AirMapApi.smsCodeLength }
 			.bind(to: submitButton.rx.isEnabled)
 			.disposed(by: disposeBag)
 		

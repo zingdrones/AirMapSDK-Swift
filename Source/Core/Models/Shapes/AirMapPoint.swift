@@ -6,6 +6,8 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
+
 public class AirMapPoint: AirMapGeometry {
 
 	public var coordinate: Coordinate2D!

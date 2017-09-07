@@ -13,6 +13,7 @@ PODS:
     - RxSwift
     - RxSwiftExt
     - SimpleKeychain
+    - SwiftTurf
   - AirMapSDK/Telemetry (1.0.2):
     - AirMapSDK/Core
     - CocoaAsyncSocket (~> 7.6.0)
@@ -29,7 +30,6 @@ PODS:
     - PhoneNumberKit
     - RxDataSources
     - SwiftSimplify
-    - SwiftTurf
   - Alamofire (4.4.0)
   - Auth0 (1.7.1):
     - SimpleKeychain
@@ -105,7 +105,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/adolfo/CryptoSwift/
 
 SPEC CHECKSUMS:
-  AirMapSDK: aa3f2505d5e5a97f4f937573a1bd79b5b7625b52
+  AirMapSDK: 476ab9ccbe27b4b5527ce090b49a956b81dd93fe
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   Auth0: b23f0d9f45bdcd70652f5427d3411519d79ddaa1
   CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805

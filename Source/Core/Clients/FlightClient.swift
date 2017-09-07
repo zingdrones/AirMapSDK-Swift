@@ -16,7 +16,7 @@ internal class FlightClient: HTTPClient {
 	}
 
 	init() {
-		super.init(basePath: Config.AirMapApi.flightUrl)
+		super.init(basePath: Constants.AirMapApi.flightUrl)
 	}
 
 	#if AIRMAP_TELEMETRY
@@ -58,10 +58,10 @@ internal class FlightClient: HTTPClient {
 
 		params["limit"       ] = limit
 		params["pilot_id"    ] = pilotId?.isEmpty ?? true ? nil : pilotId
-		params["start_after" ] = startAfterNow ? "now" : startAfter?.ISO8601String()
-		params["start_before"] = startBeforeNow ? "now" : startBefore?.ISO8601String()
-		params["end_after"   ] = endAfterNow ? "now" : endAfter?.ISO8601String()
-		params["end_before"  ] = endBeforeNow ? "now" : endBefore?.ISO8601String()
+		params["start_after" ] = startAfterNow ? "now" : startAfter?.iso8601String()
+		params["start_before"] = startBeforeNow ? "now" : startBefore?.iso8601String()
+		params["end_after"   ] = endAfterNow ? "now" : endAfter?.iso8601String()
+		params["end_before"  ] = endBeforeNow ? "now" : endBefore?.iso8601String()
 		params["city"        ] = city
 		params["state"       ] = state
 		params["country"     ] = country

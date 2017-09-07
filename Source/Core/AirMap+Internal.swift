@@ -22,8 +22,8 @@ extension AirMap {
 	internal static let flightPlanClient = FlightPlanClient()
 	internal static let pilotClient = PilotClient()
 	internal static let ruleClient = RuleClient()
-	
-	internal static let mappingService = MappingService()
+	internal static let jurisdictionClient = JurisdictionClient()
+
 	internal static let authSession = AirMapAuthSession()
 
 	#if AIRMAP_TELEMETRY

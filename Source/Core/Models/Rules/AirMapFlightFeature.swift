@@ -6,10 +6,11 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
+/// A representation of the context or input required to properly brief a flight plan.
 public struct AirMapFlightFeature {
 	
 	/// The unique identifier for the flight feature
-	public let code: String
+	public let id: String
 	
 	/// A textual description of the flight feature
 	public let description: String
@@ -52,29 +53,5 @@ public struct AirMapFlightFeature {
 		case kilograms
 		case boolean
 		case metersPerSecond = "meters_per_sec"
-	}
-}
-
-import ObjectMapper
-
-extension AirMapFlightFeature: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		code            =  try  map.value("flight_feature")
-		description     =  try  map.value("description")
-		inputType       =  try  map.value("input_type")
-		measurementType = (try? map.value("measurement_type")) ?? .binary
-		measurementUnit =  try? map.value("measurement_unit")
-	}
-}
-
-extension AirMapFlightFeature: Hashable, Equatable {
-	
-	public var hashValue: Int {
-		return code.hashValue
-	}
-	
-	public static func ==(lhs: AirMapFlightFeature, rhs: AirMapFlightFeature) -> Bool {
-		return lhs.hashValue == rhs.hashValue
 	}
 }

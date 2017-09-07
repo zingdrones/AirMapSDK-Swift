@@ -11,7 +11,7 @@ import RxSwift
 import RxSwiftExt
 import SimpleKeychain
 
-class AirMapAuthSession {
+internal class AirMapAuthSession {
 
 	var authToken: String? {
 		didSet {
@@ -80,7 +80,7 @@ class AirMapAuthSession {
 
 		if !hasValidCredentials() {
 
-			if Date().greaterThanDate(expiresAt.dateBySubtractingTimeInterval(60*5)) {
+			if Date() > expiresAt.addingTimeInterval(-60*5) {
 				self.expiresAt = nil
 			}
 
@@ -91,7 +91,7 @@ class AirMapAuthSession {
 	/// Checks for an expired token and returns a Boolean
 	private func tokenIsExpired() -> Bool {
 		guard let expiresAt = expiresAt else { return true }
-		return Date().greaterThanDate(expiresAt)
+		return Date() > expiresAt
 	}
 
 	/// Validates the credentials and returns a Bool
@@ -101,13 +101,13 @@ class AirMapAuthSession {
 
 	internal static func saveRefreshToken(_ token: String?) {
 		if let token = token {
-			A0SimpleKeychain().setString(token, forKey: Config.AirMapApi.Auth.keychainKeyRefreshToken)
+			A0SimpleKeychain().setString(token, forKey: Constants.AirMapApi.Auth.keychainKeyRefreshToken)
 		} else {
-			A0SimpleKeychain().deleteEntry(forKey: Config.AirMapApi.Auth.keychainKeyRefreshToken)
+			A0SimpleKeychain().deleteEntry(forKey: Constants.AirMapApi.Auth.keychainKeyRefreshToken)
 		}
 	}
 
 	internal func getRefreshToken() -> String? {
-		return A0SimpleKeychain().string(forKey: Config.AirMapApi.Auth.keychainKeyRefreshToken)
+		return A0SimpleKeychain().string(forKey: Constants.AirMapApi.Auth.keychainKeyRefreshToken)
 	}
 }

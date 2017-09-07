@@ -17,12 +17,12 @@ internal class FlightPlanClient: HTTPClient {
 	}
 
 	init() {
-		super.init(basePath: Config.AirMapApi.flightUrl)
+		super.init(basePath: Constants.AirMapApi.flightUrl)
 	}
 	
 	func create(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
 		AirMap.logger.debug("Create Flight Plan", flightPlan)
-		return perform(method: .post, path: "/plan/", params: flightPlan.params(), update: flightPlan)
+		return perform(method: .post, path: "/plan/", params: flightPlan.toJSON(), update: flightPlan)
 	}
 	
 	func update(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
@@ -30,7 +30,7 @@ internal class FlightPlanClient: HTTPClient {
 		guard let flightPlanId = flightPlan.id else {
 			return Observable.error(FlightPlanClientError.flightPlanDoesntExistCreateFirst)
 		}
-		return perform(method: .patch, path: "/plan/\(flightPlanId)", params: flightPlan.params(), update: flightPlan)
+		return perform(method: .patch, path: "/plan/\(flightPlanId)", params: flightPlan.toJSON(), update: flightPlan)
 	}
 	
 	func get(_ flightPlanId: String) -> Observable<AirMapFlightPlan> {

@@ -23,7 +23,7 @@ internal class Auth0Client: HTTPClient {
 		}
 
 		var params = [String: Any]()
-		params["grant_type"] = Config.AirMapApi.Auth.grantType
+		params["grant_type"] = Constants.AirMapApi.Auth.grantType
 		params["client_id"] = AirMap.configuration.auth0ClientId
 		params["api_type"] = "app"
 		params["refresh_token"] = refreshToken
@@ -53,8 +53,6 @@ internal class Auth0Client: HTTPClient {
 		
 		#if os(OSX)
 			deviceId = "macOS-" + UUID().uuidString
-		#elseif os(Linux)
-			deviceId = "linux-" + UUID().uuidString
 		#else
 			deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
 		#endif
@@ -66,7 +64,7 @@ internal class Auth0Client: HTTPClient {
 		params["connection"] = "sms"
 		params["grant_type"] = "password"
 		params["device"] = deviceId
-		params["scope"] = Config.AirMapApi.Auth.scope
+		params["scope"] = Constants.AirMapApi.Auth.scope
         
         return perform(method: .post, path:"/oauth/ro", params: params, keyPath: nil)
             .do(onNext: { credentials in

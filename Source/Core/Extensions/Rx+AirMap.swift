@@ -25,8 +25,19 @@ extension ObservableType {
 		-> Observable<E> {
 			return `do`(onNext: onNext, onError: onError, onCompleted: onCompleted, onSubscribe: onSubscribe, onSubscribed: onSubscribed, onDispose: onDispose)
 	}
+	
+	func thenSubscribe(_ result: @escaping (Result<E>) -> Void) {
+		
+		self
+			.subscribe(
+				onNext:  { result(Result<E>.value($0)) },
+				onError: {
+					let error = $0 as? AirMapError ?? AirMapError.unknown(underlying: $0)
+					result(Result<E>.error(error))
+			})
+			.disposed(by: AirMap.disposeBag)
+	}
 }
-
 
 extension Observable where Element: Equatable {
 	

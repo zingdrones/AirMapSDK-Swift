@@ -6,7 +6,9 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-struct Config {
+import ObjectMapper
+
+struct Constants {
 
 	struct AirMapApi {
 
@@ -30,6 +32,9 @@ struct Config {
         }
 		static var ruleUrl: String {
 			return urlForResource("rules", version: "v1")
+		}
+		static var jurisdictionUrl: String {
+			return urlForResource("jurisdiction", version: "v1")
 		}
 		static var mapSourceUrl: String {
 			return urlForResource("tiledata", version: "v1")
@@ -63,6 +68,8 @@ struct Config {
 		
 		// Used only for API date formatting
 		static let dateFormat  = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // Ex: 2016-06-30T16:54:17.606Z
+		static let dateTransform = CustomDateFormatTransform(formatString: dateFormat)
+
 		static let smsCodeLength = 6
 	}
 

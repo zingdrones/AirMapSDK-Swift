@@ -34,18 +34,18 @@ public struct AirMapRuleset {
 	public let description: String
 	
 	/// The identifier for the jurisdiction the ruleset belongs to
-	public fileprivate(set) var jurisdictionId: Int!
+	public internal(set) var jurisdictionId: Int!
 
 	/// The name of the jurisdiction the ruleset belongs to
-	public fileprivate(set) var jurisdictionName: String!
+	public internal(set) var jurisdictionName: String!
 
 	/// The region type of the jurisdiction the ruleset belongs to
-	public fileprivate(set) var jurisdictionRegion: AirMapJurisdiction.Region!
+	public internal(set) var jurisdictionRegion: AirMapJurisdiction.Region!
 
 	/// A type that dictates how the ruleset should be used
 	///
 	/// - optional: Selection is optional and at the operator's discretion
-	/// - pickOne: The ruleset is part of a group of rulesets where the operator must select one and only one ruleset from the group. Rulesets have only one grouping of pick-one rulesets.
+	/// - pickOne: The ruleset is part of a group of rulesets within a jurisdiction where the operator must select one and only one ruleset from the group. e.g. Part 107, Fly for Fun, and Part 333: these are all pickOne rulesets within the USA jurisdiction; only one can be selected for the given jurisdiction.
 	/// - required: The ruleset must always be selected
 	public enum SelectionType: String {
 		case optional
@@ -63,32 +63,13 @@ public struct AirMapRuleset {
 	}
 }
 
-extension AirMapRuleset: Hashable, Equatable, Comparable {
-	
-	internal var order: Int {
-		return [.pickOne, .optional, .required].index(of: type)!
-	}
-
-	public var hashValue: Int {
-		return id.hashValue
-	}
-
-	public static func ==(lhs: AirMapRuleset, rhs: AirMapRuleset) -> Bool {
-		return lhs.hashValue == rhs.hashValue
-	}
-	
-	public static func <(lhs: AirMapRuleset, rhs: AirMapRuleset) -> Bool {
-		return lhs.order < rhs.order && lhs.name < rhs.name
-	}
-}
-
 // MARK: - Convenience
 
-extension Sequence where Iterator.Element == AirMapRuleset {
+extension Collection where Iterator.Element == AirMapRuleset {
 	
 	/// A comma-separated list of ruleset identifiers
 	public var identifiers: String {
-		return self.map { $0.id }.joined(separator: ",")
+		return self.map { $0.id }.csv
 	}
 	
 	/// A filtered list of all required rulesets
@@ -114,67 +95,16 @@ extension Sequence where Iterator.Element == AirMapRuleset {
 	/// A list of jurisdictions derived from a list of rulesets
 	public var jurisdictions: [AirMapJurisdiction] {
 		return self
-			.reduce([Int: Int]()) { (dict, next) in
-				var dict = dict
-				if let id = next.jurisdictionId {
-					dict[next.jurisdictionId] = id
-				}
-				return dict
-			}
-			.keys
+			.grouped(by: { $0.jurisdictionId }).keys
 			.flatMap { (id) -> AirMapJurisdiction? in
-				let rs = filter({ $0.jurisdictionId == id })
-				guard let j = rs.first else { return nil }
-				
-				return AirMapJurisdiction(id: j.jurisdictionId, name: j.jurisdictionName, region: j.jurisdictionRegion, rulesets: rs)
-		}
-	}
-}
-
-// MARK: - JSON Serialization
-
-import ObjectMapper
-
-extension AirMapRuleset: ImmutableMappable {
-	
-	/// The mapping context from where the JSON originated
-	///
-	/// - tileService: data from tile service metadata
-	/// - airMapApi: data from the ruleset API
-	public enum Origin: MapContext {
-		case tileService
-		case airMapApi
-	}
-	
-	public init(map: Map) throws {
-		
-		do {
-			id        =  try  map.value("id")
-			name      =  try  map.value("name")
-			shortName = (try? map.value("short_name")) ?? "?"
-			type      =  try  map.value("selection_type")
-			isDefault =  try  map.value("default")
-			
-			switch (map.context as? Origin) ?? .airMapApi {
-				
-			case .airMapApi:
-				rules           = try map.value("rules")
-				description     = try map.value("description")
-				airspaceTypeIds = try map.value("airspace_types")
-
-			case .tileService:
-				rules           =  []
-				description     = (try? map.value("short_description")) ?? ""
-				airspaceTypeIds =  try  map.value("layers")
-			}
-
-			jurisdictionId     = try? map.value("jurisdiction.id")
-			jurisdictionName   = try? map.value("jurisdiction.name")
-			jurisdictionRegion = try? map.value("jurisdiction.region")
-		}
-		catch let error {
-			AirMap.logger.error(error)
-			throw error
+				let rulesets = filter({ $0.jurisdictionId == id })
+				guard let ruleset = rulesets.first else { return nil }
+				return AirMapJurisdiction(
+					id: ruleset.jurisdictionId,
+					name: ruleset.jurisdictionName,
+					region: ruleset.jurisdictionRegion,
+					rulesets: rulesets
+				)
 		}
 	}
 }
