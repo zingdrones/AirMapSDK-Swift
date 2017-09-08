@@ -9,9 +9,6 @@
 import Foundation
 
 // Deprecated
-public enum AirMapLayerType {}
-
-// Deprecated
 extension AirMapMapView {
 	
 	@available (*, unavailable, message: "Init map then configure with rulesets")

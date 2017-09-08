@@ -129,7 +129,7 @@ extension AirMapJurisdiction: Hashable, Equatable, Comparable {
 extension AirMapJurisdiction.Region {
 	
 	var order: Int {
-		return [.federal, .federal, .federalStructureBackup, .state, .county, .city, .local].index(of: self)!
+		return [.federal, .federalBackup, .federalStructureBackup, .state, .county, .city, .local].index(of: self)!
 	}
 }
 

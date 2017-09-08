@@ -8,166 +8,83 @@
 
 import UIKit
 import AirMap
-import Mapbox
+import RxSwift
 
 class MapViewController: UIViewController {
 	
 	@IBOutlet weak var mapView: AirMapMapView!
 	
-	private let mapLayers: [AirMapLayerType] = [.essentialAirspace, .tfrs]
-	private let mapTheme: AirMapMapTheme = .standard
+	private var preferredRulesetIds = [String]()
 	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		AirMap.logger.minLevel = .debug
-		AirMap.authSessionDelegate = self
-		AirMap.trafficDelegate = self
-		AirMap.configuration.distanceUnits = .imperial // or .metric
-		AirMap.configuration.temperatureUnits = .fahrenheit // or .celcius
-		
-		mapView.configure(layers: mapLayers, theme: mapTheme)
+	private var activeRulesets = [AirMapRuleset]() {
+		didSet { mapView.configure(rulesets: activeRulesets) }
 	}
 	
-	@IBAction func addFlight() {
+	// MARK: - Navigation
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+		if segue.identifier == "presentRulesets" {
+			let jurisdictions = mapView.visibleJurisdictions()
+			let resolvedRuleset = AirMapJurisdiction.resolvedRulesets(with: preferredRulesetIds, from: jurisdictions)
+			let preferredRulesets = resolvedRuleset.filter { $0.type == .optional || $0.type == .pickOne }
+
+			let nav = segue.destination as! UINavigationController
+			let rulesetsVC = nav.viewControllers.first as! RulesetsViewController
+			rulesetsVC.availableJurisdictions = jurisdictions
+			rulesetsVC.preferredRulesets = preferredRulesets
+		}
 		
-		if let flightPlanController = AirMap.flightPlanViewController(location: mapView.centerCoordinate, flightPlanDelegate: self, mapTheme: mapTheme, mapLayers: mapLayers) {
-			present(flightPlanController, animated: true, completion: nil)
-		} else {
-			showAuthController()
+		if segue.identifier == "presentAdvisories" {
+			let nav = segue.destination as! UINavigationController
+			let advisoriesVC = nav.viewControllers.first as! AdvisoriesViewController
+			advisoriesVC.rulesets = activeRulesets
+			advisoriesVC.area = mapView.visibleCoordinateBounds.geometry
 		}
 	}
 	
-	fileprivate func showAuthController() {
-		
-		let authViewController = AirMap.authViewController(handleLogin)
-//				authViewController.registerLogo("<YOUR_LOGO_CONNECT_WITH_AIRMAP>", bundle: NSBundle.mainBundle())
-		
-		present(authViewController, animated: true, completion: nil)
+	@IBAction func unwindFromRulesets(_ segue: UIStoryboardSegue) {
+		guard let rulesetsVC = segue.source as? RulesetsViewController else { return }
+		preferredRulesetIds = rulesetsVC.preferredRulesets.map { $0.id }
+		updateActiveRulesets()
 	}
 	
-	fileprivate func handleLogin(result: Result<AirMapPilot>) {
-		
-		switch result {
-		case .error(let error):
-			AirMap.logger.error(error)
-		case .value(let pilot):
-			dismiss(animated: true, completion: {
-				if pilot.phoneVerified == false {
-					let verification = AirMap.phoneVerificationViewController(pilot, phoneVerificationDelegate: self)
-					self.present(verification, animated: true, completion: nil)
-				} else {
-					self.addFlight()
-				}
-			})
-		}
-	}
-}
-
-extension MapViewController: AirMapPhoneVerificationDelegate {
+	// MARK: - Configuration
 	
-	func phoneVerificationDidVerifyPhoneNumber() {
-		dismiss(animated: true, completion: nil)
-	}
-}
-
-extension MapViewController: AirMapAuthSessionDelegate {
-	
-	func airmapSessionShouldAuthenticate() {
-		
-	}
-	
-	func airMapAuthSessionDidAuthenticate(_ pilot: AirMapPilot) {
-		if presentedViewController?.childViewControllers.first is AirMapAuthViewController {
-			dismiss(animated: true, completion: addFlight)
-		}
-	}
-	
-	func airMapAuthSessionAuthenticationDidFail(_ error: Error) {
-		AirMap.logger.error(error)
-	}
-}
-
-extension MapViewController: AirMapFlightPlanDelegate {
-	
-	func airMapFlightPlanDidEncounter(_ error: Error) {
-		AirMap.logger.error(error)
-	}
-	
-	func airMapFlightPlanDidCreate(_ flight: AirMapFlight) {
-		mapView.addAnnotation(flight)
-		if presentedViewController is AirMapFlightPlanNavigationController {
-			dismiss(animated: true, completion: nil)
-		}
-		let coordinate = mapView.centerCoordinate
-		try! AirMap.sendTelemetryData(flight, coordinate: coordinate, altitudeAgl: 100, altitudeMsl: nil)
+	/// Update the active rulesets using the preferred rulesets and the jurisdictions on the map
+	func updateActiveRulesets() {
+		activeRulesets = AirMapJurisdiction.resolvedRulesets(with: preferredRulesetIds, from: mapView.visibleJurisdictions())
 	}
 	
 }
 
-extension AirMapTraffic: MGLAnnotation {
-	
-	public var title: String? {
-		return properties.aircraftId
-	}
-}
+// MARK: - MGLMapViewDelegate
 
-extension MapViewController: AirMapTrafficObserver {
-	
-	func airMapTrafficServiceDidAdd(_ traffic: [AirMapTraffic]) {
-		NSLog("%@", traffic)
-		mapView.addAnnotations(traffic)
-	}
-	
-	func airMapTrafficServiceDidUpdate(_ traffic: [AirMapTraffic]) {
-		// annotations are updated via KVO
-	}
-	
-	func airMapTrafficServiceDidRemove(_ traffic: [AirMapTraffic]) {
-		mapView.removeAnnotations(traffic)
-	}
-	
-	func airMapTrafficServiceDidConnect() {
-		print("Connected")
-	}
-	
-	func airMapTrafficServiceDidDisconnect() {
-		print("Disconnected")
-	}
-}
+import Mapbox
 
 extension MapViewController: MGLMapViewDelegate {
 	
+	// When the map finished loading the initial style, configure it with rulesets
+	func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+		updateActiveRulesets()
+	}
+	
+	// Any time the map is repositioned, reconfigure the map
 	func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
-		
+		updateActiveRulesets()
 	}
-	
-	func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-		if let flight = annotation as? AirMapFlight,
-			let flightNav = AirMap.flightPlanViewController(flight) {
-			present(flightNav, animated: true, completion: nil)
-		}
+
+}
+
+import CoreLocation
+
+extension MGLCoordinateBounds {
+
+	// Convert the bounding box into a polygon; remembering to close the polygon by passing the first point again
+	var geometry: AirMapPolygon {
+		let nw = CLLocationCoordinate2D(latitude: ne.latitude, longitude: sw.longitude)
+		let se = CLLocationCoordinate2D(latitude: sw.latitude, longitude: ne.longitude)
+		let coordinates = [nw, ne, se, sw, nw]
+		return AirMapPolygon(coordinates: [coordinates])
 	}
-	
-	func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-		
-		switch annotation {
-			
-		case is AirMapFlight:
-			let flightIcon = AirMapImage.flightIcon(.active)!
-			return MGLAnnotationImage(image: flightIcon, reuseIdentifier: "flightIcon")
-			
-		case let traffic as AirMapTraffic:
-			let trafficIcon = AirMapImage.trafficIcon(type: traffic.trafficType, heading: traffic.trueHeading)!
-			return MGLAnnotationImage(image: trafficIcon, reuseIdentifier: traffic.id)
-			
-		default:
-			return nil
-		}
-	}
-	
-	func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-		return true
-	}
-	
 }

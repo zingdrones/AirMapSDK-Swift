@@ -14,7 +14,7 @@ extension AirMap: ReactiveCompatible {}
 
 extension Reactive where Base: AirMap {
 	
-	public static var networkActivity: ActivityIndicator {
+	public static var networkActivity: ActivityTracker {
 		return HTTPClient.activity
 	}
 }

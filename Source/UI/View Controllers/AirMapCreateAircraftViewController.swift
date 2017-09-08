@@ -29,7 +29,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 	
 	fileprivate var model = Variable(nil as AirMapAircraftModel?)
 	
-	private let activityIndicator = ActivityIndicator()
+	private let activityIndicator = ActivityTracker()
 	private let disposeBag = DisposeBag()
 	
 	override var navigationController: AirMapAircraftNavController? {

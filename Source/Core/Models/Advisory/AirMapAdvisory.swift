@@ -60,22 +60,28 @@ public struct AirMapAdvisory {
 	}
 	
 	public struct Properties {
-		
+
 		/// Airport advisory properties
 		public struct Airport: PropertiesType {
 			public let identifier: String?
+			public let name: String?
+			public let phone: String?
+			public let airspaceClass: String?
+			public let use: String?
+		}
+		
+		public struct Heliport: PropertiesType {
+			public let identifier: String?
+			public let paved: Bool?
 			public let phone: String?
 			public let tower: Bool?
-			public let paved: Bool?
-			public let longestRunway: Int?
-			public let elevation: Int?
-			public let publicUse: Bool?
+			public let use: String?
+			public let instrumentProcedure: Bool?
 		}
 		
 		/// Controlled Airspace advisory properties
 		public struct ControlledAirspace: PropertiesType {
-			public let airspaceClass: String?
-			public let airportIdentifier: String?
+			public let type: String?
 		}
 
 		/// Emergency advisory properties
@@ -91,7 +97,7 @@ public struct AirMapAdvisory {
 		
 		/// Park advisory properties
 		public struct Park: PropertiesType {
-			public let size: Int?
+			public let type: String?
 		}
 
 		/// Power Plant advisory properties
@@ -116,6 +122,9 @@ public struct AirMapAdvisory {
 			public let url: URL
 			public let startTime: Date?
 			public let endTime: Date?
+			public let type: String?
+			public let sport: String?
+			public let venue: String?
 		}
 
 		/// Wildfire advisory properties

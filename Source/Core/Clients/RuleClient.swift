@@ -19,6 +19,12 @@ internal class RuleClient: HTTPClient {
 		case invalidPolygon
 	}
 	
+	func getJurisdictions(intersecting geometry: AirMapGeometry) -> Observable<[AirMapJurisdiction]> {
+		AirMap.logger.debug("Getting jurisdictions intersecting geometry")
+		let params = ["geometry": geometry.params()]
+		return perform(method: .post, path: "/", params: params).map { $0.jurisdictions }
+	}
+
 	func getRuleset(by identifier: String) -> Observable<AirMapRuleset> {
 		return perform(method: .get, path: "/" + identifier)
 	}

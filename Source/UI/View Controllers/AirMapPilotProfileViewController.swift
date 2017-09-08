@@ -61,7 +61,7 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 	
 	fileprivate typealias Model = SectionModel<String,AirMapPilotProfileField>
 	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<Model>()
-	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let activityIndicator = ActivityTracker()
 	fileprivate let disposeBag = DisposeBag()
 	
 	enum Section: Int {

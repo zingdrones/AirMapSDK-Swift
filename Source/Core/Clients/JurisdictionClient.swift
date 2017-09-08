@@ -18,14 +18,5 @@ internal class JurisdictionClient: HTTPClient {
 	enum JurisdictionClientError: Error {
 		case invalidPolygon
 	}
-	
-	func getJurisdictions(intersecting geometry: AirMapGeometry) -> Observable<[AirMapJurisdiction]> {
-		AirMap.logger.debug("Getting jurisdictions intersecting geometry")
-		let params = ["geometry": geometry.params()]
-		return AirMap.ruleClient.perform(method: .get, path: "/", params: params)
-			.map({ (rulesets: [AirMapRuleset]) -> [AirMapJurisdiction] in
-				return rulesets.jurisdictions
-			})
-	}
-	
+		
 }

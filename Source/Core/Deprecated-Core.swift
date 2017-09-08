@@ -24,11 +24,11 @@ extension AirMapAircraft {
 }
 
 public class AirMapStatus {}
+public enum AirMapLayerType {}
 
 extension AirMap {
 	
 	@available (*, unavailable, message: "Configure map using AirMapMapView.configure(rulesets:)")
-	public class func getTileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> URL? { return nil }
 	
 	@available (*, unavailable, message: "Use AirMap.getAirspaceStatus")
 	public static func checkCoordinate(coordinate: Coordinate2D,
@@ -58,10 +58,4 @@ extension AirMap {
 	                                date: Date = Date(),
 	                                completion: @escaping (Result<AirMapStatus>) -> Void) {
 	}
-}
-
-class MappingService {
-	
-	@available (*, unavailable, message: "Configure map using AirMapMapView.configure(rulesets:)")
-	public func tileSourceUrl(layers: [AirMapLayerType], theme: AirMapMapTheme) -> URL? { return nil }
 }

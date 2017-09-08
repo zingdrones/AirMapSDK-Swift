@@ -42,6 +42,8 @@
 		916956EF1D356821006F97B8 /* status_weather_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916956EE1D356821006F97B8 /* status_weather_success.json */; };
 		916A9B421D2D991B00322CDB /* flight_comm_key_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916A9B411D2D991B00322CDB /* flight_comm_key_success.json */; };
 		916B56091DF0D809009C84F9 /* TelemetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B56081DF0D809009C84F9 /* TelemetryTests.swift */; };
+		91824BA51F621BBD00ADBC31 /* RulesetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91824BA41F621BBD00ADBC31 /* RulesetsViewController.swift */; };
+		91824BA71F625B8D00ADBC31 /* AdvisoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91824BA61F625B8D00ADBC31 /* AdvisoriesViewController.swift */; };
 		918451121D270C64003B3D26 /* FlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918451111D270C64003B3D26 /* FlightTests.swift */; };
 		91AA74731D3DF03800FB82C4 /* AircraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA74721D3DF03800FB82C4 /* AircraftTests.swift */; };
 		91AA747D1D3EA5F300FB82C4 /* aircraft_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91AA747C1D3EA5F300FB82C4 /* aircraft_get_success.json */; };
@@ -105,6 +107,8 @@
 		916956EE1D356821006F97B8 /* status_weather_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_weather_success.json; path = Fixtures/status_weather_success.json; sourceTree = "<group>"; };
 		916A9B411D2D991B00322CDB /* flight_comm_key_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_comm_key_success.json; path = Fixtures/flight_comm_key_success.json; sourceTree = "<group>"; };
 		916B56081DF0D809009C84F9 /* TelemetryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelemetryTests.swift; sourceTree = "<group>"; };
+		91824BA41F621BBD00ADBC31 /* RulesetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesetsViewController.swift; sourceTree = "<group>"; };
+		91824BA61F625B8D00ADBC31 /* AdvisoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvisoriesViewController.swift; sourceTree = "<group>"; };
 		9184510F1D270C64003B3D26 /* AirMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		918451111D270C64003B3D26 /* FlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FlightTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		918451131D270C64003B3D26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* MapViewController.swift */,
+				91824BA41F621BBD00ADBC31 /* RulesetsViewController.swift */,
+				91824BA61F625B8D00ADBC31 /* AdvisoriesViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -442,6 +448,7 @@
 				"${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework",
 				"${BUILT_PRODUCTS_DIR}/Lock/Lock.framework",
 				"${BUILT_PRODUCTS_DIR}/Log/Log.framework",
@@ -470,6 +477,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Auth0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lock.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Log.framework",
@@ -523,6 +531,7 @@
 				"${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework",
 				"${BUILT_PRODUCTS_DIR}/Lock/Lock.framework",
 				"${BUILT_PRODUCTS_DIR}/Log/Log.framework",
@@ -548,6 +557,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Auth0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lock.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Log.framework",
@@ -630,6 +640,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C24433F1D470CC900FB7F8A /* CoordinateFactory.swift in Sources */,
+				91824BA71F625B8D00ADBC31 /* AdvisoriesViewController.swift in Sources */,
+				91824BA51F621BBD00ADBC31 /* RulesetsViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* MapViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);

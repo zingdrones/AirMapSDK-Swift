@@ -7,28 +7,25 @@
 //
 
 import Foundation
+import ObjectMapper
 
-final public class AirMapAircraft {
+final public class AirMapAircraft: ImmutableMappable {
 	
-	public internal(set) var model: AirMapAircraftModel
 	public var nickname: String?
-	public internal(set) var id: String?
+	public private(set) var model: AirMapAircraftModel
+	public private(set) var id: String?
 	
 	public init(model: AirMapAircraftModel, nickname: String) {
 		self.model = model
 		self.nickname = nickname
+		self.id = nil
 	}
-}
-import ObjectMapper
-
-extension AirMapAircraft: ImmutableMappable {
 	
-	public convenience init(map: Map) throws {
-		let model: AirMapAircraftModel     =  try  map.value("model")
-		
-		AirMapAircraft(model: model, nickname: "")
-		
-		self.id        =  try? map.value("id")
-		self.nickname  =  try? map.value("nickname")
+	// MARK: - JSON Serialization
+
+	public init(map: Map) throws {
+		nickname  =  try? map.value("nickname")
+		model     =  try  map.value("model")
+		id        =  try? map.value("id")
 	}
 }

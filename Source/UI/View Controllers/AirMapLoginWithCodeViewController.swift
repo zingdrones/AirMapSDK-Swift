@@ -21,7 +21,7 @@ open class AirMapLoginWithCodeViewController: UITableViewController, AnalyticsTr
     @IBOutlet weak var smsTextField: UITextField!
     
     fileprivate let disposeBag = DisposeBag()
-    fileprivate let activityIndicator = ActivityIndicator()
+    fileprivate let activityIndicator = ActivityTracker()
     
     override open func viewDidLoad() {
         super.viewDidLoad()

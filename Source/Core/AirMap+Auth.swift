@@ -66,6 +66,5 @@ extension AirMap {
     /// Log out the currently authenticated pilot
     public static func logout() {
         authToken = nil
-    }
-	
+	}
 }

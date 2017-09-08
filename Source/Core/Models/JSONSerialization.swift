@@ -58,13 +58,12 @@ extension AirMapAdvisory: ImmutableMappable {
 			name = (try? map.value("name") as String) ?? airspaceType.title
 			
 			let props: [String: Any] = try map.value("properties")
-			
+
 			switch airspaceType {
 			case .airport:
 				properties = Properties.Airport(JSON: props)
 			case .heliport:
-				// FIXME:
-				properties = nil
+				properties = Properties.Heliport(JSON: props)
 			case .park:
 				properties = Properties.Park(JSON: props)
 			case .tfr:
@@ -116,21 +115,31 @@ public protocol AdvisoryPropertiesType: ImmutableMappable {}
 extension AirMapAdvisory.Properties.Airport: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		identifier    =  try? map.value("identifier")
+		identifier    =  try? map.value("airport_id")
+		name          =  try? map.value("airport_name")
+		phone         =  try? map.value("phone")
+		airspaceClass =  try? map.value("airspace_classification")
+		use           =  try? map.value("type")
+	}
+}
+
+extension AirMapAdvisory.Properties.Heliport: ImmutableMappable {
+	
+	public init(map: Map) throws {
+		identifier    =  try? map.value("faa")
+		paved         =  try? map.value("paved")
 		phone         =  try? map.value("phone")
 		tower         =  try? map.value("tower")
-		paved         =  try? map.value("paved")
-		longestRunway =  try? map.value("longest_runway")
-		elevation     =  try? map.value("elevation")
-		publicUse     =  try? map.value("public_use")
+		use           =  try? map.value("use")
+		instrumentProcedure
+		              =  try? map.value("instrument_approach_procedure")
 	}
 }
 
 extension AirMapAdvisory.Properties.ControlledAirspace: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		airspaceClass      =  try map.value("class")
-		airportIdentifier  =  try map.value("airport_identifier")
+		type      =  try map.value("type")
 	}
 }
 
@@ -152,7 +161,7 @@ extension AirMapAdvisory.Properties.Fire: ImmutableMappable {
 extension AirMapAdvisory.Properties.Park: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		size  =  try? map.value("size")
+		type  =  try? map.value("type")
 	}
 }
 
@@ -185,6 +194,9 @@ extension AirMapAdvisory.Properties.TFR: ImmutableMappable {
 		url        =  try  map.value("url", using: URLTransform())
 		startTime  =  try? map.value("effective_start", using: Constants.AirMapApi.dateTransform)
 		endTime    =  try? map.value("effective_end", using: Constants.AirMapApi.dateTransform)
+		type       =  try? map.value("type")
+		sport      =  try? map.value("sport")
+		venue      =  try? map.value("venue")
 	}
 }
 

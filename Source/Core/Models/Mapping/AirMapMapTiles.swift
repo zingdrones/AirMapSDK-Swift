@@ -6,19 +6,6 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-/// Supported map themes
-public enum AirMapMapTheme: String {
-	
-	case standard
-	case dark
-	case light
-	case satellite
-	
-	public static var allThemes: [AirMapMapTheme] {
-		return [.standard, .dark, .light, .satellite]
-	}
-}
-
 /// The airspace type/category
 public enum AirMapAirspaceType: String {
 	

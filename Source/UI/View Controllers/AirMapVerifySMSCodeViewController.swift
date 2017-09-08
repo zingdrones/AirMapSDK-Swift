@@ -18,7 +18,7 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 	@IBOutlet weak var smsTextField: UITextField!
 	
 	fileprivate let disposeBag = DisposeBag()
-	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let activityIndicator = ActivityTracker()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()

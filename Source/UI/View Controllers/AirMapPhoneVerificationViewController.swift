@@ -26,7 +26,7 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	fileprivate let phoneNumberKit = PhoneNumberKit()
 	fileprivate var regionCode: String!
 	fileprivate let phoneUtil = NBPhoneNumberUtil()
-	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let activityIndicator = ActivityTracker()
 
 	fileprivate var phoneNumber: PhoneNumber? {
 		guard let phone =  phone.text, let region = regionCode else { return nil }

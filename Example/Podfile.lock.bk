@@ -34,7 +34,7 @@ PODS:
   - Auth0 (1.7.1):
     - SimpleKeychain
   - CocoaAsyncSocket (7.6.1)
-  - CryptoSwift (0.7.0-alpha.1)
+  - CryptoSwift (0.6.9)
   - Differentiator (2.0.2)
   - JWTDecode (2.0.0)
   - libPhoneNumber-iOS (0.9.10)
@@ -45,7 +45,7 @@ PODS:
     - Auth0 (~> 1.6)
   - Log (1.0)
   - Mapbox-iOS-SDK (3.5.4)
-  - Nimble (7.0.1)
+  - Nimble (6.1.0)
   - ObjectMapper (2.2.8)
   - OHHTTPStubs (6.0.0):
     - OHHTTPStubs/Default (= 6.0.0)
@@ -103,7 +103,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CryptoSwift:
-    :commit: 86a4e0b010ea20ee4ebfeb3becfe24247eb1f957
+    :commit: 6072f84a3ba78345757d885f22451d2621f156d0
     :git: https://github.com/krzyzanowskim/CryptoSwift
 
 SPEC CHECKSUMS:
@@ -111,14 +111,14 @@ SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   Auth0: b23f0d9f45bdcd70652f5427d3411519d79ddaa1
   CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
-  CryptoSwift: e24006fb884cfeeec11ba7d2a740de7b668eab18
+  CryptoSwift: 138d0ffbc0c5ee40f7b7fc7b073c0f41e5d36dba
   Differentiator: caa9b3957981a2ac8e6b2eac8a676af461caa604
   JWTDecode: 178e47e5d28d3abcff778bacced8342858cd6cb5
   libPhoneNumber-iOS: f721ae4d5854bce60934f9fb9b0b28e8e68913cb
   Lock: ff300a4039e2191bc1b2a29f6ed956412c252ffd
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
   Mapbox-iOS-SDK: 81197829dcf4c4ed9a593b7a95462881b5f1309a
-  Nimble: 657d000e11df8aebe27cdaf9d244de7f30ed87f7
+  Nimble: c53e6903fee94041b90ded74f135820437d8bf59
   ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
   OHHTTPStubs: 752f9b11fd810a15162d50f11c06ff94f8e012eb
   PhoneNumberKit: 08aaf1968ea41a114327e9223cbb0391d76ae145

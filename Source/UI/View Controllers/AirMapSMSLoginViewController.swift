@@ -24,7 +24,7 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
     fileprivate let phoneNumberKit = PhoneNumberKit()
     fileprivate var regionCode: String!
     fileprivate let phoneUtil = NBPhoneNumberUtil()
-    fileprivate let activityIndicator = ActivityIndicator()
+    fileprivate let activityTracker = ActivityTracker()
     
     fileprivate var phoneNumber: PhoneNumber? {
         guard let phone =  phone.text, let region = regionCode else { return nil }
@@ -102,7 +102,7 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
             .bind(to: submitButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        activityIndicator.asObservable()
+        activityTracker.asObservable()
             .throttle(0.25, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .bind(to: rx_loading)

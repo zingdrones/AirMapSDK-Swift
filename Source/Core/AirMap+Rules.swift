@@ -16,13 +16,13 @@ extension AirMap {
 	///   - geometry: The area to query for jurisdictions and rulesets
 	///   - completion: The handler to call with the rulesets result
 	public static func getJurisdictions(intersecting geometry: AirMapGeometry, completion: @escaping (Result<[AirMapJurisdiction]>) -> Void) {
-		jurisdictionClient.getJurisdictions(intersecting: geometry).thenSubscribe(completion)
+		ruleClient.getJurisdictions(intersecting: geometry).thenSubscribe(completion)
 	}
 	
 	/// Get contextual ruleset information for a given geographic area
 	///
 	/// - Parameters:
-	///   - geometry: The area to query for rulesets
+	///   - geometry: The area to query                                                                                                             for rulesets
 	///   - completion: The handler to call with the rulesets result
 	public static func getRulesets(intersecting geometry: AirMapGeometry, completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
 		ruleClient.getRulesets(intersecting: geometry).thenSubscribe(completion)

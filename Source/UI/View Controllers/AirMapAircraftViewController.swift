@@ -15,7 +15,7 @@ public class AirMapAircraftViewController: UITableViewController, AnalyticsTrack
 	
 	public let selectedAircraft = Variable(nil as AirMapAircraft?)
 	
-	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let activityIndicator = ActivityTracker()
 	fileprivate let aircraft = Variable([AirMapAircraft]())
 	fileprivate let disposeBag = DisposeBag()
 	

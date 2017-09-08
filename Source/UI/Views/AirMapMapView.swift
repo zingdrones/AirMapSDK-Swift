@@ -9,6 +9,20 @@
 import UIKit
 import Mapbox
 import ObjectMapper
+import RxSwift
+
+/// Supported map themes
+public enum AirMapMapTheme: String {
+	
+	case standard
+	case dark
+	case light
+	case satellite
+	
+	public static var allThemes: [AirMapMapTheme] {
+		return [.standard, .dark, .light, .satellite]
+	}
+}
 
 open class AirMapMapView: MGLMapView {
 	
@@ -38,12 +52,63 @@ open class AirMapMapView: MGLMapView {
 	///
 	/// - Parameter rulesets: an array of rulesets
 	public func configure(rulesets: [AirMapRuleset]) {
+		self.rulesets.onNext(rulesets)
+	}
+	
+	/// Getter for the jurisidiction present in the map's view port / bounding box
+	///
+	/// - Returns: an array of AirMapJurisdiction
+	public func visibleJurisdictions() -> [AirMapJurisdiction] {
 		
+		let visibleJurisdictionFeatures = visibleFeatures(in: bounds, styleLayerIdentifiers: ["jurisdictions"])
+		
+		let visibleJurisdictions = visibleJurisdictionFeatures
+			.flatMap { $0.attributes["jurisdiction"] as? String }
+			.flatMap(AirMapMapView.jurisdictionMapper.map)
+			.filter { (jurisdiction: AirMapJurisdiction) in jurisdiction.rulesets.count > 0 }
+		
+		let uniqueJurisdictions = Array(Set(visibleJurisdictions))
+		
+		return uniqueJurisdictions
+	}
+	
+	// MARK: - Private
+	
+	private let rulesets = PublishSubject<[AirMapRuleset]>()
+	private let disposeBag = DisposeBag()
+
+	private static let jurisdictionMapper = Mapper<AirMapJurisdiction>(context: AirMapRuleset.Origin.tileService)
+
+	private func commonInit() {
+		
+		guard let mapboxAccessToken = AirMap.configuration.mapboxAccessToken else {
+			fatalError("A Mapbox access token is required to use the AirMap SDK UI map components")
+		}
+		
+		MGLAccountManager.setAccessToken(mapboxAccessToken)
+		
+		let image = UIImage(named: "info_icon", in: AirMapBundle.ui, compatibleWith: nil)!
+		attributionButton.setImage(image.withRenderingMode(.alwaysOriginal), for: UIControlState())
+
+		isPitchEnabled = false
+		allowsRotating = false
+		
+		self.theme = AirMapMapView.defaultTheme
+		
+		rulesets.asObservable()
+			// Throttle updates to prevent overloading map
+			.throttle(0.25, scheduler: MainScheduler.instance)
+			.subscribeNext(weak: self, AirMapMapView.configureRulesets)
+			.disposed(by: disposeBag)
+	}
+	
+	private func configureRulesets(_ rulesets: [AirMapRuleset]) {
+			
 		guard let style = style else {
 			AirMap.logger.warning("Map must complete initialization before configuring with rulesets")
 			return
 		}
-		
+
 		let rulesetSourceIds = rulesets
 			.map { $0.tileSourceIdentifier }
 		
@@ -64,43 +129,6 @@ open class AirMapMapView: MGLMapView {
 			.forEach(addRuleset)
 		
 		updateTemporalFilters()
-	}
-	
-	/// Getter for the jurisidiction present in the map's view port / bounding box
-	///
-	/// - Returns: an array of AirMapJurisdiction
-	public func visibleJurisdictions() -> [AirMapJurisdiction] {
-		
-		let visibleJurisdictionFeatures = visibleFeatures(in: bounds, styleLayerIdentifiers: ["jurisdictions"])
-		
-		let visibleJurisdictions = visibleJurisdictionFeatures
-			.flatMap { $0.attributes["jurisdiction"] as? String }
-			.flatMap { (json: String) in
-				print(json)
-				return Mapper<AirMapJurisdiction>(context: AirMapRuleset.Origin.tileService).map(JSONString: json)
-			}
-			.filter { (jurisdiction: AirMapJurisdiction) in jurisdiction.rulesets.count > 0 }
-		
-		let uniqueJurisdictions = Array(Set(visibleJurisdictions))
-		
-		return uniqueJurisdictions
-	}
-	
-	// MARK: - Private
-
-	private func commonInit() {
-		
-		guard let mapboxAccessToken = AirMap.configuration.mapboxAccessToken else {
-			fatalError("A Mapbox access token is required to use the AirMap SDK UI map components")
-		}
-		
-		MGLAccountManager.setAccessToken(mapboxAccessToken)
-		
-		let image = UIImage(named: "info_icon", in: AirMapBundle.ui, compatibleWith: nil)!
-		attributionButton.setImage(image.withRenderingMode(.alwaysOriginal), for: UIControlState())
-
-		isPitchEnabled = false
-		allowsRotating = false
 	}
 
 	private func addRuleset(_ ruleset: AirMapRuleset) {

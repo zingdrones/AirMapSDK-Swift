@@ -55,6 +55,7 @@ public struct AirMapRuleset {
 		/// A descriptive title
 		public var name: String {
 			switch self {
+			// TODO: Localize
 			case .optional:  return "Optional"
 			case .pickOne:   return "Pick One"
 			case .required:  return "Required"

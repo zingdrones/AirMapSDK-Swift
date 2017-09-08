@@ -14,7 +14,7 @@ import ObjectMapper
 
 internal class HTTPClient {
 	
-	static let activity = ActivityIndicator()
+	static let activity = ActivityTracker()
 	
 	enum MimeType: String {
 		case JSON = "application/json"

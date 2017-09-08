@@ -9,30 +9,30 @@
 import ObjectMapper
 import CoreLocation
 
-@objc open class AirMapTraffic: NSObject {
+@objc public class AirMapTraffic: NSObject {
 
 	public enum TrafficType: Int {
 		case alert
 		case situationalAwareness
 	}
 
-	open var id: String!
-	open var direction: Double = 0
-	open var altitude: Meters = 0
-	open var groundSpeed: Knots = 0
-	open var trueHeading: Int = 0
-	open var timestamp: Date = Date()
-	open var recordedTime: Date = Date()
-	open var properties = AirMapTrafficProperties()
-	open var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
-	open var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
-	open var createdAt: Date = Date()
-	open var trafficType = TrafficType.situationalAwareness {
+	public var id: String!
+	public var direction: Double = 0
+	public var altitude: Meters = 0
+	public var groundSpeed: Knots = 0
+	public var trueHeading: Int = 0
+	public var timestamp: Date = Date()
+	public var recordedTime: Date = Date()
+	public var properties = AirMapTrafficProperties()
+	public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+	public var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+	public var createdAt: Date = Date()
+	public var trafficType = TrafficType.situationalAwareness {
 		willSet {
-			trafficTypeDidChangeToAlert =  trafficType == .situationalAwareness && newValue == .alert
+			trafficTypeDidChangeToAlert = trafficType == .situationalAwareness && newValue == .alert
 		}
 	}
-	open var trafficTypeDidChangeToAlert = false
+	public var trafficTypeDidChangeToAlert = false
 
 	public override init() {
 		super.init()
@@ -41,12 +41,12 @@ import CoreLocation
 
 	public required init?(map: Map) {}
 
-	open func isExpired() -> Bool {
+	public func isExpired() -> Bool {
 		let expirationInterval = Constants.AirMapTraffic.expirationInterval
 		return createdAt.addingTimeInterval(expirationInterval) < Date()
 	}
 
-	open override func isEqual(_ object: Any?) -> Bool {
+	public override func isEqual(_ object: Any?) -> Bool {
 		if let object = object as? AirMapTraffic {
 			return object.properties.aircraftId == self.properties.aircraftId
 		} else {
@@ -59,16 +59,14 @@ extension AirMapTraffic: Mappable {
 
 	public func mapping(map: Map) {
 
-		let dateTransform = CustomDateFormatTransform(formatString: Constants.AirMapApi.dateFormat)
-
 		id            <-  map["id"]
 		direction     <- (map["direction"], StringToDoubleTransform())
 		altitude      <- (map["altitude"], StringToDoubleTransform())
 		groundSpeed   <- (map["ground_speed_kts"], StringToDoubleTransform())
 		trueHeading   <- (map["true_heading"], StringToIntTransform())
 		properties    <-  map["properties"]
-		timestamp     <- (map["timestamp"], dateTransform)
-		recordedTime  <- (map["recorded_time"], dateTransform)
+		timestamp     <- (map["timestamp"], Constants.AirMapApi.dateTransform)
+		recordedTime  <- (map["recorded_time"], Constants.AirMapApi.dateTransform)
 
 		var latitude: String!
 		var longitude: String!
@@ -84,7 +82,7 @@ extension AirMapTraffic: Mappable {
 
 extension AirMapTraffic {
 
-	open override var description: String {
+	public override var description: String {
 		
 		let lengthFormatter = LengthFormatter()
 		lengthFormatter.unitStyle = .medium

@@ -1,5 +1,5 @@
 //
-//  ActivityIndicator.swift
+//  ActivityTracker.swift
 //  RxExample
 //
 //  Created by Krunoslav Zaher on 10/18/15.
@@ -36,7 +36,7 @@ Enables monitoring of sequence computation.
 If there is at least one sequence computation in progress, `true` will be sent.
 When all activities complete `false` will be sent.
 */
-open class ActivityIndicator : SharedSequenceConvertibleType {
+open class ActivityTracker : SharedSequenceConvertibleType {
 	public typealias E = Bool
 	public typealias SharingStrategy = DriverSharingStrategy
 	
@@ -77,7 +77,7 @@ open class ActivityIndicator : SharedSequenceConvertibleType {
 }
 
 extension ObservableConvertibleType {
-	public func trackActivity(_ activityIndicator: ActivityIndicator) -> Observable<E> {
+	public func trackActivity(_ activityIndicator: ActivityTracker) -> Observable<E> {
 		return activityIndicator.trackActivityOfObservable(self)
 	}
 }
