@@ -103,7 +103,7 @@ extension AirMap {
 				style.primaryColor = .airMapLightBlue
 			}
 			.onAuth { credentials in
-				authSession.authToken = credentials.idToken
+				authToken = credentials.idToken
 				authSession.refreshToken = credentials.refreshToken
 				rx.getAuthenticatedPilot().thenSubscribe(authHandler)
 			}
