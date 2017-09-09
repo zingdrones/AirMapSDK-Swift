@@ -50,7 +50,7 @@ extension AirMap {
 	///   - coordinate: The location of the forecast
 	///   - from: The start time of the forecast
 	///   - to: The end time of the forecst
-	///   - completion: The hanlder to call with the forecast result
+	///   - completion: The handler to call with the forecast result
 	public static func getWeatherForecast(at coordinate: Coordinate2D, from: Date? = nil, to: Date? = nil, completion: @escaping (Result<AirMapWeather>) -> Void) {
 		advisoryClient.getWeatherForecast(at: coordinate, from: from, to: to).thenSubscribe(completion)
 	}
