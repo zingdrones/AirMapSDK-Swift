@@ -69,39 +69,6 @@ extension AirMapJurisdiction {
 	}
 }
 
-extension AirMapJurisdiction {
-	
-	/// Take the user's rulesets preference and resolve which rulesets should be selected from the available jurisdictions
-	///
-	/// - Parameters:
-	///   - preferredRulesetIds: An array of rulesets ids the user has previously selected
-	///   - availableJurisdictions: An array of relevant jurisdictions for the area of operation
-	/// - Returns: A resolved array of rulesets taking into account the user's selection preference
-	public static func resolvedRulesets(with preferredRulesetIds: [String], from availableJurisdictions: [AirMapJurisdiction]) -> [AirMapRuleset] {
-		
-		var rulesets = [AirMapRuleset]()
-		
-		// Always include the required rulesets
-		rulesets += availableJurisdictions.requiredRulesets
-		
-		// If the preferred rulesets contains an optional ruleset, add it to the array
-		rulesets += availableJurisdictions.optionalRulesets.filter({ preferredRulesetIds.contains($0.id) })
-		
-		// For each jurisdiction, determine a preferred pickOne has been set otherwise take the default pickOne
-		for jurisdiction in availableJurisdictions {
-			guard let defaultPickOneRuleset = jurisdiction.defaultPickOneRuleset else { continue }
-			if let preferredPickOne = jurisdiction.pickOneRulesets.first(where: { preferredRulesetIds.contains($0.id) }) {
-				rulesets.append(preferredPickOne)
-			} else {
-				rulesets.append(defaultPickOneRuleset)
-			}
-		}
-		
-		return rulesets
-	}
-
-}
-
 extension Sequence where Iterator.Element == AirMapJurisdiction {
 	
 	/// Returns all rulesets which should be selected by default. This includes any required rulesets,

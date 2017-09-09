@@ -32,6 +32,8 @@ class AdvisoriesViewController: UITableViewController {
 	// MARK: - Instance Methods
 	
 	private func getStatus(for area: AirMapPolygon) {
+		
+		tableView.refreshControl?.isEnabled = true
 	
 		let rulesetIds = rulesets.map({ $0.id })
 		
@@ -40,7 +42,8 @@ class AdvisoriesViewController: UITableViewController {
 			switch result {
 			
 			case .error(let error):
-				print(error)
+				let alert = UIAlertController(title: "Error Getting Advisories", message: error.localizedDescription, preferredStyle: .alert)
+				self.present(alert, animated: true, completion: nil)
 			
 			case .value(let status):
 				self.sectionModels = self.sectionModels(for: status)

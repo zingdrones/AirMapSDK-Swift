@@ -9,24 +9,30 @@
 import UIKit
 import AirMap
 import RxSwift
+import Mapbox
 
 class MapViewController: UIViewController {
 	
 	@IBOutlet weak var mapView: AirMapMapView!
 	
 	private var preferredRulesetIds = [String]()
-	
-	private var activeRulesets = [AirMapRuleset]() {
-		didSet { mapView.configure(rulesets: activeRulesets) }
-	}
+	private var activeRulesets = [AirMapRuleset]()
 	
 	// MARK: - Navigation
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
+		// Handle the segue that displays the rulesets selector
 		if segue.identifier == "presentRulesets" {
+			
+			// Get all visible jurisdictions from the map
+			// Alternatively you can call AirMap.getJurisdictions(...) for a given area if you are not using Mapbox
 			let jurisdictions = mapView.visibleJurisdictions()
-			let resolvedRuleset = AirMapJurisdiction.resolvedRulesets(with: preferredRulesetIds, from: jurisdictions)
+			
+			// Take all jurisdictions and determine which should be enabled
+			let resolvedRuleset = self.resolvedRulesets(with: preferredRulesetIds, from: jurisdictions)
+			
+			// Collect only the elective rulesets (optional + pick ones)
 			let preferredRulesets = resolvedRuleset.filter { $0.type == .optional || $0.type == .pickOne }
 
 			let nav = segue.destination as! UINavigationController
@@ -35,16 +41,22 @@ class MapViewController: UIViewController {
 			rulesetsVC.preferredRulesets = preferredRulesets
 		}
 		
+		// Handle the segue that displays the advisories for a given area and rulesets
 		if segue.identifier == "presentAdvisories" {
+			
 			let nav = segue.destination as! UINavigationController
 			let advisoriesVC = nav.viewControllers.first as! AdvisoriesViewController
-			advisoriesVC.rulesets = activeRulesets
+			
+			// Construct an AirMapPolygon from the bounding box of the visible area
 			advisoriesVC.area = mapView.visibleCoordinateBounds.geometry
+			advisoriesVC.rulesets = activeRulesets
 		}
 	}
 	
 	@IBAction func unwindFromRulesets(_ segue: UIStoryboardSegue) {
 		guard let rulesetsVC = segue.source as? RulesetsViewController else { return }
+
+		// Update the local reference to the user's preferred rulesets
 		preferredRulesetIds = rulesetsVC.preferredRulesets.map { $0.id }
 		updateActiveRulesets()
 	}
@@ -53,14 +65,43 @@ class MapViewController: UIViewController {
 	
 	/// Update the active rulesets using the preferred rulesets and the jurisdictions on the map
 	func updateActiveRulesets() {
-		activeRulesets = AirMapJurisdiction.resolvedRulesets(with: preferredRulesetIds, from: mapView.visibleJurisdictions())
+		activeRulesets = self.resolvedRulesets(with: preferredRulesetIds, from: mapView.visibleJurisdictions())
+		mapView.configure(rulesets: activeRulesets)
 	}
+
+	// MARK: - Helper Methods
 	
+	/// Take the user's rulesets preference and resolve which rulesets should be selected from the available jurisdictions
+	///
+	/// - Parameters:
+	///   - preferredRulesetIds: An array of rulesets ids, if any, that the user has previously selected
+	///   - availableJurisdictions: An array of jurisdictions for the area of operation
+	/// - Returns: A resolved array of rulesets taking into account the user's .optional and .pickOne selection preference
+	public func resolvedRulesets(with preferredRulesetIds: [String], from availableJurisdictions: [AirMapJurisdiction]) -> [AirMapRuleset] {
+		
+		var rulesets = [AirMapRuleset]()
+		
+		// Always include the required rulesets (e.g. TFRs, restricted areas, etc)
+		rulesets += availableJurisdictions.requiredRulesets
+		
+		// If the preferred rulesets contains an .optional ruleset, add it to the array
+		rulesets += availableJurisdictions.optionalRulesets.filter({ preferredRulesetIds.contains($0.id) })
+		
+		// For each jurisdiction, determine if a preferred .pickOne has been selected otherwise take the default .pickOne
+		for jurisdiction in availableJurisdictions {
+			guard let defaultPickOneRuleset = jurisdiction.defaultPickOneRuleset else { continue }
+			if let preferredPickOne = jurisdiction.pickOneRulesets.first(where: { preferredRulesetIds.contains($0.id) }) {
+				rulesets.append(preferredPickOne)
+			} else {
+				rulesets.append(defaultPickOneRuleset)
+			}
+		}
+		
+		return rulesets
+	}
 }
 
 // MARK: - MGLMapViewDelegate
-
-import Mapbox
 
 extension MapViewController: MGLMapViewDelegate {
 	
@@ -73,10 +114,9 @@ extension MapViewController: MGLMapViewDelegate {
 	func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
 		updateActiveRulesets()
 	}
-
 }
 
-import CoreLocation
+// MARK: - Mapbox Convenience Extensions
 
 extension MGLCoordinateBounds {
 

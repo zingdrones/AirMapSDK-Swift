@@ -18,15 +18,14 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iHx-BV-CaR">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="bkg-AJ-Y19"/>
+                        <segue destination="mHf-ZR-wTl" kind="relationship" relationship="rootViewController" id="UDc-2Q-OMY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nW7-Yn-fJf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-267" y="-71"/>
+            <point key="canvasLocation" x="-2098" y="340"/>
         </scene>
         <!--Delegate-->
         <scene sceneID="ufC-wZ-h7g">
@@ -66,7 +65,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chD-or-uTf">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Rulesets"/>
+                                        <state key="normal" title="Select Rulesets"/>
                                         <connections>
                                             <segue destination="8cw-NI-ujp" kind="presentation" identifier="presentRulesets" id="owO-1B-eKP"/>
                                         </connections>
@@ -74,7 +73,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2o-eu-nYl">
                                         <rect key="frame" x="188" y="0.0" width="187" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Advisories"/>
+                                        <state key="normal" title="Show Advisories"/>
                                         <connections>
                                             <segue destination="mO4-pJ-WO2" kind="presentation" identifier="presentAdvisories" id="txA-8o-61u"/>
                                         </connections>
@@ -96,7 +95,7 @@
                             <constraint firstItem="ahe-iJ-i8H" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="omt-WX-FjL"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="AirMap SDK Example" id="N4h-me-nvF"/>
+                    <navigationItem key="navigationItem" title="Contextual Map &amp; Advisories" id="N4h-me-nvF"/>
                     <connections>
                         <outlet property="mapView" destination="ahe-iJ-i8H" id="Hgr-iW-esV"/>
                     </connections>
@@ -182,7 +181,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQ8-9H-doA">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TQ8-9H-doA">
                                             <rect key="frame" x="16" y="16" width="343" height="37.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -230,6 +229,55 @@
             </objects>
             <point key="canvasLocation" x="2766" y="341"/>
         </scene>
+        <!--Authentication-->
+        <scene sceneID="v8d-DO-tp9">
+            <objects>
+                <viewController id="Urf-up-86s" customClass="LoginExampleViewController" customModule="AirMapSDK_Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5UK-C2-coN"/>
+                        <viewControllerLayoutGuide type="bottom" id="DCK-mR-lAV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k5X-YY-NRg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="g3P-iv-eeC">
+                                <rect key="frame" x="163" y="79" width="50" height="510.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEV-Ta-hm2">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlB-Zh-M04">
+                                        <rect key="frame" x="0.0" y="50" width="50" height="460.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Login"/>
+                                        <connections>
+                                            <action selector="login" destination="Urf-up-86s" eventType="touchUpInside" id="JVB-K0-Gl2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="g3P-iv-eeC" firstAttribute="centerY" secondItem="k5X-YY-NRg" secondAttribute="centerY" priority="750" id="0KA-qe-3tD"/>
+                            <constraint firstItem="g3P-iv-eeC" firstAttribute="top" secondItem="5UK-C2-coN" secondAttribute="bottom" constant="15" id="fvI-52-sod"/>
+                            <constraint firstItem="g3P-iv-eeC" firstAttribute="centerX" secondItem="k5X-YY-NRg" secondAttribute="centerX" id="gTc-u3-F9e"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Authentication" id="R0a-q0-4uc"/>
+                    <connections>
+                        <outlet property="loginButton" destination="RlB-Zh-M04" id="IJt-0l-1Ie"/>
+                        <outlet property="pilotInfo" destination="UEV-Ta-hm2" id="DQo-Pg-esF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XOg-Fn-Dxq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="568.79999999999995" y="882.00899550224892"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Gvo-r8-eey">
             <objects>
@@ -245,6 +293,88 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M95-rI-vSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1814" y="341"/>
+        </scene>
+        <!--AirMap SDK Example-->
+        <scene sceneID="ZkY-oB-YHt">
+            <objects>
+                <tableViewController id="mHf-ZR-wTl" customClass="ExamplesViewController" customModule="AirMapSDK_Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Uk6-Sh-t8N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="JKU-JN-ZJf">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="oOX-Sb-GXB" detailTextLabel="Jfl-hh-TLn" rowHeight="187" style="IBUITableViewCellStyleSubtitle" id="wYc-OS-pdt">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="187"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wYc-OS-pdt" id="nQ4-of-V3M">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="186.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Contextual Map &amp; Advisories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oOX-Sb-GXB">
+                                                    <rect key="frame" x="16" y="35" width="238.5" height="21.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jfl-hh-TLn">
+                                                    <rect key="frame" x="16" y="59.5" width="324" height="90"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <string key="text">Query the jurisdictions that intersect the map's viewport and displays a picker for the user to select the rulesets under which they wish to operate. Display relevant advisories for the area displayed and the rulesets selected.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="vXZ-lx-hvc" kind="show" id="oof-Jc-mp8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="6em-xT-7Jc" detailTextLabel="8Oa-OC-l1Y" rowHeight="97" style="IBUITableViewCellStyleSubtitle" id="h2U-ms-121">
+                                        <rect key="frame" x="0.0" y="187" width="375" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h2U-ms-121" id="nO9-6V-4MR">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="96.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Authentication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6em-xT-7Jc">
+                                                    <rect key="frame" x="16" y="17" width="121.5" height="21.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Present a login UI and display the authenticated pilot's information" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Oa-OC-l1Y">
+                                                    <rect key="frame" x="16" y="41.5" width="232.5" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Urf-up-86s" kind="show" id="V9N-LC-uyr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="mHf-ZR-wTl" id="14K-1q-Y3J"/>
+                            <outlet property="delegate" destination="mHf-ZR-wTl" id="q31-V9-IWE"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="AirMap SDK Example" id="RxN-bz-bvK">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="rYC-Ru-g9z"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kvx-Lc-Lrr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1302" y="340"/>
         </scene>
     </scenes>
 </document>

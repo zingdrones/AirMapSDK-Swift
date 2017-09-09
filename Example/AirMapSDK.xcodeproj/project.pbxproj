@@ -47,6 +47,8 @@
 		918451121D270C64003B3D26 /* FlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918451111D270C64003B3D26 /* FlightTests.swift */; };
 		91AA74731D3DF03800FB82C4 /* AircraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA74721D3DF03800FB82C4 /* AircraftTests.swift */; };
 		91AA747D1D3EA5F300FB82C4 /* aircraft_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91AA747C1D3EA5F300FB82C4 /* aircraft_get_success.json */; };
+		91C06EA51F631973007B08EE /* ExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C06EA41F631973007B08EE /* ExamplesViewController.swift */; };
+		91C06EA71F6322D6007B08EE /* LoginExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C06EA61F6322D6007B08EE /* LoginExampleViewController.swift */; };
 		91D551DC1E272C17000C0A5D /* rules_local_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91D551DB1E272C17000C0A5D /* rules_local_get_success.json */; };
 		91D551DD1E272D4B000C0A5D /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D551D91E272B82000C0A5D /* RulesTests.swift */; };
 		91F849BC1D5D8AEB00550D69 /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 912A5BDA1D5B9DCC004B359B /* airmap.config.json */; };
@@ -118,6 +120,8 @@
 		91B783041D6373DA0034A5A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91B783071D6373DA0034A5A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		91B783091D6373DA0034A5A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91C06EA41F631973007B08EE /* ExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesViewController.swift; sourceTree = "<group>"; };
+		91C06EA61F6322D6007B08EE /* LoginExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginExampleViewController.swift; sourceTree = "<group>"; };
 		91D551D91E272B82000C0A5D /* RulesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RulesTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91D551DB1E272C17000C0A5D /* rules_local_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rules_local_get_success.json; sourceTree = "<group>"; };
 		91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatusAdvisoriesTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -176,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				91C06EA41F631973007B08EE /* ExamplesViewController.swift */,
 				607FACD71AFB9204008FA782 /* MapViewController.swift */,
 				91824BA41F621BBD00ADBC31 /* RulesetsViewController.swift */,
 				91824BA61F625B8D00ADBC31 /* AdvisoriesViewController.swift */,
@@ -183,6 +188,7 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
+				91C06EA61F6322D6007B08EE /* LoginExampleViewController.swift */,
 			);
 			name = "Example iOS";
 			path = iOS;
@@ -640,8 +646,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C24433F1D470CC900FB7F8A /* CoordinateFactory.swift in Sources */,
+				91C06EA51F631973007B08EE /* ExamplesViewController.swift in Sources */,
 				91824BA71F625B8D00ADBC31 /* AdvisoriesViewController.swift in Sources */,
 				91824BA51F621BBD00ADBC31 /* RulesetsViewController.swift in Sources */,
+				91C06EA71F6322D6007B08EE /* LoginExampleViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* MapViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
@@ -807,7 +815,7 @@
 				CODE_SIGN_ENTITLEMENTS = "AirMapSDK-Example-iOS.entitlements";
 				DEVELOPMENT_TEAM = 9P9UW98328;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.airmap.AirMapSDK-Example-iOS";
@@ -824,7 +832,7 @@
 				CODE_SIGN_ENTITLEMENTS = "AirMapSDK-Example-iOS.entitlements";
 				DEVELOPMENT_TEAM = 9P9UW98328;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.airmap.AirMapSDK-Example-iOS";
