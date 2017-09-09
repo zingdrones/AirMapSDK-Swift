@@ -15,7 +15,9 @@ class StringToIntTransform: TransformType {
 	
 	func transformFromJSON(_ value: Any?) -> Int? {
 		if let string = value as? String {
-			return Int(string)
+			if let double = Double(string) {
+				return Int(round(double))
+			}
 		}
 		return nil
 	}
