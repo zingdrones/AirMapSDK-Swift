@@ -16,11 +16,11 @@ struct AirMapTelemetry {
 	
 	class Client {
 		
-		func sendTelemetry(_ flight: AirMapFlight, message: ProtoBufMessage) {
-			telemetry.onNext((flight, message))
+		func sendTelemetry(_ flightId: String, message: ProtoBufMessage) {
+			telemetry.onNext((flightId, message))
 		}
 		
-		private let telemetry = PublishSubject<(flight: AirMapFlight, message: ProtoBufMessage)>()
+		private let telemetry = PublishSubject<(flightId: String, message: ProtoBufMessage)>()
 		private let disposeBag = DisposeBag()
 
 		private let bgScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -32,16 +32,16 @@ struct AirMapTelemetry {
 		
 		private func setupBindings() {
 			
-			let latestFlight = telemetry.map { $0.flight }.distinctUntilChanged()
+			let latestFlightId = telemetry.map { $0.flightId }.distinctUntilChanged()
 			
-			let session = latestFlight
-				.flatMap { flight in
-					AirMap.flightClient.getCommKey(for: flight)
+			let session = latestFlightId
+				.flatMap { id in
+					AirMap.flightClient.getCommKey(by: id)
 						.catchError({ (error) -> Observable<CommKey> in
 							AirMap.logger.error("Failed to acquire encryption key for flight telemetry", error)
 							return .empty()
 						})
-						.map { Session(flight: flight, commKey: $0) }
+						.map { Session(flightId: id, commKey: $0) }
 				}
 				.observeOn(serialScheduler)
 
@@ -49,9 +49,9 @@ struct AirMapTelemetry {
 				.combineLatest(session, telemetry) { $0 }
 				.observeOn(bgScheduler)
 				.filter { flightSession, telemetry in
-					telemetry.flight == flightSession.flight
+					telemetry.flightId == flightSession.flightId
 				}
-				.map { (session: Session, telemetry: (flight: AirMapFlight, message: ProtoBufMessage)) in
+				.map { (session: Session, telemetry: (flightId: String, message: ProtoBufMessage)) in
 					(session: session, message: telemetry.message)
 				}
 				.share()
@@ -92,7 +92,7 @@ struct AirMapTelemetry {
 	
 	class Session {
 		
-		let flight: AirMapFlight
+		let flightId: String
 		let commKey: CommKey
 
 		private static let serialQueue = DispatchQueue(label: "com.airmap.telemetry.session.serialqueue")
@@ -102,8 +102,8 @@ struct AirMapTelemetry {
 		private let encryption = Packet.EncryptionType.aes256cbc
 		private var serialNumber: UInt32 = 0
 				
-		init(flight: AirMapFlight, commKey: CommKey) {
-			self.flight = flight
+		init(flightId: String, commKey: CommKey) {
+			self.flightId = flightId
 			self.commKey = commKey
 		}
 		
@@ -112,7 +112,6 @@ struct AirMapTelemetry {
 			let payload = messages.flatMap { msg in msg.telemetryBytes() }
 			let packet: Packet
 			let serial = nextPacketId()
-			guard let flightId = flight.id else { return }
 			
 			switch encryption {
 			case .aes256cbc:
