@@ -4,7 +4,7 @@ author_url: https://github.com/airmap
 github_url: https://github.com/AirMap/AirMapSDK-Swift
 module: AirMap
 xcodebuild_arguments: [-workspace,Example/AirMapSDK.xcworkspace,-scheme,AirMapSDK]
-output: Documentation
+output: docs
 clean: true
 skip_undocumented: false
 min_acl: public
