@@ -1,0 +1,3918 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/AirMap+Auth.swift",
+      "line": 15,
+      "symbol": "AirMapAuthSessionDelegate.airmapSessionShouldAuthenticate()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/AirMap+Auth.swift",
+      "line": 16,
+      "symbol": "AirMapAuthSessionDelegate.airMapAuthSessionDidAuthenticate(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/AirMap+Auth.swift",
+      "line": 17,
+      "symbol": "AirMapAuthSessionDelegate.airMapAuthSessionAuthenticationDidFail(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/AirMapConfiguration.swift",
+      "line": 83,
+      "symbol": "AirMapConfiguration.init(map:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 56,
+      "symbol": "AirMapAdvisory.Color.red",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 57,
+      "symbol": "AirMapAdvisory.Color.orange",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 58,
+      "symbol": "AirMapAdvisory.Color.yellow",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 59,
+      "symbol": "AirMapAdvisory.Color.green",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 62,
+      "symbol": "AirMapAdvisory.Properties",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 66,
+      "symbol": "AirMapAdvisory.Properties.Airport.identifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 67,
+      "symbol": "AirMapAdvisory.Properties.Airport.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 68,
+      "symbol": "AirMapAdvisory.Properties.Airport.phone",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 69,
+      "symbol": "AirMapAdvisory.Properties.Airport.airspaceClass",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 70,
+      "symbol": "AirMapAdvisory.Properties.Airport.use",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 73,
+      "symbol": "AirMapAdvisory.Properties.Heliport",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 74,
+      "symbol": "AirMapAdvisory.Properties.Heliport.identifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 75,
+      "symbol": "AirMapAdvisory.Properties.Heliport.paved",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 76,
+      "symbol": "AirMapAdvisory.Properties.Heliport.phone",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 77,
+      "symbol": "AirMapAdvisory.Properties.Heliport.tower",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 78,
+      "symbol": "AirMapAdvisory.Properties.Heliport.use",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 79,
+      "symbol": "AirMapAdvisory.Properties.Heliport.instrumentProcedure",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 84,
+      "symbol": "AirMapAdvisory.Properties.ControlledAirspace.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 89,
+      "symbol": "AirMapAdvisory.Properties.Emergency.effective",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 90,
+      "symbol": "AirMapAdvisory.Properties.Emergency.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 95,
+      "symbol": "AirMapAdvisory.Properties.Fire.effective",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 100,
+      "symbol": "AirMapAdvisory.Properties.Park.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 105,
+      "symbol": "AirMapAdvisory.Properties.PowerPlant.technology",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 106,
+      "symbol": "AirMapAdvisory.Properties.PowerPlant.generatorType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 107,
+      "symbol": "AirMapAdvisory.Properties.PowerPlant.output",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 112,
+      "symbol": "AirMapAdvisory.Properties.School.numberOfStudents",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 117,
+      "symbol": "AirMapAdvisory.Properties.SpecialUse.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 122,
+      "symbol": "AirMapAdvisory.Properties.TFR.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 123,
+      "symbol": "AirMapAdvisory.Properties.TFR.startTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 124,
+      "symbol": "AirMapAdvisory.Properties.TFR.endTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 125,
+      "symbol": "AirMapAdvisory.Properties.TFR.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 126,
+      "symbol": "AirMapAdvisory.Properties.TFR.sport",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 127,
+      "symbol": "AirMapAdvisory.Properties.TFR.venue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 132,
+      "symbol": "AirMapAdvisory.Properties.Wildfire.effective",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 133,
+      "symbol": "AirMapAdvisory.Properties.Wildfire.size",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisory.swift",
+      "line": 138,
+      "symbol": "PropertiesType",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisoryRequirements.swift",
+      "line": 11,
+      "symbol": "AirMapAdvisoryRequirements",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisoryRequirements.swift",
+      "line": 13,
+      "symbol": "AirMapAdvisoryRequirements.notice",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAdvisoryRequirements.swift",
+      "line": 15,
+      "symbol": "AirMapAdvisoryRequirements.Notice",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAirspaceStatus.swift",
+      "line": null,
+      "symbol": "AirMapAirspaceStatus",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Advisory/AirMapAirspaceStatus.swift",
+      "line": 11,
+      "symbol": "AirMapAirspaceStatus",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraft.swift",
+      "line": 12,
+      "symbol": "AirMapAircraft",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraft.swift",
+      "line": 14,
+      "symbol": "AirMapAircraft.nickname",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraft.swift",
+      "line": 15,
+      "symbol": "AirMapAircraft.model",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraft.swift",
+      "line": 16,
+      "symbol": "AirMapAircraft.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraft.swift",
+      "line": 18,
+      "symbol": "AirMapAircraft.init(model:nickname:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraft.swift",
+      "line": 26,
+      "symbol": "AirMapAircraft.init(map:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraftManufacturer.swift",
+      "line": 11,
+      "symbol": "AirMapAircraftManufacturer",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraftManufacturer.swift",
+      "line": 13,
+      "symbol": "AirMapAircraftManufacturer.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraftManufacturer.swift",
+      "line": 14,
+      "symbol": "AirMapAircraftManufacturer.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraftModel.swift",
+      "line": 11,
+      "symbol": "AirMapAircraftModel",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraftModel.swift",
+      "line": 13,
+      "symbol": "AirMapAircraftModel.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraftModel.swift",
+      "line": 14,
+      "symbol": "AirMapAircraftModel.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraftModel.swift",
+      "line": 15,
+      "symbol": "AirMapAircraftModel.manufacturer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraftModel.swift",
+      "line": 16,
+      "symbol": "AirMapAircraftModel.metadata",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": null,
+      "symbol": "AirMapFlight",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 12,
+      "symbol": "AirMapFlightGeometryType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 13,
+      "symbol": "AirMapFlightGeometryType.point",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 14,
+      "symbol": "AirMapFlightGeometryType.path",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 15,
+      "symbol": "AirMapFlightGeometryType.polygon",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 18,
+      "symbol": "AirMapFlight",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 20,
+      "symbol": "AirMapFlight.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 21,
+      "symbol": "AirMapFlight.createdAt",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 22,
+      "symbol": "AirMapFlight.startTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 23,
+      "symbol": "AirMapFlight.endTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 26,
+      "symbol": "AirMapFlight.duration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 27,
+      "symbol": "AirMapFlight.coordinate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 28,
+      "symbol": "AirMapFlight.maxAltitude",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 29,
+      "symbol": "AirMapFlight.city",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 30,
+      "symbol": "AirMapFlight.state",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 31,
+      "symbol": "AirMapFlight.country",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 32,
+      "symbol": "AirMapFlight.notify",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 33,
+      "symbol": "AirMapFlight.pilotId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 34,
+      "symbol": "AirMapFlight.pilot",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 37,
+      "symbol": "AirMapFlight.aircraft",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 40,
+      "symbol": "AirMapFlight.aircraftId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 41,
+      "symbol": "AirMapFlight.buffer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 42,
+      "symbol": "AirMapFlight.isPublic",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 43,
+      "symbol": "AirMapFlight.geometry",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 45,
+      "symbol": "AirMapFlight.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 51,
+      "symbol": "AirMapFlight.FlightType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 52,
+      "symbol": "AirMapFlight.FlightType.past",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 53,
+      "symbol": "AirMapFlight.FlightType.active",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 54,
+      "symbol": "AirMapFlight.FlightType.future",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Flight/AirMapFlight.swift",
+      "line": 57,
+      "symbol": "AirMapFlight.flightType()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightBriefing.swift",
+      "line": 58,
+      "symbol": "AirMapFlightBriefing.Validation.Status.valid",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightBriefing.swift",
+      "line": 59,
+      "symbol": "AirMapFlightBriefing.Validation.Status.invalid",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightBriefing.swift",
+      "line": 60,
+      "symbol": "AirMapFlightBriefing.Validation.Status.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightBriefing.swift",
+      "line": 63,
+      "symbol": "AirMapFlightBriefing.Validation.Feature",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightBriefing.swift",
+      "line": 91,
+      "symbol": "AirMapFlightBriefing.Authorization.Status.pending",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightBriefing.swift",
+      "line": 92,
+      "symbol": "AirMapFlightBriefing.Authorization.Status.accepted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightBriefing.swift",
+      "line": 93,
+      "symbol": "AirMapFlightBriefing.Authorization.Status.rejected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightBriefing.swift",
+      "line": 94,
+      "symbol": "AirMapFlightBriefing.Authorization.Status.acceptedUponSubmission",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightBriefing.swift",
+      "line": 95,
+      "symbol": "AirMapFlightBriefing.Authorization.Status.rejectedUponSubmission",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 13,
+      "symbol": "AirMapFlightPlan",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 15,
+      "symbol": "AirMapFlightPlan.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 18,
+      "symbol": "AirMapFlightPlan.pilotId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 19,
+      "symbol": "AirMapFlightPlan.aircraftId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 22,
+      "symbol": "AirMapFlightPlan.startTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 23,
+      "symbol": "AirMapFlightPlan.duration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 26,
+      "symbol": "AirMapFlightPlan.endTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 31,
+      "symbol": "AirMapFlightPlan.geometry",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 32,
+      "symbol": "AirMapFlightPlan.buffer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 33,
+      "symbol": "AirMapFlightPlan.takeoffCoordinate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 34,
+      "symbol": "AirMapFlightPlan.maximumAltitudeAGL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 37,
+      "symbol": "AirMapFlightPlan.rulesetIds",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 40,
+      "symbol": "AirMapFlightPlan.flightFeaturesValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/FlightPlan/AirMapFlightPlan.swift",
+      "line": 43,
+      "symbol": "AirMapFlightPlan.flightId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 12,
+      "symbol": "AirMapAirspaceType.airport",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 13,
+      "symbol": "AirMapAirspaceType.amaField",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 14,
+      "symbol": "AirMapAirspaceType.city",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 15,
+      "symbol": "AirMapAirspaceType.controlledAirspace",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 16,
+      "symbol": "AirMapAirspaceType.custom",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 17,
+      "symbol": "AirMapAirspaceType.emergency",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 18,
+      "symbol": "AirMapAirspaceType.fire",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 19,
+      "symbol": "AirMapAirspaceType.hazardArea",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 20,
+      "symbol": "AirMapAirspaceType.heliport",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 21,
+      "symbol": "AirMapAirspaceType.hospital",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 22,
+      "symbol": "AirMapAirspaceType.laanc",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 23,
+      "symbol": "AirMapAirspaceType.notam",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 24,
+      "symbol": "AirMapAirspaceType.park",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 25,
+      "symbol": "AirMapAirspaceType.powerPlant",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 26,
+      "symbol": "AirMapAirspaceType.prison",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 27,
+      "symbol": "AirMapAirspaceType.recreationalArea",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 28,
+      "symbol": "AirMapAirspaceType.school",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 29,
+      "symbol": "AirMapAirspaceType.seaplaneBase",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 30,
+      "symbol": "AirMapAirspaceType.specialUse",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 31,
+      "symbol": "AirMapAirspaceType.stadium",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 32,
+      "symbol": "AirMapAirspaceType.state",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 33,
+      "symbol": "AirMapAirspaceType.tfr",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 34,
+      "symbol": "AirMapAirspaceType.ultralightField",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 35,
+      "symbol": "AirMapAirspaceType.university",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 36,
+      "symbol": "AirMapAirspaceType.wildfire",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Mapping/AirMapMapTiles.swift",
+      "line": 38,
+      "symbol": "AirMapAirspaceType.allAirspaceTypes",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": null,
+      "symbol": "AirMapPilot",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": null,
+      "symbol": "AirMapPilot",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 11,
+      "symbol": "AirMapPilot",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 13,
+      "symbol": "AirMapPilot.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 16,
+      "symbol": "AirMapPilot.email",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 17,
+      "symbol": "AirMapPilot.firstName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 18,
+      "symbol": "AirMapPilot.lastName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 19,
+      "symbol": "AirMapPilot.username",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 20,
+      "symbol": "AirMapPilot.pictureUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 21,
+      "symbol": "AirMapPilot.phone",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 22,
+      "symbol": "AirMapPilot.phoneVerified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 23,
+      "symbol": "AirMapPilot.emailVerified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 24,
+      "symbol": "AirMapPilot.statistics",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 29,
+      "symbol": "AirMapPilot.appMetadata()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 33,
+      "symbol": "AirMapPilot.setAppMetadata(value:forKey:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
+      "line": 81,
+      "symbol": "AirMapPilot.fullName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotStats.swift",
+      "line": null,
+      "symbol": "AirMapPilotStats",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotStats.swift",
+      "line": 11,
+      "symbol": "AirMapPilotStats",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotStats.swift",
+      "line": 13,
+      "symbol": "AirMapPilotStats.totalAircraft",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotStats.swift",
+      "line": 14,
+      "symbol": "AirMapPilotStats.totalFlights",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotStats.swift",
+      "line": 15,
+      "symbol": "AirMapPilotStats.lastFlightTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotStats.swift",
+      "line": 20,
+      "symbol": "AirMapPilotStats.init(map:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotVerified.swift",
+      "line": null,
+      "symbol": "AirMapPilotVerified",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotVerified.swift",
+      "line": 11,
+      "symbol": "AirMapPilotVerified",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotVerified.swift",
+      "line": 13,
+      "symbol": "AirMapPilotVerified.verified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilotVerified.swift",
+      "line": 18,
+      "symbol": "AirMapPilotVerified.init(map:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Result.swift",
+      "line": 16,
+      "symbol": "Result.value",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Result.swift",
+      "line": 17,
+      "symbol": "Result.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 29,
+      "symbol": "AirMapFlightFeature.InputType.bool",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 30,
+      "symbol": "AirMapFlightFeature.InputType.float",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 31,
+      "symbol": "AirMapFlightFeature.InputType.string",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 44,
+      "symbol": "AirMapFlightFeature.MeasurementType.speed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 45,
+      "symbol": "AirMapFlightFeature.MeasurementType.weight",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 46,
+      "symbol": "AirMapFlightFeature.MeasurementType.distance",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 47,
+      "symbol": "AirMapFlightFeature.MeasurementType.binary",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 52,
+      "symbol": "AirMapFlightFeature.MeasurementUnit.meters",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 53,
+      "symbol": "AirMapFlightFeature.MeasurementUnit.kilograms",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 54,
+      "symbol": "AirMapFlightFeature.MeasurementUnit.boolean",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapFlightFeature.swift",
+      "line": 55,
+      "symbol": "AirMapFlightFeature.MeasurementUnit.metersPerSecond",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
+      "line": 26,
+      "symbol": "AirMapJurisdiction.Region.federal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
+      "line": 27,
+      "symbol": "AirMapJurisdiction.Region.state",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
+      "line": 28,
+      "symbol": "AirMapJurisdiction.Region.county",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
+      "line": 29,
+      "symbol": "AirMapJurisdiction.Region.city",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
+      "line": 30,
+      "symbol": "AirMapJurisdiction.Region.local",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
+      "line": 31,
+      "symbol": "AirMapJurisdiction.Region.federalBackup",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
+      "line": 32,
+      "symbol": "AirMapJurisdiction.Region.federalStructureBackup",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
+      "line": 86,
+      "symbol": "Sequence.optionalRulesets",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
+      "line": 91,
+      "symbol": "Sequence.pickOneRulesets",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapRule.swift",
+      "line": 35,
+      "symbol": "AirMapRule.Status.conflicting",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapRule.swift",
+      "line": 36,
+      "symbol": "AirMapRule.Status.missingInfo",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapRule.swift",
+      "line": 37,
+      "symbol": "AirMapRule.Status.informational",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapRule.swift",
+      "line": 38,
+      "symbol": "AirMapRule.Status.notConflicting",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapRule.swift",
+      "line": 39,
+      "symbol": "AirMapRule.Status.unevaluated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapRuleset.swift",
+      "line": 51,
+      "symbol": "AirMapRuleset.SelectionType.optional",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapRuleset.swift",
+      "line": 52,
+      "symbol": "AirMapRuleset.SelectionType.pickOne",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapRuleset.swift",
+      "line": 53,
+      "symbol": "AirMapRuleset.SelectionType.required",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapGeometry.swift",
+      "line": 12,
+      "symbol": "AirMapGeometry",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapGeometry.swift",
+      "line": 13,
+      "symbol": "AirMapGeometry.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapGeometry.swift",
+      "line": 14,
+      "symbol": "AirMapGeometry.params()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPath.swift",
+      "line": 11,
+      "symbol": "AirMapPath",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPath.swift",
+      "line": 13,
+      "symbol": "AirMapPath.coordinates",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPath.swift",
+      "line": 15,
+      "symbol": "AirMapPath.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPath.swift",
+      "line": 19,
+      "symbol": "AirMapPath.init(coordinates:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPath.swift",
+      "line": 23,
+      "symbol": "AirMapPath.params()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPoint.swift",
+      "line": 11,
+      "symbol": "AirMapPoint",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPoint.swift",
+      "line": 13,
+      "symbol": "AirMapPoint.coordinate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPoint.swift",
+      "line": 15,
+      "symbol": "AirMapPoint.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPoint.swift",
+      "line": 19,
+      "symbol": "AirMapPoint.init(coordinate:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPoint.swift",
+      "line": 23,
+      "symbol": "AirMapPoint.params()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPolygon.swift",
+      "line": 11,
+      "symbol": "AirMapPolygon",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPolygon.swift",
+      "line": 13,
+      "symbol": "AirMapPolygon.coordinates",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPolygon.swift",
+      "line": 15,
+      "symbol": "AirMapPolygon.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPolygon.swift",
+      "line": 19,
+      "symbol": "AirMapPolygon.init(coordinates:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shapes/AirMapPolygon.swift",
+      "line": 23,
+      "symbol": "AirMapPolygon.params()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": null,
+      "symbol": "AirMapError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": null,
+      "symbol": "AirMapError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": null,
+      "symbol": "AirMapError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 12,
+      "symbol": "AirMapError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 13,
+      "symbol": "AirMapError.network",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 14,
+      "symbol": "AirMapError.unauthorized",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 15,
+      "symbol": "AirMapError.invalidRequest",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 16,
+      "symbol": "AirMapError.client",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 17,
+      "symbol": "AirMapError.server",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 18,
+      "symbol": "AirMapError.serialization",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 19,
+      "symbol": "AirMapError.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 108,
+      "symbol": "AirMapSerializationError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 109,
+      "symbol": "AirMapSerializationError.invalidData",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 110,
+      "symbol": "AirMapSerializationError.invalidJson",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 111,
+      "symbol": "AirMapSerializationError.invalidObject",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 114,
+      "symbol": "AirMapApiError",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 116,
+      "symbol": "AirMapApiError.message",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 117,
+      "symbol": "AirMapApiError.messages",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 118,
+      "symbol": "AirMapApiError.code",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 145,
+      "symbol": "AirMapApiError.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 153,
+      "symbol": "AirMapApiError.localizedDescription",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 162,
+      "symbol": "AirMapApiParameterError",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 164,
+      "symbol": "AirMapApiParameterError.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapError.swift",
+      "line": 165,
+      "symbol": "AirMapApiParameterError.message",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapToken.swift",
+      "line": 11,
+      "symbol": "AirMapToken",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapToken.swift",
+      "line": 13,
+      "symbol": "AirMapToken.authToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": null,
+      "symbol": "Celcius",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": null,
+      "symbol": "Coordinate2D",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": null,
+      "symbol": "Fahrenheit",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": null,
+      "symbol": "Feet",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": null,
+      "symbol": "Hectares",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": null,
+      "symbol": "Kilometers",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": null,
+      "symbol": "KilometersPerHour",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": null,
+      "symbol": "Knots",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": null,
+      "symbol": "Meters",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 11,
+      "symbol": "DistanceUnits",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 12,
+      "symbol": "DistanceUnits.metric",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 13,
+      "symbol": "DistanceUnits.imperial",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 26,
+      "symbol": "Feet.metersPerFoot",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 28,
+      "symbol": "Feet.meters",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 35,
+      "symbol": "Meters.metersPerNauticalMile",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 36,
+      "symbol": "Meters.metersPerStatuteMile",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 38,
+      "symbol": "Meters.nauticalMiles",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 42,
+      "symbol": "Meters.feet",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 49,
+      "symbol": "Kilometers.statuteMiles",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 56,
+      "symbol": "Hectares.acres",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 68,
+      "symbol": "Knots.metersPerSecondPerKnot",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 73,
+      "symbol": "KilometersPerHour.metersPerSecond",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 77,
+      "symbol": "KilometersPerHour.milesPerHour",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 81,
+      "symbol": "KilometersPerHour.knots",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 86,
+      "symbol": "TemperatureUnits",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 87,
+      "symbol": "TemperatureUnits.celcius",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 88,
+      "symbol": "TemperatureUnits.fahrenheit",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 96,
+      "symbol": "Celcius.fahrenheit",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 103,
+      "symbol": "Fahrenheit.celcius",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AirMapUnits.swift",
+      "line": 130,
+      "symbol": "CLLocationCoordinate2D.isValid",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": null,
+      "symbol": "Auth0ApiError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": null,
+      "symbol": "Auth0Error",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": null,
+      "symbol": "Auth0Error",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 12,
+      "symbol": "Auth0Error",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 14,
+      "symbol": "Auth0Error.network",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 15,
+      "symbol": "Auth0Error.unauthorized",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 16,
+      "symbol": "Auth0Error.invalidRequest",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 17,
+      "symbol": "Auth0Error.client",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 18,
+      "symbol": "Auth0Error.server",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 19,
+      "symbol": "Auth0Error.serialization",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 20,
+      "symbol": "Auth0Error.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 102,
+      "symbol": "Auth0ApiError",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 104,
+      "symbol": "Auth0ApiError.message",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 105,
+      "symbol": "Auth0ApiError.code",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/Auth0Error.swift",
+      "line": 125,
+      "symbol": "Auth0ApiError.localizedDescription",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Shared/AuthCredentials.swift",
+      "line": 11,
+      "symbol": "Auth0Credentials",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/AirMap+Telemetry.swift",
+      "line": 16,
+      "symbol": "AirMap.TelemetryError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/AirMap+Telemetry.swift",
+      "line": 17,
+      "symbol": "AirMap.TelemetryError.invalidCredentials",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/AirMap+Telemetry.swift",
+      "line": 18,
+      "symbol": "AirMap.TelemetryError.invalidFlight",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": null,
+      "symbol": "Airmap.Telemetry",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": null,
+      "symbol": "Airmap.Telemetry.Attitude",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": null,
+      "symbol": "Airmap.Telemetry.Barometer",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": null,
+      "symbol": "Airmap.Telemetry.Position",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": null,
+      "symbol": "Airmap.Telemetry.Speed",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 10,
+      "symbol": "Airmap",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 10,
+      "symbol": "Airmap.Telemetry",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 13,
+      "symbol": "Airmap.Telemetry.TelemetryRoot",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 14,
+      "symbol": "Airmap.Telemetry.TelemetryRoot.default",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 15,
+      "symbol": "Airmap.Telemetry.TelemetryRoot.extensionRegistry",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 21,
+      "symbol": "Airmap.Telemetry.TelemetryRoot.registerAllExtensions(registry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 25,
+      "symbol": "Airmap.Telemetry.Position",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 28,
+      "symbol": "Airmap.Telemetry.Position.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 45,
+      "symbol": "Airmap.Telemetry.Position.hasTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 50,
+      "symbol": "Airmap.Telemetry.Position.hasLatitude",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 55,
+      "symbol": "Airmap.Telemetry.Position.hasLongitude",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 59,
+      "symbol": "Airmap.Telemetry.Position.hasAltitudeAgl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 63,
+      "symbol": "Airmap.Telemetry.Position.hasAltitudeMsl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 67,
+      "symbol": "Airmap.Telemetry.Position.hasHorizontalAccuracy",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 69,
+      "symbol": "Airmap.Telemetry.Position.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 72,
+      "symbol": "Airmap.Telemetry.Position.isInitialized()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 75,
+      "symbol": "Airmap.Telemetry.Position.writeTo(codedOutputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 96,
+      "symbol": "Airmap.Telemetry.Position.serializedSize()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 125,
+      "symbol": "Airmap.Telemetry.Position.getBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 128,
+      "symbol": "Airmap.Telemetry.Position.getBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 131,
+      "symbol": "Airmap.Telemetry.Position.classBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 134,
+      "symbol": "Airmap.Telemetry.Position.classBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 137,
+      "symbol": "Airmap.Telemetry.Position.toBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 140,
+      "symbol": "Airmap.Telemetry.Position.builderWithPrototype(prototype:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 143,
+      "symbol": "Airmap.Telemetry.Position.encode()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 169,
+      "symbol": "Airmap.Telemetry.Position.decode(jsonMap:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 172,
+      "symbol": "Airmap.Telemetry.Position.fromJSON(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 175,
+      "symbol": "Airmap.Telemetry.Position.getDescription(indent:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 198,
+      "symbol": "Airmap.Telemetry.Position.hashValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 227,
+      "symbol": "Airmap.Telemetry.Position.className()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 230,
+      "symbol": "Airmap.Telemetry.Position.className()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 235,
+      "symbol": "Airmap.Telemetry.Position.Builder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 237,
+      "symbol": "Airmap.Telemetry.Position.Builder.getMessage()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 241,
+      "symbol": "Airmap.Telemetry.Position.Builder.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 254,
+      "symbol": "Airmap.Telemetry.Position.Builder.hasTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 260,
+      "symbol": "Airmap.Telemetry.Position.Builder.setTimestamp(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 265,
+      "symbol": "Airmap.Telemetry.Position.Builder.clearTimestamp()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 281,
+      "symbol": "Airmap.Telemetry.Position.Builder.hasLatitude",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 287,
+      "symbol": "Airmap.Telemetry.Position.Builder.setLatitude(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 292,
+      "symbol": "Airmap.Telemetry.Position.Builder.clearLatitude()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 308,
+      "symbol": "Airmap.Telemetry.Position.Builder.hasLongitude",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 314,
+      "symbol": "Airmap.Telemetry.Position.Builder.setLongitude(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 319,
+      "symbol": "Airmap.Telemetry.Position.Builder.clearLongitude()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 334,
+      "symbol": "Airmap.Telemetry.Position.Builder.hasAltitudeAgl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 340,
+      "symbol": "Airmap.Telemetry.Position.Builder.setAltitudeAgl(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 345,
+      "symbol": "Airmap.Telemetry.Position.Builder.clearAltitudeAgl()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 360,
+      "symbol": "Airmap.Telemetry.Position.Builder.hasAltitudeMsl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 366,
+      "symbol": "Airmap.Telemetry.Position.Builder.setAltitudeMsl(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 371,
+      "symbol": "Airmap.Telemetry.Position.Builder.clearAltitudeMsl()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 386,
+      "symbol": "Airmap.Telemetry.Position.Builder.hasHorizontalAccuracy",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 392,
+      "symbol": "Airmap.Telemetry.Position.Builder.setHorizontalAccuracy(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 397,
+      "symbol": "Airmap.Telemetry.Position.Builder.clearHorizontalAccuracy()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 402,
+      "symbol": "Airmap.Telemetry.Position.Builder.internalGetResult",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 408,
+      "symbol": "Airmap.Telemetry.Position.Builder.clear()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 412,
+      "symbol": "Airmap.Telemetry.Position.Builder.clone()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 415,
+      "symbol": "Airmap.Telemetry.Position.Builder.build()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 419,
+      "symbol": "Airmap.Telemetry.Position.Builder.buildPartial()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 424,
+      "symbol": "Airmap.Telemetry.Position.Builder.mergeFrom(other:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 450,
+      "symbol": "Airmap.Telemetry.Position.Builder.mergeFrom(codedInputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 454,
+      "symbol": "Airmap.Telemetry.Position.Builder.mergeFrom(codedInputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 489,
+      "symbol": "Airmap.Telemetry.Position.Builder.decodeToBuilder(jsonMap:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 523,
+      "symbol": "Airmap.Telemetry.Position.Builder.fromJSONToBuilder(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 534,
+      "symbol": "Airmap.Telemetry.Attitude",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 537,
+      "symbol": "Airmap.Telemetry.Attitude.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 552,
+      "symbol": "Airmap.Telemetry.Attitude.hasTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 556,
+      "symbol": "Airmap.Telemetry.Attitude.hasYaw",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 560,
+      "symbol": "Airmap.Telemetry.Attitude.hasPitch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 564,
+      "symbol": "Airmap.Telemetry.Attitude.hasRoll",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 566,
+      "symbol": "Airmap.Telemetry.Attitude.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 569,
+      "symbol": "Airmap.Telemetry.Attitude.isInitialized()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 572,
+      "symbol": "Airmap.Telemetry.Attitude.writeTo(codedOutputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 587,
+      "symbol": "Airmap.Telemetry.Attitude.serializedSize()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 610,
+      "symbol": "Airmap.Telemetry.Attitude.getBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 613,
+      "symbol": "Airmap.Telemetry.Attitude.getBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 616,
+      "symbol": "Airmap.Telemetry.Attitude.classBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 619,
+      "symbol": "Airmap.Telemetry.Attitude.classBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 622,
+      "symbol": "Airmap.Telemetry.Attitude.toBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 625,
+      "symbol": "Airmap.Telemetry.Attitude.builderWithPrototype(prototype:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 628,
+      "symbol": "Airmap.Telemetry.Attitude.encode()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 648,
+      "symbol": "Airmap.Telemetry.Attitude.decode(jsonMap:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 651,
+      "symbol": "Airmap.Telemetry.Attitude.fromJSON(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 654,
+      "symbol": "Airmap.Telemetry.Attitude.getDescription(indent:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 671,
+      "symbol": "Airmap.Telemetry.Attitude.hashValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 694,
+      "symbol": "Airmap.Telemetry.Attitude.className()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 697,
+      "symbol": "Airmap.Telemetry.Attitude.className()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 702,
+      "symbol": "Airmap.Telemetry.Attitude.Builder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 704,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.getMessage()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 708,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 721,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.hasTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 727,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.setTimestamp(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 732,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.clearTimestamp()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 747,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.hasYaw",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 753,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.setYaw(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 758,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.clearYaw()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 773,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.hasPitch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 779,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.setPitch(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 784,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.clearPitch()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 799,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.hasRoll",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 805,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.setRoll(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 810,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.clearRoll()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 815,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.internalGetResult",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 821,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.clear()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 825,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.clone()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 828,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.build()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 832,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.buildPartial()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 837,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.mergeFrom(other:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 857,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.mergeFrom(codedInputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 861,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.mergeFrom(codedInputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 890,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.decodeToBuilder(jsonMap:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 914,
+      "symbol": "Airmap.Telemetry.Attitude.Builder.fromJSONToBuilder(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 925,
+      "symbol": "Airmap.Telemetry.Speed",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 928,
+      "symbol": "Airmap.Telemetry.Speed.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 943,
+      "symbol": "Airmap.Telemetry.Speed.hasTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 947,
+      "symbol": "Airmap.Telemetry.Speed.hasVelocityX",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 951,
+      "symbol": "Airmap.Telemetry.Speed.hasVelocityY",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 955,
+      "symbol": "Airmap.Telemetry.Speed.hasVelocityZ",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 957,
+      "symbol": "Airmap.Telemetry.Speed.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 960,
+      "symbol": "Airmap.Telemetry.Speed.isInitialized()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 963,
+      "symbol": "Airmap.Telemetry.Speed.writeTo(codedOutputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 978,
+      "symbol": "Airmap.Telemetry.Speed.serializedSize()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1001,
+      "symbol": "Airmap.Telemetry.Speed.getBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1004,
+      "symbol": "Airmap.Telemetry.Speed.getBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1007,
+      "symbol": "Airmap.Telemetry.Speed.classBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1010,
+      "symbol": "Airmap.Telemetry.Speed.classBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1013,
+      "symbol": "Airmap.Telemetry.Speed.toBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1016,
+      "symbol": "Airmap.Telemetry.Speed.builderWithPrototype(prototype:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1019,
+      "symbol": "Airmap.Telemetry.Speed.encode()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1039,
+      "symbol": "Airmap.Telemetry.Speed.decode(jsonMap:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1042,
+      "symbol": "Airmap.Telemetry.Speed.fromJSON(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1045,
+      "symbol": "Airmap.Telemetry.Speed.getDescription(indent:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1062,
+      "symbol": "Airmap.Telemetry.Speed.hashValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1085,
+      "symbol": "Airmap.Telemetry.Speed.className()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1088,
+      "symbol": "Airmap.Telemetry.Speed.className()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1093,
+      "symbol": "Airmap.Telemetry.Speed.Builder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1095,
+      "symbol": "Airmap.Telemetry.Speed.Builder.getMessage()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1099,
+      "symbol": "Airmap.Telemetry.Speed.Builder.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1112,
+      "symbol": "Airmap.Telemetry.Speed.Builder.hasTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1118,
+      "symbol": "Airmap.Telemetry.Speed.Builder.setTimestamp(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1123,
+      "symbol": "Airmap.Telemetry.Speed.Builder.clearTimestamp()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1138,
+      "symbol": "Airmap.Telemetry.Speed.Builder.hasVelocityX",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1144,
+      "symbol": "Airmap.Telemetry.Speed.Builder.setVelocityX(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1149,
+      "symbol": "Airmap.Telemetry.Speed.Builder.clearVelocityX()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1164,
+      "symbol": "Airmap.Telemetry.Speed.Builder.hasVelocityY",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1170,
+      "symbol": "Airmap.Telemetry.Speed.Builder.setVelocityY(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1175,
+      "symbol": "Airmap.Telemetry.Speed.Builder.clearVelocityY()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1190,
+      "symbol": "Airmap.Telemetry.Speed.Builder.hasVelocityZ",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1196,
+      "symbol": "Airmap.Telemetry.Speed.Builder.setVelocityZ(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1201,
+      "symbol": "Airmap.Telemetry.Speed.Builder.clearVelocityZ()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1206,
+      "symbol": "Airmap.Telemetry.Speed.Builder.internalGetResult",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1212,
+      "symbol": "Airmap.Telemetry.Speed.Builder.clear()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1216,
+      "symbol": "Airmap.Telemetry.Speed.Builder.clone()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1219,
+      "symbol": "Airmap.Telemetry.Speed.Builder.build()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1223,
+      "symbol": "Airmap.Telemetry.Speed.Builder.buildPartial()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1228,
+      "symbol": "Airmap.Telemetry.Speed.Builder.mergeFrom(other:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1248,
+      "symbol": "Airmap.Telemetry.Speed.Builder.mergeFrom(codedInputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1252,
+      "symbol": "Airmap.Telemetry.Speed.Builder.mergeFrom(codedInputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1281,
+      "symbol": "Airmap.Telemetry.Speed.Builder.decodeToBuilder(jsonMap:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1305,
+      "symbol": "Airmap.Telemetry.Speed.Builder.fromJSONToBuilder(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1316,
+      "symbol": "Airmap.Telemetry.Barometer",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1319,
+      "symbol": "Airmap.Telemetry.Barometer.==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1332,
+      "symbol": "Airmap.Telemetry.Barometer.hasTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1336,
+      "symbol": "Airmap.Telemetry.Barometer.hasPressure",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1338,
+      "symbol": "Airmap.Telemetry.Barometer.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1341,
+      "symbol": "Airmap.Telemetry.Barometer.isInitialized()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1344,
+      "symbol": "Airmap.Telemetry.Barometer.writeTo(codedOutputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1353,
+      "symbol": "Airmap.Telemetry.Barometer.serializedSize()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1370,
+      "symbol": "Airmap.Telemetry.Barometer.getBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1373,
+      "symbol": "Airmap.Telemetry.Barometer.getBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1376,
+      "symbol": "Airmap.Telemetry.Barometer.classBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1379,
+      "symbol": "Airmap.Telemetry.Barometer.classBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1382,
+      "symbol": "Airmap.Telemetry.Barometer.toBuilder()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1385,
+      "symbol": "Airmap.Telemetry.Barometer.builderWithPrototype(prototype:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1388,
+      "symbol": "Airmap.Telemetry.Barometer.encode()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1402,
+      "symbol": "Airmap.Telemetry.Barometer.decode(jsonMap:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1405,
+      "symbol": "Airmap.Telemetry.Barometer.fromJSON(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1408,
+      "symbol": "Airmap.Telemetry.Barometer.getDescription(indent:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1419,
+      "symbol": "Airmap.Telemetry.Barometer.hashValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1436,
+      "symbol": "Airmap.Telemetry.Barometer.className()",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1439,
+      "symbol": "Airmap.Telemetry.Barometer.className()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1444,
+      "symbol": "Airmap.Telemetry.Barometer.Builder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1446,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.getMessage()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1450,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1463,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.hasTimestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1469,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.setTimestamp(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1474,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.clearTimestamp()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1489,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.hasPressure",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1495,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.setPressure(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1500,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.clearPressure()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1505,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.internalGetResult",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1511,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.clear()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1515,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.clone()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1518,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.build()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1522,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.buildPartial()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1527,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.mergeFrom(other:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1541,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.mergeFrom(codedInputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1545,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.mergeFrom(codedInputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1568,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.decodeToBuilder(jsonMap:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1582,
+      "symbol": "Airmap.Telemetry.Barometer.Builder.fromJSONToBuilder(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1595,
+      "symbol": "Airmap.Telemetry.Position.parseArrayDelimitedFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1602,
+      "symbol": "Airmap.Telemetry.Position.parseDelimitedFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1605,
+      "symbol": "Airmap.Telemetry.Position.parseFrom(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1608,
+      "symbol": "Airmap.Telemetry.Position.parseFrom(data:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1611,
+      "symbol": "Airmap.Telemetry.Position.parseFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1614,
+      "symbol": "Airmap.Telemetry.Position.parseFrom(inputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1617,
+      "symbol": "Airmap.Telemetry.Position.parseFrom(codedInputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1620,
+      "symbol": "Airmap.Telemetry.Position.parseFrom(codedInputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1687,
+      "symbol": "Airmap.Telemetry.Attitude.parseArrayDelimitedFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1694,
+      "symbol": "Airmap.Telemetry.Attitude.parseDelimitedFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1697,
+      "symbol": "Airmap.Telemetry.Attitude.parseFrom(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1700,
+      "symbol": "Airmap.Telemetry.Attitude.parseFrom(data:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1703,
+      "symbol": "Airmap.Telemetry.Attitude.parseFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1706,
+      "symbol": "Airmap.Telemetry.Attitude.parseFrom(inputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1709,
+      "symbol": "Airmap.Telemetry.Attitude.parseFrom(codedInputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1712,
+      "symbol": "Airmap.Telemetry.Attitude.parseFrom(codedInputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1765,
+      "symbol": "Airmap.Telemetry.Speed.parseArrayDelimitedFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1772,
+      "symbol": "Airmap.Telemetry.Speed.parseDelimitedFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1775,
+      "symbol": "Airmap.Telemetry.Speed.parseFrom(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1778,
+      "symbol": "Airmap.Telemetry.Speed.parseFrom(data:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1781,
+      "symbol": "Airmap.Telemetry.Speed.parseFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1784,
+      "symbol": "Airmap.Telemetry.Speed.parseFrom(inputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1787,
+      "symbol": "Airmap.Telemetry.Speed.parseFrom(codedInputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1790,
+      "symbol": "Airmap.Telemetry.Speed.parseFrom(codedInputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1843,
+      "symbol": "Airmap.Telemetry.Barometer.parseArrayDelimitedFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1850,
+      "symbol": "Airmap.Telemetry.Barometer.parseDelimitedFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1853,
+      "symbol": "Airmap.Telemetry.Barometer.parseFrom(data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1856,
+      "symbol": "Airmap.Telemetry.Barometer.parseFrom(data:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1859,
+      "symbol": "Airmap.Telemetry.Barometer.parseFrom(inputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1862,
+      "symbol": "Airmap.Telemetry.Barometer.parseFrom(inputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1865,
+      "symbol": "Airmap.Telemetry.Barometer.parseFrom(codedInputStream:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Telemetry/Airmap.Telemetry.Telemetry.proto.swift",
+      "line": 1868,
+      "symbol": "Airmap.Telemetry.Barometer.parseFrom(codedInputStream:extensionRegistry:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMap+Traffic.swift",
+      "line": 9,
+      "symbol": "AirMapTrafficObserver",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMap+Traffic.swift",
+      "line": 10,
+      "symbol": "AirMapTrafficObserver.airMapTrafficServiceDidAdd(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMap+Traffic.swift",
+      "line": 11,
+      "symbol": "AirMapTrafficObserver.airMapTrafficServiceDidUpdate(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMap+Traffic.swift",
+      "line": 12,
+      "symbol": "AirMapTrafficObserver.airMapTrafficServiceDidRemove(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMap+Traffic.swift",
+      "line": 13,
+      "symbol": "AirMapTrafficObserver.airMapTrafficServiceDidConnect()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMap+Traffic.swift",
+      "line": 14,
+      "symbol": "AirMapTrafficObserver.airMapTrafficServiceDidDisconnect()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMap+Traffic.swift",
+      "line": 15,
+      "symbol": "AirMapTrafficObserver.airMapTrafficServiceDidReceive(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMap+Traffic.swift",
+      "line": 20,
+      "symbol": "AirMap.trafficDelegate",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": null,
+      "symbol": "AirMapTraffic",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": null,
+      "symbol": "AirMapTraffic",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 12,
+      "symbol": "AirMapTraffic",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 14,
+      "symbol": "AirMapTraffic.TrafficType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 15,
+      "symbol": "AirMapTraffic.TrafficType.alert",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 16,
+      "symbol": "AirMapTraffic.TrafficType.situationalAwareness",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 19,
+      "symbol": "AirMapTraffic.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 20,
+      "symbol": "AirMapTraffic.direction",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 21,
+      "symbol": "AirMapTraffic.altitude",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 22,
+      "symbol": "AirMapTraffic.groundSpeed",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 23,
+      "symbol": "AirMapTraffic.trueHeading",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 24,
+      "symbol": "AirMapTraffic.timestamp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 25,
+      "symbol": "AirMapTraffic.recordedTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 26,
+      "symbol": "AirMapTraffic.properties",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 27,
+      "symbol": "AirMapTraffic.coordinate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 28,
+      "symbol": "AirMapTraffic.initialCoordinate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 29,
+      "symbol": "AirMapTraffic.createdAt",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 30,
+      "symbol": "AirMapTraffic.trafficType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 35,
+      "symbol": "AirMapTraffic.trafficTypeDidChangeToAlert",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 37,
+      "symbol": "AirMapTraffic.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 44,
+      "symbol": "AirMapTraffic.isExpired()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 49,
+      "symbol": "AirMapTraffic.isEqual(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTraffic.swift",
+      "line": 85,
+      "symbol": "AirMapTraffic.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTrafficProperties.swift",
+      "line": null,
+      "symbol": "AirMapTrafficProperties",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTrafficProperties.swift",
+      "line": 12,
+      "symbol": "AirMapTrafficProperties",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTrafficProperties.swift",
+      "line": 14,
+      "symbol": "AirMapTrafficProperties.aircraftId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTrafficProperties.swift",
+      "line": 15,
+      "symbol": "AirMapTrafficProperties.aircraftType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/AirMapTrafficProperties.swift",
+      "line": 17,
+      "symbol": "AirMapTrafficProperties.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Traffic/CLLocationCoordinate2D+AirMapTraffic.swift",
+      "line": 11,
+      "symbol": "Coordinate2D.formattedString",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/adolfo/Repos/AirMapSDK-Swift"
+}

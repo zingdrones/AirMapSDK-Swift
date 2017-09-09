@@ -1,0 +1,3309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AirMap Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/AirMap" class="dashAnchor"></a>
+
+    <a title="AirMap Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          AirMap Docs
+        </a>
+         (30% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/AirMap/AirMapSDK-Swift">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">AirMap Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      AirMap Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../AirMap.html">AirMap</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMap.html">AirMap</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMap/TelemetryError.html">– TelemetryError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapConfiguration.html">AirMapConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Result.html">Result</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Advisories.html">Advisories</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapAirspaceStatus.html">AirMapAirspaceStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapAdvisory.html">AirMapAdvisory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapAdvisory/Color.html">– Color</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapAdvisory/Properties.html">– Properties</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapAdvisoryRequirements.html">AirMapAdvisoryRequirements</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapAdvisoryRequirements/Notice.html">– Notice</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/AirMapAirspaceType.html">AirMapAirspaceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapWeather.html">AirMapWeather</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapWeather/Observation.html">– Observation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Advisories.html#/s:6AirMap14PropertiesTypeP">PropertiesType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Aircraft.html">Aircraft</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapAircraft.html">AirMapAircraft</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapAircraftModel.html">AirMapAircraftModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapAircraftManufacturer.html">AirMapAircraftManufacturer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Authentication.html">Authentication</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapToken.html">AirMapToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Authentication.html#/s:6AirMap16Auth0CredentialsV">Auth0Credentials</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Auth0ApiError.html">Auth0ApiError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Flights.html">Flights</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapFlightPlan.html">AirMapFlightPlan</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapFlightFeature.html">AirMapFlightFeature</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapFlightFeature/InputType.html">– InputType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapFlightFeature/MeasurementType.html">– MeasurementType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapFlightFeature/MeasurementUnit.html">– MeasurementUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapFlightBriefing.html">AirMapFlightBriefing</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapFlightBriefing/Ruleset.html">– Ruleset</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapFlightBriefing/Validation.html">– Validation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapFlightBriefing/Authorization.html">– Authorization</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapFlight.html">AirMapFlight</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapFlight/FlightType.html">– FlightType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/AirMapFlightGeometryType.html">AirMapFlightGeometryType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Geometry.html">Geometry</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AirMapGeometry.html">AirMapGeometry</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapPoint.html">AirMapPoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapPath.html">AirMapPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapPolygon.html">AirMapPolygon</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Pilot.html">Pilot</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapPilot.html">AirMapPilot</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapPilotStats.html">AirMapPilotStats</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Rulesets &amp; Jurisdictions.html">Rulesets &amp; Jurisdictions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapJurisdiction.html">AirMapJurisdiction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapJurisdiction/Region.html">– Region</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapRuleset.html">AirMapRuleset</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapRuleset/SelectionType.html">– SelectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapRule.html">AirMapRule</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapRule/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapAuthority.html">AirMapAuthority</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Traffic.html">Traffic</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapTraffic.html">AirMapTraffic</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapTraffic/TrafficType.html">– TrafficType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AirMapTrafficProperties.html">AirMapTrafficProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AirMapTrafficObserver.html">AirMapTrafficObserver</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Units.html">Units</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Celcius.html">Celcius</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Fahrenheit.html">Fahrenheit</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Feet.html">Feet</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Hectares.html">Hectares</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Kilometers.html">Kilometers</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/KilometersPerHour.html">KilometersPerHour</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Knots.html">Knots</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Meters.html">Meters</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Errors.html">Errors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/AirMapError.html">AirMapError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapApiError.html">AirMapApiError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapApiParameterError.html">AirMapApiParameterError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/AirMapSerializationError.html">AirMapSerializationError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Other Enums.html">Other Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Auth0Error.html">Auth0Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DistanceUnits.html">DistanceUnits</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/TemperatureUnits.html">TemperatureUnits</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Other Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/CLLocationCoordinate2D.html">CLLocationCoordinate2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Collection.html">Collection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Coordinate2D.html">Coordinate2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Sequence.html">Sequence</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Other Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AirMapAuthSessionDelegate.html">AirMapAuthSessionDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Other Structs.html">Other Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Other Structs.html#/AirMapLocationCoordinate2D">AirMapLocationCoordinate2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapPilotVerified.html">AirMapPilotVerified</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Airmap.html">Airmap</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Airmap/Telemetry.html">– Telemetry</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>AirMap</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AirMap</span></code></pre>
+
+                </div>
+              </div>
+            <p>The <code>AirMap</code> class encapsulates all platform interactions for Rules, Advisories, Flight, Pilot, and more.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC13configurationAA0aB13ConfigurationVvZ"></a>
+                    <a name="//apple_ref/swift/Variable/configuration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC13configurationAA0aB13ConfigurationVvZ">configuration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The current environment settings and configuration of the AirMap SDK. May be set explicity or will be loaded from a provided airmap.config.json file.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/AirMapConfiguration.html">AirMapConfiguration</a></span> <span class="o">=</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Advisories"></a>
+                <a name="//apple_ref/swift/Section/Advisories" class="dashAnchor"></a>
+                <a href="#/Advisories">
+                  <h3 class="section-name">Advisories</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17getAirspaceStatusySC22CLLocationCoordinate2DV2at_Sd6bufferSaySSG10rulesetIds10Foundation4DateVSg4fromAM2toyAA6ResultOyAA0abdE0VGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getAirspaceStatus(at:buffer:rulesetIds:from:to:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17getAirspaceStatusySC22CLLocationCoordinate2DV2at_Sd6bufferSaySSG10rulesetIds10Foundation4DateVSg4fromAM2toyAA6ResultOyAA0abdE0VGc10completiontFZ">getAirspaceStatus(at:buffer:rulesetIds:from:to:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get airspace status and advisories for a given point, buffer, and rulesets</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getAirspaceStatus</span><span class="p">(</span><span class="n">at</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">Coordinate2D</span><span class="p">,</span> <span class="nv">buffer</span><span class="p">:</span> <span class="kt">Meters</span><span class="p">,</span> <span class="nv">rulesetIds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="n">from</span> <span class="nv">start</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">to</span> <span class="nv">end</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapAirspaceStatus.html">AirMapAirspaceStatus</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>point</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The coordinate to query</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>buffer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The buffer area surrounding the given point</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rulesets</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The rulesets under which to constrain the search</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The handler to call with the airspace advisory status result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17getAirspaceStatusyAA0aB4PathC5along_Sd6bufferSaySSG10rulesetIds10Foundation4DateVSg4fromAM2toyAA6ResultOyAA0abdE0VGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getAirspaceStatus(along:buffer:rulesetIds:from:to:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17getAirspaceStatusyAA0aB4PathC5along_Sd6bufferSaySSG10rulesetIds10Foundation4DateVSg4fromAM2toyAA6ResultOyAA0abdE0VGc10completiontFZ">getAirspaceStatus(along:buffer:rulesetIds:from:to:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get airspace status and advisories for a given path, buffer, and rulesets</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getAirspaceStatus</span><span class="p">(</span><span class="n">along</span> <span class="nv">path</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapPath.html">AirMapPath</a></span><span class="p">,</span> <span class="nv">buffer</span><span class="p">:</span> <span class="kt">Meters</span><span class="p">,</span> <span class="nv">rulesetIds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="n">from</span> <span class="nv">start</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">to</span> <span class="nv">end</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapAirspaceStatus.html">AirMapAirspaceStatus</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The path to query</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>buffer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The lateral buffer from the centerline of a given path</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rulesets</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The rulesets under which to constrain the search</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The handler to call with the airspace advisory status result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17getAirspaceStatusyAA0aB7PolygonC6within_SaySSG10rulesetIds10Foundation4DateVSg4fromAL2toyAA6ResultOyAA0abdE0VGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getAirspaceStatus(within:rulesetIds:from:to:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17getAirspaceStatusyAA0aB7PolygonC6within_SaySSG10rulesetIds10Foundation4DateVSg4fromAL2toyAA6ResultOyAA0abdE0VGc10completiontFZ">getAirspaceStatus(within:rulesetIds:from:to:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get airspace status and advisories for a given geographic area and rulesets</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getAirspaceStatus</span><span class="p">(</span><span class="n">within</span> <span class="nv">polygon</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapPolygon.html">AirMapPolygon</a></span><span class="p">,</span> <span class="nv">rulesetIds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="n">from</span> <span class="nv">start</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">to</span> <span class="nv">end</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapAirspaceStatus.html">AirMapAirspaceStatus</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>polygon</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The geographic area to search</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rulesets</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The rulesets under which to constrain the search</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The handler to call with the airspace advisory status result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC18getWeatherForecastySC22CLLocationCoordinate2DV2at_10Foundation4DateVSg4fromAJ2toyAA6ResultOyAA0abD0VGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getWeatherForecast(at:from:to:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC18getWeatherForecastySC22CLLocationCoordinate2DV2at_10Foundation4DateVSg4fromAJ2toyAA6ResultOyAA0abD0VGc10completiontFZ">getWeatherForecast(at:from:to:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get an hourly weather forecast for a given location and time window</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getWeatherForecast</span><span class="p">(</span><span class="n">at</span> <span class="nv">coordinate</span><span class="p">:</span> <span class="kt">Coordinate2D</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapWeather.html">AirMapWeather</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coordinate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The location of the forecast</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The start time of the forecast</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>to</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The end time of the forecst</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The hanlder to call with the forecast result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Aircraft"></a>
+                <a name="//apple_ref/swift/Section/Aircraft" class="dashAnchor"></a>
+                <a href="#/Aircraft">
+                  <h3 class="section-name">Aircraft</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17listManufacturersyyAA6ResultOySayAA0aB20AircraftManufacturerVGGcFZ"></a>
+                    <a name="//apple_ref/swift/Method/listManufacturers(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17listManufacturersyyAA6ResultOySayAA0aB20AircraftManufacturerVGGcFZ">listManufacturers(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List of all aircraft manufacturers</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">listManufacturers</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/AirMapAircraftManufacturer.html">AirMapAircraftManufacturer</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC19searchManufacturersySS2by_yAA6ResultOySayAA0aB20AircraftManufacturerVGGctFZ"></a>
+                    <a name="//apple_ref/swift/Method/searchManufacturers(by:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC19searchManufacturersySS2by_yAA6ResultOySayAA0aB20AircraftManufacturerVGGctFZ">searchManufacturers(by:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Search all aircraft manufacturers by name</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">searchManufacturers</span><span class="p">(</span><span class="n">by</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/AirMapAircraftManufacturer.html">AirMapAircraftManufacturer</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the manufacturer to filter the results with</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC10listModelsySS2by_yAA6ResultOySayAA0aB13AircraftModelVGGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/listModels(by:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC10listModelsySS2by_yAA6ResultOySayAA0aB13AircraftModelVGGc10completiontFZ">listModels(by:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List all aircraft models by manufacturer</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">listModels</span><span class="p">(</span><span class="n">by</span> <span class="nv">manufacturerId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/AirMapAircraftModel.html">AirMapAircraftModel</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>manufacturerId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier for the entity that manufactures the model</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC12searchModelsySS2by_yAA6ResultOySayAA0aB13AircraftModelVGGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/searchModels(by:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC12searchModelsySS2by_yAA6ResultOySayAA0aB13AircraftModelVGGc10completiontFZ">searchModels(by:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Search all models by an aircraft&rsquo;s name</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">searchModels</span><span class="p">(</span><span class="n">by</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/AirMapAircraftModel.html">AirMapAircraftModel</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The string to search models by</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC8getModelySS_yAA6ResultOyAA0ab8AircraftD0VGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getModel(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC8getModelySS_yAA6ResultOyAA0ab8AircraftD0VGc10completiontFZ">getModel(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a specific aircraft model by identifier</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getModel</span><span class="p">(</span><span class="n">_</span> <span class="nv">modelId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapAircraftModel.html">AirMapAircraftModel</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>modelId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier associated with the aircraft model</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Auth"></a>
+                <a name="//apple_ref/swift/Section/Auth" class="dashAnchor"></a>
+                <a href="#/Auth">
+                  <h3 class="section-name">Auth</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC9authTokenSSSgvZ"></a>
+                    <a name="//apple_ref/swift/Variable/authToken" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC9authTokenSSSgvZ">authToken</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A JWT auth token that identifies the logged in user accessing the service. Required for all authenticated endpoints.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">authToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC19authSessionDelegateAA0ab4AuthdE0_pSgvZ"></a>
+                    <a name="//apple_ref/swift/Variable/authSessionDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC19authSessionDelegateAA0ab4AuthdE0_pSgvZ">authSessionDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Setting the auth session delegate automatically calls the delegate whenever a pilot authenticated, fails to
+authenticate or needs to re-authenticate after a token expiration</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">authSessionDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AirMapAuthSessionDelegate.html">AirMapAuthSessionDelegate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC16refreshAuthTokenyyAA6ResultOyAA0abE0VGcFZ"></a>
+                    <a name="//apple_ref/swift/Method/refreshAuthToken(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC16refreshAuthTokenyyAA6ResultOyAA0abE0VGcFZ">refreshAuthToken(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Refresh the auth token. Also notifies the <code><a href="../Protocols/AirMapAuthSessionDelegate.html">AirMapAuthSessionDelegate</a></code> upon completion</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">refreshAuthToken</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapToken.html">AirMapToken</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC21performAnonymousLoginySS6userId_yAA6ResultOyAA0aB5TokenVGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/performAnonymousLogin(userId:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC21performAnonymousLoginySS6userId_yAA6ResultOyAA0aB5TokenVGc10completiontFZ">performAnonymousLogin(userId:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Authenticates an Anonymous User associated with the Developer API Key and returns an AuthToken.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">performAnonymousLogin</span><span class="p">(</span><span class="nv">userId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapToken.html">AirMapToken</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>userId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a third-party user id</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC22startPasswordlessLoginySS4with_yAA6ResultOyytGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/startPasswordlessLogin(with:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC22startPasswordlessLoginySS4with_yAA6ResultOyytGc10completiontFZ">startPasswordlessLogin(with:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initiates passwordless authentication by sending the provided phone number a verification code via SMS</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">startPasswordlessLogin</span><span class="p">(</span><span class="n">with</span> <span class="nv">phoneNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>phoneNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The phone number to send the verification code to</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC23verifyPasswordlessLoginySS4with_SS4codeyAA6ResultOyAA16Auth0CredentialsVGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/verifyPasswordlessLogin(with:code:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC23verifyPasswordlessLoginySS4with_SS4codeyAA6ResultOyAA16Auth0CredentialsVGc10completiontFZ">verifyPasswordlessLogin(with:code:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completes passwordless login by verifying the phone number and verification code</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">verifyPasswordlessLogin</span><span class="p">(</span><span class="n">with</span> <span class="nv">phoneNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">code</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Authentication.html#/s:6AirMap16Auth0CredentialsV">Auth0Credentials</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>phoneNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The phone number to use for authentication</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>code</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The SMS verification code that was received</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC6logoutyyFZ"></a>
+                    <a name="//apple_ref/swift/Method/logout()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC6logoutyyFZ">logout()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Log out the currently authenticated pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">logout</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Flight%20Plans"></a>
+                <a name="//apple_ref/swift/Section/Flight Plans" class="dashAnchor"></a>
+                <a href="#/Flight%20Plans">
+                  <h3 class="section-name">Flight Plans</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC16createFlightPlanyAA0abdE0C_yAA6ResultOyAEGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/createFlightPlan(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC16createFlightPlanyAA0abdE0C_yAA6ResultOyAEGc10completiontFZ">createFlightPlan(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new flight plan</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">createFlightPlan</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightPlan</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapFlightPlan.html">AirMapFlightPlan</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapFlightPlan.html">AirMapFlightPlan</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flightPlan</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The flight plan to create</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler with the flight plan result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC16updateFlightPlanyAA0abdE0C_yAA6ResultOyAEGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/updateFlightPlan(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC16updateFlightPlanyAA0abdE0C_yAA6ResultOyAEGc10completiontFZ">updateFlightPlan(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update an existing flight plan</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">updateFlightPlan</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightPlan</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapFlightPlan.html">AirMapFlightPlan</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapFlightPlan.html">AirMapFlightPlan</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flightPlan</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The flight plan to update</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the updated flight plan result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC13getFlightPlanySS_yAA6ResultOyAA0abdE0CGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getFlightPlan(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC13getFlightPlanySS_yAA6ResultOyAA0abdE0CGc10completiontFZ">getFlightPlan(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a flight plan by its identifier</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getFlightPlan</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightPlanId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapFlightPlan.html">AirMapFlightPlan</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flightPlanId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier for the flight plan</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler with the flight plan result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17getFlightBriefingySS_yAA6ResultOyAA0abdE0VGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getFlightBriefing(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17getFlightBriefingySS_yAA6ResultOyAA0abdE0VGc10completiontFZ">getFlightBriefing(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a briefing for a given flight plan identifier</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getFlightBriefing</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightPlanId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapFlightBriefing.html">AirMapFlightBriefing</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flightPlanId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier of the flight plan for which to retrieve a briefing</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the flight plan briefing result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC16submitFlightPlanySS_yAA6ResultOyAA0abdE0CGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/submitFlightPlan(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC16submitFlightPlanySS_yAA6ResultOyAA0abdE0CGc10completiontFZ">submitFlightPlan(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Submit a flight plan</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">submitFlightPlan</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightPlanId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapFlightPlan.html">AirMapFlightPlan</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flightPlanId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier of the flight plan to submit</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the flight plan result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Flights"></a>
+                <a name="//apple_ref/swift/Section/Flights" class="dashAnchor"></a>
+                <a href="#/Flights">
+                  <h3 class="section-name">Flights</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17listPublicFlightsy10Foundation4DateVSg4from_AG2toSiSg5limityAA6ResultOySayAA0aB6FlightCGGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/listPublicFlights(from:to:limit:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17listPublicFlightsy10Foundation4DateVSg4from_AG2toSiSg5limityAA6ResultOySayAA0aB6FlightCGGc10completiontFZ">listPublicFlights(from:to:limit:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List all public flights. A user&rsquo;s non-public flights are excluded.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">listPublicFlights</span><span class="p">(</span><span class="n">from</span> <span class="nv">fromDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">to</span> <span class="nv">toDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Classes/AirMapFlight.html">AirMapFlight</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fromDate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The start of search window. Optional</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>toDate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The end of search window. Optional</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of flights to return. Optional</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC11listFlightsyAA0aB5PilotC3for_SiSg5limityAA6ResultOySayAA0aB6FlightCGGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/listFlights(for:limit:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC11listFlightsyAA0aB5PilotC3for_SiSg5limityAA6ResultOySayAA0aB6FlightCGGc10completiontFZ">listFlights(for:limit:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List all flights belonging only to the currently authenticated pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">listFlights</span><span class="p">(</span><span class="k">for</span> <span class="nv">pilot</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapPilot.html">AirMapPilot</a></span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Classes/AirMapFlight.html">AirMapFlight</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pilot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pilot for which to return flights</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of flights to return. Optional</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC34getCurrentAuthenticatedPilotFlightyyAA6ResultOyAA0abG0CSgGcFZ"></a>
+                    <a name="//apple_ref/swift/Method/getCurrentAuthenticatedPilotFlight(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC34getCurrentAuthenticatedPilotFlightyyAA6ResultOyAA0abG0CSgGcFZ">getCurrentAuthenticatedPilotFlight(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the current flight belonging to the currently authenticated pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getCurrentAuthenticatedPilotFlight</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapFlight.html">AirMapFlight</a></span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC9getFlightySS_yAA6ResultOyAA0abD0CGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getFlight(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC9getFlightySS_yAA6ResultOyAA0abD0CGc10completiontFZ">getFlight(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a flight by its identifer</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getFlight</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapFlight.html">AirMapFlight</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flightId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier associated with the flight</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC12createFlightyAA0abD0C_yAA6ResultOyAEGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/createFlight(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC12createFlightyAA0abD0C_yAA6ResultOyAEGc10completiontFZ">createFlight(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new flight for the currently authenticated pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">createFlight</span><span class="p">(</span><span class="n">_</span> <span class="nv">flight</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapFlight.html">AirMapFlight</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapFlight.html">AirMapFlight</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The flight to create</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC9endFlightyAA0abD0C_yAA6ResultOyAEGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/endFlight(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC9endFlightyAA0abD0C_yAA6ResultOyAEGc10completiontFZ">endFlight(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>End a flight, setting its <code>endTime</code> to now</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">endFlight</span><span class="p">(</span><span class="n">_</span> <span class="nv">flight</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapFlight.html">AirMapFlight</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapFlight.html">AirMapFlight</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The flight to end</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC12deleteFlightyAA0abD0C_yAA6ResultOyytGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/deleteFlight(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC12deleteFlightyAA0abD0C_yAA6ResultOyytGc10completiontFZ">deleteFlight(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete a flight</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">deleteFlight</span><span class="p">(</span><span class="n">_</span> <span class="nv">flight</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapFlight.html">AirMapFlight</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The flight to delete</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC015getFlightPlanByD2IdySS_yAA6ResultOyAA0abdE0CGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getFlightPlanByFlightId(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC015getFlightPlanByD2IdySS_yAA6ResultOyAA0abdE0CGc10completiontFZ">getFlightPlanByFlightId(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a flight plan by flight id</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getFlightPlanByFlightId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapFlightPlan.html">AirMapFlightPlan</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier for the flight</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler with the flight plan result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Pilot"></a>
+                <a name="//apple_ref/swift/Section/Pilot" class="dashAnchor"></a>
+                <a href="#/Pilot">
+                  <h3 class="section-name">Pilot</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC8getPilotySS_yAA6ResultOyAA0abD0CGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getPilot(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC8getPilotySS_yAA6ResultOyAA0abD0CGc10completiontFZ">getPilot(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a pilot by its identifier</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getPilot</span><span class="p">(</span><span class="n">_</span> <span class="nv">pilotId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapPilot.html">AirMapPilot</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pilotId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unique identifier associated with the pilot</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC21getAuthenticatedPilotyyAA6ResultOyAA0abE0CGcFZ"></a>
+                    <a name="//apple_ref/swift/Method/getAuthenticatedPilot(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC21getAuthenticatedPilotyyAA6ResultOyAA0abE0CGcFZ">getAuthenticatedPilot(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the currently authenticated pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getAuthenticatedPilot</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapPilot.html">AirMapPilot</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC11updatePilotyAA0abD0C_yAA6ResultOyAEGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/updatePilot(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC11updatePilotyAA0abD0C_yAA6ResultOyAEGc10completiontFZ">updatePilot(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update the currently authenticated pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">updatePilot</span><span class="p">(</span><span class="n">_</span> <span class="nv">pilot</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapPilot.html">AirMapPilot</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapPilot.html">AirMapPilot</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pilot</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The pilot to update</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC24sendSMSVerificationTokenyyAA6ResultOyytGcFZ"></a>
+                    <a name="//apple_ref/swift/Method/sendSMSVerificationToken(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC24sendSMSVerificationTokenyyAA6ResultOyytGcFZ">sendSMSVerificationToken(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send an SMS verification token to the currently authenticated pilot&rsquo;s mobile device</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">sendSMSVerificationToken</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC9verifySMSySS_yAA6ResultOyAA0aB13PilotVerifiedVGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/verifySMS(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC9verifySMSySS_yAA6ResultOyAA0aB13PilotVerifiedVGc10completiontFZ">verifySMS(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Verify the received SMS token submitted by the pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">verifySMS</span><span class="p">(</span><span class="n">_</span> <span class="nv">token</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapPilotVerified.html">AirMapPilotVerified</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>token</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The SMS token to verify</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC12listAircraftyyAA6ResultOySayAA0abD0CGGcFZ"></a>
+                    <a name="//apple_ref/swift/Method/listAircraft(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC12listAircraftyyAA6ResultOySayAA0abD0CGGcFZ">listAircraft(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>List the currently authenticated pilot&rsquo;s aircraft</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">listAircraft</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Classes/AirMapAircraft.html">AirMapAircraft</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC14createAircraftyAA0abD0C_yAA6ResultOyAEGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/createAircraft(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC14createAircraftyAA0abD0C_yAA6ResultOyAEGc10completiontFZ">createAircraft(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create a new aircraft for the currently authenticated pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">createAircraft</span><span class="p">(</span><span class="n">_</span> <span class="nv">aircraft</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapAircraft.html">AirMapAircraft</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapAircraft.html">AirMapAircraft</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aircraft</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The aircraft to Create</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC14updateAircraftyAA0abD0C_yAA6ResultOyAEGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/updateAircraft(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC14updateAircraftyAA0abD0C_yAA6ResultOyAEGc10completiontFZ">updateAircraft(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update the provided aircraft for the currently authenticated pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">updateAircraft</span><span class="p">(</span><span class="n">_</span> <span class="nv">aircraft</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapAircraft.html">AirMapAircraft</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/AirMapAircraft.html">AirMapAircraft</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aircraft</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The aircraft to Update</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC14deleteAircraftyAA0abD0C_yAA6ResultOyytGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/deleteAircraft(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC14deleteAircraftyAA0abD0C_yAA6ResultOyytGc10completiontFZ">deleteAircraft(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete the provided aircraft for the currently authenticated pilot</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">deleteAircraft</span><span class="p">(</span><span class="n">_</span> <span class="nv">aircraft</span><span class="p">:</span> <span class="kt"><a href="../Classes/AirMapAircraft.html">AirMapAircraft</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aircraft</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The aircraft to delete</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A completion handler to call with the Result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Rules"></a>
+                <a name="//apple_ref/swift/Section/Rules" class="dashAnchor"></a>
+                <a href="#/Rules">
+                  <h3 class="section-name">Rules</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC16getJurisdictionsyAA0aB8Geometry_p12intersecting_yAA6ResultOySayAA0aB12JurisdictionVGGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getJurisdictions(intersecting:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC16getJurisdictionsyAA0aB8Geometry_p12intersecting_yAA6ResultOySayAA0aB12JurisdictionVGGc10completiontFZ">getJurisdictions(intersecting:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get jurisdictions and related rulesets for a given geographic area</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getJurisdictions</span><span class="p">(</span><span class="n">intersecting</span> <span class="nv">geometry</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AirMapGeometry.html">AirMapGeometry</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/AirMapJurisdiction.html">AirMapJurisdiction</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>geometry</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The area to query for jurisdictions and rulesets</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The handler to call with the rulesets result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC11getRulesetsyAA0aB8Geometry_p12intersecting_yAA6ResultOySayAA0aB7RulesetVGGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getRulesets(intersecting:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC11getRulesetsyAA0aB8Geometry_p12intersecting_yAA6ResultOySayAA0aB7RulesetVGGc10completiontFZ">getRulesets(intersecting:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get contextual ruleset information for a given geographic area</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getRulesets</span><span class="p">(</span><span class="n">intersecting</span> <span class="nv">geometry</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AirMapGeometry.html">AirMapGeometry</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/AirMapRuleset.html">AirMapRuleset</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>geometry</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The area to query                                                                                                             for rulesets</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The handler to call with the rulesets result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC11getRulesetsySaySSG2by_yAA6ResultOySayAA0aB7RulesetVGGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getRulesets(by:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC11getRulesetsySaySSG2by_yAA6ResultOySayAA0aB7RulesetVGGc10completiontFZ">getRulesets(by:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get detailed information for a collection of rulesets</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getRulesets</span><span class="p">(</span><span class="n">by</span> <span class="nv">rulesetIds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/AirMapRuleset.html">AirMapRuleset</a></span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rulesetIds</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ruleset identifiers for which to fetch information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A handler to call with the rulesets result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC11getRulesetsySS2by_yAA6ResultOyAA0aB7RulesetVGc10completiontFZ"></a>
+                    <a name="//apple_ref/swift/Method/getRulesets(by:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC11getRulesetsySS2by_yAA6ResultOyAA0aB7RulesetVGc10completiontFZ">getRulesets(by:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get detailed information for a rulesets
+ß</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getRulesets</span><span class="p">(</span><span class="n">by</span> <span class="nv">rulesetId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/Result.html">Result</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AirMapRuleset.html">AirMapRuleset</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rulesetId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ruleset identifier for which to fetch information</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A handler to call with the ruleset result</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Telemetry"></a>
+                <a name="//apple_ref/swift/Section/Telemetry" class="dashAnchor"></a>
+                <a href="#/Telemetry">
+                  <h3 class="section-name">Telemetry</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC14TelemetryErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/TelemetryError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC14TelemetryErrorO">TelemetryError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Classes/AirMap/TelemetryError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AirMap</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17sendTelemetryDataySS_SC22CLLocationCoordinate2DV10coordinateSfSg11altitudeAglAG0I3MslAG18horizontalAccuracytKFZ"></a>
+                    <a name="//apple_ref/swift/Method/sendTelemetryData(_:coordinate:altitudeAgl:altitudeMsl:horizontalAccuracy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17sendTelemetryDataySS_SC22CLLocationCoordinate2DV10coordinateSfSg11altitudeAglAG0I3MslAG18horizontalAccuracytKFZ">sendTelemetryData(_:coordinate:altitudeAgl:altitudeMsl:horizontalAccuracy:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send aircraft position telemetry data to AirMap</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">sendTelemetryData</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">coordinate</span><span class="p">:</span> <span class="kt">Coordinate2D</span><span class="p">,</span> <span class="nv">altitudeAgl</span><span class="p">:</span> <span class="kt">Float</span><span class="p">?,</span> <span class="nv">altitudeMsl</span><span class="p">:</span> <span class="kt">Float</span><span class="p">?,</span> <span class="nv">horizontalAccuracy</span><span class="p">:</span> <span class="kt">Float</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier for the <code>AirMapFlight</code> to report telemetry data for</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>coordinate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The latitude &amp; longitude of the aircraft</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>altitudeAgl</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The altitude of the aircraft in meters above ground</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>altitudeMsl</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The altitude of the aircraft in meters above Mean Sea Level</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>horizontalAccuracy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional. The horizontal dilution of precision (HDOP)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17sendTelemetryDataySS_Sf1x_Sf1ySf1zt8velocitytKFZ"></a>
+                    <a name="//apple_ref/swift/Method/sendTelemetryData(_:velocity:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17sendTelemetryDataySS_Sf1x_Sf1ySf1zt8velocitytKFZ">sendTelemetryData(_:velocity:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send aircraft speed telemetry data to AirMap</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">sendTelemetryData</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">velocity</span><span class="p">:</span> <span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Float</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Float</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="kt">Float</span><span class="p">))</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flightId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier for the <code>AirMapFlight</code> to report telemetry data for</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>velocity</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A tuple of axis velocities (X,Y,Z) using the N-E-D (North-East-Down) coordinate system</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17sendTelemetryDataySS_Sf3yawSf5pitchSf4rolltKFZ"></a>
+                    <a name="//apple_ref/swift/Method/sendTelemetryData(_:yaw:pitch:roll:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17sendTelemetryDataySS_Sf3yawSf5pitchSf4rolltKFZ">sendTelemetryData(_:yaw:pitch:roll:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send aircraft attitude telemetry data to AirMap</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">sendTelemetryData</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">yaw</span><span class="p">:</span> <span class="kt">Float</span><span class="p">,</span> <span class="nv">pitch</span><span class="p">:</span> <span class="kt">Float</span><span class="p">,</span> <span class="nv">roll</span><span class="p">:</span> <span class="kt">Float</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier for the <code>AirMapFlight</code> to report telemetry data for</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>yaw</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The yaw angle in degrees measured from True North (0 &lt;= x &lt; 360)</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pitch</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The angle (up-down tilt) in degrees up or down relative to the forward horizon (-180 &lt; x &lt;= 180)</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>roll</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The angle (left-right tilt) in degrees (-180 &lt; x &lt;= 180)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC17sendTelemetryDataySS_Sf4barotKFZ"></a>
+                    <a name="//apple_ref/swift/Method/sendTelemetryData(_:baro:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC17sendTelemetryDataySS_Sf4barotKFZ">sendTelemetryData(_:baro:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send barometer telemetry data to AirMap</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">sendTelemetryData</span><span class="p">(</span><span class="n">_</span> <span class="nv">flightId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">baro</span><span class="p">:</span> <span class="kt">Float</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The identifier for the <code>AirMapFlight</code> to report telemetry data for</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>baro</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The barometric pressure in hPa (~1000)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC15trafficDelegateAA0aB15TrafficObserver_pSgvZ"></a>
+                    <a name="//apple_ref/swift/Variable/trafficDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC15trafficDelegateAA0aB15TrafficObserver_pSgvZ">trafficDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AirMap</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC14suspendTrafficyyFZ"></a>
+                    <a name="//apple_ref/swift/Method/suspendTraffic()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC14suspendTrafficyyFZ">suspendTraffic()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Suspend all active traffic alerts
+Typically called when the app enters the background.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">suspendTraffic</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6AirMapAAC13resumeTrafficyyFZ"></a>
+                    <a name="//apple_ref/swift/Method/resumeTraffic()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6AirMapAAC13resumeTrafficyyFZ">resumeTraffic()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Resume all active traffic alerts
+Typically called when the app enters the foreground.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">resumeTraffic</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2017 <a class="link" href="https://github.com/airmap" target="_blank" rel="external">AirMap, Inc.</a>. All rights reserved. (Last updated: 2017-09-08)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
