@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - Auth Delegate
+
 /// Protocol for handling AirMap authentication state changes
 public protocol AirMapAuthSessionDelegate: class {
 	func airmapSessionShouldAuthenticate()
@@ -17,6 +19,8 @@ public protocol AirMapAuthSessionDelegate: class {
 
 extension AirMap {
 	
+	// MARK: - Auth
+
 	/// A JWT auth token that identifies the logged in user accessing the service. Required for all authenticated endpoints.
 	public static var authToken: String? {
 		didSet { authSession.authToken = authToken }

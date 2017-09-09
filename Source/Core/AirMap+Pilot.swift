@@ -8,6 +8,8 @@
 
 extension AirMap {
 	
+	// MARK: - Pilot
+
 	/// Get a pilot by its identifier
 	///
 	/// - Parameters:

@@ -10,6 +10,8 @@ import Foundation
 
 extension AirMap {
 	
+	// MARK: - Advisories
+
 	/// Get airspace status and advisories for a given point, buffer, and rulesets
 	///
 	/// - Parameters:

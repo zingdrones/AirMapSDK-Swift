@@ -10,6 +10,8 @@ import Foundation
 
 extension AirMap {
 	
+	// MARK: - Rules
+
 	/// Get jurisdictions and related rulesets for a given geographic area
 	///
 	/// - Parameters:

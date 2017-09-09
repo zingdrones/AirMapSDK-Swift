@@ -17,7 +17,7 @@ public class AirMapImage {
 	public static func image(named name: String) -> Image? {
 		
 		#if os(OSX)
-			// FIXME:
+			// TODO:
 			return nil
 		#else
 			return UIImage(named: name, in: AirMapBundle.core, compatibleWith: nil)

@@ -10,6 +10,8 @@ import Foundation
 
 extension AirMap {
 	
+	// MARK: - Airspace
+
 	/// Get detailed information about an airspace object.
 	///
 	/// - Important: Access to this API is restricted. Contact Support for access.

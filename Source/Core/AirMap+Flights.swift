@@ -10,6 +10,8 @@ import Foundation
 
 extension AirMap {
 
+	// MARK: - Flights
+
 	/// List all public flights. A user's non-public flights are excluded.
 	///
 	/// - Parameters:

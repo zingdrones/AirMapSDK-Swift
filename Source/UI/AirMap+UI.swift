@@ -11,6 +11,8 @@ import Lock
 
 extension AirMap {
 	
+	// MARK: - UI
+
 	/// Creates an AirMap pilot phone verification view controller
 	///
 	/// - Parameters:

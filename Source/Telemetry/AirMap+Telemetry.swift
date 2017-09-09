@@ -10,6 +10,8 @@ import ProtocolBuffers
 import CoreLocation
 
 extension AirMap {
+
+	// MARK: - Telemetry
 	
 	public enum TelemetryError: Error {
 		case invalidCredentials

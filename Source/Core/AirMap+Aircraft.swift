@@ -10,6 +10,8 @@ import Foundation
 
 extension AirMap {
 	
+	// MARK: - Aircraft
+
 	/// List of all aircraft manufacturers
 	///
 	/// - Parameter completion: A completion handler to call with the Result

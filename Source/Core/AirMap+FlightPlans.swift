@@ -10,6 +10,8 @@ import Foundation
 
 extension AirMap {
 	
+	// MARK: - Flight Plans
+
 	/// Create a new flight plan
 	///
 	/// - Parameters:

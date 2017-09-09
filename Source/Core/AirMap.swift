@@ -8,14 +8,7 @@
 
 import Foundation
 
-/// The principal AirMapSDK class that is extended for additional functionality for Rules, Advisories, Flight, Pilot, etc.
-/// - SeeAlso: AirMap+Advisories
-/// - SeeAlso: AirMap+Airspace
-/// - SeeAlso: AirMap+Auth
-/// - SeeAlso: AirMap+Flight
-/// - SeeAlso: AirMap+FlightPlans
-/// - SeeAlso: AirMap+Pilot
-/// - SeeAlso: AirMap+Rules
+/// The `AirMap` class encapsulates all platform interactions for Rules, Advisories, Flight, Pilot, and more.
 public class AirMap {
 	
 	/// The current environment settings and configuration of the AirMap SDK. May be set explicity or will be loaded from a provided airmap.config.json file.
