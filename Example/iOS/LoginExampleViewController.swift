@@ -58,7 +58,7 @@ class LoginExampleViewController: UIViewController {
 	/// Login anonymously without the need for an AirMap user account
 	private func performAnonymousLogin() {
 		
-		// Login as an anonymous user. The `userId` parameter here is a unique third-party identifier for the user
+		// Login as an anonymous user. The userId parameter here is a unique third-party identifier for the user
 		// on your platform, not AirMap. It may be used at a future date if a user wishes to create an AirMap account
 		// and associate any previously anonymous flights, telemetry, etc. with that account.
 		AirMap.performAnonymousLogin(userId: "abc123") { (result: Result<AirMapToken>) in
@@ -71,15 +71,16 @@ class LoginExampleViewController: UIViewController {
 
 			// Handle the success case
 			case .value:
+				// Since we are anonymous, configure view with a nil AirMapPilot
 				self.configureView(with: nil)
 			}
 		}
 	}
 	
-	/// Present a modal UI that allows the user to login to the AirMap platform with existing credentials or by signing up
+	/// Present a modal UI that allows the user to login to the AirMap platform with existing AirMap credentials or by signing up
 	private func performAirMapLogin() {
 		
-		// Present a login UI from the current the view controller
+		// Present a login UI from the current view controller
 		AirMap.login(from: self) { (result: Result<AirMapPilot>) in
 			
 			switch result {
@@ -95,9 +96,9 @@ class LoginExampleViewController: UIViewController {
 		}
 	}
 	
-	/// Configures the user interface with a given AirMapPilot
+	/// Configure the user interface with a given AirMapPilot
 	///
-	/// - Parameter pilot: The pilot object from which to source user details
+	/// - Parameter pilot: The pilot object from which to source user details. Pass nil for anonymous.
 	private func configureView(with pilot: AirMapPilot?) {
 		
 		let info: [(key: String, value: String?)]
@@ -140,7 +141,7 @@ class LoginExampleViewController: UIViewController {
 		loginButton.isHidden = true
 	}
 
-	/// Handle any error object by present a modal alert
+	/// Handle an error by presenting a modal alert
 	///
 	/// - Parameter error: The error object to display
 	private func handle(_ error: Error) {
