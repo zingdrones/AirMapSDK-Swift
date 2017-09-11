@@ -25,12 +25,18 @@ public extension Array where Element: Equatable {
 
 extension Sequence {
 	
-	public func grouped<T>(by criteria: (Element) -> T) -> [T: [Element]] {
-		var groups = [T: [Element]]()
+	#if swift(>=3.2)
+	public typealias SequenceElement = Element
+	#else
+	public typealias SequenceElement = Iterator.Element
+	#endif
+
+	public func grouped<T: Hashable>(by criteria: (SequenceElement) -> T) -> [T: [SequenceElement]] {
+		var groups: [T: [SequenceElement]] = [:]
 		for element in self {
 			let key = criteria(element)
 			if !groups.keys.contains(key) {
-				groups[key] = [Element]()
+				groups[key] = [element]
 			}
 			groups[key]!.append(element)
 		}
