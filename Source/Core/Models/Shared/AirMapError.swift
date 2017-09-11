@@ -42,7 +42,7 @@ extension AirMapError: RawRepresentable {
 			
 		case 404:
 			let path = rawValue.request!.url!.path
-			let error = AirMapApiError(message: "Invalid URL: \(path)", code: code)
+			let error = AirMapApiError(message: "Not Found", code: code)
 			self = .client(error)
 			
 		case 422:
