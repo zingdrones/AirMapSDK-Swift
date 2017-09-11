@@ -307,22 +307,22 @@
                         <sections>
                             <tableViewSection id="JKU-JN-ZJf">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="oOX-Sb-GXB" detailTextLabel="Jfl-hh-TLn" rowHeight="187" style="IBUITableViewCellStyleSubtitle" id="wYc-OS-pdt">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="187"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="oOX-Sb-GXB" detailTextLabel="Jfl-hh-TLn" rowHeight="172" style="IBUITableViewCellStyleSubtitle" id="wYc-OS-pdt">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="172"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wYc-OS-pdt" id="nQ4-of-V3M">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="186.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="171.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Contextual Map &amp; Advisories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oOX-Sb-GXB">
-                                                    <rect key="frame" x="16" y="35" width="238.5" height="21.5"/>
+                                                    <rect key="frame" x="16" y="27" width="238.5" height="21.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jfl-hh-TLn">
-                                                    <rect key="frame" x="16" y="59.5" width="324" height="90"/>
+                                                    <rect key="frame" x="16" y="51.5" width="324" height="90"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <string key="text">Query the jurisdictions that intersect the map's viewport and displays a picker for the user to select the rulesets under which they wish to operate. Display relevant advisories for the area displayed and the rulesets selected.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -335,22 +335,22 @@
                                             <segue destination="vXZ-lx-hvc" kind="show" id="oof-Jc-mp8"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="6em-xT-7Jc" detailTextLabel="8Oa-OC-l1Y" rowHeight="97" style="IBUITableViewCellStyleSubtitle" id="h2U-ms-121">
-                                        <rect key="frame" x="0.0" y="187" width="375" height="97"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="6em-xT-7Jc" detailTextLabel="8Oa-OC-l1Y" rowHeight="113" style="IBUITableViewCellStyleSubtitle" id="h2U-ms-121">
+                                        <rect key="frame" x="0.0" y="172" width="375" height="113"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h2U-ms-121" id="nO9-6V-4MR">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="96.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="112.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="AirMap User Authentication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6em-xT-7Jc">
-                                                    <rect key="frame" x="16" y="17" width="228.5" height="21.5"/>
+                                                    <rect key="frame" x="16" y="16" width="228.5" height="21.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Present a login UI and display the authenticated pilot's information" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Oa-OC-l1Y">
-                                                    <rect key="frame" x="16" y="41.5" width="232.5" height="36"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Present a login UI to sign up or login a user, then display the authenticated pilot's information." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Oa-OC-l1Y">
+                                                    <rect key="frame" x="16" y="40.5" width="300.5" height="54"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -363,21 +363,21 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="0Nm-pp-g05" detailTextLabel="l7e-N2-bVt" rowHeight="97" style="IBUITableViewCellStyleSubtitle" id="pwh-B2-0Bv">
-                                        <rect key="frame" x="0.0" y="284" width="375" height="97"/>
+                                        <rect key="frame" x="0.0" y="285" width="375" height="97"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pwh-B2-0Bv" id="6kB-0Y-Bo8">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="96.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Anonymous Authentication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Nm-pp-g05">
-                                                    <rect key="frame" x="16" y="26" width="224" height="21.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Anonymous Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Nm-pp-g05">
+                                                    <rect key="frame" x="16" y="17" width="148" height="21.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Perform a headless, anonymous login" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l7e-N2-bVt">
-                                                    <rect key="frame" x="16" y="50.5" width="256.5" height="18"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Perform an anonymous login without an existing AirMap pilot." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l7e-N2-bVt">
+                                                    <rect key="frame" x="16" y="41.5" width="275.5" height="36"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -403,7 +403,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kvx-Lc-Lrr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1302" y="340"/>
+            <point key="canvasLocation" x="-1303.2" y="339.58020989505252"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

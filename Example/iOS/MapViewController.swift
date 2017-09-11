@@ -11,12 +11,24 @@ import AirMap
 import RxSwift
 import Mapbox
 
+/// Example of configuring an AirMapMapView using an array of known AirMapRulesets. This view controller conforms to MGLMapViewDelegate and whenever the map region changes, the map is queried for the jurisdictions that intersect the visible area.
 class MapViewController: UIViewController {
 	
 	@IBOutlet weak var mapView: AirMapMapView!
 	
 	private var preferredRulesetIds = [String]()
 	private var activeRulesets = [AirMapRuleset]()
+	
+	private static let rulesetPreferenceKey = "airmap_ruleset_ids"
+	
+	// MARK: - View Lifecycle
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		// Restore any previously saved ruleset preferences
+		preferredRulesetIds = persistedRulesetPreferences()
+	}
 	
 	// MARK: - Navigation
 	
@@ -58,18 +70,35 @@ class MapViewController: UIViewController {
 
 		// Update the local reference to the user's preferred rulesets
 		preferredRulesetIds = rulesetsVC.preferredRulesets.map { $0.id }
+		
+		// Save the selected rulesets to the user defaults
+		persistPreferences(for: preferredRulesetIds)
+		
+		// Update the actively selected rulesets
 		updateActiveRulesets()
 	}
 	
-	// MARK: - Configuration
+	// MARK: - Private Methods
 	
 	/// Update the active rulesets using the preferred rulesets and the jurisdictions on the map
-	func updateActiveRulesets() {
-		activeRulesets = self.resolvedRulesets(with: preferredRulesetIds, from: mapView.visibleJurisdictions())
+	fileprivate func updateActiveRulesets() {
+		activeRulesets = resolvedRulesets(with: preferredRulesetIds, from: mapView.visibleJurisdictions())
 		mapView.configure(rulesets: activeRulesets)
 	}
-
-	// MARK: - Helper Methods
+	
+	/// Persist the given ruleset identifiers to the user's shared preferences
+	///
+	/// - Parameter rulesetIds: The ruleset identifiers to persist
+	private func persistPreferences(for rulesetIds: [String]) {
+		UserDefaults.standard.set(rulesetIds, forKey: MapViewController.rulesetPreferenceKey)
+	}
+	
+	/// Fetch the persisted ruleset identifers
+	///
+	/// - Returns: A array of preferred ruleset identifiers
+	private func persistedRulesetPreferences() -> [String] {
+		return UserDefaults.standard.value(forKey: MapViewController.rulesetPreferenceKey) as? [String] ?? []
+	}
 	
 	/// Take the user's rulesets preference and resolve which rulesets should be selected from the available jurisdictions
 	///
@@ -77,7 +106,7 @@ class MapViewController: UIViewController {
 	///   - preferredRulesetIds: An array of rulesets ids, if any, that the user has previously selected
 	///   - availableJurisdictions: An array of jurisdictions for the area of operation
 	/// - Returns: A resolved array of rulesets taking into account the user's .optional and .pickOne selection preference
-	public func resolvedRulesets(with preferredRulesetIds: [String], from availableJurisdictions: [AirMapJurisdiction]) -> [AirMapRuleset] {
+	private func resolvedRulesets(with preferredRulesetIds: [String], from availableJurisdictions: [AirMapJurisdiction]) -> [AirMapRuleset] {
 		
 		var rulesets = [AirMapRuleset]()
 		
