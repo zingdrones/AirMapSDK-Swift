@@ -34,7 +34,7 @@ PODS:
   - Auth0 (1.7.1):
     - SimpleKeychain
   - CocoaAsyncSocket (7.6.1)
-  - CryptoSwift (0.7.0-alpha.1)
+  - CryptoSwift (0.6.9)
   - Differentiator (2.0.2)
   - JWTDecode (2.0.0)
   - libPhoneNumber-iOS (0.9.10)
@@ -88,7 +88,7 @@ PODS:
 
 DEPENDENCIES:
   - AirMapSDK (from `../`)
-  - CryptoSwift (from `https://github.com/krzyzanowskim/CryptoSwift`, branch `develop`)
+  - CryptoSwift (= 0.6.9)
   - Nimble
   - OHHTTPStubs
   - OHHTTPStubs/Swift
@@ -97,21 +97,13 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   AirMapSDK:
     :path: ../
-  CryptoSwift:
-    :branch: develop
-    :git: https://github.com/krzyzanowskim/CryptoSwift
-
-CHECKOUT OPTIONS:
-  CryptoSwift:
-    :commit: 86a4e0b010ea20ee4ebfeb3becfe24247eb1f957
-    :git: https://github.com/krzyzanowskim/CryptoSwift
 
 SPEC CHECKSUMS:
   AirMapSDK: c501401de20df9204987d0b497825ecf62f62035
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   Auth0: b23f0d9f45bdcd70652f5427d3411519d79ddaa1
   CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
-  CryptoSwift: e24006fb884cfeeec11ba7d2a740de7b668eab18
+  CryptoSwift: a22f6ba238e9ce4d26ee7bf45b9ed82e7122d4a0
   Differentiator: caa9b3957981a2ac8e6b2eac8a676af461caa604
   JWTDecode: 178e47e5d28d3abcff778bacced8342858cd6cb5
   libPhoneNumber-iOS: f721ae4d5854bce60934f9fb9b0b28e8e68913cb
@@ -133,6 +125,6 @@ SPEC CHECKSUMS:
   SwiftSimplify: 374ead1c360c6e236539543d6ce5b3abda011080
   SwiftTurf: 1b92524e162f0cabe646d30bfe33eba6fcaf6239
 
-PODFILE CHECKSUM: d2c32d4aa1d9088476014e53b6758445f86b020c
+PODFILE CHECKSUM: 87c1571d95df1202d53bb99e870ac69449a2e316
 
 COCOAPODS: 1.3.1
