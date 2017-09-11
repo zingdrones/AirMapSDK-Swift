@@ -17,4 +17,16 @@ class ExamplesViewController: UITableViewController {
 		tableView.rowHeight = UITableViewAutomaticDimension
 	}
 	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+		if let loginExampleVC = segue.destination as? LoginExampleViewController {
+			if segue.identifier == "anonymousLogin" {
+				loginExampleVC.useCase = .anonymousUser
+			}
+			if segue.identifier == "airMapLogin" {
+				loginExampleVC.useCase = .airMapUser
+			}
+		}
+	}
+	
 }

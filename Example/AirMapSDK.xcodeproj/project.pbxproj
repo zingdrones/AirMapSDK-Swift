@@ -184,11 +184,11 @@
 				607FACD71AFB9204008FA782 /* MapViewController.swift */,
 				91824BA41F621BBD00ADBC31 /* RulesetsViewController.swift */,
 				91824BA61F625B8D00ADBC31 /* AdvisoriesViewController.swift */,
+				91C06EA61F6322D6007B08EE /* LoginExampleViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
-				91C06EA61F6322D6007B08EE /* LoginExampleViewController.swift */,
 			);
 			name = "Example iOS";
 			path = iOS;

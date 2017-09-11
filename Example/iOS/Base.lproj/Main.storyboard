@@ -229,7 +229,7 @@
             </objects>
             <point key="canvasLocation" x="2766" y="341"/>
         </scene>
-        <!--Authentication-->
+        <!--AirMap Authentication-->
         <scene sceneID="v8d-DO-tp9">
             <objects>
                 <viewController id="Urf-up-86s" customClass="LoginExampleViewController" customModule="AirMapSDK_Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -242,16 +242,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="g3P-iv-eeC">
-                                <rect key="frame" x="163" y="79" width="50" height="510.5"/>
+                                <rect key="frame" x="16" y="79" width="343" height="510.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEV-Ta-hm2">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlB-Zh-M04">
-                                        <rect key="frame" x="0.0" y="50" width="50" height="460.5"/>
+                                        <rect key="frame" x="0.0" y="50" width="343" height="460.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Login"/>
                                         <connections>
@@ -264,11 +264,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="g3P-iv-eeC" firstAttribute="centerY" secondItem="k5X-YY-NRg" secondAttribute="centerY" priority="750" id="0KA-qe-3tD"/>
-                            <constraint firstItem="g3P-iv-eeC" firstAttribute="top" secondItem="5UK-C2-coN" secondAttribute="bottom" constant="15" id="fvI-52-sod"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="g3P-iv-eeC" secondAttribute="trailing" id="3df-oA-Kfa"/>
+                            <constraint firstItem="g3P-iv-eeC" firstAttribute="leading" secondItem="k5X-YY-NRg" secondAttribute="leadingMargin" id="7L0-rP-PIW"/>
+                            <constraint firstItem="g3P-iv-eeC" firstAttribute="top" secondItem="5UK-C2-coN" secondAttribute="bottom" constant="15" id="ZRb-cU-UIT"/>
                             <constraint firstItem="g3P-iv-eeC" firstAttribute="centerX" secondItem="k5X-YY-NRg" secondAttribute="centerX" id="gTc-u3-F9e"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Authentication" id="R0a-q0-4uc"/>
+                    <navigationItem key="navigationItem" title="AirMap Authentication" id="R0a-q0-4uc"/>
                     <connections>
                         <outlet property="loginButton" destination="RlB-Zh-M04" id="IJt-0l-1Ie"/>
                         <outlet property="pilotInfo" destination="UEV-Ta-hm2" id="DQo-Pg-esF"/>
@@ -340,8 +342,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="96.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Authentication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6em-xT-7Jc">
-                                                    <rect key="frame" x="16" y="17" width="121.5" height="21.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="AirMap User Authentication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6em-xT-7Jc">
+                                                    <rect key="frame" x="16" y="17" width="228.5" height="21.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <nil key="textColor"/>
@@ -357,7 +359,34 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Urf-up-86s" kind="show" id="V9N-LC-uyr"/>
+                                            <segue destination="Urf-up-86s" kind="show" identifier="airMapLogin" id="V9N-LC-uyr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="0Nm-pp-g05" detailTextLabel="l7e-N2-bVt" rowHeight="97" style="IBUITableViewCellStyleSubtitle" id="pwh-B2-0Bv">
+                                        <rect key="frame" x="0.0" y="284" width="375" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pwh-B2-0Bv" id="6kB-0Y-Bo8">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="96.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Anonymous Authentication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0Nm-pp-g05">
+                                                    <rect key="frame" x="16" y="26" width="224" height="21.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Perform a headless, anonymous login" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l7e-N2-bVt">
+                                                    <rect key="frame" x="16" y="50.5" width="256.5" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Urf-up-86s" kind="show" identifier="anonymousLogin" id="K0M-di-ZOQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -377,4 +406,7 @@
             <point key="canvasLocation" x="-1302" y="340"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="K0M-di-ZOQ"/>
+    </inferredMetricsTieBreakers>
 </document>
