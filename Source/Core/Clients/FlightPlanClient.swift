@@ -22,7 +22,7 @@ internal class FlightPlanClient: HTTPClient {
 	
 	func create(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
 		AirMap.logger.debug("Create Flight Plan", flightPlan)
-		return perform(method: .post, path: "/plan/", params: flightPlan.toJSON(), update: flightPlan)
+		return perform(method: .post, path: "/plan/", params: flightPlan.toJSON(), update: flightPlan, checkAuth: true)
 	}
 	
 	func update(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
@@ -30,19 +30,19 @@ internal class FlightPlanClient: HTTPClient {
 		guard let flightPlanId = flightPlan.id else {
 			return Observable.error(FlightPlanClientError.flightPlanDoesntExistCreateFirst)
 		}
-		return perform(method: .patch, path: "/plan/\(flightPlanId)", params: flightPlan.toJSON(), update: flightPlan)
+		return perform(method: .patch, path: "/plan/\(flightPlanId)", params: flightPlan.toJSON(), update: flightPlan, checkAuth: true)
 	}
 	
 	func get(_ flightPlanId: String) -> Observable<AirMapFlightPlan> {
 		AirMap.logger.debug("Get Flight Plan", flightPlanId)
-		return perform(method: .get, path: "/plan/\(flightPlanId)")
+		return perform(method: .get, path: "/plan/\(flightPlanId)", checkAuth: true)
 	}
 		
 	func getBriefing(_ flightPlanId: String) -> Observable<AirMapFlightBriefing> {
-		return perform(method: .get, path: "/plan/\(flightPlanId)/briefing")
+		return perform(method: .get, path: "/plan/\(flightPlanId)/briefing", checkAuth: true)
 	}
 	
 	func submitFlightPlan(_ flightPlanId: String) -> Observable<AirMapFlightPlan> {
-		return perform(method: .post, path: "/plan/\(flightPlanId)/submit")
+		return perform(method: .post, path: "/plan/\(flightPlanId)/submit", checkAuth: true)
 	}
 }

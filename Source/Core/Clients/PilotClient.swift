@@ -29,13 +29,13 @@ internal class PilotClient: HTTPClient {
 
 	func getAuthenticatedPilot() -> Observable<AirMapPilot> {
 		AirMap.logger.debug("GET Authenticated Pilot", AirMap.authSession.userId)
-		return perform(method: .get, path: "/\(AirMap.authSession.userId)", checkAuth: true)
+		return perform(method: .get, path: "/\(AirMap.authSession.userId.urlEncoded)", checkAuth: true)
 	}
 
 	func update(_ pilot: AirMapPilot) -> Observable<AirMapPilot> {
 		AirMap.logger.debug("Update Pilot", pilot)
 		guard let pilotId = pilot.id else { return .error(PilotClientError.invalidPilotIdentifier) }
-		return perform(method: .patch, path: "/\(pilotId)", params: pilot.params())
+		return perform(method: .patch, path: "/\(pilotId)", params: pilot.params(), checkAuth: true)
 	}
 	
 	func sendVerificationToken() -> Observable<Void> {
@@ -53,28 +53,28 @@ internal class PilotClient: HTTPClient {
 	
 	func listAircraft() -> Observable<[AirMapAircraft]> {
 		AirMap.logger.debug("List Aircraft")
-		return perform(method: .get, path: "/\(AirMap.authSession.userId)/aircraft")
+		return perform(method: .get, path: "/\(AirMap.authSession.userId)/aircraft", checkAuth: true)
 	}
 
 	func getAircraft(_ aircraftId: String) -> Observable<AirMapAircraft> {
 		AirMap.logger.debug("Get Aircraft")
-		return perform(method: .get, path: "/\(AirMap.authSession.userId)/aircraft/\(aircraftId)")
+		return perform(method: .get, path: "/\(AirMap.authSession.userId)/aircraft/\(aircraftId)", checkAuth: true)
 	}
 
 	func createAircraft(_ aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
 		AirMap.logger.debug("Create Aircraft", aircraft)
-		return perform(method: .post, path: "/\(AirMap.authSession.userId)/aircraft", params: aircraft.toJSON(), update: aircraft)
+		return perform(method: .post, path: "/\(AirMap.authSession.userId)/aircraft", params: aircraft.toJSON(), update: aircraft, checkAuth: true)
 	}
 
 	func updateAircraft(_ aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
 		AirMap.logger.debug("Update Aircraft", aircraft)
 		guard let aircraftId = aircraft.id else { return .error(PilotClientError.invalidAircraftIdentifier) }
-		return perform(method: .patch, path: "/\(AirMap.authSession.userId)/aircraft/\(aircraftId)", params: aircraft.toJSON(), update: aircraft)
+		return perform(method: .patch, path: "/\(AirMap.authSession.userId)/aircraft/\(aircraftId)", params: aircraft.toJSON(), update: aircraft, checkAuth: true)
 	}
 
 	func deleteAircraft(_ aircraft: AirMapAircraft) -> Observable<Void> {
 		AirMap.logger.debug("Delete Aircraft", aircraft)
 		guard let aircraftId = aircraft.id else { return .error(PilotClientError.invalidAircraftIdentifier) }
-		return perform(method: .delete, path: "/\(AirMap.authSession.userId)/aircraft/\(aircraftId)")
+		return perform(method: .delete, path: "/\(AirMap.authSession.userId)/aircraft/\(aircraftId)", checkAuth: true)
 	}
 }
