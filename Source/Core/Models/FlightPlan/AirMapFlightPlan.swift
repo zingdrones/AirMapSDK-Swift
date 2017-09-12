@@ -60,27 +60,14 @@ public class AirMapFlightPlan: Mappable {
 		
 		do {
 			let dateTransform = Constants.AirMapApi.dateTransform
-			let geoJSONTransform = GeoJSONToAirMapGeometryTransform()
-			
-			id           =  try? map.value("id")
-			pilotId      =  try? map.value("pilot_id")
-			aircraftId   =  try? map.value("aircraft_id")
-			buffer       =  try? map.value("buffer")
-			geometry     =  try? map.value("geometry", using: geoJSONTransform)
-			startTime    =  try  map.value("start_time", using: dateTransform)
-			rulesetIds   = (try? map.value("rulesets")) ?? []
-			flightId     =  try? map.value("flight_id")
-			maximumAltitudeAGL   =  try? map.value("max_altitude_agl")
-			flightFeaturesValue  = (try? map.value("flight_features")) ?? [:]
-			
-			let takeoffLatitude: Double   =  try map.value("takeoff_latitude")
-			let takeoffLongitude: Double  =  try map.value("takeoff_longitude")
-			takeoffCoordinate = Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
-			
-			let endTime: Date = try map.value("end_time")
+			startTime = try map.value("start_time", using: dateTransform)
+			let endTime: Date = try map.value("end_time", using: dateTransform)
 			duration = endTime.timeIntervalSince(startTime)
+			let takeoffLatitude = try map.value("takeoff_latitude") as Double
+			let takeoffLongitude = try map.value("takeoff_longitude") as Double
+			takeoffCoordinate = Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
 		}
-		catch let error {
+		catch {
 			AirMap.logger.error(error)
 			return nil
 		}
@@ -91,22 +78,35 @@ public class AirMapFlightPlan: Mappable {
 		let dateTransform = Constants.AirMapApi.dateTransform
 		let geoJSONTransform = GeoJSONToAirMapGeometryTransform()
 
-		id                  >>>  map["id"]
-		pilotId             >>>  map["pilot_id"]
-		aircraftId          >>>  map["aircraft_id"]
-		buffer              >>>  map["buffer"]
-		maximumAltitudeAGL  >>>  map["max_altitude_agl"]
-		startTime           >>> (map["start_time"], dateTransform)
-		endTime             >>> (map["end_time"], dateTransform)
-		rulesetIds          >>>  map["rulesets"]
-		flightFeaturesValue >>>  map["flight_features"]
-		flightId            >>>  map["flight_id"]
+		id                  <-   map["id"]
+		pilotId             <-   map["pilot_id"]
+		aircraftId          <-   map["aircraft_id"]
+		buffer              <-   map["buffer"]
+		maximumAltitudeAGL  <-   map["max_altitude_agl"]
+		startTime           <-  (map["start_time"], dateTransform)
+		rulesetIds          <-   map["rulesets"]
+		flightFeaturesValue <-   map["flight_features"]
+		flightId            <-   map["flight_id"]
+
+		switch map.mappingType {
 		
-		takeoffCoordinate.latitude   >>>  map["takeoff_latitude"]
-		takeoffCoordinate.longitude  >>>  map["takeoff_longitude"]
-		
-		// FIXME: See `func polygonGeometry()` below
-		polygonGeometry()  >>> (map["geometry"], geoJSONTransform)
+		case .toJSON:
+			takeoffCoordinate.latitude   >>>  map["takeoff_latitude"]
+			takeoffCoordinate.longitude  >>>  map["takeoff_longitude"]
+			polygonGeometry()  >>> (map["geometry"], geoJSONTransform)
+			endTime  >>> (map["end_time"], dateTransform)
+
+		case .fromJSON:
+			do {
+				let takeoffLatitude = try map.value("takeoff_latitude") as Double
+				let takeoffLongitude = try map.value("takeoff_longitude") as Double
+				takeoffCoordinate = Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
+				geometry = try map.value("geometry", using: geoJSONTransform)
+			}
+			catch {
+				print(error)
+			}
+		}
 	}
 	
 }
