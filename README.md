@@ -1,5 +1,5 @@
 ![AirMap: The Airspace Platform for Developers](Resources/Core/AirMap.png)
-![Swift 2.3](https://img.shields.io/badge/Swift-3.0-lightgray.svg) [![Version](https://img.shields.io/cocoapods/v/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![License](https://img.shields.io/cocoapods/l/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![Platform](https://img.shields.io/cocoapods/p/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK)
+![Swift 3.1](https://img.shields.io/badge/Swift-3.1-lightgray.svg) [![Version](https://img.shields.io/cocoapods/v/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![License](https://img.shields.io/cocoapods/l/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![Platform](https://img.shields.io/cocoapods/p/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK)
 
 Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.
 
@@ -8,8 +8,8 @@ Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.
 ### Environment
 * iOS 9.0+, 
 * macOS 10.10+, 
-* Swift 3.0 or 3.1
-* Xcode 8.2+
+* Swift 3.1
+* Xcode 8.3+
 
 ### Sign up for an [AirMap Developer Account.](https://dashboard.airmap.io/developer/)
 
@@ -31,7 +31,7 @@ The AirMap SDK is a CocoaPod written in Swift. CocoaPods is a dependency manager
 
 ### Example Project
 
-***You must have Xcode 8.2+ to run the example.***
+***You must have Xcode 8.3+ to run the example.***
 
 To run the example project, run `pod try AirMapSDK`.  This should install the SDK and launch Xcode.
 
@@ -42,7 +42,7 @@ To integrate the AirMap SDK into your Xcode project, navigate to the directory t
 ```ruby
 target 'MyApp' do
   use_frameworks!
-	pod 'AirMapSDK'
+  pod 'AirMapSDK'
 end
 ```
 
@@ -56,44 +56,6 @@ Make sure you import the framework before using the SDK.
 
 ```swift
 import AirMap
-```
-
-## Examples
-
-### Getting Airspace Status
-
-```swift
-// Create a coordinate or source one from the device's GPS
-let myCoord = CLLocationCoordinate2D(latitude: 34.02, longitude: -118.50)
-
-// Check the coordinate with a buffer of 100 Meters
-AirMap.checkCoordinate(coordinate: myCoord, buffer: 100) { (result: Result<AirMapStatus>) in
-	
-	// The result is either an error or a value
-	switch result {
-	
-	case .error(let error):
-		// handle the error
-		print(error)
-
-	case .value(let status):
-		
-		// print the overall airspace status color (i.e. red, yellow, green)
-		print("Airspace Status Color:", status.advisoryColor)
-
-		// print the number of airspace advisories returned
-		print("Number of Advisories:", status.advisories.count)
-		
-		// print out details for each advisory
-		for advisory in status.advisories {
-			print("\n")
-			print("Name:     ", advisory.name)
-			print("Type:     ", advisory.type.title)
-			print("Color:    ", advisory.color)
-			print("Distance: ", advisory.distance, "meters")
-		}
-	}
-}
 ```
 
 ## License 
