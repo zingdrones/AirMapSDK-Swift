@@ -242,7 +242,7 @@ extension DataRequest {
 				
 				return .success()
 			}
-			catch let error {
+			catch {
 				return .failure(error)
 			}
 		}
@@ -277,7 +277,7 @@ extension DataRequest {
 					return .failure(AirMapError.serialization(.invalidObject))
 				}
 			}
-			catch let error {
+			catch {
 				return .failure(error)
 			}
 		}
@@ -309,7 +309,7 @@ extension DataRequest {
 					return .failure(AirMapError.serialization(.invalidObject))
 				}
 			}
-			catch let error {
+			catch {
 				return .failure(error)
 			}
 		}

@@ -22,7 +22,7 @@ extension AirMapAirspaceStatus: ImmutableMappable {
 			advisories =  try map.value("advisories")
 		}
 			
-		catch let error {
+		catch {
 			print(error)
 			throw error
 		}
@@ -83,7 +83,7 @@ extension AirMapAdvisory: ImmutableMappable {
 			}
 		}
 			
-		catch let error {
+		catch {
 			AirMap.logger.error(error)
 			throw error
 		}
@@ -305,7 +305,7 @@ extension AirMapRuleset: ImmutableMappable {
 			jurisdictionName   = try? map.value("jurisdiction.name")
 			jurisdictionRegion = try? map.value("jurisdiction.region")
 		}
-		catch let error {
+		catch {
 			AirMap.logger.error(error)
 			throw error
 		}
@@ -398,7 +398,7 @@ extension AirMapFlightBriefing: ImmutableMappable {
 			authorizations = (try? map.value("authorizations")) ?? []
 			validations    = (try? map.value("validations")) ?? []
 		}
-		catch let error {
+		catch {
 			AirMap.logger.error(error)
 			throw error
 		}
@@ -422,7 +422,7 @@ extension AirMapFlightBriefing.Validation: ImmutableMappable {
 			authority  = try map.value("authority")
 			message    = try map.value("message")
 		}
-		catch let error {
+		catch {
 			AirMap.logger.error(error)
 			throw error
 		}
@@ -436,7 +436,7 @@ extension AirMapFlightBriefing.Validation.Feature: ImmutableMappable {
 			code = try map.value("code")
 			name = try map.value("description")
 		}
-		catch let error {
+		catch {
 			AirMap.logger.error(error)
 			throw error
 		}
@@ -449,7 +449,7 @@ extension AirMapAuthority: ImmutableMappable {
 		do {
 			name = try map.value("name")
 		}
-		catch let error {
+		catch {
 			AirMap.logger.error(error)
 			throw error
 		}
@@ -464,7 +464,7 @@ extension AirMapFlightBriefing.Authorization: ImmutableMappable {
 			status     = try map.value("status")
 			message    = try map.value("message")
 		}
-		catch let error {
+		catch {
 			AirMap.logger.error(error)
 			throw error
 		}
@@ -494,7 +494,7 @@ extension AirMapJurisdiction: ImmutableMappable {
 			let mapper = Mapper<AirMapRuleset>(context: AirMapRuleset.Origin.tileService)
 			rulesets = try mapper.mapArray(JSONArray: updatedJSON)
 		}
-		catch let error {
+		catch {
 			AirMap.logger.error(error)
 			throw error
 		}
@@ -560,7 +560,7 @@ extension AirMapWeather: ImmutableMappable {
 			attributionUrl  = try map.value("attribution_uri", using: URLTransform())
 			observations    = try map.value("weather")
 		}
-		catch let error {
+		catch {
 			print(error)
 			throw error
 		}
@@ -586,7 +586,7 @@ extension AirMapWeather.Observation: ImmutableMappable {
 			windSpeed     =  try  map.value("wind.speed")
 			windGusting   =  try? map.value("wind.gusting")
 		}
-		catch let error {
+		catch {
 			print(error)
 			throw error
 		}
