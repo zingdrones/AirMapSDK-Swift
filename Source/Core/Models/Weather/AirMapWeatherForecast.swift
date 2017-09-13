@@ -38,7 +38,7 @@ public struct AirMapWeather {
 		/// The minimum visibilty in kilometers
 		public let visibility: Kilometers?
 		
-		/// Precipitation accumulation in centimeters
+		/// Precipitation probability 0.0-1.0
 		public let precipitation: Double
 		
 		/// The tempetrature in Celcius
