@@ -35,10 +35,11 @@ extension Sequence {
 		var groups: [T: [SequenceElement]] = [:]
 		for element in self {
 			let key = criteria(element)
-			if !groups.keys.contains(key) {
+			if groups.keys.contains(key) {
+				groups[key]!.append(element)
+			} else {
 				groups[key] = [element]
 			}
-			groups[key]!.append(element)
 		}
 		return groups
 	}
