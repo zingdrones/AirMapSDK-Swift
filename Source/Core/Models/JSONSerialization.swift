@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-// INTERNAL: Extends object for Mappable/ImmutableMappable Protocol Conformance
+// INTERNAL: Extends objects for Mappable/ImmutableMappable Protocol Conformance
 
 // MARK: - AirMapAirspaceStatus
 
