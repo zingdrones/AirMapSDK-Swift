@@ -66,6 +66,15 @@ extension AirMap {
 	public static func endFlight(_ flight: AirMapFlight, completion: @escaping (Result<AirMapFlight>) -> Void) {
 		flightClient.end(flight).thenSubscribe(completion)
 	}
+	
+	/// End a flight, setting its `endTime` to now
+	///
+	/// - Parameters:
+	///   - flightId: The unique identifier associated with the flight
+	///   - completion: A completion handler to call with the Result
+	public static func endFlight(_ flightId: String, completion: @escaping (Result<AirMapFlight>) -> Void) {
+		flightClient.end(flightId).thenSubscribe(completion)
+	}
 
 	/// Delete a flight
 	///

@@ -105,6 +105,11 @@ internal class FlightClient: HTTPClient {
 		}
 		return perform(method: .post, path:"/\(flightId)/end", update: flight)
 	}
+	
+	func end(_ flightId: String) -> Observable<AirMapFlight> {
+		AirMap.logger.debug("End flight", flightId)
+		return perform(method: .post, path:"/\(flightId)/end")
+	}
 
 	func delete(_ flight: AirMapFlight) -> Observable<Void> {
 		AirMap.logger.debug("Delete flight", flight)
