@@ -72,7 +72,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - flightId: The unique identifier associated with the flight
 	///   - completion: A completion handler to call with the Result
-	public static func endFlight(_ flightId: String, completion: @escaping (Result<AirMapFlight>) -> Void) {
+	public static func endFlight(_ flightId: String, completion: @escaping (Result<Void>) -> Void) {
 		flightClient.end(flightId).thenSubscribe(completion)
 	}
 
