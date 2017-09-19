@@ -18,7 +18,7 @@ import CoreLocation
 
 	public var id: String!
 	public var direction: Double = 0
-	public var altitude: Meters = 0
+	public var altitude: Feet = 0
 	public var groundSpeed: Knots = 0
 	public var trueHeading: Int = 0
 	public var timestamp: Date = Date()
