@@ -104,9 +104,10 @@ extension AirMapTraffic {
 		lengthFormatter.numberFormatter.roundingIncrement = 50
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
+			let meters = altitude.meters
 			let groundSpeedMpsString = speedFormatter.string(from: NSNumber(value: groundSpeed.metersPerSecond))!
 			localizedGroundSpeedString = String(format: localizedUnits.speedFormatMetersPerSecond, groundSpeedMpsString)
-			altitudeString = lengthFormatter.string(fromValue: altitude, unit: .meter)
+			altitudeString = lengthFormatter.string(fromValue: meters, unit: .meter)
 		case .imperial:
 			let feet = altitude.feet
 			let groundSpeedKnotsString = speedFormatter.string(from: NSNumber(value: groundSpeed))!
