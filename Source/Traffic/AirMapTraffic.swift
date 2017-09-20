@@ -18,7 +18,7 @@ import CoreLocation
 
 	public var id: String!
 	public var direction: Double = 0
-	public var altitude: Feet = 0
+	public var altitude: Double = 0
 	public var groundSpeed: Knots = 0
 	public var trueHeading: Int = 0
 	public var timestamp: Date = Date()
@@ -109,7 +109,7 @@ extension AirMapTraffic {
 			localizedGroundSpeedString = String(format: localizedUnits.speedFormatMetersPerSecond, groundSpeedMpsString)
 			altitudeString = lengthFormatter.string(fromValue: meters, unit: .meter)
 		case .imperial:
-			let feet = altitude.feet
+			let feet = altitude
 			let groundSpeedKnotsString = speedFormatter.string(from: NSNumber(value: groundSpeed))!
 			localizedGroundSpeedString = String(format: localizedUnits.speedFormatKnots, groundSpeedKnotsString)
 			altitudeString = lengthFormatter.string(fromValue: feet, unit: .foot)
