@@ -79,8 +79,8 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 		let faaReg = AirMapPilotProfileField(label: faaLabel, key: "faa_registration_number")
 		customFields.append(faaReg)
 
-		setupBindings()
 		setupTableView()
+		setupBindings()
 	}
 	
 	public override func viewDidAppear(_ animated: Bool) {
