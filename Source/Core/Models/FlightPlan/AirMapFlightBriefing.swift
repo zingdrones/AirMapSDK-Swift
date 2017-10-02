@@ -37,6 +37,9 @@ public struct AirMapFlightBriefing {
 	/// A representation of the validation of a flight feature performed by AirMap or a third-party authority
 	public struct Validation {
 		
+		/// The description of the validation
+		public let description: String
+		
 		/// The status of the validation
 		public let status: Status
 		
@@ -73,6 +76,9 @@ public struct AirMapFlightBriefing {
 		
 		/// The authoritive entity issuing the authorization
 		public let authority: AirMapAuthority
+		
+		/// The description of the authorization
+		public let description: String
 
 		/// The authorization status of the flight plan
 		public let status: Status
@@ -85,20 +91,27 @@ public struct AirMapFlightBriefing {
 		/// - pending: The request with the authority has been made and a response is pending
 		/// - accepted: The request with the authority has been accepted
 		/// - rejected: The request with the authority has been rejected
-		/// - acceptedUponSubmission: The request with the authority will be accepted once the flight plan is submitted
+		/// - notRequested: The request with the authority has not been requested
+		/// - authorizedUponSubmission: The request with the authority will be accepted once the flight plan is submitted
 		/// - rejectedUponSubmission: The request with the authority will be rejected once the flight plan is submitted
+		/// - manualAuthorization: The request with the authority will be reviewed manually sometime after the flight plan is submitted
 		public enum Status: String {
 			case pending
 			case accepted
 			case rejected
-			case acceptedUponSubmission = "accepted_upon_submission"
+			case notRequested = "not_requested"
 			case rejectedUponSubmission = "rejected_upon_submission"
+			case authorizedUponSubmission = "authorized_upon_submission"
+			case manualAuthorization = "manual_authorization"
 		}
 	}
 }
 
 /// A representation of an authoritative entity
 public struct AirMapAuthority {
+	
+	/// The identifier of the authority
+	public let id: String
 	
 	/// The name of the authority
 	public let name: String
