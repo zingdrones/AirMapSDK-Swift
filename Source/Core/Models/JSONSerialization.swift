@@ -449,6 +449,7 @@ extension AirMapAuthority: ImmutableMappable {
 	public init(map: Map) throws {
 		do {
 			name = try map.value("name")
+			id   = try map.value("id")
 		}
 		catch {
 			AirMap.logger.error(error)
