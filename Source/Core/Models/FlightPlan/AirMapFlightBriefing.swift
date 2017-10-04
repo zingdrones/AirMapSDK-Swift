@@ -42,10 +42,7 @@ public struct AirMapFlightBriefing {
 		
 		/// The status of the validation
 		public let status: Status
-		
-		/// The flight feature that is being validated
-		public let feature: Feature
-		
+
 		/// The authoritative entity performing the validation
 		public let authority: AirMapAuthority
 		
@@ -58,16 +55,10 @@ public struct AirMapFlightBriefing {
 		/// - invalid: The flight feature value was deemed invalid by the authority
 		/// - unknown: The flight feature could not be validated
 		public enum Status: String {
-			case valid
-			case invalid
-			case unknown
-		}
-		
-		public struct Feature {
-			/// That unique identifier for the feature being validated
-			let code: String
-			/// A description of the flight feature being validated
-			let name: String
+			case notRequested = "not_requested"
+			case pending
+			case accepted
+			case rejected
 		}
 	}
 	

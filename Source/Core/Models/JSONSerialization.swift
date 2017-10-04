@@ -417,25 +417,10 @@ extension AirMapFlightBriefing.Validation: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		do {
-			status     	= try map.value("status")
-			feature    	= try map.value("feature")
 			authority  	= try map.value("authority")
+			status     	= try map.value("status")
 			message    	= try map.value("message")
 			description	= try map.value("description")
-		}
-		catch {
-			AirMap.logger.error(error)
-			throw error
-		}
-	}
-}
-
-extension AirMapFlightBriefing.Validation.Feature: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		do {
-			code = try map.value("code")
-			name = try map.value("description")
 		}
 		catch {
 			AirMap.logger.error(error)
