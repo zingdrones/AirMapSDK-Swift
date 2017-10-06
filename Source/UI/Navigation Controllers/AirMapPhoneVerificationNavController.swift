@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol AirMapPhoneVerificationDelegate: class {
-	func phoneVerificationDidVerifyPhoneNumber()
+	func phoneVerificationDidVerifyPhoneNumber(verifiedPhoneNumber:String?)
 }
 
 open class AirMapPhoneVerificationNavController: UINavigationController {

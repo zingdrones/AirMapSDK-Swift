@@ -17,12 +17,13 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 	@IBOutlet weak var smsCode: UITextField!
 	@IBOutlet weak var smsTextField: UITextField!
 	
+	var phoneNumber:String?
+	
 	fileprivate let disposeBag = DisposeBag()
 	fileprivate let activityIndicator = ActivityTracker()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		setupBindings()
 		smsCode.becomeFirstResponder()
 	}
@@ -60,16 +61,20 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 	@IBAction func submitSMSCode() {
 		
 		trackEvent(.tap, label: "Submit Button")
-		
 		smsCode.resignFirstResponder()
 		
 		AirMap.rx.verifySMS(smsTextField.text!)
 			.trackActivity(activityIndicator)
-			.map { $0.verified }
-			.subscribe(
+			.map { $0.verified}
+			.subscribe (
 				onNext: (unowned(self, AirMapVerifySMSCodeViewController.didVerifyPhoneNumber)),
 				onError: { [unowned self] error in
 					self.trackEvent(.save, label: "Error", value: NSNumber(value: (error as NSError).code))
+					if let error = error as? AirMapError {
+						self.displayErrorAlert(message: error.description)
+					} else {
+						self.displayErrorAlert(message: error.localizedDescription)
+					}
 				},
 				onCompleted: { [unowned self] _ in
 					self.trackEvent(.save, label: "Success")
@@ -78,15 +83,31 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 			.disposed(by: disposeBag)
 	}
 	
+	fileprivate func displayErrorAlert(message:String) {
+		
+		let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+		
+		//TODO: Localize
+		let tryAgainAction = UIAlertAction(title: "Try Again", style: .cancel)
+		
+		//TODO: Localize
+		let requestTokenAction = UIAlertAction(title: "Request New SMS Code", style: .default) { action in
+			_ = self.navigationController?.popViewController(animated: true)
+		}
+		
+		alert.addAction(tryAgainAction)
+		alert.addAction(requestTokenAction)
+		navigationController?.present(alert, animated: true, completion: nil)
+	}
+	
 	fileprivate func didVerifyPhoneNumber(_ verified: Bool) {
 		
 		if verified {
 			let nav = navigationController as! AirMapPhoneVerificationNavController
-			nav.phoneVerificationDelegate?.phoneVerificationDidVerifyPhoneNumber()
+			nav.phoneVerificationDelegate?.phoneVerificationDidVerifyPhoneNumber(verifiedPhoneNumber: phoneNumber)
 		} else {
-			//TODO: Handle error
-			_ = navigationController?.popViewController(animated: true)
+			//TODO: Localize
+			displayErrorAlert(message: "Phone Number Verification Failed")
 		}
 	}
-	
 }

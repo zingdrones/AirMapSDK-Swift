@@ -39,7 +39,6 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		setupDefaultCountryCode()
 		setupPhoneNumberField()
 		setupBindings()
@@ -89,6 +88,8 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 			countryVC.selectedCountryIdentifier = regionCode
 		
 		case .pushVerifySMS:
+			let smsVC = segue.destination as! AirMapVerifySMSCodeViewController
+			smsVC.phoneNumber = pilot.phone
 			break
 		}
 	}
