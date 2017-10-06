@@ -41,7 +41,6 @@ extension AirMapError: RawRepresentable {
 			self = .unauthorized
 			
 		case 404:
-			let path = rawValue.request!.url!.path
 			let error = AirMapApiError(message: "Not Found", code: code)
 			self = .client(error)
 			
