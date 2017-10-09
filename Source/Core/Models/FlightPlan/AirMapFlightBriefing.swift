@@ -34,6 +34,44 @@ public struct AirMapFlightBriefing {
 		public let rules: [AirMapRule]
 	}
 	
+	/// A representation of the validation of a flight feature performed by AirMap or a third-party authority
+	public struct Validation {
+		
+		/// The description of the validation
+		public let description: String
+		
+		/// The status of the validation
+		public let status: Status
+		
+		/// The authoritative entity performing the validation
+		public let authority: AirMapAuthority
+		
+		/// A message returned by the validation engine or upstream entity
+		public let message: String
+		
+		/// A enumeration of the possible validation states
+		///
+		/// - pending: The request with the authority has been made and a response is pending
+		/// - accepted: The request with the authority has been accepted
+		/// - rejected: The request with the authority has been rejected
+		/// - notRequested: The request with the authority has not been requested
+		public enum Status:String {
+			case pending
+			case accepted
+			case rejected
+			case notRequested = "not_requested"
+			
+			public var description: String {
+				switch self {
+				case .pending:  return LocalizedStrings.Validation.pending
+				case .accepted: return LocalizedStrings.Validation.accepted
+				case .rejected: return LocalizedStrings.Validation.rejected
+				case .notRequested: return LocalizedStrings.Validation.notRequested
+				}
+			}
+		}
+	}
+	
 	/// A representation of an authorization or permission required to perform a flight in a given jurisdiction by an authoritive entity
 	public struct Authorization {
 		
@@ -66,39 +104,22 @@ public struct AirMapFlightBriefing {
 			case rejectedUponSubmission = "rejected_upon_submission"
 			case authorizedUponSubmission = "authorized_upon_submission"
 			case manualAuthorization = "manual_authorization"
+			
+			public var description: String {
+				switch self {
+				case .pending:  return LocalizedStrings.Authorization.pending
+				case .accepted: return LocalizedStrings.Authorization.accepted
+				case .rejected: return LocalizedStrings.Authorization.rejected
+				case .notRequested: return LocalizedStrings.Authorization.notRequested
+				case .rejectedUponSubmission: return LocalizedStrings.Authorization.rejectedUponSubmission
+				case .authorizedUponSubmission: return LocalizedStrings.Authorization.authorizedUponSubmission
+				case .manualAuthorization: return LocalizedStrings.Authorization.manualAuthorization
+				}
+			}
 		}
 	}
 	
-	/// A representation of the validation of a flight feature performed by AirMap or a third-party authority
-	public struct Validation {
-		
-		/// The description of the validation
-		public let description: String
-		
-		/// The status of the validation
-		public let status: Status
-		
-		/// The authoritative entity performing the validation
-		public let authority: AirMapAuthority
-		
-		/// A message returned by the validation engine or upstream entity
-		public let message: String
-		
-		/// A enumeration of the possible validation states
-		///
-		/// - pending: The request with the authority has been made and a response is pending
-		/// - accepted: The request with the authority has been accepted
-		/// - rejected: The request with the authority has been rejected
-		/// - notRequested: The request with the authority has not been requested
-		/// - unknown: The status is unknown
-		public enum Status:String {
-			case pending
-			case accepted
-			case rejected
-			case notRequested = "not_requested"
-			case unknown
-		}
-	}
+	
 }
 
 /// A representation of an authoritative entity
