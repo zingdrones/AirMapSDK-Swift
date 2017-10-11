@@ -23,7 +23,7 @@ public typealias Hectares = Double
 
 public extension Feet {
 	
-	public static let metersPerFoot: Meters = 0.3048
+	public static let metersPerFoot: Meters = 1/3.28084
 
 	public var meters: Meters {
 		return self * Feet.metersPerFoot
