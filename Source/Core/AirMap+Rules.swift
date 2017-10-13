@@ -24,7 +24,7 @@ extension AirMap {
 	/// Get contextual ruleset information for a given geographic area
 	///
 	/// - Parameters:
-	///   - geometry: The area to query                                                                                                             for rulesets
+	///   - geometry: The area to query for rulesets
 	///   - completion: The handler to call with the rulesets result
 	public static func getRulesets(intersecting geometry: AirMapGeometry, completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
 		ruleClient.getRulesets(intersecting: geometry).thenSubscribe(completion)
@@ -37,6 +37,15 @@ extension AirMap {
 	///   - completion: A handler to call with the rulesets result
 	public static func getRulesets(by rulesetIds: [String], completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
 		ruleClient.getRulesets(by: rulesetIds).thenSubscribe(completion)
+	}
+	
+	/// Get detailed information for a collection of rulesets evaluated by Flight Plan Id
+	///
+	/// - Parameters:
+	///   - flightPlanId: The flight plan identifier for which to fetch evaluated ruleset information
+	///   - completion: A handler to call with the rulesets result
+	public static func getRulesetsEvaluated(by flightPlanId: String, completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
+		ruleClient.getRulesetsEvaluated(by: flightPlanId).thenSubscribe(completion)
 	}
 
 	/// Get detailed information for a rulesets

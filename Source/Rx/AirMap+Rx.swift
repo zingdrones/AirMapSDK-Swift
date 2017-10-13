@@ -169,7 +169,11 @@ extension Reactive where Base: AirMap {
 	public static func getRuleset(by identifier: String) -> Observable<AirMapRuleset> {
 		return AirMap.ruleClient.getRuleset(by: identifier)
 	}
-
+	
+	public static func getRulesetsEvaluated(by flightPlanId: String) -> Observable<[AirMapRuleset]> {
+		return AirMap.ruleClient.getRulesetsEvaluated(by: flightPlanId)
+	}
+	
 	public static func getRulesets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleset]> {
 		return AirMap.ruleClient.getRulesets(intersecting: geometry)
 	}
