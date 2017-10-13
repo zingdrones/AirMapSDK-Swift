@@ -62,7 +62,7 @@ internal class HTTPClient {
 							AirMap.logger.error(method, String(describing: T.self), path, error)
 							observer.onError(error)
 						} else {
-							AirMap.logger.trace(String(describing: T.self), "response:", response.result.value!)
+							AirMap.logger.trace(String(describing: T.self))
 							observer.on(.next(response.result.value!))
 							observer.on(.completed)
 						}
@@ -88,7 +88,6 @@ internal class HTTPClient {
 							AirMap.logger.error(method, String(describing: T.self), path, error)
 							observer.onError(error)
 						} else {
-							AirMap.logger.trace(String(describing: T.self), "response:", response.result.value as Any)
 							observer.on(.next(response.result.value ?? nil))
 							observer.on(.completed)
 						}
@@ -114,7 +113,7 @@ internal class HTTPClient {
 							observer.onError(error)
 						} else {
 							let resultValue = response.result.value!
-							AirMap.logger.trace("Response:", resultValue.count, String(describing: T.self)+"s")
+							AirMap.logger.debug("Response:", resultValue.count, String(describing: T.self)+"s")
 							observer.on(.next(resultValue))
 							observer.on(.completed)
 						}
