@@ -33,6 +33,11 @@ internal class RuleClient: HTTPClient {
 		let params = ["geometry": geometry.params()]
 		return perform(method: .post, path: "/", params: params)
 	}
+	
+	func getRulesetsEvaluated(by flightPlanId: String) -> Observable<[AirMapRuleset]> {
+		AirMap.logger.debug("Getting evaluated rulesets for flight_plan_id", flightPlanId)
+		return perform(method: .get, path: "/rule/\(flightPlanId)/evaluation")
+	}
 		
 	func getRulesets(by rulesetIds: [String]) -> Observable<[AirMapRuleset]> {
 		AirMap.logger.debug("Getting rules for ruleset:", rulesetIds)
