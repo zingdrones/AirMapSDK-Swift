@@ -144,13 +144,13 @@ extension AirMapFlightFeature: Hashable, Equatable {
 	}
 }
 
-extension AirMapRule.Status: Comparable {
+extension AirMapFlightFeature.Status: Comparable {
 	
 	var order: Int {
 		return [.conflicting, .missingInfo, .informational, .notConflicting, .unevaluated].index(of: self)!
 	}
 	
-	public static func <(lhs: AirMapRule.Status, rhs: AirMapRule.Status) -> Bool {
+	public static func <(lhs: AirMapFlightFeature.Status, rhs: AirMapFlightFeature.Status) -> Bool {
 		return lhs.order < rhs.order
 	}
 }

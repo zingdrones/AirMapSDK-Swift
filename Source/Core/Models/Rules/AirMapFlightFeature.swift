@@ -16,13 +16,31 @@ public struct AirMapFlightFeature {
 	public let description: String
 	
 	/// The type of input the flight feature requires
-	public let inputType: InputType
+	public let inputType: InputType?
 	
 	/// The measurement type of the input
 	public let measurementType: MeasurementType
 	
 	/// The unit to use for the measurement type
 	public let measurementUnit: MeasurementUnit?
+	
+	// The evaluation status of the flight feature
+	public let status: Status
+	
+	/// The evaluation status of a flight feature.
+	///
+	/// - conflicting: The flight plan properties or input provided conflicts with a rule
+	/// - missingInfo: The flight plan properties or input is missing and therefore cannot be evaluated
+	/// - informational: The status cannot be computationally evaluated but is provided for informational purposes
+	/// - notConflicting: The feature has been evaluated as non-conflicting based on the flight plan properties or input provided
+	/// - unevaluated: The feature has not yet been evaluated by the AirMap rules engine
+	public enum Status: String {
+		case conflicting
+		case missingInfo = "missing_info"
+		case informational
+		case notConflicting = "not_conflicting"
+		case unevaluated
+	}
 
 	/// The flight feature's concrete Type
 	public enum InputType: String {

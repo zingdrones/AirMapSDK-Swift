@@ -283,7 +283,7 @@ extension AirMapRuleset: ImmutableMappable {
 		
 		do {
 			id        =  try  map.value("id")
-			name      =  try  map.value("name")
+			name      = (try? map.value("name")) ?? "?" //TODO: FIXME
 			shortName = (try? map.value("short_name")) ?? "?"
 			type      =  try  map.value("selection_type")
 			isDefault =  try  map.value("default")
@@ -494,11 +494,18 @@ extension AirMapJurisdiction: ImmutableMappable {
 extension AirMapFlightFeature: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		id              =  try  map.value("flight_feature")
-		description     =  try  map.value("description")
-		inputType       =  try  map.value("input_type")
-		measurementType = (try? map.value("measurement_type")) ?? .binary
-		measurementUnit =  try? map.value("measurement_unit")
+		do {
+			id              =  try  map.value("flight_feature")
+			description     =  try  map.value("description")
+			inputType       =  try? map.value("input_type")
+			measurementType = (try? map.value("measurement_type")) ?? .binary
+			measurementUnit =  try? map.value("measurement_unit")
+			status          = (try? map.value("status")) ?? .unevaluated
+		}
+		catch {
+			print(error)
+			throw error
+		}
 	}
 }
 

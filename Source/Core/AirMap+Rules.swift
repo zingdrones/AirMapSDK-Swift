@@ -44,7 +44,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - flightPlanId: The flight plan identifier for which to fetch evaluated ruleset information
 	///   - completion: A handler to call with the rulesets result
-	public static func getRulesetsEvaluated(by flightPlanId: String, completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
+	public static func getRulesetsEvaluated(by flightPlanId: String, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
 		ruleClient.getRulesetsEvaluated(by: flightPlanId).thenSubscribe(completion)
 	}
 

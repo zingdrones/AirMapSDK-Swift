@@ -21,21 +21,6 @@ public struct AirMapRule {
 	/// The order in which this rule should be displayed
 	public let displayOrder: Int
 
-	/// The evaluation status of this rule
-	public let status: Status
-
-	/// The evaluation status of a rule. Only evaluated when the rule is return as part of a flight briefing.
-	///
-	/// - conflicting: The flight plan properties or input provided conflicts with the rule
-	/// - missingInfo: The flight plan properties or input is missing and the rule cannot be evaluated
-	/// - informational: The status cannot be computationally evaluated but is provided for informational purposes
-	/// - notConflicting: The rule has been evaluated as non-conflicting based on the flight plan properties or input provided
-	/// - unevaluated: The rule has not yet been evaluated by the AirMap rules engine
-	public enum Status: String {
-		case conflicting
-		case missingInfo = "missing_info"
-		case informational
-		case notConflicting = "not_conflicting"
-		case unevaluated
-	}
+	/// The collective evaluation status of this rule's flight features
+	public let status: AirMapFlightFeature.Status
 }
