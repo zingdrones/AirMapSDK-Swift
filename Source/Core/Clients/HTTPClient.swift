@@ -195,8 +195,8 @@ class AuthenticationAdapter: RequestAdapter {
 
 		urlRequest.setValue(authorization, forHTTPHeaderField: HTTPClient.Header.authorization.rawValue)
 		urlRequest.setValue(apiKey, forHTTPHeaderField: HTTPClient.Header.apiKey.rawValue)
-		urlRequest.setValue(HTTPClient.Header.accept.rawValue, forHTTPHeaderField: HTTPClient.MimeType.JSON.rawValue)
-		
+		urlRequest.setValue(HTTPClient.MimeType.JSON.rawValue, forHTTPHeaderField: HTTPClient.Header.accept.rawValue)
+
 		return urlRequest
 	}
 }
