@@ -27,8 +27,8 @@ public struct AirMapFlightFeature {
 	// The evaluation status of the flight feature
 	public let status: Status
 	
-	// The flight feature is computed, no input needed
-	public let isComputed: Bool
+	// The flight feature is calculated, no input needed
+	public let isCalculated: Bool
 	
 	/// The evaluation status of a flight feature.
 	///

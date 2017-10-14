@@ -501,7 +501,7 @@ extension AirMapFlightFeature: ImmutableMappable {
 			measurementType = (try? map.value("measurement_type")) ?? .binary
 			measurementUnit =  try? map.value("measurement_unit")
 			status          = (try? map.value("status")) ?? .unevaluated
-			isComputed		= (try? map.value("is_computed")) ?? false
+			isCalculated		= (try? map.value("is_calculated")) ?? false
 		}
 		catch {
 			print(error)
