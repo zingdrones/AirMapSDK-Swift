@@ -331,22 +331,23 @@ extension AirMapFlight: Mappable {
 		
 		let dateTransform = CustomDateFormatTransform(formatString: Constants.AirMapApi.dateFormat)
 		
-		id          <-  map["id"]
-		createdAt   <- (map["creation_date"], dateTransform)
-		startTime   <- (map["start_time"], dateTransform)
-		maxAltitude <-  map["max_altitude"]
-		city        <-  map["city"]
-		state       <-  map["state"]
-		country     <-  map["country"]
-		notify      <-  map["notify"]
+		id          	<-  map["id"]
+		flightPlanId	<-  map["flight_plan_id"]
+		createdAt   	<- (map["creation_date"], dateTransform)
+		startTime   	<- (map["start_time"], dateTransform)
+		maxAltitude 	<-  map["max_altitude"]
+		city        	<-  map["city"]
+		state       	<-  map["state"]
+		country     	<-  map["country"]
+		notify      	<-  map["notify"]
 // FIXME: Map pilot
 //		pilot       <-  map["pilot"]
-		pilotId     <-  map["pilot_id"]
-		aircraft    <-  map["aircraft"]
-		aircraftId  <-  map["aircraft_id"]
-		isPublic    <-  map["public"]
-		buffer      <-  map["buffer"]
-		geometry    <- (map["geometry"], GeoJSONToAirMapGeometryTransform())
+		pilotId     	<-  map["pilot_id"]
+		aircraft    	<-  map["aircraft"]
+		aircraftId  	<-  map["aircraft_id"]
+		isPublic    	<-  map["public"]
+		buffer      	<-  map["buffer"]
+		geometry    	<- (map["geometry"], GeoJSONToAirMapGeometryTransform())
 		
 		var endTime: Date?
 		endTime     <- (map["end_time"], dateTransform)

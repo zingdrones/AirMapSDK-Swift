@@ -18,6 +18,7 @@ public enum AirMapFlightGeometryType: String {
 public class AirMapFlight {
 	
     public var id: String?
+	public var flightPlanId:String?
 	public var createdAt: Date = Date()
 	public var startTime: Date? = Date()
 	public var endTime: Date? {
