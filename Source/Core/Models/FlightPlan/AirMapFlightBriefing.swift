@@ -20,13 +20,13 @@ public struct AirMapFlightBriefing {
 	
 	/// The list of authorizations necessary to perform the flight
 	public let authorizations: [Authorization]
-
+	
 	/// The list of validations performed on the flight plan's flight feature values
 	public let validations: [Validation]
-
+	
 	/// A logical grouping of rules, typically under a specific jurisdiction
 	public struct Ruleset {
-
+		
 		/// The unique identifier for the ruleset
 		public let id: String
 		
@@ -62,11 +62,16 @@ public struct AirMapFlightBriefing {
 			case notRequested = "not_requested"
 			
 			public var description: String {
+				let localized = LocalizedStrings.Validation.self
 				switch self {
-				case .pending:  return LocalizedStrings.Validation.pending
-				case .accepted: return LocalizedStrings.Validation.accepted
-				case .rejected: return LocalizedStrings.Validation.rejected
-				case .notRequested: return LocalizedStrings.Validation.notRequested
+				case .pending:
+					return localized.pending
+				case .accepted:
+					return localized.accepted
+				case .rejected:
+					return localized.rejected
+				case .notRequested:
+					return localized.notRequested
 				}
 			}
 		}
@@ -80,14 +85,14 @@ public struct AirMapFlightBriefing {
 		
 		/// The description of the authorization
 		public let description: String
-
+		
 		/// The authorization status of the flight plan
 		public let status: Authorization.Status
 		
 		/// A textual message describing the current status of the request
 		public let message: String
-	
-		/// A enumeration of the possible authorization states
+		
+		/// An enumeration of possible authorization states
 		///
 		/// - pending: The request with the authority has been made and a response is pending
 		/// - accepted: The request with the authority has been accepted
@@ -106,19 +111,26 @@ public struct AirMapFlightBriefing {
 			case manualAuthorization = "manual_authorization"
 			
 			public var description: String {
+				let localized = LocalizedStrings.Authorization.self
 				switch self {
-				case .pending:  return LocalizedStrings.Authorization.pending
-				case .accepted: return LocalizedStrings.Authorization.accepted
-				case .rejected: return LocalizedStrings.Authorization.rejected
-				case .notRequested: return LocalizedStrings.Authorization.notRequested
-				case .rejectedUponSubmission: return LocalizedStrings.Authorization.rejectedUponSubmission
-				case .authorizedUponSubmission: return LocalizedStrings.Authorization.authorizedUponSubmission
-				case .manualAuthorization: return LocalizedStrings.Authorization.manualAuthorization
+				case .pending:
+					return localized.pending
+				case .accepted:
+					return localized.accepted
+				case .rejected:
+					return localized.rejected
+				case .notRequested:
+					return localized.notRequested
+				case .rejectedUponSubmission:
+					return localized.rejectedUponSubmission
+				case .authorizedUponSubmission:
+					return localized.authorizedUponSubmission
+				case .manualAuthorization:
+					return localized.manualAuthorization
 				}
 			}
 		}
 	}
-	
 	
 }
 
