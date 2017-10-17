@@ -82,6 +82,8 @@ public struct AirMapAdvisory {
 		/// Controlled Airspace advisory properties
 		public struct ControlledAirspace: PropertiesType {
 			public let type: String?
+			public let isLaancProvider: Bool?
+			public let supportsAuthorization: Bool?
 		}
 
 		/// Emergency advisory properties

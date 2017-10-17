@@ -139,7 +139,9 @@ extension AirMapAdvisory.Properties.Heliport: ImmutableMappable {
 extension AirMapAdvisory.Properties.ControlledAirspace: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		type      =  try map.value("type")
+		type                   =  try  map.value("type")
+		isLaancProvider        =  try? map.value("laanc")
+		supportsAuthorization  =  try? map.value("authorization")
 	}
 }
 
