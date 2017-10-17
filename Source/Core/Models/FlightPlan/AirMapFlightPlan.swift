@@ -114,7 +114,7 @@ public class AirMapFlightPlan: Mappable {
 extension AirMapFlightPlan {
 	
 	// FIXME: This is here because the API does not currently support anything other than polygons
-	func polygonGeometry() -> AirMapPolygon? {
+	public func polygonGeometry() -> AirMapPolygon? {
 		
 		guard let geometry = geometry else { return nil }
 		

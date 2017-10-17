@@ -48,8 +48,19 @@ extension AirMap {
 		ruleClient.getRulesetsEvaluated(by: flightPlanId).thenSubscribe(completion)
 	}
 
+	/// Get rulesets evaluated for the geometry, rulesets, and flight feature values
+	///
+	/// - Parameters:
+	///   - geometry: The geographic area to evaluate
+	///   - rulesetIds: The rulesets to enable for the given area
+	///   - flightFeatureValues: Additional context values for any available flight features
+	///   - completion: A handler to call with the rulesets result
+	public static func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [String], flightFeatureValues: [String: Any]?, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
+		ruleClient.getRulesetsEvaluated(from: geometry, rulesetIds: rulesetIds, flightFeatureValues: flightFeatureValues).thenSubscribe(completion)
+	}
+
 	/// Get detailed information for a rulesets
-	///ß
+	///
 	/// - Parameters:
 	///   - rulesetId: The ruleset identifier for which to fetch information
 	///   - completion: A handler to call with the ruleset result
