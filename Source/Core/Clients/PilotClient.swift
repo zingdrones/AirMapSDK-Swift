@@ -68,8 +68,9 @@ internal class PilotClient: HTTPClient {
 
 	func updateAircraft(_ aircraft: AirMapAircraft) -> Observable<AirMapAircraft> {
 		AirMap.logger.debug("Update Aircraft", aircraft)
-		guard let aircraftId = aircraft.id else { return .error(PilotClientError.invalidAircraftIdentifier) }
-		return perform(method: .patch, path: "/\(AirMap.authSession.userId)/aircraft/\(aircraftId)", params: aircraft.toJSON(), update: aircraft, checkAuth: true)
+		guard let aircraftId = aircraft.id, let nickname = aircraft.nickname else { return .error(PilotClientError.invalidAircraftIdentifier) }
+		let params = ["nickname" : nickname]
+		return perform(method: .patch, path: "/\(AirMap.authSession.userId)/aircraft/\(aircraftId)", params: params, update: aircraft, checkAuth: true)
 	}
 
 	func deleteAircraft(_ aircraft: AirMapAircraft) -> Observable<Void> {
