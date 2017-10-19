@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,22 +33,22 @@
         <scene sceneID="gK9-Xh-P7m">
             <objects>
                 <tableViewController id="2ic-Bm-9Ln" customClass="AirMapCreateAircraftViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Sta-HC-zRP">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Sta-HC-zRP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection id="aPo-2J-tFD">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="4kW-0W-3QM">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="4kW-0W-3QM">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4kW-0W-3QM" id="R6Y-Kv-0CL">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="4kW-0W-3QM" id="R6Y-Kv-0CL">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nickname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="blN-px-yT6">
-                                                    <rect key="frame" x="15" y="2" width="345" height="40"/>
+                                                    <rect key="frame" x="16" y="2" width="343" height="40"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="wGc-Fm-yvR"/>
@@ -67,8 +67,8 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="blN-px-yT6" firstAttribute="leading" secondItem="R6Y-Kv-0CL" secondAttribute="leading" constant="15" id="1PY-b6-6oj"/>
-                                                <constraint firstAttribute="trailing" secondItem="blN-px-yT6" secondAttribute="trailing" constant="15" id="CH7-bv-8ee"/>
+                                                <constraint firstItem="blN-px-yT6" firstAttribute="leading" secondItem="R6Y-Kv-0CL" secondAttribute="leadingMargin" id="1PY-b6-6oj"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="blN-px-yT6" secondAttribute="trailing" id="CH7-bv-8ee"/>
                                                 <constraint firstItem="blN-px-yT6" firstAttribute="centerY" secondItem="R6Y-Kv-0CL" secondAttribute="centerY" id="EVt-6y-7FD"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -77,7 +77,7 @@
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T4Z-O1-0zC" id="SjY-I2-Wuw">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Make &amp; Model" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XDN-d5-eoX">
@@ -169,16 +169,16 @@
         <scene sceneID="rFf-cb-qhK">
             <objects>
                 <tableViewController id="vSg-8e-JzS" customClass="AirMapPhoneVerificationViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="qs0-t8-hTr">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="qs0-t8-hTr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="Q8Y-aH-mj6">
+                        <view key="tableHeaderView" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" id="Q8Y-aH-mj6">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="177"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Na-rR-yZi">
-                                    <rect key="frame" x="30" y="30" width="315" height="117"/>
+                                    <rect key="frame" x="8" y="30" width="359" height="117"/>
                                     <string key="text">By providing your number, you agree to receive texts about your flights at this number. Carrier message &amp; data rates may apply.
 
 AirMap will send you a text message when your digital notice has been successfully submitted.
@@ -198,19 +198,18 @@ AirMap will send you a text message when your digital notice has been successful
                             </subviews>
                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="2Na-rR-yZi" secondAttribute="trailing" constant="30" id="2eG-hk-gpU"/>
-                                <constraint firstItem="2Na-rR-yZi" firstAttribute="centerX" secondItem="Q8Y-aH-mj6" secondAttribute="centerX" id="JQc-Te-iLE"/>
-                                <constraint firstItem="2Na-rR-yZi" firstAttribute="leading" secondItem="Q8Y-aH-mj6" secondAttribute="leading" constant="30" id="R4z-SL-GWQ"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="2Na-rR-yZi" secondAttribute="trailing" id="2eG-hk-gpU"/>
+                                <constraint firstItem="2Na-rR-yZi" firstAttribute="leading" secondItem="Q8Y-aH-mj6" secondAttribute="leadingMargin" id="R4z-SL-GWQ"/>
                                 <constraint firstItem="2Na-rR-yZi" firstAttribute="centerY" secondItem="Q8Y-aH-mj6" secondAttribute="centerY" id="asB-R5-0oI"/>
                             </constraints>
                         </view>
                         <sections>
                             <tableViewSection id="tt5-ID-KTH">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="21U-wl-OGQ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="21U-wl-OGQ">
                                         <rect key="frame" x="0.0" y="177" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="21U-wl-OGQ" id="q0x-Vg-prq">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="21U-wl-OGQ" id="q0x-Vg-prq">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -222,24 +221,24 @@ AirMap will send you a text message when your digital notice has been successful
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="EGv-95-foG" firstAttribute="leading" secondItem="q0x-Vg-prq" secondAttribute="leadingMargin" constant="8" id="DRk-AT-tNp"/>
+                                                <constraint firstItem="EGv-95-foG" firstAttribute="leading" secondItem="q0x-Vg-prq" secondAttribute="leadingMargin" id="DRk-AT-tNp"/>
                                                 <constraint firstItem="EGv-95-foG" firstAttribute="centerY" secondItem="q0x-Vg-prq" secondAttribute="centerY" id="IT8-rO-6hG"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="EGv-95-foG" secondAttribute="trailing" constant="8" id="y5x-em-VTQ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="EGv-95-foG" secondAttribute="trailing" id="y5x-em-VTQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="R3C-7q-JQF" kind="show" identifier="pushSelectCountry" id="OiG-zl-Hhu"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="7Bc-AW-JDT">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="7Bc-AW-JDT">
                                         <rect key="frame" x="0.0" y="221" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Bc-AW-JDT" id="fR4-ge-daM">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="7Bc-AW-JDT" id="fR4-ge-daM">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vme-QM-SG8" customClass="PhoneNumberTextField" customModule="PhoneNumberKit">
-                                                    <rect key="frame" x="16" y="2" width="344" height="40"/>
+                                                    <rect key="frame" x="16" y="2" width="343" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="YUK-ku-nYM"/>
                                                     </constraints>
@@ -261,8 +260,8 @@ AirMap will send you a text message when your digital notice has been successful
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="vme-QM-SG8" firstAttribute="centerY" secondItem="fR4-ge-daM" secondAttribute="centerY" id="53m-en-fbM"/>
-                                                <constraint firstAttribute="trailing" secondItem="vme-QM-SG8" secondAttribute="trailing" constant="15" id="BQV-ny-DA6"/>
-                                                <constraint firstItem="vme-QM-SG8" firstAttribute="leading" secondItem="fR4-ge-daM" secondAttribute="leadingMargin" constant="8" id="EmP-6m-vlx"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="vme-QM-SG8" secondAttribute="trailing" id="BQV-ny-DA6"/>
+                                                <constraint firstItem="vme-QM-SG8" firstAttribute="leading" secondItem="fR4-ge-daM" secondAttribute="leadingMargin" id="EmP-6m-vlx"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -331,7 +330,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="OD8-6i-3ls">
             <objects>
                 <tableViewController id="nyx-Hp-7C7" customClass="AirMapVerifySMSCodeViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="q1O-n0-mTg">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="q1O-n0-mTg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -340,7 +339,7 @@ AirMap will send you a text message when your digital notice has been successful
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SMS Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8q-LE-2ew">
-                                    <rect key="frame" x="154" y="62" width="68" height="17"/>
+                                    <rect key="frame" x="153.5" y="61.5" width="68" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -454,7 +453,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="jeA-hY-hF4">
             <objects>
                 <tableViewController id="R3C-7q-JQF" customClass="AirMapPhoneCountryViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="9BG-a3-Lhs">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="9BG-a3-Lhs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -467,7 +466,7 @@ AirMap will send you a text message when your digital notice has been successful
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="[Country Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qF4-Xd-R4h">
-                                            <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -537,22 +536,22 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="Z3b-El-Vk2">
             <objects>
                 <tableViewController id="JWw-BI-GEg" customClass="AirMapPilotProfileViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hLQ-Zg-vKb">
+                    <tableView key="view" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hLQ-Zg-vKb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="wzd-Xk-Q90">
+                        <view key="tableHeaderView" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" id="wzd-Xk-Q90">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[First Name Last Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LTQ-cw-ceU">
-                                    <rect key="frame" x="15" y="22" width="345" height="23"/>
+                                    <rect key="frame" x="8" y="22" width="359" height="23"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[0 Aircraft, 0 Flights]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Vcb-p8-zyI">
-                                    <rect key="frame" x="15" y="51" width="345" height="20"/>
+                                    <rect key="frame" x="8" y="51" width="352" height="20"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -560,30 +559,30 @@ AirMap will send you a text message when your digital notice has been successful
                             </subviews>
                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="Vcb-p8-zyI" firstAttribute="leading" secondItem="wzd-Xk-Q90" secondAttribute="leading" constant="15" id="3aJ-Tr-jNf"/>
+                                <constraint firstItem="Vcb-p8-zyI" firstAttribute="leading" secondItem="wzd-Xk-Q90" secondAttribute="leadingMargin" id="3aJ-Tr-jNf"/>
                                 <constraint firstAttribute="trailing" secondItem="Vcb-p8-zyI" secondAttribute="trailing" constant="15" id="72h-zj-DWe"/>
                                 <constraint firstItem="Vcb-p8-zyI" firstAttribute="top" secondItem="LTQ-cw-ceU" secondAttribute="bottom" constant="6" id="8Zp-2Y-InI"/>
-                                <constraint firstAttribute="trailing" secondItem="LTQ-cw-ceU" secondAttribute="trailing" constant="15" id="NvY-2e-Doy"/>
-                                <constraint firstItem="LTQ-cw-ceU" firstAttribute="leading" secondItem="wzd-Xk-Q90" secondAttribute="leading" constant="15" id="gP3-nH-dpZ"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="LTQ-cw-ceU" secondAttribute="trailing" id="NvY-2e-Doy"/>
+                                <constraint firstItem="LTQ-cw-ceU" firstAttribute="leading" secondItem="wzd-Xk-Q90" secondAttribute="leadingMargin" id="gP3-nH-dpZ"/>
                                 <constraint firstAttribute="bottom" secondItem="Vcb-p8-zyI" secondAttribute="bottom" constant="-5" id="wKj-dF-2ze"/>
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextCell" id="eGU-1j-iTc" customClass="AirMapFormTextField" customModule="AirMap">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextCell" id="eGU-1j-iTc" customClass="AirMapFormTextField" customModule="AirMap">
                                 <rect key="frame" x="0.0" y="121.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eGU-1j-iTc" id="fYj-WI-xP1">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="eGU-1j-iTc" id="fYj-WI-xP1">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sqd-ef-vDS">
-                                            <rect key="frame" x="155" y="2" width="205" height="39"/>
+                                            <rect key="frame" x="156" y="2" width="203" height="39"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Label]" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Zf8-fW-gj4">
-                                            <rect key="frame" x="15" y="12" width="120" height="18"/>
+                                            <rect key="frame" x="16" y="12" width="120" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="120" id="bXh-WN-76n"/>
                                             </constraints>
@@ -594,9 +593,9 @@ AirMap will send you a text message when your digital notice has been successful
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="sqd-ef-vDS" firstAttribute="top" secondItem="fYj-WI-xP1" secondAttribute="top" constant="2" id="83E-pF-Go3"/>
-                                        <constraint firstAttribute="trailing" secondItem="sqd-ef-vDS" secondAttribute="trailing" constant="15" id="9dB-2m-Sld"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="sqd-ef-vDS" secondAttribute="trailing" id="9dB-2m-Sld"/>
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Zf8-fW-gj4" secondAttribute="bottom" priority="750" constant="13" id="C5w-OU-bjU"/>
-                                        <constraint firstItem="Zf8-fW-gj4" firstAttribute="leading" secondItem="fYj-WI-xP1" secondAttribute="leading" constant="15" id="P6V-ra-66b"/>
+                                        <constraint firstItem="Zf8-fW-gj4" firstAttribute="leading" secondItem="fYj-WI-xP1" secondAttribute="leadingMargin" id="P6V-ra-66b"/>
                                         <constraint firstItem="sqd-ef-vDS" firstAttribute="leading" secondItem="Zf8-fW-gj4" secondAttribute="trailing" constant="20" id="dNw-Bv-nEw"/>
                                         <constraint firstAttribute="bottom" secondItem="sqd-ef-vDS" secondAttribute="bottom" constant="2" id="nNc-wF-fu0"/>
                                         <constraint firstItem="Zf8-fW-gj4" firstAttribute="centerY" secondItem="fYj-WI-xP1" secondAttribute="centerY" constant="-1" id="uVB-Ep-ihD"/>
@@ -608,21 +607,21 @@ AirMap will send you a text message when your digital notice has been successful
                                     <outlet property="textField" destination="sqd-ef-vDS" id="w8z-kA-vTJ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="EmailCell" id="1rv-5R-Nf4" customClass="AirMapFormTextField" customModule="AirMap">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="EmailCell" id="1rv-5R-Nf4" customClass="AirMapFormTextField" customModule="AirMap">
                                 <rect key="frame" x="0.0" y="165.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1rv-5R-Nf4" id="rJx-6T-SRm">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="1rv-5R-Nf4" id="rJx-6T-SRm">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p9a-p5-g3m">
-                                            <rect key="frame" x="155" y="2" width="205" height="39"/>
+                                            <rect key="frame" x="156" y="2" width="203" height="39"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Email]" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="WqY-Vy-gdV">
-                                            <rect key="frame" x="15" y="12" width="120" height="18"/>
+                                            <rect key="frame" x="16" y="12" width="120" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="120" id="Uwb-K0-KLK"/>
                                             </constraints>
@@ -633,11 +632,11 @@ AirMap will send you a text message when your digital notice has been successful
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="WqY-Vy-gdV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rJx-6T-SRm" secondAttribute="top" constant="12" id="2mF-DI-4zs"/>
-                                        <constraint firstAttribute="trailing" secondItem="p9a-p5-g3m" secondAttribute="trailing" constant="15" id="EsP-2t-gaN"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="p9a-p5-g3m" secondAttribute="trailing" id="EsP-2t-gaN"/>
                                         <constraint firstItem="p9a-p5-g3m" firstAttribute="top" secondItem="rJx-6T-SRm" secondAttribute="top" constant="2" id="KIW-ZT-cFI"/>
                                         <constraint firstItem="WqY-Vy-gdV" firstAttribute="centerY" secondItem="rJx-6T-SRm" secondAttribute="centerY" constant="-1" id="KQv-4I-ZXv"/>
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="WqY-Vy-gdV" secondAttribute="bottom" constant="13" id="Kf7-86-ibY"/>
-                                        <constraint firstItem="WqY-Vy-gdV" firstAttribute="leading" secondItem="rJx-6T-SRm" secondAttribute="leading" constant="15" id="ZYZ-6w-chf"/>
+                                        <constraint firstItem="WqY-Vy-gdV" firstAttribute="leading" secondItem="rJx-6T-SRm" secondAttribute="leadingMargin" id="ZYZ-6w-chf"/>
                                         <constraint firstAttribute="bottom" secondItem="p9a-p5-g3m" secondAttribute="bottom" constant="2" id="e5q-46-YPN"/>
                                         <constraint firstItem="p9a-p5-g3m" firstAttribute="leading" secondItem="WqY-Vy-gdV" secondAttribute="trailing" constant="20" id="hOM-Ho-YaP"/>
                                     </constraints>
@@ -647,21 +646,21 @@ AirMap will send you a text message when your digital notice has been successful
                                     <outlet property="textField" destination="p9a-p5-g3m" id="FTI-0I-3bO"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhoneCell" id="azb-YP-GFu" customClass="AirMapFormTextField" customModule="AirMap">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhoneCell" id="azb-YP-GFu" customClass="AirMapFormTextField" customModule="AirMap">
                                 <rect key="frame" x="0.0" y="209.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="azb-YP-GFu" id="AEd-1i-kzE">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="azb-YP-GFu" id="AEd-1i-kzE">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kov-zg-437">
-                                            <rect key="frame" x="155" y="2" width="205" height="39"/>
+                                            <rect key="frame" x="156" y="2" width="203" height="39"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Phone Number]" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="zoD-a9-8h9">
-                                            <rect key="frame" x="15" y="12" width="120" height="18"/>
+                                            <rect key="frame" x="16" y="12" width="120" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="120" id="Uq7-KC-HEI"/>
                                             </constraints>
@@ -677,8 +676,8 @@ AirMap will send you a text message when your digital notice has been successful
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zoD-a9-8h9" secondAttribute="bottom" constant="13" id="Qaq-aO-ycP"/>
                                         <constraint firstItem="zoD-a9-8h9" firstAttribute="centerY" secondItem="AEd-1i-kzE" secondAttribute="centerY" constant="-1" id="WTa-DM-vR8"/>
                                         <constraint firstItem="kov-zg-437" firstAttribute="leading" secondItem="zoD-a9-8h9" secondAttribute="trailing" constant="20" id="X9J-6D-LT4"/>
-                                        <constraint firstAttribute="trailing" secondItem="kov-zg-437" secondAttribute="trailing" constant="15" id="dWz-so-qpg"/>
-                                        <constraint firstItem="zoD-a9-8h9" firstAttribute="leading" secondItem="AEd-1i-kzE" secondAttribute="leading" constant="15" id="zFo-iF-N5B"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="kov-zg-437" secondAttribute="trailing" id="dWz-so-qpg"/>
+                                        <constraint firstItem="zoD-a9-8h9" firstAttribute="leading" secondItem="AEd-1i-kzE" secondAttribute="leadingMargin" id="zFo-iF-N5B"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -778,7 +777,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="TZk-db-Bia">
             <objects>
                 <tableViewController id="ThX-zr-TwG" customClass="AirMapAircraftViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="68" sectionHeaderHeight="18" sectionFooterHeight="18" id="nCl-OQ-ESJ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="68" sectionHeaderHeight="18" sectionFooterHeight="18" id="nCl-OQ-ESJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -787,7 +786,7 @@ AirMap will send you a text message when your digital notice has been successful
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dTu-Fm-VY1" id="kCf-Yq-WaE">
-                                    <rect key="frame" x="0.0" y="0.0" width="328" height="67.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="327" height="67.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="[My Drone Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hoG-X4-5p9">
@@ -1108,10 +1107,10 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="airmap_share_logo" translatesAutoresizingMaskIntoConstraints="NO" id="J0q-Fc-eam">
-                                                    <rect key="frame" x="16" y="12" width="87" height="20"/>
+                                                    <rect key="frame" x="23" y="12" width="87" height="20"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVI-eK-zfJ">
-                                                    <rect key="frame" x="309" y="1" width="50" height="42"/>
+                                                    <rect key="frame" x="302" y="1" width="50" height="42"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="0hO-d3-HNs"/>
                                                         <constraint firstAttribute="height" constant="42" id="lCO-eR-2Eg"/>
@@ -1157,7 +1156,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="HAh-tC-edV">
             <objects>
                 <tableViewController id="GLN-Nc-fFM" customClass="AirMapAircraftManufacturerViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jY1-0m-GFn">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jY1-0m-GFn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1170,7 +1169,7 @@ AirMap will send you a text message when your digital notice has been successful
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="[Manufacturer Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8O4-aR-O35">
-                                            <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1255,7 +1254,7 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpk-5A-j54">
-                                                    <rect key="frame" x="16" y="12" width="343" height="19"/>
+                                                    <rect key="frame" x="23" y="12" width="329" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1281,13 +1280,13 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization Name]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPi-lH-bxt">
-                                                    <rect key="frame" x="16" y="12" width="343" height="21"/>
+                                                    <rect key="frame" x="23" y="12" width="329" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="[310-555-1212]" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bBK-bB-q3L">
-                                                    <rect key="frame" x="16" y="29" width="343" height="30"/>
+                                                    <rect key="frame" x="23" y="29" width="329" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1336,7 +1335,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="2Na-ao-xKs">
             <objects>
                 <tableViewController id="Was-cz-StC" customClass="AirMapAircraftModelViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bOk-bi-V4i">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bOk-bi-V4i">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1349,7 +1348,7 @@ AirMap will send you a text message when your digital notice has been successful
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="[Model Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="weZ-wf-881">
-                                            <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1447,7 +1446,7 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="yCl-kz-O48">
             <objects>
                 <tableViewController id="zt9-dL-NZL" customClass="AirMapLoginWithCodeViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="K3t-5g-C71">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="K3t-5g-C71">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1456,7 +1455,7 @@ AirMap will send you a text message when your digital notice has been successful
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SMS Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oG7-qM-t5D">
-                                    <rect key="frame" x="153.5" y="62" width="68" height="17"/>
+                                    <rect key="frame" x="153.5" y="61.5" width="68" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -1570,22 +1569,22 @@ AirMap will send you a text message when your digital notice has been successful
         <scene sceneID="lcI-f0-Dic">
             <objects>
                 <tableViewController id="CML-0R-Bck" customClass="AirMapSMSLoginViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="y4l-wS-MY6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="y4l-wS-MY6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection id="bcG-AM-C7K">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dYJ-lg-GIS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="dYJ-lg-GIS">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dYJ-lg-GIS" id="IUK-uw-fBl">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="dYJ-lg-GIS" id="IUK-uw-fBl">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Country Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hv6-5M-BNZ">
-                                                    <rect key="frame" x="15" y="12" width="116" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="117" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1593,22 +1592,22 @@ AirMap will send you a text message when your digital notice has been successful
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hv6-5M-BNZ" firstAttribute="centerY" secondItem="IUK-uw-fBl" secondAttribute="centerY" id="enT-8s-IWA"/>
-                                                <constraint firstItem="hv6-5M-BNZ" firstAttribute="leading" secondItem="IUK-uw-fBl" secondAttribute="leading" constant="15" id="tXx-q3-Q8i"/>
+                                                <constraint firstItem="hv6-5M-BNZ" firstAttribute="leading" secondItem="IUK-uw-fBl" secondAttribute="leadingMargin" id="tXx-q3-Q8i"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="R3C-7q-JQF" kind="show" identifier="pushCountrySelector" id="VwN-yj-34g"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="bLv-b4-6js">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="bLv-b4-6js">
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bLv-b4-6js" id="820-fS-sLK">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="bLv-b4-6js" id="820-fS-sLK">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="61d-PT-JN7" customClass="PhoneNumberTextField" customModule="PhoneNumberKit">
-                                                    <rect key="frame" x="15" y="2" width="345" height="40"/>
+                                                    <rect key="frame" x="16" y="2" width="344" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="NZ9-Xq-Mbx"/>
                                                     </constraints>
@@ -1631,7 +1630,7 @@ AirMap will send you a text message when your digital notice has been successful
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="61d-PT-JN7" secondAttribute="trailing" constant="15" id="DhG-UM-Xsv"/>
                                                 <constraint firstItem="61d-PT-JN7" firstAttribute="centerY" secondItem="820-fS-sLK" secondAttribute="centerY" id="bSa-81-Ws6"/>
-                                                <constraint firstItem="61d-PT-JN7" firstAttribute="leading" secondItem="820-fS-sLK" secondAttribute="leading" constant="15" id="zmE-bU-H0V"/>
+                                                <constraint firstItem="61d-PT-JN7" firstAttribute="leading" secondItem="820-fS-sLK" secondAttribute="leadingMargin" id="zmE-bU-H0V"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1694,7 +1693,7 @@ AirMap will send you a text message when your digital notice has been successful
                     </connections>
                 </button>
             </objects>
-            <point key="canvasLocation" x="3623" y="-2176"/>
+            <point key="canvasLocation" x="3622.65625" y="-2176.171875"/>
         </scene>
         <!--Air MapSMS Login Nav Controller-->
         <scene sceneID="dbx-AI-AI4">
