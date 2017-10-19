@@ -46,10 +46,6 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 	
 	func setupTable() {
 		
-		tableView.dataSource = nil
-		tableView.delegate = nil
-		tableView.rx.setDelegate(self).disposed(by: disposeBag)
-
 		let currentCountry: RowData = (code: selectedCountryIdentifier, name: selectedCountryName)
 		
 		let otherCountries: [RowData] = Locale.isoRegionCodes
@@ -63,10 +59,6 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 			SectionModel(model: localized.otherCountry, items: otherCountries)
 		]
 		
-		Observable.just(sections)
-			.bind(to: tableView.rx.items(dataSource: dataSource))
-			.disposed(by: disposeBag)
-		
 		dataSource.configureCell = { datasource, tableView, indexPath, row in
 			let cell = tableView.dequeueReusableCell(withIdentifier: "phoneCountryCell")!
 			cell.textLabel?.text = row.name
@@ -79,6 +71,10 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 				self?.trackEvent(.tap, label: "Country Row")
 				self?.selectionDelegate?.phoneCountrySelectorDidSelect(country: row.name, country: row.code)
 			})
+			.disposed(by: disposeBag)
+
+		Observable.just(sections)
+			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: disposeBag)
 	}
 	
