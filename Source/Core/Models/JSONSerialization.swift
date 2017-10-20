@@ -507,7 +507,7 @@ extension AirMapFlightFeature: ImmutableMappable {
 			isCalculated    = (try? map.value("is_calculated")) ?? false
 		}
 		catch {
-			print(error)
+			AirMap.logger.error(error)
 			throw error
 		}
 	}
