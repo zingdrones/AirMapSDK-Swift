@@ -35,7 +35,7 @@ public struct LocalizedStrings {
 
 		public static let pending = NSLocalizedString("AUTHORIZATION_PENDING", bundle: bundle, value: "Authorization Pending", comment: "The request with the authority has been made and a response is pending")
 
-		public static let rejected = NSLocalizedString("AUTHORIZATION_REJECTED", bundle: bundle, value: "Rejected Missing Info", comment: "The request with the authority has been rejected")
+		public static let rejected = NSLocalizedString("AUTHORIZATION_REJECTED", bundle: bundle, value: "Authorization Rejected", comment: "The request with the authority has been rejected")
 
 		public static let rejectedUponSubmission = NSLocalizedString("AUTHORIZATION_REJECTED_UPON_SUBMISSION", bundle: bundle, value: "Rejected Upon Submission", comment: "The request with the authority will be rejected once the flight plan is submitted")
 	}
