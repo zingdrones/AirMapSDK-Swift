@@ -37,7 +37,7 @@ internal class HTTPClient {
 			host: ServerTrustPolicy.pinPublicKeys(publicKeys: keys, validateCertificateChain: true, validateHost: true)
 		]
 
-		let manager = AirMap.authSession.enableCertificatePinning ?
+		let manager = AirMap.configuration.airMapPinCertificates ?
 			SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)) : SessionManager()
 		
 		manager.adapter = AuthenticationAdapter()

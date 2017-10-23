@@ -30,7 +30,6 @@ internal class AirMapAuthSession {
 	}
 
 	internal var tokenType: String = "Bearer"
-	internal var enableCertificatePinning: Bool = false
 	internal var userId: String = ""
 	internal var expiresAt: Date!
 	internal weak var delegate: AirMapAuthSessionDelegate?
