@@ -49,7 +49,7 @@ struct Constants {
 			}
 		}
 		
-		static let mapStyleVersion = "0.7.3"
+		static let mapStyleVersion = "0.7.6"
 		static var mapStylePath: String {
 			if let environment = AirMap.configuration.airMapEnvironment {
 				return "https://cdn.airmap.com/static/map-styles/\(environment)/\(mapStyleVersion)/"
