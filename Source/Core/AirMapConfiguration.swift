@@ -41,9 +41,9 @@ public struct AirMapConfiguration {
 	/// Units used for displaying temperature values
 	public var temperatureUnits: TemperatureUnits = .celcius
 
-	let auth0Host: String
-	let auth0ClientId: String
-	let airMapDomain: String
+	public let airMapDomain: String
+	public let auth0Host: String
+	public let auth0ClientId: String
 	
 	let airMapApiOverrides: [String: String]?
 	let airMapEnvironment: String?
