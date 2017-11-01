@@ -50,12 +50,14 @@ class StringToDoubleTransform: TransformType {
 	}
 }
 
-class GeoJSONToAirMapGeometryTransform: TransformType {
+public class GeoJSONToAirMapGeometryTransform: TransformType {
 	
-	typealias Object = AirMapGeometry
-	typealias JSON = [String: Any]
+	public typealias Object = AirMapGeometry
+	public typealias JSON = [String: Any]
 	
-	func transformFromJSON(_ value: Any?) -> AirMapGeometry? {
+	public init() {}
+	
+	public func transformFromJSON(_ value: Any?) -> AirMapGeometry? {
 		
 		guard let geometry = value as? JSON, let type = geometry["type"] as? String else { return nil }
 		
@@ -88,7 +90,7 @@ class GeoJSONToAirMapGeometryTransform: TransformType {
 		}
 	}
 	
-	func transformToJSON(_ value: AirMapGeometry?) -> JSON? {
+	public func transformToJSON(_ value: AirMapGeometry?) -> JSON? {
 
 		return value?.params()
 	}
