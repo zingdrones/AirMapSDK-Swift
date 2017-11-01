@@ -54,11 +54,11 @@ public struct AirMapRuleset {
 
 		/// A descriptive title
 		public var name: String {
+			let localized = LocalizedStrings.Ruleset.self
 			switch self {
-			// TODO: Localize
-			case .optional:  return "Optional"
-			case .pickOne:   return "Pick One"
-			case .required:  return "Required"
+			case .optional:  return localized.selectionTypeOptional
+			case .pickOne:   return localized.selectionTypePickOne
+			case .required:  return localized.selectionTypeRequired
 			}
 		}
 	}

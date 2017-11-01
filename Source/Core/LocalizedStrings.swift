@@ -201,7 +201,13 @@ public struct LocalizedStrings {
 		public static let doesNotacceptsDigitalNotice = NSLocalizedString("REVIEW_FLIGHT_PLAN_NOTICES_TAB_DOES_NOT_ACCEPT_NOTICE", bundle: bundle, value: "The following authorities in this area do not accept digital notice", comment: "Displayed for authorities that are NOT setup to receive digital notice")
 	}
 	
+	public struct Ruleset {
 		
+		public static let selectionTypeOptional = NSLocalizedString("RULESET_SELECTION_TYPE_OPTIONAL", bundle: bundle, value: "Optional", comment: "Label for rulesets that can be optionally enabled by the user")
+		
+		public static let selectionTypeRequired = NSLocalizedString("RULESET_SELECTION_TYPE_REQUIRED", bundle: bundle, value: "Required", comment: "Label for rulesets that must be enabled by the user")
+		
+		public static let selectionTypePickOne = NSLocalizedString("RULESET_SELECTION_TYPE_PICKONE", bundle: bundle, value: "Pick One", comment: "Label for rulesets that are part of a group in which one and only one ruleset can be enabled by the user")
 	}
 	
 	public struct PilotProfile {
