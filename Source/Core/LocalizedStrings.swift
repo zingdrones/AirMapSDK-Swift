@@ -201,9 +201,7 @@ public struct LocalizedStrings {
 		public static let doesNotacceptsDigitalNotice = NSLocalizedString("REVIEW_FLIGHT_PLAN_NOTICES_TAB_DOES_NOT_ACCEPT_NOTICE", bundle: bundle, value: "The following authorities in this area do not accept digital notice", comment: "Displayed for authorities that are NOT setup to receive digital notice")
 	}
 	
-	public struct Rules {
 		
-		public static let genericTitle = NSLocalizedString("RULES_GENERIC_TITLE", bundle: bundle, value: "Locality Rules", comment: "Title for the Local Rules view when a locality name is unavailable")
 	}
 	
 	public struct PilotProfile {
