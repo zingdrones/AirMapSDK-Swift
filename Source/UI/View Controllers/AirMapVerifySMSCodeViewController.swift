@@ -85,13 +85,13 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 	
 	fileprivate func displayErrorAlert(message:String) {
 		
+		let localized = LocalizedStrings.PhoneVerification.self
+		
+		
 		let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-		
-		//TODO: Localize
-		let tryAgainAction = UIAlertAction(title: "Try Again", style: .cancel)
-		
-		//TODO: Localize
-		let requestTokenAction = UIAlertAction(title: "Request New SMS Code", style: .default) { action in
+
+		let tryAgainAction = UIAlertAction(title: localized.tryAgain, style: .cancel)
+		let requestTokenAction = UIAlertAction(title: localized.requestNewSMSCode, style: .default) { action in
 			_ = self.navigationController?.popViewController(animated: true)
 		}
 		
@@ -107,7 +107,7 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 			nav.phoneVerificationDelegate?.phoneVerificationDidVerifyPhoneNumber(verifiedPhoneNumber: phoneNumber)
 		} else {
 			//TODO: Localize
-			displayErrorAlert(message: "Phone Number Verification Failed")
+			displayErrorAlert(message: LocalizedStrings.PhoneVerification.verificationFailed)
 		}
 	}
 }

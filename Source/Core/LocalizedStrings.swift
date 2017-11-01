@@ -231,6 +231,16 @@ public struct LocalizedStrings {
 		public static let statisticsFormat = NSLocalizedString("PILOT_PROFILE_STATISTICS_FORMAT", bundle: bundle, value: "%@ Aircraft, %@ Flights", comment: "Format for displaying a user's number of aircraft and flights")
 	}
 	
+	public struct PhoneVerification {
+		
+		public static let verificationFailed = NSLocalizedString("PHONE_VERIFICATION_VERIFICATION_FAILED", bundle: bundle, value: "Phone Number Verification Failed", comment: "Message presented to a user when the SMS code they input is incorrect and verification of that code has failed")
+		
+		public static let tryAgain = NSLocalizedString("PHONE_VERIFICATION_TRY_AGAIN", bundle: bundle, value: "Try Again", comment: "Message that is presented after a phone verification has failed, encouraging the user to try again")
+		
+		public static let requestNewSMSCode = NSLocalizedString("PHONE_VERIFICATION_REQUEST_NEW_SMS_CODE", bundle: bundle, value: "Request New SMS Code", comment: "Message that is presented after a phone verification has failed, encouraging the user to send a new code to the phone number provided")
+		
+	}
+	
 	public struct PhoneCountry {
 		
 		public static let selectedCountry = NSLocalizedString("PHONE_COUNTRY_SECTION_SELECTED_COUNTRY", bundle: bundle, value: "Selected Country", comment: "Table section title for the currently selected country")
