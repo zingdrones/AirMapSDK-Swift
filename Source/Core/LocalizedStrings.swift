@@ -234,48 +234,6 @@ public struct LocalizedStrings {
 		public static let otherCountry = NSLocalizedString("PHONE_COUNTRY_SECTION_OTHER_COUNTRY", bundle: bundle, value: "Other", comment: "Table section title for other selectable countries")
 	}
 	
-	public struct RequiredPermits {
-		
-		public static let selectPermit = NSLocalizedString("REQUIRED_PERMITS_SELECT_PERMIT", bundle: bundle, value: "Select permit", comment: "Call to action row text for selecting a permit")
-		
-		public static let selectDifferentPermit = NSLocalizedString("REQUIRED_PERMITS_SELECT_DIFFERENT_PERMIT", bundle: bundle, value: "Select a different permit", comment: "Call to action row text for selecting a different permit than the one displayed above")
-	}
-	
-	public struct AvailablePermits {
-		
-		public static let sectionHeaderExisting = NSLocalizedString("AVAILABLE_PERMITS_SECTION_HEADER_EXISTING", bundle: bundle, value: "Existing Permits", comment: "Title for table section header of existing permits the user has")
-		
-		public static let sectionHeaderAvailable = NSLocalizedString("AVAILABLE_PERMITS_SECTION_HEADER_AVAILABLE", bundle: bundle, value: "Available Permits", comment: "Title for table section header of available permits the user may apply for")
-		
-		public static let sectionHeaderUnavailable = NSLocalizedString("AVAILABLE_PERMITS_SECTION_HEADER_UNAVAILABLE", bundle: bundle, value: "Unavailable Permits", comment: "Title for table section header of permits which are not available to the user")
-		
-		public static let tableHeaderAvailablePermits = NSLocalizedString("AVAILABLE_PERMITS_TABLE_HEADER", bundle: bundle, value: "The following existing & available permits meets the requirements for operation in the flight area.", comment: "Header copy describing the permits listed below")
-		
-		public static let tableHeaderConflictingRequirements = NSLocalizedString("AVAILABLE_PERMITS_TABLE_HEADER_CONFLICTING_REQUIREMENTS", bundle: bundle, value: "Only a single permit can be used to fly in this operating area. Your flight path intersects with multiple areas requiring different permits.", comment: "Header copy describing that the flight area overlaps with multiple areas, each with differing permit requirements. No one single permit is able to satisfy all requirements.")
-	}
-	
-	public struct AvailablePermit {
-		
-		public static let sectionHeaderDescription = NSLocalizedString("AVAILABLE_PERMIT_SECTION_HEADER_DESCRIPTION", bundle: bundle, value: "Description", comment: "Title for the Description section of the permit detail view")
-		
-		public static let rowTitleValidity = NSLocalizedString("AVAILABLE_PERMIT_ROW_TITLE_VALIDITY", bundle: bundle, value: "Valid for", comment: "Title for the row that shows the temporal validity or expiration of the permit")
-		
-		public static let rowTitleSingleUse = NSLocalizedString("AVAILABLE_PERMIT_ROW_TITLE_SINGLE_USE", bundle: bundle, value: "Single use", comment: "Title for the row that describes if the permit can be used more than once.")
-		
-		public static let rowValueSingleUseValueTrue = NSLocalizedString("AVAILABLE_PERMIT_ROW_VALUE_SINGLE_USE_TRUE", bundle: bundle, value: "Yes", comment: "Value for when single use is true")
-		
-		public static let rowValueSingleUseValueFalse = NSLocalizedString("AVAILABLE_PERMIT_ROW_VALUE_SINGLE_USE_FALSE", bundle: bundle, value: "No", comment: "Value for when single use is false")
-		
-		public static let rowTitleDetails = NSLocalizedString("AVAILABLE_PERMIT_SECTION_HEADER_DETAILS", bundle: bundle, value: "Details", comment: "Title for the Details section of the permit detail view")
-		
-		public static let sectionHeaderCustomProperties = NSLocalizedString("AVAILABLE_PERMIT_SECTION_HEADER_CUSTOM_PROPERTIES", bundle: bundle, value: "Form Fields (* Required)", comment: "Title for the Custom Properties section of the permit detail view. '*' denotes a required field")
-	}
-	
-	public struct PilotPermit {
-		
-		public static let expirationFormat = NSLocalizedString("PILOT_PERMIT_EXPIRATION_FORMAT", bundle: bundle, value: "Expires %1$@", comment: "Format for pilot permit expiration")
-	}
-	
 	public struct Aircraft {
 		
 		public static let titleCreate = NSLocalizedString("AIRCRAFT_TITLE_CREATE_NEW", bundle: bundle, value: "Create Aircraft", comment: "Title to display for the view creating a new aircraft")
