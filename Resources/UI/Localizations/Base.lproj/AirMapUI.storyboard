@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1109,23 +1109,10 @@ AirMap will send you a text message when your digital notice has been successful
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="airmap_share_logo" translatesAutoresizingMaskIntoConstraints="NO" id="J0q-Fc-eam">
                                                     <rect key="frame" x="23" y="12" width="87" height="20"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVI-eK-zfJ">
-                                                    <rect key="frame" x="302" y="1" width="50" height="42"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="0hO-d3-HNs"/>
-                                                        <constraint firstAttribute="height" constant="42" id="lCO-eR-2Eg"/>
-                                                    </constraints>
-                                                    <state key="normal" image="info_icon"/>
-                                                    <connections>
-                                                        <segue destination="Y65-ak-5eN" kind="presentation" identifier="modalFAQ" id="m3s-Ba-YAC"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="mVI-eK-zfJ" firstAttribute="centerY" secondItem="J0q-Fc-eam" secondAttribute="centerY" id="OsS-QD-UJJ"/>
                                                 <constraint firstItem="J0q-Fc-eam" firstAttribute="leading" secondItem="Mvt-bS-Hzr" secondAttribute="leadingMargin" constant="8" id="nuG-gl-ZYv"/>
                                                 <constraint firstItem="J0q-Fc-eam" firstAttribute="centerY" secondItem="Mvt-bS-Hzr" secondAttribute="centerY" id="shM-WN-Kqf"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="mVI-eK-zfJ" secondAttribute="trailing" constant="8" id="shX-4U-Ts5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1221,14 +1208,6 @@ AirMap will send you a text message when your digital notice has been successful
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cP1-TV-mZW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4529" y="-476"/>
-        </scene>
-        <!--FAQNav-->
-        <scene sceneID="h5i-6G-1SS">
-            <objects>
-                <viewControllerPlaceholder referencedIdentifier="FAQNav" id="Y65-ak-5eN" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WiH-Gl-YhI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4186" y="257"/>
         </scene>
         <!--Air Map Review Notice View Controller-->
         <scene sceneID="kHr-R6-X2P">
@@ -1374,73 +1353,6 @@ AirMap will send you a text message when your digital notice has been successful
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyY-gp-99C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6257" y="-476"/>
-        </scene>
-        <!--FAQs-->
-        <scene sceneID="qbD-mz-Bf5">
-            <objects>
-                <viewController id="aXE-Bk-GP3" customClass="AirMapFAQViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ijd-6X-Gxz"/>
-                        <viewControllerLayoutGuide type="bottom" id="1iA-I9-mU1"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Eeu-B1-DiW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3FZ-4o-60x">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </webView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="3FZ-4o-60x" firstAttribute="leading" secondItem="Eeu-B1-DiW" secondAttribute="leading" id="5E3-iz-NoG"/>
-                            <constraint firstItem="1iA-I9-mU1" firstAttribute="top" secondItem="3FZ-4o-60x" secondAttribute="bottom" id="ZBp-dt-wmW"/>
-                            <constraint firstAttribute="trailing" secondItem="3FZ-4o-60x" secondAttribute="trailing" id="bYJ-mU-t1G"/>
-                            <constraint firstItem="3FZ-4o-60x" firstAttribute="top" secondItem="ijd-6X-Gxz" secondAttribute="bottom" id="u3Y-jx-RSA"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="FAQs" id="W7d-Gh-IMB">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="dE5-Cr-7CY">
-                            <connections>
-                                <action selector="dismiss" destination="aXE-Bk-GP3" id="uC3-xH-Gqj"/>
-                            </connections>
-                        </barButtonItem>
-                        <attributedString key="userComments">
-                            <fragment content="FAQS_TITLE|Title for view that shows answers to frequently asked questions (FAQs).">
-                                <attributes>
-                                    <font key="NSFont" metaFont="smallSystem"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="webView" destination="3FZ-4o-60x" id="xYi-qL-lpN"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="36f-Jv-NG1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2082" y="1632"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="WOP-Sh-xuM">
-            <objects>
-                <navigationController storyboardIdentifier="FAQNav" id="Un5-Qe-RYq" sceneMemberID="viewController">
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ncB-Al-mu8">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="aXE-Bk-GP3" kind="relationship" relationship="rootViewController" id="QbH-Nw-Ftg"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tj5-gM-Wfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1263" y="1632"/>
         </scene>
         <!--Verify Code-->
         <scene sceneID="yCl-kz-O48">
@@ -1721,7 +1633,6 @@ AirMap will send you a text message when your digital notice has been successful
     </scenes>
     <resources>
         <image name="airmap_share_logo" width="87" height="20"/>
-        <image name="info_icon" width="23" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="EBb-de-rWY"/>
