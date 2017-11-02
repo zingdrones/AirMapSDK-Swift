@@ -109,6 +109,7 @@ public struct AirMapFlightBriefing {
 			case rejectedUponSubmission = "rejected_upon_submission"
 			case authorizedUponSubmission = "authorized_upon_submission"
 			case manualAuthorization = "manual_authorization"
+			case cancelled = "cancelled"
 			
 			public var description: String {
 				let localized = LocalizedStrings.Authorization.self
@@ -127,6 +128,8 @@ public struct AirMapFlightBriefing {
 					return localized.authorizedUponSubmission
 				case .manualAuthorization:
 					return localized.manualAuthorization
+				case .cancelled:
+					return localized.cancelled
 				}
 			}
 		}
