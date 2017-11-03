@@ -35,34 +35,6 @@ public enum AirMapAirspaceType: String {
 	case university          = "university"
 	case wildfire            = "wildfire"
 	
-	public static let allAirspaceTypes: [AirMapAirspaceType] = [
-		.airport,
-		.amaField,
-		.city,
-		.controlledAirspace,
-		.custom,
-		.emergency,
-		.fire,
-		.hazardArea,
-		.heliport,
-		.hospital,
-		.laanc,
-		.notam,
-		.park,
-		.powerPlant,
-		.prison,
-		.recreationalArea,
-		.school,
-		.seaplaneBase,
-		.specialUse,
-		.stadium,
-		.state,
-		.tfr,
-		.ultralightField,
-		.university,
-		.wildfire,
-	]
-	
 	/// A descriptive title for the airspace type
 	public var title: String {
 		
