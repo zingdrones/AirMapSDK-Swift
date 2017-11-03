@@ -147,7 +147,7 @@ extension MGLStyleLayer {
 	var airspaceType: AirMapAirspaceType? {
 		let components = identifier.components(separatedBy: "|")
 		if components.count > 1 {
-			return AirMapAirspaceType(rawValue: components[1])
+			return AirMapAirspaceType(rawValue: components[1]) ?? .unclassified
 		} else {
 			return nil
 		}

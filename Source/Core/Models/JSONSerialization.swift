@@ -54,7 +54,7 @@ extension AirMapAdvisory: ImmutableMappable {
 			let longitude = try map.value("longitude") as Double
 			coordinate = Coordinate2D(latitude: latitude, longitude: longitude)
 			
-			let airspaceType = try map.value("type") as AirMapAirspaceType
+			let airspaceType: AirMapAirspaceType = (try? map.value("type")) ?? .unclassified
 			name = (try? map.value("name") as String) ?? airspaceType.title
 			
 			let props: [String: Any] = try map.value("properties")

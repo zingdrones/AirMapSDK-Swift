@@ -51,6 +51,9 @@ public enum AirMapAirspaceType: String {
 	case university          = "university"
 	case waterway            = "waterway"
 	case wildfire            = "wildfire"
+
+	// Catchall for new airspace types not yet supported by this version of the SDK but returned in advisory or map tile data
+	case unclassified        = "unclassified"
 	
 	/// A descriptive title for the airspace type
 	public var title: String {
@@ -97,6 +100,7 @@ public enum AirMapAirspaceType: String {
 		case .supercity:            return localized.supercity
 		case .tfr:                  return localized.tfr
 		case .ultralightField:      return localized.ultralightField
+		case .unclassified:         return localized.unclassified
 		case .university:           return localized.university
 		case .waterway:             return localized.waterway
 		case .wildfire:             return localized.wildfire

@@ -130,6 +130,8 @@ public struct LocalizedStrings {
 		
 		public static let ultralightField = NSLocalizedString("AIRSPACE_TYPE_ULM_FIELD", bundle: bundle, value: "Ultralight Field", comment: "Name for airspace type Ultralight Field")
 		
+		public static let unclassified = NSLocalizedString("AIRSPACE_TYPE_UNCLASSIFIED", bundle: bundle, value: "Unclassified", comment: "Generic catchall placeholder/name for airspace type is new and unknown at time of development but present via the advisories or map sources")
+		
 		public static let university = NSLocalizedString("AIRSPACE_TYPE_UNIVERSITY", bundle: bundle, value: "University", comment: "Name for airspace type University")
 		
 		public static let waterway = NSLocalizedString("AIRSPACE_TYPE_WATERWAY", bundle: bundle, value: "Waterway", comment: "Name for airspace type Waterway")
