@@ -56,7 +56,7 @@ public enum AirMapAirspaceType: String {
 	public var title: String {
 		
 		let localized = LocalizedStrings.AirspaceType.self
-
+		
 		switch self {
 		case .airport:              return localized.airport
 		case .amaField:             return localized.amaField

@@ -26,17 +26,17 @@ public struct LocalizedStrings {
 	public struct Authorization {
 		
 		public static let accepted = NSLocalizedString("AUTHORIZATION_ACCEPTED", bundle: bundle, value: "Approved", comment: "The request with the authority has been accepted")
-
+		
 		public static let authorizedUponSubmission = NSLocalizedString("AUTHORIZATION_UPON_SUBMISSION", bundle: bundle, value: "Authorization Upon Submission", comment: "The request with the authority will be accepted once the flight plan is submitted")
 		
 		public static let notRequested = NSLocalizedString("AUTHORIZATION_NOT_REQUESTED", bundle: bundle, value: "Authorization Not Requested", comment: "The request with the authority has not been requested")
-
+		
 		public static let manualAuthorization = NSLocalizedString("MANUAL_AUTHORIZATION", bundle: bundle, value: "Manual Authorization Pending Submission", comment: "The request with the authority will be reviewed manually sometime after the flight plan is submitted")
-
+		
 		public static let pending = NSLocalizedString("AUTHORIZATION_PENDING", bundle: bundle, value: "Authorization Pending", comment: "The request with the authority has been made and a response is pending")
-
+		
 		public static let rejected = NSLocalizedString("AUTHORIZATION_REJECTED", bundle: bundle, value: "Authorization Rejected", comment: "The request with the authority has been rejected")
-
+		
 		public static let rejectedUponSubmission = NSLocalizedString("AUTHORIZATION_REJECTED_UPON_SUBMISSION", bundle: bundle, value: "Rejected Upon Submission", comment: "The request with the authority will be rejected once the flight plan is submitted")
 		
 		public static let cancelled = NSLocalizedString("AUTHORIZATION_CANCELLED_SUBMISSION", bundle: bundle, value: "Authorization Cancelled", comment: "The request with the authority has been cancelled")
@@ -45,9 +45,9 @@ public struct LocalizedStrings {
 	public struct Validation {
 		
 		public static let accepted = NSLocalizedString("VALIDATION_ACCEPTED", bundle: bundle, value: "Validated", comment: "The request with the authority has been accepted")
-
+		
 		public static let notRequested = NSLocalizedString("VALIDATION_NOT_REQUESTED", bundle: bundle, value: "Validation Not Requested", comment: "No validation request has been filed")
-
+		
 		public static let pending = NSLocalizedString("VALIDATION_PENDING", bundle: bundle, value: "Validation Pending", comment: "The request with the authority has been made and a response is pending")
 		
 		public static let rejected = NSLocalizedString("VALIDATION_REJECTED", bundle: bundle, value: "Rejected Missing Info", comment: "The request with the authority has been rejected")
@@ -75,21 +75,21 @@ public struct LocalizedStrings {
 		public static let federalBuilding = NSLocalizedString("AIRSPACE_TYPE_FEDERAL_BUILDING", bundle: bundle, value: "Federal Building", comment: "Name for airspace type Federal Building")
 		
 		public static let fir = NSLocalizedString("AIRSPACE_TYPE_FIR", bundle: bundle, value: "Flight Information Region", comment: "Name for airspace type Flight Information Region")
-
+		
 		public static let gliderport = NSLocalizedString("AIRSPACE_TYPE_GLIDERPORT", bundle: bundle, value: "Gliderport", comment: "Name for airspace type Gliderport")
-
+		
 		public static let hazardArea = NSLocalizedString("AIRSPACE_TYPE_HAZARD_AREA", bundle: bundle, value: "Hazard Area", comment: "Name for airspace type Hazard Area")
 		
 		public static let heliport = NSLocalizedString("AIRSPACE_TYPE_HELIPORT", bundle: bundle, value: "Heliport", comment: "Name for airspace type Heliport")
 		
 		public static let highway = NSLocalizedString("AIRSPACE_TYPE_HIGHWAY", bundle: bundle, value: "Highway", comment: "Name for airspace type Highway")
-
+		
 		public static let hospital = NSLocalizedString("AIRSPACE_TYPE_HOSPITAL", bundle: bundle, value: "Hospital", comment: "Name for airspace type Hospital")
 		
 		public static let industrialProperty = NSLocalizedString("AIRSPACE_TYPE_INDUSTRIAL_PROPERTY", bundle: bundle, value: "Industrial Property", comment: "Name for airspace type Industrial Property")
 		
 		public static let japanBase = NSLocalizedString("AIRSPACE_TYPE_JAPAN_BASE", bundle: bundle, value: "Japan Base Admin", comment: "Name for airspace type Japan Base Admin (Smallest unit of Japanse administrative units)")
-
+		
 		public static let laanc = NSLocalizedString("AIRSPACE_TYPE_LAANC", bundle: bundle, value: "LAANC", comment: "Name for airspace type LAANC")
 		
 		public static let militaryProperty = NSLocalizedString("AIRSPACE_TYPE_MILITARY_PROPERTY", bundle: bundle, value: "Military Property", comment: "Name for airspace type Military Property")
@@ -99,19 +99,19 @@ public struct LocalizedStrings {
 		public static let park = NSLocalizedString("AIRSPACE_TYPE_NATIONAL_PARK", bundle: bundle, value: "National Park", comment: "Name for airspace type National Park")
 		
 		public static let policeStation = NSLocalizedString("AIRSPACE_TYPE_POLICE_STATAION", bundle: bundle, value: "Police Station", comment: "Name for airspace type Police Station")
-
+		
 		public static let powerline = NSLocalizedString("AIRSPACE_TYPE_POWERLINE", bundle: bundle, value: "Powerline", comment: "Name for airspace type Powerline")
-
+		
 		public static let powerPlant = NSLocalizedString("AIRSPACE_TYPE_POWER_PLANT", bundle: bundle, value: "Power Plant", comment: "Name for airspace type Power Plant")
 		
 		public static let prison = NSLocalizedString("AIRSPACE_TYPE_PRISON", bundle: bundle, value: "Prison", comment: "Name for airspace type Prison")
 		
 		public static let railway = NSLocalizedString("AIRSPACE_TYPE_RAILWAY", bundle: bundle, value: "Railway", comment: "Name for airspace type Railway")
-
+		
 		public static let recreationalArea = NSLocalizedString("AIRSPACE_TYPE_AERIAL_REC_AREA", bundle: bundle, value: "Aerial Recreational Area", comment: "Name for airspace type Aerial Recreational Area")
 		
 		public static let residentialProperty = NSLocalizedString("AIRSPACE_TYPE_RESIDENTIAL_PROPERTY", bundle: bundle, value: "Residential Property", comment: "Name for airspace type Residential Property")
-
+		
 		public static let school = NSLocalizedString("AIRSPACE_TYPE_SCHOOL", bundle: bundle, value: "School", comment: "Name for airspace type School")
 		
 		public static let seaplaneBase = NSLocalizedString("AIRSPACE_TYPE_SEAPLANE_BASE", bundle: bundle, value: "Seaplane Base", comment: "Name for airspace type Seaplane Base")
@@ -121,26 +121,26 @@ public struct LocalizedStrings {
 		public static let stadium = NSLocalizedString("AIRSPACE_TYPE_STADIUM", bundle: bundle, value: "Stadium", comment: "Name for airspace type Stadium")
 		
 		public static let subprefecture = NSLocalizedString("AIRSPACE_TYPE_SUBPREFECTURE", bundle: bundle, value: "Subprefecture", comment: "Name for airspace type Subprefecture")
-
+		
 		public static let supercity = NSLocalizedString("AIRSPACE_TYPE_SUPERCITY", bundle: bundle, value: "Supercity", comment: "Name for airspace type Supercity (Japan related)")
-
+		
 		public static let state = NSLocalizedString("AIRSPACE_TYPE_STATE", bundle: bundle, value: "State", comment: "Name for airspace type State")
 		
 		public static let tfr = NSLocalizedString("AIRSPACE_TYPE_TFR_FAA", bundle: bundle, value: "Temporary Flight Restriction", comment: "Name for airspace type FAA Temporary Flight Restriction")
 		
 		public static let ultralightField = NSLocalizedString("AIRSPACE_TYPE_ULM_FIELD", bundle: bundle, value: "Ultralight Field", comment: "Name for airspace type Ultralight Field")
-
+		
 		public static let university = NSLocalizedString("AIRSPACE_TYPE_UNIVERSITY", bundle: bundle, value: "University", comment: "Name for airspace type University")
 		
 		public static let waterway = NSLocalizedString("AIRSPACE_TYPE_WATERWAY", bundle: bundle, value: "Waterway", comment: "Name for airspace type Waterway")
 		
 		public static let wildfire = NSLocalizedString("AIRSPACE_TYPE_WILDFIRE", bundle: bundle, value: "WildFire", comment: "Name for airspace type WildFire")
 		
-        public static let fire = NSLocalizedString("AIRSPACE_TYPE_FIRE", bundle: bundle, value: "Fire", comment: "Name for airspace type Fire")
-
-        public static let emergency = NSLocalizedString("AIRSPACE_TYPE_EMERGENCY", bundle: bundle, value: "First Responder Activity", comment: "Name for airspace type Emergency")
-
-    }
+		public static let fire = NSLocalizedString("AIRSPACE_TYPE_FIRE", bundle: bundle, value: "Fire", comment: "Name for airspace type Fire")
+		
+		public static let emergency = NSLocalizedString("AIRSPACE_TYPE_EMERGENCY", bundle: bundle, value: "First Responder Activity", comment: "Name for airspace type Emergency")
+		
+	}
 	
 	public struct Auth {
 		
@@ -210,9 +210,9 @@ public struct LocalizedStrings {
 		public static let rowTitleMaxAltitudeAGL = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_MAX_ALTITUDE", bundle: bundle, value: "Max Altitude AGL", comment: "Title for the row displaying flight plan max altitude AGL (above ground level)")
 		
 		public static let rowTitleRadius = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_RADIUS", bundle: bundle, value: "Radius", comment: "Title for the row displaying flight plan radius")
-
+		
 		public static let rowTitleBuffer = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_BUFFER", bundle: bundle, value: "Buffer", comment: "Title for the row displaying flight plan buffer")
-
+		
 		public static let rowTitleStartTime = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_START_TIME", bundle: bundle, value: "Starts", comment: "Title for the row displaying flight plan start time")
 		
 		public static let rowTitleDuration = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_DURATION", bundle: bundle, value: "Duration", comment: "Title for the row displaying flight plan duration")
@@ -220,7 +220,7 @@ public struct LocalizedStrings {
 		public static let rowTitlePilot = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_PILOT", bundle: bundle, value: "Select Pilot Profile", comment: "Call to action title for the user to select a pilot profile")
 		
 		public static let rowTitleAircraftName = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_AIRCRAFT_NAME", bundle: bundle, value: "Aircraft", comment: "Title for the row displaying the name of the aircraft")
-
+		
 		public static let rowTitleAircraft = NSLocalizedString("FLIGHT_PLAN_ROW_TITLE_AIRCRAFT", bundle: bundle, value: "Select Aircraft", comment: "Call to action title for the user to select an aircraft")
 		
 		public static let buttonTitleNext = NSLocalizedString("FLIGHT_PLAN_BUTTON_TITLE_NEXT", bundle: bundle, value: "Next", comment: "Title for the button to advance to the next screen")
@@ -331,23 +331,23 @@ public struct LocalizedStrings {
 	public struct Units {
 		
 		public static let metric = NSLocalizedString("UNITS_METRIC", bundle: bundle, value: "Metric", comment: "Name for the metric system of measurement")
-
+		
 		public static let imperial = NSLocalizedString("UNITS_IMPERIAL", bundle: bundle, value: "Imperial", comment: "Name for the imperial system of measurement")
-
+		
 		public static let nauticalMileFormat = NSLocalizedString("UNITS_NAUTICAL_MILE_FORMAT", bundle: bundle, value: "%@ NM", comment: "Unit and format for displaying nautical miles")
 		
 		public static let speedFormatMetersPerSecond = NSLocalizedString("UNITS_SPEED_FORMAT_METERS_PER_SECOND", bundle: bundle, value: "%@ m/s", comment: "Unit and format for displaying speed in meters per second")
-
+		
 		public static let speedFormatMilesPerHour = NSLocalizedString("UNITS_SPEED_FORMAT_MILES_PER_HOUR", bundle: bundle, value: "%@ mph", comment: "Unit and format for displaying speed in miles per hour")
-
+		
 		public static let speedRangeFormatMetersPerSecond = NSLocalizedString("UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND", bundle: bundle, value: "%@-%@ m/s", comment: "Unit and format for displaying a speed range in meters per second")
 		
 		public static let speedRangeFormatMilesPerHour = NSLocalizedString("UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR", bundle: bundle, value: "%@-%@ mph", comment: "Unit and format for displaying a speed range in miles per hour")
-
+		
 		public static let speedFormatKnots = NSLocalizedString("UNITS_SPEED_FORMAT_KNOTS", bundle: bundle, value: "%@ kts", comment: "Unit and format for displaying speed in knots")
 		
 		public static let temperatureFormatCelcius = NSLocalizedString("UNITS_TEMPERATURE_CELCIUS_FORMAT", bundle: bundle, value: "%1$@°C", comment: "Unit and format for displaying temperature in Celcius")
-
+		
 		public static let temperatureFormatFahrenheit = NSLocalizedString("UNITS_TEMPERATURE_FAHRENHEIT_FORMAT", bundle: bundle, value: "%1$@°F", comment: "Unit and format for displaying temperature in Fahrenheit")
 	}
 	
