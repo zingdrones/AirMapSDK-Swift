@@ -28,7 +28,6 @@ public enum AirMapAirspaceType: String {
 	case hospital            = "hospital"
 	case industrialProperty  = "industrial_property"
 	case japanBase           = "jpn_base"
-	case laanc               = "laanc"
 	case militaryProperty    = "military_property"
 	case notam               = "notam"
 	case park                = "park"
@@ -80,7 +79,6 @@ public enum AirMapAirspaceType: String {
 		case .industrialProperty:   return localized.industrialProperty
 		case .hospital:             return localized.hospital
 		case .japanBase:            return localized.japanBase
-		case .laanc:                return localized.laanc
 		case .militaryProperty:     return localized.militaryProperty
 		case .notam:                return localized.notam
 		case .park:                 return localized.park

@@ -89,9 +89,7 @@ public struct LocalizedStrings {
 		public static let industrialProperty = NSLocalizedString("AIRSPACE_TYPE_INDUSTRIAL_PROPERTY", bundle: bundle, value: "Industrial Property", comment: "Name for airspace type Industrial Property")
 		
 		public static let japanBase = NSLocalizedString("AIRSPACE_TYPE_JAPAN_BASE", bundle: bundle, value: "Japan Base Admin", comment: "Name for airspace type Japan Base Admin (Smallest unit of Japanse administrative units)")
-		
-		public static let laanc = NSLocalizedString("AIRSPACE_TYPE_LAANC", bundle: bundle, value: "LAANC", comment: "Name for airspace type LAANC")
-		
+				
 		public static let militaryProperty = NSLocalizedString("AIRSPACE_TYPE_MILITARY_PROPERTY", bundle: bundle, value: "Military Property", comment: "Name for airspace type Military Property")
 		
 		public static let notam = NSLocalizedString("AIRSPACE_TYPE_NOTAM", bundle: bundle, value: "NOTAM", comment: "Name for airspace type NOTAM")
