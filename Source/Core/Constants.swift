@@ -49,15 +49,6 @@ struct Constants {
 			}
 		}
 		
-		static let mapStyleVersion = "0.7.6"
-		static var mapStylePath: String {
-			if let environment = AirMap.configuration.airMapEnvironment {
-				return "https://cdn.airmap.com/static/map-styles/\(environment)/\(mapStyleVersion)/"
-			} else {
-				return "https://cdn.airmap.com/static/map-styles/\(mapStyleVersion)/"
-			}
-		}
-		
 		struct Auth {
 			static let scope = "openid offline_access"
 			static let grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer"

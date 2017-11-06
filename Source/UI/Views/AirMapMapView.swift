@@ -196,7 +196,8 @@ open class AirMapMapView: MGLMapView {
 	
 	/// Constructs a styleUrl based on the AirMap Theme
 	private func styleUrl(for theme: AirMapMapTheme) -> URL {
-		return try! (Constants.AirMapApi.mapStylePath+"\(theme.rawValue).json").asURL()
+		
+		return AirMap.configuration.airMapMapStyle.appendingPathComponent("\(theme.rawValue).json")
 	}
 
 }

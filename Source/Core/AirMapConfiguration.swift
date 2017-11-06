@@ -48,6 +48,7 @@ public struct AirMapConfiguration {
 	let airMapApiOverrides: [String: String]?
 	let airMapEnvironment: String?
 	let airMapPinCertificates: Bool
+	let airMapMapStyle: URL
 }
 
 extension AirMapConfiguration {
@@ -91,6 +92,7 @@ extension AirMapConfiguration: ImmutableMappable {
 			airMapEnvironment     =  try? map.value("airmap.environment")
 			airMapApiOverrides    =  try? map.value("airmap.api_overrides")
 			airMapPinCertificates = (try? map.value("airmap.pin_certificates")) ?? false
+			airMapMapStyle        =  try  map.value("airmap.map_style")
 		}
 			
 		catch let error as MapError {
