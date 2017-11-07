@@ -92,7 +92,7 @@ extension AirMapConfiguration: ImmutableMappable {
 			airMapEnvironment     =  try? map.value("airmap.environment")
 			airMapApiOverrides    =  try? map.value("airmap.api_overrides")
 			airMapPinCertificates = (try? map.value("airmap.pin_certificates")) ?? false
-			airMapMapStyle        =  try  map.value("airmap.map_style")
+			airMapMapStyle        =  try  map.value("airmap.map_style", using: URLTransform())
 		}
 			
 		catch let error as MapError {
