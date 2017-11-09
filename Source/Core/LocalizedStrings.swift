@@ -364,7 +364,7 @@ public struct LocalizedStrings {
 		
 		public static let server = NSLocalizedString("ERROR_SERVER", bundle: bundle, value: "The server could not complete your request.", comment: "Server failure error")
 		
-		public static let serialization = NSLocalizedString("ERROR_SERIALIZATION", bundle: bundle, value: "The server returned an unprocessible response.", comment: "Response serialization failure error")
+		public static let serialization = NSLocalizedString("ERROR_SERIALIZATION", bundle: bundle, value: "The server returned an unprocessable response.", comment: "Response serialization failure error")
 		
 		public static let genericFormat = NSLocalizedString("ERROR_GENERIC_FORMAT", bundle: bundle, value: "The server returned an error. (%@)", comment: "A generic server error message with an associated error code")
 	}

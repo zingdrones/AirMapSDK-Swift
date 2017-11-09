@@ -188,7 +188,7 @@
 "ERROR_GENERIC_FORMAT" = "The server returned an error. (%@)";
 
 /* Response serialization failure error */
-"ERROR_SERIALIZATION" = "The server returned an unprocessible response.";
+"ERROR_SERIALIZATION" = "The server returned an unprocessable response.";
 
 /* Server failure error */
 "ERROR_SERVER" = "The server could not complete your request.";
