@@ -520,8 +520,8 @@ import ObjectMapper
 extension AirMapRule: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		shortText      =  try? map.value("short_text")
-		description    =  try  map.value("description")
+		shortText      =  try map.value("short_text")
+		description    =  try?  map.value("description")
 		flightFeatures = (try? map.value("flight_features")) ?? []
 		status         = (try? map.value("status")) ?? .unevaluated
 		displayOrder   = (try? map.value("display_order")) ?? Int.max
