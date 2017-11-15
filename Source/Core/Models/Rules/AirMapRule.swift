@@ -10,10 +10,10 @@
 public struct AirMapRule {
 	
 	/// A long-form textual description
-	public let description: String
+	public let description: String?
 	
 	/// A short-form textual description
-	public let shortText: String?
+	public let shortText: String
 	
 	/// Flight features/input necessary to properly evaluate this rule
 	public let flightFeatures: [AirMapFlightFeature]
