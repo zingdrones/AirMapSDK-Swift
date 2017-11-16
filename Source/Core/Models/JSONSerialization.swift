@@ -23,7 +23,7 @@ extension AirMapAirspaceStatus: ImmutableMappable {
 		}
 			
 		catch {
-			print(error)
+			AirMap.logger.error(error)
 			throw error
 		}
 	}
@@ -520,8 +520,8 @@ import ObjectMapper
 extension AirMapRule: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		shortText      =  try map.value("short_text")
-		description    =  try?  map.value("description")
+		shortText      =  try  map.value("short_text")
+		description    =  try? map.value("description")
 		flightFeatures = (try? map.value("flight_features")) ?? []
 		status         = (try? map.value("status")) ?? .unevaluated
 		displayOrder   = (try? map.value("display_order")) ?? Int.max
@@ -560,7 +560,7 @@ extension AirMapWeather: ImmutableMappable {
 			observations    = try map.value("weather")
 		}
 		catch {
-			print(error)
+			AirMap.logger.error(error)
 			throw error
 		}
 	}
@@ -586,7 +586,7 @@ extension AirMapWeather.Observation: ImmutableMappable {
 			windGusting   =  try? map.value("wind.gusting")
 		}
 		catch {
-			print(error)
+			AirMap.logger.error(error)
 			throw error
 		}
 	}
