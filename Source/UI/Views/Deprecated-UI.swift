@@ -8,9 +8,10 @@
 
 import Foundation
 
-// Deprecated
 extension AirMapMapView {
 	
+	public enum AirMapLayerType {}
+
 	@available (*, unavailable, message: "Init map then configure with rulesets")
 	public convenience init(frame: CGRect, layers: [AirMapLayerType], theme: AirMapMapTheme) {
 		fatalError()

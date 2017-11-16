@@ -23,23 +23,27 @@ extension AirMapAircraft {
 	}
 }
 
-public class AirMapStatus {}
-public enum AirMapLayerType {}
+@available (*, unavailable, renamed: "AirMapAirspaceStatus")
+public class AirMapStatus {
+	@available (*, unavailable, renamed: "AirMapAdvisory.Color")
+	enum StatusColor {}
+}
+
+@available (*, unavailable, renamed: "AirMapAdvisory")
+class AirMapStatusAdvisory {}
 
 extension AirMap {
 	
-	@available (*, unavailable, message: "Configure map using AirMapMapView.configure(rulesets:)")
-	
-	@available (*, unavailable, message: "Use AirMap.getAirspaceStatus")
+	@available (*, unavailable, message: "Use AirMap.getAirspaceStatus(at:buffer:rulesetIds:completion:)")
 	public static func checkCoordinate(coordinate: Coordinate2D,
 	                                   buffer: Meters,
 	                                   types: [AirMapAirspaceType]? = nil,
 	                                   ignoredTypes: [AirMapAirspaceType]? = nil,
 	                                   weather: Bool = false,
 	                                   date: Date = Date(),
-	                                   completion: @escaping (Result<AirMapStatus>) -> Void) { }
+									   completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) { }
 	
-	@available (*, unavailable, message: "Use AirMap.getAirspaceStatus")
+	@available (*, unavailable, message: "Use AirMap.getAirspaceStatus(along:buffer:rulesetIds:completion:)")
 	public static func checkFlightPath(path: [Coordinate2D],
 	                                   buffer: Meters,
 	                                   takeOffPoint: Coordinate2D,
@@ -47,15 +51,15 @@ extension AirMap {
 	                                   ignoredTypes: [AirMapAirspaceType]? = nil,
 	                                   weather: Bool = false,
 	                                   date: Date = Date(),
-	                                   completion: @escaping (Result<AirMapStatus>) -> Void) { }
+									   completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) { }
 	
-	@available (*, unavailable, message: "Use AirMap.getAirspaceStatus")
+	@available (*, unavailable, message: "Use AirMap.getAirspaceStatus(within:buffer:rulesetIds:completion:)")
 	public static func checkPolygon(geometry: [Coordinate2D],
 	                                takeOffPoint: Coordinate2D,
 	                                types: [AirMapAirspaceType]? = nil,
 	                                ignoredTypes: [AirMapAirspaceType]? = nil,
 	                                weather: Bool = false,
 	                                date: Date = Date(),
-	                                completion: @escaping (Result<AirMapStatus>) -> Void) {
+									completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
 	}
 }
