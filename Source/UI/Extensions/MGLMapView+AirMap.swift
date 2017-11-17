@@ -130,15 +130,14 @@ extension MGLStyle {
 	var airMapBaseStyleLayers: [MGLVectorStyleLayer] {
 		return layers
 			.flatMap { $0 as? MGLVectorStyleLayer }
-			.filter { $0.sourceIdentifier == "composite" }
-			.filter { $0.identifier.hasPrefix("airmap") }
+			.filter { $0.sourceIdentifier == "airmap" }
 			.filter { $0.airspaceType != nil }
 	}
 	
 	var activeAirMapStyleLayers: [MGLVectorStyleLayer] {
 		return layers
 			.flatMap { $0 as? MGLVectorStyleLayer }
-			.filter { $0.sourceIdentifier?.hasPrefix("airmap_ruleset") ?? false }
+			.filter { $0.sourceIdentifier?.hasPrefix(Constants.Maps.rulesetSourcePrefix) ?? false }
 	}
 }
 
