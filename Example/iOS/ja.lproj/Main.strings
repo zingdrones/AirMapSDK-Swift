@@ -1,3 +1,51 @@
 
-/* Class = "UINavigationItem"; title = "AirMap SDK Example"; ObjectID = "N4h-me-nvF"; */
-"N4h-me-nvF.title" = "AirMap SDK Example";
+/* Class = "UILabel"; text = "Anonymous Login"; ObjectID = "0Nm-pp-g05"; */
+"0Nm-pp-g05.text" = "Anonymous Login";
+
+/* Class = "UILabel"; text = "AirMap User Authentication"; ObjectID = "6em-xT-7Jc"; */
+"6em-xT-7Jc.text" = "AirMap User Authentication";
+
+/* Class = "UILabel"; text = "Present a login UI to sign up or login a user, then display the authenticated pilot's information."; ObjectID = "8Oa-OC-l1Y"; */
+"8Oa-OC-l1Y.text" = "Present a login UI to sign up or login a user, then display the authenticated pilot's information.";
+
+/* Class = "UINavigationItem"; title = "Rulesets"; ObjectID = "DGn-da-eO3"; */
+"DGn-da-eO3.title" = "Rulesets";
+
+/* Class = "UILabel"; text = "Query the jurisdictions that intersect the map's viewport and displays a picker for the user to select the rulesets under which they wish to operate. Display relevant advisories for the area displayed and the rulesets selected."; ObjectID = "Jfl-hh-TLn"; */
+"Jfl-hh-TLn.text" = "Query the jurisdictions that intersect the map's viewport and displays a picker for the user to select the rulesets under which they wish to operate. Display relevant advisories for the area displayed and the rulesets selected.";
+
+/* Class = "UINavigationItem"; title = "Contextual Map & Advisories"; ObjectID = "N4h-me-nvF"; */
+"N4h-me-nvF.title" = "Contextual Map & Advisories";
+
+/* Class = "UINavigationItem"; title = "AirMap Authentication"; ObjectID = "R0a-q0-4uc"; */
+"R0a-q0-4uc.title" = "AirMap Authentication";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Rdj-z2-3BP"; */
+"Rdj-z2-3BP.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "RlB-Zh-M04"; */
+"RlB-Zh-M04.normalTitle" = "Login";
+
+/* Class = "UINavigationItem"; title = "AirMap SDK Example"; ObjectID = "RxN-bz-bvK"; */
+"RxN-bz-bvK.title" = "AirMap SDK Example";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "TQ8-9H-doA"; */
+"TQ8-9H-doA.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Select Rulesets"; ObjectID = "chD-or-uTf"; */
+"chD-or-uTf.normalTitle" = "Select Rulesets";
+
+/* Class = "UINavigationItem"; title = "Advisories"; ObjectID = "dYJ-Wi-jxf"; */
+"dYJ-Wi-jxf.title" = "Advisories";
+
+/* Class = "UILabel"; text = "Perform an anonymous login without an existing AirMap pilot."; ObjectID = "l7e-N2-bVt"; */
+"l7e-N2-bVt.text" = "Perform an anonymous login without an existing AirMap pilot.";
+
+/* Class = "UILabel"; text = "Contextual Map & Advisories"; ObjectID = "oOX-Sb-GXB"; */
+"oOX-Sb-GXB.text" = "Contextual Map & Advisories";
+
+/* Class = "UIButton"; normalTitle = "Show Advisories"; ObjectID = "p2o-eu-nYl"; */
+"p2o-eu-nYl.normalTitle" = "Show Advisories";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "rYC-Ru-g9z"; */
+"rYC-Ru-g9z.title" = "Back";

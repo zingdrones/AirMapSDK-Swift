@@ -1,0 +1,631 @@
+/* Class = "UINavigationItem"; title = "Airspace Advisories"; ObjectID = "yk1-9H-q3n"; Note = "ADVISORIES_TITLE|Title for view that shows a list of airspace advisories"; AirMapUIObjectId = "yk1-9H-q3n.title"; */
+"ADVISORIES_TITLE" = "空域情報";
+
+/* Label for advisories that are stup to receive digital notice */
+"ADVISORY_ACCEPTS_DIGITAL_NOTICE" = "デジタル通知を受付可";
+
+/* Displayed when an advisory has not provided a contact phone */
+"ADVISORY_PHONE_NOT_PROVIDED" = "電話番号なし";
+
+/* Label and format for displaying the end time of temporary flight restriction */
+"ADVISORY_TFR_ENDS_FORMAT" = "終了: %1$@";
+
+/* Never ending duration for a TFR */
+"ADVISORY_TFR_PERMANENT" = "永久";
+
+/* Label and format for displaying the start time of temporary flight restriction */
+"ADVISORY_TFR_STARTS_FORMAT" = "開始: %1$@";
+
+/* Format and unit for wildfire advisory in the area unit acres */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_ACRES" = "%1$@ エーカー";
+
+/* Format and unit for wildfire advisory in the area unit hectares */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES" = "%1$@ ヘクタール";
+
+/* Label for wildfire advisory cells where size is unknown */
+"ADVISORY_WILDFIRE_SIZE_UNKNOWN" = "サイズ不明";
+
+/* Call to action when a user has not selected an aircraft */
+"AIRCRAFT_SELECT_AIRCRAFT" = "ドローンを選択";
+
+/* Title to display for the view creating a new aircraft */
+"AIRCRAFT_TITLE_CREATE_NEW" = "新しいドローンを登録";
+
+/* Title to display for the view when updating an existing aircraft */
+"AIRCRAFT_TITLE_UPDATE_EXISTING" = "登録済みのドローンを更新";
+
+/* Name for airspace type Aerial Recreational Area */
+"AIRSPACE_TYPE_AERIAL_REC_AREA" = "ホビー向けエリア";
+
+/* Name for airspace type Airport */
+"AIRSPACE_TYPE_AIRPORT" = "空港";
+
+/* Name for airspace type City */
+"AIRSPACE_TYPE_CITY" = "市区町村";
+
+/* Name for airspace type Controlled Airspace */
+"AIRSPACE_TYPE_CONTROLLED" = "管理空域";
+
+/* Name for airspace type Custom */
+"AIRSPACE_TYPE_CUSTOM" = "カスタム";
+
+/* Name for airspace type Emergency */
+"AIRSPACE_TYPE_EMERGENCY" = "緊急";
+
+/* Name for airspace type Fire */
+"AIRSPACE_TYPE_FIRE" = "火災";
+
+/* Name for airspace type Hazard Area */
+"AIRSPACE_TYPE_HAZARD_AREA" = "危険区域";
+
+/* Name for airspace type Heliport */
+"AIRSPACE_TYPE_HELIPORT" = "ヘリポート";
+
+/* Name for airspace type Hospital */
+"AIRSPACE_TYPE_HOSPITAL" = "病院";
+
+/* Name for airspace type National Park */
+"AIRSPACE_TYPE_NATIONAL_PARK" = "国立公園";
+
+"airspace_type_notam" = "NOTAM";
+
+/* Name for airspace type Power Plant */
+"AIRSPACE_TYPE_POWER_PLANT" = "発電所";
+
+/* Name for airspace type Prison */
+"AIRSPACE_TYPE_PRISON" = "刑務所";
+
+/* Name for airspace type School */
+"AIRSPACE_TYPE_SCHOOL" = "学校";
+
+/* Name for airspace type Special Use Airspace */
+"AIRSPACE_TYPE_SPECIAL_USE" = "特殊利用空域";
+
+/* Name for airspace type Stadium */
+"AIRSPACE_TYPE_STADIUM" = "スタジアム";
+
+/* Name for airspace type FAA Temporary Flight Restriction */
+"AIRSPACE_TYPE_TFR_FAA" = "一時的な飛行制限";
+
+/* Name for airspace type University */
+"AIRSPACE_TYPE_UNIVERSITY" = "大学";
+
+/* Name for airspace type WildFire */
+"AIRSPACE_TYPE_WILDFIRE" = "山火事";
+
+/* Login message when a user's account has been blacklisted. */
+"AUTH_ERROR_ACCOUNT_BLACKLISTED" = "あなたのアカウントはブラックリストに入りました。security@airmap.comまでご連絡ください。";
+
+/* Login message when a user must verify their email address */
+"AUTH_ERROR_EMAIL_NEEDS_VERIFICATION_REQUIRED" = "メールアドレスを確認する必要があります。メールボックスをご確認ください。";
+
+/* Login message when a user failed to authenticate */
+"AUTH_ERROR_UNAUTHORIZED" = "未許可";
+
+/* Navigation title for failed login attempt */
+"AUTH_FAILED_LOGIN_TITLE" = "アラート";
+
+/* Title for table section header of available permits the user may apply for */
+"AVAILABLE_PERMITS_SECTION_HEADER_AVAILABLE" = "利用可能な許可証";
+
+/* Title for table section header of existing permits the user has */
+"AVAILABLE_PERMITS_SECTION_HEADER_EXISTING" = "すでにお持ちの許可証";
+
+/* Title for table section header of permits which are not available to the user */
+"AVAILABLE_PERMITS_SECTION_HEADER_UNAVAILABLE" = "有効でない許可証";
+
+/* Header copy describing the permits listed below */
+"AVAILABLE_PERMITS_TABLE_HEADER" = "お持ちの許可証でこの飛行エリアを飛行できる条件を満たしているのは以下のものです。";
+
+/* Header copy describing that the flight area overlaps with multiple areas, each with differing permit requirements. No one single permit is able to satisfy all requirements. */
+"AVAILABLE_PERMITS_TABLE_HEADER_CONFLICTING_REQUIREMENTS" = "このエリアでは、1回限り有効な許可証だけを利用できます。この飛行経路は複数のエリアにまたがっており、異なる許可証が必要です。";
+
+/* Class = "UINavigationItem"; title = "Select Permit"; ObjectID = "pFU-ok-j6g"; Note = "AVAILABLE_PERMITS_TITLE|Title for the list of available permits a user can choose from"; AirMapUIObjectId = "pFU-ok-j6g.title"; */
+"AVAILABLE_PERMITS_TITLE" = "許可証を選択";
+
+/* Title for the row that describes if the permit can be used more than once. */
+"AVAILABLE_PERMIT_ROW_TITLE_SINGLE_USE" = "1回のみ利用";
+
+/* Title for the row that shows the temporal validity or expiration of the permit */
+"AVAILABLE_PERMIT_ROW_TITLE_VALIDITY" = "有効期間";
+
+/* Value for when single use is false */
+"AVAILABLE_PERMIT_ROW_VALUE_SINGLE_USE_FALSE" = "いいえ";
+
+/* Value for when single use is true */
+"AVAILABLE_PERMIT_ROW_VALUE_SINGLE_USE_TRUE" = "はい";
+
+/* Title for the Custom Properties section of the permit detail view. '*' denotes a required field */
+"AVAILABLE_PERMIT_SECTION_HEADER_CUSTOM_PROPERTIES" = "フォームのフィールド (*必須)";
+
+/* Title for the Description section of the permit detail view */
+"AVAILABLE_PERMIT_SECTION_HEADER_DESCRIPTION" = "概要";
+
+/* Title for the Details section of the permit detail view */
+"AVAILABLE_PERMIT_SECTION_HEADER_DETAILS" = "詳細";
+
+/* Abbreviation for East */
+"CARDINAL_DIRECTION_E" = "東";
+
+/* Abbreviation for East North East */
+"CARDINAL_DIRECTION_ENE" = "東北東";
+
+/* Abbreviation for East South East */
+"CARDINAL_DIRECTION_ESE" = "東南東";
+
+/* Abbreviation for North */
+"CARDINAL_DIRECTION_N" = "北";
+
+/* Abbreviation for North East */
+"CARDINAL_DIRECTION_NE" = "北東";
+
+/* Abbreviation for North North East */
+"CARDINAL_DIRECTION_NNNE" = "北北東";
+
+/* Abbreviation for North North West */
+"CARDINAL_DIRECTION_NNW" = "北北西";
+
+/* Abbreviation for North West */
+"CARDINAL_DIRECTION_NW" = "北西";
+
+/* Abbreviation for South */
+"CARDINAL_DIRECTION_S" = "南";
+
+/* Abbreviation for South East */
+"CARDINAL_DIRECTION_SE" = "南東";
+
+/* Abbreviation for South South East */
+"CARDINAL_DIRECTION_SSE" = "南南東";
+
+/* Abbreviation for South South West */
+"CARDINAL_DIRECTION_SSW" = "南南西";
+
+/* Abbreviation for South West */
+"CARDINAL_DIRECTION_SW" = "南西";
+
+/* Abbreviation for West */
+"CARDINAL_DIRECTION_W" = "西";
+
+/* Abbreviation for West North West */
+"CARDINAL_DIRECTION_WNW" = "西北西";
+
+/* Abbreviation for West South West */
+"CARDINAL_DIRECTION_WSW" = "西南西";
+
+/* Class = "UILabel"; text = "Make & Model"; ObjectID = "XDN-d5-eoX"; Note = "CREATE_AIRCRAFT_MAKE_AND_MODEL|Label for the row label that displays the Make and Model of an aircraft"; AirMapUIObjectId = "XDN-d5-eoX.text"; */
+"CREATE_AIRCRAFT_MAKE_AND_MODEL" = "型とモデル";
+
+/* Class = "UITextField"; placeholder = "Nickname"; ObjectID = "blN-px-yT6"; Note = "CREATE_AIRCRAFT_NICKNAME|Placeholder label for the textfield where a user inputs the nickname for an aircraft"; AirMapUIObjectId = "blN-px-yT6.placeholder"; */
+"CREATE_AIRCRAFT_NICKNAME" = "ニックネーム";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "K03-vU-4zj"; Note = "CREATE_AIRCRAFT_SAVE_BUTTON|Title for the button that saves a user's changes to a new or existing aircraft"; AirMapUIObjectId = "K03-vU-4zj.normalTitle"; */
+"CREATE_AIRCRAFT_SAVE_BUTTON" = "保存";
+
+/* Class = "UINavigationItem"; title = "Create Aircraft"; ObjectID = "Z9F-I6-niw"; Note = "CREATE_AIRCRAFT_TITLE|Title for the view where you can create a new aircraft"; AirMapUIObjectId = "Z9F-I6-niw.title"; */
+"CREATE_AIRCRAFT_TITLE" = "ドローンを作成";
+
+/* A generic server error message with an associated error code */
+"ERROR_GENERIC_FORMAT" = "サーバーエラーが発生しました。(%@)";
+
+/* Response serialization failure error */
+"ERROR_SERIALIZATION" = "サーバーが処理できませんでした";
+
+/* Server failure error */
+"ERROR_SERVER" = "サーバーはリクエストを処理できませんでした";
+
+/* Authorization failure error */
+"ERROR_UNAUTHORIZED" = "承認されませんでした。ログイン情報をご確認ください。";
+
+/* Class = "UINavigationItem"; title = "FAQs"; ObjectID = "W7d-Gh-IMB"; Note = "FAQS_TITLE|Title for view that shows answers to frequently asked questions (FAQs)."; AirMapUIObjectId = "W7d-Gh-IMB.title"; */
+"FAQS_TITLE" = "よくある質問";
+
+/* Label for text input button */
+"FLIGHT_DATA_CELL_BUTTON_DONE" = "完了";
+
+/* Label for start time when the start is immediate */
+"FLIGHT_DATA_CELL_NOW" = "現在";
+
+/* Class = "UIButton"; normalTitle = "Area"; ObjectID = "Yyg-xF-uSz"; Note = "FLIGHT_DRAWING_MODE_AREA|Label for button that enables area-based flight planning"; AirMapUIObjectId = "Yyg-xF-uSz.normalTitle"; */
+"FLIGHT_DRAWING_MODE_AREA" = "エリア";
+
+/* Class = "UIButton"; normalTitle = "Path"; ObjectID = "IAP-O7-VzM"; Note = "FLIGHT_DRAWING_MODE_PATH|Label for button that enables path-based flight planning"; AirMapUIObjectId = "IAP-O7-VzM.normalTitle"; */
+"FLIGHT_DRAWING_MODE_PATH" = "経路";
+
+/* Class = "UIButton"; normalTitle = "Point"; ObjectID = "Fti-S4-xfH"; Note = "FLIGHT_DRAWING_MODE_POINT|Label for button that enables point-based flight planning"; AirMapUIObjectId = "Fti-S4-xfH.normalTitle"; */
+"FLIGHT_DRAWING_MODE_POINT" = "ポイント";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "kPh-hd-dib"; Note = "FLIGHT_DRAWING_NEXT_BUTTON|Label for button that allows a user to advance to the next step of flight planning"; AirMapUIObjectId = "kPh-hd-dib.normalTitle"; */
+"FLIGHT_DRAWING_NEXT_BUTTON" = "次";
+
+/* The radius around a point-based flight's center */
+"FLIGHT_DRAWING_RADIUS" = "半径";
+
+/* Class = "UINavigationItem"; title = "Create Flight"; ObjectID = "ViV-2h-qM5"; Note = "FLIGHT_DRAWING_TITLE|Title for view that allows a user to draw out a flight plan"; AirMapUIObjectId = "ViV-2h-qM5.title"; */
+"FLIGHT_DRAWING_TITLE" = "フライトを作成";
+
+/* Call to action to fine-tune the geometry of a flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_MODIFY_GEOMETRY" = "ポイントをドラッグして移動してください。新しいポイントを追加するには、ポイントとポイントの間をドラッグしてください。";
+
+/* Call to action to drag a point to the trash to delete. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_TRASH_TO_DELETE" = "削除するにはポイントをゴミ箱へドラッグしてください";
+
+/* Call to action to draw an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_AREA" = "フリーハンドでエリアを描く";
+
+/* Call to action to draw a path-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_PATH" = "フリーハンドで経路を描く";
+
+/* Call to action to drag the center position of a point-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_POSTIION_POINT" = "中心点ドラッグして飛行エリアを設定してください。";
+
+/* Call to action to tap the icon to begin drawing a flight area. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA" = "手のアイコンをタップすると、エリアをフリーハンドで描くことができます。";
+
+/* Call to action to tap the icon to begin drawing a flight path. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH" = "手のアイコンをタップすると、経路をフリーハンドで描くことができます。";
+
+/* Displayed when the user has drawn an invalid shaping, overlapping with conflicting permitted zones */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_OVERLAPPING_PERMIT_AREAS" = "許可の条件が異なるゾーンを2つ以上重ねることはできません。";
+
+/* Call to action to fix self-intersecting geometries of an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_SELF_INTERSECTING_GEOMETRY" = "無効な飛行エリアです。重複のないよう飛行エリアを調節してください。";
+
+/* The width of a path-based flight extending outward from the centerline */
+"FLIGHT_DRAWING_WIDTH" = "幅";
+
+/* Title for the button to advance to the next screen */
+"FLIGHT_PLAN_BUTTON_TITLE_NEXT" = "次へ";
+
+/* Title for the button to save and create the flight */
+"FLIGHT_PLAN_BUTTON_TITLE_SAVE" = "保存";
+
+/* Call to action title for the user to select an aircraft */
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT" = "ドローンを選択";
+
+/* Title for the row displaying flight plan altitude */
+"FLIGHT_PLAN_ROW_TITLE_ALTITUDE" = "高度";
+
+/* Title for the row displaying flight plan duration */
+"FLIGHT_PLAN_ROW_TITLE_DURATION" = "飛行時間";
+
+/* Call to action title for the user to select a pilot profile */
+"FLIGHT_PLAN_ROW_TITLE_PILOT" = "パイロットのプロフィールを選択";
+
+/* Title for the row displaying flight plan start time */
+"FLIGHT_PLAN_ROW_TITLE_START_TIME" = "開始";
+
+/* Title for the section displaying the pilot and aircraft details */
+"FLIGHT_PLAN_SECTION_HEADER_ASSOCIATED" = "パイロットとドローン";
+
+/* Title for the section displaying flight plan details */
+"FLIGHT_PLAN_SECTION_HEADER_FLIGHT" = "フライト情報";
+
+/* Title for the section displaying social sharing features */
+"FLIGHT_PLAN_SECTION_HEADER_SHARE" = "フライトを共有";
+
+/* Title for the section displaying flight plan start time & duration */
+"FLIGHT_PLAN_SECTION_HEADER_TIME" = "日付と時間";
+
+/* Class = "UINavigationItem"; title = "Manufacturers"; ObjectID = "a84-JL-ndb"; Note = "MANUFACTURERS_TITLE|Title for the view that displays a list of all aircraft manufacturers"; AirMapUIObjectId = "a84-JL-ndb.title"; */
+"MANUFACTURERS_TITLE" = "ドローンメーカー";
+
+/* Class = "UINavigationItem"; title = "Models"; ObjectID = "9xB-Yl-FrO"; Note = "MODELS_TITLE|Title for the view that displays a list of all aircraft models"; AirMapUIObjectId = "9xB-Yl-FrO.title"; */
+"MODELS_TITLE" = "モデル";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "Iz2-Va-oce"; Note = "PERMIT_DETAILS_DONE_BUTTON|Title for the button that dismisses the keyboard when a user is done editing a text field"; AirMapUIObjectId = "Iz2-Va-oce.normalTitle"; */
+"PERMIT_DETAILS_DONE_BUTTON" = "終了";
+
+/* Class = "UIButton"; normalTitle = "Select Permit"; ObjectID = "RX7-4I-r3s"; Note = "PERMIT_DETAILS_SELECT_PERMIT_BUTTON|Title for the button that selects the currently displayed permit and dismisses the view"; AirMapUIObjectId = "RX7-4I-r3s.normalTitle"; */
+"PERMIT_DETAILS_SELECT_PERMIT_BUTTON" = "許可証を選択";
+
+/* Class = "UINavigationItem"; title = "Permit"; ObjectID = "uxj-wa-owq"; Note = "PERMIT_DETAILS_TITLE|Title for the view that displays permit details"; AirMapUIObjectId = "uxj-wa-owq.title"; */
+"PERMIT_DETAILS_TITLE" = "許可証";
+
+/* Table section title for other selectable countries */
+"PHONE_COUNTRY_SECTION_OTHER_COUNTRY" = "その他";
+
+/* Table section title for the currently selected country */
+"PHONE_COUNTRY_SECTION_SELECTED_COUNTRY" = "選択された国";
+
+/* Class = "UINavigationItem"; title = "Select Country"; ObjectID = "dcW-Vd-KfC"; Note = "PHONE_COUNTRY_TITLE|Title for the view that allows a user to select their phone numbers country"; AirMapUIObjectId = "dcW-Vd-KfC.title"; */
+"PHONE_COUNTRY_TITLE" = "国を選択";
+
+/* Class = "UILabel"; text = "SMS Code"; ObjectID = "p8q-LE-2ew"; Note = "PHONE_VERIFICATION_CODE_HEADER|Header text for view where a user can input their SMS verification code"; AirMapUIObjectId = "p8q-LE-2ew.text"; */
+"PHONE_VERIFICATION_CODE_HEADER" = "SMS コード";
+
+/* Class = "UITextField"; placeholder = "Code"; ObjectID = "dDO-AY-LlB"; Note = "PHONE_VERIFICATION_CODE_PLACEHOLDER|Placeholder label for the textfield where a user can input their SMS verification code"; AirMapUIObjectId = "dDO-AY-LlB.placeholder"; */
+"PHONE_VERIFICATION_CODE_PLACEHOLDER" = "コード";
+
+/* Class = "UINavigationItem"; title = "Verify Phone Number"; ObjectID = "MVj-Qg-sch"; Note = "PHONE_VERIFICATION_CODE_TITLE|Title for the view where a user can verify an SMS token"; AirMapUIObjectId = "MVj-Qg-sch.title"; */
+"PHONE_VERIFICATION_CODE_TITLE" = "電話番号を確認";
+
+/* Class = "UILabel"; text = "By providing your number, you agree to receive texts about your flights at this number. Carrier message & data rates may apply.\n\nAirMap will send you a text message when your digital notice has been successfully submitted.\n"; ObjectID = "2Na-rR-yZi"; Note = "PHONE_VERIFICATION_HEADER|Copy describing the process of verifying your phone number"; AirMapUIObjectId = "2Na-rR-yZi.text"; */
+"PHONE_VERIFICATION_HEADER" = "電話番号を入力すると、お客様のフライトに関するSMSをこの番号で受信することに同意したものと見なされます。電話会社のメッセージおよびデータ料金がかかる場合があります。\n\nAirMapはお客様のデジタル通知が無事登録された時にSMSを送信します。";
+
+/* Class = "UITextField"; placeholder = "Phone Number"; ObjectID = "vme-QM-SG8"; Note = "PHONE_VERIFICATION_PHONE|Placeholder label for the text field where a user types their phone number"; AirMapUIObjectId = "vme-QM-SG8.placeholder"; */
+"PHONE_VERIFICATION_PHONE" = "電話番号";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "lre-WH-pt9"; Note = "PHONE_VERIFICATION_SAVE_BUTTON|Title for button that allows the user to submit the SMS code for verification"; AirMapUIObjectId = "lre-WH-pt9.normalTitle"; */
+"PHONE_VERIFICATION_SAVE_BUTTON" = "送信";
+
+/* Class = "UINavigationItem"; title = "Phone Number Verification"; ObjectID = "4g7-2z-c9g"; Note = "PHONE_VERIFICATION_TITLE|Title for view that allows a user to verify their phone number"; AirMapUIObjectId = "4g7-2z-c9g.title"; */
+"PHONE_VERIFICATION_TITLE" = "電話番号の確認";
+
+/* Format for pilot permit expiration */
+"PILOT_PERMIT_EXPIRATION_FORMAT" = "有効期限 %1$@";
+
+/* Table row label for FAA registration number */
+"PILOT_PROFILE_FAA_REGISTRATION" = "連邦航空局登録番号";
+
+/* Label for the pilot profile email */
+"PILOT_PROFILE_LABEL_EMAIL" = "Eメール";
+
+/* Label for the pilot profile first name */
+"PILOT_PROFILE_LABEL_FIRST_NAME" = "名";
+
+/* Label for the pilot profile last name */
+"PILOT_PROFILE_LABEL_LAST_NAME" = "姓";
+
+/* Label for the pilot profile phone */
+"PILOT_PROFILE_LABEL_PHONE" = "電話";
+
+/* Label for the pilot profile username */
+"PILOT_PROFILE_LABEL_USERNAME" = "ユーザー名";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "kCX-rY-nIt"; Note = "PILOT_PROFILE_SAVE_BUTTON|Title for the button that saves any changes to a user's profile"; AirMapUIObjectId = "kCX-rY-nIt.normalTitle"; */
+"PILOT_PROFILE_SAVE_BUTTON" = "保存";
+
+/* Section header for the pilot profile additional info section */
+"PILOT_PROFILE_SECTION_ADDITIONAL" = "追加情報";
+
+/* Section header for the pilot profile personal info section */
+"PILOT_PROFILE_SECTION_PERSONAL" = "個人情報";
+
+/* Format for displaying a user's number of aircraft and flights */
+"PILOT_PROFILE_STATISTICS_FORMAT" = "機体数 %1$@、フライト回数 %2$@";
+
+/* Class = "UINavigationItem"; title = "Pilot Profile"; ObjectID = "q0o-oq-I1W"; Note = "PILOT_PROFILE_TITLE|Title for view where a user can modify their user profile"; AirMapUIObjectId = "q0o-oq-I1W.title"; */
+"PILOT_PROFILE_TITLE" = "パイロットのプロフィール";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "2jl-c2-qqx"; Note = "REQUIRED_PERMITS_NEXT_BUTTON|Button label that allows the user to advance to the next step of flight creation"; AirMapUIObjectId = "2jl-c2-qqx.normalTitle"; */
+"REQUIRED_PERMITS_NEXT_BUTTON" = "次へ";
+
+/* Call to action row text for selecting a different permit than the one displayed above */
+"REQUIRED_PERMITS_SELECT_DIFFERENT_PERMIT" = "別の許可証を選択";
+
+/* Call to action row text for selecting a permit */
+"REQUIRED_PERMITS_SELECT_PERMIT" = "許可証を選択";
+
+/* Class = "UILabel"; text = "Operating in this flight area requires a permit from each of the following authorities:"; ObjectID = "HLI-qV-iML"; Note = "REQUIRED_PERMITS_TABLE_HEADER|Copy that explains to the user that they are required to satisfy the permit requirements listed below."; AirMapUIObjectId = "HLI-qV-iML.text"; */
+"REQUIRED_PERMITS_TABLE_HEADER" = "このエリアを飛行するには、以下の各機関から許可を受ける必要があります:";
+
+/* Class = "UINavigationItem"; title = "Permits"; ObjectID = "747-Q2-1CI"; Note = "REQUIRED_PERMITS_TITLE|Title for the view where a user can select from a list of required permits"; AirMapUIObjectId = "747-Q2-1CI.title"; */
+"REQUIRED_PERMITS_TITLE" = "許可証";
+
+/* Title for the flight plan review view */
+"REVIEW_FLIGHT_PLANE_TITLE" = "フライトプラン";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "tCa-zT-0iZ"; Note = "REVIEW_FLIGHT_PLAN_DETAILS_NEXT_BUTTON|Button that allows a user to advance to the next step of flight planning"; AirMapUIObjectId = "tCa-zT-0iZ.normalTitle"; */
+"REVIEW_FLIGHT_PLAN_DETAILS_NEXT_BUTTON" = "次へ";
+
+/* 'Yes' Value for the public flight row */
+"REVIEW_FLIGHT_PLAN_DETAILS_PUBLIC_FLIGHT_VALUE_TRUE" = "はい";
+
+/* Label for the Buffer or radius surrounding a point or path */
+"REVIEW_FLIGHT_PLAN_DETAILS_RADIUS" = "半径";
+
+/* Label for the aircraft row */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_AIRCRAFT" = "ドローン";
+
+/* Label for the maximum altitude for a flight */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ALTITUDE" = "高度";
+
+/* Label for a flight's duration */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_DURATION" = "終了";
+
+/* Label for a flight's end time */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ENDS" = "終了";
+
+/* Label for the flight review 'is public' row */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_PUBLIC" = "公開";
+
+/* Class = "UILabel"; text = "Starts"; ObjectID = "Dy4-Qg-lC0"; Note = "REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_STARTS|Label for row that displays the start time of a flight"; AirMapUIObjectId = "Dy4-Qg-lC0.text"; */
+"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_STARTS" = "開始";
+
+/* Header label for the flight review aircraft section */
+"REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_AIRCRAFT" = "ドローン";
+
+/* Header label for the flight review details section */
+"REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_DETAILS" = "詳細";
+
+/* Header label for the flight review social sharing section */
+"REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_SOCIAL" = "フライトを共有";
+
+/* Time for flights that start immediately */
+"REVIEW_FLIGHT_PLAN_DETAILS_START_TIME_NOW" = "今すぐ離陸";
+
+/* Class = "UINavigationItem"; title = "Create Flight"; ObjectID = "HM6-qn-wuK"; Note = "REVIEW_FLIGHT_PLAN_DETAILS_TITLE|Title for view that allows a user to adjust the details of a new flight"; AirMapUIObjectId = "HM6-qn-wuK.title"; */
+"REVIEW_FLIGHT_PLAN_DETAILS_TITLE" = "フライトを作成";
+
+/* Class = "UIButton"; normalTitle = "End Flight"; ObjectID = "2Eq-Fz-bOO"; Note = "REVIEW_FLIGHT_PLAN_END_BUTTON|Label for button that ends an active flight"; AirMapUIObjectId = "2Eq-Fz-bOO.normalTitle"; */
+"REVIEW_FLIGHT_PLAN_END_BUTTON" = "フライトを終了";
+
+/* Displayed for authorities that are setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_ACCEPTS_NOTICE" = "デジタル通知を受付可";
+
+/* Displayed for authorities that are NOT setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_DOES_NOT_ACCEPT_NOTICE" = "このエリアでは以下の機関がデジタル通知を受け付けていません";
+
+/* Displayed in the flight plan review notices tab when there are no notices to display */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "このフライトには通知がありません";
+
+/* Class = "UILabel"; text = "Digital Notice Accepted"; ObjectID = "39m-XX-eZ2"; Note = "REVIEW_FLIGHT_PLAN_NOTICE_HEADER_NOTICE_ACCEPTED|Header for section that shows what organizations accept digital notice"; AirMapUIObjectId = "39m-XX-eZ2.text"; */
+"REVIEW_FLIGHT_PLAN_NOTICE_HEADER_NOTICE_ACCEPTED" = "デジタル通知受付可";
+
+/* Class = "UILabel"; text = "The following authorities in this area do not accept digital notice"; ObjectID = "lll-ta-VAP"; Note = "REVIEW_FLIGHT_PLAN_NOTICE_HEADER_NOTICE_NOT_ACCEPTED|Header for section that shows what organizations do not accept digital notice"; AirMapUIObjectId = "lll-ta-VAP.text"; */
+"REVIEW_FLIGHT_PLAN_NOTICE_HEADER_NOTICE_NOT_ACCEPTED" = "このエリアにおいて、以下の組織はデジタル通知を受付けていません";
+
+/* Class = "UIButton"; normalTitle = "Review"; ObjectID = "V59-8d-Sdh"; Note = "REVIEW_FLIGHT_PLAN_NOTICE_REVIEW_BUTON|Title for the button that allows the user to advance to the next step to review their flight plan"; AirMapUIObjectId = "V59-8d-Sdh.normalTitle"; */
+"REVIEW_FLIGHT_PLAN_NOTICE_REVIEW_BUTON" = "レビューする";
+
+/* Class = "UINavigationItem"; title = "Flight Notice"; ObjectID = "Uk3-p4-sdr"; Note = "REVIEW_FLIGHT_PLAN_NOTICE_TITLE|Title for view that displays digital notice that can be submitted to supported organizations"; AirMapUIObjectId = "Uk3-p4-sdr.title"; */
+"REVIEW_FLIGHT_PLAN_NOTICE_TITLE" = "フライト通知";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "4YZ-kG-zkZ"; Note = "REVIEW_FLIGHT_PLAN_SUBMIT_BUTTON|Label for button that submits and creates a new flight"; AirMapUIObjectId = "4YZ-kG-zkZ.normalTitle"; */
+"REVIEW_FLIGHT_PLAN_SUBMIT_BUTTON" = "申請する";
+
+/* Title for the Review Flight, digital notices tab */
+"REVIEW_FLIGHT_PLAN_TAB_TITLE_DIGITAL_NOTICE" = "通知";
+
+/* Title for the Review Flight, flight Details tab */
+"REVIEW_FLIGHT_PLAN_TAB_TITLE_FLIGHT" = "フライト";
+
+/* Title for the Review Flight, permits tab */
+"REVIEW_FLIGHT_PLAN_TAB_TITLE_PERMITS" = "許可証";
+
+/* Class = "UINavigationItem"; title = "Review Flight Plan"; ObjectID = "7qo-VN-M2p"; Note = "REVIEW_FLIGHT_PLAN_TITLE|Title for view where user can review a flight plan"; AirMapUIObjectId = "7qo-VN-M2p.title"; */
+"REVIEW_FLIGHT_PLAN_TITLE" = "フライトプランを確認";
+
+/* Title for the Local Rules view when a locality name is unavailable */
+"RULES_GENERIC_TITLE" = "この地域のルール";
+
+/* Class = "UINavigationItem"; title = "Select Aircraft"; ObjectID = "7vR-GS-NPr"; Note = "SELECT_AIRCRAFT_TITLE|Title for the view where you can select an aircraft for a flight"; AirMapUIObjectId = "7vR-GS-NPr.title"; */
+"SELECT_AIRCRAFT_TITLE" = "ドローンを選択";
+
+/* Class = "UILabel"; text = "SMS Code"; ObjectID = "oG7-qM-t5D"; Note = "SMS_LOGIN_CODE_HEADER|Header text for view where a user can input their SMS verification code"; AirMapUIObjectId = "oG7-qM-t5D.text"; */
+"SMS_LOGIN_CODE_HEADER" = "SMS コード";
+
+/* Class = "UITextField"; placeholder = "Code"; ObjectID = "L0X-0f-Pm9"; Note = "SMS_LOGIN_CODE_PLACEHOLDER|Placeholder label for the textfield where a user can input their SMS verification code"; AirMapUIObjectId = "L0X-0f-Pm9.placeholder"; */
+"SMS_LOGIN_CODE_PLACEHOLDER" = "コード";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "ERY-u7-YqH"; Note = "SMS_LOGIN_CODE_SUBMIT_BUTTON|Title for button that allows a user to submit an SMS code for verification"; AirMapUIObjectId = "ERY-u7-YqH.normalTitle"; */
+"SMS_LOGIN_CODE_SUBMIT_BUTTON" = "送信";
+
+/* Class = "UINavigationItem"; title = "Verify Code"; ObjectID = "7C4-bp-tif"; Note = "SMS_LOGIN_CODE_TITLE|Title for the view where a user enters their SMS verification code"; AirMapUIObjectId = "7C4-bp-tif.title"; */
+"SMS_LOGIN_CODE_TITLE" = "コードを確認";
+
+/* Class = "UITextField"; placeholder = "Phone Number"; ObjectID = "61d-PT-JN7"; Note = "SMS_LOGIN_PHONE_NUMBER_PLACEHOLDER|Label for field that the user types their phone number into"; AirMapUIObjectId = "61d-PT-JN7.placeholder"; */
+"SMS_LOGIN_PHONE_NUMBER_PLACEHOLDER" = "電話番号";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "cdb-du-WXE"; Note = "SMS_LOGIN_SAVE_BUTTON|Label for button that allows the user to submit their phone number for verification"; AirMapUIObjectId = "cdb-du-WXE.normalTitle"; */
+"SMS_LOGIN_SAVE_BUTTON" = "保存";
+
+/* Class = "UINavigationItem"; title = "Login"; ObjectID = "CJG-Jj-2c2"; Note = "SMS_LOGIN_TITLE|Title for view that allows a user to login via SMS"; AirMapUIObjectId = "CJG-Jj-2c2.title"; */
+"SMS_LOGIN_TITLE" = "ログイン";
+
+/* Description for status advisory color Green */
+"STATUS_GREEN_DESCRIPTION" = "エリア情報";
+
+/* Description for status advisory color Red */
+"STATUS_RED_DESCRIPTION" = "飛行規制あり";
+
+/* Description for status advisory color Yellow */
+"STATUS_YELLOW_DESCRIPTION" = "勧告あり";
+
+/* Name for map layer Aerial Recreational Areas */
+"TILE_LAYER_AERIAL_REC_AREAS" = "ホビー向けエリア";
+
+/* Name for map layer Commercial Airports */
+"TILE_LAYER_AIRPORTS" = "空港";
+
+/* Name for map layer Cities */
+"TILE_LAYER_CITIES" = "市区町村";
+
+/* Name for map layer Class B Airspace */
+"TILE_LAYER_CLASS_B" = "クラス B 管理空域";
+
+/* Name for map layer Class C Airspace */
+"TILE_LAYER_CLASS_C" = "クラス C 管理空域";
+
+/* Name for map layer Class D Airspace */
+"TILE_LAYER_CLASS_D" = "クラス D 管理空域";
+
+/* Name for map layer Class E Airspace */
+"TILE_LAYER_CLASS_E" = "クラス E 管理空域";
+
+/* Name for map layer Controlled Airspace */
+"TILE_LAYER_CONTROLLED_AIRSPACE" = "管理空域 (B、C、D、E)";
+
+/* Name for map layer Custom */
+"TILE_LAYER_CUSTOM" = "カスタム";
+
+/* Name for map layer First Responder Activity */
+"TILE_LAYER_EMERGENCIES" = "緊急対応";
+
+/* Name for map layer Fires */
+"TILE_LAYER_FIRES" = "火災";
+
+/* Name for map layer Hazard Areas */
+"TILE_LAYER_HAZARD_AREAS" = "危険区域";
+
+/* Name for map layer Heliports */
+"TILE_LAYER_HELIPORTS" = "ヘリポート";
+
+/* Name for map layer Hospitals */
+"TILE_LAYER_HOSPITALS" = "病院";
+
+/* Name for map layer National Parks */
+"TILE_LAYER_NATIONAL_PARKS" = "国立公園";
+
+/* Name for map layer NOAA Marine Protection Areas */
+"TILE_LAYER_NOAA" = "米国海洋大気庁海洋保護区域";
+
+/* Name for map layer Power Plants */
+"TILE_LAYER_POWER_PLANTS" = "発電所";
+
+/* Name for map layer Prisons */
+"TILE_LAYER_PRISONS" = "刑務所";
+
+/* Name for map layer Private Airports */
+"TILE_LAYER_PRIVATE_AIRPORTS" = "民間空港";
+
+/* Name for map layer Prohibited Airspace */
+"TILE_LAYER_PROHIBITED" = "飛行禁止空域";
+
+/* Name for map layer Restricted Airspace */
+"TILE_LAYER_RESTRICTED_AIRSPACE" = "規制空域";
+
+/* Name for map layer Schools */
+"TILE_LAYER_SCHOOLS" = "学校";
+
+/* Name for map layer FAA Temporary Flight Restrictions */
+"TILE_LAYER_TFR_FAA" = "一時的な飛行制限";
+
+/* Name for map layer Universities */
+"TILE_LAYER_UNIVERSITIES" = "大学";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "トラフィック %1$@\n高度 %2$@\n%3$@ %4$@ %5$@";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "トラフィック %1$@\n高度 %2$@\n%3$@";
+
+/* Name for the imperial system of measurement */
+"UNITS_IMPERIAL" = "マイル法";
+
+/* Name for the metric system of measurement */
+"UNITS_METRIC" = "メートル法";
+
+/* Unit and format for displaying nautical miles */
+"UNITS_NAUTICAL_MILE_FORMAT" = "%@ 海里";
+
+/* Unit and format for displaying speed in knots */
+"UNITS_SPEED_FORMAT_KNOTS" = "%@ ノット";
+
+/* Unit and format for displaying speed in meters per second */
+"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "秒速 %@ メートル";
+
+/* Unit and format for displaying speed in miles per hour */
+"UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "時速 %@ マイル";
+
+/* Unit and format for displaying a speed range in meters per second */
+"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "秒速 %1$@-%2$@ メートル";
+
+/* Unit and format for displaying a speed range in miles per hour */
+"UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "時速 %1$@-%2$@ マイル";
+
+/* Unit and format for displaying temperature in Celcius */
+"UNITS_TEMPERATURE_CELCIUS_FORMAT" = "%1$@ °C";
+
+/* Unit and format for displaying temperature in Fahrenheit */
+"UNITS_TEMPERATURE_FAHRENHEIT_FORMAT" = "%1$@ °F";

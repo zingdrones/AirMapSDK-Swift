@@ -1,0 +1,156 @@
+/* Class = "UIButton"; normalTitle = "End Flight"; ObjectID = "2Eq-Fz-bOO"; Note = "REVIEW_FLIGHT_PLAN_END_BUTTON|Label for button that ends an active flight"; */
+"2Eq-Fz-bOO.normalTitle" = "End Flight";
+
+/* Class = "UILabel"; text = "By providing your number, you agree to receive texts about your flights at this number. Carrier message & data rates may apply.\n\nAirMap will send you a text message when your digital notice has been successfully submitted.\n"; ObjectID = "2Na-rR-yZi"; Note = "PHONE_VERIFICATION_HEADER|Copy describing the process of verifying your phone number"; */
+"2Na-rR-yZi.text" = "By providing your number, you agree to receive texts about your flights at this number. Carrier message & data rates may apply.\n\nAirMap will send you a text message when your digital notice has been successfully submitted.\n";
+
+/* Class = "UILabel"; text = "[Make & Model]"; ObjectID = "3Xp-HW-KXR"; */
+"3Xp-HW-KXR.text" = "[Make & Model]";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "4YZ-kG-zkZ"; Note = "REVIEW_FLIGHT_PLAN_SUBMIT_BUTTON|Label for button that submits and creates a new flight"; */
+"4YZ-kG-zkZ.normalTitle" = "Submit";
+
+/* Class = "UINavigationItem"; title = "Phone Number Verification"; ObjectID = "4g7-2z-c9g"; Note = "PHONE_VERIFICATION_TITLE|Title for view that allows a user to verify their phone number"; */
+"4g7-2z-c9g.title" = "Phone Number Verification";
+
+/* Class = "UILabel"; text = "[Label]"; ObjectID = "5Hx-9E-ZCg"; */
+"5Hx-9E-ZCg.text" = "[Label]";
+
+/* Class = "UINavigationItem"; title = "Verify Code"; ObjectID = "7C4-bp-tif"; Note = "SMS_LOGIN_CODE_TITLE|Title for the view where a user enters their SMS verification code"; */
+"7C4-bp-tif.title" = "Verify Code";
+
+/* Class = "UINavigationItem"; title = "Review Flight Plan"; ObjectID = "7qo-VN-M2p"; Note = "REVIEW_FLIGHT_PLAN_TITLE|Title for view where user can review a flight plan"; */
+"7qo-VN-M2p.title" = "Review Flight Plan";
+
+/* Class = "UINavigationItem"; title = "Select Aircraft"; ObjectID = "7vR-GS-NPr"; Note = "SELECT_AIRCRAFT_TITLE|Title for the view where you can select an aircraft for a flight"; */
+"7vR-GS-NPr.title" = "Select Aircraft";
+
+/* Class = "UILabel"; text = "[Manufacturer Name]"; ObjectID = "8O4-aR-O35"; */
+"8O4-aR-O35.text" = "[Manufacturer Name]";
+
+/* Class = "UINavigationItem"; title = "Models"; ObjectID = "9xB-Yl-FrO"; Note = "MODELS_TITLE|Title for the view that displays a list of all aircraft models"; */
+"9xB-Yl-FrO.title" = "Models";
+
+/* Class = "UITextField"; placeholder = "Phone Number"; ObjectID = "61d-PT-JN7"; Note = "SMS_LOGIN_PHONE_NUMBER_PLACEHOLDER|Label for field that the user types their phone number into"; */
+"61d-PT-JN7.placeholder" = "Phone Number";
+
+/* Class = "UINavigationItem"; title = "Login"; ObjectID = "CJG-Jj-2c2"; Note = "SMS_LOGIN_TITLE|Title for view that allows a user to login via SMS"; */
+"CJG-Jj-2c2.title" = "Login";
+
+/* Class = "UILabel"; text = "[Country Name]"; ObjectID = "EGv-95-foG"; */
+"EGv-95-foG.text" = "[Country Name]";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "ERY-u7-YqH"; Note = "SMS_LOGIN_CODE_SUBMIT_BUTTON|Title for button that allows a user to submit an SMS code for verification"; */
+"ERY-u7-YqH.normalTitle" = "Submit";
+
+/* Class = "UILabel"; text = "[My Drone]"; ObjectID = "EbB-bz-kAx"; */
+"EbB-bz-kAx.text" = "[My Drone]";
+
+/* Class = "UILabel"; text = "[Organization]"; ObjectID = "Gpk-5A-j54"; */
+"Gpk-5A-j54.text" = "[Organization]";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "JQT-Y9-QfX"; */
+"JQT-Y9-QfX.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "K03-vU-4zj"; Note = "CREATE_AIRCRAFT_SAVE_BUTTON|Title for the button that saves a user's changes to a new or existing aircraft"; */
+"K03-vU-4zj.normalTitle" = "Save";
+
+/* Class = "UITextField"; placeholder = "Code"; ObjectID = "L0X-0f-Pm9"; Note = "SMS_LOGIN_CODE_PLACEHOLDER|Placeholder label for the textfield where a user can input their SMS verification code"; */
+"L0X-0f-Pm9.placeholder" = "Code";
+
+/* Class = "UILabel"; text = "[First Name Last Name]"; ObjectID = "LTQ-cw-ceU"; */
+"LTQ-cw-ceU.text" = "[First Name Last Name]";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "LoQ-Zv-NiL"; */
+"LoQ-Zv-NiL.title" = " ";
+
+/* Class = "UINavigationItem"; title = "Verify Phone Number"; ObjectID = "MVj-Qg-sch"; Note = "PHONE_VERIFICATION_CODE_TITLE|Title for the view where a user can verify an SMS token"; */
+"MVj-Qg-sch.title" = "Verify Phone Number";
+
+/* Class = "UILabel"; text = "[0 Aircraft, 0 Flights]"; ObjectID = "Vcb-p8-zyI"; */
+"Vcb-p8-zyI.text" = "[0 Aircraft, 0 Flights]";
+
+/* Class = "UILabel"; text = "[Email]"; ObjectID = "WqY-Vy-gdV"; */
+"WqY-Vy-gdV.text" = "[Email]";
+
+/* Class = "UILabel"; text = "Make & Model"; ObjectID = "XDN-d5-eoX"; Note = "CREATE_AIRCRAFT_MAKE_AND_MODEL|Label for the row label that displays the Make and Model of an aircraft"; */
+"XDN-d5-eoX.text" = "Make & Model";
+
+/* Class = "UINavigationItem"; title = "Create Aircraft"; ObjectID = "Z9F-I6-niw"; Note = "CREATE_AIRCRAFT_TITLE|Title for the view where you can create a new aircraft"; */
+"Z9F-I6-niw.title" = "Create Aircraft";
+
+/* Class = "UILabel"; text = "[Label]"; ObjectID = "Zf8-fW-gj4"; */
+"Zf8-fW-gj4.text" = "[Label]";
+
+/* Class = "UINavigationItem"; title = "Manufacturers"; ObjectID = "a84-JL-ndb"; Note = "MANUFACTURERS_TITLE|Title for the view that displays a list of all aircraft manufacturers"; */
+"a84-JL-ndb.title" = "Manufacturers";
+
+/* Class = "UITextView"; text = "[310-555-1212]"; ObjectID = "bBK-bB-q3L"; */
+"bBK-bB-q3L.text" = "[310-555-1212]";
+
+/* Class = "UITextField"; placeholder = "Nickname"; ObjectID = "blN-px-yT6"; Note = "CREATE_AIRCRAFT_NICKNAME|Placeholder label for the textfield where a user inputs the nickname for an aircraft"; */
+"blN-px-yT6.placeholder" = "Nickname";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "cdb-du-WXE"; Note = "SMS_LOGIN_SAVE_BUTTON|Label for button that allows the user to submit their phone number for verification"; */
+"cdb-du-WXE.normalTitle" = "Save";
+
+/* Class = "UITextField"; placeholder = "Code"; ObjectID = "dDO-AY-LlB"; Note = "PHONE_VERIFICATION_CODE_PLACEHOLDER|Placeholder label for the textfield where a user can input their SMS verification code"; */
+"dDO-AY-LlB.placeholder" = "Code";
+
+/* Class = "UINavigationItem"; title = "Select Country"; ObjectID = "dcW-Vd-KfC"; Note = "PHONE_COUNTRY_TITLE|Title for the view that allows a user to select their phone numbers country"; */
+"dcW-Vd-KfC.title" = "Select Country";
+
+/* Class = "UILabel"; text = "[Make and Model]"; ObjectID = "eSj-Ew-X4F"; */
+"eSj-Ew-X4F.text" = "[Make and Model]";
+
+/* Class = "UILabel"; text = "[My Drone Name]"; ObjectID = "hoG-X4-5p9"; */
+"hoG-X4-5p9.text" = "[My Drone Name]";
+
+/* Class = "UILabel"; text = "[Country Name]"; ObjectID = "hv6-5M-BNZ"; */
+"hv6-5M-BNZ.text" = "[Country Name]";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "jtQ-hn-R8x"; */
+"jtQ-hn-R8x.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "kCX-rY-nIt"; Note = "PILOT_PROFILE_SAVE_BUTTON|Title for the button that saves any changes to a user's profile"; */
+"kCX-rY-nIt.normalTitle" = "Save";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "lre-WH-pt9"; Note = "PHONE_VERIFICATION_SAVE_BUTTON|Title for button that allows the user to submit the SMS code for verification"; */
+"lre-WH-pt9.normalTitle" = "Submit";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "mhb-zV-IBV"; Note = "PHONE_VERIFICATION_SAVE_BUTTON|Title for button that saves and submits the users phone number for verification"; */
+"mhb-zV-IBV.normalTitle" = "Save";
+
+/* Class = "UILabel"; text = "[Value]"; ObjectID = "nW1-yH-qKX"; */
+"nW1-yH-qKX.text" = "[Value]";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "oEP-OH-o56"; */
+"oEP-OH-o56.title" = " ";
+
+/* Class = "UILabel"; text = "SMS Code"; ObjectID = "oG7-qM-t5D"; Note = "SMS_LOGIN_CODE_HEADER|Header text for view where a user can input their SMS verification code"; */
+"oG7-qM-t5D.text" = "SMS Code";
+
+/* Class = "UILabel"; text = "SMS Code"; ObjectID = "p8q-LE-2ew"; Note = "PHONE_VERIFICATION_CODE_HEADER|Header text for view where a user can input their SMS verification code"; */
+"p8q-LE-2ew.text" = "SMS Code";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "p9y-Ny-HbN"; */
+"p9y-Ny-HbN.title" = " ";
+
+/* Class = "UINavigationItem"; title = "Pilot Profile"; ObjectID = "q0o-oq-I1W"; Note = "PILOT_PROFILE_TITLE|Title for view where a user can modify their user profile"; */
+"q0o-oq-I1W.title" = "Pilot Profile";
+
+/* Class = "UILabel"; text = "[Country Name]"; ObjectID = "qF4-Xd-R4h"; */
+"qF4-Xd-R4h.text" = "[Country Name]";
+
+/* Class = "UILabel"; text = "[Organization Name]"; ObjectID = "rPi-lH-bxt"; */
+"rPi-lH-bxt.text" = "[Organization Name]";
+
+/* Class = "UITextField"; placeholder = "Phone Number"; ObjectID = "vme-QM-SG8"; Note = "PHONE_VERIFICATION_PHONE|Placeholder label for the text field where a user types their phone number"; */
+"vme-QM-SG8.placeholder" = "Phone Number";
+
+/* Class = "UILabel"; text = "[Model Name]"; ObjectID = "weZ-wf-881"; */
+"weZ-wf-881.text" = "[Model Name]";
+
+/* Class = "UILabel"; text = "[Phone Number]"; ObjectID = "zoD-a9-8h9"; */
+"zoD-a9-8h9.text" = "[Phone Number]";
+
