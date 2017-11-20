@@ -201,8 +201,6 @@ public struct LocalizedStrings {
 		
 		public static let sectionHeaderFlight = NSLocalizedString("FLIGHT_PLAN_SECTION_HEADER_FLIGHT", bundle: bundle, value: "Flight", comment: "Title for the section displaying flight plan details")
 		
-		public static let sectionHeaderFlightTime = NSLocalizedString("FLIGHT_PLAN_SECTION_HEADER_TIME", bundle: bundle, value: "Date & Time", comment: "Title for the section displaying flight plan start time & duration")
-		
 		public static let sectionHeaderAssociated = NSLocalizedString("FLIGHT_PLAN_SECTION_HEADER_ASSOCIATED", bundle: bundle, value: "Pilot & Aircraft", comment: "Title for the section displaying the pilot and aircraft details")
 		
 		public static let sectionHeaderSocial = NSLocalizedString("FLIGHT_PLAN_SECTION_HEADER_SHARE", bundle: bundle, value: "Share My Flight", comment: "Title for the section displaying social sharing features")
