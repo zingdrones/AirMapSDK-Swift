@@ -55,7 +55,7 @@ public struct AirMapFlightBriefing {
 		/// - accepted: The request with the authority has been accepted
 		/// - rejected: The request with the authority has been rejected
 		/// - notRequested: The request with the authority has not been requested
-		public enum Status:String {
+		public enum Status: String {
 			case pending
 			case accepted
 			case rejected
