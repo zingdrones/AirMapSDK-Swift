@@ -337,9 +337,6 @@
 /* Title for the row displaying the name of the aircraft */
 "FLIGHT_PLAN_ROW_TITLE_AIRCRAFT_NAME" = "Aircraft";
 
-/* (No Comment) */
-"FLIGHT_PLAN_ROW_TITLE_ALTITUDE" = "Altitude";
-
 /* Title for the row displaying flight plan buffer */
 "FLIGHT_PLAN_ROW_TITLE_BUFFER" = "Buffer";
 
@@ -367,7 +364,7 @@
 /* Title for the section displaying social sharing features */
 "FLIGHT_PLAN_SECTION_HEADER_SHARE" = "Share My Flight";
 
-/* Title for the section displaying flight plan start time & duration */
+/* (No Comment) */
 "FLIGHT_PLAN_SECTION_HEADER_TIME" = "Date & Time";
 
 /* The request with the authority will be reviewed manually sometime after the flight plan is submitted */
