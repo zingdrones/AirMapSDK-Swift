@@ -84,7 +84,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		let nickNameObs = nickName.rx.text.asObservable()
 		let modelObs = model.asObservable()
 		
-		Observable.combineLatest(nickNameObs, modelObs) { $0 }
+		Observable.combineLatest(nickNameObs, modelObs) { ($0, $1) }
 			.subscribe(onNext: { [unowned self] nickname, model in
 				
 				switch self.mode {
@@ -105,7 +105,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 			.disposed(by: disposeBag)
 		
 		Observable
-			.combineLatest(modelObs, nickNameObs) { (model: $0.0, nickName: $0.1) }
+			.combineLatest(modelObs, nickNameObs) { (model: $0, nickName: $1) }
 			.map { $0.model != nil && !($0.nickName ?? "").isEmpty }
 			.bind(to: nextButton.rx.isEnabled)
 			.disposed(by: disposeBag)
@@ -145,7 +145,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		}
 
 		action
-			.do(onCompleted: { [weak self] _ in
+			.do(onCompleted: { [weak self] () throws in
 				self?.resignFirstResponder()
 				self?.navigationController?.aircraftDelegate?
 					.aircraftNavController(self!.navigationController!, didCreateOrModify: self!.aircraft)

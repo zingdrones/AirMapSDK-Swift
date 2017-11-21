@@ -17,9 +17,9 @@ extension Loading where Self: UIViewController {
 	
 	public var rx_loading: AnyObserver<Bool> {
 		return
-			UIBindingObserver(UIElement: self) { vc, loading in
+			Binder(self, binding: { (vc, loading) in
 				loading ? vc.showLoader() : vc.hideLoader()
-				}.asObserver()
+			}).asObserver()
 	}
 
 	fileprivate func showLoader() {

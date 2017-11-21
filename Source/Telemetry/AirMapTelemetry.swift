@@ -46,7 +46,7 @@ struct AirMapTelemetry {
 				.observeOn(serialScheduler)
 
 			let flightMessages = Observable
-				.combineLatest(session, telemetry) { $0 }
+				.combineLatest(session, telemetry) { ($0, $1) }
 				.observeOn(bgScheduler)
 				.filter { flightSession, telemetry in
 					telemetry.flightId == flightSession.flightId
@@ -59,19 +59,19 @@ struct AirMapTelemetry {
 			let rate = Constants.AirMapTelemetry.SampleRate.self
 			
 			let position = flightMessages
-				.filter { $0.1 is Airmap.Telemetry.Position }
+				.filter { $1 is Airmap.Telemetry.Position }
 				.throttle(rate.position, scheduler: bgScheduler)
 			
 			let attitude = flightMessages
-				.filter { $0.1 is Airmap.Telemetry.Attitude }
+				.filter { $1 is Airmap.Telemetry.Attitude }
 				.throttle(rate.attitude, scheduler: bgScheduler)
 
 			let speed = flightMessages
-				.filter { $0.1 is Airmap.Telemetry.Speed }
+				.filter { $1 is Airmap.Telemetry.Speed }
 				.throttle(rate.speed, scheduler: bgScheduler)
 			
 			let barometer = flightMessages
-				.filter { $0.1 is Airmap.Telemetry.Barometer }
+				.filter { $1 is Airmap.Telemetry.Barometer }
 				.throttle(rate.barometer, scheduler: bgScheduler)
 			
 			Observable.from([position, attitude, speed, barometer]).merge()
@@ -95,7 +95,7 @@ struct AirMapTelemetry {
 		let flightId: String
 		let commKey: CommKey
 
-		private static let serialQueue = DispatchQueue(label: "com.airmap.telemetry.session.serialqueue")
+		static let serialQueue = DispatchQueue(label: "com.airmap.telemetry.session.serialqueue")
 
 		private static var socket = Socket(socketQueue: serialQueue)
 		
@@ -117,7 +117,8 @@ struct AirMapTelemetry {
 			case .aes256cbc:
 				let iv = AirMapTelemetry.generateIV()
 				let key = commKey.bytes()
-				let encryptedPayload = try! AES(key: key, iv: iv, blockMode: .CBC).encrypt(payload)
+				
+				let encryptedPayload = try! AES(key: key, blockMode: .CBC(iv: iv)).encrypt(payload)
 
 				packet = Packet(
 					serial: serial, flightId: flightId, payload: encryptedPayload,

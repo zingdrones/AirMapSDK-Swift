@@ -138,7 +138,7 @@ internal class HTTPClient {
 							AirMap.logger.error(method, path, error)
 							observer.onError(error)
 						} else {
-							observer.on(.next())
+							observer.on(.next(()))
 							observer.on(.completed)
 						}
 				}
@@ -239,7 +239,7 @@ extension DataRequest {
 				// Catch any error-related http codes and body
 				try catchApiError(with: response, from: request, with: data)
 				
-				return .success()
+				return .success(())
 			}
 			catch {
 				return .failure(error)

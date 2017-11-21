@@ -66,20 +66,19 @@ class AirMapVerifySMSCodeViewController: UITableViewController, AnalyticsTrackab
 		AirMap.rx.verifySMS(smsTextField.text!)
 			.trackActivity(activityIndicator)
 			.map { $0.verified}
-			.subscribe (
-				onNext: (unowned(self, AirMapVerifySMSCodeViewController.didVerifyPhoneNumber)),
-				onError: { [unowned self] error in
+			.subscribe(
+				onNext: unowned(self, AirMapVerifySMSCodeViewController.didVerifyPhoneNumber),
+				onError: { (error) in
 					self.trackEvent(.save, label: "Error", value: NSNumber(value: (error as NSError).code))
 					if let error = error as? AirMapError {
 						self.displayErrorAlert(message: error.description)
 					} else {
 						self.displayErrorAlert(message: error.localizedDescription)
 					}
-				},
-				onCompleted: { [unowned self] _ in
-					self.trackEvent(.save, label: "Success")
-				}
-			)
+
+			}, onCompleted: { [unowned self] in
+				self.trackEvent(.save, label: "Success")
+			})
 			.disposed(by: disposeBag)
 	}
 	

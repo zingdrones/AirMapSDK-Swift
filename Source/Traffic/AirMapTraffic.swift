@@ -9,7 +9,7 @@
 import ObjectMapper
 import CoreLocation
 
-@objc public class AirMapTraffic: NSObject {
+public class AirMapTraffic: NSObject {
 
 	public enum TrafficType: Int {
 		case alert
@@ -24,7 +24,7 @@ import CoreLocation
 	public var timestamp: Date = Date()
 	public var recordedTime: Date = Date()
 	public var properties = AirMapTrafficProperties()
-	public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+	@objc public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
 	public var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
 	public var createdAt: Date = Date()
 	public var trafficType = TrafficType.situationalAwareness {

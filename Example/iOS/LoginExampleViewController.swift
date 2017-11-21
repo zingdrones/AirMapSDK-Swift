@@ -124,8 +124,8 @@ class LoginExampleViewController: UIViewController {
 		}
 		
 		// Define text style attributes
-		let keyAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)]
-		let valueAttributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 17)]
+		let keyAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)]
+		let valueAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
 		
 		// Apply the styling to the text and construct a single attributed string
 		let attributedInfo = info

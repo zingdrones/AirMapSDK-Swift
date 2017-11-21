@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 		:git => 'https://github.com/AirMap/AirMapSDK-Swift.git',
 		:tag => s.version.to_s
 	}
-	s.cocoapods_version = '>= 1.2.0'
+	s.cocoapods_version = '>= 1.3.0'
 	s.frameworks = 'Foundation'
 	
 	s.ios.deployment_target = '9.0'
@@ -27,14 +27,14 @@ Pod::Spec.new do |s|
 		core.ios.frameworks = 'UIKit'
 		core.osx.frameworks = 'AppKit'
 		core.source_files = ['Source/Core/**/*.{h,m,swift}', 'Source/Rx/*']
-		core.dependency 'Alamofire', '~> 4.5.0'
-		core.dependency 'ObjectMapper', '< 3.0'
+		core.dependency 'Alamofire'
+		core.dependency 'ObjectMapper'
 		core.dependency 'SwiftTurf'
 		core.dependency 'SimpleKeychain'
-		core.dependency 'JWTDecode', '~> 2.1.0'
-		core.dependency 'RxSwift', '< 4.0'
-		core.dependency 'RxSwiftExt', '< 3.0'
-		core.dependency 'RxCocoa', '< 4.0'
+		core.dependency 'JWTDecode'
+		core.dependency 'RxSwift'
+		core.dependency 'RxSwiftExt'
+		core.dependency 'RxCocoa'
 		core.dependency 'Log'
 		core.resources = ['Resources/Core/*.{cer,pdf,xcassets}', 'Resources/Core/Localizations/**/*']
 	end
@@ -45,11 +45,11 @@ Pod::Spec.new do |s|
 		ui.frameworks = 'UIKit'
 		ui.dependency 'AirMapSDK/Core'
 		ui.dependency 'libPhoneNumber-iOS'
-		ui.dependency 'PhoneNumberKit', '< 1.4'
-		ui.dependency 'RxDataSources', '< 3.0'
-		ui.dependency 'Mapbox-iOS-SDK', '~> 3.5'
-		ui.dependency 'Lock', '~> 2.3.1'
-		ui.dependency 'SwiftSimplify', '~> 0.2.0'
+		ui.dependency 'PhoneNumberKit'
+		ui.dependency 'RxDataSources'
+		ui.dependency 'Mapbox-iOS-SDK'
+		ui.dependency 'Lock'
+		ui.dependency 'SwiftSimplify'
 		ui.source_files = 'Source/UI/**/{*.swift}'
 		ui.resources = ['Resources/UI/*.{xcassets}', 'Resources/UI/Localizations/**/*']
 	end
@@ -64,9 +64,9 @@ Pod::Spec.new do |s|
 	s.subspec 'Telemetry' do |telemetry|
 		telemetry.xcconfig = { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DAIRMAP_TELEMETRY' }
 		telemetry.dependency 'AirMapSDK/Core'
-		telemetry.dependency 'CocoaAsyncSocket', '~> 7.6.0'
-		telemetry.dependency 'CryptoSwift', '0.7.0'
-		telemetry.dependency 'ProtocolBuffers-Swift', '~> 3.0.21'
+		telemetry.dependency 'CocoaAsyncSocket'
+		telemetry.dependency 'CryptoSwift'
+		telemetry.dependency 'ProtocolBuffers-Swift'
 		telemetry.source_files = 'Source/Telemetry/*'
 	end
 	

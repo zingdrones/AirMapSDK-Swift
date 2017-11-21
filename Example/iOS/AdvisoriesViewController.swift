@@ -56,13 +56,13 @@ class AdvisoriesViewController: UITableViewController {
 		
 		return status.advisories
 			// Sort by advisory color and name
-			.sorted(by: { $0.0.color < $0.1.color && $0.0.name < $0.1.name })
+			.sorted(by: { $0.color < $1.color && $0.name < $1.name })
 			// Group by airspace type
 			.grouped(by: { $0.type })
 			// Map into a SectionModel
 			.map(SectionModel.init)
 			// Sorty by airspace type
-			.sorted(by: { $0.0.type.title < $0.1.type.title })
+			.sorted(by: { $0.type.title < $1.type.title })
 	}
 	
 	//	MARK: - UITableViewDataSource

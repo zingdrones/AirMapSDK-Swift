@@ -60,7 +60,7 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 	@IBOutlet var saveButton: UIButton!
 	
 	fileprivate typealias Model = SectionModel<String,AirMapPilotProfileField>
-	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<Model>()
+	fileprivate var dataSource: RxTableViewSectionedReloadDataSource<Model>!
 	fileprivate let activityIndicator = ActivityTracker()
 	fileprivate let disposeBag = DisposeBag()
 	
@@ -153,65 +153,68 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 		
 		tableView.estimatedRowHeight = 50
 		tableView.rowHeight = UITableViewAutomaticDimension
-
-		dataSource.configureCell = { [unowned self] dataSource, tableView, indexPath, field in
-			let cell: AirMapFormTextField
+		
+		dataSource = RxTableViewSectionedReloadDataSource<Model>(
 			
-			let cellIdentifier: String
-			switch field.type  {
-			case .text:
-				cellIdentifier = "TextCell"
-			case .email:
-				cellIdentifier = "EmailCell"
-			case .phoneNumber:
-				cellIdentifier = "PhoneCell"
+			configureCell: { [unowned self] dataSource, tableView, indexPath, field in
+				let cell: AirMapFormTextField
+				
+				let cellIdentifier: String
+				switch field.type  {
+				case .text:
+					cellIdentifier = "TextCell"
+				case .email:
+					cellIdentifier = "EmailCell"
+				case .phoneNumber:
+					cellIdentifier = "PhoneCell"
+				}
+				
+				cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! AirMapFormTextField
+				cell.label.text = field.label
+				
+				let pilot = self.pilot.value
+				
+				switch Section(rawValue: indexPath.section)! {
+					
+				case .pilotInfo:
+					
+					var value: String?
+					switch field.key {
+					case "firstName":
+						value = pilot?.firstName
+					case "lastName":
+						value = pilot?.lastName
+					case "username":
+						value = pilot?.username
+					case "email":
+						value = pilot?.email
+					case "phone":
+						value = pilot?.phone
+					default:
+						assertionFailure()
+					}
+					
+					if let value = value {
+						cell.textField.rx.text.onNext(value)
+					}
+					
+				case .customInfo:
+					if let value = pilot?.appMetadata()[field.key] as? String {
+						cell.textField.rx.text.onNext(value)
+					}
+				}
+				
+				cell.textField.rx.text
+					.bind(to: field.rx_value)
+					.disposed(by: self.disposeBag)
+				
+				return cell
+			},
+			
+			titleForHeaderInSection: { dataSource, index in
+				dataSource.sectionModels[index].model
 			}
-			
-			cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! AirMapFormTextField
-			cell.label.text = field.label
-
-			let pilot = self.pilot.value
-			
-			switch Section(rawValue: indexPath.section)! {
-				
-			case .pilotInfo:
-				
-				var value: String?
-				switch field.key {
-				case "firstName":
-					value = pilot?.firstName
-				case "lastName":
-					value = pilot?.lastName
-				case "username":
-					value = pilot?.username
-				case "email":
-					value = pilot?.email
-				case "phone":
-					value = pilot?.phone
-				default:
-					assertionFailure()
-				}
-
-				if let value = value {
-					cell.textField.rx.text.onNext(value)
-				}
-				
-			case .customInfo:
-				if let value = pilot?.appMetadata()[field.key] as? String {
-					cell.textField.rx.text.onNext(value)
-				}
-			}
-
-			cell.textField.rx.text
-				.bind(to: field.rx_value)
-				.disposed(by: self.disposeBag)
-			
-			return cell
-		}
-
-		dataSource.titleForHeaderInSection = { dataSource, index in
-			dataSource.sectionModels[index].model
-		}
+		)
 	}
 	
 	fileprivate func setupBindings() {

@@ -29,7 +29,6 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 	}
 	
 	fileprivate typealias RowData = (code: String, name: String)
-	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String,RowData>>()
 	fileprivate let disposeBag = DisposeBag()
 	
 	override func viewDidLoad() {
@@ -61,11 +60,17 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 			SectionModel(model: localized.otherCountry, items: otherCountries)
 		]
 		
-		dataSource.configureCell = { datasource, tableView, indexPath, row in
-			let cell = tableView.dequeueReusableCell(withIdentifier: "phoneCountryCell")!
-			cell.textLabel?.text = row.name
-			return cell
-		}
+		let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String,RowData>>(
+			configureCell: { datasource, tableView, indexPath, row in
+				let cell = tableView.dequeueReusableCell(withIdentifier: "phoneCountryCell")!
+				cell.textLabel?.text = row.name
+				return cell
+			}
+		)
+		
+		Observable.just(sections)
+			.bind(to: tableView.rx.items(dataSource: dataSource))
+			.disposed(by: disposeBag)
 		
 		tableView.rx.itemSelected.asObservable()
 			.map(tableView.rx.model)
@@ -73,10 +78,6 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 				self?.trackEvent(.tap, label: "Country Row")
 				self?.selectionDelegate?.phoneCountrySelectorDidSelect(country: row.name, country: row.code)
 			})
-			.disposed(by: disposeBag)
-		
-		Observable.just(sections)
-			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: disposeBag)
 	}
 	

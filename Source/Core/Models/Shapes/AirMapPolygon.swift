@@ -26,14 +26,13 @@ public class AirMapPolygon: AirMapGeometry {
 		if (coordinates?.count ?? 0) >= 1 {
 			
 			let coordinates = self.coordinates.map { (coordinates) -> [Coordinate2D] in
-				var newCoords = coordinates.reduce([Coordinate2D]()) { (result, next) -> [Coordinate2D] in
+				coordinates.reduce([Coordinate2D]()) { (result, next) -> [Coordinate2D] in
 					var result = result
 					if result.last != next {
 						result.append(next)
 					}
 					return result
 				}
-				return newCoords
 			}
 			
 			params["type"] = "Polygon"

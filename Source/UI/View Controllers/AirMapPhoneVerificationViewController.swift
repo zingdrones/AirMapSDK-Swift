@@ -145,11 +145,12 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 						onError: { [unowned self] error in
 							self.trackEvent(.save, label: "error", value: NSNumber(value: (error as NSError).code))
 						},
-						onCompleted: { [unowned self] _ in
+						onCompleted: { [unowned self] () throws in
 							self.trackEvent(.save, label: "Success")
 						}
 					)
 			}
+			.mapToVoid()
 			.subscribeNext(weak: self, AirMapPhoneVerificationViewController.verifySMSToken)
 			.disposed(by: disposeBag)
 	}

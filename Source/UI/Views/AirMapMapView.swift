@@ -64,7 +64,7 @@ open class AirMapMapView: MGLMapView {
 		
 		let visibleJurisdictions = visibleJurisdictionFeatures
 			.flatMap { $0.attributes["jurisdiction"] as? String }
-			.flatMap(AirMapMapView.jurisdictionMapper.map)
+			.flatMap { AirMapMapView.jurisdictionMapper.map(JSONString: $0) }
 			.filter { (jurisdiction: AirMapJurisdiction) in jurisdiction.rulesets.count > 0 }
 		
 		let uniqueJurisdictions = Array(Set(visibleJurisdictions))

@@ -73,12 +73,10 @@ public class AirMapAircraftViewController: UITableViewController, AnalyticsTrack
 			.map(tableView.rx.model)
 			.flatMap { aircraft in
 				AirMap.rx.deleteAircraft(aircraft)
-					.do(
-						onError: { [unowned self] error in
-							self.trackEvent(.delete, label: "Error", value: (error as NSError).code as NSNumber?)
-						},
-						onCompleted: { [unowned self] _ in
-							self.trackEvent(.delete, label: "Success")
+					.do(onError: { [unowned self] error throws in
+						self.trackEvent(.delete, label: "Error", value: (error as NSError).code as NSNumber?)
+					}, onCompleted: { [unowned self] () throws in
+						self.trackEvent(.delete, label: "Success")
 					})
 			}
 			.flatMap(AirMap.rx.listAircraft)
