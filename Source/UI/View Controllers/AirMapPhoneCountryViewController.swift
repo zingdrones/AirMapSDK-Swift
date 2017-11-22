@@ -46,6 +46,8 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 	
 	func setupTable() {
 		
+		tableView.dataSource = nil
+
 		let currentCountry: RowData = (code: selectedCountryIdentifier, name: selectedCountryName)
 		
 		let otherCountries: [RowData] = Locale.isoRegionCodes
@@ -72,7 +74,7 @@ class AirMapPhoneCountryViewController: UITableViewController, AnalyticsTrackabl
 				self?.selectionDelegate?.phoneCountrySelectorDidSelect(country: row.name, country: row.code)
 			})
 			.disposed(by: disposeBag)
-
+		
 		Observable.just(sections)
 			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: disposeBag)
