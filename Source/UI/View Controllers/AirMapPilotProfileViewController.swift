@@ -75,10 +75,6 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 		tableView.dataSource = nil
 		tableView.delegate = nil
 		
-		let faaLabel = LocalizedStrings.PilotProfile.faaRegistrationLabel
-		let faaReg = AirMapPilotProfileField(label: faaLabel, key: "faa_registration_number")
-		customFields.append(faaReg)
-
 		setupTableView()
 		setupBindings()
 	}
@@ -149,8 +145,7 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 			.disposed(by: disposeBag)
 		
 		return [
-			Model(model: localized.sectionHeaderPersonal, items: pilotFields),
-			Model(model: localized.sectionHeaderAdditional, items: customFields)
+			Model(model: localized.sectionHeaderPersonal, items: pilotFields)
 		]
 	}
 	
