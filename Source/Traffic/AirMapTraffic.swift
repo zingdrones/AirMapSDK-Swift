@@ -16,17 +16,18 @@ public class AirMapTraffic: NSObject {
 		case situationalAwareness
 	}
 
-	public var id: String!
-	public var direction: Double = 0
-	public var altitude: Double = 0
-	public var groundSpeed: Knots = 0
-	public var trueHeading: Int = 0
-	public var timestamp: Date = Date()
-	public var recordedTime: Date = Date()
-	public var properties = AirMapTrafficProperties()
+	@objc public var id: String!
+	@objc public var direction: Double = 0
+	@objc public var altitude: Double = 0
+	@objc public var groundSpeed: Knots = 0
+	@objc public var trueHeading: Int = 0
+	@objc public var timestamp: Date = Date()
+	@objc public var recordedTime: Date = Date()
+	@objc public var properties = AirMapTrafficProperties()
 	@objc public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
-	public var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
-	public var createdAt: Date = Date()
+	@objc public var initialCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
+	@objc public var createdAt: Date = Date()
+	
 	public var trafficType = TrafficType.situationalAwareness {
 		willSet {
 			trafficTypeDidChangeToAlert = trafficType == .situationalAwareness && newValue == .alert
