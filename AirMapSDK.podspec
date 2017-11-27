@@ -48,7 +48,6 @@ Pod::Spec.new do |s|
 		ui.dependency 'RxDataSources'
 		ui.dependency 'Mapbox-iOS-SDK'
 		ui.dependency 'Lock'
-		ui.dependency 'SwiftSimplify'
 		ui.source_files = 'Source/UI/**/{*.swift}'
 		ui.resources = ['Resources/UI/*.{xcassets}', 'Resources/UI/Localizations/**/*']
 	end
