@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13770" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13770"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -447,14 +446,14 @@ AirMap will send you a text message when your digital notice has been successful
                 </button>
                 <exit id="imX-ph-QuD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5274" y="-1381"/>
+            <point key="canvasLocation" x="5329" y="-1370"/>
         </scene>
         <!--Select Country-->
         <scene sceneID="jeA-hY-hF4">
             <objects>
                 <tableViewController id="R3C-7q-JQF" customClass="AirMapPhoneCountryViewController" customModule="AirMap" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="9BG-a3-Lhs">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -840,305 +839,6 @@ AirMap will send you a text message when your digital notice has been successful
             </objects>
             <point key="canvasLocation" x="2083" y="-476"/>
         </scene>
-        <!--Delegate-->
-        <scene sceneID="08t-4V-GgT">
-            <objects>
-                <viewController storyboardIdentifier="AirMapReviewFlightPlanViewController" id="8BE-J7-rU0" customClass="AirMapReviewFlightPlanViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Sv8-Ti-SMI"/>
-                        <viewControllerLayoutGuide type="bottom" id="iaZ-4D-Qe2"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ckc-r1-aRd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qgt-0v-v4T" customClass="TabSelectorView" customModule="AirMap">
-                                <rect key="frame" x="0.0" y="187" width="375" height="40"/>
-                                <color key="backgroundColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="lHQ-8E-LD9"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lVj-Bo-JEJ" customClass="AirMapMapView" customModule="AirMap">
-                                <rect key="frame" x="0.0" y="20" width="375" height="167"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsZooming" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsScrolling" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsRotating" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsTilting" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="delegate" destination="8BE-J7-rU0" id="mBG-2r-OgO"/>
-                                </connections>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0s-Bd-ARA">
-                                <rect key="frame" x="0.0" y="225" width="200" height="2"/>
-                                <color key="backgroundColor" red="0.53333333329999999" green="0.85882352939999995" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="BXy-2a-Jt7"/>
-                                    <constraint firstAttribute="width" constant="200" id="lh4-XF-LAf"/>
-                                </constraints>
-                            </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBL-oR-5j7">
-                                <rect key="frame" x="0.0" y="227" width="375" height="440"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8BE-J7-rU0" id="eoc-xZ-ILC"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Qgt-0v-v4T" firstAttribute="top" secondItem="lVj-Bo-JEJ" secondAttribute="bottom" id="3EY-gd-wE7"/>
-                            <constraint firstItem="J0s-Bd-ARA" firstAttribute="bottom" secondItem="OBL-oR-5j7" secondAttribute="top" id="3No-z3-mbh"/>
-                            <constraint firstItem="OBL-oR-5j7" firstAttribute="leading" secondItem="ckc-r1-aRd" secondAttribute="leading" id="5qG-AS-7eo"/>
-                            <constraint firstItem="lVj-Bo-JEJ" firstAttribute="leading" secondItem="ckc-r1-aRd" secondAttribute="leading" id="A2u-PQ-ur1"/>
-                            <constraint firstItem="OBL-oR-5j7" firstAttribute="top" secondItem="Qgt-0v-v4T" secondAttribute="bottom" id="Dnk-Hz-2LU"/>
-                            <constraint firstItem="J0s-Bd-ARA" firstAttribute="leading" secondItem="ckc-r1-aRd" secondAttribute="leading" id="OCb-qQ-q72"/>
-                            <constraint firstItem="lVj-Bo-JEJ" firstAttribute="height" secondItem="ckc-r1-aRd" secondAttribute="height" multiplier="0.25" id="S8I-bu-vbZ"/>
-                            <constraint firstItem="lVj-Bo-JEJ" firstAttribute="top" secondItem="Sv8-Ti-SMI" secondAttribute="bottom" id="ZjF-22-pAf"/>
-                            <constraint firstItem="iaZ-4D-Qe2" firstAttribute="top" secondItem="OBL-oR-5j7" secondAttribute="bottom" id="b8B-La-8oN"/>
-                            <constraint firstAttribute="trailing" secondItem="OBL-oR-5j7" secondAttribute="trailing" id="cT7-Ig-enE"/>
-                            <constraint firstAttribute="trailing" secondItem="lVj-Bo-JEJ" secondAttribute="trailing" id="srA-oc-M8a"/>
-                            <constraint firstItem="Qgt-0v-v4T" firstAttribute="leading" secondItem="ckc-r1-aRd" secondAttribute="leading" id="tgs-Tw-B19"/>
-                            <constraint firstAttribute="trailing" secondItem="Qgt-0v-v4T" secondAttribute="trailing" id="vXm-tf-Aiu"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Review Flight Plan" id="7qo-VN-M2p">
-                        <barButtonItem key="backBarButtonItem" title=" " id="JQT-Y9-QfX"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="HfV-zZ-9Ck">
-                            <connections>
-                                <action selector="dismiss" destination="8BE-J7-rU0" id="1i4-v9-s1N"/>
-                            </connections>
-                        </barButtonItem>
-                        <attributedString key="userComments">
-                            <fragment content="REVIEW_FLIGHT_PLAN_TITLE|Title for view where user can review a flight plan">
-                                <attributes>
-                                    <color key="NSColor" red="0.85899999999999999" green="0.17100000000000001" blue="0.219" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                    <font key="NSFont" size="14" name="Menlo-Regular"/>
-                                    <integer key="NSLigature" value="0"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="34.600000000000001" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                        <tabStops>
-                                            <textTab alignment="left" location="34.599998474121094">
-                                                <options/>
-                                            </textTab>
-                                        </tabStops>
-                                    </paragraphStyle>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="detailsView" destination="pjF-7N-mPh" id="xa0-73-ueY"/>
-                        <outlet property="endFlightButton" destination="2Eq-Fz-bOO" id="cH2-0u-6aL"/>
-                        <outlet property="mapView" destination="lVj-Bo-JEJ" id="R19-f0-pYl"/>
-                        <outlet property="noticesView" destination="YgE-qL-c8Q" id="E0j-Z6-lvf"/>
-                        <outlet property="permitsView" destination="hvG-Fu-3jy" id="G9D-Xa-OAS"/>
-                        <outlet property="scrollView" destination="OBL-oR-5j7" id="7uR-Ua-aWm"/>
-                        <outlet property="statusesView" destination="PDI-am-rOS" id="qIS-8a-BbH"/>
-                        <outlet property="submitButton" destination="4YZ-kG-zkZ" id="1SB-88-HhP"/>
-                        <outlet property="tabSelectionIndicator" destination="J0s-Bd-ARA" id="cLT-Bm-Kv4"/>
-                        <outlet property="tabSelectionIndicatorWidthConstraint" destination="lh4-XF-LAf" id="yxt-RH-qc2"/>
-                        <outlet property="tabView" destination="Qgt-0v-v4T" id="KCz-xC-Uhz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0EI-ct-d1Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <containerView opaque="NO" contentMode="scaleToFill" id="pjF-7N-mPh" userLabel="Flight Details">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <connections>
-                        <segue destination="aUO-CA-mHa" kind="embed" identifier="embedFlightDetails" id="npl-2d-zLm"/>
-                    </connections>
-                </containerView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4YZ-kG-zkZ">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                    <color key="backgroundColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="Vja-0G-yrn"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                    <state key="normal" title="Submit">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <state key="disabled">
-                        <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <attributedString key="userComments">
-                        <fragment content="REVIEW_FLIGHT_PLAN_SUBMIT_BUTTON|Label for button that submits and creates a new flight">
-                            <attributes>
-                                <color key="NSColor" red="0.85899999999999999" green="0.17100000000000001" blue="0.219" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <font key="NSFont" size="14" name="Menlo-Regular"/>
-                                <integer key="NSLigature" value="0"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="34.600000000000001" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                    <tabStops>
-                                        <textTab alignment="left" location="34.599998474121094">
-                                            <options/>
-                                        </textTab>
-                                    </tabStops>
-                                </paragraphStyle>
-                            </attributes>
-                        </fragment>
-                    </attributedString>
-                    <connections>
-                        <action selector="submitFlightPlan" destination="8BE-J7-rU0" eventType="touchUpInside" id="nJp-Hr-Y8V"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Eq-Fz-bOO">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                    <color key="backgroundColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="gGo-md-NTf"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                    <state key="normal" title="End Flight">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <state key="disabled">
-                        <color key="titleColor" red="1" green="0.99997437" blue="0.99999129769999995" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <attributedString key="userComments">
-                        <fragment content="REVIEW_FLIGHT_PLAN_END_BUTTON|Label for button that ends an active flight">
-                            <attributes>
-                                <color key="NSColor" red="0.85899999999999999" green="0.17100000000000001" blue="0.219" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <font key="NSFont" size="14" name="Menlo-Regular"/>
-                                <integer key="NSLigature" value="0"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="34.600000000000001" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                    <tabStops>
-                                        <textTab alignment="left" location="34.599998474121094">
-                                            <options/>
-                                        </textTab>
-                                    </tabStops>
-                                </paragraphStyle>
-                            </attributes>
-                        </fragment>
-                    </attributedString>
-                    <connections>
-                        <action selector="endFlight" destination="8BE-J7-rU0" eventType="touchUpInside" id="jwt-dF-iru"/>
-                    </connections>
-                </button>
-                <containerView opaque="NO" contentMode="scaleToFill" id="hvG-Fu-3jy" userLabel="Permits">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                </containerView>
-                <containerView opaque="NO" contentMode="scaleToFill" id="YgE-qL-c8Q" userLabel="Notices">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <connections>
-                        <segue destination="yrL-Wv-bJl" kind="embed" identifier="embedNotice" id="Uag-Bk-73T"/>
-                    </connections>
-                </containerView>
-                <containerView opaque="NO" contentMode="scaleToFill" id="PDI-am-rOS">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                </containerView>
-            </objects>
-            <point key="canvasLocation" x="2833" y="431"/>
-        </scene>
-        <!--Air Map Review Flight Details View Controller-->
-        <scene sceneID="f9M-kw-xxm">
-            <objects>
-                <viewController id="aUO-CA-mHa" customClass="AirMapReviewFlightDetailsViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1HO-Fc-LQ9"/>
-                        <viewControllerLayoutGuide type="bottom" id="NAF-HU-hys"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="1nn-ki-x7n">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="iHd-9g-dCK">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="flightDetailsCell" textLabel="5Hx-9E-ZCg" detailTextLabel="nW1-yH-qKX" style="IBUITableViewCellStyleValue2" id="kik-er-LKK">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kik-er-LKK" id="5No-71-RY7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="[Label]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Hx-9E-ZCg">
-                                                    <rect key="frame" x="15" y="12" width="91" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="[Value]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nW1-yH-qKX">
-                                                    <rect key="frame" x="112" y="12" width="54.5" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="aircraftCell" textLabel="EbB-bz-kAx" detailTextLabel="eSj-Ew-X4F" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="dA7-TV-pZj">
-                                        <rect key="frame" x="0.0" y="99.5" width="375" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dA7-TV-pZj" id="Sf2-hJ-gr6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="[My Drone]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EbB-bz-kAx">
-                                                    <rect key="frame" x="15" y="9" width="85.5" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="[Make and Model]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eSj-Ew-X4F">
-                                                    <rect key="frame" x="15" y="31.5" width="117" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="airMapCell" rowHeight="44" id="kOH-G1-rAz">
-                                        <rect key="frame" x="0.0" y="159.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kOH-G1-rAz" id="Mvt-bS-Hzr">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="airmap_share_logo" translatesAutoresizingMaskIntoConstraints="NO" id="J0q-Fc-eam">
-                                                    <rect key="frame" x="23" y="12" width="87" height="20"/>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="J0q-Fc-eam" firstAttribute="leading" secondItem="Mvt-bS-Hzr" secondAttribute="leadingMargin" constant="8" id="nuG-gl-ZYv"/>
-                                                <constraint firstItem="J0q-Fc-eam" firstAttribute="centerY" secondItem="Mvt-bS-Hzr" secondAttribute="centerY" id="shM-WN-Kqf"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="iHd-9g-dCK" firstAttribute="leading" secondItem="1nn-ki-x7n" secondAttribute="leading" id="3wj-VP-ct9"/>
-                            <constraint firstItem="iHd-9g-dCK" firstAttribute="top" secondItem="1nn-ki-x7n" secondAttribute="top" id="6pI-LW-7yz"/>
-                            <constraint firstAttribute="trailing" secondItem="iHd-9g-dCK" secondAttribute="trailing" id="GFO-F8-Gul"/>
-                            <constraint firstAttribute="bottom" secondItem="iHd-9g-dCK" secondAttribute="bottom" id="xDp-3Q-Scg"/>
-                        </constraints>
-                    </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="220"/>
-                    <connections>
-                        <outlet property="tableView" destination="iHd-9g-dCK" id="5cH-wY-UJb"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="498-nL-lMt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3660" y="257"/>
-        </scene>
         <!--Manufacturers-->
         <scene sceneID="HAh-tC-edV">
             <objects>
@@ -1189,7 +889,7 @@ AirMap will send you a text message when your digital notice has been successful
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ska-kZ-NDk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5377" y="-476"/>
+            <point key="canvasLocation" x="5329" y="-476"/>
         </scene>
         <!--Air Map Aircraft Model Nav Controller-->
         <scene sceneID="7TB-GQ-aUS">
@@ -1208,107 +908,6 @@ AirMap will send you a text message when your digital notice has been successful
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cP1-TV-mZW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4529" y="-476"/>
-        </scene>
-        <!--Air Map Review Notice View Controller-->
-        <scene sceneID="kHr-R6-X2P">
-            <objects>
-                <viewController id="yrL-Wv-bJl" customClass="AirMapReviewNoticeViewController" customModule="AirMap" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ug6-vi-R3A"/>
-                        <viewControllerLayoutGuide type="bottom" id="3mM-hP-98p"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="x9b-hG-VR2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="175"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="5FT-9B-mKX">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="175"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="digitalCell" rowHeight="44" id="paG-c4-yBa" customClass="AirMapFlightNoticeCell" customModule="AirMap">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="paG-c4-yBa" id="ZHg-ik-rPF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization]" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gpk-5A-j54">
-                                                    <rect key="frame" x="23" y="12" width="329" height="19"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="top" secondItem="ZHg-ik-rPF" secondAttribute="top" constant="12" id="2ZH-fN-VpE"/>
-                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="trailing" secondItem="ZHg-ik-rPF" secondAttribute="trailingMargin" constant="-8" id="4pA-j5-Cbs"/>
-                                                <constraint firstItem="Gpk-5A-j54" firstAttribute="leading" secondItem="ZHg-ik-rPF" secondAttribute="leadingMargin" constant="8" id="ccg-8p-ybA"/>
-                                                <constraint firstAttribute="bottom" secondItem="Gpk-5A-j54" secondAttribute="bottom" constant="12" id="ruS-wE-Dlw"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="name" destination="Gpk-5A-j54" id="UTp-W0-JJm"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="noDigitalCell" rowHeight="70" id="Xze-tT-CFL" customClass="AirMapFlightNoticeCell" customModule="AirMap">
-                                        <rect key="frame" x="0.0" y="99.5" width="375" height="70"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xze-tT-CFL" id="dMv-O4-L2F">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Organization Name]" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPi-lH-bxt">
-                                                    <rect key="frame" x="23" y="12" width="329" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" text="[310-555-1212]" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bBK-bB-q3L">
-                                                    <rect key="frame" x="23" y="29" width="329" height="30"/>
-                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="textColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES"/>
-                                                </textView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="bBK-bB-q3L" secondAttribute="bottom" constant="10.5" id="1E6-1A-g0S"/>
-                                                <constraint firstItem="bBK-bB-q3L" firstAttribute="top" secondItem="rPi-lH-bxt" secondAttribute="bottom" constant="-4" id="NTX-Px-SGH"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="bBK-bB-q3L" secondAttribute="trailing" constant="8" id="RBu-6l-PdU"/>
-                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="top" secondItem="dMv-O4-L2F" secondAttribute="top" constant="12" id="aKd-iE-4Qk"/>
-                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="leading" secondItem="dMv-O4-L2F" secondAttribute="leadingMargin" constant="8" id="baQ-JA-yha"/>
-                                                <constraint firstItem="bBK-bB-q3L" firstAttribute="leading" secondItem="dMv-O4-L2F" secondAttribute="leadingMargin" constant="8" id="uVk-ht-xKe"/>
-                                                <constraint firstItem="rPi-lH-bxt" firstAttribute="trailing" secondItem="dMv-O4-L2F" secondAttribute="trailingMargin" constant="-8" id="vCO-Ka-9pw"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="name" destination="rPi-lH-bxt" id="9aa-aJ-ZUb"/>
-                                            <outlet property="phoneNumber" destination="bBK-bB-q3L" id="KMP-Zf-ddJ"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="5FT-9B-mKX" secondAttribute="bottom" id="74d-fv-tas"/>
-                            <constraint firstAttribute="trailing" secondItem="5FT-9B-mKX" secondAttribute="trailing" id="LQG-hb-3ZJ"/>
-                            <constraint firstItem="5FT-9B-mKX" firstAttribute="top" secondItem="x9b-hG-VR2" secondAttribute="top" id="Z71-xz-q7n"/>
-                            <constraint firstItem="5FT-9B-mKX" firstAttribute="leading" secondItem="x9b-hG-VR2" secondAttribute="leading" id="sNe-fs-t4O"/>
-                        </constraints>
-                    </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="175"/>
-                    <connections>
-                        <outlet property="tableView" destination="5FT-9B-mKX" id="4iA-bt-BEv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Itc-75-iv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3661" y="574.5"/>
         </scene>
         <!--Models-->
         <scene sceneID="2Na-ao-xKs">
@@ -1352,7 +951,7 @@ AirMap will send you a text message when your digital notice has been successful
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyY-gp-99C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6257" y="-476"/>
+            <point key="canvasLocation" x="6153" y="-476"/>
         </scene>
         <!--Verify Code-->
         <scene sceneID="yCl-kz-O48">
@@ -1475,7 +1074,7 @@ AirMap will send you a text message when your digital notice has been successful
                 </button>
                 <exit id="AX7-1m-5qK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4396" y="-2176"/>
+            <point key="canvasLocation" x="4529" y="-2176"/>
         </scene>
         <!--Login-->
         <scene sceneID="lcI-f0-Dic">
@@ -1496,13 +1095,14 @@ AirMap will send you a text message when your digital notice has been successful
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Country Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hv6-5M-BNZ">
-                                                    <rect key="frame" x="16" y="12" width="117" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="343" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hv6-5M-BNZ" secondAttribute="trailing" id="IWy-Ut-Rs5"/>
                                                 <constraint firstItem="hv6-5M-BNZ" firstAttribute="centerY" secondItem="IUK-uw-fBl" secondAttribute="centerY" id="enT-8s-IWA"/>
                                                 <constraint firstItem="hv6-5M-BNZ" firstAttribute="leading" secondItem="IUK-uw-fBl" secondAttribute="leadingMargin" id="tXx-q3-Q8i"/>
                                             </constraints>
@@ -1605,7 +1205,7 @@ AirMap will send you a text message when your digital notice has been successful
                     </connections>
                 </button>
             </objects>
-            <point key="canvasLocation" x="3622.65625" y="-2176.171875"/>
+            <point key="canvasLocation" x="3660" y="-2176"/>
         </scene>
         <!--Air MapSMS Login Nav Controller-->
         <scene sceneID="dbx-AI-AI4">
@@ -1628,15 +1228,12 @@ AirMap will send you a text message when your digital notice has been successful
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7tO-tT-qeu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2732" y="-2176"/>
+            <point key="canvasLocation" x="2838" y="-2176"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="airmap_share_logo" width="87" height="20"/>
-    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EBb-de-rWY"/>
-        <segue reference="OiG-zl-Hhu"/>
+        <segue reference="hz7-Iw-idg"/>
+        <segue reference="VwN-yj-34g"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.98823529409999999" green="0.29803921570000003" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

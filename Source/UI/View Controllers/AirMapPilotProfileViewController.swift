@@ -9,7 +9,6 @@
 import RxSwift
 import RxCocoa
 import RxDataSources
-import libPhoneNumber_iOS
 
 open class AirMapPilotProfileField {
 	

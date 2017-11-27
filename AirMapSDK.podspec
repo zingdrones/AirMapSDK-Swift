@@ -44,7 +44,6 @@ Pod::Spec.new do |s|
 		ui.platform = :ios
 		ui.frameworks = 'UIKit'
 		ui.dependency 'AirMapSDK/Core'
-		ui.dependency 'libPhoneNumber-iOS'
 		ui.dependency 'PhoneNumberKit'
 		ui.dependency 'RxDataSources'
 		ui.dependency 'Mapbox-iOS-SDK'

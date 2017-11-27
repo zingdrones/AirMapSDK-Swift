@@ -9,7 +9,6 @@
 import RxSwift
 import RxCocoa
 import PhoneNumberKit
-import libPhoneNumber_iOS
 
 class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTrackable {
 	
@@ -25,11 +24,10 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	
 	fileprivate let phoneNumberKit = PhoneNumberKit()
 	fileprivate var regionCode: String!
-	fileprivate let phoneUtil = NBPhoneNumberUtil()
 	fileprivate let activityIndicator = ActivityTracker()
 
 	fileprivate var phoneNumber: PhoneNumber? {
-		guard let phone =  phone.text, let region = regionCode else { return nil }
+		guard let phone = phone.text, let region = regionCode else { return nil }
 		return try? phoneNumberKit.parse(phone, withRegion: region, ignoreType: false)
 	}
 	
@@ -44,7 +42,6 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 		setupBindings()
 		
 		if let p = pilot.phone {
-			print(PartialFormatter().formatPartial(p))
 			phone.text = PartialFormatter().formatPartial(p)
 		}
 		
@@ -120,9 +117,6 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	
 	fileprivate func setupPhoneNumberField() {
 		
-		let samplePhoneNumber = try? phoneUtil.getExampleNumber(forType: regionCode, type: .MOBILE)
-		let samplePhoneString = try? phoneUtil.format(samplePhoneNumber, numberFormat: .INTERNATIONAL)
-		phone?.placeholder =  samplePhoneString
 		phone?.defaultRegion = regionCode
 	}
 	
