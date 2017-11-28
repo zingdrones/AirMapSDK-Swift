@@ -22,7 +22,7 @@
         <a class="header-link" href="index.html">
           AirMap Docs
         </a>
-         (30% documented)
+         (29% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -139,6 +139,9 @@
                 <a class="nav-group-task-link" href="Structs/AirMapFlightFeature.html">AirMapFlightFeature</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/AirMapFlightFeature/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/AirMapFlightFeature/InputType.html">– InputType</a>
               </li>
               <li class="nav-group-task">
@@ -215,9 +218,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/AirMapRule.html">AirMapRule</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/AirMapRule/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/AirMapAuthority.html">AirMapAuthority</a>
@@ -351,7 +351,7 @@
           <div class="section-content">
             
             <p><img src="Resources/Core/AirMap.png" alt="AirMap: The Airspace Platform for Developers">
-<img src="https://img.shields.io/badge/Swift-3.0-lightgray.svg" alt="Swift 2.3"> <a href="http://cocoapods.org/pods/AirMapSDK"><img src="https://img.shields.io/cocoapods/v/AirMapSDK.svg?style=flat" alt="Version"></a> <a href="http://cocoapods.org/pods/AirMapSDK"><img src="https://img.shields.io/cocoapods/l/AirMapSDK.svg?style=flat" alt="License"></a> <a href="http://cocoapods.org/pods/AirMapSDK"><img src="https://img.shields.io/cocoapods/p/AirMapSDK.svg?style=flat" alt="Platform"></a></p>
+<img src="https://img.shields.io/badge/Swift-3.1-lightgray.svg" alt="Swift 3.1"> <a href="http://cocoapods.org/pods/AirMapSDK"><img src="https://img.shields.io/cocoapods/v/AirMapSDK.svg?style=flat" alt="Version"></a> <a href="http://cocoapods.org/pods/AirMapSDK"><img src="https://img.shields.io/cocoapods/l/AirMapSDK.svg?style=flat" alt="License"></a> <a href="http://cocoapods.org/pods/AirMapSDK"><img src="https://img.shields.io/cocoapods/p/AirMapSDK.svg?style=flat" alt="Platform"></a></p>
 
 <p>Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.</p>
 <h2 id='requirements' class='heading'>Requirements</h2>
@@ -360,8 +360,8 @@
 <ul>
 <li>iOS 9.0+,</li>
 <li>macOS 10.10+,</li>
-<li>Swift 3.0 or 3.1</li>
-<li>Xcode 8.2+</li>
+<li>Swift 3.1</li>
+<li>Xcode 8.3+</li>
 </ul>
 <h3 id='sign-up-for-an-a-href-https-dashboard-airmap-io-developer-airmap-developer-account-a' class='heading'>Sign up for an <a href="https://dashboard.airmap.io/developer/">AirMap Developer Account.</a></h3>
 
@@ -379,7 +379,7 @@
 <p><code>$ sudo gem install cocoapods</code></p>
 <h3 id='example-project' class='heading'>Example Project</h3>
 
-<p><strong><em>You must have Xcode 8.2+ to run the example.</em></strong></p>
+<p><strong><em>You must have Xcode 8.3+ to run the example.</em></strong></p>
 
 <p>To run the example project, run <code>pod try AirMapSDK</code>.  This should install the SDK and launch Xcode.</p>
 <h3 id='integrating-into-your-project' class='heading'>Integrating into your project</h3>
@@ -387,7 +387,7 @@
 <p>To integrate the AirMap SDK into your Xcode project, navigate to the directory that contains your project and create a new <strong>Podfile</strong> with <code>pod init</code> or open an existing one, then add <code>pod &#39;AirMapSDK&#39;</code> to the main target. Make sure to add the line <code>use_frameworks!</code>.</p>
 <pre class="highlight ruby"><code><span class="n">target</span> <span class="s1">'MyApp'</span> <span class="k">do</span>
   <span class="n">use_frameworks!</span>
-    <span class="n">pod</span> <span class="s1">'AirMapSDK'</span>
+  <span class="n">pod</span> <span class="s1">'AirMapSDK'</span>
 <span class="k">end</span>
 </code></pre>
 
@@ -400,40 +400,6 @@
 <p>Make sure you import the framework before using the SDK.</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">AirMap</span>
 </code></pre>
-<h2 id='examples' class='heading'>Examples</h2>
-<h3 id='getting-airspace-status' class='heading'>Getting Airspace Status</h3>
-<pre class="highlight swift"><code><span class="c1">// Create a coordinate or source one from the device's GPS</span>
-<span class="k">let</span> <span class="nv">myCoord</span> <span class="o">=</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">(</span><span class="nv">latitude</span><span class="p">:</span> <span class="mf">34.02</span><span class="p">,</span> <span class="nv">longitude</span><span class="p">:</span> <span class="o">-</span><span class="mf">118.50</span><span class="p">)</span>
-
-<span class="c1">// Check the coordinate with a buffer of 100 Meters</span>
-<span class="kt">AirMap</span><span class="o">.</span><span class="nf">checkCoordinate</span><span class="p">(</span><span class="nv">coordinate</span><span class="p">:</span> <span class="n">myCoord</span><span class="p">,</span> <span class="nv">buffer</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="nv">result</span><span class="p">:</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">AirMapStatus</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">in</span>
-
-    <span class="c1">// The result is either an error or a value</span>
-    <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
-
-    <span class="k">case</span> <span class="o">.</span><span class="nf">error</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
-        <span class="c1">// handle the error</span>
-        <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-
-    <span class="k">case</span> <span class="o">.</span><span class="nf">value</span><span class="p">(</span><span class="k">let</span> <span class="nv">status</span><span class="p">):</span>
-
-        <span class="c1">// print the overall airspace status color (i.e. red, yellow, green)</span>
-        <span class="nf">print</span><span class="p">(</span><span class="s">"Airspace Status Color:"</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">advisoryColor</span><span class="p">)</span>
-
-        <span class="c1">// print the number of airspace advisories returned</span>
-        <span class="nf">print</span><span class="p">(</span><span class="s">"Number of Advisories:"</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">advisories</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
-
-        <span class="c1">// print out details for each advisory</span>
-        <span class="k">for</span> <span class="n">advisory</span> <span class="k">in</span> <span class="n">status</span><span class="o">.</span><span class="n">advisories</span> <span class="p">{</span>
-            <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-            <span class="nf">print</span><span class="p">(</span><span class="s">"Name:     "</span><span class="p">,</span> <span class="n">advisory</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="nf">print</span><span class="p">(</span><span class="s">"Type:     "</span><span class="p">,</span> <span class="n">advisory</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
-            <span class="nf">print</span><span class="p">(</span><span class="s">"Color:    "</span><span class="p">,</span> <span class="n">advisory</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
-            <span class="nf">print</span><span class="p">(</span><span class="s">"Distance: "</span><span class="p">,</span> <span class="n">advisory</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="s">"meters"</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre>
 <h2 id='license' class='heading'>License</h2>
 
 <p>See <a href="https://raw.githubusercontent.com/airmap/AirMapSDK-Swift/master/LICENSE">LICENSE</a> for details</p>
@@ -445,7 +411,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2017 <a class="link" href="https://github.com/airmap" target="_blank" rel="external">AirMap, Inc.</a>. All rights reserved. (Last updated: 2017-09-08)</p>
+      <p>&copy; 2017 <a class="link" href="https://github.com/airmap" target="_blank" rel="external">AirMap, Inc.</a>. All rights reserved. (Last updated: 2017-11-28)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -23,7 +23,7 @@
         <a class="header-link" href="../../index.html">
           AirMap Docs
         </a>
-         (30% documented)
+         (29% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -140,6 +140,9 @@
                 <a class="nav-group-task-link" href="../../Structs/AirMapFlightFeature.html">AirMapFlightFeature</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/AirMapFlightFeature/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/AirMapFlightFeature/InputType.html">– InputType</a>
               </li>
               <li class="nav-group-task">
@@ -216,9 +219,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/AirMapRule.html">AirMapRule</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Structs/AirMapRule/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/AirMapAuthority.html">AirMapAuthority</a>
@@ -357,14 +357,14 @@
 
                 </div>
               </div>
-            <p>The evaluation status of a rule. Only evaluated when the rule is return as part of a flight briefing.</p>
+            <p>The evaluation status of a flight feature.</p>
 
 <ul>
-<li>conflicting: The flight plan properties or input provided conflicts with the rule</li>
-<li>missingInfo: The flight plan properties or input is missing and the rule cannot be evaluated</li>
+<li>conflicting: The flight plan properties or input provided conflicts with a rule</li>
+<li>missingInfo: The flight plan properties or input is missing and therefore cannot be evaluated</li>
 <li>informational: The status cannot be computationally evaluated but is provided for informational purposes</li>
-<li>notConflicting: The rule has been evaluated as non-conflicting based on the flight plan properties or input provided</li>
-<li>unevaluated: The rule has not yet been evaluated by the AirMap rules engine</li>
+<li>notConflicting: The feature has been evaluated as non-conflicting based on the flight plan properties or input provided</li>
+<li>unevaluated: The feature has not yet been evaluated by the AirMap rules engine</li>
 </ul>
 
           </div>
@@ -377,9 +377,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6AirMap0aB4RuleV6StatusO11conflictingA2EmF"></a>
+                    <a name="/s:6AirMap0aB13FlightFeatureV6StatusO11conflictingA2EmF"></a>
                     <a name="//apple_ref/swift/Element/conflicting" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6AirMap0aB4RuleV6StatusO11conflictingA2EmF">conflicting</a>
+                    <a class="token" href="#/s:6AirMap0aB13FlightFeatureV6StatusO11conflictingA2EmF">conflicting</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -408,9 +408,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6AirMap0aB4RuleV6StatusO11missingInfoA2EmF"></a>
+                    <a name="/s:6AirMap0aB13FlightFeatureV6StatusO11missingInfoA2EmF"></a>
                     <a name="//apple_ref/swift/Element/missingInfo" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6AirMap0aB4RuleV6StatusO11missingInfoA2EmF">missingInfo</a>
+                    <a class="token" href="#/s:6AirMap0aB13FlightFeatureV6StatusO11missingInfoA2EmF">missingInfo</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -439,9 +439,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6AirMap0aB4RuleV6StatusO13informationalA2EmF"></a>
+                    <a name="/s:6AirMap0aB13FlightFeatureV6StatusO13informationalA2EmF"></a>
                     <a name="//apple_ref/swift/Element/informational" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6AirMap0aB4RuleV6StatusO13informationalA2EmF">informational</a>
+                    <a class="token" href="#/s:6AirMap0aB13FlightFeatureV6StatusO13informationalA2EmF">informational</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -470,9 +470,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6AirMap0aB4RuleV6StatusO14notConflictingA2EmF"></a>
+                    <a name="/s:6AirMap0aB13FlightFeatureV6StatusO14notConflictingA2EmF"></a>
                     <a name="//apple_ref/swift/Element/notConflicting" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6AirMap0aB4RuleV6StatusO14notConflictingA2EmF">notConflicting</a>
+                    <a class="token" href="#/s:6AirMap0aB13FlightFeatureV6StatusO14notConflictingA2EmF">notConflicting</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -501,9 +501,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:6AirMap0aB4RuleV6StatusO11unevaluatedA2EmF"></a>
+                    <a name="/s:6AirMap0aB13FlightFeatureV6StatusO11unevaluatedA2EmF"></a>
                     <a name="//apple_ref/swift/Element/unevaluated" class="dashAnchor"></a>
-                    <a class="token" href="#/s:6AirMap0aB4RuleV6StatusO11unevaluatedA2EmF">unevaluated</a>
+                    <a class="token" href="#/s:6AirMap0aB13FlightFeatureV6StatusO11unevaluatedA2EmF">unevaluated</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -533,7 +533,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2017 <a class="link" href="https://github.com/airmap" target="_blank" rel="external">AirMap, Inc.</a>. All rights reserved. (Last updated: 2017-09-08)</p>
+      <p>&copy; 2017 <a class="link" href="https://github.com/airmap" target="_blank" rel="external">AirMap, Inc.</a>. All rights reserved. (Last updated: 2017-11-28)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
