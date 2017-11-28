@@ -67,8 +67,6 @@
 /* Name for airspace type National Park */
 "AIRSPACE_TYPE_NATIONAL_PARK" = "国立公園";
 
-"airspace_type_notam" = "NOTAM";
-
 /* Name for airspace type Power Plant */
 "AIRSPACE_TYPE_POWER_PLANT" = "発電所";
 
@@ -282,11 +280,20 @@
 /* Call to action title for the user to select an aircraft */
 "FLIGHT_PLAN_ROW_TITLE_AIRCRAFT" = "ドローンを選択";
 
+/* Label for the row that displays the aircraft name */
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT_NAME" = "ドローン";
+
 /* Title for the row displaying flight plan altitude */
 "FLIGHT_PLAN_ROW_TITLE_ALTITUDE" = "高度";
 
+/* Title for the row displaying the buffer or radius around a flight geometry */
+"FLIGHT_PLAN_ROW_TITLE_BUFFER" = "半径";
+
 /* Title for the row displaying flight plan duration */
 "FLIGHT_PLAN_ROW_TITLE_DURATION" = "飛行時間";
+
+/* Title for the row displaying the max altitude AGL of the flight */
+"FLIGHT_PLAN_ROW_TITLE_MAX_ALTITUDE" = "高度";
 
 /* Call to action title for the user to select a pilot profile */
 "FLIGHT_PLAN_ROW_TITLE_PILOT" = "パイロットのプロフィールを選択";
@@ -486,6 +493,15 @@
 /* Class = "UINavigationItem"; title = "Review Flight Plan"; ObjectID = "7qo-VN-M2p"; Note = "REVIEW_FLIGHT_PLAN_TITLE|Title for view where user can review a flight plan"; AirMapUIObjectId = "7qo-VN-M2p.title"; */
 "REVIEW_FLIGHT_PLAN_TITLE" = "フライトプランを確認";
 
+/* Label for the section header that displays all the Optional rulesets */
+"RULESETS_SECTION_OPTIONAL" = "任意";
+
+/* Label for the section header that displays all the Pick One rulesets */
+"RULESETS_SECTION_PICK_ONE" = "ひとつ選択";
+
+/* Label for the section header that displays all the Required rulesets */
+"RULESETS_SECTION_REQUIRED" = "必須";
+
 /* Title for the Local Rules view when a locality name is unavailable */
 "RULES_GENERIC_TITLE" = "この地域のルール";
 
@@ -520,7 +536,7 @@
 "STATUS_RED_DESCRIPTION" = "飛行規制あり";
 
 /* Description for status advisory color Yellow */
-"STATUS_YELLOW_DESCRIPTION" = "勧告あり";
+"STATUS_YELLOW_DESCRIPTION" = "周辺情報";
 
 /* Name for map layer Aerial Recreational Areas */
 "TILE_LAYER_AERIAL_REC_AREAS" = "ホビー向けエリア";
@@ -613,16 +629,16 @@
 "UNITS_SPEED_FORMAT_KNOTS" = "%@ ノット";
 
 /* Unit and format for displaying speed in meters per second */
-"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "秒速 %@ メートル";
+"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "%@ m/s";
 
 /* Unit and format for displaying speed in miles per hour */
-"UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "時速 %@ マイル";
+"UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "%@ mph";
 
 /* Unit and format for displaying a speed range in meters per second */
-"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "秒速 %1$@-%2$@ メートル";
+"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "%1$@-%2$@ m/s";
 
 /* Unit and format for displaying a speed range in miles per hour */
-"UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "時速 %1$@-%2$@ マイル";
+"UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "%1$@-%2$@ mph";
 
 /* Unit and format for displaying temperature in Celcius */
 "UNITS_TEMPERATURE_CELCIUS_FORMAT" = "%1$@ °C";
