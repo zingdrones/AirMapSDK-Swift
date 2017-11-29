@@ -96,7 +96,7 @@ public struct LocalizedStrings {
 		
 		public static let park = NSLocalizedString("AIRSPACE_TYPE_NATIONAL_PARK", bundle: bundle, value: "National Park", comment: "Name for airspace type National Park")
 		
-		public static let policeStation = NSLocalizedString("AIRSPACE_TYPE_POLICE_STATAION", bundle: bundle, value: "Police Station", comment: "Name for airspace type Police Station")
+		public static let policeStation = NSLocalizedString("AIRSPACE_TYPE_POLICE_STATION", bundle: bundle, value: "Police Station", comment: "Name for airspace type Police Station")
 		
 		public static let powerline = NSLocalizedString("AIRSPACE_TYPE_POWERLINE", bundle: bundle, value: "Powerline", comment: "Name for airspace type Powerline")
 		

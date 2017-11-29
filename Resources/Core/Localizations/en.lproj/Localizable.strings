@@ -101,7 +101,7 @@
 "AIRSPACE_TYPE_NOTAM" = "NOTAM";
 
 /* Name for airspace type Police Station */
-"AIRSPACE_TYPE_POLICE_STATAION" = "Police Station";
+"AIRSPACE_TYPE_POLICE_STATION" = "Police Station";
 
 /* Name for airspace type Powerline */
 "AIRSPACE_TYPE_POWERLINE" = "Powerline";
