@@ -16,5 +16,5 @@ phraseapp:
       params:
         convert_emoji: true
         file_format: xlf
-        tags: ios
+        tag: ios
         format_options: { convert_placeholder: true }

@@ -1,20 +1,11 @@
-/* Class = "UIButton"; normalTitle = "End Flight"; ObjectID = "2Eq-Fz-bOO"; Note = "REVIEW_FLIGHT_PLAN_END_BUTTON|Label for button that ends an active flight"; */
-"2Eq-Fz-bOO.normalTitle" = "フライトを終了";
-
 /* Class = "UILabel"; text = "By providing your number, you agree to receive texts about your flights at this number. Carrier message & data rates may apply.\n\nAirMap will send you a text message when your digital notice has been successfully submitted.\n"; ObjectID = "2Na-rR-yZi"; Note = "PHONE_VERIFICATION_HEADER|Copy describing the process of verifying your phone number"; */
-"2Na-rR-yZi.text" = "電話番号を入力すると、お客様のフライトに関するSMSをこの番号で受信することに同意したものと見なされます。電話会社のメッセージおよびデータ料金がかかる場合があります。\n\nAirMapはお客様のデジタル通知が無事登録された時にSMSを送信します。";
-
-/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "4YZ-kG-zkZ"; Note = "REVIEW_FLIGHT_PLAN_SUBMIT_BUTTON|Label for button that submits and creates a new flight"; */
-"4YZ-kG-zkZ.normalTitle" = "申請する";
+"2Na-rR-yZi.text" = "電話番号を入力すると、フライトに関係する情報をこの番号で受信することに同意したものと見なされます。SMSの受信には電話会社のメッセージ料金またはデータ料金がかかる場合があります。";
 
 /* Class = "UINavigationItem"; title = "Phone Number Verification"; ObjectID = "4g7-2z-c9g"; Note = "PHONE_VERIFICATION_TITLE|Title for view that allows a user to verify their phone number"; */
 "4g7-2z-c9g.title" = "電話番号の確認";
 
 /* Class = "UINavigationItem"; title = "Verify Code"; ObjectID = "7C4-bp-tif"; Note = "SMS_LOGIN_CODE_TITLE|Title for the view where a user enters their SMS verification code"; */
 "7C4-bp-tif.title" = "コードを確認";
-
-/* Class = "UINavigationItem"; title = "Review Flight Plan"; ObjectID = "7qo-VN-M2p"; Note = "REVIEW_FLIGHT_PLAN_TITLE|Title for view where user can review a flight plan"; */
-"7qo-VN-M2p.title" = "フライトプランを確認";
 
 /* Class = "UINavigationItem"; title = "Select Aircraft"; ObjectID = "7vR-GS-NPr"; Note = "SELECT_AIRCRAFT_TITLE|Title for the view where you can select an aircraft for a flight"; */
 "7vR-GS-NPr.title" = "ドローンを選択";
@@ -29,7 +20,7 @@
 "CJG-Jj-2c2.title" = "ログイン";
 
 /* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "ERY-u7-YqH"; Note = "SMS_LOGIN_CODE_SUBMIT_BUTTON|Title for button that allows a user to submit an SMS code for verification"; */
-"ERY-u7-YqH.normalTitle" = "送信";
+"ERY-u7-YqH.normalTitle" = "確認";
 
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "K03-vU-4zj"; Note = "CREATE_AIRCRAFT_SAVE_BUTTON|Title for the button that saves a user's changes to a new or existing aircraft"; */
 "K03-vU-4zj.normalTitle" = "保存";
@@ -63,9 +54,6 @@
 
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "kCX-rY-nIt"; Note = "PILOT_PROFILE_SAVE_BUTTON|Title for the button that saves any changes to a user's profile"; */
 "kCX-rY-nIt.normalTitle" = "保存";
-
-/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "lre-WH-pt9"; Note = "PHONE_VERIFICATION_SAVE_BUTTON|Title for button that allows the user to submit the SMS code for verification"; */
-"lre-WH-pt9.normalTitle" = "送信";
 
 /* Class = "UILabel"; text = "SMS Code"; ObjectID = "oG7-qM-t5D"; Note = "SMS_LOGIN_CODE_HEADER|Header text for view where a user can input their SMS verification code"; */
 "oG7-qM-t5D.text" = "SMS コード";

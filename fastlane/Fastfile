@@ -142,6 +142,16 @@ lane :downloadstrings do
     
     doc = File.open(file) { |f| Nokogiri::XML(f) }
 
+    for source_file in doc.css("xliff file")
+      # Remove globals keys not associated with a source file (i.e. those from Android)
+      if source_file["original"] == "global"
+        for unit in source_file.css("body trans-unit")
+          UI.error "Unassociated translation unit #{unit["id"]}"
+        end
+      source_file.remove if source_file["original"] == "global"
+      end
+    end      
+
     for unit in doc.css("xliff file body trans-unit")
       
       note = unit.at_css "note"

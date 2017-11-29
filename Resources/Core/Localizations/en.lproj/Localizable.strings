@@ -190,42 +190,6 @@
 /* Navigation title for failed login attempt */
 "AUTH_FAILED_LOGIN_TITLE" = "Alert";
 
-/* (No Comment) */
-"AVAILABLE_PERMITS_SECTION_HEADER_AVAILABLE" = "Available Permits";
-
-/* (No Comment) */
-"AVAILABLE_PERMITS_SECTION_HEADER_EXISTING" = "Existing Permits";
-
-/* (No Comment) */
-"AVAILABLE_PERMITS_SECTION_HEADER_UNAVAILABLE" = "Unavailable Permits";
-
-/* (No Comment) */
-"AVAILABLE_PERMITS_TABLE_HEADER" = "The following existing & available permits meets the requirements for operation in the flight area.";
-
-/* (No Comment) */
-"AVAILABLE_PERMITS_TABLE_HEADER_CONFLICTING_REQUIREMENTS" = "Only a single permit can be used to fly in this operating area. Your flight path intersects with multiple areas requiring different permits.";
-
-/* (No Comment) */
-"AVAILABLE_PERMIT_ROW_TITLE_SINGLE_USE" = "Single use";
-
-/* (No Comment) */
-"AVAILABLE_PERMIT_ROW_TITLE_VALIDITY" = "Valid for";
-
-/* (No Comment) */
-"AVAILABLE_PERMIT_ROW_VALUE_SINGLE_USE_FALSE" = "No";
-
-/* (No Comment) */
-"AVAILABLE_PERMIT_ROW_VALUE_SINGLE_USE_TRUE" = "Yes";
-
-/* (No Comment) */
-"AVAILABLE_PERMIT_SECTION_HEADER_CUSTOM_PROPERTIES" = "Form Fields (* Required)";
-
-/* (No Comment) */
-"AVAILABLE_PERMIT_SECTION_HEADER_DESCRIPTION" = "Description";
-
-/* (No Comment) */
-"AVAILABLE_PERMIT_SECTION_HEADER_DETAILS" = "Details";
-
 /* Abbreviation for East */
 "CARDINAL_DIRECTION_E" = "E";
 
@@ -285,12 +249,6 @@
 
 /* Authorization failure error */
 "ERROR_UNAUTHORIZED" = "Unauthorized. Please check login credentials.";
-
-/* (No Comment) */
-"FLIGHT_DATA_CELL_BUTTON_DONE" = "DONE";
-
-/* (No Comment) */
-"FLIGHT_DATA_CELL_NOW" = "Now";
 
 /* The radius around a point-based flight's center */
 "FLIGHT_DRAWING_RADIUS" = "Radius";
@@ -364,9 +322,6 @@
 /* Title for the section displaying social sharing features */
 "FLIGHT_PLAN_SECTION_HEADER_SHARE" = "Share My Flight";
 
-/* (No Comment) */
-"FLIGHT_PLAN_SECTION_HEADER_TIME" = "Date & Time";
-
 /* The request with the authority will be reviewed manually sometime after the flight plan is submitted */
 "MANUAL_AUTHORIZATION" = "Manual Authorization Pending Submission";
 
@@ -384,9 +339,6 @@
 
 /* Message presented to a user when the SMS code they input is incorrect and verification of that code has failed */
 "PHONE_VERIFICATION_VERIFICATION_FAILED" = "Phone Number Verification Failed";
-
-/* (No Comment) */
-"PILOT_PERMIT_EXPIRATION_FORMAT" = "Expires %1$@";
 
 /* Table row label for FAA registration number */
 "PILOT_PROFILE_FAA_REGISTRATION" = "FAA Registration Number";
@@ -415,51 +367,6 @@
 /* Format for displaying a user's number of aircraft and flights */
 "PILOT_PROFILE_STATISTICS_FORMAT" = "%1$@ Aircraft, %2$@ Flights";
 
-/* (No Comment) */
-"REQUIRED_PERMITS_SELECT_DIFFERENT_PERMIT" = "Select a different permit";
-
-/* (No Comment) */
-"REQUIRED_PERMITS_SELECT_PERMIT" = "Select permit";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLANE_TITLE" = "Flight Plan";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_PUBLIC_FLIGHT_VALUE_TRUE" = "Yes";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_RADIUS" = "Radius";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_AIRCRAFT" = "Aircraft";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ALTITUDE" = "Altitude";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_DURATION" = "Ends";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_ENDS" = "Ends";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_PUBLIC" = "Public";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_ROW_TITLE_STARTS" = "Starts";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_AIRCRAFT" = "Aircraft";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_DETAILS" = "Details";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_SECTION_HEADER_SOCIAL" = "Share My Flight";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_DETAILS_START_TIME_NOW" = "Now";
-
 /* Displayed for authorities that are setup to receive digital notice */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_ACCEPTS_NOTICE" = "Accepts Digital Notice";
 
@@ -469,15 +376,6 @@
 /* Displayed in the flight plan review notices tab when there are no notices to display */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "There are no notices for this flight.";
 
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_TAB_TITLE_DIGITAL_NOTICE" = "Notices";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_TAB_TITLE_FLIGHT" = "Flight";
-
-/* (No Comment) */
-"REVIEW_FLIGHT_PLAN_TAB_TITLE_PERMITS" = "Permits";
-
 /* Label for rulesets that can be optionally enabled by the user */
 "RULESET_SELECTION_TYPE_OPTIONAL" = "Optional";
 
@@ -486,9 +384,6 @@
 
 /* Label for rulesets that must be enabled by the user */
 "RULESET_SELECTION_TYPE_REQUIRED" = "Required";
-
-/* (No Comment) */
-"RULES_GENERIC_TITLE" = "Locality Rules";
 
 /* Description for status advisory color Green */
 "STATUS_GREEN_DESCRIPTION" = "Informational";
@@ -501,78 +396,6 @@
 
 /* Description for status advisory color Yellow */
 "STATUS_YELLOW_DESCRIPTION" = "Advisories";
-
-/* (No Comment) */
-"TILE_LAYER_AERIAL_REC_AREAS" = "Aerial Recreational Areas";
-
-/* (No Comment) */
-"TILE_LAYER_AIRPORTS" = "Airports";
-
-/* (No Comment) */
-"TILE_LAYER_CITIES" = "Cities";
-
-/* (No Comment) */
-"TILE_LAYER_CLASS_B" = "Class B Controlled Airspace";
-
-/* (No Comment) */
-"TILE_LAYER_CLASS_C" = "Class C Controlled Airspace";
-
-/* (No Comment) */
-"TILE_LAYER_CLASS_D" = "Class D Controlled Airspace";
-
-/* (No Comment) */
-"TILE_LAYER_CLASS_E" = "Class E Controlled Airspace";
-
-/* (No Comment) */
-"TILE_LAYER_CONTROLLED_AIRSPACE" = "Controlled Airspace (B, C, D & E)";
-
-/* (No Comment) */
-"TILE_LAYER_CUSTOM" = "Custom";
-
-/* (No Comment) */
-"TILE_LAYER_EMERGENCIES" = "First Responder Activity";
-
-/* (No Comment) */
-"TILE_LAYER_FIRES" = "Fires";
-
-/* (No Comment) */
-"TILE_LAYER_HAZARD_AREAS" = "Hazard Areas";
-
-/* (No Comment) */
-"TILE_LAYER_HELIPORTS" = "Heliports";
-
-/* (No Comment) */
-"TILE_LAYER_HOSPITALS" = "Hospitals";
-
-/* (No Comment) */
-"TILE_LAYER_NATIONAL_PARKS" = "National Parks";
-
-/* (No Comment) */
-"TILE_LAYER_NOAA" = "NOAA Marine Protection Areas";
-
-/* (No Comment) */
-"TILE_LAYER_POWER_PLANTS" = "Power Plants";
-
-/* (No Comment) */
-"TILE_LAYER_PRISONS" = "Prisons";
-
-/* (No Comment) */
-"TILE_LAYER_PRIVATE_AIRPORTS" = "Private Airports";
-
-/* (No Comment) */
-"TILE_LAYER_PROHIBITED" = "Prohibited Airspace";
-
-/* (No Comment) */
-"TILE_LAYER_RESTRICTED_AIRSPACE" = "Restricted Airspace";
-
-/* (No Comment) */
-"TILE_LAYER_SCHOOLS" = "Schools";
-
-/* (No Comment) */
-"TILE_LAYER_TFR_FAA" = "Temporary Flight Restrictions";
-
-/* (No Comment) */
-"TILE_LAYER_UNIVERSITIES" = "Universities";
 
 /* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
 "TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "Traffic %1$@\nAltitude %2$@\n%3$@ %4$@ %5$@";
