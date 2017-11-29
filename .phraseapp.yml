@@ -6,12 +6,15 @@ phraseapp:
       params:
         locale_id: en
         update_translations: true
+        update_descriptions: true
         convert_emoji: true
         file_format: xlf
+        tags: ios
   pull:
     targets:
     - file: /tmp/airmap.sdk.<locale_code>.translated.xliff
       params:
-        file_format: xlf
         convert_emoji: true
+        file_format: xlf
+        tags: ios
         format_options: { convert_placeholder: true }
