@@ -131,6 +131,9 @@ lane :downloadstrings do
   locales = JSON.parse(locales)
   locale_codes = locales.map { |loc| loc["code"] }
 
+  # Remove DE translations for now
+  locale_codes -= ["de"]
+
   # Pull translations for project from PhraseApp
   sh "cd .. && phraseapp pull --access-token #{phraseapp_token}"
 
