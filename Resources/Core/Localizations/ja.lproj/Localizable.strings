@@ -274,9 +274,6 @@
 /* Call to action to tap the icon to begin drawing a flight path. */
 "FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH" = "手のアイコンをタップすると、経路をフリーハンドで描くことができます。";
 
-/* Displayed when the user has drawn an invalid shaping, overlapping with conflicting permitted zones */
-"FLIGHT_DRAWING_TOOLTIP_ERROR_OVERLAPPING_PERMIT_AREAS" = "許可の条件が異なるゾーンを2つ以上重ねることはできません。";
-
 /* Call to action to fix self-intersecting geometries of an area-based flight. */
 "FLIGHT_DRAWING_TOOLTIP_ERROR_SELF_INTERSECTING_GEOMETRY" = "無効な飛行エリアです。重複のないよう飛行エリアを調節してください。";
 
