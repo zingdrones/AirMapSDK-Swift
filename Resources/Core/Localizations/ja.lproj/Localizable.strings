@@ -145,6 +145,9 @@
 /* Name for airspace type Ultralight Field */
 "AIRSPACE_TYPE_ULM_FIELD" = "ULMフィールド";
 
+/* Generic catchall placeholder/name for airspace type is new and unknown at time of development but present via the advisories or map sources */
+"AIRSPACE_TYPE_UNCLASSIFIED" = "未分類";
+
 /* Name for airspace type University */
 "AIRSPACE_TYPE_UNIVERSITY" = "大学";
 
@@ -320,13 +323,22 @@
 "FLIGHT_PLAN_SECTION_HEADER_SHARE" = "フライトを共有";
 
 /* The request with the authority will be reviewed manually sometime after the flight plan is submitted */
-"MANUAL_AUTHORIZATION" = "申請後、空域管理者の承認をお待ちください";
+"MANUAL_AUTHORIZATION" = "申請後、承認をお待ちください。";
 
 /* Table section title for other selectable countries */
 "PHONE_COUNTRY_SECTION_OTHER_COUNTRY" = "その他";
 
 /* Table section title for the currently selected country */
 "PHONE_COUNTRY_SECTION_SELECTED_COUNTRY" = "選択された国";
+
+/* Message that is presented after a phone verification has failed, encouraging the user to send a new code to the phone number provided */
+"PHONE_VERIFICATION_REQUEST_NEW_SMS_CODE" = "新しい確認コードを送信します";
+
+/* Message that is presented after a phone verification has failed, encouraging the user to try again */
+"PHONE_VERIFICATION_TRY_AGAIN" = "もう一度試してください";
+
+/* Message presented to a user when the SMS code they input is incorrect and verification of that code has failed */
+"PHONE_VERIFICATION_VERIFICATION_FAILED" = "電話番号確認に失敗しました";
 
 /* Table row label for FAA registration number */
 "PILOT_PROFILE_FAA_REGISTRATION" = "連邦航空局登録番号";
@@ -376,6 +388,9 @@
 /* Description for status advisory color Green */
 "STATUS_GREEN_DESCRIPTION" = "エリア情報";
 
+/* Description for status advisory color Orange */
+"STATUS_ORANGE_DESCRIPTION" = "申請や承認などが必要";
+
 /* Description for status advisory color Red */
 "STATUS_RED_DESCRIPTION" = "飛行規制あり";
 
@@ -401,7 +416,7 @@
 "UNITS_SPEED_FORMAT_KNOTS" = "%@ ノット";
 
 /* Unit and format for displaying speed in meters per second */
-"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "秒速 %@ m";
+"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "%@ m/s";
 
 /* Unit and format for displaying speed in miles per hour */
 "UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "%@ mph";
@@ -417,4 +432,16 @@
 
 /* Unit and format for displaying temperature in Fahrenheit */
 "UNITS_TEMPERATURE_FAHRENHEIT_FORMAT" = "%1$@ °F";
+
+/* The request with the authority has been accepted */
+"VALIDATION_ACCEPTED" = "確認済み";
+
+/* No validation request has been filed */
+"VALIDATION_NOT_REQUESTED" = "確認未送信";
+
+/* The request with the authority has been made and a response is pending */
+"VALIDATION_PENDING" = "確認保留中";
+
+/* The request with the authority has been rejected */
+"VALIDATION_REJECTED" = "却下";
 
