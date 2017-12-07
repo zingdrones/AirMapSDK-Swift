@@ -13,38 +13,35 @@ struct Constants {
 	struct AirMapApi {
 
 		static var advisoryUrl: String {
-			return urlForResource("advisory", version: "v1")
+			return urlForResource("advisory", version: 1)
 		}
 		static var aircraftUrl: String {
-            return urlForResource("aircraft", version: "v2")
+            return urlForResource("aircraft", version: 2)
 		}
 		static var airspaceUrl: String {
-			return urlForResource("airspace", version: "v2")
+			return urlForResource("airspace", version: 2)
 		}
 		static var flightUrl: String {
-            return urlForResource("flight", version: "v2")
+            return urlForResource("flight", version: 2)
 		}
 		static var pilotUrl: String {
-			return urlForResource("pilot", version: "v2")
+			return urlForResource("pilot", version: 2)
 		}
         static var authUrl: String {
-            return urlForResource("auth", version: "v1")
+            return urlForResource("auth", version: 2)
         }
 		static var ruleUrl: String {
-			return urlForResource("rules", version: "v1")
-		}
-		static var jurisdictionUrl: String {
-			return urlForResource("jurisdiction", version: "v1")
+			return urlForResource("rules", version: 2)
 		}
 		static var mapSourceUrl: String {
-			return urlForResource("tiledata", version: "v1")
+			return urlForResource("tiledata", version: 1)
 		}
-		static func urlForResource(_ named: String, version: String) -> String {
+		static func urlForResource(_ named: String, version: Int) -> String {
 			if let override = AirMap.configuration.airMapApiOverrides?[named] {
 				return override
 			} else {
 				let host = "https://api.\(AirMap.configuration.airMapDomain)"
-				let path = "/\(named)/\(AirMap.configuration.airMapEnvironment ?? version)"
+				let path = "/\(named)/\(AirMap.configuration.airMapEnvironment ?? String(version))"
 				return host + path
 			}
 		}
@@ -58,7 +55,7 @@ struct Constants {
 		}
 		
 		// Used only for API date formatting
-		static let dateFormat  = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // Ex: 2016-06-30T16:54:17.606Z
+		static let dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // Ex: 2016-06-30T16:54:17.606Z
 		static let dateTransform = CustomDateFormatTransform(formatString: dateFormat)
 
 		static let smsCodeLength = 6
