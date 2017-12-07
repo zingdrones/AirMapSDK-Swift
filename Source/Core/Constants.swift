@@ -28,10 +28,10 @@ struct Constants {
 			return urlForResource("pilot", version: 2)
 		}
         static var authUrl: String {
-            return urlForResource("auth", version: 2)
+            return urlForResource("auth", version: 1)
         }
 		static var ruleUrl: String {
-			return urlForResource("rules", version: 2)
+			return urlForResource("rules", version: 1)
 		}
 		static var mapSourceUrl: String {
 			return urlForResource("tiledata", version: 1)
