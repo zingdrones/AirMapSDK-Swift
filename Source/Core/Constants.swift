@@ -41,7 +41,7 @@ struct Constants {
 				return override
 			} else {
 				let host = "https://api.\(AirMap.configuration.airMapDomain)"
-				let path = "/\(named)/\(AirMap.configuration.airMapEnvironment ?? String(version))"
+				let path = "/\(named)/\(AirMap.configuration.airMapEnvironment ?? "v\(version)")"
 				return host + path
 			}
 		}
