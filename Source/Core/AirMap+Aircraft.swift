@@ -16,7 +16,7 @@ extension AirMap {
 	///
 	/// - Parameter completion: A completion handler to call with the Result
 	public static func listManufacturers(_ completion: @escaping (Result<[AirMapAircraftManufacturer]>) -> Void) {
-		aircraftClient.listManufacturers().thenSubscribe(completion)
+		rx.listManufacturers().thenSubscribe(completion)
 	}
 
 	/// Search all aircraft manufacturers by name
@@ -25,7 +25,7 @@ extension AirMap {
 	///   - name: The name of the manufacturer to filter the results with
 	///   - completion: A completion handler to call with the Result
 	public static func searchManufacturers(by name: String, _ completion: @escaping (Result<[AirMapAircraftManufacturer]>) -> Void) {
-		aircraftClient.searchManufacturers(by: name).thenSubscribe(completion)
+		rx.searchManufacturers(by: name).thenSubscribe(completion)
 	}
 
 	/// List all aircraft models by manufacturer
@@ -34,7 +34,7 @@ extension AirMap {
 	///   - manufacturerId: The identifier for the entity that manufactures the model
 	///   - completion: A completion handler to call with the Result
 	public static func listModels(by manufacturerId: String, completion: @escaping (Result<[AirMapAircraftModel]>) -> Void) {
-		aircraftClient.listModels(by: manufacturerId).thenSubscribe(completion)
+		rx.listModels(by: manufacturerId).thenSubscribe(completion)
 	}
 	
 	/// Search all models by an aircraft's name
@@ -43,7 +43,7 @@ extension AirMap {
 	///   - name: The string to search models by
 	///   - completion: A completion handler to call with the Result
 	public static func searchModels(by name: String, completion: @escaping (Result<[AirMapAircraftModel]>) -> Void) {
-		aircraftClient.searchModels(by: name).thenSubscribe(completion)
+		rx.searchModels(by: name).thenSubscribe(completion)
 	}
 
 	/// Get a specific aircraft model by identifier
@@ -52,7 +52,7 @@ extension AirMap {
 	///   - modelId: The unique identifier associated with the aircraft model
 	/// - Parameter completion: A completion handler to call with the Result
 	public static func getModel(_ modelId: String, completion: @escaping (Result<AirMapAircraftModel>) -> Void) {
-		aircraftClient.getModel(modelId).thenSubscribe(completion)
+		rx.getModel(modelId).thenSubscribe(completion)
 	}
 
 }

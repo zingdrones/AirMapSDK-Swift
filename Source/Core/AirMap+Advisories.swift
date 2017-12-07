@@ -20,7 +20,7 @@ extension AirMap {
 	///   - rulesets: The rulesets under which to constrain the search
 	///   - completion: The handler to call with the airspace advisory status result
 	public static func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil, completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
-		advisoryClient.getAirspaceStatus(at: point, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end).thenSubscribe(completion)
+		rx.getAirspaceStatus(at: point, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end).thenSubscribe(completion)
 	}
 
 	/// Get airspace status and advisories for a given path, buffer, and rulesets
@@ -31,7 +31,7 @@ extension AirMap {
 	///   - rulesets: The rulesets under which to constrain the search
 	///   - completion: The handler to call with the airspace advisory status result
 	public static func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil, completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
-		advisoryClient.getAirspaceStatus(along: path, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end).thenSubscribe(completion)
+		rx.getAirspaceStatus(along: path, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end).thenSubscribe(completion)
 	}
 
 	/// Get airspace status and advisories for a given geographic area and rulesets
@@ -41,7 +41,7 @@ extension AirMap {
 	///   - rulesets: The rulesets under which to constrain the search
 	///   - completion: The handler to call with the airspace advisory status result
 	public static func getAirspaceStatus(within polygon: AirMapPolygon, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil, completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
-		advisoryClient.getAirspaceStatus(within: polygon, under: rulesetIds, from: start, to: end).thenSubscribe(completion)
+		rx.getAirspaceStatus(within: polygon, rulesetIds: rulesetIds, from: start, to: end).thenSubscribe(completion)
 	}
 
 	/// Get an hourly weather forecast for a given location and time window
@@ -52,7 +52,7 @@ extension AirMap {
 	///   - to: The end time of the forecst
 	///   - completion: The handler to call with the forecast result
 	public static func getWeatherForecast(at coordinate: Coordinate2D, from: Date? = nil, to: Date? = nil, completion: @escaping (Result<AirMapWeather>) -> Void) {
-		advisoryClient.getWeatherForecast(at: coordinate, from: from, to: to).thenSubscribe(completion)
+		rx.getWeatherForecast(at: coordinate, from: from, to: to).thenSubscribe(completion)
 	}
 	
 }

@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import ObjectMapper
 
 internal class FlightPlanClient: HTTPClient {
 	

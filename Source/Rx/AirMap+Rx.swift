@@ -26,16 +26,16 @@ extension Reactive where Base: AirMap {
 		return AirMap.flightClient.listPublicFlights(from: fromDate, to: toDate, limit: limit, within: geometry)
 	}
 
-	public static func listFlights(_ pilot: AirMapPilot, from: Date? = nil, to: Date? = nil, limit: Int = 100) -> Observable<[AirMapFlight]> {
-		return AirMap.flightClient.list(limit: limit, pilotId: pilot.id, startBefore: to, endAfter: from)
+	public static func listFlights(for pilotId: String, from: Date? = nil, to: Date? = nil, limit: Int? = 100) -> Observable<[AirMapFlight]> {
+		return AirMap.flightClient.list(limit: limit, pilotId: pilotId, startBefore: to, endAfter: from)
 	}
 	
 	public static func getCurrentAuthenticatedPilotFlight() -> Observable<AirMapFlight?> {
 		return AirMap.flightClient.list(pilotId: AirMap.authSession.userId, startBeforeNow: true, endAfterNow: true, checkAuth: true ).map { $0.first }
 	}
 
-	public static func getFlight(_ flightId: String) -> Observable<AirMapFlight> {
-		return AirMap.flightClient.get(flightId)
+	public static func getFlight(by id: String) -> Observable<AirMapFlight> {
+		return AirMap.flightClient.get(id)
 	}
 
 	public static func createFlight(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
@@ -44,6 +44,10 @@ extension Reactive where Base: AirMap {
 
 	public static func endFlight(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
 		return AirMap.flightClient.end(flight)
+	}
+	
+	public static func endFlight(by id: String) -> Observable<Void> {
+		return AirMap.flightClient.end(id)
 	}
 
 	public static func deleteFlight(_ flight: AirMapFlight) -> Observable<Void> {
@@ -122,8 +126,8 @@ extension Reactive where Base: AirMap {
 /// Documentation found in AirMap+Pilot.swift
 extension Reactive where Base: AirMap {
 
-	public static func getPilot(_ pilotId: String) -> Observable<AirMapPilot> {
-		return AirMap.pilotClient.get(pilotId)
+	public static func getPilot(by id: String) -> Observable<AirMapPilot> {
+		return AirMap.pilotClient.get(id)
 	}
 
 	public static func getAuthenticatedPilot() -> Observable<AirMapPilot> {
@@ -161,6 +165,10 @@ extension Reactive where Base: AirMap {
 
 /// Documentation found in AirMap+Rules.swift
 extension Reactive where Base: AirMap {
+	
+	public static func getJurisdictions(intersecting geometry: AirMapGeometry) -> Observable<[AirMapJurisdiction]> {
+		return AirMap.ruleClient.getJurisdictions(intersecting: geometry)
+	}
 
 	public static func getRulesets(by rulesetIds: [String]) -> Observable<[AirMapRuleset]> {
 		return AirMap.ruleClient.getRulesets(by: rulesetIds)
@@ -186,8 +194,16 @@ extension Reactive where Base: AirMap {
 /// Documentation found in AirMap+Advisories.swift
 extension Reactive where Base: AirMap {
 	
-	public static func getAirspaceStatus(geometry: AirMapGeometry, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
-		return AirMap.advisoryClient.getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
+	public static func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
+		return AirMap.advisoryClient.getAirspaceStatus(at: point, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end)
+	}
+	
+	public static func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
+		return AirMap.advisoryClient.getAirspaceStatus(along: path, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end)
+	}
+	
+	public static func getAirspaceStatus(within polygon: AirMapGeometry, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
+		return AirMap.advisoryClient.getAirspaceStatus(within: polygon, under: rulesetIds, from: start, to: end)
 	}
 	
 	public static func getWeatherForecast(at coordinate: Coordinate2D, from: Date? = nil, to: Date? = nil) -> Observable<AirMapWeather> {

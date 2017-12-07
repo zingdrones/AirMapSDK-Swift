@@ -45,7 +45,7 @@ extension AirMap {
     ///   - userId: a third-party user id
     ///   - completion: A completion handler to call with the Result
     public static func performAnonymousLogin(userId: String, completion: @escaping (Result<AirMapToken>) -> Void) {
-        authClient.performAnonymousLogin(userId: userId).thenSubscribe(completion)
+        rx.performAnonymousLogin(userId: userId).thenSubscribe(completion)
     }
 	
 	/// Initiates passwordless authentication by sending the provided phone number a verification code via SMS

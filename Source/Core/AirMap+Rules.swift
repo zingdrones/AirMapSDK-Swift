@@ -18,7 +18,7 @@ extension AirMap {
 	///   - geometry: The area to query for jurisdictions and rulesets
 	///   - completion: The handler to call with the rulesets result
 	public static func getJurisdictions(intersecting geometry: AirMapGeometry, completion: @escaping (Result<[AirMapJurisdiction]>) -> Void) {
-		ruleClient.getJurisdictions(intersecting: geometry).thenSubscribe(completion)
+		rx.getJurisdictions(intersecting: geometry).thenSubscribe(completion)
 	}
 	
 	/// Get contextual ruleset information for a given geographic area
@@ -27,7 +27,7 @@ extension AirMap {
 	///   - geometry: The area to query for rulesets
 	///   - completion: The handler to call with the rulesets result
 	public static func getRulesets(intersecting geometry: AirMapGeometry, completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
-		ruleClient.getRulesets(intersecting: geometry).thenSubscribe(completion)
+		rx.getRulesets(intersecting: geometry).thenSubscribe(completion)
 	}
 
 	/// Get detailed information for a collection of rulesets
@@ -36,7 +36,7 @@ extension AirMap {
 	///   - rulesetIds: The ruleset identifiers for which to fetch information
 	///   - completion: A handler to call with the rulesets result
 	public static func getRulesets(by rulesetIds: [String], completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
-		ruleClient.getRulesets(by: rulesetIds).thenSubscribe(completion)
+		rx.getRulesets(by: rulesetIds).thenSubscribe(completion)
 	}
 	
 	/// Get detailed information for a collection of rulesets evaluated by Flight Plan Id
@@ -45,7 +45,7 @@ extension AirMap {
 	///   - flightPlanId: The flight plan identifier for which to fetch evaluated ruleset information
 	///   - completion: A handler to call with the rulesets result
 	public static func getRulesetsEvaluated(by flightPlanId: String, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
-		ruleClient.getRulesetsEvaluated(by: flightPlanId).thenSubscribe(completion)
+		rx.getRulesetsEvaluated(by: flightPlanId).thenSubscribe(completion)
 	}
 
 	/// Get rulesets evaluated for the geometry, rulesets, and flight feature values
@@ -56,7 +56,7 @@ extension AirMap {
 	///   - flightFeatureValues: Additional context values for any available flight features
 	///   - completion: A handler to call with the rulesets result
 	public static func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [String], flightFeatureValues: [String: Any]?, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
-		ruleClient.getRulesetsEvaluated(from: geometry, rulesetIds: rulesetIds, flightFeatureValues: flightFeatureValues).thenSubscribe(completion)
+		rx.getRulesetsEvaluated(from: geometry, rulesetIds: rulesetIds, flightFeatureValues: flightFeatureValues).thenSubscribe(completion)
 	}
 
 	/// Get detailed information for a rulesets
@@ -65,7 +65,7 @@ extension AirMap {
 	///   - rulesetId: The ruleset identifier for which to fetch information
 	///   - completion: A handler to call with the ruleset result
 	public static func getRulesets(by rulesetId: String, completion: @escaping (Result<AirMapRuleset>) -> Void) {
-		ruleClient.getRuleset(by: rulesetId).thenSubscribe(completion)
+		rx.getRuleset(by: rulesetId).thenSubscribe(completion)
 	}
 
 }
