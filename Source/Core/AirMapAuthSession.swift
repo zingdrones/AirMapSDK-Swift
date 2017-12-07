@@ -11,6 +11,8 @@ import RxSwift
 import RxSwiftExt
 import SimpleKeychain
 
+// INTERNAL
+
 internal class AirMapAuthSession {
 
 	var authToken: String? {
@@ -42,11 +44,9 @@ internal class AirMapAuthSession {
 
 	private func setupBindings() {
 
-		let expiredDateInterval = Observable<Int>
+		Observable<Int>
 			.interval(60, scheduler: MainScheduler.instance)
 			.mapToVoid()
-
-		expiredDateInterval
 			.subscribeNext(weak: self, AirMapAuthSession.verifyAuthentication)
 			.disposed(by: disposeBag)
 	}
