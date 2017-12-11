@@ -12,7 +12,7 @@ import RxSwift
 internal class RuleClient: HTTPClient {
 	
 	init() {
-		super.init(basePath: Constants.AirMapApi.ruleUrl)
+		super.init(basePath: Constants.AirMapApi.rulesUrl)
 	}
 	
 	enum RulesClientError: Error {

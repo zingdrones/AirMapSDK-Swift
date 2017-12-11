@@ -13,30 +13,31 @@ struct Constants {
 	struct AirMapApi {
 
 		static var advisoryUrl: String {
-			return urlForResource("advisory", version: 1)
+			return urlForResource("advisory", v: 1)
 		}
 		static var aircraftUrl: String {
-            return urlForResource("aircraft", version: 2)
+            return urlForResource("aircraft", v: 2)
 		}
 		static var airspaceUrl: String {
-			return urlForResource("airspace", version: 2)
+			return urlForResource("airspace", v: 2)
+		}
+		static var authUrl: String {
+			return urlForResource("auth", v: 1)
 		}
 		static var flightUrl: String {
-            return urlForResource("flight", version: 2)
+            return urlForResource("flight", v: 2)
+		}
+		static var tileDataUrl: String {
+			return urlForResource("tiledata", v: 1)
 		}
 		static var pilotUrl: String {
-			return urlForResource("pilot", version: 2)
+			return urlForResource("pilot", v: 2)
 		}
-        static var authUrl: String {
-            return urlForResource("auth", version: 1)
-        }
-		static var ruleUrl: String {
-			return urlForResource("rules", version: 1)
+		static var rulesUrl: String {
+			return urlForResource("rules", v: 1)
 		}
-		static var mapSourceUrl: String {
-			return urlForResource("tiledata", version: 1)
-		}
-		static func urlForResource(_ named: String, version: Int) -> String {
+
+		private static func urlForResource(_ named: String, v version: Int) -> String {
 			if let override = AirMap.configuration.airMapApiOverrides?[named] {
 				return override
 			} else {
