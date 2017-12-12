@@ -10,6 +10,6 @@ import Foundation
 
 public struct AirMapAircraftManufacturer {
 
-	public let id: String
+	public let id: AirMapAircraftManufacturerId
 	public let name: String
 }

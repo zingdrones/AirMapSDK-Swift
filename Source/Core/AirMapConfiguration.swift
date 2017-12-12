@@ -48,7 +48,7 @@ public struct AirMapConfiguration {
 	let airMapApiOverrides: [String: String]?
 	let airMapEnvironment: String?
 	let airMapPinCertificates: Bool
-	let airMapMapStyle: URL
+	let airMapMapStyle: URL?
 }
 
 extension AirMapConfiguration {
@@ -82,19 +82,22 @@ import ObjectMapper
 extension AirMapConfiguration: ImmutableMappable {
 	
 	public init(map: Map) throws {
-	
+
 		do {
+			// Required configuration values
 			airMapApiKey          =  try  map.value("airmap.api_key")
+			auth0ClientId         =  try  map.value("auth0.client_id")
+
+			// Optional configuration values
 			mapboxAccessToken     =  try? map.value("mapbox.access_token")
 			auth0Host             = (try? map.value("auth0.host")) ?? "sso.airmap.io"
-			auth0ClientId         =  try  map.value("auth0.client_id")
 			airMapDomain          = (try? map.value("airmap.domain")) ?? "airmap.com"
 			airMapEnvironment     =  try? map.value("airmap.environment")
 			airMapApiOverrides    =  try? map.value("airmap.api_overrides")
+			airMapMapStyle        =  try? map.value("airmap.map_style", using: URLTransform())
 			airMapPinCertificates = (try? map.value("airmap.pin_certificates")) ?? false
-			airMapMapStyle        =  try  map.value("airmap.map_style", using: URLTransform())
 		}
-			
+
 		catch let error as MapError {
 			fatalError(
 				"Configuration is missing the required \(error.key!) key and value. If you have recently updated" +

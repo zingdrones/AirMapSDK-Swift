@@ -32,7 +32,7 @@ internal class AirMapAuthSession {
 	}
 
 	internal var tokenType: String = "Bearer"
-	internal var userId: String = ""
+	internal var userId: AirMapPilotId = ""
 	internal var expiresAt: Date!
 	internal weak var delegate: AirMapAuthSessionDelegate?
 
@@ -67,7 +67,11 @@ internal class AirMapAuthSession {
 		}
 
 		expiresAt = decoded.expiresAt
-		userId = decoded.subject ?? ""
+		if let userId = decoded.subject {
+			self.userId = AirMapPilotId(rawValue: userId)
+		} else {
+			self.userId = ""
+		}
 
 		AirMap.logger.debug("Decoded Token User Id", userId)
 	}

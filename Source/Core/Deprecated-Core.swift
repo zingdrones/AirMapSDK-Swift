@@ -11,7 +11,15 @@ extension AirMapFlight {
 
 	@available(*, unavailable, renamed: "id")
 	public var flightId: String? {
-		return id
+		return id?.rawValue
+	}
+}
+
+extension AirMapPilot {
+	
+	@available(*, unavailable, renamed: "id")
+	open var pilotId: String! {
+		return id.rawValue
 	}
 }
 
@@ -19,7 +27,7 @@ extension AirMapAircraft {
 	
 	@available(*, unavailable, renamed: "id")
 	public var aircraftId: String? {
-		return id
+		return id?.rawValue
 	}
 }
 

@@ -10,7 +10,7 @@
 public struct AirMapFlightFeature {
 	
 	/// The unique identifier for the flight feature
-	public let id: String
+	public let id: AirMapFlightFeatureId
 	
 	/// A textual description of the flight feature
 	public let description: String

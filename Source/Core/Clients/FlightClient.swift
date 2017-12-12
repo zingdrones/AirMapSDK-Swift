@@ -38,7 +38,7 @@ internal class FlightClient: HTTPClient {
 	#endif
 
 	func list(limit: Int? = nil,
-	          pilotId: String? = nil,
+	          pilotId: AirMapPilotId? = nil,
 	          startAfter: Date? = nil,
 	          startAfterNow: Bool = false,
 	          startBefore: Date? = nil,
@@ -57,7 +57,7 @@ internal class FlightClient: HTTPClient {
 		var params = [String : Any]()
 
 		params["limit"       ] = limit
-		params["pilot_id"    ] = pilotId?.isEmpty ?? true ? nil : pilotId
+		params["pilot_id"    ] = pilotId?.rawValue.isEmpty ?? true ? nil : pilotId
 		params["start_after" ] = startAfterNow ? "now" : startAfter?.iso8601String()
 		params["start_before"] = startBeforeNow ? "now" : startBefore?.iso8601String()
 		params["end_after"   ] = endAfterNow ? "now" : endAfter?.iso8601String()
@@ -84,7 +84,7 @@ internal class FlightClient: HTTPClient {
 		return list(limit: limit, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow, within: geometry)
 	}
 
-	func get(_ flightId: String) -> Observable<AirMapFlight> {
+	func get(_ flightId: AirMapFlightId) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("Get flight", flightId)
 		var params = [String : Any]()
 		params["enhance"] = String(true) as AnyObject?
@@ -106,7 +106,7 @@ internal class FlightClient: HTTPClient {
 		return perform(method: .post, path:"/\(flightId)/end", update: flight)
 	}
 	
-	func end(_ flightId: String) -> Observable<Void> {
+	func end(_ flightId: AirMapFlightId) -> Observable<Void> {
 		AirMap.logger.debug("End flight", flightId)
 		return perform(method: .post, path:"/\(flightId)/end")
 	}
@@ -120,7 +120,7 @@ internal class FlightClient: HTTPClient {
 		return perform(method: .post, path:"/\(flightId)/delete")
 	}
 	
-	func getFlightPlanByFlightId(_ id: String) -> Observable<AirMapFlightPlan> {
+	func getFlightPlanByFlightId(_ id: AirMapFlightId) -> Observable<AirMapFlightPlan> {
 		AirMap.logger.debug("Get FlightPlan for Flight id", id)
 		return perform(method: .get, path:"/\(id)/plan")
 	}

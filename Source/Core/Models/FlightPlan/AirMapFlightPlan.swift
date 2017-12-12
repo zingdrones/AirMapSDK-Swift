@@ -12,11 +12,11 @@ import SwiftTurf
 
 public class AirMapFlightPlan: Mappable {
 	
-	public internal(set) var id: String?
+	public internal(set) var id: AirMapFlightPlanId?
 	
 	// Participants
-	public var pilotId: String?
-	public var aircraftId: String?
+	public var pilotId: AirMapPilotId?
+	public var aircraftId: AirMapAircraftId?
 	
 	// Temporal constraints
 	public var startTime: Date
@@ -34,13 +34,13 @@ public class AirMapFlightPlan: Mappable {
 	public var maximumAltitudeAGL: Meters?
 	
 	// Rulesets
-	public var rulesetIds = [String]()
+	public var rulesetIds = [AirMapRulesetId]()
 
 	// Flight Features
-	public var flightFeaturesValue = [String: Any]()
+	public var flightFeaturesValue = [AirMapFlightFeatureId: Any]()
 
 	// Assigned once a flight is created and associated with the flight plan
-	public var flightId: String?
+	public var flightId: AirMapFlightId?
 
 	/// Designated flight plan initializer
 	///

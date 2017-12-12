@@ -10,7 +10,7 @@ import Foundation
 
 public struct AirMapAircraftModel {
 	
-	public let id: String
+	public let id: AirMapAircraftModelId
 	public let name: String
 	public let manufacturer: AirMapAircraftManufacturer
 	public let metadata: [String: AnyObject]?

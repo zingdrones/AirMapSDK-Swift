@@ -45,7 +45,7 @@ public struct AirMapWeather {
 		public let temperature: Celcius
 		
 		/// The bearing of the wind in degrees
-		public let windBearing: Double
+		public let windBearing: Double?
 		
 		/// The speed of the wind in meters per second
 		public let windSpeed: MetersPerSecond

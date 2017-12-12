@@ -10,7 +10,7 @@
 public struct AirMapAdvisory {
 	
 	/// The advisory's unique identifier
-	public let id: String
+	public let id: AirMapAdvisoryId
 	
 	/// The airspace classification type
 	public let type: AirMapAirspaceType

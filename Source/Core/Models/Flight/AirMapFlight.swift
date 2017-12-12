@@ -17,8 +17,8 @@ public enum AirMapFlightGeometryType: String {
 
 public class AirMapFlight {
 	
-    public var id: String?
-	public var flightPlanId:String?
+    public var id: AirMapFlightId?
+	public var flightPlanId: AirMapFlightPlanId?
 	public var createdAt: Date = Date()
 	public var startTime: Date? = Date()
 	public var endTime: Date? {
@@ -31,14 +31,14 @@ public class AirMapFlight {
 	public var state: String!
 	public var country: String!
 	public var notify: Bool = true
-	public var pilotId: String!
+	public var pilotId: AirMapPilotId!
 	public var pilot: AirMapPilot? {
 		didSet { pilotId = pilot?.id }
 	}
 	public var aircraft: AirMapAircraft? {
 		didSet { aircraftId = aircraft?.id }
 	}
-	public var aircraftId: String!
+	public var aircraftId: AirMapAircraftId!
 	public var buffer: Meters?
 	public var isPublic: Bool = false
 	public var geometry: AirMapGeometry?

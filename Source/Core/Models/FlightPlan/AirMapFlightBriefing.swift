@@ -28,7 +28,7 @@ public struct AirMapFlightBriefing {
 	public struct Ruleset {
 		
 		/// The unique identifier for the ruleset
-		public let id: String
+		public let id: AirMapRulesetId
 		
 		/// A list of rules applicable to the operation
 		public let rules: [AirMapRule]
@@ -141,7 +141,7 @@ public struct AirMapFlightBriefing {
 public struct AirMapAuthority {
 	
 	/// The identifier of the authority
-	public let id: String
+	public let id: AirMapAuthorityId
 	
 	/// The name of the authority
 	public let name: String

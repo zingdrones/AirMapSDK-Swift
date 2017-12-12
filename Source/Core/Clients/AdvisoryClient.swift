@@ -22,7 +22,7 @@ internal class AdvisoryClient: HTTPClient {
 	
 	// MARK: - Advisories
 
-	func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
+	func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
 		
 		let point = Point(geometry: point)
 		guard let polygon = SwiftTurf.buffer(point, distance: buffer) else {
@@ -33,7 +33,7 @@ internal class AdvisoryClient: HTTPClient {
 		return getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
 	}
 
-	func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
+	func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
 		
 		let lineString = LineString(geometry: path.coordinates)
 		guard let polygon = SwiftTurf.buffer(lineString, distance: buffer) else {
@@ -44,7 +44,7 @@ internal class AdvisoryClient: HTTPClient {
 		return getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
 	}
 
-	func getAirspaceStatus(within geometry: AirMapGeometry, under rulesetIds: [String], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
+	func getAirspaceStatus(within geometry: AirMapGeometry, under rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
 		
 		AirMap.logger.debug("Get Rules under", rulesetIds)
 		var params = [String: Any]()

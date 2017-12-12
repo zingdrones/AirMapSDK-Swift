@@ -36,8 +36,8 @@ internal class TrafficService: MQTTSessionDelegate {
 	fileprivate var activeTraffic = [AirMapTraffic]()
 	fileprivate var expirationInterval = Constants.AirMapTraffic.expirationInterval
 	fileprivate var client = TrafficClient()
-	fileprivate var connectionState  = Variable(ConnectionState.disconnected)
-	fileprivate var currentFlight    = Variable(nil as AirMapFlight?)
+	fileprivate var connectionState = Variable(ConnectionState.disconnected)
+	fileprivate var currentFlight = Variable(nil as AirMapFlight?)
 
 	fileprivate let disposeBag = DisposeBag()
 
@@ -61,7 +61,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		let flightState = Observable.combineLatest(flight, state) { ($0, $1) }
 
-		let whenConnected    = flightState.filter { $1 == .connected }
+		let whenConnected = flightState.filter { $1 == .connected }
 		let whenDisconnected = flightState.filter { $1 == .disconnected }
 
 		func printError(_ error: Error) {
@@ -159,7 +159,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 			observer.onNext(.connecting)
 
-			self.client.username = flight.id
+			self.client.username = flight.id?.rawValue
 			self.client.password = AirMap.authSession.authToken
 
 			self.client.connect { succeeded, error in
@@ -178,8 +178,8 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	func subscribeToTraffic(_ flight: AirMapFlight) -> Observable<Void> {
 		
-		let sa    = self.subscribe(flight, to: Constants.AirMapTraffic.trafficSituationalAwarenessChannel + flight.id!)
-		let alert = self.subscribe(flight, to: Constants.AirMapTraffic.trafficAlertChannel + flight.id!)
+		let sa    = self.subscribe(flight, to: Constants.AirMapTraffic.trafficSituationalAwarenessChannel + flight.id!.rawValue)
+		let alert = self.subscribe(flight, to: Constants.AirMapTraffic.trafficAlertChannel + flight.id!.rawValue)
 
 		return unsubscribeFromAllChannels().concat(sa).concat(alert)
 	}

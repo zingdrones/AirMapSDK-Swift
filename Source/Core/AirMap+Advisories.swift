@@ -19,7 +19,7 @@ extension AirMap {
 	///   - buffer: The buffer area surrounding the given point
 	///   - rulesets: The rulesets under which to constrain the search
 	///   - completion: The handler to call with the airspace advisory status result
-	public static func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil, completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
+	public static func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil, completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
 		rx.getAirspaceStatus(at: point, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end).thenSubscribe(completion)
 	}
 
@@ -30,7 +30,7 @@ extension AirMap {
 	///   - buffer: The lateral buffer from the centerline of a given path
 	///   - rulesets: The rulesets under which to constrain the search
 	///   - completion: The handler to call with the airspace advisory status result
-	public static func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil, completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
+	public static func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil, completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
 		rx.getAirspaceStatus(along: path, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end).thenSubscribe(completion)
 	}
 
@@ -40,7 +40,7 @@ extension AirMap {
 	///   - polygon: The geographic area to search
 	///   - rulesets: The rulesets under which to constrain the search
 	///   - completion: The handler to call with the airspace advisory status result
-	public static func getAirspaceStatus(within polygon: AirMapPolygon, rulesetIds: [String], from start: Date? = nil, to end: Date? = nil, completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
+	public static func getAirspaceStatus(within polygon: AirMapPolygon, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil, completion: @escaping (Result<AirMapAirspaceStatus>) -> Void) {
 		rx.getAirspaceStatus(within: polygon, rulesetIds: rulesetIds, from: start, to: end).thenSubscribe(completion)
 	}
 

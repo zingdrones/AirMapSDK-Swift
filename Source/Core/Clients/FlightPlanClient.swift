@@ -32,16 +32,16 @@ internal class FlightPlanClient: HTTPClient {
 		return perform(method: .patch, path: "/plan/\(flightPlanId)", params: flightPlan.toJSON(), update: flightPlan, checkAuth: true)
 	}
 	
-	func get(_ flightPlanId: String) -> Observable<AirMapFlightPlan> {
+	func get(_ flightPlanId: AirMapFlightPlanId) -> Observable<AirMapFlightPlan> {
 		AirMap.logger.debug("Get Flight Plan", flightPlanId)
 		return perform(method: .get, path: "/plan/\(flightPlanId)", checkAuth: true)
 	}
 		
-	func getBriefing(_ flightPlanId: String) -> Observable<AirMapFlightBriefing> {
+	func getBriefing(_ flightPlanId: AirMapFlightPlanId) -> Observable<AirMapFlightBriefing> {
 		return perform(method: .get, path: "/plan/\(flightPlanId)/briefing", checkAuth: true)
 	}
 	
-	func submitFlightPlan(_ flightPlanId: String) -> Observable<AirMapFlightPlan> {
+	func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId) -> Observable<AirMapFlightPlan> {
 		return perform(method: .post, path: "/plan/\(flightPlanId)/submit", checkAuth: true)
 	}
 }

@@ -33,7 +33,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - manufacturerId: The identifier for the entity that manufactures the model
 	///   - completion: A completion handler to call with the Result
-	public static func listModels(by manufacturerId: String, completion: @escaping (Result<[AirMapAircraftModel]>) -> Void) {
+	public static func listModels(by manufacturerId: AirMapAircraftManufacturerId, completion: @escaping (Result<[AirMapAircraftModel]>) -> Void) {
 		rx.listModels(by: manufacturerId).thenSubscribe(completion)
 	}
 	
@@ -51,7 +51,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - modelId: The unique identifier associated with the aircraft model
 	/// - Parameter completion: A completion handler to call with the Result
-	public static func getModel(_ modelId: String, completion: @escaping (Result<AirMapAircraftModel>) -> Void) {
+	public static func getModel(by modelId: AirMapAircraftModelId, completion: @escaping (Result<AirMapAircraftModel>) -> Void) {
 		rx.getModel(modelId).thenSubscribe(completion)
 	}
 

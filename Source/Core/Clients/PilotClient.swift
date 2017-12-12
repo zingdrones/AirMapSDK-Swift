@@ -22,7 +22,7 @@ internal class PilotClient: HTTPClient {
 
 	// MARK: Pilot
 
-	func get(_ pilotId: String) -> Observable<AirMapPilot> {
+	func get(_ pilotId: AirMapPilotId) -> Observable<AirMapPilot> {
 		AirMap.logger.debug("GET Pilot", pilotId)
 		return perform(method: .get, path: "/\(pilotId)")
 	}
@@ -56,7 +56,7 @@ internal class PilotClient: HTTPClient {
 		return perform(method: .get, path: "/\(AirMap.authSession.userId)/aircraft", checkAuth: true)
 	}
 
-	func getAircraft(_ aircraftId: String) -> Observable<AirMapAircraft> {
+	func getAircraft(_ aircraftId: AirMapAircraftId) -> Observable<AirMapAircraft> {
 		AirMap.logger.debug("Get Aircraft")
 		return perform(method: .get, path: "/\(AirMap.authSession.userId)/aircraft/\(aircraftId)", checkAuth: true)
 	}

@@ -18,10 +18,9 @@ extension AirMapAirspaceStatus: ImmutableMappable {
 	public init(map: Map) throws {
 		
 		do {
-			color      =  try map.value("color")
-			advisories =  try map.value("advisories")
+			color       =  try map.value("color")
+			advisories  =  try map.value("advisories")
 		}
-			
 		catch {
 			AirMap.logger.error(error)
 			throw error
@@ -106,7 +105,6 @@ extension AirMapAdvisoryRequirements.Notice: ImmutableMappable {
 		phoneNumber  =  try? map.value("phone")
 	}
 }
-
 
 // MARK: - AdvisoryPropertiesType
 
@@ -295,12 +293,12 @@ extension AirMapRuleset: ImmutableMappable {
 			case .airMapApi:
 				rules           = try map.value("rules")
 				description     = try map.value("description")
-				airspaceTypeIds = try map.value("airspace_types")
+				airspaceTypes   = try map.value("airspace_types", using: AirMapAirspaceTypeTransform())
 				
 			case .tileService:
 				rules           =  []
 				description     = (try? map.value("short_description")) ?? ""
-				airspaceTypeIds =  try  map.value("layers")
+				airspaceTypes   =  try  map.value("layers", using: AirMapAirspaceTypeTransform())
 			}
 			
 			jurisdictionId     = try? map.value("jurisdiction.id")
@@ -311,6 +309,39 @@ extension AirMapRuleset: ImmutableMappable {
 			AirMap.logger.error(error)
 			throw error
 		}
+	}
+}
+
+// MARK: - AirMapAirspaceType
+
+/// Custom transform that converts between [String] and [AirMapAirspaceType]
+fileprivate class AirMapAirspaceTypeTransform: TransformType {
+
+	public typealias Object = [AirMapAirspaceType]
+	public typealias JSON = [String]
+	
+	init() {}
+	
+	func transformFromJSON(_ value: Any?) -> [AirMapAirspaceType]? {
+		if let rawArray = value as? [String] {
+			var airspaceTypes = [AirMapAirspaceType]()
+			for rawValue in rawArray {
+				if let airspaceType = AirMapAirspaceType(rawValue: rawValue) {
+					airspaceTypes.append(airspaceType)
+				} else {
+					AirMap.logger.warning("Unknown airspace type", rawValue)
+				}
+			}
+			return airspaceTypes
+		}
+		return nil
+	}
+	
+	func transformToJSON(_ value: [AirMapAirspaceType]?) -> [String]? {
+		if let obj = value {
+			return obj.map { $0.rawValue }
+		}
+		return nil
 	}
 }
 
@@ -502,6 +533,9 @@ extension AirMapJurisdiction: ImmutableMappable {
 			throw error
 		}
 	}
+	
+	static let tileServiceMapper = Mapper<AirMapJurisdiction>(context: AirMapRuleset.Origin.tileService)
+
 }
 
 // MARK: - AirMapFlightFeature
@@ -593,7 +627,7 @@ extension AirMapWeather.Observation: ImmutableMappable {
 			visibility    =  try? map.value("visibility")
 			precipitation =  try  map.value("precipitation")
 			temperature   =  try  map.value("temperature")
-			windBearing   =  try  map.value("wind.heading")
+			windBearing   =  try? map.value("wind.heading")
 			windSpeed     =  try  map.value("wind.speed")
 			windGusting   =  try? map.value("wind.gusting")
 		}

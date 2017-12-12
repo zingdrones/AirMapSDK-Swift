@@ -36,7 +36,7 @@ struct Constants {
 		static var rulesUrl: String {
 			return urlForResource("rules", v: 1)
 		}
-
+		
 		private static func urlForResource(_ named: String, v version: Int) -> String {
 			if let override = AirMap.configuration.airMapApiOverrides?[named] {
 				return override
@@ -99,9 +99,18 @@ struct Constants {
 	}
 
 	struct Maps {
-		static let tileMinimumZoomLevel = 7
-		static let tileMaximumZoomLevel = 12
-		static let futureTemporalWindow: TimeInterval = 4*60*60
-		static let rulesetSourcePrefix = "airmap_ruleset_"
+		static let jurisdictionsTileSourceId = "jurisdictions"
+		static let jurisdictionsStyleLayerId = "jurisdictions"
+		static let jurisdictionFeatureAttributesKey = "jurisdiction"
+		static let airmapLayerPrefix = "airmap"
+        static let rulesetSourcePrefix = "air_ruleset_"
+        static let tileMinimumZoomLevel = 7
+        static let tileMaximumZoomLevel = 12
+        static let temporalLayerRefreshInterval: TimeInterval = 60
+        static let futureTemporalWindow: TimeInterval = 4*60*60
+		
+		static var styleUrl: URL {
+			return AirMap.configuration.airMapMapStyle ?? URL(string: "https://cdn.airmap.com/static/map-styles/0.8.5/")!
+		}
 	}
 }

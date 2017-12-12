@@ -10,7 +10,7 @@ import Foundation
 
 internal struct AirMapAirspace {
 	
-	let id: String
+	let id: AirMapAirspaceId
 	let name: String
 	let type: AirMapAirspaceType
 	let country: String

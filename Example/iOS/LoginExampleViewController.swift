@@ -114,7 +114,7 @@ class LoginExampleViewController: UIViewController {
 				("Phone verified", pilot.phoneVerified.description),
 				("Total flights", pilot.statistics?.totalFlights.description),
 				("Total aircraft", pilot.statistics?.totalAircraft.description),
-				("Pilot ID", pilot.id)
+				("Pilot ID", pilot.id.rawValue)
 			]
 		} else {
 			info = [

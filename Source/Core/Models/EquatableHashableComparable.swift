@@ -102,7 +102,7 @@ extension AirMapAirspace: Equatable, Hashable {
 extension AirMapFlight: Equatable, Hashable {
 	
 	public var hashValue: Int {
-		return id?.hashValue ?? createdAt.hashValue
+		return id?.rawValue.hashValue ?? createdAt.hashValue
 	}
 	
 	static public func ==(lhs: AirMapFlight, rhs: AirMapFlight) -> Bool {

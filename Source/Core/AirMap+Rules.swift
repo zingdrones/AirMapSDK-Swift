@@ -35,7 +35,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - rulesetIds: The ruleset identifiers for which to fetch information
 	///   - completion: A handler to call with the rulesets result
-	public static func getRulesets(by rulesetIds: [String], completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
+	public static func getRulesets(by rulesetIds: [AirMapRulesetId], completion: @escaping (Result<[AirMapRuleset]>) -> Void) {
 		rx.getRulesets(by: rulesetIds).thenSubscribe(completion)
 	}
 	
@@ -44,7 +44,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - flightPlanId: The flight plan identifier for which to fetch evaluated ruleset information
 	///   - completion: A handler to call with the rulesets result
-	public static func getRulesetsEvaluated(by flightPlanId: String, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
+	public static func getRulesetsEvaluated(by flightPlanId: AirMapFlightPlanId, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
 		rx.getRulesetsEvaluated(by: flightPlanId).thenSubscribe(completion)
 	}
 
@@ -55,7 +55,7 @@ extension AirMap {
 	///   - rulesetIds: The rulesets to enable for the given area
 	///   - flightFeatureValues: Additional context values for any available flight features
 	///   - completion: A handler to call with the rulesets result
-	public static func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [String], flightFeatureValues: [String: Any]?, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
+	public static func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
 		rx.getRulesetsEvaluated(from: geometry, rulesetIds: rulesetIds, flightFeatureValues: flightFeatureValues).thenSubscribe(completion)
 	}
 
@@ -64,7 +64,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - rulesetId: The ruleset identifier for which to fetch information
 	///   - completion: A handler to call with the ruleset result
-	public static func getRulesets(by rulesetId: String, completion: @escaping (Result<AirMapRuleset>) -> Void) {
+	public static func getRulesets(by rulesetId: AirMapRulesetId, completion: @escaping (Result<AirMapRuleset>) -> Void) {
 		rx.getRuleset(by: rulesetId).thenSubscribe(completion)
 	}
 

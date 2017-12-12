@@ -65,6 +65,13 @@ class AdvisoriesViewController: UITableViewController {
 			.sorted(by: { $0.type.title < $1.type.title })
 	}
 	
+	// MARK: - Actions
+	
+	@IBAction func dismiss() {
+		
+		dismiss(animated: true)
+	}
+
 	//	MARK: - UITableViewDataSource
 	
 	override func numberOfSections(in tableView: UITableView) -> Int {

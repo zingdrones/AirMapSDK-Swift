@@ -13,7 +13,7 @@ final public class AirMapAircraft: ImmutableMappable {
 	
 	public var nickname: String?
 	public private(set) var model: AirMapAircraftModel
-	public private(set) var id: String?
+	public private(set) var id: AirMapAircraftId?
 	
 	public init(model: AirMapAircraftModel, nickname: String) {
 		self.model = model

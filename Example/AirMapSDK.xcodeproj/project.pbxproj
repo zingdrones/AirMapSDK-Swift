@@ -22,7 +22,6 @@
 		5CD99DF01D41CB4800D21B72 /* aircraft_model_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CD99DEF1D41CB4800D21B72 /* aircraft_model_success.json */; };
 		5CD99DF21D41CBCB00D21B72 /* pilot_aircraft_create_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CD99DF11D41CBCB00D21B72 /* pilot_aircraft_create_success.json */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
-		607FACD81AFB9204008FA782 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* MapViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
@@ -45,10 +44,12 @@
 		91824BA51F621BBD00ADBC31 /* RulesetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91824BA41F621BBD00ADBC31 /* RulesetsViewController.swift */; };
 		91824BA71F625B8D00ADBC31 /* AdvisoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91824BA61F625B8D00ADBC31 /* AdvisoriesViewController.swift */; };
 		918451121D270C64003B3D26 /* FlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918451111D270C64003B3D26 /* FlightTests.swift */; };
+		919BBE171FDFA26B000224B9 /* SimpleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BBE161FDFA26B000224B9 /* SimpleMapViewController.swift */; };
 		91AA74731D3DF03800FB82C4 /* AircraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AA74721D3DF03800FB82C4 /* AircraftTests.swift */; };
 		91AA747D1D3EA5F300FB82C4 /* aircraft_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91AA747C1D3EA5F300FB82C4 /* aircraft_get_success.json */; };
 		91C06EA51F631973007B08EE /* ExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C06EA41F631973007B08EE /* ExamplesViewController.swift */; };
 		91C06EA71F6322D6007B08EE /* LoginExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C06EA61F6322D6007B08EE /* LoginExampleViewController.swift */; };
+		91D1A4E51FE34BF700B9C563 /* AdvancedMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D1A4E41FE34BF700B9C563 /* AdvancedMapViewController.swift */; };
 		91D551DC1E272C17000C0A5D /* rules_local_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91D551DB1E272C17000C0A5D /* rules_local_get_success.json */; };
 		91D551DD1E272D4B000C0A5D /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D551D91E272B82000C0A5D /* RulesTests.swift */; };
 		91F849BC1D5D8AEB00550D69 /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 912A5BDA1D5B9DCC004B359B /* airmap.config.json */; };
@@ -88,7 +89,6 @@
 		607FACD01AFB9204008FA782 /* AirMapSDK-Example-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AirMapSDK-Example-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		607FACD71AFB9204008FA782 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MapViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -114,9 +114,7 @@
 		9184510F1D270C64003B3D26 /* AirMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		918451111D270C64003B3D26 /* FlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FlightTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		918451131D270C64003B3D26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		91A93BEF1FC021730034F5AE /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
-		91A93BF01FC021730034F5AE /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		91A93BF11FC021740034F5AE /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		919BBE161FDFA26B000224B9 /* SimpleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleMapViewController.swift; sourceTree = "<group>"; };
 		91AA74721D3DF03800FB82C4 /* AircraftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AircraftTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91AA747C1D3EA5F300FB82C4 /* aircraft_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aircraft_get_success.json; sourceTree = "<group>"; };
 		91B783021D6373DA0034A5A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +123,7 @@
 		91B783091D6373DA0034A5A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91C06EA41F631973007B08EE /* ExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesViewController.swift; sourceTree = "<group>"; };
 		91C06EA61F6322D6007B08EE /* LoginExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginExampleViewController.swift; sourceTree = "<group>"; };
+		91D1A4E41FE34BF700B9C563 /* AdvancedMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedMapViewController.swift; sourceTree = "<group>"; };
 		91D551D91E272B82000C0A5D /* RulesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RulesTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91D551DB1E272C17000C0A5D /* rules_local_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rules_local_get_success.json; sourceTree = "<group>"; };
 		91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatusAdvisoriesTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -182,9 +181,9 @@
 		607FACD21AFB9204008FA782 /* Example iOS */ = {
 			isa = PBXGroup;
 			children = (
+				91D1A4E31FE345A200B9C563 /* Maps */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				91C06EA41F631973007B08EE /* ExamplesViewController.swift */,
-				607FACD71AFB9204008FA782 /* MapViewController.swift */,
 				91824BA41F621BBD00ADBC31 /* RulesetsViewController.swift */,
 				91824BA61F625B8D00ADBC31 /* AdvisoriesViewController.swift */,
 				91C06EA61F6322D6007B08EE /* LoginExampleViewController.swift */,
@@ -294,6 +293,15 @@
 			);
 			name = "Example-macOS";
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		91D1A4E31FE345A200B9C563 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				919BBE161FDFA26B000224B9 /* SimpleMapViewController.swift */,
+				91D1A4E41FE34BF700B9C563 /* AdvancedMapViewController.swift */,
+			);
+			path = Maps;
 			sourceTree = "<group>";
 		};
 		F09067CE733491D54F7FEE83 /* Frameworks */ = {
@@ -472,9 +480,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMQTT/SwiftMQTT.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSimplify/SwiftSimplify.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftTurf/SwiftTurf.framework",
-				"${BUILT_PRODUCTS_DIR}/libPhoneNumber-iOS/libPhoneNumber_iOS.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
@@ -501,9 +507,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMQTT.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSimplify.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftTurf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libPhoneNumber_iOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
@@ -555,9 +559,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleKeychain/SimpleKeychain.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMQTT/SwiftMQTT.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSimplify/SwiftSimplify.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftTurf/SwiftTurf.framework",
-				"${BUILT_PRODUCTS_DIR}/libPhoneNumber-iOS/libPhoneNumber_iOS.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -581,9 +583,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleKeychain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMQTT.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSimplify.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftTurf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libPhoneNumber_iOS.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -653,8 +653,9 @@
 				91824BA71F625B8D00ADBC31 /* AdvisoriesViewController.swift in Sources */,
 				91824BA51F621BBD00ADBC31 /* RulesetsViewController.swift in Sources */,
 				91C06EA71F6322D6007B08EE /* LoginExampleViewController.swift in Sources */,
-				607FACD81AFB9204008FA782 /* MapViewController.swift in Sources */,
+				91D1A4E51FE34BF700B9C563 /* AdvancedMapViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				919BBE171FDFA26B000224B9 /* SimpleMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,7 +693,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				607FACDA1AFB9204008FA782 /* Base */,
-				91A93BEF1FC021730034F5AE /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -701,7 +701,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				607FACDF1AFB9204008FA782 /* Base */,
-				91A93BF01FC021730034F5AE /* ja */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -710,7 +709,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				91B783071D6373DA0034A5A6 /* Base */,
-				91A93BF11FC021740034F5AE /* ja */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -770,6 +768,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;

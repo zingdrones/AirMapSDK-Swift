@@ -25,8 +25,8 @@ internal class RuleClient: HTTPClient {
 		return perform(method: .post, path: "/", params: params).map { $0.jurisdictions }
 	}
 	
-	func getRuleset(by identifier: String) -> Observable<AirMapRuleset> {
-		return perform(method: .get, path: "/" + identifier)
+	func getRuleset(by identifier: AirMapRulesetId) -> Observable<AirMapRuleset> {
+		return perform(method: .get, path: "/" + identifier.rawValue)
 	}
 	
 	func getRulesets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleset]> {
@@ -34,23 +34,23 @@ internal class RuleClient: HTTPClient {
 		return perform(method: .post, path: "/", params: params)
 	}
 	
-	func getRulesetsEvaluated(by flightPlanId: String) -> Observable<[AirMapFlightBriefing.Ruleset]> {
+	func getRulesetsEvaluated(by flightPlanId: AirMapFlightPlanId) -> Observable<[AirMapFlightBriefing.Ruleset]> {
 		AirMap.logger.debug("Getting evaluated rulesets for flight_plan_id", flightPlanId)
 		return AirMap.flightPlanClient.getBriefing(flightPlanId).map { $0.rulesets }
 	}
 	
-	func getRulesets(by rulesetIds: [String]) -> Observable<[AirMapRuleset]> {
+	func getRulesets(by rulesetIds: [AirMapRulesetId]) -> Observable<[AirMapRuleset]> {
 		AirMap.logger.debug("Getting rules for ruleset:", rulesetIds)
-		let params = ["rulesets": rulesetIds.joined(separator: ",")]
+		let params = ["rulesets": rulesetIds.map { $0.rawValue }.joined(separator: ",")]
 		return perform(method: .get, path: "/rule", params: params)
 	}
 	
-	func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [String], flightFeatureValues: [String: Any]?) -> Observable<[AirMapFlightBriefing.Ruleset]> {
+	func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?) -> Observable<[AirMapFlightBriefing.Ruleset]> {
 		AirMap.logger.debug("Getting airspace evaluation")
 		let params: [String: Any] = [
-			"rulesets": rulesetIds.joined(separator: ","),
+			"rulesets": rulesetIds.csv,
 			"geometry": geometry.params(),
-//			"flight_features": flightFeatureValues ?? [:]
+			"flight_features": flightFeatureValues ?? [:]
 		]
 		return perform(method: .post, path: "/evaluation", params: params, keyPath: "data.rulesets")
 	}

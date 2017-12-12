@@ -8,16 +8,21 @@
 
 import UIKit
 import AirMap
-import Mapbox
+
+protocol RulesetsViewControllerDelegate: class {
+	func rulesetsViewControllerDidSelect(_ rulesets: [AirMapRuleset])
+}
 
 class RulesetsViewController: UITableViewController {
 	
 	var availableJurisdictions: [AirMapJurisdiction]!
 	var preferredRulesets = [AirMapRuleset]()
 	
-	private var sectionModels = [SectionModel]()
+	weak var delegate: RulesetsViewControllerDelegate?
 	
-	private struct SectionModel {
+	private var sections = [Section]()
+	
+	private struct Section {
 		let jurisdiction: AirMapJurisdiction
 		let type: AirMapRuleset.SelectionType
 		let rulesets: [AirMapRuleset]
@@ -27,29 +32,39 @@ class RulesetsViewController: UITableViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		// Build the tableview's section models from the available jurisdictions
-		sectionModels = sectionModels(from: availableJurisdictions)
+		sections = sectionModels(from: availableJurisdictions)
+	}
+	
+	// MARK: - Actions
+	
+	@IBAction func dismiss() {
+
+		// Notify the delegate of the newly updated preferred rulesets
+		delegate?.rulesetsViewControllerDidSelect(preferredRulesets)
+		
+		dismiss(animated: true)
 	}
 	
 	// MARK: - Helper methods
 	
-	private func sectionModels(from jurisdictions: [AirMapJurisdiction]) -> [SectionModel] {
+	private func sectionModels(from jurisdictions: [AirMapJurisdiction]) -> [Section] {
 		
-		var sections = [SectionModel]()
+		var sections = [Section]()
 		
 		// For each jurisdiction, create a section for pickOne, optional, and required rulesets
 		// sorted by the jurisdiction region (federal -> state -> local, etc)
-		for j in jurisdictions.sorted(by: <) {
+		for j in jurisdictions.sorted() {
 			
-			let pickOne = SectionModel(jurisdiction: j, type: .pickOne, rulesets: j.pickOneRulesets)
-			sections.append(pickOne)
+			let pickOneSection = Section(jurisdiction: j, type: .pickOne, rulesets: j.pickOneRulesets)
+			sections.append(pickOneSection)
 			
-			let optional = SectionModel(jurisdiction: j, type: .optional, rulesets: j.optionalRulesets)
-			sections.append(optional)
-
-			let required = SectionModel(jurisdiction: j, type: .required, rulesets: j.requiredRulesets)
-			sections.append(required)
+			let optionalSection = Section(jurisdiction: j, type: .optional, rulesets: j.optionalRulesets)
+			sections.append(optionalSection)
+			
+			let requiredSection = Section(jurisdiction: j, type: .required, rulesets: j.requiredRulesets)
+			sections.append(requiredSection)
 		}
 		
 		// Only return sections that have rulesets
@@ -59,36 +74,36 @@ class RulesetsViewController: UITableViewController {
 	// MARK: - UITableViewDataSource
 	
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return sectionModels.count
+		return sections.count
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return sectionModels[section].rulesets.count
+		return sections[section].rulesets.count
 	}
 	
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		let sectionModel = sectionModels[section]
+		let sectionModel = sections[section]
 		return "\(sectionModel.jurisdiction.name): \(sectionModel.type.name)"
 	}
-
+	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let sectionModel = sectionModels[indexPath.section]
-		let ruleset = sectionModel.rulesets[indexPath.row]
+		let section = sections[indexPath.section]
+		let ruleset = section.rulesets[indexPath.row]
 		let cell = tableView.dequeueReusableCell(withIdentifier: "rulesetCell", for: indexPath)
 		
-		cell.selectionStyle = sectionModel.type == .required ? .none : .default
+		cell.selectionStyle = section.type == .required ? .none : .default
 		cell.textLabel?.text = ruleset.name
-
+		
 		return cell
 	}
 	
 	// MARK: - UITableViewDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		let sectionModel = sectionModels[indexPath.section]
-		let ruleset = sectionModel.rulesets[indexPath.row]
-
-		if ruleset.type == .required || preferredRulesets.contains(ruleset) {
+		let section = sections[indexPath.section]
+		let ruleset = section.rulesets[indexPath.row]
+		
+		if section.type == .required || preferredRulesets.contains(ruleset) {
 			cell.accessoryType = .checkmark
 		} else {
 			cell.accessoryType = .none
@@ -97,11 +112,11 @@ class RulesetsViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		let sectionModel = sectionModels[indexPath.section]
-		let ruleset = sectionModel.rulesets[indexPath.row]
-
-		switch sectionModel.type {
+		let section = sections[indexPath.section]
+		let ruleset = section.rulesets[indexPath.row]
 		
+		switch section.type {
+			
 		// if an optional ruleset was selected, toggle it on or off
 		case .optional:
 			if preferredRulesets.contains(ruleset) {
@@ -110,13 +125,13 @@ class RulesetsViewController: UITableViewController {
 				preferredRulesets.append(ruleset)
 			}
 			tableView.reloadRows(at: [indexPath], with: .fade)
-		
+			
 		// if an pickOne ruleset was selected ensure it is the only pickOne enabled from the jurisdiction
 		case .pickOne:
-			preferredRulesets.removeObjectsInArray(sectionModel.rulesets)
+			preferredRulesets.removeObjectsInArray(section.rulesets)
 			preferredRulesets.append(ruleset)
 			tableView.reloadSections([indexPath.section], animationStyle: .fade)
-
+			
 		// if an required ruleset was break since it must remain selected
 		case .required:
 			break

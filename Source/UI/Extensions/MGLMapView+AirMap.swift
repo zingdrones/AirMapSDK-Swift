@@ -112,8 +112,8 @@ extension MGLMapView {
 			AirMap.logger.warning("Unsupported layer type:", existingLayer)
 			return nil
 		}
-		
-		newLayer.sourceLayerIdentifier = ruleset.id + "_" + existingLayer.airspaceType!.rawValue
+
+		newLayer.sourceLayerIdentifier = ruleset.id.rawValue + "_" + existingLayer.airspaceType!.rawValue
 		
 		properties.forEach { key in
 			let baseValue = existingLayer.value(forKey: key)
@@ -122,16 +122,22 @@ extension MGLMapView {
 		
 		return newLayer
 	}
-	
+		
 }
 
 extension MGLStyle {
 	
 	var airMapBaseStyleLayers: [MGLVectorStyleLayer] {
-		return layers
-			.flatMap { $0 as? MGLVectorStyleLayer }
-			.filter { $0.sourceIdentifier == "airmap" }
-			.filter { $0.airspaceType != nil }
+        
+        let vectorLayers = layers.flatMap { $0 as? MGLVectorStyleLayer }
+        let compositeLayers = vectorLayers.filter { $0.sourceIdentifier == "airmap" }
+        let airMapBaseLayers = compositeLayers
+            .filter { $0.identifier.hasPrefix("airmap") }
+            .filter { $0.airspaceType != nil }
+        
+        assert(airMapBaseLayers.count != 0)
+
+        return airMapBaseLayers
 	}
 	
 	var activeAirMapStyleLayers: [MGLVectorStyleLayer] {
@@ -139,6 +145,35 @@ extension MGLStyle {
 			.flatMap { $0 as? MGLVectorStyleLayer }
 			.filter { $0.sourceIdentifier?.hasPrefix(Constants.Maps.rulesetSourcePrefix) ?? false }
 	}
+	    
+    /// Updates the map labels to one of the supported languages
+    func localizeLabels() {
+        
+        let currentLanguage = Locale.current.languageCode ?? "en"
+        let supportedLanguages = ["en", "es", "de", "fr", "ru", "zh"]
+        let supportsCurrentLanguage = supportedLanguages.contains(currentLanguage)
+        
+        let labelLayers = layers.flatMap { $0 as? MGLSymbolStyleLayer }
+        
+        for layer in labelLayers {
+            if let textValue = layer.text as? MGLConstantStyleValue {
+                let nameField: String
+                if supportsCurrentLanguage {
+                    nameField = "{name_\(currentLanguage)}"
+                } else {
+                    nameField = "{name}"
+                }
+                let newValue = textValue.rawValue.replacingOccurrences(of: "{name_en}", with: nameField)
+                layer.text = MGLStyleValue(rawValue: newValue as NSString)
+            }
+        }
+    }
+    
+    // Adds an empty tile source to prevent warnings about missing source referenced by the base styles
+    func addAirMapSource() {
+        let airMapSource = MGLVectorSource(identifier: "airmap", tileURLTemplates: ["https://\(AirMap.configuration.airMapDomain)/{z}/{x}/{y}"])
+        addSource(airMapSource)
+    }
 }
 
 extension MGLStyleLayer {
@@ -157,7 +192,7 @@ extension MGLVectorSource {
 	
 	convenience init(ruleset: AirMapRuleset) {
 		
-		let layerNames = ruleset.airspaceTypeIds.csv
+		let layerNames = ruleset.airspaceTypes.map { $0.rawValue }.joined(separator: ",")
 		let options = [
 			MGLTileSourceOption.minimumZoomLevel: NSNumber(value: Constants.Maps.tileMinimumZoomLevel),
 			MGLTileSourceOption.maximumZoomLevel: NSNumber(value: Constants.Maps.tileMaximumZoomLevel)
@@ -165,5 +200,16 @@ extension MGLVectorSource {
 		let sourcePath = Constants.AirMapApi.tileDataUrl + "/\(ruleset.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey)"
 		
 		self.init(identifier: ruleset.tileSourceIdentifier, tileURLTemplates: [sourcePath], options: options)
+	}
+}
+
+extension MGLCoordinateBounds {
+	
+	// Convert the bounding box into a polygon; remembering to close the polygon by passing the first point again
+	public var geometry: AirMapPolygon {
+		let nw = CLLocationCoordinate2D(latitude: ne.latitude, longitude: sw.longitude)
+		let se = CLLocationCoordinate2D(latitude: sw.latitude, longitude: ne.longitude)
+		let coordinates = [nw, ne, se, sw, nw]
+		return AirMapPolygon(coordinates: [coordinates])
 	}
 }

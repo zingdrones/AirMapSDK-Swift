@@ -15,7 +15,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - id: The unique identifier associated with the pilot
 	///   - completion: A completion handler to call with the Result
-	public static func getPilot(by id: String, completion: @escaping (Result<AirMapPilot>) -> Void) {
+	public static func getPilot(by id: AirMapPilotId, completion: @escaping (Result<AirMapPilot>) -> Void) {
 		rx.getPilot(by: id).thenSubscribe(completion)
 	}
 	

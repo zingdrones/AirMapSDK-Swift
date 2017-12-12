@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13770" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="s5r-0z-tF5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="s5r-0z-tF5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13770"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-2098" y="340"/>
         </scene>
-        <!--Delegate-->
+        <!--Contextual Map & Advisories-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="MapViewController" customModule="AirMapSDK_Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="AdvancedMapViewController" customModule="AirMapSDK_Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -52,12 +52,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="zoomLevel">
                                         <real key="value" value="12"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsRotating" value="NO"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsTilting" value="NO"/>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="XRT-HK-QkD"/>
-                                </connections>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RJQ-VP-3ZB">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -97,14 +92,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="Contextual Map &amp; Advisories" id="N4h-me-nvF"/>
                     <connections>
-                        <outlet property="mapView" destination="ahe-iJ-i8H" id="Hgr-iW-esV"/>
+                        <outlet property="mapView" destination="ahe-iJ-i8H" id="IK9-fp-rgc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="570" y="-72"/>
         </scene>
-        <!--Rulesets-->
+        <!--Select Rulesets-->
         <scene sceneID="BV5-T9-h8n">
             <objects>
                 <tableViewController id="Zac-bn-qYv" customClass="RulesetsViewController" customModule="AirMapSDK_Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -136,18 +131,36 @@
                             <outlet property="delegate" destination="Zac-bn-qYv" id="FpZ-9Y-Wi5"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Rulesets" id="DGn-da-eO3">
+                    <navigationItem key="navigationItem" title="Select Rulesets" id="DGn-da-eO3">
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="irT-N1-B9U">
                             <connections>
-                                <segue destination="Sg4-lT-CJm" kind="unwind" identifier="unwindFromRulesets" unwindAction="unwindFromRulesets:" id="4Ur-Tv-mAw"/>
+                                <action selector="dismiss" destination="Zac-bn-qYv" id="NtI-Ds-TOr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uKx-ql-S8r" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Sg4-lT-CJm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2766" y="-485"/>
+        </scene>
+        <!--Simple Map View-->
+        <scene sceneID="Lw0-9M-YzY">
+            <objects>
+                <viewController id="YUa-bB-ePi" customClass="SimpleMapViewController" customModule="AirMapSDK_Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8a6-bd-RmK"/>
+                        <viewControllerLayoutGuide type="bottom" id="jsn-NC-8KT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tKI-us-1Z2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Simple Map View" id="bBh-MD-NBH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="np9-dp-fyl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="568.79999999999995" y="-845.1274362818591"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PvM-am-y6W">
@@ -219,13 +232,12 @@
                     <navigationItem key="navigationItem" title="Advisories" id="dYJ-Wi-jxf">
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="qgV-Wt-cCg">
                             <connections>
-                                <segue destination="1F2-AU-lV9" kind="unwind" identifier="unwindFromRulesets" unwindAction="unwindFromRulesets:" id="BB8-xi-QM1"/>
+                                <action selector="dismiss" destination="ifS-cP-2Ji" id="YN2-GI-Iyg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RV2-Iz-CeJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="1F2-AU-lV9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2766" y="341"/>
         </scene>
@@ -245,13 +257,13 @@
                                 <rect key="frame" x="16" y="79" width="343" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEV-Ta-hm2">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="300"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="267"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlB-Zh-M04">
-                                        <rect key="frame" x="0.0" y="300" width="343" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="267" width="343" height="33"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Login"/>
                                         <connections>
@@ -310,8 +322,35 @@
                         <sections>
                             <tableViewSection id="JKU-JN-ZJf">
                                 <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="bMR-4j-TsC" detailTextLabel="4p2-xh-Jtl" rowHeight="113" style="IBUITableViewCellStyleSubtitle" id="HIh-6v-QvZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HIh-6v-QvZ" id="dnl-gJ-Tb2">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="112.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Simple Map View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bMR-4j-TsC">
+                                                    <rect key="frame" x="16" y="25" width="142" height="21.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Display an AirMap map that automatically configures itself to display airspace" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4p2-xh-Jtl">
+                                                    <rect key="frame" x="16" y="49.5" width="287" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="YUa-bB-ePi" kind="show" id="rLo-KN-aNM"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="oOX-Sb-GXB" detailTextLabel="Jfl-hh-TLn" rowHeight="172" style="IBUITableViewCellStyleSubtitle" id="wYc-OS-pdt">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="172"/>
+                                        <rect key="frame" x="0.0" y="113" width="375" height="172"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wYc-OS-pdt" id="nQ4-of-V3M">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="171.5"/>
@@ -339,7 +378,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="6em-xT-7Jc" detailTextLabel="8Oa-OC-l1Y" rowHeight="113" style="IBUITableViewCellStyleSubtitle" id="h2U-ms-121">
-                                        <rect key="frame" x="0.0" y="172" width="375" height="113"/>
+                                        <rect key="frame" x="0.0" y="285" width="375" height="113"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h2U-ms-121" id="nO9-6V-4MR">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="112.5"/>
@@ -366,7 +405,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="0Nm-pp-g05" detailTextLabel="l7e-N2-bVt" rowHeight="97" style="IBUITableViewCellStyleSubtitle" id="pwh-B2-0Bv">
-                                        <rect key="frame" x="0.0" y="285" width="375" height="97"/>
+                                        <rect key="frame" x="0.0" y="398" width="375" height="97"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pwh-B2-0Bv" id="6kB-0Y-Bo8">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="96.5"/>
@@ -410,6 +449,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="K0M-di-ZOQ"/>
+        <segue reference="V9N-LC-uyr"/>
     </inferredMetricsTieBreakers>
 </document>

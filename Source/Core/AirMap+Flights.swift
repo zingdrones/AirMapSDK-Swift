@@ -29,7 +29,7 @@ extension AirMap {
 	///   - pilotId: The pilot identifier for which to return flights
 	///   - limit: The maximum number of flights to return. Optional
 	///   - completion: A completion handler to call with the Result
-	public static func listFlights(for pilotId: String, limit: Int? = 100, completion: @escaping (Result<[AirMapFlight]>) -> Void) {
+	public static func listFlights(for pilotId: AirMapPilotId, limit: Int? = 100, completion: @escaping (Result<[AirMapFlight]>) -> Void) {
 		rx.listFlights(for: pilotId, limit: limit).thenSubscribe(completion)
 	}
 	
@@ -45,7 +45,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - id: The unique identifier associated with the flight
 	///   - completion: A completion handler to call with the Result
-	public static func getFlight(by id: String, completion: @escaping (Result<AirMapFlight>) -> Void) {
+	public static func getFlight(by id: AirMapFlightId, completion: @escaping (Result<AirMapFlight>) -> Void) {
 		rx.getFlight(by: id).thenSubscribe(completion)
 	}
 
@@ -72,7 +72,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - id: The unique identifier associated with the flight
 	///   - completion: A completion handler to call with the Result
-	public static func endFlight(by id: String, completion: @escaping (Result<Void>) -> Void) {
+	public static func endFlight(by id: AirMapFlightId, completion: @escaping (Result<Void>) -> Void) {
 		rx.endFlight(by: id).thenSubscribe(completion)
 	}
 
@@ -90,7 +90,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - id: The identifier for the flight
 	///   - completion: A completion handler with the flight plan result
-	public static func getFlightPlanByFlightId(_ id: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
+	public static func getFlightPlanByFlightId(_ id: AirMapFlightId, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
 		rx.getFlightPlanByFlightId(id).thenSubscribe(completion)
 	}
 }

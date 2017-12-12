@@ -44,7 +44,7 @@ extension AirMap {
     /// - Parameters:
     ///   - userId: a third-party user id
     ///   - completion: A completion handler to call with the Result
-    public static func performAnonymousLogin(userId: String, completion: @escaping (Result<AirMapToken>) -> Void) {
+    public static func performAnonymousLogin(userId: AirMapPilotId, completion: @escaping (Result<AirMapToken>) -> Void) {
         rx.performAnonymousLogin(userId: userId).thenSubscribe(completion)
     }
 	

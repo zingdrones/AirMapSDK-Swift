@@ -10,7 +10,7 @@
 public struct AirMapRuleset {
 	
 	/// An unique identifier
-	public let id: String
+	public let id: AirMapRulesetId
 	
 	/// A descriptive title
 	public let name: String
@@ -21,8 +21,8 @@ public struct AirMapRuleset {
 	/// A type that denotes the selection requirement
 	public let type: SelectionType
 	
-	/// The identifiers for the airspace types represented by the ruleset
-	public let airspaceTypeIds: [String]
+	/// The airspace types referenced by the ruleset
+	public let airspaceTypes: [AirMapAirspaceType]
 	
 	/// True if this ruleset is of type pick-one, and it should be selected by default
 	public let isDefault: Bool
@@ -34,7 +34,7 @@ public struct AirMapRuleset {
 	public let description: String
 	
 	/// The identifier for the jurisdiction the ruleset belongs to
-	public internal(set) var jurisdictionId: Int!
+	public internal(set) var jurisdictionId: AirMapJurisdictionId!
 
 	/// The name of the jurisdiction the ruleset belongs to
 	public internal(set) var jurisdictionName: String!
@@ -68,9 +68,9 @@ public struct AirMapRuleset {
 
 extension Collection where Iterator.Element == AirMapRuleset {
 	
-	/// A comma-separated list of ruleset identifiers
-	public var identifiers: String {
-		return self.map { $0.id }.csv
+	/// An array of all ruleset identifiers
+	public var identifiers: [AirMapRulesetId] {
+		return self.map { $0.id }
 	}
 	
 	/// A filtered list of all required rulesets
@@ -96,7 +96,8 @@ extension Collection where Iterator.Element == AirMapRuleset {
 	/// A list of jurisdictions derived from a list of rulesets
 	public var jurisdictions: [AirMapJurisdiction] {
 		return self
-			.grouped(by: { $0.jurisdictionId }).keys
+            .filter { $0.jurisdictionId != nil }
+            .grouped(by: { $0.jurisdictionId }).keys
 			.flatMap { (id) -> AirMapJurisdiction? in
 				let rulesets = filter({ $0.jurisdictionId == id })
 				guard let ruleset = rulesets.first else { return nil }

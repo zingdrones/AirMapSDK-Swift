@@ -19,7 +19,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - airspaceId: The unique identifier associated with the airspace object
 	///   - completion: A completion handler to call with the Result
-	internal static func getAirspace(_ airspaceId: String, completion: @escaping (Result<AirMapAirspace>) -> Void) {
+	internal static func getAirspace(_ airspaceId: AirMapAirspaceId, completion: @escaping (Result<AirMapAirspace>) -> Void) {
 		rx.getAirspace(airspaceId).thenSubscribe(completion)
 	}
 

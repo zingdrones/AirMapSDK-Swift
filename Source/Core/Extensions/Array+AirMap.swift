@@ -25,14 +25,8 @@ public extension Array where Element: Equatable {
 
 extension Sequence {
 	
-	#if swift(>=3.2)
-	public typealias SequenceElement = Element
-	#else
-	public typealias SequenceElement = Iterator.Element
-	#endif
-
-	public func grouped<T: Hashable>(by criteria: (SequenceElement) -> T) -> [T: [SequenceElement]] {
-		var groups: [T: [SequenceElement]] = [:]
+	public func grouped<T: Hashable>(by criteria: (Element) -> T) -> [T: [Element]] {
+		var groups: [T: [Element]] = [:]
 		for element in self {
 			let key = criteria(element)
 			if groups.keys.contains(key) {
@@ -42,5 +36,12 @@ extension Sequence {
 			}
 		}
 		return groups
+	}
+}
+
+extension Collection where Iterator.Element: AirMapStringIdentifierType {
+	
+	public var csv: String {
+		return map { $0.rawValue }.joined(separator: ",")
 	}
 }

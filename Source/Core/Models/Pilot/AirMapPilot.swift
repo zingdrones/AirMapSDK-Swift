@@ -10,9 +10,7 @@ import ObjectMapper
 
 open class AirMapPilot {
 
-    open var id: String!
-    @available(*, unavailable, renamed: "id")
-	open var pilotId: String!
+	open var id: AirMapPilotId!
 	open var email: String!
 	open var firstName: String?
 	open var lastName: String?

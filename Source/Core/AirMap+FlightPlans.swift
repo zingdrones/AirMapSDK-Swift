@@ -35,7 +35,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - flightPlanId: The identifier for the flight plan
 	///   - completion: A completion handler with the flight plan result
-	public static func getFlightPlan(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
+	public static func getFlightPlan(_ flightPlanId: AirMapFlightPlanId, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
 		rx.getFlightPlan(flightPlanId).thenSubscribe(completion)
 	}
 	
@@ -44,7 +44,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - flightPlanId: The identifier of the flight plan for which to retrieve a briefing
 	///   - completion: A completion handler to call with the flight plan briefing result
-	public static func getFlightBriefing(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightBriefing>) -> Void) {
+	public static func getFlightBriefing(_ flightPlanId: AirMapFlightPlanId, completion: @escaping (Result<AirMapFlightBriefing>) -> Void) {
 		rx.getFlightBriefing(flightPlanId).thenSubscribe(completion)
 	}
 	
@@ -53,7 +53,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - flightPlanId: The identifier of the flight plan to submit
 	///   - completion: A completion handler to call with the flight plan result
-	public static func submitFlightPlan(_ flightPlanId: String, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
+	public static func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
 		rx.submitFlightPlan(flightPlanId).thenSubscribe(completion)
 	}
 }

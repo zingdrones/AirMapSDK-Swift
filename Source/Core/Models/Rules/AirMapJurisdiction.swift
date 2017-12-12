@@ -10,7 +10,7 @@
 public struct AirMapJurisdiction {
 	
 	/// The unique identifier for the jurisdiction
-	public let id: Int
+	public let id: AirMapJurisdictionId
 
 	/// The name of the jurisdiction
 	public let name: String
@@ -36,7 +36,7 @@ public struct AirMapJurisdiction {
 // MARK: - Convenience
 
 extension AirMapJurisdiction {
-	
+    
 	/// Returns all rulesets which should be selected by default. This includes any required rulesets,
 	/// the default pickOne if any, and any AirMap recommended rulesets
 	public var defaultRulesets: [AirMapRuleset] {
@@ -71,7 +71,12 @@ extension AirMapJurisdiction {
 
 extension Sequence where Iterator.Element == AirMapJurisdiction {
 	
-	/// Returns all rulesets which should be selected by default. This includes any required rulesets,
+    /// Returns all rulesets within all jurisdictions
+    public var rulesets: [AirMapRuleset] {
+        return flatMap({ $0.rulesets })
+    }
+
+    /// Returns all rulesets which should be selected by default. This includes any required rulesets,
 	/// any default pickOnes, and any AirMap recommended rulesets
 	public var defaultRulesets: [AirMapRuleset] {
 		return flatMap({ $0.defaultRulesets })
@@ -91,4 +96,9 @@ extension Sequence where Iterator.Element == AirMapJurisdiction {
 	public var pickOneRulesets: [AirMapRuleset] {
 		return flatMap({$0.pickOneRulesets})
 	}
+
+    /// A list of AirMap-recommended rulesets for the jurisdiction
+    public var airMapRecommendedRulesets: [AirMapRuleset] {
+        return optionalRulesets.filter { $0.shortName.uppercased() == "AIRMAP" }
+    }
 }

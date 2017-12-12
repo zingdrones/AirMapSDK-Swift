@@ -14,10 +14,3 @@ extension String {
 		return addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? self
 	}
 }
-
-extension Array where Element == String {
-	
-	var csv: String {
-		return joined(separator: ",")
-	}
-}
