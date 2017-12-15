@@ -1,10 +1,10 @@
 PODS:
-  - AirMapSDK (2.0.0-beta):
-    - AirMapSDK/Core (= 2.0.0-beta)
-    - AirMapSDK/Telemetry (= 2.0.0-beta)
-    - AirMapSDK/Traffic (= 2.0.0-beta)
-    - AirMapSDK/UI (= 2.0.0-beta)
-  - AirMapSDK/Core (2.0.0-beta):
+  - AirMapSDK (2.0.0.beta.1):
+    - AirMapSDK/Core (= 2.0.0.beta.1)
+    - AirMapSDK/Telemetry (= 2.0.0.beta.1)
+    - AirMapSDK/Traffic (= 2.0.0.beta.1)
+    - AirMapSDK/UI (= 2.0.0.beta.1)
+  - AirMapSDK/Core (2.0.0.beta.1):
     - Alamofire
     - JWTDecode
     - Log
@@ -14,15 +14,15 @@ PODS:
     - RxSwiftExt
     - SimpleKeychain
     - SwiftTurf
-  - AirMapSDK/Telemetry (2.0.0-beta):
+  - AirMapSDK/Telemetry (2.0.0.beta.1):
     - AirMapSDK/Core
     - CocoaAsyncSocket
     - CryptoSwift
     - ProtocolBuffers-Swift
-  - AirMapSDK/Traffic (2.0.0-beta):
+  - AirMapSDK/Traffic (2.0.0.beta.1):
     - AirMapSDK/Core
     - SwiftMQTT (~> 2.0.0)
-  - AirMapSDK/UI (2.0.0-beta):
+  - AirMapSDK/UI (2.0.0.beta.1):
     - AirMapSDK/Core
     - Lock
     - Mapbox-iOS-SDK
@@ -94,7 +94,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AirMapSDK: 9d95453272e5b428c3b0fb96080f407de2bc4151
+  AirMapSDK: fb17e697ab143c53dc6874734923aee57144c48f
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Auth0: 9eceebf97b6b3482eaed82193e090b50c3bd8ad6
   CocoaAsyncSocket: 3541e024f48c54b251638ef72d51dd42808de932
