@@ -36,16 +36,7 @@ extension ObservableType {
 					result(Result<E>.error(error))
 			})
 			.disposed(by: AirMap.disposeBag)
-	}
-	
-	public func repeatLatest(interval: RxTimeInterval, scheduler: SchedulerType) -> Observable<E> {
-		
-		return flatMapLatest {
-			Observable<Int>
-				.timer(0, period: interval, scheduler: scheduler)
-				.map(to: $0)
-		}
-	}
+	}	
 }
 
 extension Observable where Element: Equatable {

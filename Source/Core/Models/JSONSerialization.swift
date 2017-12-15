@@ -329,7 +329,7 @@ fileprivate class AirMapAirspaceTypeTransform: TransformType {
 				if let airspaceType = AirMapAirspaceType(rawValue: rawValue) {
 					airspaceTypes.append(airspaceType)
 				} else {
-					AirMap.logger.warning("Unknown airspace type", rawValue)
+					AirMap.logger.debug("Unknown airspace type", rawValue)
 				}
 			}
 			return airspaceTypes

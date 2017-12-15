@@ -6,7 +6,7 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-/// An airspace object that interects with an intended area of operation.
+/// An airspace object that intersects with area of operation.
 public struct AirMapAdvisory {
 	
 	/// The advisory's unique identifier

@@ -168,11 +168,26 @@ extension MGLStyle {
             }
         }
     }
-    
-    // Adds an empty tile source to prevent warnings about missing source referenced by the base styles
-    func addAirMapSource() {
-        let airMapSource = MGLVectorSource(identifier: "airmap", tileURLTemplates: ["https://\(AirMap.configuration.airMapDomain)/{z}/{x}/{y}"])
-        addSource(airMapSource)
+        
+    /// Update the predicates for temporal layers such as .tfr and .notam with a near future time window
+    func updateTemporalFilters() {
+        
+        let temporalAirspaces: [AirMapAirspaceType] = [.tfr, .notam]
+        
+        layers
+            .filter { $0.identifier.hasPrefix(Constants.Maps.airmapLayerPrefix) && temporalAirspaces.contains($0.airspaceType!) }
+            .flatMap { $0 as? MGLVectorStyleLayer }
+            .forEach({ (layer) in
+                let now = Int(Date().timeIntervalSince1970)
+                let nearFuture = Int(Date().timeIntervalSince1970 + Constants.Maps.futureTemporalWindow)
+                let overlapsWithNow = NSPredicate(format: "start < %i && end > %i", now, now)
+                let startsSoon = NSPredicate(format: "start > %i && end < %i", now, nearFuture)
+                let isPermanent = NSPredicate(format: "permanent == YES")
+                let hasNoEnd = NSPredicate(format: "end == NULL")
+                let isNotBase = NSPredicate(format: "base == NULL")
+                let timePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [overlapsWithNow, startsSoon, isPermanent, hasNoEnd])
+                layer.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timePredicate, isNotBase])
+            })
     }
 }
 

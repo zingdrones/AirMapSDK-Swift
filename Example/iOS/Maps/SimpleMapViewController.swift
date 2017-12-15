@@ -28,13 +28,13 @@ class SimpleMapViewController: UIViewController {
 		view.addSubview(map)
 		
 		// set the visual style
-		map.theme = .standard
+		map.theme = .light
 		
-		// set the map's ruleset behavior
-		map.configuration = .dynamic(preferredRulesetIds: ["usa_part_107"], enableRecommendedRulesets: true)
-
-		// alternatively, the map can be configured automatically without any preferred rulesets
-//		map.configuration = .automatic
+        // set the map's ruleset behavior
+        map.configuration = .automatic
+        
+        // alternatively, the map can be configured with a list preferred ruleset ids
+//        map.configuration = .dynamic(preferredRulesetIds: ["usa_part_107"], enableRecommendedRulesets: true)
 
 		// set the location and zoom level
 		map.latitude = 34.1

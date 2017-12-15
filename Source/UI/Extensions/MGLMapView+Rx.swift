@@ -53,9 +53,19 @@ extension Reactive where Base: AirMapMapView {
             .map { ($0[0] as! Base, $0[1] as! Bool) }
 	}
 	
-	public var mapDidFinishLoadingTiles: Observable<(mapView: Base, fullyRendered: Bool)> {
+	public var mapDidFinishRenderingMap: Observable<(mapView: Base, fullyRendered: Bool)> {
 		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapViewDidFinishRenderingMap(_:fullyRendered:)))
 			.map { ($0[0] as! Base, $0[1] as! Bool) }
+	}
+	
+	public var mapDidFinishRenderingFrame: Observable<(mapView: Base, fullyRendered: Bool)> {
+		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapViewDidFinishRenderingFrame(_:fullyRendered:)))
+			.map { ($0[0] as! Base, $0[1] as! Bool) }
+	}
+	
+	public var mapDidFailLoadingMap: Observable<(mapView: Base, error: Error)> {
+		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapViewDidFailLoadingMap(_:withError:)))
+			.map { ($0[0] as! Base, $0[1] as! Error) }
 	}
 	
 	public var mapDidFinishLoadingStyle: Observable<(mapView: Base, style: MGLStyle)> {
@@ -65,12 +75,12 @@ extension Reactive where Base: AirMapMapView {
 	
 	public var mapDidStartLoading: Observable<Base> {
 		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapViewWillStartLoadingMap(_:)))
-			.map { $0.first as! Base }
+			.map { $0[0] as! Base }
 	}
 	
 	public var mapDidFinishLoading: Observable<Base> {
 		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapViewDidFinishLoadingMap(_:)))
-			.map { $0.first as! Base }
+			.map { $0[0] as! Base }
 	}
 	
 }

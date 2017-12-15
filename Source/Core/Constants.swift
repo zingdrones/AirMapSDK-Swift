@@ -110,7 +110,7 @@ struct Constants {
         static let futureTemporalWindow: TimeInterval = 4*60*60
 		
 		static var styleUrl: URL {
-			return AirMap.configuration.airMapMapStyle ?? URL(string: "https://cdn.airmap.com/static/map-styles/0.8.5/")!
+			return AirMap.configuration.airMapMapStyle ?? URL(string: "https://cdn.airmap.com/static/map-styles/0.8.6-beta.1/")!
 		}
 	}
 }
