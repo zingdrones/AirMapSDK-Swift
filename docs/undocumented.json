@@ -351,6 +351,55 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/AirMapIdentifier.swift",
+      "line": null,
+      "symbol": "AirMapIdentifier",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/AirMapIdentifier.swift",
+      "line": 10,
+      "symbol": "AirMapIdentifier",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/AirMapIdentifier.swift",
+      "line": 14,
+      "symbol": "AirMapIdentifier.hashValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/AirMapIdentifier.swift",
+      "line": 23,
+      "symbol": "AirMapStringIdentifierType",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/AirMapIdentifier.swift",
+      "line": 25,
+      "symbol": "AirMapStringIdentifier",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/AirMapIdentifier.swift",
+      "line": 45,
+      "symbol": "AirMapIntegerIdentifierType",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/AirMapIdentifier.swift",
+      "line": 47,
+      "symbol": "AirMapIntegerIdentifier",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Aircraft/AirMapAircraft.swift",
       "line": 12,
       "symbol": "AirMapAircraft",
@@ -1199,84 +1248,84 @@
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 16,
+      "line": 14,
       "symbol": "AirMapPilot.email",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 17,
+      "line": 15,
       "symbol": "AirMapPilot.firstName",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 18,
+      "line": 16,
       "symbol": "AirMapPilot.lastName",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 19,
+      "line": 17,
       "symbol": "AirMapPilot.username",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 20,
+      "line": 18,
       "symbol": "AirMapPilot.pictureUrl",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 21,
+      "line": 19,
       "symbol": "AirMapPilot.phone",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 22,
+      "line": 20,
       "symbol": "AirMapPilot.phoneVerified",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 23,
+      "line": 21,
       "symbol": "AirMapPilot.emailVerified",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 24,
+      "line": 22,
       "symbol": "AirMapPilot.statistics",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 29,
+      "line": 27,
       "symbol": "AirMapPilot.appMetadata()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 33,
+      "line": 31,
       "symbol": "AirMapPilot.setAppMetadata(value:forKey:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Pilot/AirMapPilot.swift",
-      "line": 81,
+      "line": 79,
       "symbol": "AirMapPilot.fullName",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -1542,14 +1591,14 @@
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
-      "line": 86,
+      "line": 91,
       "symbol": "Sequence.optionalRulesets",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/adolfo/Repos/AirMapSDK-Swift/Source/Core/Models/Rules/AirMapJurisdiction.swift",
-      "line": 91,
+      "line": 96,
       "symbol": "Sequence.pickOneRulesets",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"

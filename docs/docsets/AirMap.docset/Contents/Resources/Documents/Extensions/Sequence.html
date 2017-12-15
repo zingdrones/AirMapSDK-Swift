@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           AirMap Docs
         </a>
-         (29% documented)
+         (30% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -325,16 +325,31 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/AirMapAuthSessionDelegate.html">AirMapAuthSessionDelegate</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AirMapIdentifier.html">AirMapIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Other Protocols.html#/s:6AirMap0aB21IntegerIdentifierTypeP">AirMapIntegerIdentifierType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Other Protocols.html#/s:6AirMap0aB20StringIdentifierTypeP">AirMapStringIdentifierType</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Other Structs.html">Other Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapIntegerIdentifier.html">AirMapIntegerIdentifier</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Other Structs.html#/AirMapLocationCoordinate2D">AirMapLocationCoordinate2D</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/AirMapPilotVerified.html">AirMapPilotVerified</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AirMapStringIdentifier.html">AirMapStringIdentifier</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Airmap.html">Airmap</a>
@@ -365,6 +380,33 @@
           <div class="section-content">
             <div class="task-group">
               <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s8SequenceP6AirMapsAARzAC0bC12JurisdictionV7ElementRtzlE8rulesetsSayAC0bC7RulesetVGv"></a>
+                    <a name="//apple_ref/swift/Property/rulesets" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s8SequenceP6AirMapsAARzAC0bC12JurisdictionV7ElementRtzlE8rulesetsSayAC0bC7RulesetVGv">rulesets</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns all rulesets within all jurisdictions</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rulesets</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/AirMapRuleset.html">AirMapRuleset</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -474,6 +516,33 @@ any default pickOnes, and any AirMap recommended rulesets</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s8SequenceP6AirMapsAARzAC0bC12JurisdictionV7ElementRtzlE03airC19RecommendedRulesetsSayAC0bC7RulesetVGv"></a>
+                    <a name="//apple_ref/swift/Property/airMapRecommendedRulesets" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s8SequenceP6AirMapsAARzAC0bC12JurisdictionV7ElementRtzlE03airC19RecommendedRulesetsSayAC0bC7RulesetVGv">airMapRecommendedRulesets</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A list of AirMap-recommended rulesets for the jurisdiction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">airMapRecommendedRulesets</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/AirMapRuleset.html">AirMapRuleset</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -482,7 +551,7 @@ any default pickOnes, and any AirMap recommended rulesets</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2017 <a class="link" href="https://github.com/airmap" target="_blank" rel="external">AirMap, Inc.</a>. All rights reserved. (Last updated: 2017-11-28)</p>
+      <p>&copy; 2017 <a class="link" href="https://github.com/airmap" target="_blank" rel="external">AirMap, Inc.</a>. All rights reserved. (Last updated: 2017-12-14)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
