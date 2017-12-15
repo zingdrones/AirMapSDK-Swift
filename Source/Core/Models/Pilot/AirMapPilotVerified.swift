@@ -8,16 +8,14 @@
 
 import ObjectMapper
 
-public class AirMapPilotVerified {
+public struct AirMapPilotVerified {
 
-	public var verified: Bool = false
-
-	public required init?(map: Map) {}
+	public let verified: Bool
 }
 
-extension AirMapPilotVerified: Mappable {
-
-	public func mapping(map: Map) {
-		verified	<- map["verified"]
+extension AirMapPilotVerified: ImmutableMappable {
+	
+	public init(map: Map) throws {
+		verified = try map.value("verified")
 	}
 }

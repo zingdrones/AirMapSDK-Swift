@@ -21,11 +21,30 @@ extension ObservableType {
 		}
 	}
 	
-	public func rateLimit(_ limit: TimeInterval, scheduler: SerialDispatchQueueScheduler) -> Observable<E> {
-		return self
-			.buffer(timeSpan: limit, count: .max, scheduler: scheduler)
-			.filter { $0.count > 0 }
-			.map { $0.last! }
+	public func then(onNext: ((E) throws -> Void)? = nil, onError: ((Swift.Error) throws -> Void)? = nil, onCompleted: (() throws -> Void)? = nil, onSubscribe: (() -> ())? = nil, onSubscribed: (() -> ())? = nil, onDispose: (() -> ())? = nil)
+		-> Observable<E> {
+			return `do`(onNext: onNext, onError: onError, onCompleted: onCompleted, onSubscribe: onSubscribe, onSubscribed: onSubscribed, onDispose: onDispose)
+	}
+	
+	func thenSubscribe(_ result: @escaping (Result<E>) -> Void) {
+		
+		self
+			.subscribe(
+				onNext:  { result(Result<E>.value($0)) },
+				onError: {
+					let error = $0 as? AirMapError ?? AirMapError.unknown(underlying: $0)
+					result(Result<E>.error(error))
+			})
+			.disposed(by: AirMap.disposeBag)
+	}
+	
+	public func repeatLatest(interval: RxTimeInterval, scheduler: SchedulerType) -> Observable<E> {
+		
+		return flatMapLatest {
+			Observable<Int>
+				.timer(0, period: interval, scheduler: scheduler)
+				.map(to: $0)
+		}
 	}
 }
 

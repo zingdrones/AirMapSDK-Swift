@@ -1,5 +1,0 @@
-# 1. Duplicate this file
-# 2. Rename to phraseapp-auth.yml 
-# 3. Add your PhraseApp access token
-
-access_token: YOUR_TOKEN_HERE

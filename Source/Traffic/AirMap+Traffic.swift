@@ -15,11 +15,22 @@
 	@objc optional func airMapTrafficServiceDidReceive(_ message: String)
 }
 
-public typealias AirMap_Traffic = AirMap
-extension AirMap_Traffic {
+extension AirMap {
 	
 	public static var trafficDelegate: AirMapTrafficObserver? {
 		didSet { trafficService.delegate = trafficDelegate }
 	}
 	
+	/// Suspend all active traffic alerts
+	/// Typically called when the app enters the background.
+	public static func suspendTraffic() {
+		trafficService.disconnect()
+	}
+	
+	/// Resume all active traffic alerts
+	/// Typically called when the app enters the foreground.
+	public static func resumeTraffic() {
+		trafficService.connect()
+	}
+
 }

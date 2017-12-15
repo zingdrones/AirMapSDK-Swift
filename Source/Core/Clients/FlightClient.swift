@@ -10,9 +10,13 @@ import Foundation
 import RxSwift
 
 internal class FlightClient: HTTPClient {
+	
+	enum FlightClientError: Error {
+		case FlightDoesNotExist
+	}
 
 	init() {
-		super.init(basePath: Config.AirMapApi.flightUrl)
+		super.init(basePath: Constants.AirMapApi.flightUrl)
 	}
 
 	#if AIRMAP_TELEMETRY
@@ -20,8 +24,8 @@ internal class FlightClient: HTTPClient {
 	///
 	/// - Parameter flight: The flight for which to request an encryption key
 	/// - Returns: A comm key Observable
-	func getCommKey(flight: AirMapFlight) -> Observable<CommKey> {
-		return perform(method: .post, path: "/\(flight.flightId!)/start-comm")
+	func getCommKey(by flightId: String) -> Observable<CommKey> {
+		return perform(method: .post, path: "/\(flightId)/start-comm")
 	}
 
 	/// Called when a device no longer wants to receive push notifications for traffic alerts
@@ -29,12 +33,12 @@ internal class FlightClient: HTTPClient {
 	/// - Parameter flight: The flight for which to request an encryption key
 	/// - Returns: A Void Observable
 	func clearCommKey(flight: AirMapFlight) -> Observable<Void> {
-		return perform(method: .post, path: "/\(flight.flightId!)/end-comm")
+		return perform(method: .post, path: "/\(flight.id!)/end-comm")
 	}
 	#endif
 
 	func list(limit: Int? = nil,
-	          pilotId: String? = nil,
+	          pilotId: AirMapPilotId? = nil,
 	          startAfter: Date? = nil,
 	          startAfterNow: Bool = false,
 	          startBefore: Date? = nil,
@@ -46,27 +50,29 @@ internal class FlightClient: HTTPClient {
 	          city: String? = nil,
 	          state: String? = nil,
 	          country: String? = nil,
+	          within geometry: AirMapGeometry? = nil,
 	          enhanced: Bool? = true,
 	          checkAuth: Bool? = false) -> Observable<[AirMapFlight]> {
 		
 		var params = [String : Any]()
 
 		params["limit"       ] = limit
-		params["pilot_id"    ] = pilotId?.isEmpty ?? true ? nil : pilotId
-		params["start_after" ] = startAfterNow ? "now" : startAfter?.ISO8601String()
-		params["start_before"] = startBeforeNow ? "now" : startBefore?.ISO8601String()
-		params["end_after"   ] = endAfterNow ? "now" : endAfter?.ISO8601String()
-		params["end_before"  ] = endBeforeNow ? "now" : endBefore?.ISO8601String()
+		params["pilot_id"    ] = pilotId?.rawValue.isEmpty ?? true ? nil : pilotId
+		params["start_after" ] = startAfterNow ? "now" : startAfter?.iso8601String()
+		params["start_before"] = startBeforeNow ? "now" : startBefore?.iso8601String()
+		params["end_after"   ] = endAfterNow ? "now" : endAfter?.iso8601String()
+		params["end_before"  ] = endBeforeNow ? "now" : endBefore?.iso8601String()
 		params["city"        ] = city
 		params["state"       ] = state
 		params["country"     ] = country
 		params["enhance"     ] = String(enhanced ?? false)
+		params["geometry"    ] = geometry?.params()
 
 		AirMap.logger.debug("Get Flights", params)
         return perform(method: .get, params: params, keyPath: "data.results", checkAuth: checkAuth ?? false)
 	}
 
-	func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil) -> Observable<[AirMapFlight]> {
+	func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil, within geometry: AirMapGeometry? = nil) -> Observable<[AirMapFlight]> {
 
 		let endAfterNow = fromDate == nil
 		let endAfter = fromDate
@@ -75,19 +81,10 @@ internal class FlightClient: HTTPClient {
 
 		AirMap.logger.debug("Get Public Flights", endAfterNow as Any, endAfter as Any, startBefore as Any, startBeforeNow as Any)
 
-		let publicFlights = list(limit: limit, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow)
-
-		if AirMap.authSession.hasValidCredentials() {
-			let pilotFlights = list(limit: limit, pilotId: AirMap.authSession.userId, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow)
-			return Observable.zip([publicFlights, pilotFlights]) { flights in
-				return Array(Set(flights.flatMap({$0})))
-			}
-		} else {
-			return publicFlights
-		}
+		return list(limit: limit, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow, within: geometry)
 	}
 
-	func get(_ flightId: String) -> Observable<AirMapFlight> {
+	func get(_ flightId: AirMapFlightId) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("Get flight", flightId)
 		var params = [String : Any]()
 		params["enhance"] = String(true) as AnyObject?
@@ -96,17 +93,36 @@ internal class FlightClient: HTTPClient {
 
 	func create(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("Create flight", flight)
-		let type: AirMapFlight.FlightGeometryType = flight.geometry?.type ?? .point
+		let type: AirMapFlightGeometryType = flight.geometry?.type ?? .point
 		return perform(method: .post, path:"/\(type.rawValue)", params: flight.params(), update: flight)
 	}
 
 	func end(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("End flight", flight)
-		return perform(method: .post, path:"/\(flight.flightId!)/end", update: flight)
+		guard let flightId = flight.id else {
+			AirMap.logger.error(self, FlightClientError.FlightDoesNotExist)
+			return .error(FlightClientError.FlightDoesNotExist)
+		}
+		return perform(method: .post, path:"/\(flightId)/end", update: flight)
+	}
+	
+	func end(_ flightId: AirMapFlightId) -> Observable<Void> {
+		AirMap.logger.debug("End flight", flightId)
+		return perform(method: .post, path:"/\(flightId)/end")
 	}
 
 	func delete(_ flight: AirMapFlight) -> Observable<Void> {
 		AirMap.logger.debug("Delete flight", flight)
-		return perform(method: .post, path:"/\(flight.flightId!)/delete")
+		guard let flightId = flight.id else {
+			AirMap.logger.error(self, FlightClientError.FlightDoesNotExist)
+			return .error(FlightClientError.FlightDoesNotExist)
+		}
+		return perform(method: .post, path:"/\(flightId)/delete")
 	}
+	
+	func getFlightPlanByFlightId(_ id: AirMapFlightId) -> Observable<AirMapFlightPlan> {
+		AirMap.logger.debug("Get FlightPlan for Flight id", id)
+		return perform(method: .get, path:"/\(id)/plan")
+	}
+	
 }

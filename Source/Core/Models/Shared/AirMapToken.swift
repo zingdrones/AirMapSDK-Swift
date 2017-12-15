@@ -6,17 +6,9 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
+import Foundation
 
-open class AirMapToken {
+public struct AirMapToken {
 
-	open var authToken: String!
-	public required init?(map: Map) {}
-}
-
-extension AirMapToken: Mappable {
-
-	public func mapping(map: Map) {
-		authToken	<-  map["id_token"]
-	}
+	public var authToken: String
 }

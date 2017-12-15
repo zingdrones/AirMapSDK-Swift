@@ -1,0 +1,444 @@
+/* Label for advisories that are stup to receive digital notice */
+"ADVISORY_ACCEPTS_DIGITAL_NOTICE" = "デジタル通知を受付可";
+
+/* Displayed when an advisory has not provided a contact phone */
+"ADVISORY_PHONE_NOT_PROVIDED" = "電話番号なし";
+
+/* Label and format for displaying the end time of temporary flight restriction */
+"ADVISORY_TFR_ENDS_FORMAT" = "終了: %1$@";
+
+/* Never ending duration for a TFR */
+"ADVISORY_TFR_PERMANENT" = "永久";
+
+/* Label and format for displaying the start time of temporary flight restriction */
+"ADVISORY_TFR_STARTS_FORMAT" = "開始: %1$@";
+
+/* Format and unit for wildfire advisory in the area unit acres */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_ACRES" = "%1$@ エーカー";
+
+/* Format and unit for wildfire advisory in the area unit hectares */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES" = "%1$@ ヘクタール";
+
+/* Label for wildfire advisory cells where size is unknown */
+"ADVISORY_WILDFIRE_SIZE_UNKNOWN" = "サイズ不明";
+
+/* Call to action when a user has not selected an aircraft */
+"AIRCRAFT_SELECT_AIRCRAFT" = "ドローンを選択";
+
+/* Title to display for the view creating a new aircraft */
+"AIRCRAFT_TITLE_CREATE_NEW" = "新しいドローンを登録";
+
+/* Title to display for the view when updating an existing aircraft */
+"AIRCRAFT_TITLE_UPDATE_EXISTING" = "登録済みのドローンを更新";
+
+/* Name for airspace type Aerial Recreational Area */
+"AIRSPACE_TYPE_AERIAL_REC_AREA" = "ホビー向けエリア";
+
+/* Name for airspace type Airport */
+"AIRSPACE_TYPE_AIRPORT" = "空港";
+
+/* Name for airspace type AMA Field (Academy of Model Aeronautics) */
+"AIRSPACE_TYPE_AMA_FIELD" = "AMAフィールド";
+
+/* Name for airspace type City */
+"AIRSPACE_TYPE_CITY" = "市区町村";
+
+/* Name for airspace type Controlled Airspace */
+"AIRSPACE_TYPE_CONTROLLED" = "管理空域";
+
+/* Name for airspace type Country */
+"AIRSPACE_TYPE_COUNTRY" = "国";
+
+/* Name for airspace type County */
+"AIRSPACE_TYPE_COUNTY" = "国";
+
+/* Name for airspace type Custom */
+"AIRSPACE_TYPE_CUSTOM" = "カスタム";
+
+/* Name for airspace type Embassy */
+"AIRSPACE_TYPE_EMBASSY" = "大使館";
+
+/* Name for airspace type Emergency */
+"AIRSPACE_TYPE_EMERGENCY" = "緊急";
+
+/* Name for airspace type Federal Building */
+"AIRSPACE_TYPE_FEDERAL_BUILDING" = "庁舎";
+
+/* Name for airspace type Flight Information Region */
+"AIRSPACE_TYPE_FIR" = "飛行情報区";
+
+/* Name for airspace type Fire */
+"AIRSPACE_TYPE_FIRE" = "火災";
+
+/* Name for airspace type Gliderport */
+"AIRSPACE_TYPE_GLIDERPORT" = "グライダーポート";
+
+/* Name for airspace type Hazard Area */
+"AIRSPACE_TYPE_HAZARD_AREA" = "危険区域";
+
+/* Name for airspace type Heliport */
+"AIRSPACE_TYPE_HELIPORT" = "ヘリポート";
+
+/* Name for airspace type Highway */
+"AIRSPACE_TYPE_HIGHWAY" = "高速道路";
+
+/* Name for airspace type Hospital */
+"AIRSPACE_TYPE_HOSPITAL" = "病院";
+
+/* Name for airspace type Industrial Property */
+"AIRSPACE_TYPE_INDUSTRIAL_PROPERTY" = "産業用地";
+
+/* Name for airspace type Japan Base Admin (Smallest unit of Japanse administrative units) */
+"AIRSPACE_TYPE_JAPAN_BASE" = "日本基地";
+
+/* Name for airspace type Military Property */
+"AIRSPACE_TYPE_MILITARY_PROPERTY" = "軍用地";
+
+/* Name for airspace type National Park */
+"AIRSPACE_TYPE_NATIONAL_PARK" = "国立公園";
+
+/* Name for airspace type NOTAM */
+"AIRSPACE_TYPE_NOTAM" = "NOTAM";
+
+/* Name for airspace type Police Station */
+"AIRSPACE_TYPE_POLICE_STATION" = "交番";
+
+/* Name for airspace type Powerline */
+"AIRSPACE_TYPE_POWERLINE" = "送電線";
+
+/* Name for airspace type Power Plant */
+"AIRSPACE_TYPE_POWER_PLANT" = "発電所";
+
+/* Name for airspace type Prison */
+"AIRSPACE_TYPE_PRISON" = "刑務所";
+
+/* Name for airspace type Railway */
+"AIRSPACE_TYPE_RAILWAY" = "線路";
+
+/* Name for airspace type Residential Property */
+"AIRSPACE_TYPE_RESIDENTIAL_PROPERTY" = "住宅地";
+
+/* Name for airspace type School */
+"AIRSPACE_TYPE_SCHOOL" = "学校";
+
+/* Name for airspace type Seaplane Base */
+"AIRSPACE_TYPE_SEAPLANE_BASE" = "水上飛行場";
+
+/* Name for airspace type Special Use Airspace */
+"AIRSPACE_TYPE_SPECIAL_USE" = "特殊利用空域";
+
+/* Name for airspace type Stadium */
+"AIRSPACE_TYPE_STADIUM" = "スタジアム";
+
+/* Name for airspace type State */
+"AIRSPACE_TYPE_STATE" = "都道府県";
+
+/* Name for airspace type Subprefecture */
+"AIRSPACE_TYPE_SUBPREFECTURE" = "支庁";
+
+/* Name for airspace type Supercity (Japan related) */
+"AIRSPACE_TYPE_SUPERCITY" = "大都市圏";
+
+/* Name for airspace type FAA Temporary Flight Restriction */
+"AIRSPACE_TYPE_TFR_FAA" = "一時的な飛行制限";
+
+/* Name for airspace type Ultralight Field */
+"AIRSPACE_TYPE_ULM_FIELD" = "ULMフィールド";
+
+/* Generic catchall placeholder/name for airspace type is new and unknown at time of development but present via the advisories or map sources */
+"AIRSPACE_TYPE_UNCLASSIFIED" = "未分類";
+
+/* Name for airspace type University */
+"AIRSPACE_TYPE_UNIVERSITY" = "大学";
+
+/* Name for airspace type Waterway */
+"AIRSPACE_TYPE_WATERWAY" = "水路";
+
+/* Name for airspace type WildFire */
+"AIRSPACE_TYPE_WILDFIRE" = "山火事";
+
+/* The request with the authority has been accepted */
+"AUTHORIZATION_ACCEPTED" = "承認済み";
+
+/* The request with the authority has been cancelled */
+"AUTHORIZATION_CANCELLED_SUBMISSION" = "キャンセル";
+
+/* The request with the authority has not been requested */
+"AUTHORIZATION_NOT_REQUESTED" = "承認不要";
+
+/* The request with the authority has been made and a response is pending */
+"AUTHORIZATION_PENDING" = "承認待ち";
+
+/* The request with the authority has been rejected */
+"AUTHORIZATION_REJECTED" = "却下";
+
+/* The request with the authority will be rejected once the flight plan is submitted */
+"AUTHORIZATION_REJECTED_UPON_SUBMISSION" = "申請時に却下";
+
+/* The request with the authority will be accepted once the flight plan is submitted */
+"AUTHORIZATION_UPON_SUBMISSION" = "申請時に承認が必要";
+
+/* Login message when a user's account has been blacklisted. */
+"AUTH_ERROR_ACCOUNT_BLACKLISTED" = "あなたのアカウントはブラックリストに入りました。security@airmap.comまでご連絡ください。";
+
+/* Login message when a user must verify their email address */
+"AUTH_ERROR_EMAIL_NEEDS_VERIFICATION_REQUIRED" = "メールアドレスを確認する必要があります。メールボックスをご確認ください。";
+
+/* Login message when a user failed to authenticate */
+"AUTH_ERROR_UNAUTHORIZED" = "未許可";
+
+/* Navigation title for failed login attempt */
+"AUTH_FAILED_LOGIN_TITLE" = "アラート";
+
+/* Abbreviation for East */
+"CARDINAL_DIRECTION_E" = "東";
+
+/* Abbreviation for East North East */
+"CARDINAL_DIRECTION_ENE" = "東北東";
+
+/* Abbreviation for East South East */
+"CARDINAL_DIRECTION_ESE" = "東南東";
+
+/* Abbreviation for North */
+"CARDINAL_DIRECTION_N" = "北";
+
+/* Abbreviation for North East */
+"CARDINAL_DIRECTION_NE" = "北東";
+
+/* Abbreviation for North North East */
+"CARDINAL_DIRECTION_NNNE" = "北北東";
+
+/* Abbreviation for North North West */
+"CARDINAL_DIRECTION_NNW" = "北北西";
+
+/* Abbreviation for North West */
+"CARDINAL_DIRECTION_NW" = "北西";
+
+/* Abbreviation for South */
+"CARDINAL_DIRECTION_S" = "南";
+
+/* Abbreviation for South East */
+"CARDINAL_DIRECTION_SE" = "南東";
+
+/* Abbreviation for South South East */
+"CARDINAL_DIRECTION_SSE" = "南南東";
+
+/* Abbreviation for South South West */
+"CARDINAL_DIRECTION_SSW" = "南南西";
+
+/* Abbreviation for South West */
+"CARDINAL_DIRECTION_SW" = "南西";
+
+/* Abbreviation for West */
+"CARDINAL_DIRECTION_W" = "西";
+
+/* Abbreviation for West North West */
+"CARDINAL_DIRECTION_WNW" = "西北西";
+
+/* Abbreviation for West South West */
+"CARDINAL_DIRECTION_WSW" = "西南西";
+
+/* A generic server error message with an associated error code */
+"ERROR_GENERIC_FORMAT" = "サーバーエラーが発生しました。(%@)";
+
+/* Response serialization failure error */
+"ERROR_SERIALIZATION" = "サーバーが処理できませんでした";
+
+/* Server failure error */
+"ERROR_SERVER" = "サーバーはリクエストを処理できませんでした";
+
+/* Authorization failure error */
+"ERROR_UNAUTHORIZED" = "承認されませんでした。ログイン情報をご確認ください。";
+
+/* The radius around a point-based flight's center */
+"FLIGHT_DRAWING_RADIUS" = "半径";
+
+/* Call to action to fine-tune the geometry of a flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_MODIFY_GEOMETRY" = "ポイントをドラッグして移動してください。新しいポイントを追加するには、ポイントとポイントの間をドラッグしてください。";
+
+/* Call to action to drag a point to the trash to delete. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_TRASH_TO_DELETE" = "削除するにはポイントをゴミ箱へドラッグしてください";
+
+/* Call to action to draw an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_AREA" = "フリーハンドでエリアを描く";
+
+/* Call to action to draw a path-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_PATH" = "フリーハンドで経路を描く";
+
+/* Call to action to drag the center position of a point-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_POSTIION_POINT" = "中心点ドラッグして飛行エリアを設定してください。";
+
+/* Call to action to tap the icon to begin drawing a flight area. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA" = "手のアイコンをタップすると、エリアをフリーハンドで描くことができます。";
+
+/* Call to action to tap the icon to begin drawing a flight path. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH" = "手のアイコンをタップすると、経路をフリーハンドで描くことができます。";
+
+/* Call to action to fix self-intersecting geometries of an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_SELF_INTERSECTING_GEOMETRY" = "無効な飛行エリアです。重複のないよう飛行エリアを調節してください。";
+
+/* The width of a path-based flight extending outward from the centerline */
+"FLIGHT_DRAWING_WIDTH" = "幅";
+
+/* Title for the button to advance to the next screen */
+"FLIGHT_PLAN_BUTTON_TITLE_NEXT" = "次へ";
+
+/* Title for the button to save and create the flight */
+"FLIGHT_PLAN_BUTTON_TITLE_SAVE" = "保存";
+
+/* Call to action title for the user to select an aircraft */
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT" = "ドローンを選択";
+
+/* Title for the row displaying the name of the aircraft */
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT_NAME" = "ドローン";
+
+/* Title for the row displaying flight plan buffer */
+"FLIGHT_PLAN_ROW_TITLE_BUFFER" = "半径";
+
+/* Title for the row displaying flight plan duration */
+"FLIGHT_PLAN_ROW_TITLE_DURATION" = "飛行時間";
+
+/* Title for the row displaying flight plan max altitude AGL (above ground level) */
+"FLIGHT_PLAN_ROW_TITLE_MAX_ALTITUDE" = "高度";
+
+/* Call to action title for the user to select a pilot profile */
+"FLIGHT_PLAN_ROW_TITLE_PILOT" = "パイロットのプロフィールを選択";
+
+/* Title for the row displaying flight plan radius */
+"FLIGHT_PLAN_ROW_TITLE_RADIUS" = "半径";
+
+/* Title for the row displaying flight plan start time */
+"FLIGHT_PLAN_ROW_TITLE_START_TIME" = "開始";
+
+/* Title for the section displaying the pilot and aircraft details */
+"FLIGHT_PLAN_SECTION_HEADER_ASSOCIATED" = "パイロットとドローン";
+
+/* Title for the section displaying flight plan details */
+"FLIGHT_PLAN_SECTION_HEADER_FLIGHT" = "フライト情報";
+
+/* Title for the section displaying social sharing features */
+"FLIGHT_PLAN_SECTION_HEADER_SHARE" = "フライトを共有";
+
+/* The request with the authority will be reviewed manually sometime after the flight plan is submitted */
+"MANUAL_AUTHORIZATION" = "申請後、承認をお待ちください。";
+
+/* Table section title for other selectable countries */
+"PHONE_COUNTRY_SECTION_OTHER_COUNTRY" = "その他";
+
+/* Table section title for the currently selected country */
+"PHONE_COUNTRY_SECTION_SELECTED_COUNTRY" = "選択された国";
+
+/* Message that is presented after a phone verification has failed, encouraging the user to send a new code to the phone number provided */
+"PHONE_VERIFICATION_REQUEST_NEW_SMS_CODE" = "新しい確認コードを送信します";
+
+/* Message that is presented after a phone verification has failed, encouraging the user to try again */
+"PHONE_VERIFICATION_TRY_AGAIN" = "もう一度試してください";
+
+/* Message presented to a user when the SMS code they input is incorrect and verification of that code has failed */
+"PHONE_VERIFICATION_VERIFICATION_FAILED" = "電話番号確認に失敗しました";
+
+/* Table row label for FAA registration number */
+"PILOT_PROFILE_FAA_REGISTRATION" = "連邦航空局登録番号";
+
+/* Label for the pilot profile email */
+"PILOT_PROFILE_LABEL_EMAIL" = "Eメール";
+
+/* Label for the pilot profile first name */
+"PILOT_PROFILE_LABEL_FIRST_NAME" = "名";
+
+/* Label for the pilot profile last name */
+"PILOT_PROFILE_LABEL_LAST_NAME" = "姓";
+
+/* Label for the pilot profile phone */
+"PILOT_PROFILE_LABEL_PHONE" = "電話";
+
+/* Label for the pilot profile username */
+"PILOT_PROFILE_LABEL_USERNAME" = "ユーザー名";
+
+/* Section header for the pilot profile additional info section */
+"PILOT_PROFILE_SECTION_ADDITIONAL" = "追加情報";
+
+/* Section header for the pilot profile personal info section */
+"PILOT_PROFILE_SECTION_PERSONAL" = "個人情報";
+
+/* Format for displaying a user's number of aircraft and flights */
+"PILOT_PROFILE_STATISTICS_FORMAT" = "機体数 %1$@、フライト回数 %2$@";
+
+/* Displayed for authorities that are setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_ACCEPTS_NOTICE" = "デジタル通知を受付可";
+
+/* Displayed for authorities that are NOT setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_DOES_NOT_ACCEPT_NOTICE" = "このエリアでは以下の機関がデジタル通知を受け付けていません";
+
+/* Displayed in the flight plan review notices tab when there are no notices to display */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "このフライトには通知がありません";
+
+/* Label for rulesets that can be optionally enabled by the user */
+"RULESET_SELECTION_TYPE_OPTIONAL" = "任意";
+
+/* Label for rulesets that are part of a group in which one and only one ruleset can be enabled by the user */
+"RULESET_SELECTION_TYPE_PICKONE" = "ひとつ選択";
+
+/* Label for rulesets that must be enabled by the user */
+"RULESET_SELECTION_TYPE_REQUIRED" = "必須";
+
+/* Description for status advisory color Green */
+"STATUS_GREEN_DESCRIPTION" = "エリア情報";
+
+/* Description for status advisory color Orange */
+"STATUS_ORANGE_DESCRIPTION" = "申請や承認などが必要";
+
+/* Description for status advisory color Red */
+"STATUS_RED_DESCRIPTION" = "飛行規制あり";
+
+/* Description for status advisory color Yellow */
+"STATUS_YELLOW_DESCRIPTION" = "周辺情報";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "トラフィック %1$@\n高度 %2$@\n%3$@ %4$@ %5$@";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "トラフィック %1$@\n高度 %2$@\n%3$@";
+
+/* Name for the imperial system of measurement */
+"UNITS_IMPERIAL" = "マイル法";
+
+/* Name for the metric system of measurement */
+"UNITS_METRIC" = "メートル法";
+
+/* Unit and format for displaying nautical miles */
+"UNITS_NAUTICAL_MILE_FORMAT" = "%@ 海里";
+
+/* Unit and format for displaying speed in knots */
+"UNITS_SPEED_FORMAT_KNOTS" = "%@ ノット";
+
+/* Unit and format for displaying speed in meters per second */
+"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "%@ m/s";
+
+/* Unit and format for displaying speed in miles per hour */
+"UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "%@ mph";
+
+/* Unit and format for displaying a speed range in meters per second */
+"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "%1$@-%2$@ m/s";
+
+/* Unit and format for displaying a speed range in miles per hour */
+"UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "%1$@-%2$@ mph";
+
+/* Unit and format for displaying temperature in Celcius */
+"UNITS_TEMPERATURE_CELCIUS_FORMAT" = "%1$@ °C";
+
+/* Unit and format for displaying temperature in Fahrenheit */
+"UNITS_TEMPERATURE_FAHRENHEIT_FORMAT" = "%1$@ °F";
+
+/* The request with the authority has been accepted */
+"VALIDATION_ACCEPTED" = "確認済み";
+
+/* No validation request has been filed */
+"VALIDATION_NOT_REQUESTED" = "確認未送信";
+
+/* The request with the authority has been made and a response is pending */
+"VALIDATION_PENDING" = "確認保留中";
+
+/* The request with the authority has been rejected */
+"VALIDATION_REJECTED" = "却下";
+

@@ -11,20 +11,18 @@ import RxSwift
 import CocoaAsyncSocket
 #endif
 
-typealias AirMap_Internal = AirMap
-extension AirMap_Internal {
+extension AirMap {
 
+	internal static let advisoryClient = AdvisoryClient()
 	internal static let aircraftClient = AircraftClient()
 	internal static let airspaceClient = AirspaceClient()
 	internal static let auth0Client = Auth0Client()
     internal static let authClient = AuthClient()
 	internal static let flightClient = FlightClient()
-	internal static let permitClient = PermitClient()
+	internal static let flightPlanClient = FlightPlanClient()
 	internal static let pilotClient = PilotClient()
-	internal static let rulesClient = RulesClient()
-	internal static let statusClient = StatusClient()
-	
-	internal static let mappingService = MappingService()
+	internal static let ruleClient = RuleClient()
+
 	internal static let authSession = AirMapAuthSession()
 
 	#if AIRMAP_TELEMETRY
@@ -33,7 +31,7 @@ extension AirMap_Internal {
 	#endif
 
 	#if AIRMAP_TRAFFIC
-	internal static let trafficService  = TrafficService()
+	internal static let trafficService = TrafficService()
 	#endif
 
 	internal static let disposeBag = DisposeBag()

@@ -6,9 +6,8 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-
 func convertDegreesToNearestCompassRose(_ degree: Int) -> Int {
-	
+
 	if degree > 0 && degree <= 45 {
 		return 45
 	}

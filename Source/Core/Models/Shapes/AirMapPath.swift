@@ -6,33 +6,25 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
+import Foundation
 
-public class AirMapPath: AirMapGeometry, Mappable {
+public class AirMapPath: AirMapGeometry {
 
 	public var coordinates: [Coordinate2D]!
 	
-	public var type: AirMapFlight.FlightGeometryType {
+	public var type: AirMapFlightGeometryType {
 		return .path
 	}
 	
-	init(coordinates: [Coordinate2D]) {
+	public init(coordinates: [Coordinate2D]) {
 		self.coordinates = coordinates
 	}
 
-	required public init?(map: Map) {}
-
 	public func params() -> [String: Any] {
-
+		
 		return [
 			"type": "LineString",
 			"coordinates": coordinates?.map({ [$0.longitude, $0.latitude] }) as Any
 		]
 	}
-	
-	public func mapping(map: Map) {
-		
-		coordinates	<-  map["coordinates"]
-	}
-
 }

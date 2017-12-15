@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class AirMapAircraftManufacturerViewController: UITableViewController, AnalyticsTrackable {
 	
@@ -23,7 +24,7 @@ class AirMapAircraftManufacturerViewController: UITableViewController, Analytics
 		AirMap
 			.rx.listManufacturers()
 			.map { $0.sorted {$0.name < $1.name } }
-			.bindTo(tableView.rx.items(cellIdentifier: "Cell")) { index, manufacturer, cell in
+			.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { index, manufacturer, cell in
 				cell.textLabel?.text = manufacturer.name
 			}
 			.disposed(by: disposeBag)

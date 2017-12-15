@@ -10,7 +10,7 @@ import ObjectMapper
 
 open class AirMapPilot {
 
-	open var pilotId: String!
+	open var id: AirMapPilotId!
 	open var email: String!
 	open var firstName: String?
 	open var lastName: String?
@@ -39,7 +39,7 @@ open class AirMapPilot {
 extension AirMapPilot: Mappable {
 	
 	public func mapping(map: Map) {
-		pilotId        <-  map["id"]
+		id             <-  map["id"]
 		email          <-  map["email"]
 		firstName      <-  map["first_name"]
 		lastName       <-  map["last_name"]

@@ -6,39 +6,26 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import ObjectMapper
 
-open class AirMapAircraft: Hashable, Equatable {
+final public class AirMapAircraft: ImmutableMappable {
 	
-	open var aircraftId: String!
-	open var nickname: String!
-	open var model: AirMapAircraftModel!
+	public var nickname: String?
+	public private(set) var model: AirMapAircraftModel
+	public private(set) var id: AirMapAircraftId?
 	
-	public required init?(map: Map) {}
-	public init() { }
-	
-	public var hashValue: Int {
-		return aircraftId.hashValue
+	public init(model: AirMapAircraftModel, nickname: String) {
+		self.model = model
+		self.nickname = nickname
+		self.id = nil
 	}
-}
+	
+	// MARK: - JSON Serialization
 
-extension AirMapAircraft: Mappable {
-	
-	public func mapping(map: Map) {
-		aircraftId  <-  map["id"]
-		nickname    <-  map["nickname"]
-		model       <-  map["model"]
+	public init(map: Map) throws {
+		nickname  =  try? map.value("nickname")
+		model     =  try  map.value("model")
+		id        =  try? map.value("id")
 	}
-	
-	internal func params() -> [String: Any] {
-		
-		return [
-			"model_id": model?.modelId as Any,
-			"nickname": nickname
-		]
-	}
-}
-
-public func ==(lhs: AirMapAircraft, rhs: AirMapAircraft) -> Bool {
-	return lhs.aircraftId == rhs.aircraftId
 }

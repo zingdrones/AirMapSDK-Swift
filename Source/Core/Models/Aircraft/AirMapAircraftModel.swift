@@ -6,26 +6,12 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
+import Foundation
 
-public class AirMapAircraftModel {
-
-	open var modelId: String!
-	open var name: String!
-	open var manufacturer: AirMapAircraftManufacturer!
-	open var metadata = [String : AnyObject]()
+public struct AirMapAircraftModel {
 	
-	public required init?(map: Map) {}
-	
-	internal init() {}
-}
-
-extension AirMapAircraftModel: Mappable {
-
-	public func mapping(map: Map) {
-		modelId       <-  map["id"]
-		name          <-  map["name"]
-		manufacturer  <-  map["manufacturer"]
-		metadata      <-  map["metadata"]
-	}
+	public let id: AirMapAircraftModelId
+	public let name: String
+	public let manufacturer: AirMapAircraftManufacturer
+	public let metadata: [String: AnyObject]?
 }

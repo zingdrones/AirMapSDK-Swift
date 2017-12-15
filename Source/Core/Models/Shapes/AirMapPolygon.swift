@@ -6,33 +6,38 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
-
-internal class AirMapPolygon: AirMapGeometry, Mappable {
-
+import Foundation
+public class AirMapPolygon: AirMapGeometry {
+	
 	public var coordinates: [[Coordinate2D]]!
-		
-	public var type: AirMapFlight.FlightGeometryType {
+	
+	public var type: AirMapFlightGeometryType {
 		return .polygon
 	}
 	
-	internal init(coordinates: [[Coordinate2D]]) {
+	public init(coordinates: [[Coordinate2D]]) {
 		self.coordinates = coordinates
 	}
-
-	required public init?(map: Map) {}
-
+	
 	public func params() -> [String: Any] {
 		
 		var params = [String: Any]()
 		
 		if (coordinates?.count ?? 0) >= 1 {
+			
+			let coordinates = self.coordinates.map { (coordinates) -> [Coordinate2D] in
+				coordinates.reduce([Coordinate2D]()) { (result, next) -> [Coordinate2D] in
+					var result = result
+					if result.last != next {
+						result.append(next)
+					}
+					return result
+				}
+			}
+			
 			params["type"] = "Polygon"
 			params["coordinates"] = coordinates
 				.map { coordinates in
-					var coordinates = coordinates
-					// Connect the last point to the first
-					coordinates.append(coordinates.first!)
 					return coordinates.map { coordinate in
 						[coordinate.longitude, coordinate.latitude]
 					}
@@ -41,16 +46,5 @@ internal class AirMapPolygon: AirMapGeometry, Mappable {
 		
 		return params
 	}
-
-	open func mapping(map: Map) {
-		var coords: [[[Double]]] = []
-		coords      <-  map["coordinates"]
-		coordinates = coords
-			.map { polygon in
-				polygon
-					.map { ($0[1], $0[0]) }
-					.map(Coordinate2D.init)
-			}
-	}
-	
 }
+

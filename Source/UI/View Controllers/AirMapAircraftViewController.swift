@@ -9,23 +9,23 @@
 import RxSwift
 import RxCocoa
 
-class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
+public class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 	
-	var screenName = "List Aircraft"
+	public var screenName = "List Aircraft"
 	
-	let selectedAircraft = Variable(nil as AirMapAircraft?)
+	public let selectedAircraft = Variable(nil as AirMapAircraft?)
 	
-	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let activityIndicator = ActivityTracker()
 	fileprivate let aircraft = Variable([AirMapAircraft]())
 	fileprivate let disposeBag = DisposeBag()
 	
-	override func viewDidLoad() {
+	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		setupBindings()
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
+	public override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		trackView()
@@ -33,7 +33,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 		AirMap
 			.rx.listAircraft()
 			.trackActivity(activityIndicator)
-			.bindTo(aircraft)
+			.bind(to: aircraft)
 			.disposed(by: disposeBag)
 	}
 	
@@ -48,7 +48,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 		
 		aircraft
 			.asObservable()
-			.bindTo(tableView.rx.items(cellIdentifier: "aircraftCell")) {
+			.bind(to: tableView.rx.items(cellIdentifier: "aircraftCell")) {
 				(index, aircraft, cell) in
 				cell.textLabel?.text = aircraft.nickname
 				cell.detailTextLabel?.text = [aircraft.model.manufacturer.name, aircraft.model.name]
@@ -61,7 +61,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 				self?.dismiss(animated: true, completion: nil)
 			})
 			.asOptional()
-			.bindTo(selectedAircraft)
+			.bind(to: selectedAircraft)
 			.disposed(by: disposeBag)
 		
 		tableView
@@ -73,28 +73,26 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 			.map(tableView.rx.model)
 			.flatMap { aircraft in
 				AirMap.rx.deleteAircraft(aircraft)
-					.do(
-						onError: { [unowned self] error in
-							self.trackEvent(.delete, label: "Error", value: (error as NSError).code as NSNumber?)
-						},
-						onCompleted: { [unowned self] _ in
-							self.trackEvent(.delete, label: "Success")
+					.do(onError: { [unowned self] error throws in
+						self.trackEvent(.delete, label: "Error", value: (error as NSError).code as NSNumber?)
+					}, onCompleted: { [unowned self] () throws in
+						self.trackEvent(.delete, label: "Success")
 					})
 			}
 			.flatMap(AirMap.rx.listAircraft)
 			.do(onError: { AirMap.logger.error($0) })
 			.ignoreErrors()
-			.bindTo(aircraft)
+			.bind(to: aircraft)
 			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
-			.bindTo(rx_loading)
+			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard let identifier = segue.identifier else { return }
 		
 		switch identifier {
@@ -124,7 +122,7 @@ class AirMapAircraftViewController: UITableViewController, AnalyticsTrackable {
 
 extension AirMapAircraftViewController: AirMapAircraftNavControllerDelegate {
 	
-	func aircraftNavController(_ navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
+	public func aircraftNavController(_ navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
 		selectedAircraft.value = aircraft
 		navigationController?.dismiss(animated: true, completion: nil)
 	}

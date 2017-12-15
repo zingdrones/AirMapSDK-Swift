@@ -34,10 +34,10 @@ internal class TrafficService: MQTTSessionDelegate {
 	}
 
 	fileprivate var activeTraffic = [AirMapTraffic]()
-	fileprivate var expirationInterval = Config.AirMapTraffic.expirationInterval
+	fileprivate var expirationInterval = Constants.AirMapTraffic.expirationInterval
 	fileprivate var client = TrafficClient()
-	fileprivate var connectionState  = Variable(ConnectionState.disconnected)
-	fileprivate var currentFlight    = Variable(nil as AirMapFlight?)
+	fileprivate var connectionState = Variable(ConnectionState.disconnected)
+	fileprivate var currentFlight = Variable(nil as AirMapFlight?)
 
 	fileprivate let disposeBag = DisposeBag()
 
@@ -57,11 +57,11 @@ internal class TrafficService: MQTTSessionDelegate {
 		let state = connectionState.asObservable()
 
 		let flight = currentFlight.asObservable()
-			.distinctUntilChanged { flight in flight?.flightId ?? "" }
+			.distinctUntilChanged { flight in flight?.id ?? "" }
 
 		let flightState = Observable.combineLatest(flight, state) { ($0, $1) }
 
-		let whenConnected    = flightState.filter { $1 == .connected }
+		let whenConnected = flightState.filter { $1 == .connected }
 		let whenDisconnected = flightState.filter { $1 == .disconnected }
 
 		func printError(_ error: Error) {
@@ -76,7 +76,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			.filter {[unowned self] _ in AirMap.hasValidCredentials() && self.delegate != nil}
 			.flatMap(unowned(self, TrafficService.connectWithFlight))
 			.catchError({ _ in return Observable.just( .disconnected) })
-			.bindTo(connectionState)
+			.bind(to: connectionState)
 			.disposed(by: disposeBag)
 
 		whenConnected
@@ -111,7 +111,7 @@ internal class TrafficService: MQTTSessionDelegate {
 		refreshCurrentFlight
 			.skipWhile({[unowned self] _ in !AirMap.hasValidCredentials() || self.delegate == nil})
 			.flatMap(AirMap.rx.getCurrentAuthenticatedPilotFlight)
-			.bindTo(currentFlight)
+			.bind(to: currentFlight)
 			.disposed(by: disposeBag)
 
 		let trafficProjectionTimer = Observable<Int>.interval(0.25, scheduler: MainScheduler.asyncInstance).mapToVoid()
@@ -135,7 +135,7 @@ internal class TrafficService: MQTTSessionDelegate {
 				disconnect()
 			}
 
-			AirMap.rx.getCurrentAuthenticatedPilotFlight().bindTo(currentFlight).disposed(by: disposeBag)
+			AirMap.rx.getCurrentAuthenticatedPilotFlight().bind(to: currentFlight).disposed(by: disposeBag)
 		}
 	}
 
@@ -159,7 +159,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 			observer.onNext(.connecting)
 
-			self.client.username = flight.flightId
+			self.client.username = flight.id?.rawValue
 			self.client.password = AirMap.authSession.authToken
 
 			self.client.connect { succeeded, error in
@@ -178,8 +178,8 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	func subscribeToTraffic(_ flight: AirMapFlight) -> Observable<Void> {
 		
-		let sa    = self.subscribe(flight, to: Config.AirMapTraffic.trafficSituationalAwarenessChannel + flight.flightId!)
-		let alert = self.subscribe(flight, to: Config.AirMapTraffic.trafficAlertChannel + flight.flightId!)
+		let sa    = self.subscribe(flight, to: Constants.AirMapTraffic.trafficSituationalAwarenessChannel + flight.id!.rawValue)
+		let alert = self.subscribe(flight, to: Constants.AirMapTraffic.trafficAlertChannel + flight.id!.rawValue)
 
 		return unsubscribeFromAllChannels().concat(sa).concat(alert)
 	}
@@ -279,7 +279,7 @@ internal class TrafficService: MQTTSessionDelegate {
 				let trafficLocation = CLLocation(latitude: currentFlight.coordinate.latitude, longitude: currentFlight.coordinate.longitude)
 				let distance = trafficLocation.distance(from: addedLocation)
 
-				//FIXME: This is temporary
+				// FIXME: This is temporary
 				if distance > 3000 {
 					existing.trafficType = .situationalAwareness
 				}
@@ -350,7 +350,7 @@ internal class TrafficService: MQTTSessionDelegate {
 	}
 
 	fileprivate func isExpired(_ traffic: AirMapTraffic) -> Bool {
-		return traffic.createdAt.addingTimeInterval(expirationInterval).lessThanDate(Date())
+		return traffic.createdAt.addingTimeInterval(expirationInterval) < Date()
 	}
 
 	fileprivate func hasAircractIdMatching(_ aircraftId: String) -> (AirMapTraffic) -> Bool {
@@ -392,7 +392,7 @@ internal class TrafficService: MQTTSessionDelegate {
 	*/
 	fileprivate func trafficTypeForTopic(_ topic: String) -> AirMapTraffic.TrafficType {
 
-		if topic.hasPrefix(Config.AirMapTraffic.trafficAlertChannel) {
+		if topic.hasPrefix(Constants.AirMapTraffic.trafficAlertChannel) {
 			return .alert
 		} else {
 			return .situationalAwareness

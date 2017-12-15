@@ -21,7 +21,7 @@ class TelemetryTests: TestCase {
 	let key: [UInt8] = "00001111222233334444555566667777".data(using: .utf8)!.bytes
 	
 	lazy var aes: AES = {
-		return try! AES(key: self.key, iv: self.iv, blockMode: .CBC)
+		return try! AES(key: self.key, blockMode: .CBC(iv: iv))
 	}()
 
 	let position: Airmap.Telemetry.Position = {
@@ -40,11 +40,11 @@ class TelemetryTests: TestCase {
 		var messageHandler: ((Data) -> Void)!
 		
 		func bind() {
-			try! bind(toPort: Config.AirMapTelemetry.port, interface: "loopback")
+			try! bind(toPort: Constants.AirMapTelemetry.port, interface: "loopback")
 			try! beginReceiving()
 		}
 		
-		@objc func udpSocket(_ sock: GCDAsyncUdpSocket, didReceive data: Data, fromAddress address: Data, withFilterContext filterContext: Any?) {
+		func udpSocket(_ sock: GCDAsyncUdpSocket, didReceive data: Data, fromAddress address: Data, withFilterContext filterContext: Any?) {
 			messageHandler(data)
 		}
 	}
@@ -52,7 +52,7 @@ class TelemetryTests: TestCase {
 	class MockTelemetryClientSocket: AirMapTelemetry.Socket, GCDAsyncUdpSocketDelegate {
 		
 		override func sendData(_ data: Data) {
-			send(data, toHost: "loopback", port: Config.AirMapTelemetry.port, withTimeout: 10, tag: 0)
+			send(data, toHost: "loopback", port: Constants.AirMapTelemetry.port, withTimeout: 10, tag: 0)
 		}
 	}
 	
@@ -60,7 +60,7 @@ class TelemetryTests: TestCase {
 		
 		let serverSocket = MockTelemetryServerSocket()
 		serverSocket.setDelegate(serverSocket)
-		serverSocket.setDelegateQueue(AirMapTelemetry.serialQueue)
+		serverSocket.setDelegateQueue(AirMapTelemetry.Session.serialQueue)
 		serverSocket.bind()
 
 		let clientSocket = MockTelemetryClientSocket()
@@ -172,7 +172,7 @@ class TelemetryTests: TestCase {
 		
 		let serverSocket = MockTelemetryServerSocket()
 		serverSocket.setDelegate(serverSocket)
-		serverSocket.setDelegateQueue(AirMapTelemetry.serialQueue)
+		serverSocket.setDelegateQueue(AirMapTelemetry.Session.serialQueue)
 		serverSocket.bind()
 
 		let clientSocket = MockTelemetryClientSocket()

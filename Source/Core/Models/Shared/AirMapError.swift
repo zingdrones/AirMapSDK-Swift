@@ -9,18 +9,13 @@
 import Foundation
 import ObjectMapper
 
-public enum AirMapError: Error {
-	
+public enum AirMapError: Error {	
 	case network(Error)
-	
 	case unauthorized
 	case invalidRequest(Error)
-
 	case client(Error)
 	case server
-	
 	case serialization(AirMapSerializationError)
-	
 	case unknown(underlying: Error)
 }
 
@@ -46,8 +41,7 @@ extension AirMapError: RawRepresentable {
 			self = .unauthorized
 			
 		case 404:
-			let path = rawValue.request!.url!.path
-			let error = AirMapApiError(message: "Invalid URL: \(path)", code: code)
+			let error = AirMapApiError(message: "Not Found", code: code)
 			self = .client(error)
 			
 		case 422:
@@ -66,7 +60,7 @@ extension AirMapError: RawRepresentable {
 		}
 	}
 	
-	private static func error(from rawValue: RawValue) -> Error {
+	private static func error(from rawValue: RawValue) -> AirMapApiError {
 
 		if let json = try? JSONSerialization.jsonObject(with: rawValue.data, options: .allowFragments),
 			let error = Mapper<AirMapApiError>().map(JSONObject: json) {
@@ -103,8 +97,14 @@ extension AirMapError: CustomStringConvertible {
 	}
 }
 
-public enum AirMapSerializationError: Error {
+extension AirMapError: LocalizedError {
 	
+	public var errorDescription: String? {
+		return description
+	}
+}
+
+public enum AirMapSerializationError: Error {
 	case invalidData
 	case invalidJson
 	case invalidObject
@@ -139,6 +139,14 @@ public struct AirMapApiError: Mappable, LocalizedError {
 		if message == nil && messages.count == 0 {
 			message <- map["error_description"]
 		}
+	}
+	
+	public var description: String {
+		return localizedDescription
+	}
+	
+	public var errorDescription: String? {
+		return localizedDescription
 	}
 	
 	public var localizedDescription: String {

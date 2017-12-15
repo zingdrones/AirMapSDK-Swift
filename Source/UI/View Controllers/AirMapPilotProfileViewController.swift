@@ -9,7 +9,6 @@
 import RxSwift
 import RxCocoa
 import RxDataSources
-import libPhoneNumber_iOS
 
 open class AirMapPilotProfileField {
 	
@@ -47,21 +46,21 @@ class AirMapFormTextField: UITableViewCell {
 	@IBOutlet weak var label: UILabel!
 }
 
-class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackable {
+public class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackable {
 	
-	var screenName = "Pilot Profile"
+	public var screenName = "Pilot Profile"
 	
 	var customFields = [AirMapPilotProfileField]()
 
-	var pilot: Variable<AirMapPilot?>!
+	public var pilot: Variable<AirMapPilot?>!
 	
 	@IBOutlet weak var fullName: UILabel!
 	@IBOutlet weak var statisticsLabel: UILabel!
 	@IBOutlet var saveButton: UIButton!
 	
 	fileprivate typealias Model = SectionModel<String,AirMapPilotProfileField>
-	fileprivate let dataSource = RxTableViewSectionedReloadDataSource<Model>()
-	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate var dataSource: RxTableViewSectionedReloadDataSource<Model>!
+	fileprivate let activityIndicator = ActivityTracker()
 	fileprivate let disposeBag = DisposeBag()
 	
 	enum Section: Int {
@@ -69,36 +68,32 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		case customInfo
 	}
 	
-	override func viewDidLoad() {
+	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		tableView.dataSource = nil
 		tableView.delegate = nil
 		
-		let faaLabel = LocalizedStrings.PilotProfile.faaRegistrationLabel
-		let faaReg = AirMapPilotProfileField(label: faaLabel, key: "faa_registration_number")
-		customFields.append(faaReg)
-
-		setupBindings()
 		setupTableView()
+		setupBindings()
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
+	public override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		AirMap.rx.getAuthenticatedPilot().asOptional()
 			.trackActivity(activityIndicator)
-			.bindTo(pilot)
+			.bind(to: pilot)
 			.disposed(by: disposeBag)
 		
 		trackView()
 	}
 	
-	override var canBecomeFirstResponder : Bool {
+	public override var canBecomeFirstResponder : Bool {
 		return true
 	}
 	
-	override var inputAccessoryView: UIView? {
+	public override var inputAccessoryView: UIView? {
 		return saveButton
 	}
 	
@@ -149,8 +144,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 			.disposed(by: disposeBag)
 		
 		return [
-			Model(model: localized.sectionHeaderPersonal, items: pilotFields),
-			Model(model: localized.sectionHeaderAdditional, items: customFields)
+			Model(model: localized.sectionHeaderPersonal, items: pilotFields)
 		]
 	}
 	
@@ -158,65 +152,68 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		
 		tableView.estimatedRowHeight = 50
 		tableView.rowHeight = UITableViewAutomaticDimension
-
-		dataSource.configureCell = { [unowned self] dataSource, tableView, indexPath, field in
-			let cell: AirMapFormTextField
+		
+		dataSource = RxTableViewSectionedReloadDataSource<Model>(
 			
-			let cellIdentifier: String
-			switch field.type  {
-			case .text:
-				cellIdentifier = "TextCell"
-			case .email:
-				cellIdentifier = "EmailCell"
-			case .phoneNumber:
-				cellIdentifier = "PhoneCell"
+			configureCell: { [unowned self] dataSource, tableView, indexPath, field in
+				let cell: AirMapFormTextField
+				
+				let cellIdentifier: String
+				switch field.type  {
+				case .text:
+					cellIdentifier = "TextCell"
+				case .email:
+					cellIdentifier = "EmailCell"
+				case .phoneNumber:
+					cellIdentifier = "PhoneCell"
+				}
+				
+				cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! AirMapFormTextField
+				cell.label.text = field.label
+				
+				let pilot = self.pilot.value
+				
+				switch Section(rawValue: indexPath.section)! {
+					
+				case .pilotInfo:
+					
+					var value: String?
+					switch field.key {
+					case "firstName":
+						value = pilot?.firstName
+					case "lastName":
+						value = pilot?.lastName
+					case "username":
+						value = pilot?.username
+					case "email":
+						value = pilot?.email
+					case "phone":
+						value = pilot?.phone
+					default:
+						assertionFailure()
+					}
+					
+					if let value = value {
+						cell.textField.rx.text.onNext(value)
+					}
+					
+				case .customInfo:
+					if let value = pilot?.appMetadata()[field.key] as? String {
+						cell.textField.rx.text.onNext(value)
+					}
+				}
+				
+				cell.textField.rx.text
+					.bind(to: field.rx_value)
+					.disposed(by: self.disposeBag)
+				
+				return cell
+			},
+			
+			titleForHeaderInSection: { dataSource, index in
+				dataSource.sectionModels[index].model
 			}
-			
-			cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! AirMapFormTextField
-			cell.label.text = field.label
-
-			let pilot = self.pilot.value
-			
-			switch Section(rawValue: indexPath.section)! {
-				
-			case .pilotInfo:
-				
-				var value: String?
-				switch field.key {
-				case "firstName":
-					value = pilot?.firstName
-				case "lastName":
-					value = pilot?.lastName
-				case "username":
-					value = pilot?.username
-				case "email":
-					value = pilot?.email
-				case "phone":
-					value = pilot?.phone
-				default:
-					assertionFailure()
-				}
-
-				if let value = value {
-					cell.textField.rx.text.onNext(value)
-				}
-				
-			case .customInfo:
-				if let value = pilot?.appMetadata()[field.key] as? String {
-					cell.textField.rx.text.onNext(value)
-				}
-			}
-
-			cell.textField.rx.text
-				.bindTo(field.rx_value)
-				.disposed(by: self.disposeBag)
-			
-			return cell
-		}
-
-		dataSource.titleForHeaderInSection = { dataSource, index in
-			dataSource.sectionModels[index].model
-		}
+		)
 	}
 	
 	fileprivate func setupBindings() {
@@ -225,7 +222,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 			.unwrap()
 			.map(sectionModel)
 			.observeOn(MainScheduler.instance)
-			.bindTo(tableView.rx.items(dataSource: dataSource))
+			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: disposeBag)
 		
 		pilot.asObservable()
@@ -237,7 +234,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 		activityIndicator.asObservable()
 			.throttle(0.25, scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
-			.bindTo(rx_loading)
+			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
 	}
 	
@@ -256,11 +253,12 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 				self.dismiss(animated: true, completion: nil)
 				self.trackEvent(.save, label: "Success")
 			})
-			.subscribe()
+			.asOptional()
+			.bind(to: self.pilot)
 			.disposed(by: disposeBag)
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "modalUpdatePhoneNumber" {
 			let nav = segue.destination as! AirMapPhoneVerificationNavController
 			nav.phoneVerificationDelegate = self
@@ -274,8 +272,14 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 	}
 	
 	fileprivate func configureStats(_ pilot: AirMapPilot) {
+		guard let stats = pilot.statistics else { return }
 		let statsFormat = LocalizedStrings.PilotProfile.statisticsFormat
-		statisticsLabel.text = String(format: statsFormat, pilot.statistics.totalAircraft.description, pilot.statistics.totalFlights.description)
+		statisticsLabel.text = String(format: statsFormat, stats.totalAircraft.description, stats.totalFlights.description)
+	}
+	
+	@IBAction func dismiss() {
+		
+		dismiss(animated: true, completion: nil)
 	}
 	
 	@IBAction func unwindToPilotProfile(_ segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }
@@ -284,7 +288,7 @@ class AirMapPilotProfileViewController: UITableViewController, AnalyticsTrackabl
 
 extension AirMapPilotProfileViewController: AirMapPhoneVerificationDelegate {
 	
-	func phoneVerificationDidVerifyPhoneNumber() {
-		dismiss(animated: true, completion:nil)
+	public func phoneVerificationDidVerifyPhoneNumber(verifiedPhoneNumber:String?) {
+		dismiss(animated: true, completion: nil)
 	}
 }
