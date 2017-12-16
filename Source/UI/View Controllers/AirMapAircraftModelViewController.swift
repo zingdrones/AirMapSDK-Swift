@@ -23,9 +23,9 @@ class AirMapAircraftModelViewController: UITableViewController, AnalyticsTrackab
 		tableView.dataSource = nil
 		
 		AirMap
-			.rx.listModels()
-			.map { [unowned self] models in
-				models.filter { $0.manufacturer.id == self.manufacturer.id }.sorted {$0.name < $1.name }
+			.rx.listModels(by: manufacturer.id)
+			.map { models in
+				models.sorted { $0.name < $1.name }
 			}
 			.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { index, model, cell in
 				cell.textLabel?.text = model.name

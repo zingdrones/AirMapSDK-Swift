@@ -6,10 +6,11 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
+
 extension String {
 
 	var urlEncoded: String {
 		return addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? self
 	}
-
 }

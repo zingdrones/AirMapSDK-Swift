@@ -13,68 +13,17 @@ public enum DistanceUnits {
 	case imperial
 }
 
-class AirMapUnitFormatter {
-	
-	private static let distance = LengthFormatter()
-	private static let buffer = LengthFormatter()
-	private static let altitude = LengthFormatter()
-	
-	static func localizedDistance(from meters: Meters) -> String {
-		switch AirMap.configuration.distanceUnits {
-		case .metric:
-			if meters < 950 {
-				distance.numberFormatter.roundingIncrement = 100
-				return distance.string(fromValue: meters, unit: .meter)
-			} else {
-				distance.numberFormatter.roundingIncrement = 0
-				distance.numberFormatter.maximumFractionDigits = 1
-				return distance.string(fromValue: meters / 1000, unit: .kilometer)
-			}
-		case .imperial:
-			if meters.statuteMiles < 0.5 {
-				distance.numberFormatter.roundingIncrement = 0.1
-				return distance.string(fromValue: meters.statuteMiles, unit: .mile)
-			} else {
-				distance.numberFormatter.roundingIncrement = 0.25
-				return distance.string(fromValue: meters.statuteMiles, unit: .mile)
-			}
-		}
-	}
-	
-	static func localizedAltitude(from meters: Meters) -> String {
-		switch AirMap.configuration.distanceUnits {
-		case .metric:
-			distance.numberFormatter.roundingIncrement = 100
-			return distance.string(fromValue: meters, unit: .meter)
-		case .imperial:
-			distance.numberFormatter.maximumFractionDigits = 0
-			return distance.string(fromValue: meters.feet, unit: .foot)
-		}
-	}
-	
-	static func localizedBuffer(from meters: Meters) -> String {
-		switch AirMap.configuration.distanceUnits {
-		case .metric:
-			distance.numberFormatter.roundingIncrement = 100
-			return distance.string(fromValue: meters, unit: .meter)
-		case .imperial:
-			distance.numberFormatter.maximumFractionDigits = 0
-			return distance.string(fromValue: meters.feet, unit: .foot)
-		}
-	}
-	
-	
-
-}
-
 public typealias Feet = Double
 public typealias Meters = Double
+public typealias Kilometers = Double
 public typealias StatuteMiles = Double
 public typealias NauticalMiles = Double
+public typealias Acres = Double
+public typealias Hectares = Double
 
 public extension Feet {
 	
-	public static let metersPerFoot: Meters = 0.3048
+	public static let metersPerFoot: Meters = 1/3.28084
 
 	public var meters: Meters {
 		return self * Feet.metersPerFoot
@@ -90,12 +39,22 @@ public extension Meters {
 		return self / Meters.metersPerNauticalMile
 	}
 	
-	public var statuteMiles: StatuteMiles {
-		return self / Meters.metersPerStatuteMile
-	}
-	
 	public var feet: Feet {
 		return self / Feet.metersPerFoot
+	}
+}
+
+public extension Kilometers {
+	
+	public var statuteMiles: StatuteMiles {
+		return self * 1000 / Meters.metersPerStatuteMile
+	}
+}
+
+public extension Hectares {
+	
+	public var acres: Acres {
+		return self / 0.404686
 	}
 }
 
@@ -117,6 +76,10 @@ public extension KilometersPerHour {
 	
 	public var milesPerHour: MilesPerHour {
 		return self * 0.621371
+	}
+	
+	public var knots: Knots {
+		return self * 0.539957
 	}
 }
 

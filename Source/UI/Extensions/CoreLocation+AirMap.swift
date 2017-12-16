@@ -6,18 +6,16 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import CoreLocation
+extension Coordinate2D {
 
-extension CLLocationCoordinate2D {
-
-	static func polygonCircleForCoordinates(_ coordinate: CLLocationCoordinate2D, withMeterRadius: Double) -> [CLLocationCoordinate2D] {
+	static func polygonCircleForCoordinates(_ coordinate: Coordinate2D, withMeterRadius: Double) -> [Coordinate2D] {
 		
 		let degreesBetweenPoints = 4.0
 		let numberOfPoints = floor(360.0 / degreesBetweenPoints)
 		let distRadians: Double = withMeterRadius / 6371000.0
 		let centerLatRadians: Double = coordinate.latitude * .pi / 180
 		let centerLonRadians: Double = coordinate.longitude * .pi / 180
-		var coordinates = [CLLocationCoordinate2D]()
+		var coordinates = [Coordinate2D]()
 		
 		for index in 0..<Int(numberOfPoints) {
 			let degrees: Double = Double(index) * Double(degreesBetweenPoints)
@@ -26,7 +24,7 @@ extension CLLocationCoordinate2D {
 			let pointLonRadians: Double = centerLonRadians + atan2(sin(degreeRadians) * sin(distRadians) * cos(centerLatRadians), cos(distRadians) - sin(centerLatRadians) * sin(pointLatRadians))
 			let pointLat: Double = pointLatRadians * 180 / .pi
 			let pointLon: Double = pointLonRadians * 180 / .pi
-			let point: CLLocationCoordinate2D = CLLocationCoordinate2DMake(pointLat, pointLon)
+			let point: Coordinate2D = Coordinate2D(latitude: pointLat, longitude: pointLon)
 			coordinates.append(point)
 		}
 		

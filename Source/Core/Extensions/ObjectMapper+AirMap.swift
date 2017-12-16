@@ -15,7 +15,9 @@ class StringToIntTransform: TransformType {
 	
 	func transformFromJSON(_ value: Any?) -> Int? {
 		if let string = value as? String {
-			return Int(string)
+			if let double = Double(string) {
+				return Int(round(double))
+			}
 		}
 		return nil
 	}
@@ -48,34 +50,16 @@ class StringToDoubleTransform: TransformType {
 	}
 }
 
-class CsvToArrayTransform: TransformType {
+public class GeoJSONToAirMapGeometryTransform: TransformType {
 	
-	typealias Object = [String]
-	typealias JSON = String
+	public typealias Object = AirMapGeometry
+	public typealias JSON = [String: Any]
 	
-	func transformFromJSON(_ value: Any?) -> [String]? {
-		if let string = value as? String {
-			return string.components(separatedBy: ",")
-		}
-		return nil
-	}
+	public init() {}
 	
-	func transformToJSON(_ value: [String]?) -> String? {
-		if let array = value {
-			return array.joined(separator: ",")
-		}
-		return nil
-	}
-}
-
-class GeoJSONToAirMapGeometryTransform: TransformType {
-	
-	typealias Object = AirMapGeometry
-	typealias JSON = String
-	
-	func transformFromJSON(_ value: Any?) -> AirMapGeometry? {
+	public func transformFromJSON(_ value: Any?) -> AirMapGeometry? {
 		
-		guard let geometry = value as? [String: Any], let type = geometry["type"] as? String else { return nil }
+		guard let geometry = value as? JSON, let type = geometry["type"] as? String else { return nil }
 		
 		switch type {
 		case "Polygon":
@@ -98,7 +82,7 @@ class GeoJSONToAirMapGeometryTransform: TransformType {
 			
 		case "Point":
 			guard let points = geometry["coordinates"] as? [Double], points.count == 2 else { return nil }
-			let coord: Coordinate2D = Coordinate2D(latitude: points[0], longitude: points[1])
+			let coord: Coordinate2D = Coordinate2D(latitude: points[1], longitude: points[0])
 			return AirMapPoint(coordinate: coord)
 		
 		default:
@@ -106,8 +90,8 @@ class GeoJSONToAirMapGeometryTransform: TransformType {
 		}
 	}
 	
-	func transformToJSON(_ value: AirMapGeometry?) -> String? {
+	public func transformToJSON(_ value: AirMapGeometry?) -> JSON? {
 
-		return nil
+		return value?.params()
 	}
 }

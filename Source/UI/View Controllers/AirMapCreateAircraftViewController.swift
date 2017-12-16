@@ -9,40 +9,34 @@
 import RxSwift
 import RxCocoa
 
-class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTrackable {
+class AirMapCreateAircraftViewController: UITableViewController {
 	
-	var screenName: String {
-		switch mode {
-		case .create:
-			return "Create Aircraft"
-		case .update:
-			return "Update Aircraft"
-		}
-	}
+	var aircraft: AirMapAircraft!
 	
 	@IBOutlet var nextButton: UIButton!
 	@IBOutlet weak var nickName: UITextField!
 	@IBOutlet weak var makeAndModel: UILabel!
 	@IBOutlet weak var makeAndModelCell: UITableViewCell!
 	
-	enum EditMode {
+	fileprivate enum UseCase {
 		case create
 		case update
 	}
 	
-	var aircraft = AirMapAircraft()
-
-	fileprivate var mode: EditMode {
-		return aircraft.aircraftId == nil ? .create : .update
+	fileprivate var mode: UseCase {
+		return aircraft?.id == nil ? .create : .update
 	}
 	
-	fileprivate let activityIndicator = ActivityIndicator()
 	fileprivate var model = Variable(nil as AirMapAircraftModel?)
-	fileprivate let disposeBag = DisposeBag()
+	
+	private let activityIndicator = ActivityTracker()
+	private let disposeBag = DisposeBag()
 	
 	override var navigationController: AirMapAircraftNavController? {
 		return super.navigationController as? AirMapAircraftNavController
 	}
+	
+	// MARK: - View Lifecycle
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +62,7 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 		
 		trackView()
 		
-		if (nickName.text ?? "").isEmpty || mode == .update {
+		if ((nickName.text ?? "").isEmpty) || (mode == .update) {
 			nickName.becomeFirstResponder()
 		} else {
 			self.becomeFirstResponder()
@@ -83,25 +77,35 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 		return nextButton
 	}
 	
+	// MARK: - Setup
+	
 	fileprivate func setupBindings() {
 
-		nickName.rx.text.asObservable()
-			.subscribe( onNext: { [weak self] name in
-				self?.aircraft.nickname = name
+		let nickNameObs = nickName.rx.text.asObservable()
+		let modelObs = model.asObservable()
+		
+		Observable.combineLatest(nickNameObs, modelObs) { ($0, $1) }
+			.subscribe(onNext: { [unowned self] nickname, model in
+				
+				switch self.mode {
+				case .create:
+					guard let nickname = nickname, let model = model else { return }
+					self.aircraft = AirMapAircraft(model: model, nickname: nickname)
+				case .update:
+					guard let nickname = nickname else { return }
+					self.aircraft.nickname = nickname
+				}
 			})
 			.disposed(by: disposeBag)
 		
 		model.asObservable()
 			.unwrap()
-			.do( onNext: { [unowned self] model in
-				self.aircraft.model = model
-			})
 			.map { [$0.manufacturer.name, $0.name].flatMap { $0 }.joined(separator: " ") }
 			.bind(to: makeAndModel.rx.text)
 			.disposed(by: disposeBag)
 		
 		Observable
-			.combineLatest(model.asObservable(), nickName.rx.text) { (model: $0.0, nickName: $0.1) }
+			.combineLatest(modelObs, nickNameObs) { (model: $0, nickName: $1) }
 			.map { $0.model != nil && !($0.nickName ?? "").isEmpty }
 			.bind(to: nextButton.rx.isEnabled)
 			.disposed(by: disposeBag)
@@ -113,7 +117,10 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 			.disposed(by: disposeBag)
 	}
 	
+	// MARK: - Navigation
+	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		
 		if segue.identifier == "modalModel" {
 			trackEvent(.tap, label: "Make & Model")
 			let nav = segue.destination as! AirMapAircraftModelNavController
@@ -122,6 +129,8 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 	}
 	
 	@IBAction func unwindToCreateAircraft(_ segue: UIStoryboardSegue) { /* Interface Builder hook; keep */ }
+	
+	// MARK: - Actions
 	
 	@IBAction func save() {
 		
@@ -136,13 +145,14 @@ class AirMapCreateAircraftViewController: UITableViewController, AnalyticsTracka
 		}
 
 		action
-			.subscribe(onCompleted: { [weak self] _ in
+			.do(onCompleted: { [weak self] () throws in
+				self?.resignFirstResponder()
 				self?.navigationController?.aircraftDelegate?
 					.aircraftNavController(self!.navigationController!, didCreateOrModify: self!.aircraft)
 			})
+			.subscribe()
 			.disposed(by: disposeBag)
 	}
-
 }
 
 extension AirMapCreateAircraftViewController: AirMapAircraftModelSelectionDelegate {
@@ -152,4 +162,16 @@ extension AirMapCreateAircraftViewController: AirMapAircraftModelSelectionDelega
 		dismiss(animated: true, completion: nil)
 	}
 
+}
+
+extension AirMapCreateAircraftViewController: AnalyticsTrackable {
+	
+	var screenName: String {
+		switch mode {
+		case .create:
+			return "Create Aircraft"
+		case .update:
+			return "Update Aircraft"
+		}
+	}
 }

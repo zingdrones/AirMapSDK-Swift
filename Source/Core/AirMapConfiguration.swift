@@ -6,86 +6,114 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
+import Foundation
 
-public class AirMapConfiguration {
+/// Configuration class for the AirMap SDK. May be initialized programmatically or by using an airmap.config.json file.
+public struct AirMapConfiguration {
 		
-	public var distanceUnits = DistanceUnits.metric
-	public var temperatureUnits = TemperatureUnits.celcius
+	/// The AirMap API key that was used to initialize the SDK. Required.
+	public let airMapApiKey: String
 	
-	internal fileprivate(set) var environment: String?
-	public fileprivate(set) var airMapApiKey: String?
-	public fileprivate(set) var mapboxAccessToken: String?
-
-	internal fileprivate(set) var auth0ClientId: String!
-	internal fileprivate(set) var auth0CallbackUrl: String!
+	/// An optional Mapbox access token to use with any map UI elements.
+	public let mapboxAccessToken: String?
 	
-	internal static func loadConfig() -> AirMapConfiguration {
-
-		#if os(Linux)
-			let configFile = "./config/airmap.config.json"
-			guard
-				let json = try? String(contentsOfFile: configFile) else {
-					fatalError(
-						"The `\(configFile)` file required to configure the AirMapSDK is missing. " +
-						"Please reference the documentation for more information."
-					)
-			}
-		#else
-			let bundle = Bundle.main
-			guard
-				let configFile = bundle.path(forResource: "airmap.config", ofType: "json"),
-				let json = try? String(contentsOfFile: configFile) else {
-					fatalError(
-						"The `airmap.config.json` file required to configure the AirMapSDK is missing. " +
-							"Please reference the documentation for more information. " +
-						"https://developers.airmap.com/docs/ios-getting-started"
-					)
-			}
-		#endif
-
-		guard
-			let config = Mapper<AirMapConfiguration>().map(JSONString: json)
-			else {
-				fatalError(
-					"Could not parse the AirMap configuration file" +
-					"https://developers.airmap.com/docs/ios-getting-started"
-				)
-		}
-
-		if config.airMapApiKey == nil {
-			fatalError("airmap.config.json is missing an AirMap API Key (airmap.api_key)")
-		}
-
-		if config.auth0ClientId == nil {
-			AirMap.logger.warning("airmap.config.json is missing an Auth0 Client ID (auth0.client_id)")
-		}
+	/// Designated initializer when not providing an airmap.config.json file at the root of the project
+	///
+	/// - SeeAlso: https://developers.airmap.com/docs/ios-getting-started
+	/// - Parameters:
+	///   - apiKey: The AirMap API key to use with the AirMap API
+	///   - auth0ClientId: A client ID used for user/pilot authentication with AirMap
+	///   - mapboxAccessToken: An optional access token used to configure any map UI elements
+	public init(apiKey: String, auth0ClientId: String, mapboxAccessToken: String? = nil) {
 		
-		if config.auth0CallbackUrl == nil {
-			AirMap.logger.warning("airmap.config.json is missing an Auth0 Callback URL (auth0.callback_url)")
-		}
+		let config = [
+			"airmap": ["api_key": apiKey],
+			"auth0":  ["client_id": auth0ClientId],
+			"mapbox": ["access_token": mapboxAccessToken as Any]
+		]
 		
-		if Locale.current.usesMetricSystem {
-			config.temperatureUnits = .celcius
-			config.distanceUnits = .metric
-		} else {
-			config.temperatureUnits = .fahrenheit
-			config.distanceUnits = .imperial
-		}
-		
-		return config
+		try! self.init(JSON: config)
 	}
 	
-	public required init?(map: Map) {}
+	/// System used for displaying distance values
+	public var distanceUnits: DistanceUnits = .metric
+	
+	/// Units used for displaying temperature values
+	public var temperatureUnits: TemperatureUnits = .celcius
+
+	public let airMapDomain: String
+	public let auth0Host: String
+	public let auth0ClientId: String
+	
+	let airMapApiOverrides: [String: String]?
+	let airMapEnvironment: String?
+	let airMapPinCertificates: Bool
+	let airMapMapStyle: URL?
 }
 
-extension AirMapConfiguration: Mappable {
+extension AirMapConfiguration {
+	
+	static func defaultConfig() -> AirMapConfiguration {
+		
+		#if os(Linux)
+			let configPath = "./airmap.config.json"
+		#else
+			let configPath = Bundle.main.path(forResource: "airmap.config", ofType: "json") ?? "missing"
+		#endif
+		
+		do {
+			let jsonString = try String(contentsOfFile: configPath)
+			return try AirMapConfiguration(JSONString: jsonString)
+		}
+		catch {
+			fatalError(
+				"The `airmap.config.json` file required to configure the AirMapSDK is missing. " +
+					"Please reference the documentation for more information. " +
+				"https://developers.airmap.com/docs/ios-getting-started"
+			)
+		}
+	}
+}
 
-	public func mapping(map: Map) {
-		environment       <-  map["airmap.environment"]
-		airMapApiKey      <-  map["airmap.api_key"]
-		auth0ClientId     <-  map["auth0.client_id"]
-		auth0CallbackUrl  <-  map["auth0.callback_url"]
-		mapboxAccessToken <-  map["mapbox.access_token"]
+// MARK: - JSON Serialization
+
+import ObjectMapper
+
+extension AirMapConfiguration: ImmutableMappable {
+	
+	public init(map: Map) throws {
+
+		do {
+			// Required configuration values
+			airMapApiKey          =  try  map.value("airmap.api_key")
+			auth0ClientId         =  try  map.value("auth0.client_id")
+
+			// Optional configuration values
+			mapboxAccessToken     =  try? map.value("mapbox.access_token")
+			auth0Host             = (try? map.value("auth0.host")) ?? "sso.airmap.io"
+			airMapDomain          = (try? map.value("airmap.domain")) ?? "airmap.com"
+			airMapEnvironment     =  try? map.value("airmap.environment")
+			airMapApiOverrides    =  try? map.value("airmap.api_overrides")
+			airMapMapStyle        =  try? map.value("airmap.map_style", using: URLTransform())
+			airMapPinCertificates = (try? map.value("airmap.pin_certificates")) ?? false
+		}
+
+		catch let error as MapError {
+			fatalError(
+				"Configuration is missing the required \(error.key!) key and value. If you have recently updated" +
+				"this SDK, you may need to visit the AirMap developer portal at https://dashboard.airmap.io/developer/ " +
+				"for an updated airmap.config.json file."
+			)
+		}
+		
+		#if !os(Linux)
+			if Locale.current.usesMetricSystem {
+				temperatureUnits = .celcius
+				distanceUnits = .metric
+			} else {
+				temperatureUnits = .fahrenheit
+				distanceUnits = .imperial
+			}
+		#endif
 	}
 }

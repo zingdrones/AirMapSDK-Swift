@@ -6,16 +6,17 @@
 //  Copyright © 2016-2017 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
 import RxSwift
 import Alamofire
 
 internal class AuthClient: HTTPClient {
     
     init() {
-        super.init(basePath: Config.AirMapApi.authUrl)
+        super.init(basePath: Constants.AirMapApi.authUrl)
     }
     
-    func performAnonymousLogin(userId:String) -> Observable<AirMapToken> {
+    func performAnonymousLogin(userId: AirMapPilotId) -> Observable<AirMapToken> {
         
         let params = ["user_id": userId]
         
@@ -23,7 +24,7 @@ internal class AuthClient: HTTPClient {
             .do(onNext: { token in
                 AirMap.authToken = token.authToken
             }, onError: { error in
-                AirMap.logger.debug("ERROR: \(error)")
+                AirMap.logger.debug("ERROR:", error)
             })
     }
 }

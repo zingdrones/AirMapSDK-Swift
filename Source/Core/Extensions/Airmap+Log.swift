@@ -11,7 +11,7 @@ import Log
 extension AirMap {
 	
 	#if os(Linux)
-		// FIXME: Integrate Linux compatible Logging
+		// TODO: Integrate Linux compatible Logging
 	#else
 		public static let logger = Logger(formatter: Formatter("AirMapSDK %@: %@", [.level, .message]), minLevel: .warning)
 	#endif

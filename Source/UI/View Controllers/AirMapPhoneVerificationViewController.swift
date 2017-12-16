@@ -9,7 +9,6 @@
 import RxSwift
 import RxCocoa
 import PhoneNumberKit
-import libPhoneNumber_iOS
 
 class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTrackable {
 	
@@ -25,11 +24,10 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	
 	fileprivate let phoneNumberKit = PhoneNumberKit()
 	fileprivate var regionCode: String!
-	fileprivate let phoneUtil = NBPhoneNumberUtil()
-	fileprivate let activityIndicator = ActivityIndicator()
+	fileprivate let activityIndicator = ActivityTracker()
 
 	fileprivate var phoneNumber: PhoneNumber? {
-		guard let phone =  phone.text, let region = regionCode else { return nil }
+		guard let phone = phone.text, let region = regionCode else { return nil }
 		return try? phoneNumberKit.parse(phone, withRegion: region, ignoreType: false)
 	}
 	
@@ -39,13 +37,11 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		setupDefaultCountryCode()
 		setupPhoneNumberField()
 		setupBindings()
 		
 		if let p = pilot.phone {
-			print(PartialFormatter().formatPartial(p))
 			phone.text = PartialFormatter().formatPartial(p)
 		}
 		
@@ -89,6 +85,8 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 			countryVC.selectedCountryIdentifier = regionCode
 		
 		case .pushVerifySMS:
+			let smsVC = segue.destination as! AirMapVerifySMSCodeViewController
+			smsVC.phoneNumber = pilot.phone
 			break
 		}
 	}
@@ -119,9 +117,6 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	
 	fileprivate func setupPhoneNumberField() {
 		
-		let samplePhoneNumber = try? phoneUtil.getExampleNumber(forType: regionCode, type: .MOBILE)
-		let samplePhoneString = try? phoneUtil.format(samplePhoneNumber, numberFormat: .INTERNATIONAL)
-		phone?.placeholder =  samplePhoneString
 		phone?.defaultRegion = regionCode
 	}
 	
@@ -144,11 +139,12 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 						onError: { [unowned self] error in
 							self.trackEvent(.save, label: "error", value: NSNumber(value: (error as NSError).code))
 						},
-						onCompleted: { [unowned self] _ in
+						onCompleted: { [unowned self] () throws in
 							self.trackEvent(.save, label: "Success")
 						}
 					)
 			}
+			.mapToVoid()
 			.subscribeNext(weak: self, AirMapPhoneVerificationViewController.verifySMSToken)
 			.disposed(by: disposeBag)
 	}

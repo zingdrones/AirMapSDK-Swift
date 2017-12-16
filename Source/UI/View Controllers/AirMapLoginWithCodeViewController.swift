@@ -13,7 +13,7 @@ import RxCocoa
 
 open class AirMapLoginWithCodeViewController: UITableViewController, AnalyticsTrackable {
     
-    var screenName = "SMS Login - Verify Code"
+    public var screenName = "SMS Login - Verify Code"
     var phoneNumber:String!
     
     @IBOutlet var submitButton: UIButton!
@@ -21,7 +21,7 @@ open class AirMapLoginWithCodeViewController: UITableViewController, AnalyticsTr
     @IBOutlet weak var smsTextField: UITextField!
     
     fileprivate let disposeBag = DisposeBag()
-    fileprivate let activityIndicator = ActivityIndicator()
+    fileprivate let activityIndicator = ActivityTracker()
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,7 @@ open class AirMapLoginWithCodeViewController: UITableViewController, AnalyticsTr
     fileprivate func setupBindings() {
         
         smsTextField.rx.text.asObservable()
-            .map { $0?.characters.count == Config.AirMapApi.smsCodeLength }
+            .map { $0?.count == Constants.AirMapApi.smsCodeLength }
             .bind(to: submitButton.rx.isEnabled)
             .disposed(by: disposeBag)
         

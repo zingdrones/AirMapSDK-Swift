@@ -6,31 +6,42 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-extension Array where Element: Equatable {
+import Foundation
+
+public extension Array where Element: Equatable {
 	
-	mutating func removeObject(_ object: Element) {
+	public mutating func removeObject(_ object: Element) {
 		if let index = self.index(of: object) {
 			self.remove(at: index)
 		}
 	}
 	
-	mutating func removeObjectsInArray(_ array: [Element]) {
+	public mutating func removeObjectsInArray(_ array: [Element]) {
 		for object in array {
 			self.removeObject(object)
 		}
 	}
-    
-    func filterDuplicates(_ includeElement: @escaping (_ lhs: Element, _ rhs: Element) -> Bool) -> [Element]{
-        var results = [Element]()
-        
-        forEach { (element) in
-            let existingElements = results.filter {
-                return includeElement(element, $0)
-            }
-            if existingElements.count == 0 {
-                results.append(element)
-            }
-        }
-        
-        return results
-    }}
+}
+
+extension Sequence {
+	
+	public func grouped<T: Hashable>(by criteria: (Element) -> T) -> [T: [Element]] {
+		var groups: [T: [Element]] = [:]
+		for element in self {
+			let key = criteria(element)
+			if groups.keys.contains(key) {
+				groups[key]!.append(element)
+			} else {
+				groups[key] = [element]
+			}
+		}
+		return groups
+	}
+}
+
+extension Collection where Iterator.Element: AirMapStringIdentifierType {
+	
+	public var csv: String {
+		return map { $0.rawValue }.joined(separator: ",")
+	}
+}

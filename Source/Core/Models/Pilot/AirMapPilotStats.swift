@@ -8,24 +8,19 @@
 
 import ObjectMapper
 
-public class AirMapPilotStats {
+public struct AirMapPilotStats {
 	
-	public var totalAircraft = 0
-	public var totalFlights = 0
-	public var lastFlightTime: Date?
-
-	public required init?(map: Map) {}
+	public let totalAircraft: Int
+	public let totalFlights: Int
+	public let lastFlightTime: Date?
 }
 
-extension AirMapPilotStats: Mappable {
+extension AirMapPilotStats: ImmutableMappable {
 	
-	public func mapping(map: Map) {
-		
-		let dateTransform = CustomDateFormatTransform(formatString: Config.AirMapApi.dateFormat)
-		
-		totalFlights   <-  map["flight.total"]
-		totalAircraft  <-  map["aircraft.total"]
-		lastFlightTime <- (map["flight.last_flight_time"], dateTransform)
+	public init(map: Map) throws {
+		totalFlights    =  try map.value("flight.total")
+		totalAircraft   =  try map.value("aircraft.total")
+		lastFlightTime  =  try? map.value("flight.last_flight_time", using: Constants.AirMapApi.dateTransform)
 	}
 	
 }

@@ -12,7 +12,7 @@ protocol Dequeueable {
 
 extension Dequeueable {
 	static var reuseIdentifier: String {
-		return String(describing: type(of: self))
+		return String(describing: Self.self)
 	}
 }
 

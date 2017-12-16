@@ -1,6 +1,6 @@
 //
 //  AirMapSMSLoginViewController.swift
-//  Pods
+//  AirMapSDK
 //
 //  Created by Rocky Demoff on 3/3/17.
 //
@@ -9,7 +9,6 @@
 import RxSwift
 import RxCocoa
 import PhoneNumberKit
-import libPhoneNumber_iOS
 
 @available(*, unavailable)
 class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, AirMapPhoneCountrySelectorDelegate {
@@ -23,8 +22,7 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
     
     fileprivate let phoneNumberKit = PhoneNumberKit()
     fileprivate var regionCode: String!
-    fileprivate let phoneUtil = NBPhoneNumberUtil()
-    fileprivate let activityIndicator = ActivityIndicator()
+    fileprivate let activityTracker = ActivityTracker()
     
     fileprivate var phoneNumber: PhoneNumber? {
         guard let phone =  phone.text, let region = regionCode else { return nil }
@@ -102,7 +100,7 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
             .bind(to: submitButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        activityIndicator.asObservable()
+        activityTracker.asObservable()
             .throttle(0.25, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .bind(to: rx_loading)
@@ -117,9 +115,6 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
     
     fileprivate func setupPhoneNumberField() {
         
-        let samplePhoneNumber = try? phoneUtil.getExampleNumber(forType: regionCode, type: .MOBILE)
-        let samplePhoneString = try? phoneUtil.format(samplePhoneNumber, numberFormat: .INTERNATIONAL)
-        phone?.placeholder =  samplePhoneString
         phone?.defaultRegion = regionCode
     }
     
@@ -171,3 +166,4 @@ class AirMapSMSLoginViewController: UITableViewController, AnalyticsTrackable, A
 		_ = navigationController?.popViewController(animated: true)
 	}
 }
+
