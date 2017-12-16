@@ -16,7 +16,7 @@ Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.
  [https://dashboard.airmap.io/developer](https://dashboard.airmap.io/developer)
   
 ### Read Getting Started Guide
-[https://developers.airmap.com/v2.0/docs/ios-getting-started/](https://developers.airmap.com/v2.0/docs/ios-getting-started/)
+[https://developers.airmap.com/v2.1/docs/getting-started-ios](https://developers.airmap.com/v2.1/docs/getting-started-ios/)
 
 ## Installation
 
@@ -42,6 +42,19 @@ To integrate the AirMap SDK into your Xcode project, navigate to the directory t
 target 'MyApp' do
   use_frameworks!
   pod 'AirMapSDK', :git => 'https://github.com/airmap/AirMapSDK-Swift', :tag => '2.0.0.beta.1'
+end
+
+post_install do |installer|
+    # List of Pods to use as Swift 3.2
+    myTargets = ['Lock', 'SwiftMQTT'] 
+
+    installer.pods_project.targets.each do |target|
+        if myTargets.include? target.name
+            target.build_configurations.each do |config|
+                config.build_settings['SWIFT_VERSION'] = '3.2'
+            end
+        end
+    end
 end
 ```
 
