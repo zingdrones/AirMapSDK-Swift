@@ -113,11 +113,13 @@ public protocol AdvisoryPropertiesType: ImmutableMappable {}
 extension AirMapAdvisory.Properties.Airport: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		identifier    =  try? map.value("airport_id")
-		name          =  try? map.value("airport_name")
+		identifier    =  try? map.value("faa")
 		phone         =  try? map.value("phone")
-		airspaceClass =  try? map.value("airspace_classification")
+		tower         =  try? map.value("tower")
 		use           =  try? map.value("type")
+		longestRunway =  try? map.value("longest_runway")
+		instrumentProcedure
+		              =  try? map.value("instrument_approach_procedure")
 	}
 }
 

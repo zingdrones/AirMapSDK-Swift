@@ -64,10 +64,11 @@ public struct AirMapAdvisory {
 		/// Airport advisory properties
 		public struct Airport: PropertiesType {
 			public let identifier: String?
-			public let name: String?
 			public let phone: String?
-			public let airspaceClass: String?
+			public let tower: Bool?
 			public let use: String?
+			public let longestRunway: Meters?
+			public let instrumentProcedure: Bool?
 		}
 		
 		public struct Heliport: PropertiesType {
