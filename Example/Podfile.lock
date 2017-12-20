@@ -24,7 +24,7 @@ PODS:
     - SwiftMQTT (~> 2.0.0)
   - AirMapSDK/UI (2.0.0.beta.1):
     - AirMapSDK/Core
-    - Lock
+    - Lock (>= 2.3.1)
     - Mapbox-iOS-SDK
     - PhoneNumberKit
     - RxDataSources
@@ -94,7 +94,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AirMapSDK: fb17e697ab143c53dc6874734923aee57144c48f
+  AirMapSDK: b3a70028a3f77895ff11ea780347cee44b55aa9f
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Auth0: 9eceebf97b6b3482eaed82193e090b50c3bd8ad6
   CocoaAsyncSocket: 3541e024f48c54b251638ef72d51dd42808de932
