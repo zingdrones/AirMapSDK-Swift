@@ -246,6 +246,8 @@ public struct LocalizedStrings {
 	
 	public struct PilotProfile {
 		
+		public static let fullNameFormat = NSLocalizedString("PILOT_FULL_NAME_FORMAT", bundle: bundle, value: "%1$@ %2$@", comment: "Format for displaying the given + family name of a user. 1) given name 2) family name")
+
 		public static let faaRegistrationLabel = NSLocalizedString("PILOT_PROFILE_FAA_REGISTRATION", bundle: bundle, value: "FAA Registration Number", comment: "Table row label for FAA registration number")
 		
 		public static let firstNameLabel = NSLocalizedString("PILOT_PROFILE_LABEL_FIRST_NAME", bundle: bundle, value: "First Name", comment: "Label for the pilot profile first name")

@@ -76,7 +76,17 @@ extension AirMapPilot: Mappable {
 
 extension AirMapPilot {
 
-	public var fullName: String {
-		return [firstName, lastName].flatMap({$0}).joined(separator: " ")
+	public var fullName: String? {
+		
+		switch (firstName, lastName) {
+		case (.some(let givenName), .some(let familyName)):
+			return String(format: LocalizedStrings.PilotProfile.fullNameFormat, givenName, familyName)
+		case (.some(let firstName), nil):
+			return firstName
+		case (nil, .some(let lastName)):
+			return lastName
+		case (nil, nil):
+			return nil
+		}
 	}
 }

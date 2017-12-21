@@ -340,6 +340,9 @@
 /* Message presented to a user when the SMS code they input is incorrect and verification of that code has failed */
 "PHONE_VERIFICATION_VERIFICATION_FAILED" = "Phone Number Verification Failed";
 
+/* Format for displaying the given + family name of a user. 1) given name 2) family name */
+"PILOT_FULL_NAME_FORMAT" = "%1$@ %2$@";
+
 /* Table row label for FAA registration number */
 "PILOT_PROFILE_FAA_REGISTRATION" = "FAA Registration Number";
 
