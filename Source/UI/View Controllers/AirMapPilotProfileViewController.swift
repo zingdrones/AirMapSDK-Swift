@@ -107,8 +107,16 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 		let emailField     = AirMapPilotProfileField(label: localized.emailLabel, key: "email", type: .email)
 		let phoneField     = AirMapPilotProfileField(label: localized.phoneLabel, key: "phone", type: .phoneNumber)
 		
-		let pilotFields = [firstNameField, lastNameField, usernameField, emailField, phoneField]
+		let pilotFields: [AirMapPilotProfileField]
 		
+		// TODO: Find a generalized way to do this
+		// If the locale is Japan, order lastName before firstName
+		if Locale.current.identifier.hasPrefix("ja") {
+			pilotFields = [lastNameField, firstNameField, usernameField, emailField, phoneField]
+		} else {
+			pilotFields = [firstNameField, lastNameField, usernameField, emailField, phoneField]
+		}
+
 		pilotFields.forEach { field in
 			
 			field.rx_value.skip(1).asDriver(onErrorJustReturn: nil)
