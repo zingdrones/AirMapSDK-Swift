@@ -1,5 +1,5 @@
 //
-//  AirMapFlight+MGL.swift
+//  AirMapFlight+Mapbox.swift
 //  AirMapSDK
 //
 //  Created by Adolfo Martinelli on 8/5/16.
