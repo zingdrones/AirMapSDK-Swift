@@ -41,6 +41,7 @@
 		916956EF1D356821006F97B8 /* status_weather_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916956EE1D356821006F97B8 /* status_weather_success.json */; };
 		916A9B421D2D991B00322CDB /* flight_comm_key_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916A9B411D2D991B00322CDB /* flight_comm_key_success.json */; };
 		916B56091DF0D809009C84F9 /* TelemetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916B56081DF0D809009C84F9 /* TelemetryTests.swift */; };
+		916F46101FEDF8440070A0C0 /* CustomStylingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916F460F1FEDF8440070A0C0 /* CustomStylingMapViewController.swift */; };
 		91824BA51F621BBD00ADBC31 /* RulesetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91824BA41F621BBD00ADBC31 /* RulesetsViewController.swift */; };
 		91824BA71F625B8D00ADBC31 /* AdvisoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91824BA61F625B8D00ADBC31 /* AdvisoriesViewController.swift */; };
 		918451121D270C64003B3D26 /* FlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918451111D270C64003B3D26 /* FlightTests.swift */; };
@@ -109,6 +110,7 @@
 		916956EE1D356821006F97B8 /* status_weather_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_weather_success.json; path = Fixtures/status_weather_success.json; sourceTree = "<group>"; };
 		916A9B411D2D991B00322CDB /* flight_comm_key_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_comm_key_success.json; path = Fixtures/flight_comm_key_success.json; sourceTree = "<group>"; };
 		916B56081DF0D809009C84F9 /* TelemetryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelemetryTests.swift; sourceTree = "<group>"; };
+		916F460F1FEDF8440070A0C0 /* CustomStylingMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStylingMapViewController.swift; sourceTree = "<group>"; };
 		91824BA41F621BBD00ADBC31 /* RulesetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesetsViewController.swift; sourceTree = "<group>"; };
 		91824BA61F625B8D00ADBC31 /* AdvisoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvisoriesViewController.swift; sourceTree = "<group>"; };
 		9184510F1D270C64003B3D26 /* AirMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -299,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				919BBE161FDFA26B000224B9 /* SimpleMapViewController.swift */,
+				916F460F1FEDF8440070A0C0 /* CustomStylingMapViewController.swift */,
 				91D1A4E41FE34BF700B9C563 /* AdvancedMapViewController.swift */,
 			);
 			path = Maps;
@@ -653,6 +656,7 @@
 				91824BA71F625B8D00ADBC31 /* AdvisoriesViewController.swift in Sources */,
 				91824BA51F621BBD00ADBC31 /* RulesetsViewController.swift in Sources */,
 				91C06EA71F6322D6007B08EE /* LoginExampleViewController.swift in Sources */,
+				916F46101FEDF8440070A0C0 /* CustomStylingMapViewController.swift in Sources */,
 				91D1A4E51FE34BF700B9C563 /* AdvancedMapViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				919BBE171FDFA26B000224B9 /* SimpleMapViewController.swift in Sources */,
