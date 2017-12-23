@@ -15,11 +15,6 @@ class SimpleMapViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-	
-		setupMap()
-	}
-	
-	private func setupMap() {
 		
 		// create a new map and add it to the view hierarchy
 		// optionally can be added via a storyboard in Interface Builder
@@ -36,12 +31,10 @@ class SimpleMapViewController: UIViewController {
         // alternatively, the map can be configured with a list preferred ruleset ids
 //        map.configuration = .dynamic(preferredRulesetIds: ["usa_part_107"], enableRecommendedRulesets: true)
 
-		// set the location and zoom level
-		map.latitude = 34.1
-		map.longitude = -118.4
+		// set the map location to Santa Monica, California
+		map.centerCoordinate = CLLocationCoordinate2D(latitude: 34.023, longitude: -118.484)
 		map.zoomLevel = 10
 		
-		// register as the delegate to receive callbacks
 		map.delegate = self
 	}
 }
@@ -52,14 +45,13 @@ extension SimpleMapViewController: AirMapMapViewDelegate {
 		
 		// Print out all the jurisdictions that intersect the map's view port
 		let jurisdictionNames = jurisdictions.map { $0.name }
-		print("JURISDICTIONS: ",  jurisdictionNames)
+		print("Jurisdictions:",  jurisdictionNames)
 	}
 	
 	func airMapMapViewRegionDidChange(mapView: AirMapMapView, jurisdictions: [AirMapJurisdiction], activeRulesets: [AirMapRuleset]) {
 		
 		// Print out all the active rulesets the map is configured with
-		let activeRulesetNames = jurisdictions.map { $0.name }
-		print("ACTIVE RULESETS: ", activeRulesetNames )
+		print("Active Rulesets:", activeRulesets.identifiers )
 	}
 	
 }
