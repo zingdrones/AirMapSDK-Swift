@@ -12,14 +12,18 @@ import AirMap
 /// Example implementation that shows how to configure the map with known rulesets
 class AdvancedMapViewController: UIViewController {
 	
-	// map view is instantiated via the storyboard
+	// this map view is instantiated via the storyboard
 	@IBOutlet weak var mapView: AirMapMapView!
 
 	// track all available jurisdictions
 	private var jurisdictions: [AirMapJurisdiction] = []
 
-	// track the user's preference for rulesets (preferably by saving to UserDefaults)
-	private var preferredRulesetIds: Set<AirMapRulesetId> = []
+	// track the user's preference for rulesets (restored from and saved to UserDefaults)
+	private var preferredRulesetIds: Set<AirMapRulesetId> = UserDefaults.standard.preferredRulesetIds() {
+		didSet {
+			UserDefaults.standard.store(preferredRulesetIds)
+		}
+	}
 
 	// track the active rulesets
 	private var activeRulesets: [AirMapRuleset] = [] {
@@ -84,10 +88,6 @@ extension AdvancedMapViewController: AirMapMapViewDelegate {
 		// Handle updates to the map's jurisdictions and resolve which rulesets should be active based on user preference
 		activeRulesets = AirMapRulesetResolver.resolvedActiveRulesets(with: Array(preferredRulesetIds), from: jurisdictions, enableRecommendedRulesets: false)
 	}
-	
-	func airMapMapViewRegionDidChange(mapView: AirMapMapView, jurisdictions: [AirMapJurisdiction], activeRulesets: [AirMapRuleset]) {
-		// opportunity to handle active rulesets changes after the map region changes (used in this example as we are configuring the rulesets manually)
-	}
 }
 
 // MARK: - RulesetsViewControllerDelegate
@@ -106,5 +106,21 @@ extension AdvancedMapViewController: RulesetsViewControllerDelegate {
 
 		// Update the active rulesets with the selected rulesets
 		activeRulesets = rulesets
+	}
+}
+
+extension UserDefaults {
+	
+	private static let rulesetPreferencesKey = "preferredRulesetIds"
+	
+	func store(_ preferredRulesetIds: Set<AirMapRulesetId>) {
+		let strings = preferredRulesetIds.map { $0.rawValue }
+		setValue(strings, forKey: UserDefaults.rulesetPreferencesKey)
+	}
+	
+	func preferredRulesetIds() -> Set<AirMapRulesetId> {
+		let strings = stringArray(forKey: UserDefaults.rulesetPreferencesKey) ?? []
+		let ids = strings.map { AirMapRulesetId(rawValue: $0)}
+		return Set(ids)
 	}
 }
