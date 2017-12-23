@@ -104,62 +104,73 @@ extension AirMapMapView {
 
 		// Ensure we remain the delegate via Rx and any other delegates are set as the forward delegate
 		rx.observeWeakly(MGLMapViewDelegate.self, "delegate", options: [.initial, .new])
-			.filter { delegate in delegate == nil || (delegate != nil && !(delegate! is RxMGLMapViewDelegateProxy)) }
-			.debounce(0.5, scheduler: MainScheduler.asyncInstance)
-			.flatMapLatest({ [unowned self] delegate in
-				
-				// Once the map style has finished loading, read jurisdictions, resolve rulesets, configure map, and notify the delegate
-				self.rx.mapDidFinishLoadingStyle.flatMapLatest({ (mapView, style) -> Observable<Void> in
-					
-					let airMapMapViewDelegate = mapView.rx.delegate.forwardToDelegate() as? AirMapMapViewDelegate
 
-					// Localize map labels
-					style.localizeLabels()
+			// Ignore repeated same delegate
+			.distinctUntilChanged(===)
+			
+			// Ignore Rx's delegate proxy to prevent a recursive call
+			.filter { !($0 is Optional<RxMGLMapViewDelegateProxy>) }
+			
+			// Debounce repetitive events and schedule asynchronously to prevent reentrancy warnings as the bindings
+			// below reset the delegate creating a cyclical dependency
+			.debounce(0.5, scheduler: MainScheduler.asyncInstance)
+			
+			// Reconfigure the following observable chain whenever the delegate is replaced
+			.flatMapLatest { [unowned self] _ in
+				self.rx.mapDidFinishLoadingStyle
+			}
+			
+			// Reconfigure the following observable chain whenever the style is updated
+			.flatMapLatest({ (mapView, style) -> Observable<Void> in
+				
+				// Localize map labels
+				style.localizeLabels()
+				
+				// Update the style's temporal layers on a set interval
+				let configureTemporalLayers = Observable.of(style)
+					.repeatWithBehavior(.delayed(maxCount: .max, time: Constants.Maps.temporalLayerRefreshInterval))
+					.do(onNext: { (style) in
+						style.updateTemporalFilters()
+					})
+					.mapToVoid()
+				
+				// Get the latest jurisdiction on initial map render and as the map region changes
+				let latestJurisdictions = Observable
+					.merge(
+						mapView.rx.mapDidFinishRenderingFrame.map({ $0.mapView }).take(1),
+						mapView.rx.regionIsChanging
+					)
+					.throttle(1, scheduler: MainScheduler.asyncInstance)
+					.map { $0.jurisdictions }
+					.distinctUntilChanged(==)
 					
-					// Update the style's temporal layers on a set interval
-					let configureTemporalLayers = Observable.of(style)
-						.repeatWithBehavior(.delayed(maxCount: .max, time: Constants.Maps.temporalLayerRefreshInterval))
-						.do(onNext: { (style) in
-							style.updateTemporalFilters()
-						})
+					// Notify the delegate that the jurisdictions have changed
+					.do(onNext: { [unowned mapView] (jurisdictions) in
+						mapView.airMapMapViewDelegate?.airMapMapViewJurisdictionsDidChange(mapView: mapView, jurisdictions: jurisdictions)
+					})
+					.share()
+				
+				// Determine the active rulesets from the available jurisdictions and the map configuration
+				let activeRulesets = Observable
+					.combineLatest(
+						latestJurisdictions,
+						mapView.configurationSubject.startWith(mapView.configuration)
+					)
+					.map(AirMapMapView.activeRulesets)
+				
+				let configureRulesets = activeRulesets
+					.withLatestFrom(latestJurisdictions) { ($0, $1) }
 					
-					// Get the latest jurisdiction on initial map render and as the map region changes
-					let latestJurisdictions = Observable
-						.merge(
-							mapView.rx.mapDidFinishRenderingFrame.map({ $0.mapView }).take(1),
-							mapView.rx.regionIsChanging
-						)
-						.throttle(1, scheduler: MainScheduler.asyncInstance)
-						.map { $0.jurisdictions }
-						.distinctUntilChanged(==)
-						
-						// Notify the delegate that the jurisdictions have changed
-						.do(onNext: { [unowned mapView] (jurisdictions) in
-							airMapMapViewDelegate?.airMapMapViewJurisdictionsDidChange(mapView: mapView, jurisdictions: jurisdictions)
-						})
-						.share()
-					
-					// Determine the active rulesets from the available jurisdictions and the map configuration
-					let activeRulesets = Observable
-						.combineLatest(
-							latestJurisdictions,
-							mapView.configurationSubject.startWith(mapView.configuration)
-						)
-						.map(AirMapMapView.activeRulesets)
-					
-					let configureRulesets = activeRulesets
-						.withLatestFrom(latestJurisdictions) { ($0, $1) }
-						
-						.do(onNext: { [unowned mapView] (activeRulesets, jurisdictions) in
-							// Configure the map with the active rulesets
-							mapView.configure(with: activeRulesets)
-							// Notify the delegate of the activated rulesets
-							airMapMapViewDelegate?.airMapMapViewRegionDidChange(mapView: mapView, jurisdictions: jurisdictions, activeRulesets: activeRulesets)
-						})
-					
-					// Return all inner observables to the outer subscription
-					return Observable.merge(configureTemporalLayers.mapToVoid(), configureRulesets.mapToVoid())
-				})
+					.do(onNext: { [unowned mapView] (activeRulesets, jurisdictions) in
+						// Configure the map with the active rulesets
+						mapView.configure(with: activeRulesets)
+						// Notify the delegate of the activated rulesets
+						mapView.airMapMapViewDelegate?.airMapMapViewRegionDidChange(mapView: mapView, jurisdictions: jurisdictions, activeRulesets: activeRulesets)
+					})
+					.mapToVoid()
+				
+				// Return all inner observables to the outer subscription
+				return Observable.merge(configureTemporalLayers, configureRulesets)
 			})
 			.subscribe()
 			.disposed(by: disposeBag)
