@@ -69,8 +69,14 @@ extension Reactive where Base: AirMapMapView {
 	}
 	
 	public var mapDidFinishLoadingStyle: Observable<(mapView: Base, style: MGLStyle)> {
-		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapView(_:didFinishLoading:)))
-			.map { ($0[0] as! Base, $0[1] as! MGLStyle) }
+		let observable = delegate.methodInvoked(#selector(MGLMapViewDelegate.mapView(_:didFinishLoading:)))
+			.map { (mapView: $0[0] as! Base, style: $0[1] as! MGLStyle) }
+		// Start with current style if it exists
+		if let style = base.style {
+			return observable.startWith((base, style))
+		} else {
+			return observable
+		}
 	}
 	
 	public var mapDidStartLoading: Observable<Base> {
