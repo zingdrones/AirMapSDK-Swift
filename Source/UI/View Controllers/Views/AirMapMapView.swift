@@ -113,19 +113,19 @@ extension AirMapMapView {
 	}
 	
 	private func setupBindings() {
-
+		
 		// Ensure we remain the delegate via Rx and any other delegates are set as the forward delegate
-		rx.observeWeakly(MGLMapViewDelegate.self, "delegate", options: [.initial, .new])
+		rx.observeWeakly(MGLMapViewDelegate.self, "delegate")
 
-			// Ignore repeated same delegate
+			// Ignore duplicate events of the same delegate object
 			.distinctUntilChanged(===)
 			
-			// Ignore Rx's delegate proxy to prevent a recursive call
+			// Ignore Rx's delegate proxy to prevent infinite recursion
 			.filter { !($0 is Optional<RxMGLMapViewDelegateProxy>) }
 			
-			// Debounce repetitive events and schedule asynchronously to prevent reentrancy warnings as the bindings
-			// below reset the delegate creating a cyclical dependency
-			.debounce(0.5, scheduler: MainScheduler.asyncInstance)
+			// ⚠ Observe asynchronously to prevent reentrancy warning since the subscription below sets the delegate
+			// this observable chain observes ⚠
+			.observeOn(MainScheduler.asyncInstance)
 			
 			// Reconfigure the following observable chain whenever the delegate is replaced
 			.flatMapLatest { [unowned self] _ in
@@ -145,34 +145,34 @@ extension AirMapMapView {
 						style.updateTemporalFilters()
 					})
 					.mapToVoid()
-				
-				// Get the latest jurisdiction on initial map render and as the map region changes
+
+				// Get the latest jurisdiction on initial map rendering and as the map region changes
 				let latestJurisdictions = Observable
 					.merge(
-						mapView.rx.mapDidFinishRenderingFrame.map({ $0.mapView }).take(1),
+						mapView.rx.mapDidFinishRenderingMap
+							.map({ $0.mapView })
+							.take(1),
 						mapView.rx.regionIsChanging
+							.throttle(1.0, scheduler: MainScheduler.asyncInstance)
 					)
-					.throttle(1, scheduler: MainScheduler.asyncInstance)
+					.observeOn(MainScheduler.asyncInstance)
 					.map { $0.jurisdictions }
 					.distinctUntilChanged(==)
-					
+
 					// Notify the delegate that the jurisdictions have changed
 					.do(onNext: { [unowned mapView] (jurisdictions) in
 						mapView.airMapMapViewDelegate?.airMapMapViewJurisdictionsDidChange(mapView: mapView, jurisdictions: jurisdictions)
 					})
 					.share()
-				
+
 				// Determine the active rulesets from the available jurisdictions and the map configuration
 				let activeRulesets = Observable
 					.combineLatest(
 						latestJurisdictions,
 						mapView.configurationSubject.startWith(mapView.configuration)
 					)
-					.map(AirMapMapView.activeRulesets)
-				
-				let configureRulesets = activeRulesets
-					.withLatestFrom(latestJurisdictions) { ($0, $1) }
-					
+					.map { (AirMapMapView.activeRulesets(from: $0, using: $1), $0) }
+
 					.do(onNext: { [unowned mapView] (activeRulesets, jurisdictions) in
 						// Configure the map with the active rulesets
 						mapView.configure(with: activeRulesets)
@@ -182,7 +182,7 @@ extension AirMapMapView {
 					.mapToVoid()
 				
 				// Return all inner observables to the outer subscription
-				return Observable.merge(configureTemporalLayers, configureRulesets)
+				return Observable.merge(configureTemporalLayers, activeRulesets)
 			})
 			.subscribe()
 			.disposed(by: disposeBag)
