@@ -127,23 +127,20 @@ extension MGLMapView {
 
 extension MGLStyle {
 	
-	var airMapBaseStyleLayers: [MGLVectorStyleLayer] {
-        
-        let vectorLayers = layers.flatMap { $0 as? MGLVectorStyleLayer }
-        let compositeLayers = vectorLayers.filter { $0.sourceIdentifier == "airmap" }
-        let airMapBaseLayers = compositeLayers
-            .filter { $0.identifier.hasPrefix("airmap") }
-            .filter { $0.airspaceType != nil }
-        
-        assert(airMapBaseLayers.count != 0)
-
-        return airMapBaseLayers
-	}
-	
 	var activeAirMapStyleLayers: [MGLVectorStyleLayer] {
 		return layers
 			.flatMap { $0 as? MGLVectorStyleLayer }
 			.filter { $0.sourceIdentifier?.hasPrefix(Constants.Maps.rulesetSourcePrefix) ?? false }
+	}
+	
+	func airMapBaseStyleLayers(for types: [AirMapAirspaceType]) -> [MGLVectorStyleLayer] {
+		
+		let vectorLayers = layers.flatMap { $0 as? MGLVectorStyleLayer }
+		let airMapBaseLayers = vectorLayers
+			.filter { $0.sourceIdentifier == "airmap" }
+			.filter { $0.airspaceType != nil && types.contains($0.airspaceType!) }
+				
+		return airMapBaseLayers
 	}
 	    
     /// Updates the map labels to one of the supported languages
@@ -212,7 +209,7 @@ extension MGLVectorSource {
 			MGLTileSourceOption.minimumZoomLevel: NSNumber(value: Constants.Maps.tileMinimumZoomLevel),
 			MGLTileSourceOption.maximumZoomLevel: NSNumber(value: Constants.Maps.tileMaximumZoomLevel)
 		]
-		let sourcePath = Constants.AirMapApi.tileDataUrl + "/\(ruleset.id)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey)"
+		let sourcePath = Constants.AirMapApi.tileDataUrl + "/\(ruleset.id.rawValue)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.airMapApiKey)"
 		
 		self.init(identifier: ruleset.tileSourceIdentifier, tileURLTemplates: [sourcePath], options: options)
 	}
@@ -226,5 +223,12 @@ extension MGLCoordinateBounds {
 		let se = CLLocationCoordinate2D(latitude: sw.latitude, longitude: ne.longitude)
 		let coordinates = [nw, ne, se, sw, nw]
 		return AirMapPolygon(coordinates: [coordinates])
+	}
+}
+
+extension AirMapRuleset {
+	
+	var tileSourceIdentifier: String {
+		return Constants.Maps.rulesetSourcePrefix + id.rawValue
 	}
 }

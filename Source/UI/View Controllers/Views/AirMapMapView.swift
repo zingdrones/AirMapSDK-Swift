@@ -31,9 +31,9 @@ open class AirMapMapView: MGLMapView {
 	///
 	/// - automatic: The map will be configured automatically. All `.required` rulesets will be enabled, and the default
 	///      `.pickOne` rulesets will be enabled. None of the `.optional` rulesets will be enabled except for "AirMap
-	///      Recommended" rulesets which are always be enabled.
-	/// - dynamic: The map will use the provided list of `preferredRulesetIds` to enable any `.optional` and `.pickOne`
-	///      rulesets as they are encountered. If `enableRecommendedRulesets` is false, none of the `.optional`
+	///      Recommended" rulesets which will always be enabled.
+	/// - dynamic: The map will use the provided list of preferred ruleset ids to enable any `.optional` and `.pickOne`
+	///      rulesets as they are encountered. If `enableRecommendedRulesets` is false, none of the optional
 	///      "AirMap Recommended" rulesets will be enabled, unless it is the only ruleset for a jurisdiction.
 	/// - manual: The map will be configured with only the rulesets provided. It is the caller's responsibility to query
 	///      the map for jurisdictions and make a determination as to which rulesets to display. The caller should
@@ -75,12 +75,18 @@ open class AirMapMapView: MGLMapView {
 	// MARK: - Private
 
 	private let configurationSubject = PublishSubject<Configuration>()
-	private var disposeBag = DisposeBag()
+	private let disposeBag = DisposeBag()
 }
 
 // MARK: - Private
 
 extension AirMapMapView {
+
+	// MARK: - Getters
+
+	private var airMapMapViewDelegate: AirMapMapViewDelegate? {
+		return rx.delegate.forwardToDelegate() as? AirMapMapViewDelegate
+	}
 	
 	// MARK: - Setup
 	
@@ -88,10 +94,12 @@ extension AirMapMapView {
 		
 		setupAccessToken()
 		setupBindings()
-		setupMap()
+		setupAppearance()
 	}
 	
 	private func setupAccessToken() {
+		
+		guard MGLAccountManager.accessToken() == nil else { return }
 		
 		guard let token = AirMap.configuration.mapboxAccessToken else {
 			fatalError("A Mapbox access token is required to use the AirMap SDK UI map component. " +
@@ -176,7 +184,7 @@ extension AirMapMapView {
 			.disposed(by: disposeBag)
 	}
 
-	private func setupMap() {
+	private func setupAppearance() {
 		
 		let image = UIImage(named: "info_icon", in: AirMapBundle.ui, compatibleWith: nil)!
 		attributionButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -242,12 +250,15 @@ extension AirMapMapView {
 		let rulesetTileSource = MGLVectorSource(ruleset: ruleset)
 		style.addSource(rulesetTileSource)
 		
-		style.airMapBaseStyleLayers
-			.filter { ruleset.airspaceTypes.contains($0.airspaceType!) }
+		style.airMapBaseStyleLayers(for: ruleset.airspaceTypes)
 			.forEach { baseLayer in
-				if let newLayerStyle = newLayerClone(of: baseLayer, with: ruleset, from: rulesetTileSource) {
+				if let newLayer = newLayerClone(of: baseLayer, with: ruleset, from: rulesetTileSource) {
 					AirMap.logger.debug("Adding", ruleset.id, baseLayer.identifier)
-					style.insertLayer(newLayerStyle, above: baseLayer)
+					var layer = newLayer as MGLStyleLayer
+					style.insertLayer(layer, above: baseLayer)
+					self.airMapMapViewDelegate?.airMapMapViewDidAddAirspaceType(
+						mapView: self, ruleset: ruleset, airspaceType: layer.airspaceType!, layer: &layer
+					)
 				} else {
 					AirMap.logger.error("Could not add layer for", ruleset.id, baseLayer.airspaceType!)
 				}
@@ -261,7 +272,10 @@ extension AirMapMapView {
 		style.layers
 			.flatMap { $0 as? MGLVectorStyleLayer }
 			.filter { $0.sourceIdentifier == sourceIdentifier }
-			.forEach(style.removeLayer)
+			.forEach { layer in
+				style.removeLayer(layer)
+				self.airMapMapViewDelegate?.airMapMapViewDidRemoveAirspaceType(mapView: self, airspaceType: layer.airspaceType!)
+			}
 		
 		if let source = style.source(withIdentifier: sourceIdentifier) {
 			AirMap.logger.debug("Removing", sourceIdentifier)
@@ -276,29 +290,14 @@ extension AirMapMapView {
 		switch configuration {
 			
 		case .automatic:
-			return AirMapRulesetResolver.resolvedActiveRulesets(
-				with: [],
-				from: jurisdictions,
-				enableRecommendedRulesets: true
-			)
-		case .dynamic(let preferredRulesetIds, let enableRecommendedRulesets):
-			return AirMapRulesetResolver.resolvedActiveRulesets(
-				with: preferredRulesetIds,
-				from: jurisdictions,
-				enableRecommendedRulesets: enableRecommendedRulesets
-			)
+			return AirMapRulesetResolver.resolvedActiveRulesets(from: jurisdictions)
+			
+		case .dynamic(let ids, let recommended):
+			return AirMapRulesetResolver.resolvedActiveRulesets(with: ids, from: jurisdictions, enableRecommendedRulesets: recommended)
+			
 		case .manual(let rulesets):
 			return rulesets
 		}
-	}
-}
-
-// MARK: - Extensions
-
-extension AirMapRuleset {
-	
-	var tileSourceIdentifier: String {
-		return Constants.Maps.rulesetSourcePrefix + id.rawValue
 	}
 }
 
@@ -306,14 +305,14 @@ extension AirMapRuleset {
 
 public class AirMapRulesetResolver {
 	
-	/// Takes a list of ruleset preferences and resolve which rulesets should be enabled from the available jurisdictions
+	/// Takes a list of ruleset preferences and resolves which rulesets should be enabled from the available jurisdictions
 	///
 	/// - Parameters:
 	///   - preferredRulesetIds: An array of rulesets ids, if any, that the user has previously selected
 	///   - jurisdictions: An array of jurisdictions for the area of operation
 	///   - recommendedEnabledByDefault: A flag that enables all recommended airspaces by default.
 	/// - Returns: A resolved array of rulesets taking into account the user's .optional and .pickOne selection preference
-	public static func resolvedActiveRulesets(with preferredRulesetIds: [AirMapRulesetId], from jurisdictions: [AirMapJurisdiction], enableRecommendedRulesets: Bool) -> [AirMapRuleset] {
+	public static func resolvedActiveRulesets(with preferredRulesetIds: [AirMapRulesetId] = [], from jurisdictions: [AirMapJurisdiction], enableRecommendedRulesets: Bool = true) -> [AirMapRuleset] {
 		
 		var rulesets = [AirMapRuleset]()
 		
@@ -323,7 +322,7 @@ public class AirMapRulesetResolver {
 		// if the preferred rulesets contains an .optional ruleset, add it to the array
 		rulesets += jurisdictions.optionalRulesets
 			.filter({ !jurisdictions.airMapRecommendedRulesets.contains($0) })
-			.filter({ preferredRulesetIds.contains($0.id)})
+			.filter({ preferredRulesetIds.contains($0.id) })
 		
 		// if the preferred rulesets contains an .optional AirMap recommended ruleset, add it to the array
 		// if the only ruleset is an AirMap recommended ruleset, add it as well
@@ -342,5 +341,4 @@ public class AirMapRulesetResolver {
 		
 		return rulesets
 	}
-	
 }
