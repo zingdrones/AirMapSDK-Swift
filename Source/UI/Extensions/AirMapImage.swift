@@ -14,7 +14,7 @@
 
 public class AirMapImage {
 	
-	public static func image(named name: String) -> Image? {
+	static func image(named name: String) -> Image? {
 		
 		#if os(OSX)
 			// TODO:

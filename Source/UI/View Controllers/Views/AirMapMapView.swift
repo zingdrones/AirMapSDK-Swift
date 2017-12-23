@@ -60,6 +60,10 @@ open class AirMapMapView: MGLMapView {
 		return AirMapMapView.activeRulesets(from: jurisdictions, using: configuration)
 	}
 	
+	/// The AirMap logo in the lower left corner.
+	/// If you wish to remove the AirMap wordmark, please contact our sales team to discuss an Enterprise plan
+	public var airMapLogoView: UIImageView!
+	
 	// MARK: - Init
 	
 	public override init(frame: CGRect) {
@@ -188,6 +192,17 @@ extension AirMapMapView {
 		
 		let image = UIImage(named: "info_icon", in: AirMapBundle.ui, compatibleWith: nil)!
 		attributionButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+		
+		let airMapLogo = UIImage(named: "map_logo", in: AirMapBundle.ui, compatibleWith: nil)
+		airMapLogoView = UIImageView(image: airMapLogo)
+
+		logoView.contentMode = .right
+		logoView.addSubview(airMapLogoView)
+		
+		NSLayoutConstraint.activate([
+			logoView.rightAnchor.constraint(equalTo: attributionButton.leftAnchor, constant: -6),
+			logoView.heightAnchor.constraint(equalToConstant: 23)
+			])
 		
 		isPitchEnabled = false
 		allowsRotating = false
