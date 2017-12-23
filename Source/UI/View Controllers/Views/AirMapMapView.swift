@@ -11,26 +11,6 @@ import Mapbox
 import RxSwift
 import RxCocoa
 
-/// Delegate for AirMapMapView that provides the registered delegate with updated map information
-public protocol AirMapMapViewDelegate: MGLMapViewDelegate {
-	
-	/// Delegate callback that fires whenever the map's jurisdictions have changed
-	///
-	/// - Parameters:
-	///   - mapView: The instance that triggered the callback
-	///   - jurisdictions: The jurisdictions that intersect the map's viewport
-	func airMapMapViewJurisdictionsDidChange(mapView: AirMapMapView, jurisdictions: [AirMapJurisdiction])
-	
-	/// Delegate callback that fires whenever the map's region has changed and the map has finished computing the
-	/// intersecting jurisdictions and active rulesets.
-	///
-	/// - Parameters:
-	///   - mapView: The instance that triggered the callback
-	///   - jurisdictions: The jurisdictions that intersect the map's viewport
-	///   - activeRulesets: The active rulesets that intersect the map's viewport
-	func airMapMapViewRegionDidChange(mapView: AirMapMapView, jurisdictions: [AirMapJurisdiction], activeRulesets: [AirMapRuleset])
-}
-
 /// Principal view for displaying airspace information spatially on a map
 open class AirMapMapView: MGLMapView {
 	
