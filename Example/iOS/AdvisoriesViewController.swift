@@ -43,6 +43,7 @@ class AdvisoriesViewController: UITableViewController {
 			
 			case .error(let error):
 				let alert = UIAlertController(title: "Error Getting Advisories", message: error.localizedDescription, preferredStyle: .alert)
+				alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 				self.present(alert, animated: true, completion: nil)
 			
 			case .value(let status):
