@@ -6,6 +6,8 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
+
 /// An airspace object that intersects with area of operation.
 public struct AirMapAdvisory {
 	

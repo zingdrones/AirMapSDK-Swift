@@ -6,6 +6,10 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
+    import UIKit.UIDevice
+#endif
+
 import Foundation
 import RxSwift
 
@@ -51,10 +55,10 @@ internal class Auth0Client: HTTPClient {
 		
 		let deviceId: String
 		
-		#if os(OSX)
-			deviceId = "macOS-" + UUID().uuidString
-		#else
-			deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
+		#if os(iOS) || os(tvOS)
+            deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
+        #elseif os(OSX)
+            deviceId = "macOS-" + UUID().uuidString
 		#endif
 		
 		var params = [String: Any]()

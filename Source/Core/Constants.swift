@@ -6,6 +6,10 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
+    import UIKit.UIDevice
+#endif
+
 import ObjectMapper
 
 struct Constants {

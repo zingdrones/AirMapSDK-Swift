@@ -40,6 +40,8 @@ To run the example project, run `pod try AirMapSDK`.  This should install the SD
 
 ### Integrating into your project
 
+#### CocoaPods
+
 To integrate the AirMap SDK into your Xcode project, navigate to the directory that contains your project and create a new **Podfile** with `pod init` or open an existing one, then add `pod 'AirMapSDK'` to the main target. Make sure to add the line `use_frameworks!`.
 
 ```ruby
@@ -69,6 +71,16 @@ Then, run the following command to install the dependencies:
 Going forward, open the `MyProject.xcworkspace` file instead of the `MyProject.xcodeproj` file.
 
 Make sure you import the framework before using the SDK.
+
+#### Carthage
+
+The AirMapSDK is also available via Carthage, however, only the Core subspec is currently available
+
+```
+github "AirMap/AirMapSDK-Swift" "master"
+```
+
+### Importing
 
 ```swift
 import AirMap

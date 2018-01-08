@@ -6,7 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Swift
+import Foundation
 import RxSwift
 
 // Reactive extension for AirMap methods.

@@ -6,6 +6,8 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
+
 /// A pre-flight summary of the status, rulesets, validations, and authorizations pertinent to the operation of a flight
 public struct AirMapFlightBriefing {
 	

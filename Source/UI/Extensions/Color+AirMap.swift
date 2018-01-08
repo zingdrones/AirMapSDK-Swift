@@ -6,7 +6,6 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-
 #if os(OSX)
 	import AppKit
 	public typealias Color = NSColor

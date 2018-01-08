@@ -1,0 +1,860 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		913C3B3A20042E2E00BCF16F /* SwiftTurf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913C3B3920042E2E00BCF16F /* SwiftTurf.framework */; };
+		913C3B3E200432BA00BCF16F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 913C3B3D200432BA00BCF16F /* Info.plist */; };
+		91532DBC2003F38400A45481 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91532DAF2003F38300A45481 /* Localizable.strings */; };
+		91532DBD2003F38400A45481 /* AirMap.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91532DB22003F38300A45481 /* AirMap.xcassets */; };
+		91532DC42003F3C900A45481 /* airmap.com.20200323.cer in Resources */ = {isa = PBXBuildFile; fileRef = 91532DC12003F3C900A45481 /* airmap.com.20200323.cer */; };
+		91532DC52003F3C900A45481 /* sso.airmap.jp.20180815.cer in Resources */ = {isa = PBXBuildFile; fileRef = 91532DC22003F3C900A45481 /* sso.airmap.jp.20180815.cer */; };
+		91532DC62003F3C900A45481 /* api.airmap.jp.20180828.cer in Resources */ = {isa = PBXBuildFile; fileRef = 91532DC32003F3C900A45481 /* api.airmap.jp.20180828.cer */; };
+		91532E55200405F900A45481 /* AirMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C9D2003F21700A45481 /* AirMap.swift */; };
+		91532E56200405F900A45481 /* AirMap+Advisories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CDB2003F21700A45481 /* AirMap+Advisories.swift */; };
+		91532E57200405F900A45481 /* AirMap+Aircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C992003F21700A45481 /* AirMap+Aircraft.swift */; };
+		91532E58200405F900A45481 /* AirMap+Airspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CCC2003F21700A45481 /* AirMap+Airspace.swift */; };
+		91532E59200405F900A45481 /* AirMap+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C9C2003F21700A45481 /* AirMap+Auth.swift */; };
+		91532E5A200405F900A45481 /* AirMap+FlightPlans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CDC2003F21700A45481 /* AirMap+FlightPlans.swift */; };
+		91532E5B200405F900A45481 /* AirMap+Flights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C982003F21700A45481 /* AirMap+Flights.swift */; };
+		91532E5C200405F900A45481 /* AirMap+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CDA2003F21700A45481 /* AirMap+Internal.swift */; };
+		91532E5D200405F900A45481 /* AirMap+Pilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C9A2003F21700A45481 /* AirMap+Pilot.swift */; };
+		91532E5E200405F900A45481 /* AirMap+Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C9B2003F21700A45481 /* AirMap+Rules.swift */; };
+		91532E5F200405F900A45481 /* AirMapAuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CD92003F21700A45481 /* AirMapAuthSession.swift */; };
+		91532E60200405F900A45481 /* AirMapConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CDD2003F21700A45481 /* AirMapConfiguration.swift */; };
+		91532E61200405F900A45481 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C8C2003F21700A45481 /* Constants.swift */; };
+		91532E62200405F900A45481 /* Deprecated-Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CCB2003F21700A45481 /* Deprecated-Core.swift */; };
+		91532E63200405F900A45481 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CD82003F21700A45481 /* LocalizedStrings.swift */; };
+		91532E64200405F900A45481 /* AdvisoryClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C962003F21700A45481 /* AdvisoryClient.swift */; };
+		91532E65200405F900A45481 /* AircraftClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C912003F21700A45481 /* AircraftClient.swift */; };
+		91532E66200405F900A45481 /* AirspaceClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C972003F21700A45481 /* AirspaceClient.swift */; };
+		91532E67200405F900A45481 /* Auth0Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C902003F21700A45481 /* Auth0Client.swift */; };
+		91532E68200405F900A45481 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C932003F21700A45481 /* AuthClient.swift */; };
+		91532E69200405F900A45481 /* FlightClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C942003F21700A45481 /* FlightClient.swift */; };
+		91532E6A200405F900A45481 /* FlightPlanClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C8F2003F21700A45481 /* FlightPlanClient.swift */; };
+		91532E6B200405F900A45481 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C922003F21700A45481 /* HTTPClient.swift */; };
+		91532E6C200405F900A45481 /* PilotClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C8E2003F21700A45481 /* PilotClient.swift */; };
+		91532E6D200405F900A45481 /* RuleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532C952003F21700A45481 /* RuleClient.swift */; };
+		91532E6E200405F900A45481 /* Airmap+Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CD12003F21700A45481 /* Airmap+Log.swift */; };
+		91532E6F200405F900A45481 /* Array+AirMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CCE2003F21700A45481 /* Array+AirMap.swift */; };
+		91532E70200405F900A45481 /* Date+AirMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CD02003F21700A45481 /* Date+AirMap.swift */; };
+		91532E71200405F900A45481 /* ObjectMapper+AirMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CD32003F21700A45481 /* ObjectMapper+AirMap.swift */; };
+		91532E72200405F900A45481 /* Rx+AirMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CD22003F21700A45481 /* Rx+AirMap.swift */; };
+		91532E73200405F900A45481 /* String+AirMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CCF2003F21700A45481 /* String+AirMap.swift */; };
+		91532E74200405F900A45481 /* AirMapIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CB82003F21700A45481 /* AirMapIdentifier.swift */; };
+		91532E75200405F900A45481 /* EquatableHashableComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CC42003F21700A45481 /* EquatableHashableComparable.swift */; };
+		91532E76200405F900A45481 /* JSONSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CA92003F21700A45481 /* JSONSerialization.swift */; };
+		91532E77200405F900A45481 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CA82003F21700A45481 /* Result.swift */; };
+		91532E78200405F900A45481 /* AirMapAdvisory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CCA2003F21700A45481 /* AirMapAdvisory.swift */; };
+		91532E79200405F900A45481 /* AirMapAdvisoryRequirements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CC92003F21700A45481 /* AirMapAdvisoryRequirements.swift */; };
+		91532E7A200405F900A45481 /* AirMapAirspaceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CC82003F21700A45481 /* AirMapAirspaceStatus.swift */; };
+		91532E7B200405F900A45481 /* AirMapAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CA32003F21700A45481 /* AirMapAircraft.swift */; };
+		91532E7C200405F900A45481 /* AirMapAircraftManufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CA22003F21700A45481 /* AirMapAircraftManufacturer.swift */; };
+		91532E7D200405F900A45481 /* AirMapAircraftModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CA42003F21700A45481 /* AirMapAircraftModel.swift */; };
+		91532E7E200405F900A45481 /* AirMapAirspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CC62003F21700A45481 /* AirMapAirspace.swift */; };
+		91532E7F200405F900A45481 /* AirMapFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CA72003F21700A45481 /* AirMapFlight.swift */; };
+		91532E80200405F900A45481 /* AirMapFlightBriefing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CB62003F21700A45481 /* AirMapFlightBriefing.swift */; };
+		91532E81200405F900A45481 /* AirMapFlightPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CB72003F21700A45481 /* AirMapFlightPlan.swift */; };
+		91532E82200405F900A45481 /* AirMapAirspaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CA02003F21700A45481 /* AirMapAirspaceType.swift */; };
+		91532E83200405F900A45481 /* AirMapPilot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CC12003F21700A45481 /* AirMapPilot.swift */; };
+		91532E84200405F900A45481 /* AirMapPilotStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CC02003F21700A45481 /* AirMapPilotStats.swift */; };
+		91532E85200405F900A45481 /* AirMapPilotVerified.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CBF2003F21700A45481 /* AirMapPilotVerified.swift */; };
+		91532E86200405F900A45481 /* AirMapFlightFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CBA2003F21700A45481 /* AirMapFlightFeature.swift */; };
+		91532E87200405F900A45481 /* AirMapJurisdiction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CBB2003F21700A45481 /* AirMapJurisdiction.swift */; };
+		91532E88200405F900A45481 /* AirMapRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CBD2003F21700A45481 /* AirMapRule.swift */; };
+		91532E89200405F900A45481 /* AirMapRuleset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CBC2003F21700A45481 /* AirMapRuleset.swift */; };
+		91532E8A200405F900A45481 /* AirMapGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CAD2003F21700A45481 /* AirMapGeometry.swift */; };
+		91532E8B200405F900A45481 /* AirMapPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CAE2003F21700A45481 /* AirMapPath.swift */; };
+		91532E8C200405F900A45481 /* AirMapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CAC2003F21700A45481 /* AirMapPoint.swift */; };
+		91532E8D200405F900A45481 /* AirMapPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CAB2003F21700A45481 /* AirMapPolygon.swift */; };
+		91532E8E200405F900A45481 /* AirMapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CB02003F21700A45481 /* AirMapError.swift */; };
+		91532E8F200405F900A45481 /* AirMapToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CB42003F21700A45481 /* AirMapToken.swift */; };
+		91532E90200405F900A45481 /* AirMapUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CB12003F21700A45481 /* AirMapUnits.swift */; };
+		91532E91200405F900A45481 /* Auth0Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CB32003F21700A45481 /* Auth0Error.swift */; };
+		91532E92200405F900A45481 /* AuthCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CB22003F21700A45481 /* AuthCredentials.swift */; };
+		91532E93200405F900A45481 /* AirMapWeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CC32003F21700A45481 /* AirMapWeatherForecast.swift */; };
+		91532E94200405F900A45481 /* AirMapBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CD62003F21700A45481 /* AirMapBundle.swift */; };
+		91532E95200405F900A45481 /* AirMapLocationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CD52003F21700A45481 /* AirMapLocationUtils.swift */; };
+		91532E96200405F900A45481 /* AirMapTrafficServiceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CD72003F21700A45481 /* AirMapTrafficServiceUtils.swift */; };
+		91532E972004061600A45481 /* AirMap+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CEA2003F21700A45481 /* AirMap+Rx.swift */; };
+		91532E982004061600A45481 /* Swift+AirMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CEB2003F21700A45481 /* Swift+AirMap.swift */; };
+		91532E992004061600A45481 /* ActivityTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91532CEC2003F21700A45481 /* ActivityTracker.swift */; };
+		91532EFC20040DA300A45481 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91532EEF20040DA300A45481 /* Alamofire.framework */; };
+		91532EFE20040DA300A45481 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91532EF120040DA300A45481 /* ObjectMapper.framework */; };
+		91532EFF20040DA300A45481 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91532EF220040DA300A45481 /* RxCocoa.framework */; };
+		91532F0020040DA300A45481 /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91532EF320040DA300A45481 /* JWTDecode.framework */; };
+		91532F0120040DA300A45481 /* RxSwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91532EF420040DA300A45481 /* RxSwiftExt.framework */; };
+		91532F0320040DA300A45481 /* SimpleKeychain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91532EF620040DA300A45481 /* SimpleKeychain.framework */; };
+		91532F0420040DA300A45481 /* Log.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91532EF720040DA300A45481 /* Log.framework */; };
+		91532F0720040DA300A45481 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91532EFA20040DA300A45481 /* RxSwift.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		913C3B3920042E2E00BCF16F /* SwiftTurf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftTurf.framework; path = Carthage/Build/iOS/SwiftTurf.framework; sourceTree = "<group>"; };
+		913C3B3D200432BA00BCF16F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		913C3B6A200436B900BCF16F /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mapbox.framework; path = Carthage/Build/iOS/Mapbox.framework; sourceTree = "<group>"; };
+		913C3B6C2004373300BCF16F /* PhoneNumberKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhoneNumberKit.framework; path = Carthage/Build/iOS/PhoneNumberKit.framework; sourceTree = "<group>"; };
+		91532C4E2003F18600A45481 /* AirMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AirMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91532C8C2003F21700A45481 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		91532C8E2003F21700A45481 /* PilotClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PilotClient.swift; sourceTree = "<group>"; };
+		91532C8F2003F21700A45481 /* FlightPlanClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightPlanClient.swift; sourceTree = "<group>"; };
+		91532C902003F21700A45481 /* Auth0Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth0Client.swift; sourceTree = "<group>"; };
+		91532C912003F21700A45481 /* AircraftClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AircraftClient.swift; sourceTree = "<group>"; };
+		91532C922003F21700A45481 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		91532C932003F21700A45481 /* AuthClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
+		91532C942003F21700A45481 /* FlightClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightClient.swift; sourceTree = "<group>"; };
+		91532C952003F21700A45481 /* RuleClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleClient.swift; sourceTree = "<group>"; };
+		91532C962003F21700A45481 /* AdvisoryClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvisoryClient.swift; sourceTree = "<group>"; };
+		91532C972003F21700A45481 /* AirspaceClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirspaceClient.swift; sourceTree = "<group>"; };
+		91532C982003F21700A45481 /* AirMap+Flights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+Flights.swift"; sourceTree = "<group>"; };
+		91532C992003F21700A45481 /* AirMap+Aircraft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+Aircraft.swift"; sourceTree = "<group>"; };
+		91532C9A2003F21700A45481 /* AirMap+Pilot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+Pilot.swift"; sourceTree = "<group>"; };
+		91532C9B2003F21700A45481 /* AirMap+Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+Rules.swift"; sourceTree = "<group>"; };
+		91532C9C2003F21700A45481 /* AirMap+Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+Auth.swift"; sourceTree = "<group>"; };
+		91532C9D2003F21700A45481 /* AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMap.swift; sourceTree = "<group>"; };
+		91532CA02003F21700A45481 /* AirMapAirspaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapAirspaceType.swift; sourceTree = "<group>"; };
+		91532CA22003F21700A45481 /* AirMapAircraftManufacturer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapAircraftManufacturer.swift; sourceTree = "<group>"; };
+		91532CA32003F21700A45481 /* AirMapAircraft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapAircraft.swift; sourceTree = "<group>"; };
+		91532CA42003F21700A45481 /* AirMapAircraftModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapAircraftModel.swift; sourceTree = "<group>"; };
+		91532CA72003F21700A45481 /* AirMapFlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapFlight.swift; sourceTree = "<group>"; };
+		91532CA82003F21700A45481 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		91532CA92003F21700A45481 /* JSONSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSerialization.swift; sourceTree = "<group>"; };
+		91532CAB2003F21700A45481 /* AirMapPolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapPolygon.swift; sourceTree = "<group>"; };
+		91532CAC2003F21700A45481 /* AirMapPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapPoint.swift; sourceTree = "<group>"; };
+		91532CAD2003F21700A45481 /* AirMapGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapGeometry.swift; sourceTree = "<group>"; };
+		91532CAE2003F21700A45481 /* AirMapPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapPath.swift; sourceTree = "<group>"; };
+		91532CB02003F21700A45481 /* AirMapError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapError.swift; sourceTree = "<group>"; };
+		91532CB12003F21700A45481 /* AirMapUnits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapUnits.swift; sourceTree = "<group>"; };
+		91532CB22003F21700A45481 /* AuthCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCredentials.swift; sourceTree = "<group>"; };
+		91532CB32003F21700A45481 /* Auth0Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth0Error.swift; sourceTree = "<group>"; };
+		91532CB42003F21700A45481 /* AirMapToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapToken.swift; sourceTree = "<group>"; };
+		91532CB62003F21700A45481 /* AirMapFlightBriefing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapFlightBriefing.swift; sourceTree = "<group>"; };
+		91532CB72003F21700A45481 /* AirMapFlightPlan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapFlightPlan.swift; sourceTree = "<group>"; };
+		91532CB82003F21700A45481 /* AirMapIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapIdentifier.swift; sourceTree = "<group>"; };
+		91532CBA2003F21700A45481 /* AirMapFlightFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapFlightFeature.swift; sourceTree = "<group>"; };
+		91532CBB2003F21700A45481 /* AirMapJurisdiction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapJurisdiction.swift; sourceTree = "<group>"; };
+		91532CBC2003F21700A45481 /* AirMapRuleset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapRuleset.swift; sourceTree = "<group>"; };
+		91532CBD2003F21700A45481 /* AirMapRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapRule.swift; sourceTree = "<group>"; };
+		91532CBF2003F21700A45481 /* AirMapPilotVerified.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapPilotVerified.swift; sourceTree = "<group>"; };
+		91532CC02003F21700A45481 /* AirMapPilotStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapPilotStats.swift; sourceTree = "<group>"; };
+		91532CC12003F21700A45481 /* AirMapPilot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapPilot.swift; sourceTree = "<group>"; };
+		91532CC32003F21700A45481 /* AirMapWeatherForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapWeatherForecast.swift; sourceTree = "<group>"; };
+		91532CC42003F21700A45481 /* EquatableHashableComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquatableHashableComparable.swift; sourceTree = "<group>"; };
+		91532CC62003F21700A45481 /* AirMapAirspace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapAirspace.swift; sourceTree = "<group>"; };
+		91532CC82003F21700A45481 /* AirMapAirspaceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapAirspaceStatus.swift; sourceTree = "<group>"; };
+		91532CC92003F21700A45481 /* AirMapAdvisoryRequirements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapAdvisoryRequirements.swift; sourceTree = "<group>"; };
+		91532CCA2003F21700A45481 /* AirMapAdvisory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapAdvisory.swift; sourceTree = "<group>"; };
+		91532CCB2003F21700A45481 /* Deprecated-Core.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Deprecated-Core.swift"; sourceTree = "<group>"; };
+		91532CCC2003F21700A45481 /* AirMap+Airspace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+Airspace.swift"; sourceTree = "<group>"; };
+		91532CCE2003F21700A45481 /* Array+AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+AirMap.swift"; sourceTree = "<group>"; };
+		91532CCF2003F21700A45481 /* String+AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+AirMap.swift"; sourceTree = "<group>"; };
+		91532CD02003F21700A45481 /* Date+AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+AirMap.swift"; sourceTree = "<group>"; };
+		91532CD12003F21700A45481 /* Airmap+Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Airmap+Log.swift"; sourceTree = "<group>"; };
+		91532CD22003F21700A45481 /* Rx+AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+AirMap.swift"; sourceTree = "<group>"; };
+		91532CD32003F21700A45481 /* ObjectMapper+AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjectMapper+AirMap.swift"; sourceTree = "<group>"; };
+		91532CD52003F21700A45481 /* AirMapLocationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapLocationUtils.swift; sourceTree = "<group>"; };
+		91532CD62003F21700A45481 /* AirMapBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapBundle.swift; sourceTree = "<group>"; };
+		91532CD72003F21700A45481 /* AirMapTrafficServiceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapTrafficServiceUtils.swift; sourceTree = "<group>"; };
+		91532CD82003F21700A45481 /* LocalizedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
+		91532CD92003F21700A45481 /* AirMapAuthSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapAuthSession.swift; sourceTree = "<group>"; };
+		91532CDA2003F21700A45481 /* AirMap+Internal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+Internal.swift"; sourceTree = "<group>"; };
+		91532CDB2003F21700A45481 /* AirMap+Advisories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+Advisories.swift"; sourceTree = "<group>"; };
+		91532CDC2003F21700A45481 /* AirMap+FlightPlans.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+FlightPlans.swift"; sourceTree = "<group>"; };
+		91532CDD2003F21700A45481 /* AirMapConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapConfiguration.swift; sourceTree = "<group>"; };
+		91532CEA2003F21700A45481 /* AirMap+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AirMap+Rx.swift"; sourceTree = "<group>"; };
+		91532CEB2003F21700A45481 /* Swift+AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Swift+AirMap.swift"; sourceTree = "<group>"; };
+		91532CEC2003F21700A45481 /* ActivityTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTracker.swift; sourceTree = "<group>"; };
+		91532DB02003F38300A45481 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		91532DB12003F38300A45481 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		91532DB22003F38300A45481 /* AirMap.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AirMap.xcassets; sourceTree = "<group>"; };
+		91532DC12003F3C900A45481 /* airmap.com.20200323.cer */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = airmap.com.20200323.cer; sourceTree = "<group>"; };
+		91532DC22003F3C900A45481 /* sso.airmap.jp.20180815.cer */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sso.airmap.jp.20180815.cer; sourceTree = "<group>"; };
+		91532DC32003F3C900A45481 /* api.airmap.jp.20180828.cer */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = api.airmap.jp.20180828.cer; sourceTree = "<group>"; };
+		91532EEF20040DA300A45481 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		91532EF020040DA300A45481 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
+		91532EF120040DA300A45481 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/iOS/ObjectMapper.framework; sourceTree = "<group>"; };
+		91532EF220040DA300A45481 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		91532EF320040DA300A45481 /* JWTDecode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JWTDecode.framework; path = Carthage/Build/iOS/JWTDecode.framework; sourceTree = "<group>"; };
+		91532EF420040DA300A45481 /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
+		91532EF520040DA300A45481 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
+		91532EF620040DA300A45481 /* SimpleKeychain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleKeychain.framework; path = Carthage/Build/iOS/SimpleKeychain.framework; sourceTree = "<group>"; };
+		91532EF720040DA300A45481 /* Log.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Log.framework; path = Carthage/Build/iOS/Log.framework; sourceTree = "<group>"; };
+		91532EF820040DA300A45481 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
+		91532EF920040DA300A45481 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
+		91532EFA20040DA300A45481 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		91532EFB20040DA300A45481 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		91532C4A2003F18600A45481 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91532EFC20040DA300A45481 /* Alamofire.framework in Frameworks */,
+				91532EFE20040DA300A45481 /* ObjectMapper.framework in Frameworks */,
+				91532EFF20040DA300A45481 /* RxCocoa.framework in Frameworks */,
+				91532F0020040DA300A45481 /* JWTDecode.framework in Frameworks */,
+				91532F0120040DA300A45481 /* RxSwiftExt.framework in Frameworks */,
+				91532F0320040DA300A45481 /* SimpleKeychain.framework in Frameworks */,
+				91532F0420040DA300A45481 /* Log.framework in Frameworks */,
+				913C3B3A20042E2E00BCF16F /* SwiftTurf.framework in Frameworks */,
+				91532F0720040DA300A45481 /* RxSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		91532C442003F18600A45481 = {
+			isa = PBXGroup;
+			children = (
+				913C3B3D200432BA00BCF16F /* Info.plist */,
+				91532C5B2003F21700A45481 /* Source */,
+				91532DA12003F38300A45481 /* Resources */,
+				91532C4F2003F18600A45481 /* Products */,
+				91532ECD200406B000A45481 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		91532C4F2003F18600A45481 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				91532C4E2003F18600A45481 /* AirMap.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		91532C5B2003F21700A45481 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				91532C8B2003F21700A45481 /* Core */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		91532C8B2003F21700A45481 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				91532C9D2003F21700A45481 /* AirMap.swift */,
+				91532CDB2003F21700A45481 /* AirMap+Advisories.swift */,
+				91532C992003F21700A45481 /* AirMap+Aircraft.swift */,
+				91532CCC2003F21700A45481 /* AirMap+Airspace.swift */,
+				91532C9C2003F21700A45481 /* AirMap+Auth.swift */,
+				91532CDC2003F21700A45481 /* AirMap+FlightPlans.swift */,
+				91532C982003F21700A45481 /* AirMap+Flights.swift */,
+				91532CDA2003F21700A45481 /* AirMap+Internal.swift */,
+				91532C9A2003F21700A45481 /* AirMap+Pilot.swift */,
+				91532C9B2003F21700A45481 /* AirMap+Rules.swift */,
+				91532CD92003F21700A45481 /* AirMapAuthSession.swift */,
+				91532CDD2003F21700A45481 /* AirMapConfiguration.swift */,
+				91532C8C2003F21700A45481 /* Constants.swift */,
+				91532CCB2003F21700A45481 /* Deprecated-Core.swift */,
+				91532CD82003F21700A45481 /* LocalizedStrings.swift */,
+				91532C8D2003F21700A45481 /* Clients */,
+				91532CCD2003F21700A45481 /* Extensions */,
+				91532C9E2003F21700A45481 /* Models */,
+				91532CD42003F21700A45481 /* Utilities */,
+				91532CE92003F21700A45481 /* Rx */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		91532C8D2003F21700A45481 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				91532C962003F21700A45481 /* AdvisoryClient.swift */,
+				91532C912003F21700A45481 /* AircraftClient.swift */,
+				91532C972003F21700A45481 /* AirspaceClient.swift */,
+				91532C902003F21700A45481 /* Auth0Client.swift */,
+				91532C932003F21700A45481 /* AuthClient.swift */,
+				91532C942003F21700A45481 /* FlightClient.swift */,
+				91532C8F2003F21700A45481 /* FlightPlanClient.swift */,
+				91532C922003F21700A45481 /* HTTPClient.swift */,
+				91532C8E2003F21700A45481 /* PilotClient.swift */,
+				91532C952003F21700A45481 /* RuleClient.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		91532C9E2003F21700A45481 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				91532CB82003F21700A45481 /* AirMapIdentifier.swift */,
+				91532CC42003F21700A45481 /* EquatableHashableComparable.swift */,
+				91532CA92003F21700A45481 /* JSONSerialization.swift */,
+				91532CA82003F21700A45481 /* Result.swift */,
+				91532CC72003F21700A45481 /* Advisory */,
+				91532CA12003F21700A45481 /* Aircraft */,
+				91532CC52003F21700A45481 /* Airspace */,
+				91532CA62003F21700A45481 /* Flight */,
+				91532CB52003F21700A45481 /* FlightPlan */,
+				91532C9F2003F21700A45481 /* Mapping */,
+				91532CBE2003F21700A45481 /* Pilot */,
+				91532CB92003F21700A45481 /* Rules */,
+				91532CAA2003F21700A45481 /* Shapes */,
+				91532CAF2003F21700A45481 /* Shared */,
+				91532CC22003F21700A45481 /* Weather */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		91532C9F2003F21700A45481 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				91532CA02003F21700A45481 /* AirMapAirspaceType.swift */,
+			);
+			path = Mapping;
+			sourceTree = "<group>";
+		};
+		91532CA12003F21700A45481 /* Aircraft */ = {
+			isa = PBXGroup;
+			children = (
+				91532CA32003F21700A45481 /* AirMapAircraft.swift */,
+				91532CA22003F21700A45481 /* AirMapAircraftManufacturer.swift */,
+				91532CA42003F21700A45481 /* AirMapAircraftModel.swift */,
+			);
+			path = Aircraft;
+			sourceTree = "<group>";
+		};
+		91532CA62003F21700A45481 /* Flight */ = {
+			isa = PBXGroup;
+			children = (
+				91532CA72003F21700A45481 /* AirMapFlight.swift */,
+			);
+			path = Flight;
+			sourceTree = "<group>";
+		};
+		91532CAA2003F21700A45481 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				91532CAD2003F21700A45481 /* AirMapGeometry.swift */,
+				91532CAE2003F21700A45481 /* AirMapPath.swift */,
+				91532CAC2003F21700A45481 /* AirMapPoint.swift */,
+				91532CAB2003F21700A45481 /* AirMapPolygon.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		91532CAF2003F21700A45481 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				91532CB02003F21700A45481 /* AirMapError.swift */,
+				91532CB42003F21700A45481 /* AirMapToken.swift */,
+				91532CB12003F21700A45481 /* AirMapUnits.swift */,
+				91532CB32003F21700A45481 /* Auth0Error.swift */,
+				91532CB22003F21700A45481 /* AuthCredentials.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		91532CB52003F21700A45481 /* FlightPlan */ = {
+			isa = PBXGroup;
+			children = (
+				91532CB62003F21700A45481 /* AirMapFlightBriefing.swift */,
+				91532CB72003F21700A45481 /* AirMapFlightPlan.swift */,
+			);
+			path = FlightPlan;
+			sourceTree = "<group>";
+		};
+		91532CB92003F21700A45481 /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				91532CBA2003F21700A45481 /* AirMapFlightFeature.swift */,
+				91532CBB2003F21700A45481 /* AirMapJurisdiction.swift */,
+				91532CBD2003F21700A45481 /* AirMapRule.swift */,
+				91532CBC2003F21700A45481 /* AirMapRuleset.swift */,
+			);
+			path = Rules;
+			sourceTree = "<group>";
+		};
+		91532CBE2003F21700A45481 /* Pilot */ = {
+			isa = PBXGroup;
+			children = (
+				91532CC12003F21700A45481 /* AirMapPilot.swift */,
+				91532CC02003F21700A45481 /* AirMapPilotStats.swift */,
+				91532CBF2003F21700A45481 /* AirMapPilotVerified.swift */,
+			);
+			path = Pilot;
+			sourceTree = "<group>";
+		};
+		91532CC22003F21700A45481 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				91532CC32003F21700A45481 /* AirMapWeatherForecast.swift */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		91532CC52003F21700A45481 /* Airspace */ = {
+			isa = PBXGroup;
+			children = (
+				91532CC62003F21700A45481 /* AirMapAirspace.swift */,
+			);
+			path = Airspace;
+			sourceTree = "<group>";
+		};
+		91532CC72003F21700A45481 /* Advisory */ = {
+			isa = PBXGroup;
+			children = (
+				91532CCA2003F21700A45481 /* AirMapAdvisory.swift */,
+				91532CC92003F21700A45481 /* AirMapAdvisoryRequirements.swift */,
+				91532CC82003F21700A45481 /* AirMapAirspaceStatus.swift */,
+			);
+			path = Advisory;
+			sourceTree = "<group>";
+		};
+		91532CCD2003F21700A45481 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				91532CD12003F21700A45481 /* Airmap+Log.swift */,
+				91532CCE2003F21700A45481 /* Array+AirMap.swift */,
+				91532CD02003F21700A45481 /* Date+AirMap.swift */,
+				91532CD32003F21700A45481 /* ObjectMapper+AirMap.swift */,
+				91532CD22003F21700A45481 /* Rx+AirMap.swift */,
+				91532CCF2003F21700A45481 /* String+AirMap.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		91532CD42003F21700A45481 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				91532CD62003F21700A45481 /* AirMapBundle.swift */,
+				91532CD52003F21700A45481 /* AirMapLocationUtils.swift */,
+				91532CD72003F21700A45481 /* AirMapTrafficServiceUtils.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		91532CE92003F21700A45481 /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				91532CEA2003F21700A45481 /* AirMap+Rx.swift */,
+				91532CEB2003F21700A45481 /* Swift+AirMap.swift */,
+				91532CEC2003F21700A45481 /* ActivityTracker.swift */,
+			);
+			path = Rx;
+			sourceTree = "<group>";
+		};
+		91532DA12003F38300A45481 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				91532DAA2003F38300A45481 /* Core */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		91532DAA2003F38300A45481 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				91532DC02003F3C900A45481 /* Certificates */,
+				91532DAE2003F38300A45481 /* Localizations */,
+				91532DB22003F38300A45481 /* AirMap.xcassets */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		91532DAE2003F38300A45481 /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				91532DAF2003F38300A45481 /* Localizable.strings */,
+			);
+			path = Localizations;
+			sourceTree = "<group>";
+		};
+		91532DC02003F3C900A45481 /* Certificates */ = {
+			isa = PBXGroup;
+			children = (
+				91532DC12003F3C900A45481 /* airmap.com.20200323.cer */,
+				91532DC22003F3C900A45481 /* sso.airmap.jp.20180815.cer */,
+				91532DC32003F3C900A45481 /* api.airmap.jp.20180828.cer */,
+			);
+			path = Certificates;
+			sourceTree = "<group>";
+		};
+		91532ECD200406B000A45481 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				913C3B6C2004373300BCF16F /* PhoneNumberKit.framework */,
+				913C3B6A200436B900BCF16F /* Mapbox.framework */,
+				913C3B3920042E2E00BCF16F /* SwiftTurf.framework */,
+				91532EEF20040DA300A45481 /* Alamofire.framework */,
+				91532EF920040DA300A45481 /* CocoaAsyncSocket.framework */,
+				91532EF520040DA300A45481 /* Differentiator.framework */,
+				91532EF320040DA300A45481 /* JWTDecode.framework */,
+				91532EF720040DA300A45481 /* Log.framework */,
+				91532EF120040DA300A45481 /* ObjectMapper.framework */,
+				91532EFB20040DA300A45481 /* RxBlocking.framework */,
+				91532EF220040DA300A45481 /* RxCocoa.framework */,
+				91532EF820040DA300A45481 /* RxDataSources.framework */,
+				91532EFA20040DA300A45481 /* RxSwift.framework */,
+				91532EF420040DA300A45481 /* RxSwiftExt.framework */,
+				91532EF020040DA300A45481 /* RxTest.framework */,
+				91532EF620040DA300A45481 /* SimpleKeychain.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		91532C4B2003F18600A45481 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		91532C4D2003F18600A45481 /* AirMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91532C562003F18600A45481 /* Build configuration list for PBXNativeTarget "AirMap" */;
+			buildPhases = (
+				91532C492003F18600A45481 /* Sources */,
+				91532C4A2003F18600A45481 /* Frameworks */,
+				91532C4B2003F18600A45481 /* Headers */,
+				91532C4C2003F18600A45481 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirMap;
+			productName = AirMapSDK;
+			productReference = 91532C4E2003F18600A45481 /* AirMap.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		91532C452003F18600A45481 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "AirMap, Inc.";
+				TargetAttributes = {
+					91532C4D2003F18600A45481 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 91532C482003F18600A45481 /* Build configuration list for PBXProject "AirMapSDK" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				ja,
+				Base,
+			);
+			mainGroup = 91532C442003F18600A45481;
+			productRefGroup = 91532C4F2003F18600A45481 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				91532C4D2003F18600A45481 /* AirMap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		91532C4C2003F18600A45481 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91532DC42003F3C900A45481 /* airmap.com.20200323.cer in Resources */,
+				913C3B3E200432BA00BCF16F /* Info.plist in Resources */,
+				91532DBC2003F38400A45481 /* Localizable.strings in Resources */,
+				91532DC52003F3C900A45481 /* sso.airmap.jp.20180815.cer in Resources */,
+				91532DBD2003F38400A45481 /* AirMap.xcassets in Resources */,
+				91532DC62003F3C900A45481 /* api.airmap.jp.20180828.cer in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		91532C492003F18600A45481 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91532E5A200405F900A45481 /* AirMap+FlightPlans.swift in Sources */,
+				91532E94200405F900A45481 /* AirMapBundle.swift in Sources */,
+				91532E88200405F900A45481 /* AirMapRule.swift in Sources */,
+				91532E7A200405F900A45481 /* AirMapAirspaceStatus.swift in Sources */,
+				91532E56200405F900A45481 /* AirMap+Advisories.swift in Sources */,
+				91532E81200405F900A45481 /* AirMapFlightPlan.swift in Sources */,
+				91532E5C200405F900A45481 /* AirMap+Internal.swift in Sources */,
+				91532E95200405F900A45481 /* AirMapLocationUtils.swift in Sources */,
+				91532E8B200405F900A45481 /* AirMapPath.swift in Sources */,
+				91532E5E200405F900A45481 /* AirMap+Rules.swift in Sources */,
+				91532E8D200405F900A45481 /* AirMapPolygon.swift in Sources */,
+				91532E65200405F900A45481 /* AircraftClient.swift in Sources */,
+				91532E63200405F900A45481 /* LocalizedStrings.swift in Sources */,
+				91532E89200405F900A45481 /* AirMapRuleset.swift in Sources */,
+				91532E58200405F900A45481 /* AirMap+Airspace.swift in Sources */,
+				91532E55200405F900A45481 /* AirMap.swift in Sources */,
+				91532E60200405F900A45481 /* AirMapConfiguration.swift in Sources */,
+				91532E72200405F900A45481 /* Rx+AirMap.swift in Sources */,
+				91532E7D200405F900A45481 /* AirMapAircraftModel.swift in Sources */,
+				91532E8C200405F900A45481 /* AirMapPoint.swift in Sources */,
+				91532E93200405F900A45481 /* AirMapWeatherForecast.swift in Sources */,
+				91532E76200405F900A45481 /* JSONSerialization.swift in Sources */,
+				91532E77200405F900A45481 /* Result.swift in Sources */,
+				91532E62200405F900A45481 /* Deprecated-Core.swift in Sources */,
+				91532E6F200405F900A45481 /* Array+AirMap.swift in Sources */,
+				91532E78200405F900A45481 /* AirMapAdvisory.swift in Sources */,
+				91532E86200405F900A45481 /* AirMapFlightFeature.swift in Sources */,
+				91532E61200405F900A45481 /* Constants.swift in Sources */,
+				91532E83200405F900A45481 /* AirMapPilot.swift in Sources */,
+				91532E6C200405F900A45481 /* PilotClient.swift in Sources */,
+				91532E74200405F900A45481 /* AirMapIdentifier.swift in Sources */,
+				91532E982004061600A45481 /* Swift+AirMap.swift in Sources */,
+				91532E67200405F900A45481 /* Auth0Client.swift in Sources */,
+				91532E90200405F900A45481 /* AirMapUnits.swift in Sources */,
+				91532E7E200405F900A45481 /* AirMapAirspace.swift in Sources */,
+				91532E59200405F900A45481 /* AirMap+Auth.swift in Sources */,
+				91532E73200405F900A45481 /* String+AirMap.swift in Sources */,
+				91532E70200405F900A45481 /* Date+AirMap.swift in Sources */,
+				91532E5B200405F900A45481 /* AirMap+Flights.swift in Sources */,
+				91532E8F200405F900A45481 /* AirMapToken.swift in Sources */,
+				91532E69200405F900A45481 /* FlightClient.swift in Sources */,
+				91532E85200405F900A45481 /* AirMapPilotVerified.swift in Sources */,
+				91532E57200405F900A45481 /* AirMap+Aircraft.swift in Sources */,
+				91532E972004061600A45481 /* AirMap+Rx.swift in Sources */,
+				91532E5D200405F900A45481 /* AirMap+Pilot.swift in Sources */,
+				91532E8E200405F900A45481 /* AirMapError.swift in Sources */,
+				91532E68200405F900A45481 /* AuthClient.swift in Sources */,
+				91532E92200405F900A45481 /* AuthCredentials.swift in Sources */,
+				91532E6D200405F900A45481 /* RuleClient.swift in Sources */,
+				91532E75200405F900A45481 /* EquatableHashableComparable.swift in Sources */,
+				91532E84200405F900A45481 /* AirMapPilotStats.swift in Sources */,
+				91532E5F200405F900A45481 /* AirMapAuthSession.swift in Sources */,
+				91532E87200405F900A45481 /* AirMapJurisdiction.swift in Sources */,
+				91532E6A200405F900A45481 /* FlightPlanClient.swift in Sources */,
+				91532E6B200405F900A45481 /* HTTPClient.swift in Sources */,
+				91532E91200405F900A45481 /* Auth0Error.swift in Sources */,
+				91532E80200405F900A45481 /* AirMapFlightBriefing.swift in Sources */,
+				91532E79200405F900A45481 /* AirMapAdvisoryRequirements.swift in Sources */,
+				91532E66200405F900A45481 /* AirspaceClient.swift in Sources */,
+				91532E992004061600A45481 /* ActivityTracker.swift in Sources */,
+				91532E6E200405F900A45481 /* Airmap+Log.swift in Sources */,
+				91532E7C200405F900A45481 /* AirMapAircraftManufacturer.swift in Sources */,
+				91532E7F200405F900A45481 /* AirMapFlight.swift in Sources */,
+				91532E64200405F900A45481 /* AdvisoryClient.swift in Sources */,
+				91532E96200405F900A45481 /* AirMapTrafficServiceUtils.swift in Sources */,
+				91532E71200405F900A45481 /* ObjectMapper+AirMap.swift in Sources */,
+				91532E8A200405F900A45481 /* AirMapGeometry.swift in Sources */,
+				91532E7B200405F900A45481 /* AirMapAircraft.swift in Sources */,
+				91532E82200405F900A45481 /* AirMapAirspaceType.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		91532DAF2003F38300A45481 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91532DB02003F38300A45481 /* ja */,
+				91532DB12003F38300A45481 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		91532C542003F18600A45481 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		91532C552003F18600A45481 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		91532C572003F18600A45481 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMapSDK;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		91532C582003F18600A45481 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMapSDK;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		91532C482003F18600A45481 /* Build configuration list for PBXProject "AirMapSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91532C542003F18600A45481 /* Debug */,
+				91532C552003F18600A45481 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91532C562003F18600A45481 /* Build configuration list for PBXNativeTarget "AirMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91532C572003F18600A45481 /* Debug */,
+				91532C582003F18600A45481 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 91532C452003F18600A45481 /* Project object */;
+}
