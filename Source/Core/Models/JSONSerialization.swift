@@ -216,8 +216,8 @@ extension AirMapAdvisory.Properties.Wildfire: ImmutableMappable {
 extension AirMapAircraft {
 	
 	public func mapping(map: Map) {
-		model.id  >>>  map["model_id"]
-		nickname  >>>  map["nickname"]
+		model.id.rawValue  >>>  map["model_id"]
+		nickname           >>>  map["nickname"]
 	}
 }
 
