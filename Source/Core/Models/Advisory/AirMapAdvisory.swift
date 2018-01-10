@@ -103,6 +103,7 @@ public struct AirMapAdvisory {
 		/// Park advisory properties
 		public struct Park: PropertiesType {
 			public let type: String?
+			public let url: URL?
 		}
 
 		/// Power Plant advisory properties

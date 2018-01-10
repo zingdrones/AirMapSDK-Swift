@@ -164,6 +164,7 @@ extension AirMapAdvisory.Properties.Park: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		type  =  try? map.value("type")
+		url   =  try? map.value("url", using: URLTransform())
 	}
 }
 
