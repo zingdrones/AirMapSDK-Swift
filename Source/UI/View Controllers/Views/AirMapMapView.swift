@@ -78,7 +78,7 @@ open class AirMapMapView: MGLMapView {
 	
 	// MARK: - Private
 
-	private let configurationSubject = PublishSubject<Configuration>()
+	internal let configurationSubject = PublishSubject<Configuration>()
 	private let disposeBag = DisposeBag()
 }
 
@@ -147,17 +147,7 @@ extension AirMapMapView {
 					.mapToVoid()
 
 				// Get the latest jurisdiction on initial map rendering and as the map region changes
-				let latestJurisdictions = Observable
-					.merge(
-						mapView.rx.mapDidFinishRenderingMap
-							.map({ $0.mapView })
-							.take(1),
-						mapView.rx.regionIsChanging
-							.throttle(1.0, scheduler: MainScheduler.asyncInstance)
-					)
-					.observeOn(MainScheduler.asyncInstance)
-					.map { $0.jurisdictions }
-					.distinctUntilChanged(==)
+				let latestJurisdictions = mapView.rx.jurisdictions
 
 					// Notify the delegate that the jurisdictions have changed
 					.do(onNext: { [unowned mapView] (jurisdictions) in
