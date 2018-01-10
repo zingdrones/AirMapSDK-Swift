@@ -146,8 +146,11 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 				.disposed(by: disposeBag)
 		}
 		
-		Driver
-			.combineLatest([firstNameField.rx_value.asDriver(onErrorJustReturn: nil), lastNameField.rx_value.asDriver(onErrorJustReturn: nil)], fullNameString)
+        Driver
+            .combineLatest(
+                firstNameField.rx_value.asDriver(onErrorJustReturn: nil),
+                lastNameField.rx_value.asDriver(onErrorJustReturn: nil),
+                resultSelector: fullNameString)
 			.drive(fullName.rx.text)
 			.disposed(by: disposeBag)
 		
@@ -275,8 +278,9 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 		}
 	}
 	
-	fileprivate func fullNameString(_ names: [String?]) -> String {
-		return names.flatMap { $0 }.joined(separator: " ").uppercased()
+    fileprivate func fullNameString(firstName: String?, lastName: String?) -> String {
+        return String(format: LocalizedStrings.PilotProfile.fullNameFormat, firstName ?? "", lastName ?? "")
+            .trimmingCharacters(in: .whitespaces)
 	}
 	
 	fileprivate func configureStats(_ pilot: AirMapPilot) {
