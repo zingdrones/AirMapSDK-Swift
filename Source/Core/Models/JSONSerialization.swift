@@ -523,7 +523,7 @@ extension AirMapJurisdiction: ImmutableMappable {
 			// Patch the JSON with information about the jurisdiction :/
 			var updatedJSON = [[String: Any]]()
 			for var json in rulesetJSON {
-				json["jurisdiction"] = ["id": id, "name": name, "region": region.rawValue]
+				json["jurisdiction"] = ["id": id.rawValue, "name": name, "region": region.rawValue]
 				updatedJSON.append(json)
 			}
 			
