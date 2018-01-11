@@ -20,4 +20,10 @@ final public class AirMapAircraft: ImmutableMappable {
 		self.nickname = nickname
 		self.id = nil
 	}
+	
+	public init(map: Map) throws {
+		id        =  try? map.value("id")
+		nickname  =  try? map.value("nickname")
+		model     =  try  map.value("model")
+	}
 }

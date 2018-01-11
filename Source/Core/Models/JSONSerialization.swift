@@ -271,13 +271,6 @@ extension AirMapAdvisory.UniversityProperties: ImmutableMappable {
 
 extension AirMapAircraft {
 	
-	public convenience init(map: Map) throws {
-		try self.init(map: map)
-		id        =  try? map.value("id")
-		nickname  =  try? map.value("nickname")
-		model     =  try  map.value("model")
-	}
-
 	public func mapping(map: Map) {
 		model.id   >>>  (map["model_id"], AirMapIdTransform())
 		nickname   >>>   map["nickname"]
