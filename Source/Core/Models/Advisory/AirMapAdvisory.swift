@@ -59,99 +59,127 @@ public struct AirMapAdvisory {
 		case orange
 		case yellow
 		case green
-	}
-	
-	public struct Properties {
-
-		/// Airport advisory properties
-		public struct Airport: PropertiesType {
-			public let identifier: String?
-			public let phone: String?
-			public let tower: Bool?
-			public let use: String?
-			public let longestRunway: Meters?
-			public let instrumentProcedure: Bool?
-		}
-		
-		/// AMA field properties
-		public struct AMAField: PropertiesType {
-			public let url: URL?
-			public let siteLocation: String?
-			public let contactName: String?
-			public let contactPhone: String?
-			public let contactEmail: String?
-		}
-		
-		/// Heliport advisory properties
-		public struct Heliport: PropertiesType {
-			public let identifier: String?
-			public let paved: Bool?
-			public let phone: String?
-			public let tower: Bool?
-			public let use: String?
-			public let instrumentProcedure: Bool?
-		}
-		
-		/// Controlled Airspace advisory properties
-		public struct ControlledAirspace: PropertiesType {
-			public let type: String?
-			public let isLaancProvider: Bool?
-			public let supportsAuthorization: Bool?
-		}
-
-		/// Emergency advisory properties
-		public struct Emergency: PropertiesType {
-			public let effective: Date?
-			public let type: String?
-		}
-	
-		/// Fire advisory properties
-		public struct Fire: PropertiesType {
-			public let effective: Date?
-		}
-		
-		/// Park advisory properties
-		public struct Park: PropertiesType {
-			public let type: String?
-			public let url: URL?
-		}
-
-		/// Power Plant advisory properties
-		public struct PowerPlant: PropertiesType {
-			public let technology: String?
-			public let generatorType: String?
-			public let output: Int?
-		}
-
-		/// School advisory properties
-		public struct School: PropertiesType {
-			public let numberOfStudents: Int?
-		}
-		
-		/// Special Use advisory properties
-		public struct SpecialUse: PropertiesType {
-			public let description: String?
-		}
-		
-		/// TFR advisory properties
-		public struct TFR: PropertiesType {
-			public let url: URL
-			public let startTime: Date?
-			public let endTime: Date?
-			public let type: String?
-			public let sport: String?
-			public let venue: String?
-		}
-
-		/// Wildfire advisory properties
-		public struct Wildfire: PropertiesType {
-			public let effective: Date?
-			public let size: Hectares?
-		}
-	}
+	}	
 }
 
 public protocol PropertiesType {}
+
+extension AirMapAdvisory {
+	
+	/// Airport advisory properties
+	public struct AirportProperties: PropertiesType, HasOptionalURL, HasOptionalDescription {
+		public let identifier: String?
+		public let phone: String?
+		public let tower: Bool?
+		public let use: String?
+		public let longestRunway: Meters?
+		public let instrumentProcedure: Bool?
+		public let url: URL?
+		public let description: String?
+	}
+	
+	/// AMA field properties
+	public struct AMAFieldProperties: PropertiesType {
+		public let url: URL?
+		public let siteLocation: String?
+		public let contactName: String?
+		public let contactPhone: String?
+		public let contactEmail: String?
+	}
+	
+	/// Heliport advisory properties
+	public struct HeliportProperties: PropertiesType {
+		public let identifier: String?
+		public let paved: Bool?
+		public let phone: String?
+		public let tower: Bool?
+		public let use: String?
+		public let instrumentProcedure: Bool?
+	}
+	
+	/// Controlled Airspace advisory properties
+	public struct ControlledAirspaceProperties: PropertiesType {
+		public let type: String?
+		public let isLaancProvider: Bool?
+		public let supportsAuthorization: Bool?
+	}
+	
+	/// City properties
+	public struct CityProperties: PropertiesType, HasOptionalURL, HasOptionalDescription {
+		public let url: URL?
+		public let description: String?
+	}
+	
+	/// Custom airspace properties
+	public struct CustomProperties: PropertiesType, HasOptionalURL, HasOptionalDescription {
+		public let url: URL?
+		public let description: String?
+	}
+	
+	/// Emergency advisory properties
+	public struct EmergencyProperties: PropertiesType {
+		public let effective: Date?
+		public let type: String?
+	}
+	
+	/// Fire advisory properties
+	public struct FireProperties: PropertiesType {
+		public let effective: Date?
+	}
+	
+	/// Park advisory properties
+	public struct ParkProperties: PropertiesType, HasOptionalURL {
+		public let type: String?
+		public let url: URL?
+	}
+	
+	/// Power Plant advisory properties
+	public struct PowerPlantProperties: PropertiesType {
+		public let technology: String?
+		public let generatorType: String?
+		public let output: Int?
+	}
+	
+	/// School advisory properties
+	public struct SchoolProperties: PropertiesType {
+		public let numberOfStudents: Int?
+	}
+	
+	/// Special Use advisory properties
+	public struct SpecialUseProperties: PropertiesType {
+		public let description: String?
+	}
+	
+	/// TFR advisory properties
+	public struct TFRProperties: PropertiesType, HasOptionalURL {
+		public let url: URL?
+		public let startTime: Date?
+		public let endTime: Date?
+		public let type: String?
+		public let sport: String?
+		public let venue: String?
+	}
+	
+	/// University properties
+	public struct UniversityProperties: PropertiesType, HasOptionalURL, HasOptionalDescription {
+		public let url: URL?
+		public let description: String?
+	}
+	
+	/// Wildfire advisory properties
+	public struct WildfireProperties: PropertiesType {
+		public let effective: Date?
+		public let size: Hectares?
+	}
+}
+
+public protocol HasOptionalURL {
+	var url: URL? { get }
+}
+
+public protocol HasOptionalDescription {
+	var description: String? { get }
+}
 
 // MARK: - CustomStringConvertible
 

@@ -60,25 +60,33 @@ extension AirMapAdvisory: ImmutableMappable {
 
 			switch airspaceType {
 			case .airport:
-				properties = Properties.Airport(JSON: props)
+				properties = AirportProperties(JSON: props)
 			case .amaField:
-				properties = Properties.AMAField(JSON: props)
-			case .heliport:
-				properties = Properties.Heliport(JSON: props)
-			case .park:
-				properties = Properties.Park(JSON: props)
-			case .tfr:
-				properties = Properties.TFR(JSON: props)
-			case .specialUse:
-				properties = Properties.SpecialUse(JSON: props)
-			case .powerPlant:
-				properties = Properties.PowerPlant(JSON: props)
-			case .school:
-				properties = Properties.School(JSON: props)
+				properties = AMAFieldProperties(JSON: props)
 			case .controlledAirspace:
-				properties = Properties.ControlledAirspace(JSON: props)
+				properties = ControlledAirspaceProperties(JSON: props)
+			case .city:
+				properties = CityProperties(JSON: props)
+			case .custom:
+				properties = CustomProperties(JSON: props)
+			case .emergency:
+				properties = EmergencyProperties(JSON: props)
+			case .heliport:
+				properties = HeliportProperties(JSON: props)
+			case .park:
+				properties = ParkProperties(JSON: props)
+			case .powerPlant:
+				properties = PowerPlantProperties(JSON: props)
+			case .school:
+				properties = SchoolProperties(JSON: props)
+			case .specialUse:
+				properties = SpecialUseProperties(JSON: props)
+			case .tfr:
+				properties = TFRProperties(JSON: props)
+			case .university:
+				properties = UniversityProperties(JSON: props)
 			case .wildfire:
-				properties = Properties.Wildfire(JSON: props)
+				properties = WildfireProperties(JSON: props)
 			default:
 				properties = nil
 			}
@@ -112,7 +120,7 @@ extension AirMapAdvisoryRequirements.Notice: ImmutableMappable {
 
 public protocol AdvisoryPropertiesType: ImmutableMappable {}
 
-extension AirMapAdvisory.Properties.Airport: ImmutableMappable {
+extension AirMapAdvisory.AirportProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		identifier    =  try? map.value("faa")
@@ -122,10 +130,12 @@ extension AirMapAdvisory.Properties.Airport: ImmutableMappable {
 		longestRunway =  try? map.value("longest_runway")
 		instrumentProcedure
 		              =  try? map.value("instrument_approach_procedure")
+		url           =  try? map.value("url", using: URLTransform())
+		description   =  try? map.value("description")
 	}
 }
 	
-extension AirMapAdvisory.Properties.AMAField: ImmutableMappable {
+extension AirMapAdvisory.AMAFieldProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 
@@ -145,20 +155,15 @@ extension AirMapAdvisory.Properties.AMAField: ImmutableMappable {
 	}
 }
 
-extension AirMapAdvisory.Properties.Heliport: ImmutableMappable {
+extension AirMapAdvisory.CityProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
-		identifier    =  try? map.value("faa")
-		paved         =  try? map.value("paved")
-		phone         =  try? map.value("phone")
-		tower         =  try? map.value("tower")
-		use           =  try? map.value("use")
-		instrumentProcedure
-		              =  try? map.value("instrument_approach_procedure")
+		url           =  try? map.value("url", using: URLTransform())
+		description   =  try? map.value("description")
 	}
 }
 
-extension AirMapAdvisory.Properties.ControlledAirspace: ImmutableMappable {
+extension AirMapAdvisory.ControlledAirspaceProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		type                   =  try  map.value("type")
@@ -167,7 +172,15 @@ extension AirMapAdvisory.Properties.ControlledAirspace: ImmutableMappable {
 	}
 }
 
-extension AirMapAdvisory.Properties.Emergency: ImmutableMappable {
+extension AirMapAdvisory.CustomProperties: ImmutableMappable {
+	
+	public init(map: Map) throws {
+		url           =  try? map.value("url", using: URLTransform())
+		description   =  try? map.value("description")
+	}
+}
+
+extension AirMapAdvisory.EmergencyProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		effective   =  try? map.value("date_effective", using: Constants.AirMapApi.dateTransform)
@@ -175,14 +188,27 @@ extension AirMapAdvisory.Properties.Emergency: ImmutableMappable {
 	}
 }
 
-extension AirMapAdvisory.Properties.Fire: ImmutableMappable {
+extension AirMapAdvisory.FireProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		effective  =  try? map.value("date_effective", using: Constants.AirMapApi.dateTransform)
 	}
 }
 
-extension AirMapAdvisory.Properties.Park: ImmutableMappable {
+extension AirMapAdvisory.HeliportProperties: ImmutableMappable {
+	
+	public init(map: Map) throws {
+		identifier    =  try? map.value("faa")
+		paved         =  try? map.value("paved")
+		phone         =  try? map.value("phone")
+		tower         =  try? map.value("tower")
+		use           =  try? map.value("use")
+		instrumentProcedure
+			=  try? map.value("instrument_approach_procedure")
+	}
+}
+
+extension AirMapAdvisory.ParkProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		type  =  try? map.value("type")
@@ -190,7 +216,7 @@ extension AirMapAdvisory.Properties.Park: ImmutableMappable {
 	}
 }
 
-extension AirMapAdvisory.Properties.PowerPlant: ImmutableMappable {
+extension AirMapAdvisory.PowerPlantProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		technology      =  try? map.value("tech")
@@ -199,21 +225,21 @@ extension AirMapAdvisory.Properties.PowerPlant: ImmutableMappable {
 	}
 }
 
-extension AirMapAdvisory.Properties.School: ImmutableMappable {
+extension AirMapAdvisory.SchoolProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		numberOfStudents  =  try? map.value("students")
 	}
 }
 
-extension AirMapAdvisory.Properties.SpecialUse: ImmutableMappable {
+extension AirMapAdvisory.SpecialUseProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		description =  try? map.value("description")
 	}
 }
 
-extension AirMapAdvisory.Properties.TFR: ImmutableMappable {
+extension AirMapAdvisory.TFRProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		url        =  try  map.value("url", using: URLTransform())
@@ -225,7 +251,7 @@ extension AirMapAdvisory.Properties.TFR: ImmutableMappable {
 	}
 }
 
-extension AirMapAdvisory.Properties.Wildfire: ImmutableMappable {
+extension AirMapAdvisory.WildfireProperties: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		effective   =  try? map.value("date_effective", using: Constants.AirMapApi.dateTransform)
@@ -233,8 +259,15 @@ extension AirMapAdvisory.Properties.Wildfire: ImmutableMappable {
 	}
 }
 
-// MARK: - Aircraft
+extension AirMapAdvisory.UniversityProperties: ImmutableMappable {
+	
+	public init(map: Map) throws {
+		url           =  try? map.value("url", using: URLTransform())
+		description   =  try? map.value("description")
+	}
+}
 
+// MARK: - Aircraft
 
 extension AirMapAircraft {
 	
