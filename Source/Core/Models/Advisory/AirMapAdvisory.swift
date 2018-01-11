@@ -45,7 +45,7 @@ public struct AirMapAdvisory {
 	public let rulesetId: String
 	
 	/// Additional metadata specific to the advisory type
-	public let properties: PropertiesType?
+	public let properties: AdvisoryProperties?
 
 	/// Any requirements necessary to operate within the advisory
 	public let requirements: AirMapAdvisoryRequirements?
@@ -53,21 +53,23 @@ public struct AirMapAdvisory {
 	/// The date and time the advisory was last updated
 	public let lastUpdated: Date
 	
-	/// A color representative of the action level of the advisory
+	/// A color representative of the level of advisory
 	public enum Color: String {
+		/// Restricted
 		case red
+		/// Action required
 		case orange
+		/// Caution
 		case yellow
+		/// Informational
 		case green
 	}	
 }
 
-public protocol PropertiesType {}
-
 extension AirMapAdvisory {
 	
 	/// Airport advisory properties
-	public struct AirportProperties: PropertiesType, HasOptionalURL, HasOptionalDescription {
+	public struct AirportProperties: AdvisoryProperties, HasOptionalURL, HasOptionalDescription {
 		public let identifier: String?
 		public let phone: String?
 		public let tower: Bool?
@@ -79,7 +81,7 @@ extension AirMapAdvisory {
 	}
 	
 	/// AMA field properties
-	public struct AMAFieldProperties: PropertiesType {
+	public struct AMAFieldProperties: AdvisoryProperties {
 		public let url: URL?
 		public let siteLocation: String?
 		public let contactName: String?
@@ -88,7 +90,7 @@ extension AirMapAdvisory {
 	}
 	
 	/// Heliport advisory properties
-	public struct HeliportProperties: PropertiesType {
+	public struct HeliportProperties: AdvisoryProperties {
 		public let identifier: String?
 		public let paved: Bool?
 		public let phone: String?
@@ -98,60 +100,60 @@ extension AirMapAdvisory {
 	}
 	
 	/// Controlled Airspace advisory properties
-	public struct ControlledAirspaceProperties: PropertiesType {
+	public struct ControlledAirspaceProperties: AdvisoryProperties {
 		public let type: String?
 		public let isLaancProvider: Bool?
 		public let supportsAuthorization: Bool?
 	}
 	
 	/// City properties
-	public struct CityProperties: PropertiesType, HasOptionalURL, HasOptionalDescription {
+	public struct CityProperties: AdvisoryProperties, HasOptionalURL, HasOptionalDescription {
 		public let url: URL?
 		public let description: String?
 	}
 	
 	/// Custom airspace properties
-	public struct CustomProperties: PropertiesType, HasOptionalURL, HasOptionalDescription {
+	public struct CustomProperties: AdvisoryProperties, HasOptionalURL, HasOptionalDescription {
 		public let url: URL?
 		public let description: String?
 	}
 	
 	/// Emergency advisory properties
-	public struct EmergencyProperties: PropertiesType {
+	public struct EmergencyProperties: AdvisoryProperties {
 		public let effective: Date?
 		public let type: String?
 	}
 	
 	/// Fire advisory properties
-	public struct FireProperties: PropertiesType {
+	public struct FireProperties: AdvisoryProperties {
 		public let effective: Date?
 	}
 	
 	/// Park advisory properties
-	public struct ParkProperties: PropertiesType, HasOptionalURL {
+	public struct ParkProperties: AdvisoryProperties, HasOptionalURL {
 		public let type: String?
 		public let url: URL?
 	}
 	
 	/// Power Plant advisory properties
-	public struct PowerPlantProperties: PropertiesType {
+	public struct PowerPlantProperties: AdvisoryProperties {
 		public let technology: String?
 		public let generatorType: String?
 		public let output: Int?
 	}
 	
 	/// School advisory properties
-	public struct SchoolProperties: PropertiesType {
+	public struct SchoolProperties: AdvisoryProperties {
 		public let numberOfStudents: Int?
 	}
 	
 	/// Special Use advisory properties
-	public struct SpecialUseProperties: PropertiesType {
+	public struct SpecialUseProperties: AdvisoryProperties {
 		public let description: String?
 	}
 	
 	/// TFR advisory properties
-	public struct TFRProperties: PropertiesType, HasOptionalURL {
+	public struct TFRProperties: AdvisoryProperties, HasOptionalURL {
 		public let url: URL?
 		public let startTime: Date?
 		public let endTime: Date?
@@ -161,17 +163,19 @@ extension AirMapAdvisory {
 	}
 	
 	/// University properties
-	public struct UniversityProperties: PropertiesType, HasOptionalURL, HasOptionalDescription {
+	public struct UniversityProperties: AdvisoryProperties, HasOptionalURL, HasOptionalDescription {
 		public let url: URL?
 		public let description: String?
 	}
 	
 	/// Wildfire advisory properties
-	public struct WildfireProperties: PropertiesType {
+	public struct WildfireProperties: AdvisoryProperties {
 		public let effective: Date?
 		public let size: Hectares?
 	}
 }
+
+public protocol AdvisoryProperties {}
 
 public protocol HasOptionalURL {
 	var url: URL? { get }
@@ -190,14 +194,10 @@ extension AirMapAdvisory.Color: CustomStringConvertible {
 		let localized = LocalizedStrings.Status.self
 		
 		switch self {
-		case .red:
-			return localized.redDescription
-		case .orange:
-			return localized.orangeDescription
-		case .yellow:
-			return localized.yellowDescription
-		case .green:
-			return localized.greenDescription
+		case .red:     return localized.redDescription
+		case .orange:  return localized.orangeDescription
+		case .yellow:  return localized.yellowDescription
+		case .green:   return localized.greenDescription
 		}
 	}
 }
