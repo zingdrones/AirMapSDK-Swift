@@ -73,6 +73,16 @@ public struct AirMapAdvisory {
 			public let instrumentProcedure: Bool?
 		}
 		
+		/// AMA field properties
+		public struct AMAField: PropertiesType {
+			public let url: URL?
+			public let siteLocation: String?
+			public let contactName: String?
+			public let contactPhone: String?
+			public let contactEmail: String?
+		}
+		
+		/// Heliport advisory properties
 		public struct Heliport: PropertiesType {
 			public let identifier: String?
 			public let paved: Bool?

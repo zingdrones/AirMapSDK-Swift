@@ -61,6 +61,8 @@ extension AirMapAdvisory: ImmutableMappable {
 			switch airspaceType {
 			case .airport:
 				properties = Properties.Airport(JSON: props)
+			case .amaField:
+				properties = Properties.AMAField(JSON: props)
 			case .heliport:
 				properties = Properties.Heliport(JSON: props)
 			case .park:
@@ -120,6 +122,26 @@ extension AirMapAdvisory.Properties.Airport: ImmutableMappable {
 		longestRunway =  try? map.value("longest_runway")
 		instrumentProcedure
 		              =  try? map.value("instrument_approach_procedure")
+	}
+}
+	
+extension AirMapAdvisory.Properties.AMAField: ImmutableMappable {
+	
+	public init(map: Map) throws {
+
+		// TODO: Remove once AMA Field data contains proper http URLs
+		if let urlString: String = try? map.value("url"), var urlComponents = URLComponents(string: urlString) {
+			if urlComponents.scheme == nil {
+				urlComponents.scheme = "http"
+			}
+			url = try? urlComponents.asURL()
+		} else {
+			url = nil
+		}
+		siteLocation  =  try? map.value("site_location")
+		contactName   =  try? map.value("contact_name")
+		contactPhone  =  try? map.value("contact_phone")
+		contactEmail  =  try? map.value("contact_email")
 	}
 }
 
