@@ -10,6 +10,7 @@
 public enum AirMapAirspaceType: String {
 	
 	case airport             = "airport"
+	/// Academy of Model Aeronautics (AMA) Field
 	case amaField            = "ama_field"
 	case city                = "city"
 	case controlledAirspace  = "controlled_airspace"
@@ -19,6 +20,7 @@ public enum AirMapAirspaceType: String {
 	case embassy             = "embassy"
 	case emergency           = "emergency"
 	case federalBuilding     = "federal_building"
+	/// Flight Information Region
 	case fir                 = "fir"
 	case fire                = "fire"
 	case gliderport          = "gliderport"
@@ -29,6 +31,7 @@ public enum AirMapAirspaceType: String {
 	case industrialProperty  = "industrial_property"
 	case japanBase           = "jpn_base"
 	case militaryProperty    = "military_property"
+	/// Notice To Airmen
 	case notam               = "notam"
 	case park                = "park"
 	case policeStation       = "police_station"
@@ -45,6 +48,7 @@ public enum AirMapAirspaceType: String {
 	case state               = "state"
 	case subprefecture       = "subprefecture"
 	case supercity           = "supercity"
+	/// Temporary Flight Restriction
 	case tfr                 = "tfr"
 	case ultralightField     = "ulm_field"
 	case university          = "university"
