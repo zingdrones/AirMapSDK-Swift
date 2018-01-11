@@ -80,3 +80,50 @@ internal typealias AirMapAirspaceId            = AirMapStringIdentifier<AirMapAi
 
 // Type-safe aliases for integer identifiers specific to AirMap objects
 public typealias AirMapJurisdictionId = AirMapIntegerIdentifier<AirMapJurisdiction>
+
+import ObjectMapper
+
+// Transform from typed ids to raw value
+class AirMapIdTransform<T: AirMapIdentifier>: TransformType {
+	
+	typealias Object = T
+	typealias JSON = T.RawValue
+	
+	func transformFromJSON(_ value: Any?) -> T? {
+		if let value = value as? T.RawValue {
+			return T(rawValue: value)
+		}
+		return nil
+	}
+	
+	func transformToJSON(_ value: T?) -> T.RawValue? {
+		if let id = value {
+			return id.rawValue
+		}
+		return nil
+	}
+}
+
+class AirMapIdDictionaryTransform<T: AirMapIdentifier>: TransformType {
+	
+	typealias Object = [T: Any]
+	typealias JSON = [T.RawValue: Any]
+	
+	func transformFromJSON(_ value: Any?) -> [T : Any]? {
+		
+		guard let rawDict = value as? [T.RawValue: Any] else { return nil }
+		
+		let idKeyValues = rawDict.map { (key, value) in
+			(T(rawValue: key)!, value)
+		}
+		return Dictionary.init(uniqueKeysWithValues: idKeyValues)
+	}
+	
+	func transformToJSON(_ value: [T : Any]?) -> [T.RawValue : Any]? {
+		guard let value = value else { return nil }
+		let rawKeyValues = value.map({ (key, value) in
+			(key.rawValue, value)
+		})
+		return Dictionary.init(uniqueKeysWithValues: rawKeyValues)
+	}
+}

@@ -238,9 +238,16 @@ extension AirMapAdvisory.Properties.Wildfire: ImmutableMappable {
 
 extension AirMapAircraft {
 	
+	public convenience init(map: Map) throws {
+		try self.init(map: map)
+		id        =  try? map.value("id")
+		nickname  =  try? map.value("nickname")
+		model     =  try  map.value("model")
+	}
+
 	public func mapping(map: Map) {
-		model.id.rawValue  >>>  map["model_id"]
-		nickname           >>>  map["nickname"]
+		model.id   >>>  (map["model_id"], AirMapIdTransform())
+		nickname   >>>   map["nickname"]
 	}
 }
 
@@ -254,7 +261,7 @@ extension AirMapAircraftManufacturer: ImmutableMappable {
 	}
 	
 	public func mapping(map: Map) {
-		id  >>>  map["id"]
+		id  >>>  (map["id"], AirMapIdTransform())
 	}
 }
 
@@ -270,7 +277,7 @@ extension AirMapAircraftModel: ImmutableMappable {
 	}
 	
 	public func mapping(map: Map) {
-		id  >>>  map["id"]
+		id  >>>  (map["id"], AirMapIdTransform())
 	}
 }
 
@@ -389,8 +396,8 @@ extension AirMapFlight: Mappable {
 		
 		let dateTransform = CustomDateFormatTransform(formatString: Constants.AirMapApi.dateFormat)
 		
-		id          	<-  map["id"]
-		flightPlanId	<-  map["flight_plan_id"]
+		id          	<- (map["id"], AirMapIdTransform())
+		flightPlanId	<- (map["flight_plan_id"], AirMapIdTransform())
 		createdAt   	<- (map["creation_date"], dateTransform)
 		startTime   	<- (map["start_time"], dateTransform)
 		maxAltitude 	<-  map["max_altitude"]
@@ -400,9 +407,9 @@ extension AirMapFlight: Mappable {
 		notify      	<-  map["notify"]
 // FIXME: Map pilot
 //		pilot       <-  map["pilot"]
-		pilotId     	<-  map["pilot_id"]
+		pilotId     	<- (map["pilot_id"], AirMapIdTransform())
 		aircraft    	<-  map["aircraft"]
-		aircraftId  	<-  map["aircraft_id"]
+		aircraftId  	<- (map["aircraft_id"], AirMapIdTransform())
 		isPublic    	<-  map["public"]
 		buffer      	<-  map["buffer"]
 		geometry    	<- (map["geometry"], GeoJSONToAirMapGeometryTransform())
@@ -502,8 +509,8 @@ extension AirMapAuthority: ImmutableMappable {
 	}
 	
 	public func mapping(map: Map) {
-		id    >>> map["id"]
-		name  >>> map["name"]
+		id    >>> (map["id"], AirMapIdTransform())
+		name  >>>  map["name"]
 	}
 }
 

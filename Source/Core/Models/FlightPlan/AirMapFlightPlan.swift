@@ -78,16 +78,16 @@ public class AirMapFlightPlan: Mappable {
 		let dateTransform = Constants.AirMapApi.dateTransform
 		let geoJSONTransform = GeoJSONToAirMapGeometryTransform()
 
-		id                  <-   map["id"]
-		pilotId             <-   map["pilot_id"]
-		aircraftId          <-   map["aircraft_id"]
+		id                  <-  (map["id"], AirMapIdTransform())
+		pilotId             <-  (map["pilot_id"], AirMapIdTransform())
+		aircraftId          <-  (map["aircraft_id"], AirMapIdTransform())
 		buffer              <-   map["buffer"]
 		maximumAltitudeAGL  <-   map["max_altitude_agl"]
 		startTime           <-  (map["start_time"], dateTransform)
 		rulesetIds          <-   map["rulesets"]
-		flightFeaturesValue <-   map["flight_features"]
-		flightId            <-   map["flight_id"]
-
+		flightId            <-  (map["flight_id"], AirMapIdTransform())
+		flightFeaturesValue <-  (map["flight_features"], AirMapIdDictionaryTransform())
+		
 		switch map.mappingType {
 		
 		case .toJSON:
