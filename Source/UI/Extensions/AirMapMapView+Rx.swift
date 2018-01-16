@@ -26,10 +26,6 @@ public class RxMGLMapViewDelegateProxy: DelegateProxy<AirMapMapView, MGLMapViewD
 	public static func registerKnownImplementations() {
 		register(make: RxMGLMapViewDelegateProxy.init)
 	}
-	
-	deinit {
-		
-	}
 }
 
 extension Reactive where Base: AirMapMapView {
