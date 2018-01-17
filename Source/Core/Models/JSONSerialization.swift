@@ -132,6 +132,7 @@ extension AirMapAdvisory.AirportProperties: ImmutableMappable {
 		              =  try? map.value("instrument_approach_procedure")
 		url           =  try? map.value("url", using: URLTransform())
 		description   =  try? map.value("description")
+		icao          =  try? map.value("icao")
 	}
 }
 	
@@ -205,6 +206,7 @@ extension AirMapAdvisory.HeliportProperties: ImmutableMappable {
 		use           =  try? map.value("use")
 		instrumentProcedure
 			=  try? map.value("instrument_approach_procedure")
+		icao          =  try? map.value("icao")
 	}
 }
 

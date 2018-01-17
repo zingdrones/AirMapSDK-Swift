@@ -78,6 +78,7 @@ extension AirMapAdvisory {
 		public let instrumentProcedure: Bool?
 		public let url: URL?
 		public let description: String?
+		public let icao: String?
 	}
 	
 	/// AMA field properties
@@ -97,6 +98,7 @@ extension AirMapAdvisory {
 		public let tower: Bool?
 		public let use: String?
 		public let instrumentProcedure: Bool?
+		public let icao: String?
 	}
 	
 	/// Controlled Airspace advisory properties
