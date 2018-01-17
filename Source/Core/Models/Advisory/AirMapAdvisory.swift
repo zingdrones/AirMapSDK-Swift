@@ -64,9 +64,6 @@ public struct AirMapAdvisory {
 		/// Informational
 		case green
 	}	
-}
-
-extension AirMapAdvisory {
 	
 	/// Airport advisory properties
 	public struct AirportProperties: AdvisoryProperties, HasOptionalURL, HasOptionalDescription {
