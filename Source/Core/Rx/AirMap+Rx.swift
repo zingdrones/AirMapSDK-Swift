@@ -163,6 +163,14 @@ extension Reactive where Base: AirMap {
     }
 }
 
+/// Documentation found in AirMap+Auth0.swift
+extension Reactive where Base: AirMap {
+	
+	public static func refreshAuthToken() -> Observable<AirMapToken> {
+		return AirMap.auth0Client.refreshAccessToken()
+	}
+}
+
 /// Documentation found in AirMap+Rules.swift
 extension Reactive where Base: AirMap {
 	

@@ -36,7 +36,7 @@ extension AirMap {
 	///
 	/// - Parameter completion: A completion handler to call with the Result
 	public static func refreshAuthToken(_ completion: @escaping (Result<AirMapToken>) -> Void) {
-		auth0Client.refreshAccessToken().thenSubscribe(completion)
+		rx.refreshAuthToken().thenSubscribe(completion)
 	}
     
     /// Authenticates an Anonymous User associated with the Developer API Key and returns an AuthToken.
