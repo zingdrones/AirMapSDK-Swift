@@ -96,8 +96,4 @@ extension Reactive where Base: AirMapMapView {
 			.distinctUntilChanged(==)
 	}
 	
-	public var configuration: PublishSubject<Base.Configuration> {
- 	 	return base.configurationSubject
-	}
-	
 }
