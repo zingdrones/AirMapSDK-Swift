@@ -77,7 +77,7 @@ Make sure you import the framework before using the SDK.
 The AirMapSDK is also available via Carthage, however, only the Core subspec is currently available
 
 ```
-github "AirMap/AirMapSDK-Swift" "master"
+github "AirMap/AirMapSDK-Swift" "2.0.0.beta.3"
 ```
 
 ### Importing
