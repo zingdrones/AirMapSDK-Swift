@@ -9,7 +9,8 @@
 import Foundation
 import ObjectMapper
 
-public enum AirMapError: Error {	
+public enum AirMapError: Error {
+	case cancelled
 	case network(Error)
 	case unauthorized
 	case invalidRequest(Error)
@@ -79,6 +80,8 @@ extension AirMapError: CustomStringConvertible {
 		let localized = LocalizedStrings.Error.self
 		
 		switch self {
+		case .cancelled:
+			return localized.cancelled
 		case .network(let error):
 			return error.localizedDescription
 		case .unauthorized:

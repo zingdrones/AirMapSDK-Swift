@@ -360,6 +360,8 @@ public struct LocalizedStrings {
 	
 	public struct Error {
 		
+		public static let cancelled = NSLocalizedString("ERROR_CANCELLED", bundle: bundle, value: "Request cancelled before it could be completed", comment: "Request cancelled error")
+
 		public static let unauthorized = NSLocalizedString("ERROR_UNAUTHORIZED", bundle: bundle, value: "Unauthorized. Please check login credentials.", comment: "Authorization failure error")
 		
 		public static let server = NSLocalizedString("ERROR_SERVER", bundle: bundle, value: "The server could not complete your request.", comment: "Server failure error")

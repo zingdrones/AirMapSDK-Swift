@@ -59,8 +59,13 @@ internal class HTTPClient {
 					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
 					.airMapResponseObject(keyPath: keyPath, mapTo: object) { response in
 						if let error = response.result.error {
-							AirMap.logger.error(method, String(describing: T.self), path, error)
-							observer.onError(error)
+							if let error = error as? AirMapError, case AirMapError.cancelled = error {
+								AirMap.logger.trace(method, String(describing: T.self), path, error)
+								observer.onCompleted()
+							} else {
+								AirMap.logger.error(method, String(describing: T.self), path, error)
+								observer.onError(error)
+							}
 						} else {
 							AirMap.logger.trace(String(describing: T.self))
 							observer.on(.next(response.result.value!))
@@ -85,8 +90,13 @@ internal class HTTPClient {
 					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
 					.airMapResponseObject(keyPath: keyPath, mapTo: object) { response in
 						if let error = response.result.error {
-							AirMap.logger.error(method, String(describing: T.self), path, error)
-							observer.onError(error)
+							if let error = error as? AirMapError, case AirMapError.cancelled = error {
+								AirMap.logger.trace(method, String(describing: T.self), path, error)
+								observer.onCompleted()
+							} else {
+								AirMap.logger.error(method, String(describing: T.self), path, error)
+								observer.onError(error)
+							}
 						} else {
 							observer.on(.next(response.result.value ?? nil))
 							observer.on(.completed)
@@ -109,8 +119,13 @@ internal class HTTPClient {
 					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
 					.airMapResponseArray(keyPath: keyPath) { (response: DataResponse<[T]>) in
 						if let error = response.result.error {
-							AirMap.logger.error(method, String(describing: T.self), path, error)
-							observer.onError(error)
+							if let error = error as? AirMapError, case AirMapError.cancelled = error {
+								AirMap.logger.trace(method, String(describing: T.self), path, error)
+								observer.onCompleted()
+							} else {
+								AirMap.logger.error(method, String(describing: T.self), path, error)
+								observer.onError(error)
+							}
 						} else {
 							let resultValue = response.result.value!
 							AirMap.logger.debug("Response:", resultValue.count, String(describing: T.self)+"s")
@@ -135,8 +150,13 @@ internal class HTTPClient {
 					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
 					.airMapVoidResponse { (response: DataResponse<Void>) in
 						if let error = response.error {
-							AirMap.logger.error(method, path, error)
-							observer.onError(error)
+							if let error = error as? AirMapError, case AirMapError.cancelled = error {
+								AirMap.logger.trace(method, path, error)
+								observer.onCompleted()
+							} else {
+								AirMap.logger.error(method, path, error)
+								observer.onError(error)
+							}
 						} else {
 							observer.on(.next(()))
 							observer.on(.completed)
@@ -253,6 +273,11 @@ extension DataRequest {
 		return DataResponseSerializer { request, response, data, error in
 			
 			do {
+				// Catch cancelled requests
+				if let error = error as NSError?, error.code == -999 {
+					throw AirMapError.cancelled
+				}
+
 				// Ensure we received a reponse, else throw error
 				guard let response = response else {
 					throw AirMapError.network(error!)
