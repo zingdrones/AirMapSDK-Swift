@@ -364,6 +364,8 @@ public struct LocalizedStrings {
 
 		public static let unauthorized = NSLocalizedString("ERROR_UNAUTHORIZED", bundle: bundle, value: "Unauthorized. Please check login credentials.", comment: "Authorization failure error")
 		
+		public static let conflict = NSLocalizedString("ERROR_CONFLICT", bundle: bundle, value: "A conflict exists", comment: "A conflict exists with the attempted request")
+
 		public static let server = NSLocalizedString("ERROR_SERVER", bundle: bundle, value: "The server could not complete your request.", comment: "Server failure error")
 		
 		public static let serialization = NSLocalizedString("ERROR_SERIALIZATION", bundle: bundle, value: "The server returned an unprocessable response.", comment: "Response serialization failure error")

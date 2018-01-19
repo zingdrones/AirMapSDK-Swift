@@ -13,6 +13,7 @@ public enum AirMapError: Error {
 	case cancelled
 	case network(Error)
 	case unauthorized
+	case conflict
 	case invalidRequest(Error)
 	case client(Error)
 	case server
@@ -23,7 +24,7 @@ public enum AirMapError: Error {
 extension AirMapError: RawRepresentable {
 	
 	public typealias RawValue = (request: URLRequest?, response: HTTPURLResponse, data: Data)
-
+	
 	public var rawValue: RawValue {
 		fatalError("RawValue getter unavailable")
 	}
@@ -45,6 +46,9 @@ extension AirMapError: RawRepresentable {
 			let error = AirMapApiError(message: "Not Found", code: code)
 			self = .client(error)
 			
+		case 409:
+			self = .conflict
+			
 		case 422:
 			let error = AirMapError.error(from: rawValue)
 			self = .invalidRequest(error)
@@ -62,7 +66,7 @@ extension AirMapError: RawRepresentable {
 	}
 	
 	private static func error(from rawValue: RawValue) -> AirMapApiError {
-
+		
 		if let json = try? JSONSerialization.jsonObject(with: rawValue.data, options: .allowFragments),
 			let error = Mapper<AirMapApiError>().map(JSONObject: json) {
 			return error
@@ -86,6 +90,8 @@ extension AirMapError: CustomStringConvertible {
 			return error.localizedDescription
 		case .unauthorized:
 			return localized.unauthorized
+		case .conflict:
+			return localized.conflict
 		case .invalidRequest(let error):
 			return error.localizedDescription
 		case .client(let error):
@@ -165,7 +171,7 @@ public struct AirMapApiParameterError: Mappable {
 	
 	public internal(set) var name: String!
 	public internal(set) var message: String!
-
+	
 	public init?(map: Map) {
 		guard (map.JSON["name"] as? String != nil || map.JSON["param"] as? String != nil), (map.JSON["message"] as? String != nil || map.JSON["msg"] as? String != nil) else {
 			return nil
@@ -180,3 +186,4 @@ public struct AirMapApiParameterError: Mappable {
 		if message == nil { message <- map["msg"]}
 	}
 }
+
