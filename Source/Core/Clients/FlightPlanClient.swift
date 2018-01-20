@@ -38,10 +38,13 @@ internal class FlightPlanClient: HTTPClient {
 	}
 		
 	func getBriefing(_ flightPlanId: AirMapFlightPlanId) -> Observable<AirMapFlightBriefing> {
+		AirMap.logger.debug("Get Flight Briefing", flightPlanId)
 		return perform(method: .get, path: "/plan/\(flightPlanId)/briefing", checkAuth: true)
 	}
 	
-	func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId) -> Observable<AirMapFlightPlan> {
-		return perform(method: .post, path: "/plan/\(flightPlanId)/submit", checkAuth: true)
+	func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId, makeFlightPublic: Bool? = true) -> Observable<AirMapFlightPlan> {
+		AirMap.logger.debug("Submit Flight Plan", flightPlanId)
+		let params = ["public": makeFlightPublic as Any]
+		return perform(method: .post, path: "/plan/\(flightPlanId)/submit", params: params, checkAuth: true)
 	}
 }

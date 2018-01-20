@@ -52,8 +52,9 @@ extension AirMap {
 	///
 	/// - Parameters:
 	///   - flightPlanId: The identifier of the flight plan to submit
+	///   - makeFlightPublic: Makes the resulting flight publicly visible on the AirMap platform
 	///   - completion: A completion handler to call with the flight plan result
-	public static func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
-		rx.submitFlightPlan(flightPlanId).thenSubscribe(completion)
+	public static func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId, makeFlightPublic: Bool? = true, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
+		rx.submitFlightPlan(flightPlanId, makeFlightPublic: makeFlightPublic).thenSubscribe(completion)
 	}
 }

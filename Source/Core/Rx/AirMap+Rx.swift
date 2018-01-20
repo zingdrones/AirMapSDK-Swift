@@ -78,8 +78,8 @@ extension Reactive where Base: AirMap {
 		return AirMap.flightPlanClient.getBriefing(flightPlanId)
 	}
 	
-	public static func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId) -> Observable<AirMapFlightPlan> {
-		return AirMap.flightPlanClient.submitFlightPlan(flightPlanId)
+	public static func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId, makeFlightPublic: Bool? = true) -> Observable<AirMapFlightPlan> {
+		return AirMap.flightPlanClient.submitFlightPlan(flightPlanId, makeFlightPublic: makeFlightPublic)
 	}
 }
 
