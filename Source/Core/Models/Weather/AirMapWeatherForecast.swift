@@ -30,7 +30,7 @@ public struct AirMapWeather {
 		public let dewPoint: Celcius
 		
 		/// The atmospheric pressue in hPa
-		public let pressure: Double
+		public let pressure: HPa
 		
 		/// The percentage of relative humidity
 		public let humidity: Double

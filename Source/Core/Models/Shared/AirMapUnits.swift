@@ -105,6 +105,16 @@ public extension Fahrenheit {
 	}
 }
 
+public typealias HPa = Double
+public typealias InHg = Double
+
+public extension HPa {
+	
+	public var inHg: InHg {
+		return self * 0.02953
+	}
+}
+
 #if os(Linux)
 	
 	public typealias Coordinate2D = AirMapLocationCoordinate2D
