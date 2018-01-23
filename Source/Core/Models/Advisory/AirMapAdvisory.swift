@@ -79,7 +79,7 @@ public struct AirMapAdvisory {
 	}
 	
 	/// AMA field properties
-	public struct AMAFieldProperties: AdvisoryProperties {
+	public struct AMAFieldProperties: AdvisoryProperties, HasOptionalURL {
 		public let url: URL?
 		public let siteLocation: String?
 		public let contactName: String?
