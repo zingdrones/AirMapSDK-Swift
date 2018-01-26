@@ -121,9 +121,9 @@ public enum AirMapSerializationError: Error {
 
 public struct AirMapApiError: Mappable, LocalizedError {
 	
-	public internal(set) var message: String!
+	public internal(set) var message: String?
 	public internal(set) var messages = [AirMapApiParameterError]()
-	public internal(set) var code: Int!
+	public internal(set) var code: Int?
 	
 	internal init(message: String, code: Int) {
 		self.message = message
@@ -160,7 +160,7 @@ public struct AirMapApiError: Mappable, LocalizedError {
 	
 	public var localizedDescription: String {
 		if messages.count == 0 {
-			return message
+			return message ?? LocalizedStrings.Error.server
 		} else {
 			return messages.map { $0.name + ": " + $0.message }.joined(separator: "\n")
 		}
