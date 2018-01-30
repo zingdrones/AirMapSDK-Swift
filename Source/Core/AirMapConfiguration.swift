@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Configuration class for the AirMap SDK. May be initialized programmatically or by using an airmap.config.json file.
+/// Configuration class for the AirMap SDK. May be initialized programmatically or from an airmap.config.json file.
 public struct AirMapConfiguration {
 		
 	/// The AirMap API key that was used to initialize the SDK. Required.
@@ -53,7 +53,11 @@ public struct AirMapConfiguration {
 
 extension AirMapConfiguration {
 	
-	static func defaultConfig() -> AirMapConfiguration {
+	// A custom configuration manually set at runtime
+	static var custom: AirMapConfiguration?
+
+	// The default configuration loaded from a JSON configuration file
+	static var json: AirMapConfiguration = {
 		
 		#if os(Linux)
 			let configPath = "./airmap.config.json"
@@ -72,7 +76,8 @@ extension AirMapConfiguration {
 				"https://developers.airmap.com/docs/ios-getting-started"
 			)
 		}
-	}
+	}()
+	
 }
 
 // MARK: - JSON Serialization
