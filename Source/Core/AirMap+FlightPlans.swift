@@ -57,4 +57,14 @@ extension AirMap {
 	public static func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId, makeFlightPublic: Bool? = true, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
 		rx.submitFlightPlan(flightPlanId, makeFlightPublic: makeFlightPublic).thenSubscribe(completion)
 	}
+
+	/// Delete a flight plan
+	///
+	/// - Parameters:
+	///   - flightPlanId: The identifier of the flight plan to delete
+	///   - completion: A completion handler to call with the flight plan deletion result
+	public static func deleteFlightPlan(_ flightPlanId: AirMapFlightPlanId, completion: @escaping (Result<Void>) -> Void) {
+		rx.deleteFlightPlan(flightPlanId).thenSubscribe(completion)
+	}
+	
 }

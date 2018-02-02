@@ -47,4 +47,10 @@ internal class FlightPlanClient: HTTPClient {
 		let params = ["public": makeFlightPublic as Any]
 		return perform(method: .post, path: "/plan/\(flightPlanId)/submit", params: params, checkAuth: true)
 	}
+	
+	func deleteFlightPlan(_ flightPlanId: AirMapFlightPlanId) -> Observable<Void> {
+		AirMap.logger.debug("Delete Flight Plan", flightPlanId)
+		return perform(method: .delete, path: "/plan/\(flightPlanId)", checkAuth: true)
+	}
+
 }

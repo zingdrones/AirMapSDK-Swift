@@ -81,6 +81,10 @@ extension Reactive where Base: AirMap {
 	public static func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId, makeFlightPublic: Bool? = true) -> Observable<AirMapFlightPlan> {
 		return AirMap.flightPlanClient.submitFlightPlan(flightPlanId, makeFlightPublic: makeFlightPublic)
 	}
+
+	public static func deleteFlightPlan(_ flightPlanId: AirMapFlightPlanId) -> Observable<Void> {
+		return AirMap.flightPlanClient.deleteFlightPlan(flightPlanId)
+	}
 }
 
 /// Documentation found in AirMap+Aircraft.swift
