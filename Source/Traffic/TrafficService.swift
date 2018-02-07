@@ -110,7 +110,6 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		refreshCurrentFlight
 			.filter {[unowned self] _ in AirMap.hasValidCredentials() && self.delegate != nil}
-			.debug("refreshCurrentFlight")
 			.skipWhile({[unowned self] _ in !AirMap.hasValidCredentials() || self.delegate == nil})
 			.flatMap(AirMap.rx.getCurrentAuthenticatedPilotFlight)
 			.bind(to: currentFlight)
