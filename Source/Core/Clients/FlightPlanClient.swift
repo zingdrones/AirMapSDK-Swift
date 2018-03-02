@@ -21,7 +21,7 @@ internal class FlightPlanClient: HTTPClient {
 	
 	func create(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
 		AirMap.logger.debug("Create Flight Plan", flightPlan)
-		return perform(method: .post, path: "/plan/", params: flightPlan.toJSON(), update: flightPlan, checkAuth: true)
+		return perform(method: .post, path: "/plan", params: flightPlan.toJSON(), update: flightPlan, checkAuth: true)
 	}
 	
 	func update(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
