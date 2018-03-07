@@ -81,7 +81,7 @@ struct Constants {
 			static let position: TimeInterval = 1/5
 			static let attitude: TimeInterval = 1/5
 			static let speed: TimeInterval = 1/5
-			static let barometer: TimeInterval = 5
+			static let barometer: TimeInterval = 20
 		}
 	}
 

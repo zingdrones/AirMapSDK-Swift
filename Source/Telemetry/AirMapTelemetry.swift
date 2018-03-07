@@ -32,7 +32,9 @@ struct AirMapTelemetry {
 		
 		private func setupBindings() {
 			
-			let latestFlightId = telemetry.map { $0.flightId }.distinctUntilChanged()
+			let latestFlightId = telemetry.map { $0.flightId }
+				.distinctUntilChanged()
+				.throttle(5, scheduler: MainScheduler.instance)
 			
 			let session = latestFlightId
 				.flatMap { id in
