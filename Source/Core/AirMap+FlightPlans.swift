@@ -51,11 +51,11 @@ extension AirMap {
 	/// Submit a flight plan
 	///
 	/// - Parameters:
-	///   - flightPlanId: The identifier of the flight plan to submit
+	///   - flightPlan: The flight plan to submit (must already have been created)
 	///   - makeFlightPublic: Makes the resulting flight publicly visible on the AirMap platform
 	///   - completion: A completion handler to call with the flight plan result
-	public static func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId, makeFlightPublic: Bool? = true, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
-		rx.submitFlightPlan(flightPlanId, makeFlightPublic: makeFlightPublic).thenSubscribe(completion)
+	public static func submitFlightPlan(_ flightPlan: AirMapFlightPlan, makeFlightPublic: Bool = true, completion: @escaping (Result<AirMapFlightPlan>) -> Void) {
+		rx.submitFlightPlan(flightPlan, makeFlightPublic: makeFlightPublic).thenSubscribe(completion)
 	}
 
 	/// Delete a flight plan

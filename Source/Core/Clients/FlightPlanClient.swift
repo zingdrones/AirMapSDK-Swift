@@ -42,10 +42,13 @@ internal class FlightPlanClient: HTTPClient {
 		return perform(method: .get, path: "/plan/\(flightPlanId)/briefing", checkAuth: true)
 	}
 	
-	func submitFlightPlan(_ flightPlanId: AirMapFlightPlanId, makeFlightPublic: Bool? = true) -> Observable<AirMapFlightPlan> {
+	func submitFlightPlan(_ flightPlan: AirMapFlightPlan, makeFlightPublic: Bool = true) -> Observable<AirMapFlightPlan> {
+		guard let flightPlanId = flightPlan.id else {
+			return Observable.error(FlightPlanClientError.flightPlanDoesntExistCreateFirst)
+		}
 		AirMap.logger.debug("Submit Flight Plan", flightPlanId)
-		let params = ["public": makeFlightPublic as Any]
-		return perform(method: .post, path: "/plan/\(flightPlanId)/submit", params: params, checkAuth: true)
+		let params = ["public": makeFlightPublic]
+		return perform(method: .post, path: "/plan/\(flightPlanId)/submit", params: params, update: flightPlan, checkAuth: true)
 	}
 	
 	func deleteFlightPlan(_ flightPlanId: AirMapFlightPlanId) -> Observable<Void> {
