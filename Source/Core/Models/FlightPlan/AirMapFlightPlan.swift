@@ -39,8 +39,8 @@ public class AirMapFlightPlan: Mappable {
 	// Flight Features
 	public var flightFeaturesValue = [AirMapFlightFeatureId: Any]()
 
-	// Assigned once a flight is created and associated with the flight plan
-	public var flightId: AirMapFlightId?
+	// Assigned once a flight plan is submitted and a flight is created
+	public internal(set) var flightId: AirMapFlightId?
 
 	/// Designated flight plan initializer
 	///
