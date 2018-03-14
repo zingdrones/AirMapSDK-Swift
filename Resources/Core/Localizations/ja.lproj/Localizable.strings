@@ -182,7 +182,7 @@
 "AUTH_ERROR_ACCOUNT_BLACKLISTED" = "あなたのアカウントはブラックリストに入りました。security@airmap.comまでご連絡ください。";
 
 /* Login message when a user must verify their email address */
-"AUTH_ERROR_EMAIL_NEEDS_VERIFICATION_REQUIRED" = "メールアドレスを確認する必要があります。メールボックスをご確認ください。";
+"AUTH_ERROR_EMAIL_NEEDS_VERIFICATION_REQUIRED" = "システムからメールを送りました。「承認する」をクリックしてアカウント作成を完了してください。";
 
 /* Login message when a user failed to authenticate */
 "AUTH_ERROR_UNAUTHORIZED" = "未許可";
@@ -274,6 +274,9 @@
 /* Call to action to tap the icon to begin drawing a flight path. */
 "FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH" = "手のアイコンをタップすると、経路をフリーハンドで描くことができます。";
 
+/* Displayed when the user has drawn an invalid shaping, overlapping with conflicting permitted zones */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_OVERLAPPING_PERMIT_AREAS" = "フライトエリアは許可が必要な飛行エリアに重なってはいけません。";
+
 /* Call to action to fix self-intersecting geometries of an area-based flight. */
 "FLIGHT_DRAWING_TOOLTIP_ERROR_SELF_INTERSECTING_GEOMETRY" = "無効な飛行エリアです。重複のないよう飛行エリアを調節してください。";
 
@@ -338,7 +341,7 @@
 "PHONE_VERIFICATION_VERIFICATION_FAILED" = "電話番号確認に失敗しました";
 
 /* Format for displaying the given + family name of a user. 1) given name 2) family name */
-"PILOT_FULL_NAME_FORMAT" = "%2$@ %1$@";
+"PILOT_FULL_NAME_FORMAT" = "%2$@%1$@";
 
 /* Table row label for FAA registration number */
 "PILOT_PROFILE_FAA_REGISTRATION" = "連邦航空局登録番号";

@@ -55,6 +55,9 @@
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "kCX-rY-nIt"; Note = "PILOT_PROFILE_SAVE_BUTTON|Title for the button that saves any changes to a user's profile"; */
 "kCX-rY-nIt.normalTitle" = "保存";
 
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "lre-WH-pt9"; Note = "PHONE_VERIFICATION_SAVE_BUTTON|Title for button that allows the user to submit the SMS code for verification"; */
+"lre-WH-pt9.normalTitle" = "送信";
+
 /* Class = "UILabel"; text = "SMS Code"; ObjectID = "oG7-qM-t5D"; Note = "SMS_LOGIN_CODE_HEADER|Header text for view where a user can input their SMS verification code"; */
 "oG7-qM-t5D.text" = "SMS コード";
 
