@@ -86,14 +86,12 @@ extension Reactive where Base: AirMapMapView {
 	}
 	
 	public var jurisdictions: Observable<[AirMapJurisdiction]> {
-		return Observable
-			.merge(
-				mapDidFinishRenderingFrame.map({ $0.mapView }).take(1),
-				regionIsChanging.throttle(1.0, scheduler: MainScheduler.asyncInstance)
-			)
-			.observeOn(MainScheduler.asyncInstance)
-			.map { $0.jurisdictions }
-			.distinctUntilChanged(==)
+		return Observable.deferred({
+			return self.regionIsChanging
+				.throttle(1.0, scheduler: MainScheduler.instance)
+				.map { $0.jurisdictions }
+				.distinctUntilChanged(==)
+		})
 	}
 	
 }
