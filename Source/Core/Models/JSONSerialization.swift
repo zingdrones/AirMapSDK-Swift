@@ -484,6 +484,10 @@ extension AirMapFlightBriefing: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		
+		guard map.JSON["rulesets"] != nil else {
+			throw AirMapError.server
+		}
+		
 		let dateTransform = CustomDateFormatTransform(formatString: Constants.AirMapApi.dateFormat)
 		do {
 			createdAt      =  try  map.value("created_at", using: dateTransform)
