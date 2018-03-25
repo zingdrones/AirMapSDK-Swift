@@ -40,7 +40,6 @@ extension AirMapAdvisory: ImmutableMappable {
 			id            =  try  map.value("id")
 			color         =  try  map.value("color")
 			lastUpdated   = (try? map.value("last_updated", using: dateTransform)) ?? Date()
-			distance      =  try  map.value("distance")
 			type          =  try  map.value("type")
 			city          =  try? map.value("city")
 			state         =  try? map.value("state")

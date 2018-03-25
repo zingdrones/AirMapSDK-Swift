@@ -25,10 +25,7 @@ public struct AirMapAdvisory {
 	
 	/// The location of the advisory
 	public let coordinate: Coordinate2D
-	
-	/// The distance from the area that generated the advisory
-	public let distance: Meters
-	
+		
 	/// The advisory location's city
 	public let city: String?
 

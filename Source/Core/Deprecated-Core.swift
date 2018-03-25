@@ -31,6 +31,14 @@ extension AirMapAircraft {
 	}
 }
 
+extension AirMapAdvisory {
+	
+	@available(*, unavailable, message: "Removed")
+	public var distance: Meters {
+		fatalError()
+	}
+}
+
 @available (*, unavailable, renamed: "AirMapAirspaceStatus")
 public class AirMapStatus {
 	@available (*, unavailable, renamed: "AirMapAdvisory.Color")
