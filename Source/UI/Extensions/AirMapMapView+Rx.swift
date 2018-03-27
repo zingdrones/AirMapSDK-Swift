@@ -87,7 +87,11 @@ extension Reactive where Base: AirMapMapView {
 	
 	public var jurisdictions: Observable<[AirMapJurisdiction]> {
 		return Observable.deferred({
-			return self.regionIsChanging
+			return Observable
+				.merge(
+					self.regionIsChanging,
+					self.regionDidChangeAnimated.map { $0.0 }
+				)
 				.throttle(1.0, scheduler: MainScheduler.instance)
 				.map { $0.jurisdictions }
 				.distinctUntilChanged(==)
