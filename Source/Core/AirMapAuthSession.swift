@@ -47,7 +47,9 @@ internal class AirMapAuthSession {
 		Observable<Int>
 			.interval(60, scheduler: MainScheduler.instance)
 			.mapToVoid()
-			.subscribeNext(weak: self, AirMapAuthSession.verifyAuthentication)
+			.subscribe({ [unowned self] _ in
+				self.verifyAuthentication()
+			})
 			.disposed(by: disposeBag)
 	}
 

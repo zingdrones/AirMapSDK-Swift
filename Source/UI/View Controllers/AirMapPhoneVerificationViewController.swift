@@ -145,7 +145,9 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 					)
 			}
 			.mapToVoid()
-			.subscribeNext(weak: self, AirMapPhoneVerificationViewController.verifySMSToken)
+			.subscribe({ [unowned self] _ in
+				self.verifySMSToken()
+			})
 			.disposed(by: disposeBag)
 	}
 	
