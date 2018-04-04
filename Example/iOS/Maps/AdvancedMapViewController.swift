@@ -44,6 +44,13 @@ extension AdvancedMapViewController {
 		// register as the map's delegate
 		mapView.delegate = self
 	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		//FIXME: The styles won't load unless this is called
+		self.mapView.delegate?.mapViewRegionIsChanging?(self.mapView)
+	}
 }
 
 // MARK: - Navigation
