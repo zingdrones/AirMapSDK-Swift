@@ -129,13 +129,13 @@ extension MGLStyle {
 	
 	var activeAirMapStyleLayers: [MGLVectorStyleLayer] {
 		return layers
-			.flatMap { $0 as? MGLVectorStyleLayer }
+			.compactMap { $0 as? MGLVectorStyleLayer }
 			.filter { $0.sourceIdentifier?.hasPrefix(Constants.Maps.rulesetSourcePrefix) ?? false }
 	}
 	
 	func airMapBaseStyleLayers(for types: [AirMapAirspaceType]) -> [MGLVectorStyleLayer] {
 		
-		let vectorLayers = layers.flatMap { $0 as? MGLVectorStyleLayer }
+		let vectorLayers = layers.compactMap { $0 as? MGLVectorStyleLayer }
 		let airMapBaseLayers = vectorLayers
 			.filter { $0.sourceIdentifier == "airmap" }
 			.filter { $0.airspaceType != nil && types.contains($0.airspaceType!) }
@@ -150,7 +150,7 @@ extension MGLStyle {
         let supportedLanguages = ["en", "es", "de", "fr", "ru", "zh"]
         let supportsCurrentLanguage = supportedLanguages.contains(currentLanguage)
         
-        let labelLayers = layers.flatMap { $0 as? MGLSymbolStyleLayer }
+		let labelLayers = layers.compactMap { $0 as? MGLSymbolStyleLayer }
         
         for layer in labelLayers {
             if let textValue = layer.text as? MGLConstantStyleValue {
@@ -173,7 +173,7 @@ extension MGLStyle {
         
         layers
             .filter { $0.identifier.hasPrefix(Constants.Maps.airmapLayerPrefix) && temporalAirspaces.contains($0.airspaceType!) }
-            .flatMap { $0 as? MGLVectorStyleLayer }
+			.compactMap { $0 as? MGLVectorStyleLayer }
             .forEach({ (layer) in
                 let now = Int(Date().timeIntervalSince1970)
                 let nearFuture = Int(Date().timeIntervalSince1970 + Constants.Maps.futureTemporalWindow)

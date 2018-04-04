@@ -98,7 +98,7 @@ extension Collection where Iterator.Element == AirMapRuleset {
 		return self
             .filter { $0.jurisdictionId != nil }
             .grouped(by: { $0.jurisdictionId }).keys
-			.flatMap { (id) -> AirMapJurisdiction? in
+			.compactMap { (id) -> AirMapJurisdiction? in
 				let rulesets = filter({ $0.jurisdictionId == id })
 				guard let ruleset = rulesets.first else { return nil }
 				return AirMapJurisdiction(

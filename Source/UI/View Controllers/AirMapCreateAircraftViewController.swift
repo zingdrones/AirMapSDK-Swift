@@ -100,7 +100,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		
 		model.asObservable()
 			.unwrap()
-			.map { [$0.manufacturer.name, $0.name].flatMap { $0 }.joined(separator: " ") }
+			.map { [$0.manufacturer.name, $0.name].compactMap { $0 }.joined(separator: " ") }
 			.bind(to: makeAndModel.rx.text)
 			.disposed(by: disposeBag)
 		

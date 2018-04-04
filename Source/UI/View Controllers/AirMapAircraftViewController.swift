@@ -52,7 +52,7 @@ public class AirMapAircraftViewController: UITableViewController, AnalyticsTrack
 				(index, aircraft, cell) in
 				cell.textLabel?.text = aircraft.nickname
 				cell.detailTextLabel?.text = [aircraft.model.manufacturer.name, aircraft.model.name]
-					.flatMap {$0}.joined(separator: " ")
+					.compactMap {$0}.joined(separator: " ")
 			}
 			.disposed(by: disposeBag)
 		

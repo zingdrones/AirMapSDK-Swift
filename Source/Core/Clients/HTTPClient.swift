@@ -209,7 +209,7 @@ class AuthenticationAdapter: RequestAdapter {
 		var urlRequest = urlRequest
 		
 		let authorization = [AirMap.authSession.tokenType, authToken]
-			.flatMap { $0 }
+			.compactMap { $0 }
 			.joined(separator: " ")
 
 		urlRequest.setValue(authorization, forHTTPHeaderField: HTTPClient.Header.authorization.rawValue)

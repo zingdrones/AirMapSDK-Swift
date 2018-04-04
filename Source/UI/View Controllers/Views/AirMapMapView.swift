@@ -216,8 +216,8 @@ extension AirMapMapView {
 			.map { $0.tileSourceIdentifier }
 		
 		let existingSourceIds = style.sources
-			.flatMap { $0 as? MGLVectorSource }
-			.flatMap { $0.identifier }
+			.compactMap { $0 as? MGLVectorSource }
+			.compactMap { $0.identifier }
 			.filter { $0.hasPrefix(Constants.Maps.rulesetSourcePrefix) }
 		
 		let orphanedSourceIds = Set(existingSourceIds).subtracting(rulesetSourceIds)
@@ -237,8 +237,8 @@ extension AirMapMapView {
 	private func jurisdictions(intersecting rect: CGRect) -> [AirMapJurisdiction] {
 		
 		return visibleFeatures(in: rect, styleLayerIdentifiers: [Constants.Maps.jurisdictionsStyleLayerId])
-			.flatMap { $0.attributes[Constants.Maps.jurisdictionFeatureAttributesKey] as? String }
-			.flatMap { AirMapJurisdiction.tileServiceMapper.map(JSONString: $0) }
+			.compactMap { $0.attributes[Constants.Maps.jurisdictionFeatureAttributesKey] as? String }
+			.compactMap { AirMapJurisdiction.tileServiceMapper.map(JSONString: $0) }
 			.reduce(into: [AirMapJurisdiction]()) { (array, jurisdiction) in
 				if !array.contains(jurisdiction) && !jurisdiction.rulesets.isEmpty {
 					array.append(jurisdiction)
@@ -275,7 +275,7 @@ extension AirMapMapView {
 		guard let style = style else { return }
 		
 		style.layers
-			.flatMap { $0 as? MGLVectorStyleLayer }
+			.compactMap { $0 as? MGLVectorStyleLayer }
 			.filter { $0.sourceIdentifier == sourceIdentifier }
 			.forEach { layer in
 				style.removeLayer(layer)

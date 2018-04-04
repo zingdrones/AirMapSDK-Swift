@@ -40,7 +40,7 @@ extension AirMapJurisdiction {
 	/// Returns all rulesets which should be selected by default. This includes any required rulesets,
 	/// the default pickOne if any, and any AirMap recommended rulesets
 	public var defaultRulesets: [AirMapRuleset] {
-		return requiredRulesets + [defaultPickOneRuleset].flatMap({$0}) + airMapRecommendedRulesets
+		return requiredRulesets + [defaultPickOneRuleset].compactMap({$0}) + airMapRecommendedRulesets
 	}
 	
 	/// A filtered list of all the required rulesets
