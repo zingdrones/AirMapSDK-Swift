@@ -42,6 +42,7 @@ public struct AirMapConfiguration {
 	public var temperatureUnits: TemperatureUnits = .celcius
 
 	public let airMapDomain: String
+	public let airMapApiDomain: String
 	public let auth0Host: String
 	public let auth0ClientId: String
 	
@@ -97,6 +98,7 @@ extension AirMapConfiguration: ImmutableMappable {
 			mapboxAccessToken     =  try? map.value("mapbox.access_token")
 			auth0Host             = (try? map.value("auth0.host")) ?? "sso.airmap.io"
 			airMapDomain          = (try? map.value("airmap.domain")) ?? "airmap.com"
+			airMapApiDomain       = (try? map.value("airmap.api_domain")) ?? "api.airmap.com"
 			airMapEnvironment     =  try? map.value("airmap.environment")
 			airMapApiOverrides    =  try? map.value("airmap.api_overrides")
 			airMapMapStyle        =  try? map.value("airmap.map_style", using: URLTransform())
