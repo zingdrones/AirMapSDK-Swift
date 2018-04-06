@@ -39,7 +39,7 @@ public class AirMapImage {
 	#if AIRMAP_TRAFFIC
 	public static func trafficIcon(type: AirMapTraffic.TrafficType, heading: Int) -> Image? {
 
-		let direction = heading == 0 ? "" : "_" + AirMapTrafficServiceUtils.directionFromBearing(Double(heading))
+		let direction = heading == 0 ? "" : "_" + AirMapTrafficServiceUtils.directionFromBearing(Double(heading), localized:false)
 
 		switch type {
 		case .situationalAwareness:

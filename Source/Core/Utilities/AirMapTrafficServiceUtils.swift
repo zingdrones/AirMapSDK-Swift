@@ -9,39 +9,60 @@
 import Foundation
 
 open class AirMapTrafficServiceUtils {
-
-	open static func directionFromBearing(_ bearing: Double) -> String {
+	
+	open static func directionFromBearing(_ bearing: Double, localized: Bool = true) -> String {
 		let index = Int((bearing/22.5) + 0.5) % 16
-		let directions = self.compassDirections()
+		let directions = self.compassDirections(localized: localized)
 		return directions[index]
 	}
-
-	static func compassDirections() -> [String] {
+	
+	static func compassDirections(localized: Bool = true) -> [String] {
 		
-		let localized = LocalizedStrings.CardinalDirection.self
+		let localizedStrings = LocalizedStrings.CardinalDirection.self
 		
-		return [
-			localized.N,
-			localized.NNE,
-			localized.NE,
-			localized.ENE,
-			localized.E,
-			localized.ESE,
-			localized.SE,
-			localized.SSE,
-			localized.S,
-			localized.SSW,
-			localized.SW,
-			localized.WSW,
-			localized.W,
-			localized.WNW,
-			localized.NW,
-			localized.NNW
-		]
+		if localized {
+			return [
+				localizedStrings.N,
+				localizedStrings.NNE,
+				localizedStrings.NE,
+				localizedStrings.ENE,
+				localizedStrings.E,
+				localizedStrings.ESE,
+				localizedStrings.SE,
+				localizedStrings.SSE,
+				localizedStrings.S,
+				localizedStrings.SSW,
+				localizedStrings.SW,
+				localizedStrings.WSW,
+				localizedStrings.W,
+				localizedStrings.WNW,
+				localizedStrings.NW,
+				localizedStrings.NNW
+			]
+		} else {
+			return [
+				"N",
+				"NNE",
+				"NE",
+				"ENE",
+				"E",
+				"ESE",
+				"SE",
+				"SSE",
+				"S",
+				"SSW",
+				"SW",
+				"WSW",
+				"W",
+				"WNW",
+				"NW",
+				"NNW"
+			]
+		}
 	}
-
+	
 	static func secondsFromDistanceAndSpeed(_ distance: Meters, speedInKts: Double) -> TimeInterval {
-
+		
 		return distance / (speedInKts*1852) * 3600
 	}
 	
