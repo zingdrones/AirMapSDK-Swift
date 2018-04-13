@@ -118,16 +118,16 @@ internal class TrafficService: MQTTSessionDelegate {
 		let trafficProjectionTimer = Observable<Int>.interval(0.25, scheduler: MainScheduler.asyncInstance).mapToVoid()
 
 		trafficProjectionTimer
-			.subscribe({ [unowned self] _ in
-				self.updateTrafficProjections()
+			.subscribe(onNext: { [weak self] _ in
+				self?.updateTrafficProjections()
 			})
 			.disposed(by: disposeBag)
 
 		let purgeTrafficTimer = Observable<Int>.interval(5, scheduler: MainScheduler.asyncInstance).mapToVoid()
 
 		purgeTrafficTimer
-			.subscribe({ [unowned self] _ in
-				self.purgeExpiredTraffic()
+			.subscribe(onNext: { [weak self] _ in
+				self?.purgeExpiredTraffic()
 			})
 			.disposed(by: disposeBag)
 	}
