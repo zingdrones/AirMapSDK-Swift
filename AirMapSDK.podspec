@@ -15,8 +15,9 @@ Pod::Spec.new do |s|
 		:git => 'https://github.com/AirMap/AirMapSDK-Swift.git',
 		:tag => s.version.to_s
 	}
-	s.cocoapods_version = '>= 1.3.0'
+	s.cocoapods_version = '>= 1.4.0'
 	s.frameworks = 'Foundation'
+	s.swift_version = '4.1'
 	
 	s.ios.deployment_target = '9.0'
 	s.osx.deployment_target = '10.10'
