@@ -171,7 +171,7 @@ internal class TrafficService: MQTTSessionDelegate {
 				if succeeded {
 					observer.onNext(.connected)
 				} else {
-					AirMap.logger.error(error)
+					AirMap.logger.error(error as Any)
 					observer.onError(TrafficServiceError.connectionFailed)
 					observer.onNext(.disconnected)
 				}
@@ -215,7 +215,7 @@ internal class TrafficService: MQTTSessionDelegate {
 				if succeeded {
 					AirMap.logger.debug(TrafficService.self, "Unsubscribed from channels", channels)
 				} else {
-					AirMap.logger.debug(TrafficService.self, error)
+					AirMap.logger.debug(TrafficService.self, error?.localizedDescription as Any)
 					observer.onError(TrafficServiceError.subscriptionFailed)
 				}
 				self.client.currentChannels = []
@@ -406,14 +406,25 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	// MARK: - MQTTSessionDelegate {
 	
-	func mqttDidReceive(message data: Data, in topic: String, from session: MQTTSession) {
+	func mqttDidDisconnect(session: MQTTSession, reason: MQTTSessionDisconnect, error: Error?) {
+		switch reason {
+		case .failedConnect:
+			AirMap.logger.error("Failed to connect to MQTT server")
+		case .unexpected:
+			AirMap.logger.error("Unexpected disconnection from MQTT server")
+		case .manual:
+			AirMap.logger.trace("Traffic disconnected")
+		}
+	}
+
+	func mqttDidReceive(message: MQTTMessage, from session: MQTTSession) {
 
 		AirMap.logger.trace(TrafficService.self, "Did receive data")
 
 		guard
 			connectionState.value == .connected,
-			let jsonString = String(data: data, encoding: String.Encoding.utf8),
-			let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+			let jsonString = message.stringRepresentation,
+			let jsonDict = try? JSONSerialization.jsonObject(with: message.payload, options: []) as? [String: Any],
 			let trafficArray = jsonDict?["traffic"] as? [[String: Any]]
 		else {
 			AirMap.logger.error(TrafficService.self, "Failed to parse JSON message")
@@ -425,7 +436,7 @@ internal class TrafficService: MQTTSessionDelegate {
 		delegate?.airMapTrafficServiceDidReceive?(jsonString)
 
 		let receivedTraffic = traffic.map { t -> AirMapTraffic in
-			t.trafficType = self.trafficTypeForTopic(topic)
+			t.trafficType = self.trafficTypeForTopic(message.topic)
 			t.coordinate = self.projectedCoordinate(t)
 			return t
 		}
