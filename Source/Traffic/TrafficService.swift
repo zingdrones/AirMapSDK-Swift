@@ -167,11 +167,11 @@ internal class TrafficService: MQTTSessionDelegate {
 			self.client.username = flight.id?.rawValue
 			self.client.password = AirMap.authSession.authToken
 
-			self.client.connect { succeeded, error in
-				if succeeded {
+			self.client.connect { error in
+				if error == .none {
 					observer.onNext(.connected)
 				} else {
-					AirMap.logger.error(error as Any)
+					AirMap.logger.error(error.description)
 					observer.onError(TrafficServiceError.connectionFailed)
 					observer.onNext(.disconnected)
 				}
@@ -191,8 +191,8 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	func subscribe(_ flight: AirMapFlight, to channel: String) -> Observable<Void> {
 		return Observable.create { (observer: AnyObserver<Void>) -> Disposable in
-			self.client.subscribe(to: channel, delivering: .atLeastOnce) { succeeded, error in
-				if succeeded {
+			self.client.subscribe(to: channel, delivering: .atLeastOnce) { error in
+				if error == .none {
 					self.client.currentChannels.append(channel)
 					AirMap.logger.debug(TrafficService.self, "Subscribed to \(channel)")
 					observer.onCompleted()
@@ -211,11 +211,11 @@ internal class TrafficService: MQTTSessionDelegate {
 				observer.onCompleted()
 				return Disposables.create()
 			}
-			self.client.unSubscribe(from: channels) { succeeded, error in
-				if succeeded {
+			self.client.unSubscribe(from: channels) { error in
+				if error == .none {
 					AirMap.logger.debug(TrafficService.self, "Unsubscribed from channels", channels)
 				} else {
-					AirMap.logger.debug(TrafficService.self, error?.localizedDescription as Any)
+					AirMap.logger.debug(TrafficService.self, error.description)
 					observer.onError(TrafficServiceError.subscriptionFailed)
 				}
 				self.client.currentChannels = []
@@ -406,14 +406,13 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	// MARK: - MQTTSessionDelegate {
 	
-	func mqttDidDisconnect(session: MQTTSession, reason: MQTTSessionDisconnect, error: Error?) {
-		switch reason {
-		case .failedConnect:
-			AirMap.logger.error("Failed to connect to MQTT server")
-		case .unexpected:
-			AirMap.logger.error("Unexpected disconnection from MQTT server")
-		case .manual:
+	func mqttDidDisconnect(session: MQTTSession, error: MQTTSessionError) {
+
+		switch error {
+		case .none:
 			AirMap.logger.trace("Traffic disconnected")
+		default:
+			AirMap.logger.trace(error.description)
 		}
 	}
 
@@ -443,7 +442,11 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		addTraffic(receivedTraffic)
 	}
-	
+
+	func mqttDidAcknowledgePing(from session: MQTTSession) {
+		AirMap.logger.trace("MQTT did receive pong from broker")
+	}
+
 	func mqttDidDisconnect(session: MQTTSession) {
 		AirMap.logger.debug(TrafficService.self, "Disconnected from MQTT")
 		connectionState.value = .disconnected
