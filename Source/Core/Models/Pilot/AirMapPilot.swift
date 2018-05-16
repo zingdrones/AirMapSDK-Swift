@@ -34,6 +34,8 @@ open class AirMapPilot {
 
 	internal init() {}
 	public required init?(map: Map) {}
+
+	public var anonymizedId: String?
 }
 
 extension AirMapPilot: Mappable {
@@ -51,6 +53,7 @@ extension AirMapPilot: Mappable {
 		_userMetadata  <-  map["user_metadata"]
 		_appMetadata   <-  map["app_metadata"]
 		statistics     <-  map["statistics"]
+		anonymizedId   <-  map["anonymized_id"]
 	}
 
 	internal func params() -> [String: Any] {
