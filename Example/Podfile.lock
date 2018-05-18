@@ -1,10 +1,10 @@
 PODS:
-  - AirMapSDK (2.0.0.beta.3):
-    - AirMapSDK/Core (= 2.0.0.beta.3)
-    - AirMapSDK/Telemetry (= 2.0.0.beta.3)
-    - AirMapSDK/Traffic (= 2.0.0.beta.3)
-    - AirMapSDK/UI (= 2.0.0.beta.3)
-  - AirMapSDK/Core (2.0.0.beta.3):
+  - AirMapSDK (2.0.0.beta.4):
+    - AirMapSDK/Core (= 2.0.0.beta.4)
+    - AirMapSDK/Telemetry (= 2.0.0.beta.4)
+    - AirMapSDK/Traffic (= 2.0.0.beta.4)
+    - AirMapSDK/UI (= 2.0.0.beta.4)
+  - AirMapSDK/Core (2.0.0.beta.4):
     - Alamofire
     - JWTDecode
     - Log
@@ -14,22 +14,22 @@ PODS:
     - RxSwiftExt
     - SimpleKeychain
     - SwiftTurf
-  - AirMapSDK/Telemetry (2.0.0.beta.3):
+  - AirMapSDK/Telemetry (2.0.0.beta.4):
     - AirMapSDK/Core
     - CocoaAsyncSocket
     - CryptoSwift
     - ProtocolBuffers-Swift
-  - AirMapSDK/Traffic (2.0.0.beta.3):
+  - AirMapSDK/Traffic (2.0.0.beta.4):
     - AirMapSDK/Core
-    - SwiftMQTT (~> 2.0.0)
-  - AirMapSDK/UI (2.0.0.beta.3):
+    - SwiftMQTT (>= 2.0.0)
+  - AirMapSDK/UI (2.0.0.beta.4):
     - AirMapSDK/Core
-    - Lock (>= 2.3.1)
-    - Mapbox-iOS-SDK
+    - Lock (>= 2.5.0)
+    - Mapbox-iOS-SDK (< 4.0)
     - PhoneNumberKit
     - RxDataSources
-  - Alamofire (4.7.1)
-  - Auth0 (1.10.1):
+  - Alamofire (4.7.2)
+  - Auth0 (1.11.0):
     - SimpleKeychain
   - CocoaAsyncSocket (7.6.3)
   - CryptoSwift (0.9.0)
@@ -41,7 +41,7 @@ PODS:
   - Lock/Classic (2.5.1):
     - Auth0 (~> 1.10)
   - Log (1.0)
-  - Mapbox-iOS-SDK (3.7.6)
+  - Mapbox-iOS-SDK (3.7.8)
   - Nimble (7.0.2)
   - ObjectMapper (3.1.0)
   - OHHTTPStubs (6.1.0):
@@ -78,9 +78,9 @@ PODS:
     - RxSwiftExt/Core (= 3.2.0)
   - RxSwiftExt/Core (3.2.0):
     - RxSwift (~> 4.0)
-  - SimpleKeychain (0.8.0)
+  - SimpleKeychain (0.8.1)
   - SwiftMQTT (2.0.0)
-  - SwiftTurf (0.3.0)
+  - SwiftTurf (0.3.1)
 
 DEPENDENCIES:
   - AirMapSDK (from `../`)
@@ -89,21 +89,46 @@ DEPENDENCIES:
   - OHHTTPStubs/Swift
   - Quick
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Auth0
+    - CocoaAsyncSocket
+    - CryptoSwift
+    - Differentiator
+    - JWTDecode
+    - Lock
+    - Log
+    - Mapbox-iOS-SDK
+    - Nimble
+    - ObjectMapper
+    - OHHTTPStubs
+    - PhoneNumberKit
+    - ProtocolBuffers-Swift
+    - Quick
+    - RxCocoa
+    - RxDataSources
+    - RxSwift
+    - RxSwiftExt
+    - SimpleKeychain
+    - SwiftMQTT
+    - SwiftTurf
+
 EXTERNAL SOURCES:
   AirMapSDK:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  AirMapSDK: 6c66b419f913bfea77f636293de0336df71c1a04
-  Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
-  Auth0: 9d36ee6f452b7bd0af3907cb6c674425599e6f0e
+  AirMapSDK: 9aa6bc4f1aa3aea78b74c32bfb37a139ee993bb4
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Auth0: 86ca436640b50989b4183f2b12ea4da41a1b121f
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CryptoSwift: bca8c5b653dcc2d9734409242a070ff53bafac86
   Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
   JWTDecode: 83e8b381aafe27158d9f692cbdca2b12d61d460c
   Lock: 3a64cd61770ea568839272cb9fc2308490ad341e
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
-  Mapbox-iOS-SDK: 23ececda1d90c3b436b45e2c88e9677f025303c0
+  Mapbox-iOS-SDK: a8b55533ef5c5e91b5a26533bd4fb0ec88a3b994
   Nimble: bfe1f814edabba69ff145cb1283e04ed636a67f2
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
@@ -114,10 +139,10 @@ SPEC CHECKSUMS:
   RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   RxSwiftExt: 64b7140124629a6a084159735f3714f0fb1c61d6
-  SimpleKeychain: 84c748463eec601dfee5e7990f55cc82edc5488d
+  SimpleKeychain: e2485c28d82fcece35e9e41faeac42ebfe614815
   SwiftMQTT: 1223cdf3056cd9211112e3f136aa221125b457e1
-  SwiftTurf: c2352b68982877881b5ed3a3b59052be24bfc312
+  SwiftTurf: a5b39b37cda89968412b29f86051ea4f625dee91
 
 PODFILE CHECKSUM: e2c100e54c25da2506269d06c43d2018c024aadc
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.2
