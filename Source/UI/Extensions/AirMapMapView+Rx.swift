@@ -9,6 +9,7 @@
 import Mapbox
 import RxSwift
 import RxCocoa
+import RxSwiftExt
 
 extension AirMapMapView: HasDelegate {
 	public typealias Delegate = MGLMapViewDelegate
@@ -58,6 +59,11 @@ extension Reactive where Base: AirMapMapView {
 		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapViewDidFinishRenderingFrame(_:fullyRendered:)))
 			.map { ($0[0] as! Base, $0[1] as! Bool) }
 	}
+
+	public var mapDidFinishLoadingMap: Observable<Base> {
+		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapViewDidFinishLoadingMap(_:)))
+			.map { $0[0] as! Base }
+	}
 	
 	public var mapDidFailLoadingMap: Observable<(mapView: Base, error: Error)> {
 		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapViewDidFailLoadingMap(_:withError:)))
@@ -67,14 +73,13 @@ extension Reactive where Base: AirMapMapView {
 	public var mapDidFinishLoadingStyle: Observable<(mapView: Base, style: MGLStyle)> {
 		let observable = delegate.methodInvoked(#selector(MGLMapViewDelegate.mapView(_:didFinishLoading:)))
 			.map { (mapView: $0[0] as! Base, style: $0[1] as! MGLStyle) }
-		// Start with current style if it exists
 		if let style = base.style {
 			return observable.startWith((base, style))
 		} else {
 			return observable
 		}
 	}
-	
+
 	public var mapDidStartLoading: Observable<Base> {
 		return delegate.methodInvoked(#selector(MGLMapViewDelegate.mapViewWillStartLoadingMap(_:)))
 			.map { $0[0] as! Base }
@@ -86,16 +91,18 @@ extension Reactive where Base: AirMapMapView {
 	}
 	
 	public var jurisdictions: Observable<[AirMapJurisdiction]> {
-		return Observable.deferred({
-			return Observable
-				.merge(
-					self.regionIsChanging,
-					self.regionDidChangeAnimated.map { $0.0 }
-				)
-				.throttle(1.0, scheduler: MainScheduler.instance)
-				.map { $0.jurisdictions }
-				.distinctUntilChanged(==)
-		})
+		return mapDidFinishLoadingStyle
+			.flatMapLatest({ (style) -> Observable<[AirMapJurisdiction]> in
+				return Observable
+					.merge(
+						self.regionIsChanging
+							.throttle(3, latest: true, scheduler: MainScheduler.instance),
+						self.regionDidChangeAnimated.map({$0.mapView})
+							.throttle(1, latest: true, scheduler: MainScheduler.instance)
+					)
+					.map({ $0.jurisdictions })
+					.distinctUntilChanged(==)
+			})
 	}
 	
 }

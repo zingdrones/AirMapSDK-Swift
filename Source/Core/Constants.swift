@@ -110,8 +110,8 @@ struct Constants {
         static let rulesetSourcePrefix = "air_ruleset_"
         static let tileMinimumZoomLevel = 7
         static let tileMaximumZoomLevel = 12
-        static let temporalLayerRefreshInterval: TimeInterval = 60
-        static let futureTemporalWindow: TimeInterval = 4*60*60
+        static let temporalLayerRefreshInterval: TimeInterval = 20
+        static let futureTemporalWindow: TimeInterval = 4*60*60 // 4 hours
 		
 		static var styleUrl: URL {
 			return AirMap.configuration.airMapMapStyle ?? URL(string: "https://cdn.airmap.com/static/map-styles/0.8.6/")!
