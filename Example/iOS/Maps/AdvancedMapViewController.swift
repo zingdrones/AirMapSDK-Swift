@@ -29,7 +29,7 @@ class AdvancedMapViewController: UIViewController {
 	private var activeRulesets: [AirMapRuleset] = [] {
 		didSet {
 			// update the map with the latest rulesets
-			mapView.configuration = .manual(rulesets: activeRulesets)
+			mapView.rulesetConfiguration = .manual(rulesets: activeRulesets)
 		}
 	}
 }

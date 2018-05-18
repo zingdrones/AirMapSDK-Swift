@@ -27,7 +27,7 @@ class CustomStylingMapViewController: UIViewController {
 		map.theme = .dark
 		
 		// set the map's ruleset behavior
-		map.configuration = .automatic
+		map.rulesetConfiguration = .automatic
 		
 		// set the map location to London, UK
 		map.centerCoordinate = CLLocationCoordinate2D(latitude: 51.474, longitude: -0.133)

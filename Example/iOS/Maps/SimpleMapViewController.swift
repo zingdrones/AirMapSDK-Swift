@@ -26,10 +26,10 @@ class SimpleMapViewController: UIViewController {
 		map.theme = .light
 		
         // set the map's ruleset behavior
-        map.configuration = .automatic
+        map.rulesetConfiguration = .automatic
         
         // alternatively, the map can be configured with a list preferred ruleset ids
-//        map.configuration = .dynamic(preferredRulesetIds: ["usa_part_107"], enableRecommendedRulesets: true)
+//        map.rulesetConfiguration = .dynamic(preferredRulesetIds: ["usa_part_107"], enableRecommendedRulesets: true)
 
 		// set the map location to Santa Monica, California
 		map.centerCoordinate = CLLocationCoordinate2D(latitude: 34.023, longitude: -118.484)
