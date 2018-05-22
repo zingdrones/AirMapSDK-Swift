@@ -68,6 +68,9 @@ struct Constants {
 
 	struct AirMapTelemetry {
 		static var host: String {
+			if let override = AirMap.configuration.airMapApiOverrides?["telemetry_host"] {
+				return override
+			}
             if let env = AirMap.configuration.airMapEnvironment {
                 return "api-udp-telemetry.\(env).\(AirMap.configuration.airMapDomain)"
 			} else {
@@ -75,7 +78,12 @@ struct Constants {
 			}
 		}
 		
-        static let port = UInt16(16060)
+		static var port: UInt16 {
+			if let override = AirMap.configuration.airMapApiOverrides?["telemetry_port"], let port = UInt16(override) {
+				return port
+			}
+			return 16060
+		}
 		
 		struct SampleRate {
 			static let position: TimeInterval = 1/5
