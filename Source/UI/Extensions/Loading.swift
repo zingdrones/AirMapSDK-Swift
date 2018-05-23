@@ -23,33 +23,35 @@ extension Loading where Self: UIViewController {
 	}
 
 	fileprivate func showLoader() {
-		
+
+		LoadingWindow.shared.makeKeyAndVisible()
 		view.inputAccessoryView?.isUserInteractionEnabled = false
 		view.inputView?.isUserInteractionEnabled = false
-        
-		LoadingWindow.shared.makeKeyAndVisible()
 
-		UIView.animate(withDuration: 0.25, delay: 0, options: .beginFromCurrentState, animations: {
+		let animations = {
 			LoadingWindow.shared.alpha = 1
-			}, completion: nil)
+		}
+
+		UIView.animate(withDuration: 0.25, delay: 0, options: .beginFromCurrentState, animations: animations, completion: nil)
 	}
-	
+
 	fileprivate func hideLoader() {
-		
+
+		UIApplication.shared.windows.first?.makeKeyAndVisible()
+		self.view.inputAccessoryView?.isUserInteractionEnabled = true
+		self.view.inputView?.isUserInteractionEnabled = true
+
 		let animations = {
 			LoadingWindow.shared.alpha = 0
 		}
-		
+
 		let completion = { (completed: Bool) in
 			LoadingWindow.shared.isHidden = true
-			UIApplication.shared.windows.first?.makeKeyAndVisible()
-			self.view.inputAccessoryView?.isUserInteractionEnabled = true
-			self.view.inputView?.isUserInteractionEnabled = true
 		}
-		
+
 		UIView.animate(withDuration: 0.25, delay: 0, options: .beginFromCurrentState, animations: animations, completion: completion)
 	}
-	
+
 }
 
 class LoadingWindow: UIWindow {
