@@ -155,6 +155,7 @@ extension AirMapFlightFeature.Status: Comparable {
 	}
 }
 
+// TODO: Explore Hashable and Equatable options
 extension AirMapMapView.RulesetConfiguration {
 	static public func ==(lhs: AirMapMapView.RulesetConfiguration, rhs: AirMapMapView.RulesetConfiguration) -> Bool {
 		switch (lhs, rhs) {
