@@ -154,3 +154,23 @@ extension AirMapFlightFeature.Status: Comparable {
 		return lhs.order < rhs.order
 	}
 }
+
+extension AirMapMapView.RulesetConfiguration {
+	static public func ==(lhs: AirMapMapView.RulesetConfiguration, rhs: AirMapMapView.RulesetConfiguration) -> Bool {
+		switch (lhs, rhs) {
+		case (.automatic, .automatic):
+			return true
+
+		case (let .dynamic(ids1, enabled1), let .dynamic(ids2, enabled2)):
+			return ids1 == ids2 && enabled1 == enabled2
+
+		case (let .manual(rulesets1), let .manual(rulesets2)):
+			return rulesets1 == rulesets2
+
+		default:
+			break
+		}
+
+		return false
+	}
+}
