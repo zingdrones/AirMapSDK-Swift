@@ -31,7 +31,7 @@ open class AirMapMapView: MGLMapView {
 	public var theme: Theme = .standard {
 		didSet { themeSubject.onNext(theme) }
 	}
-	
+
 	/// The configuration the map uses to determine the behavior by which the map configures itself
 	///
 	/// - automatic: The map will be configured automatically. All `.required` rulesets will be enabled, and the default
@@ -46,9 +46,9 @@ open class AirMapMapView: MGLMapView {
 	public enum RulesetConfiguration {
 		case automatic
 		case dynamic(preferredRulesetIds: [AirMapRulesetId], enableRecommendedRulesets: Bool)
-		case manual(rulesets: [AirMapRuleset])		
+		case manual(rulesets: [AirMapRuleset])
 	}
-	
+
 	/// The current configuration that determines the behavior in which the map configures its rulesets
 	/// Default: .automatic
 	public var rulesetConfiguration: RulesetConfiguration = .automatic {
@@ -129,7 +129,7 @@ extension AirMapMapView {
 		setupBindings()
 		setupAppearance()
 	}
-	
+
 	private func setupAccessToken() {
 		
 		guard MGLAccountManager.accessToken() == nil else { return }
@@ -168,10 +168,7 @@ extension AirMapMapView {
 				let range = self.temporalRangeSubject
 				let jurisdictions = self.rx.jurisdictions
 				let rulesetConfig = self.rulesetConfigurationSubject
-					.distinctUntilChanged({ (config1, config2) -> Bool in
-						return self.areRulesetConfigsTheSame(config1: config1, config2: config2)
-					})
-
+					.distinctUntilChanged(==)
 
 				// Configure the map with the active rulesets
 				// Notify the delegate of available jurisdictions and activated rulesets
@@ -290,35 +287,6 @@ extension AirMapMapView {
 				}
 		}
 	}
-	
-	func areRulesetConfigsTheSame(config1: RulesetConfiguration, config2: RulesetConfiguration) -> Bool {
-		switch config1 {
-		case .automatic:
-			switch config2 {
-			case .automatic:
-				return true
-			default:
-				break
-			}
-			
-		case .dynamic( let ids1, let enabled1):
-			switch config2 {
-			case .dynamic(let ids2, let enabled2):
-				return ids1 == ids2 && enabled1 == enabled2
-			default:
-				break
-			}
-
-		case .manual(let rulesets1):
-			switch config2 {
-			case .manual(let rulesets2):
-				return rulesets1 == rulesets2
-			default:
-				break
-			}
-		}
-		return false
-	}
 
 	// MARK: - Static
 
@@ -345,7 +313,7 @@ extension AirMapMapView {
 	}
 	
 	private static func removeRuleset(_ sourceIdentifier: String, from style: MGLStyle, in mapView: AirMapMapView) {
-		
+
 		style.layers
 			.compactMap { $0 as? MGLVectorStyleLayer }
 			.filter { $0.sourceIdentifier == sourceIdentifier }
