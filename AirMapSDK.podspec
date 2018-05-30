@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
 		telemetry.xcconfig = { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DAIRMAP_TELEMETRY' }
 		telemetry.dependency 'AirMapSDK/Core'
 		telemetry.dependency 'CocoaAsyncSocket'
-		telemetry.dependency 'CryptoSwift'
+		telemetry.dependency 'CryptoSwift', '~> 0.10.0'
 		telemetry.dependency 'ProtocolBuffers-Swift'
 		telemetry.source_files = 'Source/Telemetry/*'
 	end
