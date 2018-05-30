@@ -15,7 +15,7 @@ open class AirMapPilot {
 	open var firstName: String?
 	open var lastName: String?
 	open var username: String?
-	open var pictureUrl: String!
+	open var pictureUrl: String?
 	open var phone: String?
 	open var phoneVerified: Bool = false
 	open var emailVerified: Bool = false
