@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import ObjectMapper
 import SwiftTurf
 
-public class AirMapFlightPlan: Mappable {
+public class AirMapFlightPlan: Codable {
 	
 	public internal(set) var id: AirMapFlightPlanId?
 	
@@ -56,58 +55,58 @@ public class AirMapFlightPlan: Mappable {
 
 	// MARK: - JSON Serialization
 	
-	public required init?(map: Map) {
-		
-		do {
-			let dateTransform = Constants.AirMapApi.dateTransform
-			startTime = try map.value("start_time", using: dateTransform)
-			let endTime: Date = try map.value("end_time", using: dateTransform)
-			duration = endTime.timeIntervalSince(startTime)
-			let takeoffLatitude = try map.value("takeoff_latitude") as Double
-			let takeoffLongitude = try map.value("takeoff_longitude") as Double
-			takeoffCoordinate = Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
-		}
-		catch {
-			AirMap.logger.error(error)
-			return nil
-		}
-	}
-	
-	public func mapping(map: Map) {
-		
-		let dateTransform = Constants.AirMapApi.dateTransform
-		let geoJSONTransform = GeoJSONToAirMapGeometryTransform()
-
-		id                  <-  (map["id"], AirMapIdTransform())
-		pilotId             <-  (map["pilot_id"], AirMapIdTransform())
-		aircraftId          <-  (map["aircraft_id"], AirMapIdTransform())
-		buffer              <-   map["buffer"]
-		maximumAltitudeAGL  <-   map["max_altitude_agl"]
-		startTime           <-  (map["start_time"], dateTransform)
-		rulesetIds          <-   map["rulesets"]
-		flightId            <-  (map["flight_id"], AirMapIdTransform())
-		flightFeaturesValue <-  (map["flight_features"], AirMapIdDictionaryTransform())
-		
-		switch map.mappingType {
-		
-		case .toJSON:
-			takeoffCoordinate.latitude   >>>  map["takeoff_latitude"]
-			takeoffCoordinate.longitude  >>>  map["takeoff_longitude"]
-			polygonGeometry()  >>> (map["geometry"], geoJSONTransform)
-			endTime  >>> (map["end_time"], dateTransform)
-
-		case .fromJSON:
-			do {
-				let takeoffLatitude = try map.value("takeoff_latitude") as Double
-				let takeoffLongitude = try map.value("takeoff_longitude") as Double
-				takeoffCoordinate = Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
-				geometry = try map.value("geometry", using: geoJSONTransform)
-			}
-			catch {
-				print(error)
-			}
-		}
-	}
+//	public required init?(map: Map) {
+//
+//		do {
+//			let dateTransform = Constants.AirMapApi.dateTransform
+//			startTime = try map.value("start_time", using: dateTransform)
+//			let endTime: Date = try map.value("end_time", using: dateTransform)
+//			duration = endTime.timeIntervalSince(startTime)
+//			let takeoffLatitude = try map.value("takeoff_latitude") as Double
+//			let takeoffLongitude = try map.value("takeoff_longitude") as Double
+//			takeoffCoordinate = Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
+//		}
+//		catch {
+//			AirMap.logger.error(error)
+//			return nil
+//		}
+//	}
+//
+//	public func mapping(map: Map) {
+//		
+//		let dateTransform = Constants.AirMapApi.dateTransform
+//		let geoJSONTransform = GeoJSONToAirMapGeometryTransform()
+//
+//		id                  <-  (map["id"], AirMapIdTransform())
+//		pilotId             <-  (map["pilot_id"], AirMapIdTransform())
+//		aircraftId          <-  (map["aircraft_id"], AirMapIdTransform())
+//		buffer              <-   map["buffer"]
+//		maximumAltitudeAGL  <-   map["max_altitude_agl"]
+//		startTime           <-  (map["start_time"], dateTransform)
+//		rulesetIds          <-   map["rulesets"]
+//		flightId            <-  (map["flight_id"], AirMapIdTransform())
+//		flightFeaturesValue <-  (map["flight_features"], AirMapIdDictionaryTransform())
+//		
+//		switch map.mappingType {
+//		
+//		case .toJSON:
+//			takeoffCoordinate.latitude   >>>  map["takeoff_latitude"]
+//			takeoffCoordinate.longitude  >>>  map["takeoff_longitude"]
+//			polygonGeometry()  >>> (map["geometry"], geoJSONTransform)
+//			endTime  >>> (map["end_time"], dateTransform)
+//
+//		case .fromJSON:
+//			do {
+//				let takeoffLatitude = try map.value("takeoff_latitude") as Double
+//				let takeoffLongitude = try map.value("takeoff_longitude") as Double
+//				takeoffCoordinate = Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
+//				geometry = try map.value("geometry", using: geoJSONTransform)
+//			}
+//			catch {
+//				print(error)
+//			}
+//		}
+//	}
 	
 }
 

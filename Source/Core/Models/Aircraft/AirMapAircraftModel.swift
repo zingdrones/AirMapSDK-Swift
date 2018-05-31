@@ -6,12 +6,23 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-
-public struct AirMapAircraftModel {
+public struct AirMapAircraftModel: Codable {
 	
 	public let id: AirMapAircraftModelId
 	public let name: String
 	public let manufacturer: AirMapAircraftManufacturer
 	public let metadata: [String: AnyObject]?
+}
+
+extension AirMapAircraftModel {
+
+	public func encode(to encoder: Encoder) throws {
+		// FIXME:
+		fatalError()
+	}
+
+	public init(from decoder: Decoder) throws {
+		// FIXME:
+		fatalError()
+	}
 }

@@ -6,16 +6,14 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-
 /// A summary of past and future weather observations for a given location and time window
-public struct AirMapWeather {
+public struct AirMapWeather: Codable {
 	
 	/// A collection of hourly past or future weather observations/forecasts
 	public let observations: [Observation]
 	
 	/// An object representative of historical or forecast observation
-	public struct Observation {
+	public struct Observation: Codable {
 
 		/// The start time of the observation
 		public let time: Date

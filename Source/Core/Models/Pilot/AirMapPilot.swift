@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-open class AirMapPilot {
+open class AirMapPilot: Codable {
 
 	open var id: AirMapPilotId!
 	open var email: String!
@@ -20,17 +20,6 @@ open class AirMapPilot {
 	open var phoneVerified: Bool = false
 	open var emailVerified: Bool = false
 	open var statistics: AirMapPilotStats!
-
-	fileprivate var _userMetadata = [String: Any]()
-	fileprivate var _appMetadata = [String: Any]()
-	
-	open func appMetadata() -> [String: Any] {
-		return _appMetadata
-	}
-	
-	open func setAppMetadata(value: Any?, forKey: String) {
-		_appMetadata[forKey] = value
-	}
 
 	internal init() {}
 	public required init?(map: Map) {}
@@ -50,8 +39,6 @@ extension AirMapPilot: Mappable {
 		username       <-  map["username"]
 		phoneVerified  <-  map["verification_status.phone"]
 		emailVerified  <-  map["verification_status.email"]
-		_userMetadata  <-  map["user_metadata"]
-		_appMetadata   <-  map["app_metadata"]
 		statistics     <-  map["statistics"]
 		anonymizedId   <-  map["anonymized_id"]
 	}
@@ -61,8 +48,6 @@ extension AirMapPilot: Mappable {
 		var params = [
 			"first_name":    firstName as Any,
 			"last_name":     lastName as Any,
-			"user_metadata": _userMetadata,
-			"app_metadata":  _appMetadata,
 		]
 		
 		if let phone = phone {
@@ -84,10 +69,10 @@ extension AirMapPilot {
 		switch (firstName, lastName) {
 		case (.some(let givenName), .some(let familyName)):
 			return String(format: LocalizedStrings.PilotProfile.fullNameFormat, givenName, familyName)
-		case (.some(let firstName), nil):
-			return firstName
-		case (nil, .some(let lastName)):
-			return lastName
+		case (.some(let givenName), nil):
+			return givenName
+		case (nil, .some(let familyName)):
+			return familyName
 		case (nil, nil):
 			return nil
 		}

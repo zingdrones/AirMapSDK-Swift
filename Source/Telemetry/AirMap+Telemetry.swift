@@ -22,14 +22,14 @@ extension AirMap {
 	
 	Send aircraft position telemetry data to AirMap
 	
-	- parameter flight: The identifier for the `AirMapFlight` to report telemetry data for
+	- parameter id: The identifier for the `AirMapFlight` to report telemetry data for
 	- parameter coordinate: The latitude & longitude of the aircraft
 	- parameter altitudeAgl: The altitude of the aircraft in meters above ground
 	- parameter altitudeMsl: The altitude of the aircraft in meters above Mean Sea Level
 	- parameter horizontalAccuracy: Optional. The horizontal dilution of precision (HDOP)
 	
 	*/
-	public static func sendTelemetryData(_ flightId: String, coordinate: Coordinate2D, altitudeAgl: Float?, altitudeMsl: Float?, horizontalAccuracy: Float? = nil) throws {
+	public static func sendTelemetryData(_ id: AirMapFlightId, coordinate: Coordinate2D, altitudeAgl: Float?, altitudeMsl: Float?, horizontalAccuracy: Float? = nil) throws {
 		
 		try canSendTelemetry()
 		
@@ -47,18 +47,18 @@ extension AirMap {
 			position.setHorizontalAccuracy(accuracy)
 		}
 		let positionMessage = try position.build()
-		telemetryClient.sendTelemetry(flightId, message: positionMessage)
+		telemetryClient.sendTelemetry(id, message: positionMessage)
 	}
 	
 	/**
 	
 	Send aircraft speed telemetry data to AirMap
 	
-	- parameter flightId: The identifier for the `AirMapFlight` to report telemetry data for
+	- parameter id: The identifier for the `AirMapFlight` to report telemetry data for
 	- parameter velocity: A tuple of axis velocities (X,Y,Z) using the N-E-D (North-East-Down) coordinate system
 	
 	*/
-	public static func sendTelemetryData(_ flightId: String, velocity: (x: Float, y: Float, z: Float)) throws {
+	public static func sendTelemetryData(_ id: AirMapFlightId, velocity: (x: Float, y: Float, z: Float)) throws {
 		
 		try canSendTelemetry()
 		
@@ -69,20 +69,20 @@ extension AirMap {
 		speed.setVelocityZ(velocity.z)
 		
 		let speedMessage = try speed.build()
-		telemetryClient.sendTelemetry(flightId, message: speedMessage)
+		telemetryClient.sendTelemetry(id, message: speedMessage)
 	}
 	
 	/**
 	
 	Send aircraft attitude telemetry data to AirMap
 	
-	- parameter flight: The identifier for the `AirMapFlight` to report telemetry data for
+	- parameter id: The identifier for the `AirMapFlight` to report telemetry data for
 	- parameter yaw: The yaw angle in degrees measured from True North (0 <= x < 360)
 	- parameter pitch: The angle (up-down tilt) in degrees up or down relative to the forward horizon (-180 < x <= 180)
 	- parameter roll: The angle (left-right tilt) in degrees (-180 < x <= 180)
 	
 	*/
-	public static func sendTelemetryData(_ flightId: String, yaw: Float, pitch: Float, roll: Float) throws {
+	public static func sendTelemetryData(_ id: AirMapFlightId, yaw: Float, pitch: Float, roll: Float) throws {
 		
 		try canSendTelemetry()
 		
@@ -93,18 +93,18 @@ extension AirMap {
 		attitude.setRoll(roll)
 		
 		let attitudeMessage = try attitude.build()
-		telemetryClient.sendTelemetry(flightId, message: attitudeMessage)
+		telemetryClient.sendTelemetry(id, message: attitudeMessage)
 	}
 	
 	/**
 	
 	Send barometer telemetry data to AirMap
 	
-	- parameter flight: The identifier for the `AirMapFlight` to report telemetry data for
+	- parameter id: The identifier for the `AirMapFlight` to report telemetry data for
 	- parameter baro: The barometric pressure in hPa (~1000)
 	
 	*/
-	public static func sendTelemetryData(_ flightId: String, baro: Float) throws {
+	public static func sendTelemetryData(_ id: AirMapFlightId, baro: Float) throws {
 		
 		try canSendTelemetry()
 		
@@ -113,7 +113,7 @@ extension AirMap {
 		barometer.setPressure(baro)
 
 		let barometerMessage = try barometer.build()
-		telemetryClient.sendTelemetry(flightId, message: barometerMessage)
+		telemetryClient.sendTelemetry(id, message: barometerMessage)
 	}
 	
 	/**

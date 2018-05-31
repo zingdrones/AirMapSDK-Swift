@@ -134,9 +134,9 @@ public extension HPa {
 	import CoreLocation
 	
 	public typealias Coordinate2D = CLLocationCoordinate2D
-	
+
 	extension CLLocationCoordinate2D {
-		
+
 		public var isValid: Bool {
 			return CLLocationCoordinate2DIsValid(self)
 		}

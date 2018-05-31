@@ -7,7 +7,7 @@
 //
 
 /// An entity that has jurisdiction for generating rulesets for a given area
-public struct AirMapJurisdiction {
+public struct AirMapJurisdiction: Codable {
 	
 	/// The unique identifier for the jurisdiction
 	public let id: AirMapJurisdictionId
@@ -22,7 +22,7 @@ public struct AirMapJurisdiction {
 	public let rulesets: [AirMapRuleset]
 	
 	/// An enumeration of possible region types
-	public enum Region: String {
+	public enum Region: String, Codable {
 		case federal
 		case state
 		case county

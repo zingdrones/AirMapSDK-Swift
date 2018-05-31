@@ -16,11 +16,11 @@ struct AirMapTelemetry {
 	
 	class Client {
 		
-		func sendTelemetry(_ flightId: String, message: ProtoBufMessage) {
-			telemetry.onNext((flightId, message))
+		func sendTelemetry(_ id: AirMapFlightId, message: ProtoBufMessage) {
+			telemetry.onNext((id, message))
 		}
 		
-		private let telemetry = PublishSubject<(flightId: String, message: ProtoBufMessage)>()
+		private let telemetry = PublishSubject<(id: AirMapFlightId, message: ProtoBufMessage)>()
 		private let disposeBag = DisposeBag()
 
 		private let bgScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -32,7 +32,7 @@ struct AirMapTelemetry {
 		
 		private func setupBindings() {
 			
-			let latestFlightId = telemetry.map { $0.flightId }
+			let latestFlightId = telemetry.map { $0.id }
 				.distinctUntilChanged()
 				.throttle(5, scheduler: MainScheduler.instance)
 			
@@ -43,17 +43,17 @@ struct AirMapTelemetry {
 							AirMap.logger.error("Failed to acquire encryption key for flight telemetry", error)
 							return .empty()
 						})
-						.map { Session(flightId: id, commKey: $0) }
+						.map { Session(id: id, commKey: $0) }
 				}
 				.observeOn(serialScheduler)
 
 			let flightMessages = Observable
 				.combineLatest(session, telemetry) { ($0, $1) }
 				.observeOn(bgScheduler)
-				.filter { flightSession, telemetry in
-					telemetry.flightId == flightSession.flightId
+				.filter { session, telemetry in
+					telemetry.id == session.id
 				}
-				.map { (session: Session, telemetry: (flightId: String, message: ProtoBufMessage)) in
+				.map { (session: Session, telemetry: (id: AirMapFlightId, message: ProtoBufMessage)) in
 					(session: session, message: telemetry.message)
 				}
 				.share()
@@ -94,7 +94,7 @@ struct AirMapTelemetry {
 	
 	class Session {
 		
-		let flightId: String
+		let id: AirMapFlightId
 		let commKey: CommKey
 
 		static let serialQueue = DispatchQueue(label: "com.airmap.telemetry.session.serialqueue")
@@ -104,8 +104,8 @@ struct AirMapTelemetry {
 		private let encryption = Packet.EncryptionType.aes256cbc
 		private var serialNumber: UInt32 = 0
 				
-		init(flightId: String, commKey: CommKey) {
-			self.flightId = flightId
+		init(id: AirMapFlightId, commKey: CommKey) {
+			self.id = id
 			self.commKey = commKey
 		}
 		
@@ -123,12 +123,12 @@ struct AirMapTelemetry {
 				let encryptedPayload = try! AES(key: key, blockMode: CBC(iv: iv)).encrypt(payload)
 
 				packet = Packet(
-					serial: serial, flightId: flightId, payload: encryptedPayload,
+					serial: serial, flightId: id, payload: encryptedPayload,
 					encryption: encryption, iv: iv
 				)
 			case .none:
 				packet = Packet(
-					serial: serial, flightId: flightId, payload: payload,
+					serial: serial, flightId: id, payload: payload,
 					encryption: encryption, iv: []
 				)
 			}
@@ -163,14 +163,14 @@ struct AirMapTelemetry {
 		}
 
 		let serial: UInt32
-		let flightId: String
+		let flightId: AirMapFlightId
 		let payload: [UInt8]
 		let encryption: EncryptionType
 		let iv: [UInt8]
 		
 		func bytes() -> [UInt8] {
 			
-			let id = flightId.data(using: .utf8)!.bytes
+			let id = flightId.rawValue.data(using: .utf8)!.bytes
 			var header = [UInt8]()
 			header += serial.bigEndian.bytes
 			header += UInt8(id.count).bytes

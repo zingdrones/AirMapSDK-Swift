@@ -6,9 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-
-public struct AirMapAircraftManufacturer {
+public struct AirMapAircraftManufacturer: Codable {
 
 	public let id: AirMapAircraftManufacturerId
 	public let name: String

@@ -610,9 +610,9 @@ extension AirMapFlightFeature: ImmutableMappable {
 			id              =  try  map.value("flight_feature")
 			description     =  try  map.value("description")
 			inputType       =  try? map.value("input_type")
-			measurementType = (try? map.value("measurement_type")) ?? .binary
+			measurementType =  try? map.value("measurement_type")
 			measurementUnit =  try? map.value("measurement_unit")
-			status          = (try? map.value("status")) ?? .unevaluated
+			status          =  try? map.value("status")
 			isCalculated    = (try? map.value("is_calculated")) ?? false
 		}
 		catch {
@@ -626,8 +626,8 @@ extension AirMapFlightFeature: ImmutableMappable {
 
 import ObjectMapper
 
-extension AirMapRule: ImmutableMappable {
-	
+extension AirMapRule {
+
 	public init(map: Map) throws {
 		shortText      =  try  map.value("short_text")
 		description    =  try? map.value("description")
@@ -698,5 +698,21 @@ extension AirMapWeather.Observation: ImmutableMappable {
 			AirMap.logger.error(error)
 			throw error
 		}
+	}
+}
+
+extension Coordinate2D: Codable {
+
+	public func encode(to encoder: Encoder) throws {
+		var container = encoder.unkeyedContainer()
+		try container.encode(longitude)
+		try container.encode(latitude)
+	}
+
+	public init(from decoder: Decoder) throws {
+		var container = try decoder.unkeyedContainer()
+		longitude = try container.decode(Double.self)
+		latitude = try container.decode(Double.self)
+
 	}
 }

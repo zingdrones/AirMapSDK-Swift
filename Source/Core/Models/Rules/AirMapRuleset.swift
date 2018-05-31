@@ -7,7 +7,7 @@
 //
 
 /// A logical grouping of rules under a give jurisdiction
-public struct AirMapRuleset {
+public struct AirMapRuleset: Codable {
 	
 	/// An unique identifier
 	public let id: AirMapRulesetId
@@ -47,7 +47,7 @@ public struct AirMapRuleset {
 	/// - optional: Selection is optional and at the operator's discretion
 	/// - pickOne: The ruleset is part of a group of rulesets within a jurisdiction where the operator must select one and only one ruleset from the group. e.g. Part 107, Fly for Fun, and Part 333: these are all pickOne rulesets within the USA jurisdiction; only one can be selected for the given jurisdiction.
 	/// - required: The ruleset must always be selected
-	public enum SelectionType: String {
+	public enum SelectionType: String, Codable {
 		case optional
 		case pickOne = "pick1"
 		case required

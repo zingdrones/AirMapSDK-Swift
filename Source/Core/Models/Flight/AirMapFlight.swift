@@ -6,16 +6,13 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-import ObjectMapper
-
-public enum AirMapFlightGeometryType: String {
+public enum AirMapFlightGeometryType: String, Codable {
 	case point
 	case path
 	case polygon
 }
 
-public class AirMapFlight {
+public class AirMapFlight: Codable {
 	
     public var id: AirMapFlightId?
 	public var flightPlanId: AirMapFlightPlanId?
@@ -43,8 +40,8 @@ public class AirMapFlight {
 	public var isPublic: Bool = false
 	public var geometry: AirMapGeometry?
 	
-	public init() {}
-	public required init?(map: Map) {}
+//	public init() {}
+//	public required init?(map: Map) {}
 }
 
 extension AirMapFlight {

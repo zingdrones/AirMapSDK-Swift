@@ -6,10 +6,8 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-
 /// A pre-flight summary of the status, rulesets, validations, and authorizations pertinent to the operation of a flight
-public struct AirMapFlightBriefing {
+public struct AirMapFlightBriefing: Codable {
 	
 	/// The date and time the briefing was created
 	public let createdAt: Date
@@ -27,7 +25,7 @@ public struct AirMapFlightBriefing {
 	public let validations: [Validation]
 	
 	/// A logical grouping of rules, typically under a specific jurisdiction
-	public struct Ruleset {
+	public struct Ruleset: Codable {
 		
 		/// The unique identifier for the ruleset
 		public let id: AirMapRulesetId
@@ -80,7 +78,7 @@ public struct AirMapFlightBriefing {
 	}
 	
 	/// A representation of an authorization or permission required to perform a flight in a given jurisdiction by an authoritive entity
-	public struct Authorization {
+	public struct Authorization: Codable {
 		
 		/// The authoritive entity issuing the authorization
 		public let authority: AirMapAuthority
@@ -103,7 +101,7 @@ public struct AirMapFlightBriefing {
 		/// - authorizedUponSubmission: The request with the authority will be accepted once the flight plan is submitted
 		/// - rejectedUponSubmission: The request with the authority will be rejected once the flight plan is submitted
 		/// - manualAuthorization: The request with the authority will be reviewed manually sometime after the flight plan is submitted
-		public enum Status: String {
+		public enum Status: String, Codable {
 			case pending
 			case accepted
 			case rejected
@@ -140,7 +138,7 @@ public struct AirMapFlightBriefing {
 }
 
 /// A representation of an authoritative entity
-public struct AirMapAuthority {
+public struct AirMapAuthority: Codable {
 	
 	/// The identifier of the authority
 	public let id: AirMapAuthorityId

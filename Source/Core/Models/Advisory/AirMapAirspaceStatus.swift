@@ -6,9 +6,7 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-
-public struct AirMapAirspaceStatus {
+public struct AirMapAirspaceStatus: Codable {
 
 	/// A color representative of the action level of the advisory
 	public let color: AirMapAdvisory.Color

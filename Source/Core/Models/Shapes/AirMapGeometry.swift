@@ -9,8 +9,8 @@
 import Foundation
 import SwiftTurf
 
-public protocol AirMapGeometry {
-	var type: AirMapFlightGeometryType { get }
+public protocol AirMapGeometry: Codable {
+	var type: AirMapFlightGeometryType
 	func params() -> [String: Any]
 }
 
@@ -27,5 +27,16 @@ extension AirMapGeometry {
 		default:
 			fatalError()
 		}
+	}
+}
+
+// FIXME:
+
+extension AirMapGeometry {
+	public func encode(to encoder: Encoder) throws {
+		fatalError()
+	}
+	public init(from decoder: Decoder) throws {
+		fatalError()
 	}
 }

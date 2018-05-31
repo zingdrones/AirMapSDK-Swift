@@ -13,6 +13,8 @@ import Foundation
 /// - value: The requested value
 /// - error: An error describing the failure
 public enum Result<T> {
-	case value(T)
+	case success(T)
 	case error(AirMapError)
+	@available (*, unavailable, renamed: "success")
+	case value(T)
 }

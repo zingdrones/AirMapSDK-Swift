@@ -6,16 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
-
-public struct AirMapPilotVerified {
+public struct AirMapPilotVerified: Codable {
 
 	public let verified: Bool
-}
-
-extension AirMapPilotVerified: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		verified = try map.value("verified")
-	}
 }

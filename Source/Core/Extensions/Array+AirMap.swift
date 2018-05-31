@@ -39,9 +39,9 @@ extension Sequence {
 	}
 }
 
-extension Collection where Iterator.Element: AirMapStringIdentifierType {
-	
+extension Collection where Iterator.Element: AirMapIdentifierType {
+
 	public var csv: String {
-		return map { $0.rawValue }.joined(separator: ",")
+		return map { $0.description }.joined(separator: ",")
 	}
 }

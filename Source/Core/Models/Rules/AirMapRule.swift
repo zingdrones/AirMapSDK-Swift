@@ -7,8 +7,8 @@
 //
 
 /// A required action, condition, or input for the legal operation of a flight
-public struct AirMapRule {
-	
+public struct AirMapRule: Codable {
+
 	/// A long-form textual description
 	public let description: String?
 	
@@ -22,5 +22,5 @@ public struct AirMapRule {
 	public let displayOrder: Int
 
 	/// The collective evaluation status of this rule's flight features
-	public let status: AirMapFlightFeature.Status
+	public let status: AirMapFlightFeature.Status?
 }

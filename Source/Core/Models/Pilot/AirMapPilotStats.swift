@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-public struct AirMapPilotStats {
+public struct AirMapPilotStats: Codable {
 	
 	public let totalAircraft: Int
 	public let totalFlights: Int

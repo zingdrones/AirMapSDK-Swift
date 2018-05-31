@@ -6,13 +6,11 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-
-public struct AirMapAdvisoryRequirements {
+public struct AirMapAdvisoryRequirements: Codable {
 	
 	public let notice: Notice?
 	
-	public struct Notice {
+	public struct Notice: Codable {
 
 		/// Notice may be provided digitally by AirMap to the controlling agency
 		public let digital: Bool

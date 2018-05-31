@@ -7,7 +7,7 @@
 //
 
 /// The airspace type/category
-public enum AirMapAirspaceType: String {
+public enum AirMapAirspaceType: String, Codable {
 	
 	case airport             = "airport"
 	/// Academy of Model Aeronautics (AMA) Field

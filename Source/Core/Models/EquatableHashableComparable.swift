@@ -90,11 +90,11 @@ extension AirMapAircraftModel: Equatable, Hashable {
 
 extension AirMapAirspace: Equatable, Hashable {
 	
-	static func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
+	public static func ==(lhs: AirMapAirspace, rhs: AirMapAirspace) -> Bool {
 		return lhs.id == rhs.id
 	}
 	
-	var hashValue: Int {
+	public var hashValue: Int {
 		return id.hashValue
 	}
 }

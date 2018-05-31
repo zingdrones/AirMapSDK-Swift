@@ -6,9 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-
-internal struct AirMapAirspace {
+public struct AirMapAirspace: Codable {
 	
 	let id: AirMapAirspaceId
 	let name: String
