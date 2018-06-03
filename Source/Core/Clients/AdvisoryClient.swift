@@ -22,33 +22,11 @@ internal class AdvisoryClient: HTTPClient {
 	
 	// MARK: - Advisories
 
-	func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
-		
-		let point = Point(geometry: point)
-		guard let polygon = SwiftTurf.buffer(point, distance: buffer) else {
-			return .error(AdvisoryClientError.invalidGeometry)
-		}
-		let geometry = AirMapPolygon(coordinates: polygon.geometry)
-
-		return getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
-	}
-
-	func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
-		
-		let lineString = LineString(geometry: path.coordinates)
-		guard let polygon = SwiftTurf.buffer(lineString, distance: buffer) else {
-			return .error(AdvisoryClientError.invalidGeometry)
-		}
-		let geometry = AirMapPolygon(coordinates: polygon.geometry)
-		
-		return getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
-	}
-
 	func getAirspaceStatus(within geometry: AirMapGeometry, under rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
 		
 		AirMap.logger.debug("Get Rules under", rulesetIds)
 		var params = [String: Any]()
-		params["geometry"] = geometry.params()
+		params["geometry"] = geometry.polygonGeometry()?.geoJSONRepresentation()["geometry"]
 		params["rulesets"] = rulesetIds.csv
 		params["start"] = start?.iso8601String()
 		params["end"] = end?.iso8601String()

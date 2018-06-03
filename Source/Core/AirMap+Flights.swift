@@ -49,21 +49,12 @@ extension AirMap {
 		rx.getFlight(by: id).thenSubscribe(completion)
 	}
 
-	/// Create a new flight for the currently authenticated pilot
-	///
-	/// - Parameters:
-	///   - flight: The flight to create
-	///   - completion: A completion handler to call with the Result
-	public static func createFlight(_ flight: AirMapFlight, completion: @escaping (Result<AirMapFlight>) -> Void) {
-		rx.createFlight(flight).thenSubscribe(completion)
-	}
-
 	/// End a flight, setting its `endTime` to now
 	///
 	/// - Parameters:
 	///   - flight: The flight to end
 	///   - completion: A completion handler to call with the Result
-	public static func endFlight(_ flight: AirMapFlight, completion: @escaping (Result<AirMapFlight>) -> Void) {
+	public static func endFlight(_ flight: inout AirMapFlight, completion: @escaping (Result<AirMapFlight>) -> Void) {
 		rx.endFlight(flight).thenSubscribe(completion)
 	}
 	

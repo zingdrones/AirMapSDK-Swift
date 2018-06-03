@@ -16,6 +16,6 @@ public struct AirMapAdvisoryRequirements: Codable {
 		public let digital: Bool
 		
 		/// Manual notification may be provided via phone if `digital` is false
-		public let phoneNumber: String?
+		public let phone: String?
 	}
 }

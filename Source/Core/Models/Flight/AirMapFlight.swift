@@ -6,54 +6,47 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-public enum AirMapFlightGeometryType: String, Codable {
-	case point
-	case path
-	case polygon
-}
-
 public class AirMapFlight: Codable {
 	
-    public var id: AirMapFlightId?
-	public var flightPlanId: AirMapFlightPlanId?
-	public var createdAt: Date = Date()
-	public var startTime: Date? = Date()
-	public var endTime: Date? {
-		return startTime?.addingTimeInterval(duration)
+    public let id: AirMapFlightId
+	public let flightPlanId: AirMapFlightPlanId?
+
+	public let startTime: Date
+	public internal(set) var endTime: Date
+
+	public var duration: TimeInterval {
+		return endTime.timeIntervalSince(startTime)
 	}
-	public var duration: TimeInterval = 60*60 // 1 hour
-	public var coordinate: Coordinate2D = Coordinate2D()
-	public var maxAltitude: Meters?
-	public var city: String!
-	public var state: String!
-	public var country: String!
-	public var notify: Bool = true
-	public var pilotId: AirMapPilotId!
-	public var pilot: AirMapPilot? {
-		didSet { pilotId = pilot?.id }
-	}
-	public var aircraft: AirMapAircraft? {
-		didSet { aircraftId = aircraft?.id }
-	}
-	public var aircraftId: AirMapAircraftId!
-	public var buffer: Meters?
-	public var isPublic: Bool = false
-	public var geometry: AirMapGeometry?
-	
-//	public init() {}
-//	public required init?(map: Map) {}
+
+	public let geometry: AirMapGeometry
+	public let maxAltitude: Meters
+	public let coordinate: Coordinate2D
+
+	public let pilotId: AirMapPilotId?
+	public let pilot: AirMapPilot?
+
+	public let aircraftId: AirMapAircraftId?
+	public let aircraft: AirMapAircraft?
+
+	public let isPublic: Bool
+
+	public let city: String?
+	public let state: String?
+	public let country: String?
+
+	public let creationDate: Date?
 }
 
 extension AirMapFlight {
 	
-	public enum FlightType: String {
+	public enum FlightType {
 		case past
 		case active
 		case future
 	}
 	
-	public func flightType() -> FlightType {
-		guard let startTime = startTime, let endTime = endTime else { return .future }
+	public var type: FlightType {
+
 		switch (startTime, endTime) {
 		case let (start, end) where start.isInPast() && end.isInFuture():
 			return .active

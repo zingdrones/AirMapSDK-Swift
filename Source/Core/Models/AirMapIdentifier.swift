@@ -6,31 +6,31 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-public typealias AirMapStringIdentifier<T>  = AirMapIdentifier<String, T>
-public typealias AirMapIntegerIdentifier<T> = AirMapIdentifier<Int, T>
+public typealias StringId<T> = Id<String, T>
+public typealias IntegerId<T> = Id<Int, T>
 
 // Type-safe aliases for identifiers specific to AirMap objects
-public typealias AirMapAdvisoryId                = AirMapStringIdentifier<AirMapAdvisory>
-public typealias AirMapAircraftId                = AirMapStringIdentifier<AirMapAircraft>
-public typealias AirMapAircraftManufacturerId    = AirMapStringIdentifier<AirMapAircraftManufacturer>
-public typealias AirMapAircraftModelId           = AirMapStringIdentifier<AirMapAircraftModel>
-public typealias AirMapAirspaceId                = AirMapStringIdentifier<AirMapAirspace>
-public typealias AirMapAuthorityId               = AirMapStringIdentifier<AirMapAuthority>
-public typealias AirMapFlightId                  = AirMapStringIdentifier<AirMapFlight>
-public typealias AirMapFlightPlanId              = AirMapStringIdentifier<AirMapFlightPlan>
-public typealias AirMapFlightFeatureId           = AirMapStringIdentifier<AirMapFlightFeature>
-public typealias AirMapPilotId                   = AirMapStringIdentifier<AirMapPilot>
-public typealias AirMapRulesetId                 = AirMapStringIdentifier<AirMapRuleset>
+public typealias AirMapAdvisoryId                = StringId<AirMapAdvisory>
+public typealias AirMapAircraftId                = StringId<AirMapAircraft>
+public typealias AirMapAircraftManufacturerId    = StringId<AirMapAircraftManufacturer>
+public typealias AirMapAircraftModelId           = StringId<AirMapAircraftModel>
+public typealias AirMapAirspaceId                = StringId<AirMapAirspace>
+public typealias AirMapAuthorityId               = StringId<AirMapAuthority>
+public typealias AirMapFlightId                  = StringId<AirMapFlight>
+public typealias AirMapFlightPlanId              = StringId<AirMapFlightPlan>
+public typealias AirMapFlightFeatureId           = StringId<AirMapFlightFeature>
+public typealias AirMapPilotId                   = StringId<AirMapPilot>
+public typealias AirMapRulesetId                 = StringId<AirMapRuleset>
 
-public typealias AirMapJurisdictionId            = AirMapIntegerIdentifier<AirMapJurisdiction>
-public typealias AirMapRuleId                    = AirMapIntegerIdentifier<AirMapJurisdiction>
+public typealias AirMapJurisdictionId            = IntegerId<AirMapJurisdiction>
+public typealias AirMapRuleId                    = IntegerId<AirMapJurisdiction>
 
 public protocol AirMapIdentifierType: RawRepresentable, CustomStringConvertible, Codable {
 	associatedtype RawValue
-	associatedtype Object
+	associatedtype Entity
 }
 
-public struct AirMapIdentifier<RawValue: Codable & Hashable & CustomStringConvertible, Object>: AirMapIdentifierType {
+public struct Id<RawValue: Codable & Hashable & CustomStringConvertible, Entity>: AirMapIdentifierType {
 
 	public let rawValue: RawValue
 
@@ -48,18 +48,18 @@ public struct AirMapIdentifier<RawValue: Codable & Hashable & CustomStringConver
 	}
 }
 
-extension AirMapIdentifier: Hashable, Equatable {
+extension Id: Hashable, Equatable {
 
 	public var hashValue: Int {
 		return rawValue.hashValue
 	}
 
-	public static func ==(lhs: AirMapIdentifier, rhs: AirMapIdentifier) -> Bool {
+	public static func ==(lhs: Id, rhs: Id) -> Bool {
 		return lhs.hashValue == rhs.hashValue
 	}
 }
 
-extension AirMapIdentifier: CustomStringConvertible {
+extension Id: CustomStringConvertible {
 
 	public var description: String {
 		return rawValue.description

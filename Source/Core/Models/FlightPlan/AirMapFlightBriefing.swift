@@ -16,7 +16,7 @@ public struct AirMapFlightBriefing: Codable {
 	public let rulesets: [Ruleset]
 	
 	/// The airspace and advisories that intersect with the flight plan
-	public let status: AirMapAirspaceStatus
+	public let airspace: AirMapAirspaceStatus
 	
 	/// The list of authorizations necessary to perform the flight
 	public let authorizations: [Authorization]
@@ -35,7 +35,7 @@ public struct AirMapFlightBriefing: Codable {
 	}
 	
 	/// A representation of the validation of a flight feature performed by AirMap or a third-party authority
-	public struct Validation {
+	public struct Validation: Codable {
 		
 		/// The description of the validation
 		public let description: String
@@ -55,11 +55,11 @@ public struct AirMapFlightBriefing: Codable {
 		/// - accepted: The request with the authority has been accepted
 		/// - rejected: The request with the authority has been rejected
 		/// - notRequested: The request with the authority has not been requested
-		public enum Status: String {
+		public enum Status: String, Codable {
 			case pending
 			case accepted
 			case rejected
-			case notRequested = "not_requested"
+			case notRequested
 			
 			public var description: String {
 				let localized = LocalizedStrings.Validation.self
@@ -105,11 +105,11 @@ public struct AirMapFlightBriefing: Codable {
 			case pending
 			case accepted
 			case rejected
-			case notRequested = "not_requested"
-			case rejectedUponSubmission = "rejected_upon_submission"
-			case authorizedUponSubmission = "authorized_upon_submission"
-			case manualAuthorization = "manual_authorization"
-			case cancelled = "cancelled"
+			case notRequested
+			case rejectedUponSubmission
+			case authorizedUponSubmission
+			case manualAuthorization
+			case cancelled
 			
 			public var description: String {
 				let localized = LocalizedStrings.Authorization.self

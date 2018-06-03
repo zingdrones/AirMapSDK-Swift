@@ -10,16 +10,16 @@ import ObjectMapper
 
 open class AirMapPilot: Codable {
 
-	open var id: AirMapPilotId!
-	open var email: String!
-	open var firstName: String?
-	open var lastName: String?
-	open var username: String?
-	open var pictureUrl: String?
-	open var phone: String?
-	open var phoneVerified: Bool = false
-	open var emailVerified: Bool = false
-	open var statistics: AirMapPilotStats!
+	public internal(set) var id: AirMapPilotId?
+	public var email: String?
+	public var firstName: String?
+	public var lastName: String?
+	public var username: String?
+	public var pictureUrl: String?
+	public var phone: String?
+	public var phoneVerified: Bool = false
+	public var emailVerified: Bool = false
+	public var statistics: AirMapPilotStats?
 
 	internal init() {}
 	public required init?(map: Map) {}
@@ -30,35 +30,8 @@ open class AirMapPilot: Codable {
 extension AirMapPilot: Mappable {
 	
 	public func mapping(map: Map) {
-		id             <-  map["id"]
-		email          <-  map["email"]
-		firstName      <-  map["first_name"]
-		lastName       <-  map["last_name"]
-		phone          <-  map["phone"]
-		pictureUrl     <-  map["picture_url"]
-		username       <-  map["username"]
 		phoneVerified  <-  map["verification_status.phone"]
 		emailVerified  <-  map["verification_status.email"]
-		statistics     <-  map["statistics"]
-		anonymizedId   <-  map["anonymized_id"]
-	}
-
-	internal func params() -> [String: Any] {
-
-		var params = [
-			"first_name":    firstName as Any,
-			"last_name":     lastName as Any,
-		]
-		
-		if let phone = phone {
-			params["phone"] = phone
-		}
-		
-		if let username = username {
-			params["username"] = username
-		}
-		
-		return params
 	}
 }
 

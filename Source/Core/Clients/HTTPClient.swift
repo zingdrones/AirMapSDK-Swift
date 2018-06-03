@@ -8,9 +8,7 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
 import Alamofire
-import ObjectMapper
 
 internal class HTTPClient {
 	
@@ -48,8 +46,32 @@ internal class HTTPClient {
 	init(basePath: String) {
 		self.basePath = basePath
 	}
-		
-	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T> {
+
+	private enum JSendResponse<T>: Decodable {
+		case success(data: T)
+		case fail(error: AirMapApiError)
+		case error(message: String, error: AirMapApiError?)
+
+		enum CodingKeys: CodingKey {
+			case status
+			case data
+			case message
+		}
+
+		enum Status: String, Decodable {
+			case success
+			case error
+			case 
+		}
+
+		init(from decoder: Decoder) throws {
+			let container = try decoder.container(keyedBy: CodingKeys.self)
+			let status = try container.decode(String.self, forKey: .status)
+
+		}
+	}
+
+	internal func perform<T: Codable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T> {
 		
 		return Observable
 			.create { (observer: AnyObserver<T>) -> Disposable in
@@ -80,7 +102,7 @@ internal class HTTPClient {
 			.trackActivity(HTTPClient.activity)
 	}
 	
-	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T?> {
+	internal func perform<T: Codable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T?> {
 		
 		return Observable
 			.create { (observer: AnyObserver<T?>) -> Disposable in
@@ -109,7 +131,7 @@ internal class HTTPClient {
 			.trackActivity(HTTPClient.activity)
 	}
 	
-	internal func perform<T: BaseMappable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", checkAuth: Bool = false) -> Observable<[T]> {
+	internal func perform<T: Codable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", checkAuth: Bool = false) -> Observable<[T]> {
 		
 		return Observable
 			.create { (observer: AnyObserver<[T]>) -> Disposable in
@@ -223,14 +245,14 @@ class AuthenticationAdapter: RequestAdapter {
 extension DataRequest {
 	
 	/// Converts the response into a BaseMappable object
-	func airMapResponseObject<T: BaseMappable>(keyPath: String? = nil, mapTo object: T? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
+	func airMapResponseObject<T: Codable>(keyPath: String? = nil, mapTo object: T? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
 		
 		let serializer: DataResponseSerializer<T> = DataRequest.airMapSerializer(keyPath, mapToObject: object, context: context)
 		return response(queue: nil, responseSerializer: serializer, completionHandler: completionHandler)
 	}
 
 	/// Converts the response into an array of BaseMappable objects
-	func airMapResponseArray<T: BaseMappable>(keyPath: String? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
+	func airMapResponseArray<T: Codable>(keyPath: String? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
 		
 		let serializer: DataResponseSerializer<[T]> = DataRequest.airMapSerializer(keyPath, context: context)
 		return response(queue: nil, responseSerializer: serializer, completionHandler: completionHandler)
@@ -268,7 +290,7 @@ extension DataRequest {
 	}
 
 	/// Single object serializer
-	public static func airMapSerializer<T: BaseMappable>(_ keyPath: String?, mapToObject object: T? = nil, context: MapContext? = nil) -> DataResponseSerializer<T> {
+	public static func airMapSerializer<T: Codable>(_ keyPath: String?, mapToObject object: T? = nil, context: MapContext? = nil) -> DataResponseSerializer<T> {
 		
 		return DataResponseSerializer { request, response, data, error in
 			
@@ -308,7 +330,7 @@ extension DataRequest {
 	}
 	
 	/// Array serializer
-	public static func airMapSerializer<T: BaseMappable>(_ keyPath: String?, context: MapContext? = nil) -> DataResponseSerializer<[T]> {
+	public static func airMapSerializer<T: Codable>(_ keyPath: String?, context: CodingContext? = nil) -> DataResponseSerializer<[T]> {
 		
 		return DataResponseSerializer { request, response, data, error in
 			
@@ -327,7 +349,9 @@ extension DataRequest {
 				let json = try jsonObjectFrom(response: response, json: data, keyPath: keyPath)
 				
 				// Map the json to a new object
-				if let parsedObjects: [T] = Mapper<T>(context: context).mapArray(JSONObject: json) {
+				let decoder = JSONDecoder()
+				decoder.keyDecodingStrategy = .convertFromSnakeCase
+				if let parsedObjects = decoder.decode(T, from: data) {
 					return .success(parsedObjects)
 				} else {
 					return .failure(AirMapError.serialization(.invalidObject))

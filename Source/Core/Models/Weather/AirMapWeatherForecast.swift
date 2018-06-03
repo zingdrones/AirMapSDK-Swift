@@ -55,6 +55,6 @@ public struct AirMapWeather: Codable {
 	/// The source of the weather observations
 	public let attribution: String
 
-	/// A url for the attribution source
-	public let attributionUrl: URL
+	/// A uri for the attribution source
+	public let attributionUri: URL
 }

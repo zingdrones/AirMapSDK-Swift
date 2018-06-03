@@ -11,7 +11,7 @@ public struct AirMapAirspace: Codable {
 	let id: AirMapAirspaceId
 	let name: String
 	let type: AirMapAirspaceType
-	let country: String
+	let country: String?
 	let state: String?
 	let city: String?
 	let geometry: AirMapGeometry

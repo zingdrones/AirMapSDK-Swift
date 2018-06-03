@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ObjectMapper
 
 public enum AirMapError: Error {
 	case cancelled
@@ -67,12 +66,12 @@ extension AirMapError: RawRepresentable {
 	
 	private static func error(from rawValue: RawValue) -> AirMapApiError {
 		
-		if let json = try? JSONSerialization.jsonObject(with: rawValue.data, options: .allowFragments),
-			let error = Mapper<AirMapApiError>().map(JSONObject: json) {
+		if let error = try? JSONDecoder().decode(AirMapApiError.self, from: rawValue.data) {
 			return error
 		} else {
 			let code = rawValue.response.statusCode
-			return AirMapApiError(message: String(format: LocalizedStrings.Error.genericFormat, code.description), code: code)
+			let message = String(format: LocalizedStrings.Error.genericFormat, code.description)
+			return AirMapApiError(message: message, code: code)
 		}
 	}
 }
@@ -119,7 +118,7 @@ public enum AirMapSerializationError: Error {
 	case invalidObject
 }
 
-public struct AirMapApiError: Mappable, LocalizedError {
+public struct AirMapApiError: LocalizedError, Codable {
 	
 	public internal(set) var message: String?
 	public internal(set) var messages = [AirMapApiParameterError]()
@@ -130,26 +129,26 @@ public struct AirMapApiError: Mappable, LocalizedError {
 		self.code = code
 	}
 	
-	public init?(map: Map) {
-		
-		if let status = map.JSON["status"] as? String {
-			if status != "fail" {
-				return nil
-			}
-		}
-	}
-	
-	public mutating func mapping(map: Map) {
-		message   <-  map["data.message"]
-		messages  <-  map["data.errors"]
-		code      <-  map["data.code"]
-		
-		// Auth0
-		if message == nil && messages.count == 0 {
-			message <- map["error_description"]
-		}
-	}
-	
+//	public init?(map: Map) {
+//
+//		if let status = map.JSON["status"] as? String {
+//			if status != "fail" {
+//				return nil
+//			}
+//		}
+//	}
+//
+//	public mutating func mapping(map: Map) {
+//		message   <-  map["data.message"]
+//		messages  <-  map["data.errors"]
+//		code      <-  map["data.code"]
+//
+//		// Auth0
+//		if message == nil && messages.count == 0 {
+//			message <- map["error_description"]
+//		}
+//	}
+
 	public var description: String {
 		return localizedDescription
 	}
@@ -167,23 +166,23 @@ public struct AirMapApiError: Mappable, LocalizedError {
 	}
 }
 
-public struct AirMapApiParameterError: Mappable {
+public struct AirMapApiParameterError: Codable {
 	
-	public internal(set) var name: String!
-	public internal(set) var message: String!
+	public internal(set) var name: String?
+	public internal(set) var message: String?
 	
-	public init?(map: Map) {
-		guard (map.JSON["name"] as? String != nil || map.JSON["param"] as? String != nil), (map.JSON["message"] as? String != nil || map.JSON["msg"] as? String != nil) else {
-			return nil
-		}
-	}
-	
-	public mutating func mapping(map: Map) {
-		name     <-  map["name"]
-		message  <-  map["message"]
-		
-		if name == nil { name <- map["param"] }
-		if message == nil { message <- map["msg"]}
-	}
+//	public init?(map: Map) {
+//		guard (map.JSON["name"] as? String != nil || map.JSON["param"] as? String != nil), (map.JSON["message"] as? String != nil || map.JSON["msg"] as? String != nil) else {
+//			return nil
+//		}
+//	}
+//
+//	public mutating func mapping(map: Map) {
+//		name     <-  map["name"]
+//		message  <-  map["message"]
+//
+//		if name == nil { name <- map["param"] }
+//		if message == nil { message <- map["msg"]}
+//	}
 }
 

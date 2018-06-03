@@ -35,7 +35,13 @@ internal class PilotClient: HTTPClient {
 	func update(_ pilot: AirMapPilot) -> Observable<AirMapPilot> {
 		AirMap.logger.debug("Update Pilot", pilot)
 		guard let pilotId = pilot.id else { return .error(PilotClientError.invalidPilotIdentifier) }
-		return perform(method: .patch, path: "/\(pilotId)", params: pilot.params(), update: pilot, checkAuth: true)
+		let params: [String: Any] = [
+			"first_name": pilot.firstName as Any,
+			"last_name": pilot.lastName as Any,
+			"phone": pilot.phone as Any,
+			"username": pilot.phone as Any
+		]
+		return perform(method: .patch, path: "/\(pilotId)", params: params, update: pilot, checkAuth: true)
 	}
 	
 	func sendVerificationToken() -> Observable<Void> {

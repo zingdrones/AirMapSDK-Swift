@@ -9,28 +9,47 @@
 import Foundation
 import SwiftTurf
 
-public protocol AirMapGeometry: Codable {
-	var type: AirMapFlightGeometryType
-	func params() -> [String: Any]
+public enum AirMapGeometry: Codable {
+	case point(geo: Coordinate2D, buffer: Meters)
+	case path(geo: [Coordinate2D], buffer: Meters)
+	case polygon(geo: [[Coordinate2D]])
 }
 
 extension AirMapGeometry {
 	
-	var geoJSONDictionary: GeoJSONDictionary {
+	public func geoJSONRepresentation() -> GeoJSONDictionary {
 		switch self {
-		case let point as AirMapPoint:
-			return Point(geometry: point.coordinate).geoJSONRepresentation()
-		case let polygon as AirMapPolygon:
-			return Polygon(geometry: polygon.coordinates).geoJSONRepresentation()
-		case let path as AirMapPath:
-			return LineString(geometry: path.coordinates).geoJSONRepresentation()
-		default:
-			fatalError()
+		case .point(let geo, _):
+			return Point(geometry: geo)
+				.geoJSONRepresentation()
+		case .path(let geo, _):
+			return LineString(geometry: geo)
+				.geoJSONRepresentation()
+		case .polygon(let geo):
+			return Polygon(geometry: geo)
+				.geoJSONRepresentation()
+		}
+	}
+
+	public func polygonGeometry() -> AirMapGeometry? {
+		switch self {
+		case .point(let geo, let buffer):
+			let point = Point(geometry: geo)
+			guard let buffered = SwiftTurf.buffer(point, distance: buffer) else {
+				return nil
+			}
+			return .polygon(geo: buffered.geometry)
+		case .path(let geo, let buffer):
+			let lineString = LineString(geometry: geo)
+			guard let buffered = SwiftTurf.buffer(lineString, distance: buffer) else {
+				return nil
+			}
+			return .polygon(geo: buffered.geometry)
+		case .polygon:
+			return self
 		}
 	}
 }
-
-// FIXME:
 
 extension AirMapGeometry {
 	public func encode(to encoder: Encoder) throws {
@@ -40,3 +59,9 @@ extension AirMapGeometry {
 		fatalError()
 	}
 }
+
+//public enum AirMapFlightGeometryType: String, Codable {
+//	case point
+//	case path
+//	case polygon
+//}

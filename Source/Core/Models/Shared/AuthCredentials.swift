@@ -6,9 +6,7 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-
-public struct Auth0Credentials {
+public struct Auth0Credentials: Codable {
     
     let accessToken: String
     let refreshToken: String
