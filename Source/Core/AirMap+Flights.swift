@@ -72,7 +72,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - flight: The flight to delete
 	///   - completion: A completion handler to call with the Result
-	public static func deleteFlight(_ flight: AirMapFlight, completion: @escaping (Result<Void>) -> Void) {
+	public static func deleteFlight(_ flight: inout AirMapFlight, completion: @escaping (Result<Void>) -> Void) {
 		rx.deleteFlight(flight).thenSubscribe(completion)
 	}
 	

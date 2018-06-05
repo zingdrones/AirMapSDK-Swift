@@ -6,7 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-final public class AirMapAircraft: Codable {
+public class AirMapAircraft: Codable {
 	
 	public var nickname: String?
 	public let model: AirMapAircraftModel
@@ -16,6 +16,5 @@ final public class AirMapAircraft: Codable {
 		self.model = model
 		self.nickname = nickname
 		self.id = nil
-	}
-	
+	}	
 }

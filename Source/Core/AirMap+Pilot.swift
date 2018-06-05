@@ -63,7 +63,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - aircraft: The aircraft to Create
 	///   - completion: A completion handler to call with the Result
-	public static func createAircraft(_ aircraft: AirMapAircraft, completion: @escaping (Result<AirMapAircraft>) -> Void) {
+	public static func createAircraft(_ aircraft: inout AirMapAircraft, completion: @escaping (Result<AirMapAircraft>) -> Void) {
 		rx.createAircraft(aircraft).thenSubscribe(completion)
 	}
 	

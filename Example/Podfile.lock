@@ -8,8 +8,6 @@ PODS:
     - Alamofire
     - JWTDecode
     - Log
-    - ObjectMapper
-    - RxCocoa
     - RxSwift
     - RxSwiftExt
     - SimpleKeychain
@@ -27,6 +25,7 @@ PODS:
     - Lock (>= 2.5.0)
     - Mapbox-iOS-SDK (< 4.0)
     - PhoneNumberKit
+    - RxCocoa
     - RxDataSources
   - Alamofire (4.7.2)
   - Auth0 (1.11.0):
@@ -43,7 +42,6 @@ PODS:
   - Log (1.0)
   - Mapbox-iOS-SDK (3.7.8)
   - Nimble (7.0.2)
-  - ObjectMapper (3.2.0)
   - OHHTTPStubs (6.1.0):
     - OHHTTPStubs/Default (= 6.1.0)
   - OHHTTPStubs/Core (6.1.0)
@@ -101,7 +99,6 @@ SPEC REPOS:
     - Log
     - Mapbox-iOS-SDK
     - Nimble
-    - ObjectMapper
     - OHHTTPStubs
     - PhoneNumberKit
     - ProtocolBuffers-Swift
@@ -119,7 +116,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AirMapSDK: fe8f13efb0b3e06373af175b823958943a131c73
+  AirMapSDK: cfffe7fbd7b5f293bcc6b9cfae97c00a9efd01ca
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Auth0: 86ca436640b50989b4183f2b12ea4da41a1b121f
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
@@ -130,7 +127,6 @@ SPEC CHECKSUMS:
   Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
   Mapbox-iOS-SDK: a8b55533ef5c5e91b5a26533bd4fb0ec88a3b994
   Nimble: bfe1f814edabba69ff145cb1283e04ed636a67f2
-  ObjectMapper: 5cccd2de6f253eda859df8116a5a554d9769e859
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
   PhoneNumberKit: 62003f40ff75315fd3738286558bc365365ac222
   ProtocolBuffers-Swift: d1c0724bbfd1924c219131ff80bdda09352d959c
@@ -145,4 +141,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: e2c100e54c25da2506269d06c43d2018c024aadc
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3

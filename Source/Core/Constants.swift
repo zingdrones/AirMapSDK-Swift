@@ -10,8 +10,6 @@
     import UIKit.UIDevice
 #endif
 
-import ObjectMapper
-
 struct Constants {
 
 	struct AirMapApi {
@@ -61,7 +59,6 @@ struct Constants {
 		
 		// Used only for API date formatting
 		static let dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // Ex: 2016-06-30T16:54:17.606Z
-		static let dateTransform = CustomDateFormatTransform(formatString: dateFormat)
 
 		static let smsCodeLength = 6
 	}

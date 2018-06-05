@@ -118,7 +118,7 @@ public enum AirMapSerializationError: Error {
 	case invalidObject
 }
 
-public struct AirMapApiError: LocalizedError, Codable {
+public struct AirMapApiError: LocalizedError, Decodable {
 	
 	public internal(set) var message: String?
 	public internal(set) var messages = [AirMapApiParameterError]()

@@ -38,8 +38,8 @@ extension Reactive where Base: AirMap {
 		return AirMap.flightClient.get(id)
 	}
 
-	public static func createFlight(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
-		return AirMap.flightClient.create(flight)
+	public static func createFlight(_ flight: inout AirMapFlight) -> Observable<AirMapFlight> {
+		return AirMap.flightClient.create(&flight)
 	}
 
 	public static func endFlight(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
@@ -194,7 +194,7 @@ extension Reactive where Base: AirMap {
 		return AirMap.ruleClient.getRulesetsEvaluated(by: flightPlanId)
 	}
 
-	public static func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?) -> Observable<[AirMapFlightBriefing.Ruleset]> {
+	public static func getRulesetsEvaluated(from geometry: AirMapGeometry, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?) -> Observable<[AirMapFlightBriefing.Ruleset]> {
 		return AirMap.ruleClient.getRulesetsEvaluated(from: geometry, rulesetIds: rulesetIds, flightFeatureValues: flightFeatureValues)
 	}
 
@@ -205,17 +205,9 @@ extension Reactive where Base: AirMap {
 
 /// Documentation found in AirMap+Advisories.swift
 extension Reactive where Base: AirMap {
-	
-	public static func getAirspaceStatus(at point: Coordinate2D, buffer: Meters, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
-		return AirMap.advisoryClient.getAirspaceStatus(at: point, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end)
-	}
-	
-	public static func getAirspaceStatus(along path: AirMapPath, buffer: Meters, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
-		return AirMap.advisoryClient.getAirspaceStatus(along: path, buffer: buffer, rulesetIds: rulesetIds, from: start, to: end)
-	}
-	
-	public static func getAirspaceStatus(within polygon: AirMapGeometry, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
-		return AirMap.advisoryClient.getAirspaceStatus(within: polygon, under: rulesetIds, from: start, to: end)
+
+	public static func getAirspaceStatus(within geometry: AirMapGeometry, rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
+		return AirMap.advisoryClient.getAirspaceStatus(within: geometry, under: rulesetIds, from: start, to: end)
 	}
 	
 	public static func getWeatherForecast(at coordinate: Coordinate2D, from: Date? = nil, to: Date? = nil) -> Observable<AirMapWeather> {

@@ -66,10 +66,10 @@ internal class FlightClient: HTTPClient {
 		params["state"       ] = state
 		params["country"     ] = country
 		params["enhance"     ] = String(enhanced ?? false)
-		params["geometry"    ] = geometry?.params()
+		params["geometry"    ] = geometry?.polygonGeometry()?.geoJSONRepresentation()["geometry"]
 
 		AirMap.logger.debug("Get Flights", params)
-        return perform(method: .get, params: params, keyPath: "data.results", checkAuth: checkAuth ?? false)
+        return perform(method: .get, params: params, checkAuth: checkAuth ?? false)
 	}
 
 	func listPublicFlights(from fromDate: Date? = nil, to toDate: Date? = nil, limit: Int? = nil, within geometry: AirMapGeometry? = nil) -> Observable<[AirMapFlight]> {
@@ -81,7 +81,7 @@ internal class FlightClient: HTTPClient {
 
 		AirMap.logger.debug("Get Public Flights", endAfterNow as Any, endAfter as Any, startBefore as Any, startBeforeNow as Any)
 
-		return list(limit: limit, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow, within: geometry)
+		return list(limit: limit, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow, within: geometry?.polygonGeometry())
 	}
 
 	func get(_ flightId: AirMapFlightId) -> Observable<AirMapFlight> {
@@ -91,10 +91,9 @@ internal class FlightClient: HTTPClient {
 		return perform(method: .get, path:"/\(flightId)", params: params)
 	}
 
-	func create(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
+	func create( _ flight: inout AirMapFlight) -> Observable<AirMapFlight> {
 		AirMap.logger.debug("Create flight", flight)
-		let type: AirMapFlightGeometryType = flight.geometry?.type ?? .point
-		return perform(method: .post, path:"/\(type.rawValue)", params: flight.params(), update: flight)
+		return perform(method: .post, path:"/\(flight.geometry.key)", params: flight.params(), update: &flight)
 	}
 
 	func end(_ flight: AirMapFlight) -> Observable<AirMapFlight> {

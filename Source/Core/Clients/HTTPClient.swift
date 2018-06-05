@@ -6,9 +6,11 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
 import RxSwift
 import Alamofire
+import Foundation
+
+protocol ClassCodable: class, Decodable {}
 
 internal class HTTPClient {
 	
@@ -30,13 +32,11 @@ internal class HTTPClient {
 		
 		let host = AirMap.configuration.airMapDomain
 		let keys = ServerTrustPolicy.publicKeys(in: AirMapBundle.core)
-		
-		let serverTrustPolicies: [String: ServerTrustPolicy] = [
+		let policies: [String: ServerTrustPolicy] = [
 			host: ServerTrustPolicy.pinPublicKeys(publicKeys: keys, validateCertificateChain: true, validateHost: true)
 		]
-
 		let manager = AirMap.configuration.airMapPinCertificates ?
-			SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)) : SessionManager()
+			SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: policies)) : SessionManager()
 		
 		manager.adapter = AuthenticationAdapter()
 		
@@ -47,10 +47,10 @@ internal class HTTPClient {
 		self.basePath = basePath
 	}
 
-	private enum JSendResponse<T>: Decodable {
-		case success(data: T)
-		case fail(error: AirMapApiError)
-		case error(message: String, error: AirMapApiError?)
+	private enum ApiResponse<T: Decodable>: Decodable {
+		case success(T)
+		case fail(AirMapApiError)
+		case error(String)
 
 		enum CodingKeys: CodingKey {
 			case status
@@ -60,150 +60,207 @@ internal class HTTPClient {
 
 		enum Status: String, Decodable {
 			case success
+			case fail
 			case error
-			case 
 		}
 
 		init(from decoder: Decoder) throws {
 			let container = try decoder.container(keyedBy: CodingKeys.self)
-			let status = try container.decode(String.self, forKey: .status)
+			let status = try container.decode(Status.self, forKey: .status)
 
+			switch status {
+			case .success:
+				self = .success(try container.decode(T.self, forKey: .data))
+			case .error:
+				self = .fail(try container.decode(AirMapApiError.self, forKey: .data))
+			case .fail:
+				self = .error(try container.decode(String.self, forKey: .message))
+			}
 		}
 	}
 
-	internal func perform<T: Codable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T> {
-		
+	private struct PagedResponse<T: Decodable>: Decodable {
+		struct Paging: Decodable {
+			let limit: Int
+			let total: Int
+		}
+		let paging: Paging
+		let results: [T]
+	}
+
+	private let decoder: JSONDecoder = {
+		let decoder = JSONDecoder()
+		decoder.keyDecodingStrategy = .convertFromSnakeCase
+		let iso8601DateFormatter = DateFormatter(withFormat: Constants.AirMapApi.dateFormat, locale: "en_US_POSIX")
+		decoder.dateDecodingStrategy = .formatted(iso8601DateFormatter)
+		return decoder
+	}()
+
+	internal func perform<T: ClassDecodable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], update object: inout T, checkAuth: Bool = false) -> Observable<T> {
+
+		return Observable
+			.create { [weak object, unowned self] (observer: AnyObserver<T>) -> Disposable in
+
+				let request = self.manager
+					.checkAuth(checkAuth)
+					.request(self.absolute(path), method: method, parameters: [:], encoding: self.encoding(method), headers: nil)
+					.responseData(completionHandler: { [unowned self] (response) in
+
+						if let error = response.error { return observer.onError(error) }
+						guard let data = response.data else { return observer.onError(AirMapError.serialization(.invalidData)) }
+
+						do {
+							switch try self.decoder.decode(ApiResponse<T>.self, from: data) {
+							case .success(let value):
+								if object != nil {
+									object = value
+								}
+								observer.onNext(value)
+								observer.onCompleted()
+							case .error(let message):
+								let error = AirMapApiError.init(message: message, code: 0)
+								observer.onError(error)
+							case .fail(let error):
+								observer.onError(error)
+							}
+						}
+						catch {
+							observer.onError(error)
+						}
+					})
+
+				return Disposables.create {
+					request.cancel()
+				}
+			}
+			.trackActivity(HTTPClient.activity)
+	}
+
+	internal func perform<T: Decodable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], checkAuth: Bool = false) -> Observable<T> {
+
 		return Observable
 			.create { (observer: AnyObserver<T>) -> Disposable in
-				
+
 				let request = self.manager
 					.checkAuth(checkAuth)
-					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
-					.airMapResponseObject(keyPath: keyPath, mapTo: object) { response in
-						if let error = response.result.error {
-							if let error = error as? AirMapError, case AirMapError.cancelled = error {
-								AirMap.logger.trace(method, String(describing: T.self), path, error)
+					.request(self.absolute(path), method: method, parameters: [:], encoding: self.encoding(method), headers: nil)
+					.responseData(completionHandler: { [unowned self] (response) in
+
+						if let error = response.error { return observer.onError(error) }
+						guard let data = response.data else { return observer.onError(AirMapError.serialization(.invalidData)) }
+
+						do {
+							switch try self.decoder.decode(ApiResponse<T>.self, from: data) {
+							case .success(let value):
+								observer.onNext(value)
 								observer.onCompleted()
-							} else {
-								AirMap.logger.error(method, String(describing: T.self), path, error)
+							case .error(let message):
+								let error = AirMapApiError.init(message: message, code: 0)
+								observer.onError(error)
+							case .fail(let error):
 								observer.onError(error)
 							}
-						} else {
-							AirMap.logger.trace(String(describing: T.self))
-							observer.on(.next(response.result.value!))
-							observer.on(.completed)
 						}
-				}
-				
+						catch {
+							observer.onError(error)
+						}
+					})
+
 				return Disposables.create {
 					request.cancel()
 				}
 			}
 			.trackActivity(HTTPClient.activity)
 	}
-	
-	internal func perform<T: Codable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", update object: T? = nil, checkAuth: Bool = false) -> Observable<T?> {
-		
-		return Observable
-			.create { (observer: AnyObserver<T?>) -> Disposable in
-				
-				let request = self.manager
-					.checkAuth(checkAuth)
-					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
-					.airMapResponseObject(keyPath: keyPath, mapTo: object) { response in
-						if let error = response.result.error {
-							if let error = error as? AirMapError, case AirMapError.cancelled = error {
-								AirMap.logger.trace(method, String(describing: T.self), path, error)
-								observer.onCompleted()
-							} else {
-								AirMap.logger.error(method, String(describing: T.self), path, error)
-								observer.onError(error)
-							}
-						} else {
-							observer.on(.next(response.result.value ?? nil))
-							observer.on(.completed)
-						}
-				}
-				return Disposables.create {
-					request.cancel()
-				}
-			}
-			.trackActivity(HTTPClient.activity)
-	}
-	
-	internal func perform<T: Codable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", checkAuth: Bool = false) -> Observable<[T]> {
-		
+
+	internal func perform<T: Decodable>(method: HTTPMethod, path: String = "", params: [String: Any] = [:], update object: inout T, checkAuth: Bool = false) -> Observable<[T]> {
+
 		return Observable
 			.create { (observer: AnyObserver<[T]>) -> Disposable in
-				
+
 				let request = self.manager
 					.checkAuth(checkAuth)
-					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
-					.airMapResponseArray(keyPath: keyPath) { (response: DataResponse<[T]>) in
-						if let error = response.result.error {
-							if let error = error as? AirMapError, case AirMapError.cancelled = error {
-								AirMap.logger.trace(method, String(describing: T.self), path, error)
+					.request(self.absolute(path), method: method, parameters: [:], encoding: self.encoding(method), headers: nil)
+					.responseData(completionHandler: { [unowned self] (response) in
+
+						if let error = response.error { return observer.onError(error) }
+						guard let data = response.data else { return observer.onError(AirMapError.serialization(.invalidData)) }
+
+						do {
+							switch try self.decoder.decode(ApiResponse<PagedResponse<T>>.self, from: data) {
+							case .success(let value):
+								observer.onNext(value.results)
 								observer.onCompleted()
-							} else {
-								AirMap.logger.error(method, String(describing: T.self), path, error)
+							case .error(let message):
+								let error = AirMapApiError.init(message: message, code: 0)
+								observer.onError(error)
+							case .fail(let error):
 								observer.onError(error)
 							}
-						} else {
-							let resultValue = response.result.value!
-							AirMap.logger.debug("Response:", resultValue.count, String(describing: T.self)+"s")
-							observer.on(.next(resultValue))
-							observer.on(.completed)
 						}
-				}
-				return Disposables.create() {
+						catch {
+							observer.onError(error)
+						}
+					})
+
+				return Disposables.create {
 					request.cancel()
 				}
 			}
 			.trackActivity(HTTPClient.activity)
 	}
-	
-	internal func perform(method: HTTPMethod, path: String = "", params: [String: Any] = [:], keyPath: String? = "data", checkAuth: Bool = false) -> Observable<Void> {
+
+
+	internal func perform(method: HTTPMethod, path: String = "", params: [String: Any] = [:], checkAuth: Bool = false) -> Observable<Void> {
+
+		struct VoidResponse: Decodable {}
 
 		return Observable
 			.create { (observer: AnyObserver<Void>) -> Disposable in
-				
+
 				let request = self.manager
 					.checkAuth(checkAuth)
-					.request(self.absolute(path), method: method, parameters: params, encoding: self.encoding(method))
-					.airMapVoidResponse { (response: DataResponse<Void>) in
-						if let error = response.error {
-							if let error = error as? AirMapError, case AirMapError.cancelled = error {
-								AirMap.logger.trace(method, path, error)
+					.request(self.absolute(path), method: method, parameters: [:], encoding: self.encoding(method), headers: nil)
+					.responseData(completionHandler: { [unowned self] (response) in
+
+						if let error = response.error { return observer.onError(error) }
+						guard let data = response.data else { return observer.onError(AirMapError.serialization(.invalidData)) }
+
+						do {
+							switch try self.decoder.decode(ApiResponse<VoidResponse>.self, from: data) {
+							case .success:
+								observer.onNext(())
 								observer.onCompleted()
-							} else {
-								AirMap.logger.error(method, path, error)
+							case .error(let message):
+								let error = AirMapApiError.init(message: message, code: 0)
+								observer.onError(error)
+							case .fail(let error):
 								observer.onError(error)
 							}
-						} else {
-							observer.on(.next(()))
-							observer.on(.completed)
 						}
-				}
-				return Disposables.create() {
+						catch {
+							observer.onError(error)
+						}
+					})
+
+				return Disposables.create {
 					request.cancel()
 				}
 			}
 			.trackActivity(HTTPClient.activity)
 	}
-	
+
 	private func encoding(_ method: HTTPMethod) -> ParameterEncoding {
-		
 		return (method == .get || method == .delete) ? URLEncoding.queryString : JSONEncoding.default
 	}
 	
 	private func absolute(_ path: String) -> String {
-		
 		return self.basePath + path.urlEncoded
 	}
 	
 }
 
-extension SessionManager {
+private extension SessionManager {
 	
 	func checkAuth(_ checkAuth: Bool) -> Self {
 		
@@ -214,7 +271,7 @@ extension SessionManager {
 	}
 }
 
-class AuthenticationAdapter: RequestAdapter {
+private class AuthenticationAdapter: RequestAdapter {
 
 	var checkAuth: Bool = false
 	
@@ -240,178 +297,4 @@ class AuthenticationAdapter: RequestAdapter {
 
 		return urlRequest
 	}
-}
-
-extension DataRequest {
-	
-	/// Converts the response into a BaseMappable object
-	func airMapResponseObject<T: Codable>(keyPath: String? = nil, mapTo object: T? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-		
-		let serializer: DataResponseSerializer<T> = DataRequest.airMapSerializer(keyPath, mapToObject: object, context: context)
-		return response(queue: nil, responseSerializer: serializer, completionHandler: completionHandler)
-	}
-
-	/// Converts the response into an array of BaseMappable objects
-	func airMapResponseArray<T: Codable>(keyPath: String? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
-		
-		let serializer: DataResponseSerializer<[T]> = DataRequest.airMapSerializer(keyPath, context: context)
-		return response(queue: nil, responseSerializer: serializer, completionHandler: completionHandler)
-	}
-	
-	/// Converts the response into Void
-	func airMapVoidResponse(completionHandler: @escaping (DataResponse<Void>) -> Void) -> Self {
-		
-		let serializer: DataResponseSerializer<Void> = DataRequest.airMapSerializer()
-		return response(queue: nil, responseSerializer: serializer, completionHandler: completionHandler)
-	}
-
-	/// Void serializer
-	public static func airMapSerializer() -> DataResponseSerializer<Void> {
-		
-		return DataResponseSerializer { request, response, data, error in
-			
-			do {
-				// Ensure we received a reponse, else throw error
-				guard let response = response else {
-					throw AirMapError.network(error!)
-				}
-				// Ensure we have a valid data response (not nil)
-				let data = try validatedData(from: response, data: data)
-
-				// Catch any error-related http codes and body
-				try catchApiError(with: response, from: request, with: data)
-				
-				return .success(())
-			}
-			catch {
-				return .failure(error)
-			}
-		}
-	}
-
-	/// Single object serializer
-	public static func airMapSerializer<T: Codable>(_ keyPath: String?, mapToObject object: T? = nil, context: MapContext? = nil) -> DataResponseSerializer<T> {
-		
-		return DataResponseSerializer { request, response, data, error in
-			
-			do {
-				// Catch cancelled requests
-				if let error = error as NSError?, error.code == -999 {
-					throw AirMapError.cancelled
-				}
-
-				// Ensure we received a reponse, else throw error
-				guard let response = response else {
-					throw AirMapError.network(error!)
-				}
-				// Ensure we have a valid data response (not nil)
-				let data = try validatedData(from: response, data: data)
-
-				// Catch any error-related http codes and body
-				try catchApiError(with: response, from: request, with: data)
-
-				// Parse json from response body
-				let json = try jsonObjectFrom(response: response, json: data, keyPath: keyPath)
-				
-				// Map the json to the target object if provided else return a new object
-				if let object = object {
-					_ = Mapper<T>().map(JSONObject: json, toObject: object)
-					return .success(object)
-				} else if let mappedObject = Mapper<T>(context: context).map(JSONObject: json) {
-					return .success(mappedObject)
-				} else {
-					return .failure(AirMapError.serialization(.invalidObject))
-				}
-			}
-			catch {
-				return .failure(error)
-			}
-		}
-	}
-	
-	/// Array serializer
-	public static func airMapSerializer<T: Codable>(_ keyPath: String?, context: CodingContext? = nil) -> DataResponseSerializer<[T]> {
-		
-		return DataResponseSerializer { request, response, data, error in
-			
-			do {
-				// Ensure we received a reponse, else throw error
-				guard let response = response else {
-					throw AirMapError.network(error!)
-				}
-				// Ensure we have a valid data response (not nil)
-				let data = try validatedData(from: response, data: data)
-				
-				// Catch any error-related http codes and body
-				try catchApiError(with: response, from: request, with: data)
-
-				// Parse json from response body
-				let json = try jsonObjectFrom(response: response, json: data, keyPath: keyPath)
-				
-				// Map the json to a new object
-				let decoder = JSONDecoder()
-				decoder.keyDecodingStrategy = .convertFromSnakeCase
-				if let parsedObjects = decoder.decode(T, from: data) {
-					return .success(parsedObjects)
-				} else {
-					return .failure(AirMapError.serialization(.invalidObject))
-				}
-			}
-			catch {
-				return .failure(error)
-			}
-		}
-	}
-	
-	/// Returns a json object from the response payload. Throws an error if unable to serialize.
-	private static func jsonObjectFrom(response: HTTPURLResponse, json data: Data, keyPath: String?) throws -> Any? {
-
-		if let url = response.url {
-			AirMap.logger.trace(url)
-		}
-		
-		if data.count > 0, let body = String(data: data, encoding: .utf8) {
-			AirMap.logger.trace("HTTP Response:", body)
-		}
-		
-		let jsonResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
-		let result = jsonResponseSerializer.serializeResponse(nil, response, data, nil)
-		
-		guard case .success = result else {
-			throw AirMapError.serialization(.invalidJson)
-		}
-		
-		let JSONToMap: Any?
-		if let keyPath = keyPath, !keyPath.isEmpty {
-			JSONToMap = (result.value as AnyObject?)?.value(forKeyPath: keyPath)
-		} else {
-			JSONToMap = result.value
-		}
-		
-		return JSONToMap
-	}
-	
-	/// 
-	private static func validatedData(from response: HTTPURLResponse, data: Data?) throws -> Data {
-		
-		let serializedData = Request.serializeResponseData(response: response, data: data, error: nil)
-
-		switch serializedData {
-		case .success(let data):
-			return data
-		case .failure:
-			throw AirMapError.serialization(.invalidData)
-		}
-	}
-	
-	/// Adapts a generic underlying error to an AirMapError
-	private static func catchApiError(with response: HTTPURLResponse, from request: URLRequest?, with data: Data) throws {
-		
-		if let error = AirMapError(rawValue: (request, response, data)) {
-			throw error
-		} else if let error = Auth0Error(rawValue: (request, response, data)) {
-			throw error
-		}
-	}
-	
 }

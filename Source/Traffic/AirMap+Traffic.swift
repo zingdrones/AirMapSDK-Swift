@@ -12,7 +12,6 @@
 	func airMapTrafficServiceDidRemove(_ traffic: [AirMapTraffic])
 	@objc optional func airMapTrafficServiceDidConnect()
 	@objc optional func airMapTrafficServiceDidDisconnect()
-	@objc optional func airMapTrafficServiceDidReceive(_ message: String)
 }
 
 extension AirMap {

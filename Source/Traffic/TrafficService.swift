@@ -8,7 +8,6 @@
 
 import SwiftMQTT
 import CoreLocation
-import ObjectMapper
 import RxSwift
 import RxSwiftExt
 
@@ -251,12 +250,12 @@ internal class TrafficService: MQTTSessionDelegate {
 			for existing in existingTraffic {
 
 				// Update values using KVO-compliant mechanisms
-
+				// The keys on the left and properties on the right should match EXACTLY
 				existing.setValuesForKeys([
 					"id":              added.id,
 					"direction":       added.direction,
 					"altitude":        added.altitude,
-					"groundSpeed":     added.groundSpeed,
+					"groundSpeedKts":  added.groundSpeedKts,
 					"trueHeading":     added.trueHeading,
 					"timestamp":       added.timestamp,
 					"recordedTime":    added.recordedTime,
@@ -347,7 +346,7 @@ internal class TrafficService: MQTTSessionDelegate {
 	// MARK: - Filter/Map helper functions
 
 	fileprivate func isMoving(_ traffic: AirMapTraffic) -> Bool {
-		return traffic.groundSpeed > -1 && traffic.trueHeading > -1
+		return traffic.groundSpeedKts > -1 && traffic.trueHeading > -1
 	}
 
 	fileprivate func hasAircractId(_ traffic: AirMapTraffic) -> Bool {
@@ -383,7 +382,7 @@ internal class TrafficService: MQTTSessionDelegate {
 		}
 
 		let elapsedTime = Double(Date().timeIntervalSince(traffic.recordedTime))
-		let metersPerSecond = traffic.groundSpeed.metersPerSecond
+		let metersPerSecond = traffic.groundSpeedKts.metersPerSecond
 		let distanceTraveledInMeters = metersPerSecond*elapsedTime
 		let trafficLocation = CLLocation(latitude: traffic.initialCoordinate.latitude, longitude: traffic.initialCoordinate.longitude)
 
@@ -410,21 +409,19 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		AirMap.logger.trace(TrafficService.self, "Did receive data")
 
+		struct Update: Decodable {
+			let traffic: [AirMapTraffic]
+		}
+
 		guard
 			connectionState.value == .connected,
-			let jsonString = String(data: data, encoding: String.Encoding.utf8),
-			let jsonDict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-			let trafficArray = jsonDict?["traffic"] as? [[String: Any]]
+			let update = try? JSONDecoder().decode(Update.self, from: data)
 		else {
 			AirMap.logger.error(TrafficService.self, "Failed to parse JSON message")
 			return
 		}
-        
-		let traffic = Mapper<AirMapTraffic>().mapArray(JSONArray: trafficArray)
-        
-		delegate?.airMapTrafficServiceDidReceive?(jsonString)
 
-		let receivedTraffic = traffic.map { t -> AirMapTraffic in
+		let receivedTraffic = update.traffic.map { t -> AirMapTraffic in
 			t.trafficType = self.trafficTypeForTopic(topic)
 			t.coordinate = self.projectedCoordinate(t)
 			return t

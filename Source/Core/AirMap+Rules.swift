@@ -55,7 +55,7 @@ extension AirMap {
 	///   - rulesetIds: The rulesets to enable for the given area
 	///   - flightFeatureValues: Additional context values for any available flight features
 	///   - completion: A handler to call with the rulesets result
-	public static func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
+	public static func getRulesetsEvaluated(from geometry: AirMapGeometry, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?, completion: @escaping (Result<[AirMapFlightBriefing.Ruleset]>) -> Void) {
 		rx.getRulesetsEvaluated(from: geometry, rulesetIds: rulesetIds, flightFeatureValues: flightFeatureValues).thenSubscribe(completion)
 	}
 

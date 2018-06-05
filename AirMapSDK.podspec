@@ -29,13 +29,11 @@ Pod::Spec.new do |s|
 		core.osx.frameworks = 'AppKit'
 		core.source_files = ['Source/Core/**/*.{h,m,swift}', 'Source/Rx/*']
 		core.dependency 'Alamofire'
-		core.dependency 'ObjectMapper'
 		core.dependency 'SwiftTurf'
 		core.dependency 'SimpleKeychain'
 		core.dependency 'JWTDecode'
 		core.dependency 'RxSwift'
 		core.dependency 'RxSwiftExt'
-		core.dependency 'RxCocoa'
 		core.dependency 'Log'
 		core.resources = ['Resources/Core/*.{cer,pdf,xcassets}', 'Resources/Core/Localizations/**/*']
 	end
@@ -45,6 +43,7 @@ Pod::Spec.new do |s|
 		ui.platform = :ios
 		ui.frameworks = 'UIKit'
 		ui.dependency 'AirMapSDK/Core'
+		ui.dependency 'RxCocoa'
 		ui.dependency 'PhoneNumberKit'
 		ui.dependency 'RxDataSources'
 		ui.dependency 'Mapbox-iOS-SDK', '<4.0'

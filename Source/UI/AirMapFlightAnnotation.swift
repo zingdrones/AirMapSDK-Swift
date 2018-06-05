@@ -50,11 +50,7 @@ extension AirMapFlightAnnotation: MGLAnnotation {
 }
 
 extension AirMapFlightAnnotation: AnnotationRepresentable {
-	
-	var buffer: Meters? {
-		return flight.buffer
-	}
-	
+		
 	var geometry: AirMapGeometry? {
 		return flight.geometry
 	}

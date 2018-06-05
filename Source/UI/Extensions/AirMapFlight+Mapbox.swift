@@ -11,7 +11,6 @@ import SwiftTurf
 
 protocol AnnotationRepresentable {
 	var geometry: AirMapGeometry? { get }
-	var buffer: Meters? { get }
 }
 
 extension AnnotationRepresentable {
@@ -20,17 +19,10 @@ extension AnnotationRepresentable {
 		
 		guard let geometry = self.geometry else { return nil }
 		
-		switch geometry.type {
+		switch geometry {
 			
-		case .point:
-			
-			guard let buffer = self.buffer
-				else { return nil }
-			
-			guard let centerCoordinate = (geometry as? AirMapPoint)?.coordinate
-				else { return nil }
-			
-			let point = Point(geometry: centerCoordinate)
+		case .point(let geo, let buffer):
+			let point = Point(geometry: geo)
 			let bufferedPoint = SwiftTurf.buffer(point, distance: buffer, units: .Meters)
 			
 			guard var coordinates = bufferedPoint?.geometry.first
@@ -40,15 +32,9 @@ extension AnnotationRepresentable {
 			let circleLine = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
 			return [circlePolygon, circleLine]
 			
-		case .path:
-			
-			guard let buffer = self.buffer
-				else { return nil }
-			
-			guard var coordinates = (geometry as? AirMapPath)?.coordinates, coordinates.count >= 2
-				else { return nil }
-			
-			let lineString = LineString(geometry: coordinates)
+		case .path(var geo, let buffer):
+
+			let lineString = LineString(geometry: geo)
 			
 			guard let bufferedCoordinates = SwiftTurf.buffer(lineString, distance: buffer)?.geometry else {
 				return nil
@@ -57,37 +43,32 @@ extension AnnotationRepresentable {
 			
 			var interiorPolygons: [MGLPolygon] = bufferedCoordinates.map {
 				var coordinates = $0
-				return MGLPolygon(coordinates: &coordinates, count: UInt(coordinates.count))
+				return MGLPolygon(coordinates: &coordinates, count: UInt(geo.count))
 			}
 			interiorPolygons.removeFirst()
 			
 			let bufferPolygon = MGLPolygon(coordinates: &outerCoordinates, count: UInt(outerCoordinates.count), interiorPolygons: interiorPolygons)
-			
-			let pathPolyline = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
+			let pathPolyline = MGLPolyline(coordinates: &geo, count: UInt(geo.count))
 			
 			return [bufferPolygon, pathPolyline]
 			
-		case .polygon:
+		case .polygon(let geo):
 			
-			guard
-				var polygons = (geometry as? AirMapPolygon)?.coordinates,
-				polygons.count > 0 &&
-					polygons.first!.count >= 3
-				else {
-					return nil
+			guard geo.count > 0 && geo.first!.count >= 3 else {
+				return nil
 			}
 			
-			var outer = polygons.first!
+			var outer = geo.first!
 			outer.append(outer.first!)
 			
 			let fill: MGLPolygon
 			let strokes: [MGLAnnotation]
 			
-			if polygons.count == 1 {
+			if geo.count == 1 {
 				fill = MGLPolygon(coordinates: &outer, count: UInt(outer.count))
 				strokes = [MGLPolyline(coordinates: &outer, count: UInt(outer.count))]
 			} else {
-				let interiorPolygons: [MGLPolygon] = polygons[1..<polygons.count].map {
+				let interiorPolygons: [MGLPolygon] = geo[1..<geo.count].map {
 					var coords = $0
 					return MGLPolygon(coordinates: &coords, count: UInt(coords.count))
 				}

@@ -6,20 +6,19 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import ObjectMapper
 import CoreLocation
 
-public class AirMapTraffic: NSObject {
+public class AirMapTraffic: NSObject, Codable {
 
-	public enum TrafficType: Int {
+	public enum TrafficType: Int, Codable {
 		case alert
 		case situationalAwareness
 	}
 
-	@objc public var id: String!
+	@objc public var id: String?
 	@objc public var direction: Double = 0
 	@objc public var altitude: Double = 0
-	@objc public var groundSpeed: Knots = 0
+	@objc public var groundSpeedKts: Knots = 0
 	@objc public var trueHeading: Int = 0
 	@objc public var timestamp: Date = Date()
 	@objc public var recordedTime: Date = Date()
@@ -35,13 +34,6 @@ public class AirMapTraffic: NSObject {
 	}
 	public var trafficTypeDidChangeToAlert = false
 
-	public override init() {
-		super.init()
-		
-	}
-
-	public required init?(map: Map) {}
-
 	public func isExpired() -> Bool {
 		let expirationInterval = Constants.AirMapTraffic.expirationInterval
 		return createdAt.addingTimeInterval(expirationInterval) < Date()
@@ -54,31 +46,44 @@ public class AirMapTraffic: NSObject {
 			return false
 		}
 	}
-}
 
-extension AirMapTraffic: Mappable {
+	public required init(from decoder: Decoder) throws {
 
-	public func mapping(map: Map) {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		id            <-  map["id"]
-		direction     <- (map["direction"], StringToDoubleTransform())
-		altitude      <- (map["altitude"], StringToDoubleTransform())
-		groundSpeed   <- (map["ground_speed_kts"], StringToDoubleTransform())
-		trueHeading   <- (map["true_heading"], StringToIntTransform())
-		properties    <-  map["properties"]
-		timestamp     <- (map["timestamp"], Constants.AirMapApi.dateTransform)
-		recordedTime  <- (map["recorded_time"], Constants.AirMapApi.dateTransform)
+		enum CodingKeys: CodingKey {
+			case id
+			case direction
+			case altitude
+			case groundSpeedKts
+			case trueHeading
+			case timestamp
+			case recordedTime
+			case properties
+			case coordinate
+			case createdAt
+			case latitude
+			case longitude
+		}
 
-		var latitude: String!
-		var longitude: String!
-		latitude      <-  map["latitude"]
-		longitude     <-  map["longitude"]
+		id = try container.decode(String.self, forKey: .id)
+		direction = try container.decode(Double.self, forKey: .direction)
+		altitude = try container.decode(Double.self, forKey: .altitude)
+		groundSpeedKts = try container.decode(Knots.self, forKey: .groundSpeedKts)
+		trueHeading = try container.decode(Int.self, forKey: .trueHeading)
+		timestamp = try container.decode(Date.self, forKey: .timestamp)
+		recordedTime = try container.decode(Date.self, forKey: .recordedTime)
+		properties = try container.decode(AirMapTrafficProperties.self, forKey: .properties)
 
-		if let lat = Double(latitude), let lng = Double(longitude) {
-			initialCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+		let latitude = try container.decode(String.self, forKey: .latitude)
+		let longitude = try container.decode(String.self, forKey: .longitude)
+
+		if let lat = Double(latitude), let lon = Double(longitude) {
+			initialCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
 			coordinate = initialCoordinate
 		}
 	}
+
 }
 
 extension AirMapTraffic {
@@ -106,12 +111,12 @@ extension AirMapTraffic {
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
 			let meters = altitude.meters
-			let groundSpeedMpsString = speedFormatter.string(from: NSNumber(value: groundSpeed.metersPerSecond))!
+			let groundSpeedMpsString = speedFormatter.string(from: NSNumber(value: groundSpeedKts.metersPerSecond))!
 			localizedGroundSpeedString = String(format: localizedUnits.speedFormatMetersPerSecond, groundSpeedMpsString)
 			altitudeString = lengthFormatter.string(fromValue: meters, unit: .meter)
 		case .imperial:
 			let feet = altitude
-			let groundSpeedKnotsString = speedFormatter.string(from: NSNumber(value: groundSpeed))!
+			let groundSpeedKnotsString = speedFormatter.string(from: NSNumber(value: groundSpeedKts))!
 			localizedGroundSpeedString = String(format: localizedUnits.speedFormatKnots, groundSpeedKnotsString)
 			altitudeString = lengthFormatter.string(fromValue: feet, unit: .foot)
 		}
@@ -148,8 +153,8 @@ extension AirMapTraffic {
 			var timeString = ""
 			
 			// GroundSpeed must be grater than zero when calculating secondsFromDistanceAndSpeed
-			if groundSpeed > 0 {
-				let seconds = Int(AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeed))
+			if groundSpeedKts > 0 {
+				let seconds = Int(AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKts))
 				timeString = timeFormatter.string(from: DateComponents(second: seconds))!
 			}
 			

@@ -20,7 +20,7 @@ internal class AirMapAuthSession {
 			if let authToken = authToken {
 				decodeToken(authToken)
 			} else {
-				userId = ""
+				userId = nil
 				AirMapAuthSession.saveRefreshToken(nil)
 			}
 		}
@@ -32,8 +32,8 @@ internal class AirMapAuthSession {
 	}
 
 	internal var tokenType: String = "Bearer"
-	internal var userId: AirMapPilotId = ""
-	internal var expiresAt: Date!
+	internal var userId: AirMapPilotId?
+	internal var expiresAt: Date?
 	internal weak var delegate: AirMapAuthSessionDelegate?
 
 	private let disposeBag = DisposeBag()
@@ -60,7 +60,7 @@ internal class AirMapAuthSession {
 
 		if jwt.isEmpty {
 			self.authToken = nil
-			self.userId = ""
+			self.userId = nil
 		}
 
 		guard let decoded = try? JWTDecode.decode(jwt: jwt) else {
@@ -71,11 +71,10 @@ internal class AirMapAuthSession {
 		expiresAt = decoded.expiresAt
 		if let userId = decoded.subject {
 			self.userId = AirMapPilotId(rawValue: userId)
+			AirMap.logger.debug("Decoded Token User Id", userId)
 		} else {
-			self.userId = ""
+			self.userId = nil
 		}
-
-		AirMap.logger.debug("Decoded Token User Id", userId)
 	}
 
 	/// If the token is expired then ask the delegate for a new token

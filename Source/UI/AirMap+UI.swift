@@ -87,7 +87,7 @@ extension AirMap {
 	public class func login(from viewController: UIViewController, with authHandler: @escaping AirMapAuthHandler) {
 		
 		Lock
-			.classic(clientId: AirMap.configuration.auth0ClientId, domain: configuration.auth0Host)
+			.classic(clientId: AirMap.configuration.auth0.clientId, domain: configuration.auth0.host)
 			.withOptions { options in
 				let config = Constants.AirMapApi.Auth.self
 				options.scope = config.scope

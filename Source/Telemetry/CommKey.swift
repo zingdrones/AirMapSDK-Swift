@@ -6,14 +6,12 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-import ObjectMapper
 import CryptoSwift
 
-struct CommKey {
+struct CommKey: Codable {
 	
-	var key: String!
-	var expiresAt = Date.distantPast
+	var key: String
+	var expiresAt = Date().addingTimeInterval(300)
 	
 	func bytes() -> [UInt8] {
 		
@@ -25,18 +23,6 @@ struct CommKey {
 	}
 	
 	func isValid() -> Bool {
-		
 		return expiresAt < Date()
-	}
-	
-	init?(map: Map) {}
-}
-
-extension CommKey: Mappable {
-	
-	mutating func mapping(map: Map) {
-		
-		key     <- map["key"]
-		expiresAt = Date().addingTimeInterval(300) // 5 minute
 	}
 }

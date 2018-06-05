@@ -6,7 +6,6 @@
 //  Copyright © 2017 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
 import SwiftTurf
 
 public class AirMapFlightPlan: Codable {
@@ -36,7 +35,14 @@ public class AirMapFlightPlan: Codable {
 	public var rulesetIds = [AirMapRulesetId]()
 
 	// Flight Features
-	public var flightFeaturesValue = [AirMapFlightFeatureId: Any]()
+	public var flightFeaturesValue = [AirMapFlightFeatureId: FlightFeatureValue]()
+
+	// Type safe container for Flight Feature values
+	public enum FlightFeatureValue: Codable {
+		case string(String)
+		case float(Float)
+		case bool(Bool)
+	}
 
 	// Assigned once a flight plan is submitted and a flight is created
 	public internal(set) var flightId: AirMapFlightId?

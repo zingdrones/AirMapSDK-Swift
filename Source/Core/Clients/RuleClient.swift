@@ -21,8 +21,7 @@ internal class RuleClient: HTTPClient {
 	
 	func getJurisdictions(intersecting geometry: AirMapGeometry) -> Observable<[AirMapJurisdiction]> {
 		AirMap.logger.debug("Getting jurisdictions intersecting geometry")
-		let params = ["geometry": geometry.params()]
-		return perform(method: .post, path: "/", params: params).map { $0.jurisdictions }
+		return getRulesets(intersecting: geometry).mapAt(\.jurisdictions)
 	}
 	
 	func getRuleset(by identifier: AirMapRulesetId) -> Observable<AirMapRuleset> {
@@ -30,13 +29,13 @@ internal class RuleClient: HTTPClient {
 	}
 	
 	func getRulesets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleset]> {
-		let params = ["geometry": geometry.params()]
+		let params = ["geometry": geometry.geoJSONRepresentation()["geometry"]!]
 		return perform(method: .post, path: "/", params: params)
 	}
 	
 	func getRulesetsEvaluated(by flightPlanId: AirMapFlightPlanId) -> Observable<[AirMapFlightBriefing.Ruleset]> {
 		AirMap.logger.debug("Getting evaluated rulesets for flight_plan_id", flightPlanId)
-		return AirMap.flightPlanClient.getBriefing(flightPlanId).map { $0.rulesets }
+		return AirMap.flightPlanClient.getBriefing(flightPlanId).mapAt(\.rulesets)
 	}
 	
 	func getRulesets(by rulesetIds: [AirMapRulesetId]) -> Observable<[AirMapRuleset]> {
@@ -45,14 +44,18 @@ internal class RuleClient: HTTPClient {
 		return perform(method: .get, path: "/rule", params: params)
 	}
 	
-	func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?) -> Observable<[AirMapFlightBriefing.Ruleset]> {
+	func getRulesetsEvaluated(from geometry: AirMapGeometry, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?) -> Observable<[AirMapFlightBriefing.Ruleset]> {
 		AirMap.logger.debug("Getting airspace evaluation")
 		let params: [String: Any] = [
 			"rulesets": rulesetIds.csv,
-			"geometry": geometry.params(),
+			"geometry": geometry.geoJSONRepresentation()["geometry"]!,
 			"flight_features": flightFeatureValues ?? [:]
 		]
-		return perform(method: .post, path: "/evaluation", params: params, keyPath: "data.rulesets")
+		struct Evaluation: Decodable {
+			let rulesets: [AirMapFlightBriefing.Ruleset]
+		}
+		let evaluation = perform(method: .post, path: "/evaluation", params: params) as Observable<Evaluation>
+		return evaluation.mapAt(\.rulesets)
 	}
 	
 }

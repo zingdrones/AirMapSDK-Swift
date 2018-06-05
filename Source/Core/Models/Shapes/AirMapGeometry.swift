@@ -16,6 +16,14 @@ public enum AirMapGeometry: Codable {
 }
 
 extension AirMapGeometry {
+
+	var key: String {
+		switch self {
+		case .point:   return "point"
+		case .path:    return "path"
+		case .polygon: return "polygon"
+		}
+	}
 	
 	public func geoJSONRepresentation() -> GeoJSONDictionary {
 		switch self {

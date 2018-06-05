@@ -9,14 +9,14 @@
 import Foundation
 
 /// Configuration class for the AirMap SDK. May be initialized programmatically or from an airmap.config.json file.
-public struct AirMapConfiguration {
-		
-	/// The AirMap API key that was used to initialize the SDK. Required.
-	public let airMapApiKey: String
-	
-	/// An optional Mapbox access token to use with any map UI elements.
-	public let mapboxAccessToken: String?
-	
+public struct AirMapConfiguration: Decodable {
+
+	/// System used for displaying distance values
+	public var distanceUnits: DistanceUnits = .metric
+
+	/// Units used for displaying temperature values
+	public var temperatureUnits: TemperatureUnits = .celcius
+
 	/// Designated initializer when not providing an airmap.config.json file at the root of the project
 	///
 	/// - SeeAlso: https://developers.airmap.com/docs/ios-getting-started
@@ -24,35 +24,52 @@ public struct AirMapConfiguration {
 	///   - apiKey: The AirMap API key to use with the AirMap API
 	///   - auth0ClientId: A client ID used for user/pilot authentication with AirMap
 	///   - mapboxAccessToken: An optional access token used to configure any map UI elements
-	public init(apiKey: String, auth0ClientId: String, mapboxAccessToken: String? = nil) {
+	public init(apiKey: String, auth0ClientId: String, mapboxAccessToken: String? = nil) throws {
 		
 		let config = [
 			"airmap": ["api_key": apiKey],
 			"auth0":  ["client_id": auth0ClientId],
 			"mapbox": ["access_token": mapboxAccessToken as Any]
 		]
-		
-		try! self.init(JSON: config)
-	}
-	
-	/// System used for displaying distance values
-	public var distanceUnits: DistanceUnits = .metric
-	
-	/// Units used for displaying temperature values
-	public var temperatureUnits: TemperatureUnits = .celcius
 
-	public let airMapDomain: String
-	public let airMapApiDomain: String
-	public let auth0Host: String
-	public let auth0ClientId: String
-	
-	let airMapApiOverrides: [String: String]?
-	let airMapEnvironment: String?
-	let airMapPinCertificates: Bool
-	let airMapMapStyle: URL?
+		let decoder = JSONDecoder()
+		decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+		let json = try JSONSerialization.data(withJSONObject: config, options: [])
+		self = try decoder.decode(AirMapConfiguration.self, from: json)
+	}
+
+	let airmap: AirMap
+	let auth0: Auth0
+	let mapbox: Mapbox
 }
 
 extension AirMapConfiguration {
+
+	struct AirMap: Decodable {
+		let apiKey: String
+		let domain: String? = "airmap.com"
+		let apiDomain: String? = "api.airmap.com"
+		let environment: String?
+		let apiOverrides: [String: String]
+		let mapStyle: URL?
+		let pinCertificates: Bool = false
+	}
+
+	struct Auth0: Decodable {
+		let host: String = "sso.airmap.io"
+		let clientId: String
+	}
+
+	struct Mapbox: Decodable {
+		let accessToken: String
+	}
+
+	enum CodingKeys: String, CodingKey {
+		case airmap
+		case auth0
+		case mapbox
+	}
 	
 	// A custom configuration manually set at runtime
 	static var custom: AirMapConfiguration?
@@ -68,7 +85,9 @@ extension AirMapConfiguration {
 		
 		do {
 			let jsonString = try String(contentsOfFile: configPath)
-			return try AirMapConfiguration(JSONString: jsonString)
+			let decoder = JSONDecoder()
+			decoder.keyDecodingStrategy = .convertFromSnakeCase
+			return try decoder.decode(AirMapConfiguration.self, from: jsonString.data(using: .utf8)!)
 		}
 		catch {
 			fatalError(
@@ -81,46 +100,36 @@ extension AirMapConfiguration {
 	
 }
 
-// MARK: - JSON Serialization
+// JSON Serialization
 
-import ObjectMapper
 
-extension AirMapConfiguration: ImmutableMappable {
-	
-	public init(map: Map) throws {
+extension AirMapConfiguration {
 
-		do {
-			// Required configuration values
-			airMapApiKey          =  try  map.value("airmap.api_key")
-			auth0ClientId         =  try  map.value("auth0.client_id")
+	public init(from decoder: Decoder) throws {
 
-			// Optional configuration values
-			mapboxAccessToken     =  try? map.value("mapbox.access_token")
-			auth0Host             = (try? map.value("auth0.host")) ?? "sso.airmap.io"
-			airMapDomain          = (try? map.value("airmap.domain")) ?? "airmap.com"
-			airMapApiDomain       = (try? map.value("airmap.api_domain")) ?? "api.airmap.com"
-			airMapEnvironment     =  try? map.value("airmap.environment")
-			airMapApiOverrides    =  try? map.value("airmap.api_overrides")
-			airMapMapStyle        =  try? map.value("airmap.map_style", using: URLTransform())
-			airMapPinCertificates = (try? map.value("airmap.pin_certificates")) ?? false
+		enum AirMapCodingKeys: CodingKey {
+			case apiKey
+			case domain
+			case apiDomain
+			case environment
 		}
 
-		catch let error as MapError {
-			fatalError(
-				"Configuration is missing the required \(error.key!) key and value. If you have recently updated" +
-				"this SDK, you may need to visit the AirMap developer portal at https://dashboard.airmap.io/developer/ " +
-				"for an updated airmap.config.json file."
-			)
-		}
-		
-		#if !os(Linux)
-			if Locale.current.usesMetricSystem {
-				temperatureUnits = .celcius
-				distanceUnits = .metric
-			} else {
-				temperatureUnits = .fahrenheit
-				distanceUnits = .imperial
-			}
-		#endif
+
+
 	}
+
+//	fatalError(
+//	"Configuration is missing the required \(error.key!) key and value. If you have recently updated" +
+//	"this SDK, you may need to visit the AirMap developer portal at https://dashboard.airmap.io/developer/ " +
+//	"for an updated airmap.config.json file."
+//	)
+//	#if !os(Linux)
+//	if Locale.current.usesMetricSystem {
+//	temperatureUnits = .celcius
+//	distanceUnits = .metric
+//	} else {
+//	temperatureUnits = .fahrenheit
+//	distanceUnits = .imperial
+//	}
+//	#endif
 }

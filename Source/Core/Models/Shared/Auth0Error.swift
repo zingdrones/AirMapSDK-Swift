@@ -6,11 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
-import ObjectMapper
-
 public enum Auth0Error: Error {
-	
 	case network(Error)
 	case unauthorized
 	case invalidRequest(Error)

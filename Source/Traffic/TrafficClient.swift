@@ -7,7 +7,6 @@
 //
 
 import SwiftMQTT
-import ObjectMapper
 
 internal class TrafficClient: MQTTSession {
 	

@@ -12,6 +12,82 @@ import Foundation
 
 public protocol AdvisoryPropertiesType {}
 
+extension AirMapPilotStats {
+
+	private struct Flights: Codable {
+		let total: Int
+		let lastFlightTime: Date?
+	}
+	private struct Aircraft: Codable {
+		let total: Int
+	}
+
+	private enum CodingKeys: String, CodingKey {
+		case flight
+		case aircraft
+	}
+
+	public init(from decoder: Decoder) throws {
+
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		let flights = try container.decode(Flights.self, forKey: .flight)
+		totalFlights = flights.total
+		lastFlightTime = flights.lastFlightTime
+
+		let aircraft = try container.decode(Aircraft.self, forKey: .aircraft)
+		totalAircraft = aircraft.total
+	}
+
+	public func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+
+		let flight = Flights(total: totalFlights, lastFlightTime: lastFlightTime)
+		try container.encode(flight, forKey: .flight)
+
+		let aircraft = Aircraft(total: totalAircraft)
+		try container.encode(aircraft, forKey: .aircraft)
+	}
+}
+
+extension AirMapPilot {
+
+	enum CodingKeys: String, CodingKey {
+		case id
+		case email
+		case firstName
+		case lastName
+		case username
+		case pictureUrl
+		case phone
+		case statistics
+		case anonymizedId
+		case verificationStatus
+	}
+
+	struct VerificationStatus: Codable {
+		let phone: Bool
+		let email: Bool
+	}
+
+	public func encode(to encoder: Encoder) throws {
+
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		try container.encode(id, forKey: .id)
+		try container.encode(email, forKey: .email)
+		try container.encode(firstName, forKey: .firstName)
+		try container.encode(lastName, forKey: .lastName)
+		try container.encode(username, forKey: .username)
+		try container.encode(pictureUrl, forKey: .pictureUrl)
+		try container.encode(phone, forKey: .phone)
+		try container.encode(statistics, forKey: .statistics)
+		try container.encode(anonymizedId, forKey: .anonymizedId)
+
+		let verificationStatus = VerificationStatus(phone: phoneVerified, email: emailVerified)
+		try container.encode(verificationStatus, forKey: .verificationStatus)
+	}
+}
+
 extension AirMapAdvisory.AirportProperties {
 	
 //	public init(map: Map) throws {
@@ -80,6 +156,33 @@ public protocol CodingContext {}
 public enum RulesetOrigin: CodingContext {
 	case tileService
 	case api
+}
+
+extension AirMapFlightPlan.FlightFeatureValue {
+
+	public init(from decoder: Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		if let string = try? container.decode(String.self) {
+			self = .string(string)
+		} else if let float = try? container.decode(Float.self) {
+			self = .float(float)
+		} else if let bool = try? container.decode(Bool.self) {
+			self = .bool(bool)
+		}
+		throw DecodingError.dataCorruptedError(in: container, debugDescription: "Unexpected data type")
+	}
+
+	public func encode(to encoder: Encoder) throws {
+		var container = encoder.singleValueContainer()
+		switch self {
+		case .bool(let bool):
+			try container.encode(bool)
+		case .float(let float):
+			try container.encode(float)
+		case .string(let string):
+			try container.encode(string)
+		}
+	}
 }
 
 
