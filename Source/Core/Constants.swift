@@ -40,7 +40,7 @@ struct Constants {
 		}
 		
 		private static func urlForResource(_ named: String, v version: Int) -> String {
-			if let override = AirMap.configuration.airMapApiOverrides?[named] {
+			if let override = AirMap.configuration.airmap.overrides?[named+"_api"] {
 				return override
 			} else {
 				let host = "https://\(AirMap.configuration.airMapApiDomain)"
@@ -119,7 +119,11 @@ struct Constants {
         static let futureTemporalWindow: TimeInterval = 4*60*60 // 4 hours
 		
 		static var styleUrl: URL {
-			return AirMap.configuration.airMapMapStyle ?? URL(string: "https://cdn.airmap.com/static/map-styles/0.8.6/")!
+			if let override = AirMap.configuration.airMapApiOverrides?["map_style"] {
+				return URL(string: override)!
+			} else {
+				return URL(string: "https://cdn.airmap.com/static/map-styles/0.8.6/")!
+			}
 		}
 	}
 }

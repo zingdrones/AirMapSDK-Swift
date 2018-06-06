@@ -18,7 +18,7 @@ public class AirMapTraffic: NSObject, Codable {
 	@objc public var id: String?
 	@objc public var direction: Double = 0
 	@objc public var altitude: Double = 0
-	@objc public var groundSpeedKts: Knots = 0
+	@objc public var groundSpeed: Knots = 0
 	@objc public var trueHeading: Int = 0
 	@objc public var timestamp: Date = Date()
 	@objc public var recordedTime: Date = Date()
@@ -69,7 +69,7 @@ public class AirMapTraffic: NSObject, Codable {
 		id = try container.decode(String.self, forKey: .id)
 		direction = try container.decode(Double.self, forKey: .direction)
 		altitude = try container.decode(Double.self, forKey: .altitude)
-		groundSpeedKts = try container.decode(Knots.self, forKey: .groundSpeedKts)
+		groundSpeed = try container.decode(Knots.self, forKey: .groundSpeedKts)
 		trueHeading = try container.decode(Int.self, forKey: .trueHeading)
 		timestamp = try container.decode(Date.self, forKey: .timestamp)
 		recordedTime = try container.decode(Date.self, forKey: .recordedTime)
@@ -111,12 +111,12 @@ extension AirMapTraffic {
 		switch AirMap.configuration.distanceUnits {
 		case .metric:
 			let meters = altitude.meters
-			let groundSpeedMpsString = speedFormatter.string(from: NSNumber(value: groundSpeedKts.metersPerSecond))!
+			let groundSpeedMpsString = speedFormatter.string(from: NSNumber(value: groundSpeed.metersPerSecond))!
 			localizedGroundSpeedString = String(format: localizedUnits.speedFormatMetersPerSecond, groundSpeedMpsString)
 			altitudeString = lengthFormatter.string(fromValue: meters, unit: .meter)
 		case .imperial:
 			let feet = altitude
-			let groundSpeedKnotsString = speedFormatter.string(from: NSNumber(value: groundSpeedKts))!
+			let groundSpeedKnotsString = speedFormatter.string(from: NSNumber(value: groundSpeed))!
 			localizedGroundSpeedString = String(format: localizedUnits.speedFormatKnots, groundSpeedKnotsString)
 			altitudeString = lengthFormatter.string(fromValue: feet, unit: .foot)
 		}
@@ -153,8 +153,8 @@ extension AirMapTraffic {
 			var timeString = ""
 			
 			// GroundSpeed must be grater than zero when calculating secondsFromDistanceAndSpeed
-			if groundSpeedKts > 0 {
-				let seconds = Int(AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeedKts))
+			if groundSpeed > 0 {
+				let seconds = Int(AirMapTrafficServiceUtils.secondsFromDistanceAndSpeed(distance, speedInKts: groundSpeed))
 				timeString = timeFormatter.string(from: DateComponents(second: seconds))!
 			}
 			

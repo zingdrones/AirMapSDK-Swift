@@ -10,7 +10,7 @@ import RxSwift
 import Alamofire
 import Foundation
 
-protocol ClassCodable: class, Decodable {}
+protocol ClassDecodable: class, Decodable {}
 
 internal class HTTPClient {
 	
@@ -89,10 +89,15 @@ internal class HTTPClient {
 	}
 
 	private let decoder: JSONDecoder = {
+
 		let decoder = JSONDecoder()
 		decoder.keyDecodingStrategy = .convertFromSnakeCase
-		let iso8601DateFormatter = DateFormatter(withFormat: Constants.AirMapApi.dateFormat, locale: "en_US_POSIX")
-		decoder.dateDecodingStrategy = .formatted(iso8601DateFormatter)
+
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = Constants.AirMapApi.dateFormat
+		dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+		decoder.dateDecodingStrategy = .formatted(dateFormatter)
+
 		return decoder
 	}()
 
@@ -277,7 +282,7 @@ private class AuthenticationAdapter: RequestAdapter {
 	
 	func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
 		
-		let apiKey = AirMap.configuration.airMapApiKey
+		let apiKey = AirMap.configuration.airmap.apiKey
 		let authToken = AirMap.authSession.authToken
 
 		if checkAuth && !AirMap.hasValidCredentials() {

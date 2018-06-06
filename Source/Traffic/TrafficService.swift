@@ -255,7 +255,7 @@ internal class TrafficService: MQTTSessionDelegate {
 					"id":              added.id,
 					"direction":       added.direction,
 					"altitude":        added.altitude,
-					"groundSpeedKts":  added.groundSpeedKts,
+					"groundSpeedKts":  added.groundSpeed,
 					"trueHeading":     added.trueHeading,
 					"timestamp":       added.timestamp,
 					"recordedTime":    added.recordedTime,
@@ -346,7 +346,7 @@ internal class TrafficService: MQTTSessionDelegate {
 	// MARK: - Filter/Map helper functions
 
 	fileprivate func isMoving(_ traffic: AirMapTraffic) -> Bool {
-		return traffic.groundSpeedKts > -1 && traffic.trueHeading > -1
+		return traffic.groundSpeed > -1 && traffic.trueHeading > -1
 	}
 
 	fileprivate func hasAircractId(_ traffic: AirMapTraffic) -> Bool {
@@ -382,7 +382,7 @@ internal class TrafficService: MQTTSessionDelegate {
 		}
 
 		let elapsedTime = Double(Date().timeIntervalSince(traffic.recordedTime))
-		let metersPerSecond = traffic.groundSpeedKts.metersPerSecond
+		let metersPerSecond = traffic.groundSpeed.metersPerSecond
 		let distanceTraveledInMeters = metersPerSecond*elapsedTime
 		let trafficLocation = CLLocation(latitude: traffic.initialCoordinate.latitude, longitude: traffic.initialCoordinate.longitude)
 
