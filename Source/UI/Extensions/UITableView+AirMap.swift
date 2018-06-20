@@ -6,6 +6,8 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import UIKit
+
 protocol Dequeueable {
 	static var reuseIdentifier: String { get }
 }

@@ -9,6 +9,7 @@
 #if os(OSX)
 	public typealias Image = NSImage
 #else
+import UIKit
 	public typealias Image = UIImage
 #endif
 

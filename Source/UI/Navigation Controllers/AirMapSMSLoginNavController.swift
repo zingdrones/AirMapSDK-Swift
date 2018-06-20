@@ -6,7 +6,7 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public protocol AirMapSMSLoginDelegate: class {
     func smsLoginDidAuthenticate()
