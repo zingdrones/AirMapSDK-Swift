@@ -9,13 +9,15 @@ github "auth0/SimpleKeychain"
 github "delba/Log"
 
 # AirMapUI
-# github "RxSwiftCommunity/RxDataSources" ~> 3.0
-# github "marmelroy/PhoneNumberKit"
-# binary "https://www.mapbox.com/ios-sdk/Mapbox-iOS-SDK.json" ~> 3.7.0
-# github "auth0/Lock.swift" ~> 2.4
+github "RxSwiftCommunity/RxDataSources" ~> 3.0
+github "marmelroy/PhoneNumberKit"
+binary "https://www.mapbox.com/ios-sdk/Mapbox-iOS-SDK.json" ~> 3.7
+github "auth0/Lock.swift" ~> 2.4
 
 # AirMapTraffic
-# github "robbiehanson/CocoaAsyncSocket"
+github "aciidb0mb3r/SwiftMQTT"
+github "robbiehanson/CocoaAsyncSocket"
 
 # AirMapTelemetry
-# github "apple/swift-protobuf" ~> 1.0
+github "alexeyxo/protobuf-swift" ~> 4.0
+github "krzyzanowskim/CryptoSwift" ~> 0.10

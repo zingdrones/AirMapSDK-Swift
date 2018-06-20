@@ -6,6 +6,8 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import Foundation
+
 @objc public protocol AirMapTrafficObserver: class {
 	func airMapTrafficServiceDidAdd(_ traffic: [AirMapTraffic])
 	func airMapTrafficServiceDidUpdate(_ traffic: [AirMapTraffic])

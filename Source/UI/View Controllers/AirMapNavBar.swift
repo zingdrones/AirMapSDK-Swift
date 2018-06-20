@@ -6,6 +6,8 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+import UIKit
+
 open class AirMapNavBar: UINavigationBar {
 	
 	override init(frame: CGRect) {
