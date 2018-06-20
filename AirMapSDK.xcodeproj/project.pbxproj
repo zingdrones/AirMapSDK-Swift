@@ -130,7 +130,6 @@
 		9101AF7E20DA5A2400376C1A /* api.airmap.jp.20180828.cer in Resources */ = {isa = PBXBuildFile; fileRef = 9101AF7320DA5A2300376C1A /* api.airmap.jp.20180828.cer */; };
 		9101AF7F20DA5A2400376C1A /* AirMap.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9101AF7420DA5A2300376C1A /* AirMap.xcassets */; };
 		9101AF8320DA67AC00376C1A /* Airmap.Telemetry.Telemetry.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9101AF8220DA67AC00376C1A /* Airmap.Telemetry.Telemetry.proto.swift */; };
-		9101AF8720DA686D00376C1A /* BridgingHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 9101AF8620DA686D00376C1A /* BridgingHeader.h */; };
 		9101AF8920DA6DDE00376C1A /* Auth0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9101AF8820DA6DDE00376C1A /* Auth0.framework */; };
 		9101AF8B20DA6DEB00376C1A /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9101AF8A20DA6DEB00376C1A /* CryptoSwift.framework */; };
 		9101AF8D20DA6DF300376C1A /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9101AF8C20DA6DF300376C1A /* Differentiator.framework */; };
@@ -280,7 +279,6 @@
 		9101AF7320DA5A2300376C1A /* api.airmap.jp.20180828.cer */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = api.airmap.jp.20180828.cer; sourceTree = "<group>"; };
 		9101AF7420DA5A2300376C1A /* AirMap.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AirMap.xcassets; sourceTree = "<group>"; };
 		9101AF8220DA67AC00376C1A /* Airmap.Telemetry.Telemetry.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airmap.Telemetry.Telemetry.proto.swift; sourceTree = "<group>"; };
-		9101AF8620DA686D00376C1A /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		9101AF8820DA6DDE00376C1A /* Auth0.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Auth0.framework; path = Carthage/Build/iOS/Auth0.framework; sourceTree = "<group>"; };
 		9101AF8A20DA6DEB00376C1A /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		9101AF8C20DA6DF300376C1A /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
@@ -709,7 +707,6 @@
 		91532C442003F18600A45481 = {
 			isa = PBXGroup;
 			children = (
-				9101AF8620DA686D00376C1A /* BridgingHeader.h */,
 				913C3B3D200432BA00BCF16F /* Info.plist */,
 				9101AE5820DA5A1A00376C1A /* Source */,
 				9101AF5F20DA5A2300376C1A /* Resources */,
@@ -763,7 +760,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9101AEF020DA5A1A00376C1A /* CLLocation+Utils.h in Headers */,
-				9101AF8720DA686D00376C1A /* BridgingHeader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1052,7 +1048,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = BridgingHeader.h;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Source/AirMap-Internal";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1105,7 +1101,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = BridgingHeader.h;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Source/AirMap-Internal";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
