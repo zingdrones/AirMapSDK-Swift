@@ -6,6 +6,10 @@
 //  Copyright © 2016 AirMap, Inc. All rights reserved.
 //
 
+#if !COCOAPODS
+import AirMapInternal
+#endif
+
 import CoreLocation
 
 extension CLLocation {

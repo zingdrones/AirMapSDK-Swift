@@ -1,0 +1,4 @@
+module AirMapInternal {
+  header "../Traffic/CLLocation+Utils.h"
+  export *
+}
