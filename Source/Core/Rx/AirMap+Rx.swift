@@ -154,7 +154,7 @@ extension Reactive where Base: AirMap {
 /// Documentation found in AirMap+Auth.swift
 extension Reactive where Base: AirMap {
     
-    public static func performAnonymousLogin(userId: AirMapPilotId) -> Observable<AirMapToken> {
+    public static func performAnonymousLogin(userId: String) -> Observable<AirMapToken> {
         return AirMap.authClient.performAnonymousLogin(userId: userId)
     }
 	
