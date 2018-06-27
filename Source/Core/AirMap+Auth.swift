@@ -42,9 +42,9 @@ extension AirMap {
     /// Authenticates an Anonymous User associated with the Developer API Key and returns an AuthToken.
     ///
     /// - Parameters:
-    ///   - userId: a third-party user id
+    ///   - userId: a third-party, non-AirMap user id
     ///   - completion: A completion handler to call with the Result
-    public static func performAnonymousLogin(userId: AirMapPilotId, completion: @escaping (Result<AirMapToken>) -> Void) {
+    public static func performAnonymousLogin(userId: String, completion: @escaping (Result<AirMapToken>) -> Void) {
         rx.performAnonymousLogin(userId: userId).thenSubscribe(completion)
     }
 	
