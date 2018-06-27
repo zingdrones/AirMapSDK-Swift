@@ -29,7 +29,7 @@ extension AirMap {
 	- parameter horizontalAccuracy: Optional. The horizontal dilution of precision (HDOP)
 	
 	*/
-	public static func sendTelemetryData(_ flightId: String, coordinate: Coordinate2D, altitudeAgl: Float?, altitudeMsl: Float?, horizontalAccuracy: Float? = nil) throws {
+	public static func sendTelemetryData(_ flightId: AirMapFlightId, coordinate: Coordinate2D, altitudeAgl: Float?, altitudeMsl: Float?, horizontalAccuracy: Float? = nil) throws {
 		
 		try canSendTelemetry()
 		
@@ -58,7 +58,7 @@ extension AirMap {
 	- parameter velocity: A tuple of axis velocities (X,Y,Z) using the N-E-D (North-East-Down) coordinate system
 	
 	*/
-	public static func sendTelemetryData(_ flightId: String, velocity: (x: Float, y: Float, z: Float)) throws {
+	public static func sendTelemetryData(_ flightId: AirMapFlightId, velocity: (x: Float, y: Float, z: Float)) throws {
 		
 		try canSendTelemetry()
 		
@@ -82,7 +82,7 @@ extension AirMap {
 	- parameter roll: The angle (left-right tilt) in degrees (-180 < x <= 180)
 	
 	*/
-	public static func sendTelemetryData(_ flightId: String, yaw: Float, pitch: Float, roll: Float) throws {
+	public static func sendTelemetryData(_ flightId: AirMapFlightId, yaw: Float, pitch: Float, roll: Float) throws {
 		
 		try canSendTelemetry()
 		
@@ -104,7 +104,7 @@ extension AirMap {
 	- parameter baro: The barometric pressure in hPa (~1000)
 	
 	*/
-	public static func sendTelemetryData(_ flightId: String, baro: Float) throws {
+	public static func sendTelemetryData(_ flightId: AirMapFlightId, baro: Float) throws {
 		
 		try canSendTelemetry()
 		

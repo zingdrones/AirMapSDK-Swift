@@ -22,10 +22,10 @@ internal class FlightClient: HTTPClient {
 	#if AIRMAP_TELEMETRY
 	/// Get a communications encryption key for a given flight
 	///
-	/// - Parameter flight: The flight for which to request an encryption key
+	/// - Parameter flightId: The flight identifier for which to request an encryption key
 	/// - Returns: A comm key Observable
-	func getCommKey(by flightId: String) -> Observable<CommKey> {
-		return perform(method: .post, path: "/\(flightId)/start-comm")
+	func getCommKey(by flightId: AirMapFlightId) -> Observable<CommKey> {
+		return perform(method: .post, path: "/\(flightId.rawValue)/start-comm")
 	}
 
 	/// Called when a device no longer wants to receive push notifications for traffic alerts

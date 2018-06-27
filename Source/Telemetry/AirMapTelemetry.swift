@@ -16,11 +16,11 @@ struct AirMapTelemetry {
 	
 	class Client {
 		
-		func sendTelemetry(_ flightId: String, message: ProtoBufMessage) {
+		func sendTelemetry(_ flightId: AirMapFlightId, message: ProtoBufMessage) {
 			telemetry.onNext((flightId, message))
 		}
 		
-		private let telemetry = PublishSubject<(flightId: String, message: ProtoBufMessage)>()
+		private let telemetry = PublishSubject<(flightId: AirMapFlightId, message: ProtoBufMessage)>()
 		private let disposeBag = DisposeBag()
 
 		private let bgScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -53,7 +53,7 @@ struct AirMapTelemetry {
 				.filter { flightSession, telemetry in
 					telemetry.flightId == flightSession.flightId
 				}
-				.map { (session: Session, telemetry: (flightId: String, message: ProtoBufMessage)) in
+				.map { (session: Session, telemetry: (flightId: AirMapFlightId, message: ProtoBufMessage)) in
 					(session: session, message: telemetry.message)
 				}
 				.share()
@@ -94,7 +94,7 @@ struct AirMapTelemetry {
 	
 	class Session {
 		
-		let flightId: String
+		let flightId: AirMapFlightId
 		let commKey: CommKey
 
 		static let serialQueue = DispatchQueue(label: "com.airmap.telemetry.session.serialqueue")
@@ -104,7 +104,7 @@ struct AirMapTelemetry {
 		private let encryption = Packet.EncryptionType.aes256cbc
 		private var serialNumber: UInt32 = 0
 				
-		init(flightId: String, commKey: CommKey) {
+		init(flightId: AirMapFlightId, commKey: CommKey) {
 			self.flightId = flightId
 			self.commKey = commKey
 		}
@@ -163,14 +163,14 @@ struct AirMapTelemetry {
 		}
 
 		let serial: UInt32
-		let flightId: String
+		let flightId: AirMapFlightId
 		let payload: [UInt8]
 		let encryption: EncryptionType
 		let iv: [UInt8]
 		
 		func bytes() -> [UInt8] {
 			
-			let id = flightId.data(using: .utf8)!.bytes
+			let id = flightId.rawValue.data(using: .utf8)!.bytes
 			var header = [UInt8]()
 			header += serial.bigEndian.bytes
 			header += UInt8(id.count).bytes
