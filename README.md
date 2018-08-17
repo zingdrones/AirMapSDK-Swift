@@ -47,12 +47,12 @@ To integrate the AirMap SDK into your Xcode project, navigate to the directory t
 ```ruby
 target 'MyApp' do
   use_frameworks!
-  pod 'AirMapSDK', :git => 'https://github.com/airmap/AirMapSDK-Swift', :tag => '2.0.0.rc.2'
+  pod 'AirMapSDK', :git => 'https://github.com/airmap/AirMapSDK-Swift', :tag => '2.0.0.rc.3'
 end
 
 post_install do |installer|
     # List of Pods to use as Swift 3.2
-    myTargets = ['Lock', 'SwiftMQTT'] 
+    myTargets = ['Lock'] 
 
     installer.pods_project.targets.each do |target|
         if myTargets.include? target.name
@@ -77,7 +77,7 @@ Make sure you import the framework before using the SDK.
 The AirMapSDK is also available via Carthage, however, only the Core subspec is currently available
 
 ```
-github "AirMap/AirMapSDK-Swift" "2.0.0.rc.2"
+github "AirMap/AirMapSDK-Swift" "2.0.0.rc.3"
 ```
 
 ### Importing
