@@ -1,10 +1,10 @@
 PODS:
-  - AirMapSDK (2.0.0.rc.2):
-    - AirMapSDK/Core (= 2.0.0.rc.2)
-    - AirMapSDK/Telemetry (= 2.0.0.rc.2)
-    - AirMapSDK/Traffic (= 2.0.0.rc.2)
-    - AirMapSDK/UI (= 2.0.0.rc.2)
-  - AirMapSDK/Core (2.0.0.rc.2):
+  - AirMapSDK (2.0.0.rc.3):
+    - AirMapSDK/Core (= 2.0.0.rc.3)
+    - AirMapSDK/Telemetry (= 2.0.0.rc.3)
+    - AirMapSDK/Traffic (= 2.0.0.rc.3)
+    - AirMapSDK/UI (= 2.0.0.rc.3)
+  - AirMapSDK/Core (2.0.0.rc.3):
     - Alamofire
     - JWTDecode
     - Log
@@ -14,15 +14,15 @@ PODS:
     - RxSwiftExt
     - SimpleKeychain
     - SwiftTurf
-  - AirMapSDK/Telemetry (2.0.0.rc.2):
+  - AirMapSDK/Telemetry (2.0.0.rc.3):
     - AirMapSDK/Core
     - CocoaAsyncSocket
     - CryptoSwift (~> 0.10.0)
     - ProtocolBuffers-Swift (~> 4.0.2)
-  - AirMapSDK/Traffic (2.0.0.rc.2):
+  - AirMapSDK/Traffic (2.0.0.rc.3):
     - AirMapSDK/Core
-    - SwiftMQTT (>= 2.0.0)
-  - AirMapSDK/UI (2.0.0.rc.2):
+    - SwiftMQTT (~> 3.0)
+  - AirMapSDK/UI (2.0.0.rc.3):
     - AirMapSDK/Core
     - Lock (>= 2.5.0)
     - Mapbox-iOS-SDK (< 4.0)
@@ -79,7 +79,7 @@ PODS:
   - RxSwiftExt/Core (3.2.0):
     - RxSwift (~> 4.0)
   - SimpleKeychain (0.8.1)
-  - SwiftMQTT (2.0.0)
+  - SwiftMQTT (3.0.0)
   - SwiftTurf (0.3.2)
 
 DEPENDENCIES:
@@ -119,7 +119,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AirMapSDK: 446f825dc58cfcf2a35162b9a0d7fbe58a23b709
+  AirMapSDK: 6146271fa1af1033b0196ace4b11e53698447033
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Auth0: 136bf9163e75595b66c3268f5e5e114248b7ad51
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
@@ -140,9 +140,9 @@ SPEC CHECKSUMS:
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   RxSwiftExt: 64b7140124629a6a084159735f3714f0fb1c61d6
   SimpleKeychain: e2485c28d82fcece35e9e41faeac42ebfe614815
-  SwiftMQTT: 1223cdf3056cd9211112e3f136aa221125b457e1
+  SwiftMQTT: acd344613d39c0371de62f9f494e129ca14da9d1
   SwiftTurf: 6ec29121fdb688a223aefca350843a9880e1489f
 
-PODFILE CHECKSUM: e2c100e54c25da2506269d06c43d2018c024aadc
+PODFILE CHECKSUM: 49598a7476ee36a4c507bb3b31b4ae89b2632a65
 
 COCOAPODS: 1.5.3
