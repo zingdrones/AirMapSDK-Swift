@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A636AF8B3C8752A0D6274A5 /* Pods_AirMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2761FDCAAA7E787FA97DDCF1 /* Pods_AirMapSDKTests.framework */; };
+		4C8F4ECF212DCBA4003CF4DC /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C8F4ECE212DCBA4003CF4DC /* airmap.config.json */; };
 		5C24433F1D470CC900FB7F8A /* CoordinateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F11781D275AF10053CEA2 /* CoordinateFactory.swift */; };
 		5C3B7B8A1D3EA8C0004705EA /* pilot_authorized_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C3B7B891D3EA8C0004705EA /* pilot_authorized_get_success.json */; };
 		5C3B7B8C1D3EA8CE004705EA /* PilotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3B7B8B1D3EA8CE004705EA /* PilotTests.swift */; };
@@ -36,7 +37,6 @@
 		910F11801D275CB80053CEA2 /* flight_put_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 910F117C1D275CB80053CEA2 /* flight_put_success.json */; };
 		910F11811D275CB80053CEA2 /* status_get_point_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 910F117D1D275CB80053CEA2 /* status_get_point_success.json */; };
 		9120A3B11D5E6B0500262F08 /* ATTRIBUTION in Resources */ = {isa = PBXBuildFile; fileRef = 9120A3B01D5E6B0500262F08 /* ATTRIBUTION */; };
-		912A5BDB1D5B9DCC004B359B /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 912A5BDA1D5B9DCC004B359B /* airmap.config.json */; };
 		915CFFD41DEF6A76002E6623 /* AircraftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915CFFD21DEF6A00002E6623 /* AircraftFactory.swift */; };
 		916956EF1D356821006F97B8 /* status_weather_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916956EE1D356821006F97B8 /* status_weather_success.json */; };
 		916A9B421D2D991B00322CDB /* flight_comm_key_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 916A9B411D2D991B00322CDB /* flight_comm_key_success.json */; };
@@ -53,7 +53,6 @@
 		91D1A4E51FE34BF700B9C563 /* AdvancedMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D1A4E41FE34BF700B9C563 /* AdvancedMapViewController.swift */; };
 		91D551DC1E272C17000C0A5D /* rules_local_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91D551DB1E272C17000C0A5D /* rules_local_get_success.json */; };
 		91D551DD1E272D4B000C0A5D /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D551D91E272B82000C0A5D /* RulesTests.swift */; };
-		91F849BC1D5D8AEB00550D69 /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 912A5BDA1D5B9DCC004B359B /* airmap.config.json */; };
 		91F9006D1D37448C005B1084 /* StatusAdvisoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */; };
 		91F9006F1D3744CD005B1084 /* status_advisories_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91F9006E1D3744CD005B1084 /* status_advisories_success.json */; };
 		98E1F849F08162296148AC35 /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD2C392C6F9C055108F0F47 /* Pods_AirMapSDK_Example_iOS.framework */; };
@@ -74,6 +73,7 @@
 		276608810D8DAED6F91BA14A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		288721D886A20948A40E2C95 /* Pods-AirMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDKTests/Pods-AirMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		3CD2C392C6F9C055108F0F47 /* Pods_AirMapSDK_Example_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirMapSDK_Example_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C8F4ECE212DCBA4003CF4DC /* airmap.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = airmap.config.json; sourceTree = "<group>"; };
 		5C3B7B891D3EA8C0004705EA /* pilot_authorized_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = pilot_authorized_get_success.json; path = Fixtures/pilot_authorized_get_success.json; sourceTree = "<group>"; };
 		5C3B7B8B1D3EA8CE004705EA /* PilotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PilotTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		5C3B7B8F1D3EC2A0004705EA /* flight_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_get_success.json; path = Fixtures/flight_get_success.json; sourceTree = "<group>"; };
@@ -105,7 +105,6 @@
 		910F117C1D275CB80053CEA2 /* flight_put_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_put_success.json; path = Fixtures/flight_put_success.json; sourceTree = "<group>"; };
 		910F117D1D275CB80053CEA2 /* status_get_point_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_point_success.json; path = Fixtures/status_get_point_success.json; sourceTree = "<group>"; };
 		9120A3B01D5E6B0500262F08 /* ATTRIBUTION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ATTRIBUTION; path = ../ATTRIBUTION; sourceTree = "<group>"; };
-		912A5BDA1D5B9DCC004B359B /* airmap.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = airmap.config.json; path = ../../airmap.config.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
 		915CFFD21DEF6A00002E6623 /* AircraftFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AircraftFactory.swift; sourceTree = "<group>"; };
 		916956EE1D356821006F97B8 /* status_weather_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_weather_success.json; path = Fixtures/status_weather_success.json; sourceTree = "<group>"; };
 		916A9B411D2D991B00322CDB /* flight_comm_key_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = flight_comm_key_success.json; path = Fixtures/flight_comm_key_success.json; sourceTree = "<group>"; };
@@ -160,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				5CD871C21DB5ADA6007C1C02 /* AirMapSDK-Example-iOS.entitlements */,
-				912A5BDA1D5B9DCC004B359B /* airmap.config.json */,
+				4C8F4ECE212DCBA4003CF4DC /* airmap.config.json */,
 				607FACD21AFB9204008FA782 /* Example iOS */,
 				91B783011D6373DA0034A5A6 /* Example-macOS */,
 				607FACD11AFB9204008FA782 /* Products */,
@@ -366,7 +365,7 @@
 			attributes = {
 				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "AirMap, Inc.";
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
@@ -416,9 +415,9 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				4C8F4ECF212DCBA4003CF4DC /* airmap.config.json in Resources */,
 				9120A3B11D5E6B0500262F08 /* ATTRIBUTION in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
-				912A5BDB1D5B9DCC004B359B /* airmap.config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +440,6 @@
 				5C3B7B8A1D3EA8C0004705EA /* pilot_authorized_get_success.json in Resources */,
 				5CD99DF01D41CB4800D21B72 /* aircraft_model_success.json in Resources */,
 				91D551DC1E272C17000C0A5D /* rules_local_get_success.json in Resources */,
-				91F849BC1D5D8AEB00550D69 /* airmap.config.json in Resources */,
 				5CD99DEE1D41CB1600D21B72 /* aircraft_models_success.json in Resources */,
 				916956EF1D356821006F97B8 /* status_weather_success.json in Resources */,
 				5CD99DF21D41CBCB00D21B72 /* pilot_aircraft_create_success.json in Resources */,
@@ -702,12 +700,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -759,12 +759,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
