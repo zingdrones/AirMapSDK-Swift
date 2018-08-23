@@ -167,8 +167,11 @@ extension AirMapMapView {
 				let style = self.rx.mapDidFinishLoadingStyle.map({$1})
 				let range = self.temporalRangeSubject
 				let jurisdictions = self.rx.jurisdictions
+
+				// Delay to prevent reentry warnings
 				let rulesetConfig = self.rulesetConfigurationSubject
 					.distinctUntilChanged(==)
+					.delay(0.1, scheduler: MainScheduler.asyncInstance)
 
 				// Configure the map with the active rulesets
 				// Notify the delegate of available jurisdictions and activated rulesets
