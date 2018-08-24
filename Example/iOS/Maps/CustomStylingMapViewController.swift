@@ -12,29 +12,29 @@ import Mapbox
 
 class CustomStylingMapViewController: UIViewController {
 	
-	var map: AirMapMapView!
+	var mapView: AirMapMapView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		// create a new map and add it to the view hierarchy
 		// optionally can be added via a storyboard in Interface Builder
-		map = AirMapMapView(frame: view.bounds)
-		map.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		view.addSubview(map)
+		mapView = AirMapMapView(frame: view.bounds)
+		mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		view.addSubview(mapView)
 		
 		// set the visual style
-		map.theme = .dark
+		mapView.theme = .dark
 		
 		// set the map's ruleset behavior
-		map.rulesetConfiguration = .automatic
+		mapView.rulesetConfiguration = .automatic
 		
 		// set the map location to London, UK
-		map.centerCoordinate = CLLocationCoordinate2D(latitude: 51.474, longitude: -0.133)
-		map.zoomLevel = 9.5
+		mapView.centerCoordinate = CLLocationCoordinate2D(latitude: 51.474, longitude: -0.133)
+		mapView.zoomLevel = 9.5
 		
 		// register as the delegate to receive callbacks
-		map.delegate = self
+		mapView.delegate = self
 	}
 }
 

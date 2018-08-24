@@ -11,31 +11,32 @@ import AirMap
 
 class SimpleMapViewController: UIViewController {
 	
-	var map: AirMapMapView!
+	var mapView: AirMapMapView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		// create a new map and add it to the view hierarchy
 		// optionally can be added via a storyboard in Interface Builder
-		map = AirMapMapView(frame: view.bounds)
-		map.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		view.addSubview(map)
-		
+		mapView = AirMapMapView(frame: view.bounds)
+		mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		view.addSubview(mapView)
+
 		// set the visual style
-		map.theme = .light
-		
+		mapView.theme = .light
+
         // set the map's ruleset behavior
-        map.rulesetConfiguration = .automatic
+        mapView.rulesetConfiguration = .automatic
         
         // alternatively, the map can be configured with a list preferred ruleset ids
 //        map.rulesetConfiguration = .dynamic(preferredRulesetIds: ["usa_part_107"], enableRecommendedRulesets: true)
 
 		// set the map location to Santa Monica, California
-		map.centerCoordinate = CLLocationCoordinate2D(latitude: 34.023, longitude: -118.484)
-		map.zoomLevel = 10
-		
-		map.delegate = self
+		mapView.centerCoordinate = CLLocationCoordinate2D(latitude: 34.023, longitude: -118.484)
+		mapView.zoomLevel = 10
+
+		mapView.delegate = self
+
 	}
 }
 
