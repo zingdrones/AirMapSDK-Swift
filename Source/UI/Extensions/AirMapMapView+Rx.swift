@@ -98,7 +98,8 @@ extension Reactive where Base: AirMapMapView {
 						self.regionIsChanging
 							.throttle(3, latest: true, scheduler: MainScheduler.instance),
 						self.regionDidChangeAnimated.map({$0.mapView})
-							.throttle(1, latest: true, scheduler: MainScheduler.instance)
+							.throttle(1, latest: true, scheduler: MainScheduler.instance),
+						self.mapDidFinishRenderingMap.map({$0.mapView})
 					)
 					.map({ $0.jurisdictions })
 					.distinctUntilChanged(==)
