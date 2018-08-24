@@ -171,12 +171,12 @@ extension AirMapMapView {
 				// Delay to prevent reentry warnings
 				let rulesetConfig = self.rulesetConfigurationSubject
 					.distinctUntilChanged(==)
-					.delay(0.1, scheduler: MainScheduler.asyncInstance)
 
 				// Configure the map with the active rulesets
 				// Notify the delegate of available jurisdictions and activated rulesets
 				let configureRulesets = Observable
 					.combineLatest(style, jurisdictions, rulesetConfig)
+					.observeOn(MainScheduler.asyncInstance)
 					.do(onNext: { [unowned self] (style, jurisdictions, rulesetsConfig) in
 						let activeRulesets = AirMapMapView.activeRulesets(from: jurisdictions, using: rulesetsConfig)
 						AirMapMapView.configure(mapView: self, style: style, with: activeRulesets)
