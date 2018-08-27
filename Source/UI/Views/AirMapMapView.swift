@@ -167,6 +167,8 @@ extension AirMapMapView {
 				let style = self.rx.mapDidFinishLoadingStyle.map({$1})
 				let range = self.temporalRangeSubject
 				let jurisdictions = self.rx.jurisdictions
+
+				// Delay to prevent reentry warnings
 				let rulesetConfig = self.rulesetConfigurationSubject
 					.distinctUntilChanged(==)
 
@@ -174,6 +176,7 @@ extension AirMapMapView {
 				// Notify the delegate of available jurisdictions and activated rulesets
 				let configureRulesets = Observable
 					.combineLatest(style, jurisdictions, rulesetConfig)
+					.observeOn(MainScheduler.asyncInstance)
 					.do(onNext: { [unowned self] (style, jurisdictions, rulesetsConfig) in
 						let activeRulesets = AirMapMapView.activeRulesets(from: jurisdictions, using: rulesetsConfig)
 						AirMapMapView.configure(mapView: self, style: style, with: activeRulesets)
