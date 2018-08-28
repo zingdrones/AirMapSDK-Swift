@@ -45,7 +45,8 @@ public struct AirMapConfiguration {
 	public let airMapApiDomain: String
 	public let auth0Host: String
 	public let auth0ClientId: String
-	
+	public let auth0Scope: String?
+
 	let airMapApiOverrides: [String: String]?
 	let airMapEnvironment: String?
 	let airMapPinCertificates: Bool
@@ -97,6 +98,7 @@ extension AirMapConfiguration: ImmutableMappable {
 			// Optional configuration values
 			mapboxAccessToken     =  try? map.value("mapbox.access_token")
 			auth0Host             = (try? map.value("auth0.host")) ?? "sso.airmap.io"
+			auth0Scope            =  try  map.value("auth0.scope") ?? Constants.AirMapApi.Auth.scope
 			airMapDomain          = (try? map.value("airmap.domain")) ?? "airmap.com"
 			airMapApiDomain       = (try? map.value("airmap.api_domain")) ?? "api.airmap.com"
 			airMapEnvironment     =  try? map.value("airmap.environment")
