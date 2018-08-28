@@ -1,5 +1,5 @@
 ![AirMap: The Airspace Platform for Developers](Resources/Core/AirMap.png)
-![Swift 4.0](https://img.shields.io/badge/Swift-4.0-lightgray.svg) [![Version](https://img.shields.io/cocoapods/v/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![License](https://img.shields.io/cocoapods/l/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![Platform](https://img.shields.io/cocoapods/p/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK)
+![Swift 4.1](https://img.shields.io/badge/Swift-4.0-lightgray.svg) [![Version](https://img.shields.io/cocoapods/v/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![License](https://img.shields.io/cocoapods/l/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK) [![Platform](https://img.shields.io/cocoapods/p/AirMapSDK.svg?style=flat)](http://cocoapods.org/pods/AirMapSDK)
 
 Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.
 
@@ -8,7 +8,7 @@ Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.
 ### Environment
 * iOS 9.0+, 
 * macOS 10.10+, 
-* Swift 4.0
+* Swift 4.1
 * Xcode 9.0+
 
 ### Sign up for an [AirMap Developer Account.](https://dashboard.airmap.io/developer/)
@@ -47,7 +47,7 @@ To integrate the AirMap SDK into your Xcode project, navigate to the directory t
 ```ruby
 target 'MyApp' do
   use_frameworks!
-  pod 'AirMapSDK', :git => 'https://github.com/airmap/AirMapSDK-Swift', :tag => '2.0.0.rc.3'
+  pod 'AirMapSDK', :git => 'https://github.com/airmap/AirMapSDK-Swift', :tag => '2.0.0'
 end
 
 post_install do |installer|
@@ -77,7 +77,7 @@ Make sure you import the framework before using the SDK.
 The AirMapSDK is also available via Carthage, however, only the Core subspec is currently available
 
 ```
-github "AirMap/AirMapSDK-Swift" "2.0.0.rc.3"
+github "AirMap/AirMapSDK-Swift" "2.0.0"
 ```
 
 ### Importing
