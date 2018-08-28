@@ -98,7 +98,7 @@ extension AirMapConfiguration: ImmutableMappable {
 			// Optional configuration values
 			mapboxAccessToken     =  try? map.value("mapbox.access_token")
 			auth0Host             = (try? map.value("auth0.host")) ?? "sso.airmap.io"
-			auth0Scope        	  =  try  map.value("auth0.scope") ?? Constants.AirMapApi.Auth.scope
+			auth0Scope            =  try  map.value("auth0.scope") ?? Constants.AirMapApi.Auth.scope
 			airMapDomain          = (try? map.value("airmap.domain")) ?? "airmap.com"
 			airMapApiDomain       = (try? map.value("airmap.api_domain")) ?? "api.airmap.com"
 			airMapEnvironment     =  try? map.value("airmap.environment")
