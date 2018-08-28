@@ -31,7 +31,7 @@ internal class Auth0Client: HTTPClient {
 		params["client_id"] = AirMap.configuration.auth0ClientId
 		params["api_type"] = "app"
 		params["refresh_token"] = refreshToken
-		params["scope"] = AirMap.configuration.auth0Scope ?? Constants.AirMapApi.Auth.scope
+		params["scope"] = Constants.AirMapApi.Auth.scope
 
 		return perform(method: .post, path:"/delegation", params: params, keyPath: nil)
 			.do(onNext: { token in
