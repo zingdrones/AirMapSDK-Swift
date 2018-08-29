@@ -26,7 +26,7 @@ Contextual Airspace (Rules API, Advisory API, and Flight Plan API) is currently 
 
 ### CocoaPods
 
-Requires CocoaPods 1.3.0+
+Requires CocoaPods 1.4.0+
 
 The AirMap SDK is a CocoaPod written in Swift. CocoaPods is a dependency manager for Cocoa projects. If you don't have CocoaPods, You can install it with the following command:
 
