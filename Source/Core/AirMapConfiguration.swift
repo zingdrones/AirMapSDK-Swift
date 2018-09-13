@@ -45,7 +45,7 @@ public struct AirMapConfiguration {
 	public let airMapApiDomain: String
 	public let auth0Host: String
 	public let auth0ClientId: String
-	public let auth0Scope: String?
+	public let auth0Scope: String
 
 	let airMapApiOverrides: [String: String]?
 	let airMapEnvironment: String?
@@ -98,7 +98,7 @@ extension AirMapConfiguration: ImmutableMappable {
 			// Optional configuration values
 			mapboxAccessToken     =  try? map.value("mapbox.access_token")
 			auth0Host             = (try? map.value("auth0.host")) ?? "sso.airmap.io"
-			auth0Scope            =  try  map.value("auth0.scope") ?? Constants.AirMapApi.Auth.scope
+			auth0Scope            = (try? map.value("auth0.scope")) ?? "openid offline_access"
 			airMapDomain          = (try? map.value("airmap.domain")) ?? "airmap.com"
 			airMapApiDomain       = (try? map.value("airmap.api_domain")) ?? "api.airmap.com"
 			airMapEnvironment     =  try? map.value("airmap.environment")
@@ -109,7 +109,7 @@ extension AirMapConfiguration: ImmutableMappable {
 
 		catch let error as MapError {
 			fatalError(
-				"Configuration is missing the required \(error.key!) key and value. If you have recently updated" +
+				"Configuration is missing the required \(error.key!) key and value. If you have recently updated " +
 				"this SDK, you may need to visit the AirMap developer portal at https://dashboard.airmap.io/developer/ " +
 				"for an updated airmap.config.json file."
 			)
