@@ -31,7 +31,7 @@ public struct AirMapConfiguration {
 	
 	/// Designated initializer when not providing an airmap.config.json file at the root of the project
 	///
-	/// - SeeAlso: https://developers.airmap.com/docs/ios-getting-started
+	/// - SeeAlso: https://developers.airmap.com/docs/getting-started-ios
 	/// - Parameters:
 	///   - apiKey: The AirMap API key to use with the AirMap API
 	///   - auth0ClientId: A client ID used for user/pilot authentication with AirMap
@@ -87,7 +87,7 @@ extension AirMapConfiguration {
 			fatalError(
 				"The `airmap.config.json` file required to configure the AirMapSDK is missing. " +
 					"Please reference the documentation for more information. " +
-				"https://developers.airmap.com/docs/ios-getting-started"
+				"https://developers.airmap.com/docs/getting-started-ios"
 			)
 		}
 	}()
