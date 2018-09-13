@@ -64,7 +64,7 @@ struct Constants {
 		}
 		
 		struct Auth {
-			static let scope = AirMap.configuration.auth0Scope ?? "openid offline_access"
+			static let scope = AirMap.configuration.auth0Scope
 			static let grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer"
 			static let keychainKeyRefreshToken = "com.airmap.airmapsdk.refresh_token"
 			static let termsOfServiceUrl = "https://www.\(AirMap.configuration.airMapDomain)/terms"
