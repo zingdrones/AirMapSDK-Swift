@@ -1,0 +1,455 @@
+/* Label for advisories that are stup to receive digital notice */
+"ADVISORY_ACCEPTS_DIGITAL_NOTICE" = "ยอมรับการแจ้งเตือนแบบดิจิทัล";
+
+/* Displayed when an advisory has not provided a contact phone */
+"ADVISORY_PHONE_NOT_PROVIDED" = "ไม่มีหมายเลขโทรศัพท์ให้";
+
+/* Label and format for displaying the end time of temporary flight restriction */
+"ADVISORY_TFR_ENDS_FORMAT" = "สิ้น สุด: %1$@";
+
+/* Never ending duration for a TFR */
+"ADVISORY_TFR_PERMANENT" = "ถาวร";
+
+/* Label and format for displaying the start time of temporary flight restriction */
+"ADVISORY_TFR_STARTS_FORMAT" = "เริ่ม ต้น: %1$@";
+
+/* Format and unit for wildfire advisory in the area unit acres */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_ACRES" = "%1$@ เอเคอร์";
+
+/* Format and unit for wildfire advisory in the area unit hectares */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES" = "%1$@ เฮคเตอร์";
+
+/* Label for wildfire advisory cells where size is unknown */
+"ADVISORY_WILDFIRE_SIZE_UNKNOWN" = "ขนาดที่ไม่รู้จัก";
+
+/* Call to action when a user has not selected an aircraft */
+"AIRCRAFT_SELECT_AIRCRAFT" = "เลือกเครื่องบิน";
+
+/* Title to display for the view creating a new aircraft */
+"AIRCRAFT_TITLE_CREATE_NEW" = "สร้างเครื่องบิน";
+
+/* Title to display for the view when updating an existing aircraft */
+"AIRCRAFT_TITLE_UPDATE_EXISTING" = "ปรับปรุงเครื่องบิน";
+
+/* Name for airspace type Aerial Recreational Area */
+"AIRSPACE_TYPE_AERIAL_REC_AREA" = "พื้นที่พักผ่อนหย่อนใจทางอากาศ";
+
+/* Name for airspace type Airport */
+"AIRSPACE_TYPE_AIRPORT" = "สนาม บิน";
+
+/* Name for airspace type AMA Field (Academy of Model Aeronautics) */
+"AIRSPACE_TYPE_AMA_FIELD" = "สนามที่ AMA";
+
+/* Name for airspace type City */
+"AIRSPACE_TYPE_CITY" = "เมือง";
+
+/* Name for airspace type Controlled Airspace */
+"AIRSPACE_TYPE_CONTROLLED" = "ควบคุมน่าน";
+
+/* Name for airspace type Country */
+"AIRSPACE_TYPE_COUNTRY" = "ประเทศ";
+
+/* Name for airspace type County */
+"AIRSPACE_TYPE_COUNTY" = "เขต";
+
+/* Name for airspace type Custom */
+"AIRSPACE_TYPE_CUSTOM" = "กำหนด เอง";
+
+/* Name for airspace type Embassy */
+"AIRSPACE_TYPE_EMBASSY" = "สถาน ทูต";
+
+/* Name for airspace type Emergency */
+"AIRSPACE_TYPE_EMERGENCY" = "กิจกรรมการตอบสนองครั้งแรก";
+
+/* Name for airspace type Federal Building */
+"AIRSPACE_TYPE_FEDERAL_BUILDING" = "อาคารของรัฐบาลกลาง";
+
+/* Name for airspace type Flight Information Region */
+"AIRSPACE_TYPE_FIR" = "ข้อมูลการบินภูมิภาค";
+
+/* Name for airspace type Fire */
+"AIRSPACE_TYPE_FIRE" = "ไฟ";
+
+/* Name for airspace type Gliderport */
+"AIRSPACE_TYPE_GLIDERPORT" = "Gliderport";
+
+/* Name for airspace type Hazard Area */
+"AIRSPACE_TYPE_HAZARD_AREA" = "พื้นที่อันตราย";
+
+/* Name for airspace type Heliport */
+"AIRSPACE_TYPE_HELIPORT" = "เฮ ลิ พอร์ต มาเก๊า";
+
+/* Name for airspace type Highway */
+"AIRSPACE_TYPE_HIGHWAY" = "ไฮเวย์";
+
+/* Name for airspace type Hospital */
+"AIRSPACE_TYPE_HOSPITAL" = "โรง พยาบาล";
+
+/* Name for airspace type Industrial Property */
+"AIRSPACE_TYPE_INDUSTRIAL_PROPERTY" = "ทรัพย์สินทางอุตสาหกรรม";
+
+/* Name for airspace type Japan Base Admin (Smallest unit of Japanse administrative units) */
+"AIRSPACE_TYPE_JAPAN_BASE" = "ผู้ดูแลพื้นฐานญี่ปุ่น";
+
+/* Name for airspace type Military Property */
+"AIRSPACE_TYPE_MILITARY_PROPERTY" = "ทรัพย์สินทางทหาร";
+
+/* Name for airspace type National Park */
+"AIRSPACE_TYPE_NATIONAL_PARK" = "อุทยานแห่งชาติ";
+
+/* Name for airspace type NOTAM */
+"AIRSPACE_TYPE_NOTAM" = "NOTAM";
+
+/* Name for airspace type Police Station */
+"AIRSPACE_TYPE_POLICE_STATION" = "สถานีตำรวจ";
+
+/* Name for airspace type Powerline */
+"AIRSPACE_TYPE_POWERLINE" = "Powerline";
+
+/* Name for airspace type Power Plant */
+"AIRSPACE_TYPE_POWER_PLANT" = "โรงไฟฟ้า";
+
+/* Name for airspace type Prison */
+"AIRSPACE_TYPE_PRISON" = "คุก";
+
+/* Name for airspace type Railway */
+"AIRSPACE_TYPE_RAILWAY" = "รถไฟ";
+
+/* Name for airspace type Residential Property */
+"AIRSPACE_TYPE_RESIDENTIAL_PROPERTY" = "ที่พักอาศัย";
+
+/* Name for airspace type School */
+"AIRSPACE_TYPE_SCHOOL" = "โรงเรียน";
+
+/* Name for airspace type Seaplane Base */
+"AIRSPACE_TYPE_SEAPLANE_BASE" = "ตู้เครื่องทะเล";
+
+/* Name for airspace type Special Use Airspace */
+"AIRSPACE_TYPE_SPECIAL_USE" = "น่านใช้พิเศษ";
+
+/* Name for airspace type Stadium */
+"AIRSPACE_TYPE_STADIUM" = "สเตเดียม";
+
+/* Name for airspace type State */
+"AIRSPACE_TYPE_STATE" = "สถานะ";
+
+/* Name for airspace type Subprefecture */
+"AIRSPACE_TYPE_SUBPREFECTURE" = "Subprefecture";
+
+/* Name for airspace type Supercity (Japan related) */
+"AIRSPACE_TYPE_SUPERCITY" = "Supercity";
+
+/* Name for airspace type FAA Temporary Flight Restriction */
+"AIRSPACE_TYPE_TFR_FAA" = "ข้อจำกัดเที่ยวบินชั่วคราว";
+
+/* Name for airspace type Ultralight Field */
+"AIRSPACE_TYPE_ULM_FIELD" = "ฟิลด์สู่";
+
+/* Generic catchall placeholder/name for airspace type is new and unknown at time of development but present via the advisories or map sources */
+"AIRSPACE_TYPE_UNCLASSIFIED" = "Unclassified";
+
+/* Name for airspace type University */
+"AIRSPACE_TYPE_UNIVERSITY" = "มหาวิทยาลัย";
+
+/* Name for airspace type Waterway */
+"AIRSPACE_TYPE_WATERWAY" = "น้ำ";
+
+/* Name for airspace type WildFire */
+"AIRSPACE_TYPE_WILDFIRE" = "ป่า";
+
+/* The request with the authority has been accepted */
+"AUTHORIZATION_ACCEPTED" = "อนุมัติ";
+
+/* The request with the authority has been cancelled */
+"AUTHORIZATION_CANCELLED_SUBMISSION" = "ยกเลิกการอนุญาต";
+
+/* The request with the authority has not been requested */
+"AUTHORIZATION_NOT_REQUESTED" = "ไม่มีการร้องขอการอนุญาต";
+
+/* The request with the authority has been made and a response is pending */
+"AUTHORIZATION_PENDING" = "การตรวจสอบค้างอยู่";
+
+/* The request with the authority has been rejected */
+"AUTHORIZATION_REJECTED" = "ปฏิเสธการอนุมัติ";
+
+/* The request with the authority will be rejected once the flight plan is submitted */
+"AUTHORIZATION_REJECTED_UPON_SUBMISSION" = "ปฏิเสธเมื่อส่งผลงาน";
+
+/* The request with the authority will be accepted once the flight plan is submitted */
+"AUTHORIZATION_UPON_SUBMISSION" = "อนุมัติเมื่อส่งผลงาน";
+
+/* Login message when a user's account has been blacklisted. */
+"AUTH_ERROR_ACCOUNT_BLACKLISTED" = "บัญชีของคุณถูกดำ กรุณาติดต่อ security@airmap.com";
+
+/* Login message when a user must verify their email address */
+"AUTH_ERROR_EMAIL_NEEDS_VERIFICATION_REQUIRED" = "ที่อยู่อีเมลของคุณจะต้องได้รับการยืนยัน กรุณาตรวจสอบกล่องขาเข้าของคุณ";
+
+/* Login message when a user failed to authenticate */
+"AUTH_ERROR_UNAUTHORIZED" = "อนุญาต";
+
+/* Navigation title for failed login attempt */
+"AUTH_FAILED_LOGIN_TITLE" = "แจ้ง เตือน";
+
+/* Abbreviation for East */
+"CARDINAL_DIRECTION_E" = "ตะวัน ออก";
+
+/* Abbreviation for East North East */
+"CARDINAL_DIRECTION_ENE" = "เร็ว";
+
+/* Abbreviation for East South East */
+"CARDINAL_DIRECTION_ESE" = "Ese";
+
+/* Abbreviation for North */
+"CARDINAL_DIRECTION_N" = "N";
+
+/* Abbreviation for North East */
+"CARDINAL_DIRECTION_NE" = "ยเน";
+
+/* Abbreviation for North North East */
+"CARDINAL_DIRECTION_NNNE" = "เร็ว";
+
+/* Abbreviation for North North West */
+"CARDINAL_DIRECTION_NNW" = "ความ";
+
+/* Abbreviation for North West */
+"CARDINAL_DIRECTION_NW" = "Nw";
+
+/* Abbreviation for South */
+"CARDINAL_DIRECTION_S" = "S";
+
+/* Abbreviation for South East */
+"CARDINAL_DIRECTION_SE" = "SE";
+
+/* Abbreviation for South South East */
+"CARDINAL_DIRECTION_SSE" = "SSE";
+
+/* Abbreviation for South South West */
+"CARDINAL_DIRECTION_SSW" = "ความ";
+
+/* Abbreviation for South West */
+"CARDINAL_DIRECTION_SW" = "Sw";
+
+/* Abbreviation for West */
+"CARDINAL_DIRECTION_W" = "ฝั่ง ตะวัน ตก";
+
+/* Abbreviation for West North West */
+"CARDINAL_DIRECTION_WNW" = "เร็ว";
+
+/* Abbreviation for West South West */
+"CARDINAL_DIRECTION_WSW" = "ความ";
+
+/* Request cancelled error */
+"ERROR_CANCELLED" = "ขอยกเลิกก่อนที่จะเสร็จสมบูรณ์";
+
+/* A conflict exists with the attempted request */
+"ERROR_CONFLICT" = "มีความขัดแย้งอยู่";
+
+/* A generic server error message with an associated error code */
+"ERROR_GENERIC_FORMAT" = "เซิร์ฟเวอร์ส่งกลับข้อผิดพลาด (%@)";
+
+/* Response serialization failure error */
+"ERROR_SERIALIZATION" = "เซิร์ฟเวอร์ส่งกลับการตอบสนอง unprocessable";
+
+/* Server failure error */
+"ERROR_SERVER" = "เซิร์ฟเวอร์ไม่สามารถทำการร้องขอของคุณ";
+
+/* Authorization failure error */
+"ERROR_UNAUTHORIZED" = "อนุญาต . กรุณาตรวจสอบข้อมูลประจำตัวการเข้าสู่ระบบ";
+
+/* The radius around a point-based flight's center */
+"FLIGHT_DRAWING_RADIUS" = "รัศมี";
+
+/* Call to action to fine-tune the geometry of a flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_MODIFY_GEOMETRY" = "ลากจุดใดๆเพื่อย้าย ลากกึ่งใดๆเพื่อเพิ่มจุดใหม่";
+
+/* Call to action to drag a point to the trash to delete. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_TRASH_TO_DELETE" = "ลากชี้ไปที่ถังขยะเพื่อลบ";
+
+/* Call to action to draw an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_AREA" = "การวาดพื้นที่ของเที่ยวบิน";
+
+/* Call to action to draw a path-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_PATH" = "การวาดเส้นทางบิน";
+
+/* Call to action to drag the center position of a point-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_POSTIION_POINT" = "ลากจุดกึ่งกลางเพื่อวางตำแหน่งพื้นที่เที่ยวบินของคุณ";
+
+/* Call to action to tap the icon to begin drawing a flight area. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA" = "แตะที่ไอคอนรูปมือเพื่อวาดพื้นที่บิน";
+
+/* Call to action to tap the icon to begin drawing a flight path. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH" = "แตะที่ไอคอนรูปมือเพื่อวาดเส้นทางบิน";
+
+/* Displayed when the user has drawn an invalid shaping, overlapping with conflicting permitted zones */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_OVERLAPPING_PERMIT_AREAS" = "พื้นที่ของเที่ยวบินไม่สามารถเหลื่อมกับโซนความต้องการอนุญาตที่ขัดแย้งกันได้";
+
+/* Call to action to fix self-intersecting geometries of an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_SELF_INTERSECTING_GEOMETRY" = "พื้นที่เที่ยวบินไม่ถูกต้อง ปรับพื้นที่เที่ยวบินเพื่อไม่ให้ทับซ้อนกับตัวเอง";
+
+/* The width of a path-based flight extending outward from the centerline */
+"FLIGHT_DRAWING_WIDTH" = "ความกว้าง";
+
+/* Title for the button to advance to the next screen */
+"FLIGHT_PLAN_BUTTON_TITLE_NEXT" = "ถัด ไป";
+
+/* Title for the button to save and create the flight */
+"FLIGHT_PLAN_BUTTON_TITLE_SAVE" = "บันทึก";
+
+/* Call to action title for the user to select an aircraft */
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT" = "เลือกเครื่องบิน";
+
+/* Title for the row displaying the name of the aircraft */
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT_NAME" = "อากาศยาน";
+
+/* Title for the row displaying flight plan buffer */
+"FLIGHT_PLAN_ROW_TITLE_BUFFER" = "บัฟเฟอร์";
+
+/* Title for the row displaying flight plan duration */
+"FLIGHT_PLAN_ROW_TITLE_DURATION" = "ระยะ เวลา";
+
+/* Title for the row displaying flight plan max altitude AGL (above ground level) */
+"FLIGHT_PLAN_ROW_TITLE_MAX_ALTITUDE" = "ความสูงสูงสุด AGL";
+
+/* Call to action title for the user to select a pilot profile */
+"FLIGHT_PLAN_ROW_TITLE_PILOT" = "เลือกรายละเอียดนักบิน";
+
+/* Title for the row displaying flight plan radius */
+"FLIGHT_PLAN_ROW_TITLE_RADIUS" = "รัศมี";
+
+/* Title for the row displaying flight plan start time */
+"FLIGHT_PLAN_ROW_TITLE_START_TIME" = "เริ่ม ต้น";
+
+/* Title for the section displaying the pilot and aircraft details */
+"FLIGHT_PLAN_SECTION_HEADER_ASSOCIATED" = "เครื่องบิน";
+
+/* Title for the section displaying flight plan details */
+"FLIGHT_PLAN_SECTION_HEADER_FLIGHT" = "เที่ยว บิน";
+
+/* Title for the section displaying social sharing features */
+"FLIGHT_PLAN_SECTION_HEADER_SHARE" = "แบ่งปันเที่ยวบินของฉัน";
+
+/* The request with the authority will be reviewed manually sometime after the flight plan is submitted */
+"MANUAL_AUTHORIZATION" = "การอนุมัติด้วยตนเองที่รอดำเนินการ";
+
+/* Table section title for other selectable countries */
+"PHONE_COUNTRY_SECTION_OTHER_COUNTRY" = "อื่นๆ";
+
+/* Table section title for the currently selected country */
+"PHONE_COUNTRY_SECTION_SELECTED_COUNTRY" = "ประเทศที่เลือก";
+
+/* Message that is presented after a phone verification has failed, encouraging the user to send a new code to the phone number provided */
+"PHONE_VERIFICATION_REQUEST_NEW_SMS_CODE" = "ขอรหัส SMS ใหม่";
+
+/* Message that is presented after a phone verification has failed, encouraging the user to try again */
+"PHONE_VERIFICATION_TRY_AGAIN" = "ลองอีกครั้ง";
+
+/* Message presented to a user when the SMS code they input is incorrect and verification of that code has failed */
+"PHONE_VERIFICATION_VERIFICATION_FAILED" = "การตรวจสอบหมายเลขโทรศัพท์ล้มเหลว";
+
+/* Format for displaying the given + family name of a user. 1) given name 2) family name */
+"PILOT_FULL_NAME_FORMAT" = "%1$@ %2$@";
+
+/* Table row label for FAA registration number */
+"PILOT_PROFILE_FAA_REGISTRATION" = "หมายเลขทะเบียน FAA";
+
+/* Label for the pilot profile email */
+"PILOT_PROFILE_LABEL_EMAIL" = "อีเมล";
+
+/* Label for the pilot profile first name */
+"PILOT_PROFILE_LABEL_FIRST_NAME" = "ชื่อจริง";
+
+/* Label for the pilot profile last name */
+"PILOT_PROFILE_LABEL_LAST_NAME" = "นามสกุล";
+
+/* Label for the pilot profile phone */
+"PILOT_PROFILE_LABEL_PHONE" = "โทรศัพท์";
+
+/* Label for the pilot profile username */
+"PILOT_PROFILE_LABEL_USERNAME" = "ชื่อ";
+
+/* Section header for the pilot profile additional info section */
+"PILOT_PROFILE_SECTION_ADDITIONAL" = "ข้อมูลเพิ่มเติม";
+
+/* Section header for the pilot profile personal info section */
+"PILOT_PROFILE_SECTION_PERSONAL" = "ข้อมูลส่วนบุคคล";
+
+/* Format for displaying a user's number of aircraft and flights */
+"PILOT_PROFILE_STATISTICS_FORMAT" = "%1$@ อากาศยาน %2$@ เที่ยว บิน";
+
+/* Displayed for authorities that are setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_ACCEPTS_NOTICE" = "ยอมรับการแจ้งเตือนแบบดิจิทัล";
+
+/* Displayed for authorities that are NOT setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_DOES_NOT_ACCEPT_NOTICE" = "หน่วยงานต่อไปนี้ในพื้นที่นี้ไม่ยอมรับการแจ้งเตือนแบบดิจิทัล";
+
+/* Displayed in the flight plan review notices tab when there are no notices to display */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "ไม่มีการแจ้งเตือนสำหรับเที่ยวบินนี้";
+
+/* Label for rulesets that can be optionally enabled by the user */
+"RULESET_SELECTION_TYPE_OPTIONAL" = "เสริม";
+
+/* Label for rulesets that are part of a group in which one and only one ruleset can be enabled by the user */
+"RULESET_SELECTION_TYPE_PICKONE" = "เลือกหนึ่ง";
+
+/* Label for rulesets that must be enabled by the user */
+"RULESET_SELECTION_TYPE_REQUIRED" = "ต้องระบุ";
+
+/* Description for status advisory color Green */
+"STATUS_GREEN_DESCRIPTION" = "ข้อมูล";
+
+/* Description for status advisory color Orange */
+"STATUS_ORANGE_DESCRIPTION" = "ต้องการการดำเนินการ";
+
+/* Description for status advisory color Red */
+"STATUS_RED_DESCRIPTION" = "การควบคุมเที่ยวบินอย่างเคร่งครัด";
+
+/* Description for status advisory color Yellow */
+"STATUS_YELLOW_DESCRIPTION" = "คำ แนะ นำ";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "จราจร %1$@\nAltitude %2$@\n%3$@ %4$@ %5$@";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "จราจร %1$@\nAltitude %2$@\n%3$@";
+
+/* Name for the imperial system of measurement */
+"UNITS_IMPERIAL" = "อิม พี เรี ยล";
+
+/* Name for the metric system of measurement */
+"UNITS_METRIC" = "เมตริก";
+
+/* Unit and format for displaying nautical miles */
+"UNITS_NAUTICAL_MILE_FORMAT" = "%@ Nm";
+
+/* Unit and format for displaying speed in knots */
+"UNITS_SPEED_FORMAT_KNOTS" = "%@ kts";
+
+/* Unit and format for displaying speed in meters per second */
+"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "%@ m/s";
+
+/* Unit and format for displaying speed in miles per hour */
+"UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "%@ ไมล์";
+
+/* Unit and format for displaying a speed range in meters per second */
+"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "%1$@-%2$@ m/s";
+
+/* Unit and format for displaying a speed range in miles per hour */
+"UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "%1$@-%2$@ ไมล์";
+
+/* Unit and format for displaying temperature in Celcius */
+"UNITS_TEMPERATURE_CELCIUS_FORMAT" = "%1$@° c";
+
+/* Unit and format for displaying temperature in Fahrenheit */
+"UNITS_TEMPERATURE_FAHRENHEIT_FORMAT" = "%1$@° f";
+
+/* The request with the authority has been accepted */
+"VALIDATION_ACCEPTED" = "ตรวจ สอบ";
+
+/* No validation request has been filed */
+"VALIDATION_NOT_REQUESTED" = "ไม่มีการร้องขอการตรวจสอบ";
+
+/* The request with the authority has been made and a response is pending */
+"VALIDATION_PENDING" = "การตรวจสอบที่ค้างอยู่";
+
+/* The request with the authority has been rejected */
+"VALIDATION_REJECTED" = "ข้อมูลที่ขาดหายไป";

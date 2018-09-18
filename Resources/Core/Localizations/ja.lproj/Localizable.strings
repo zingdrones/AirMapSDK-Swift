@@ -238,6 +238,12 @@
 /* Abbreviation for West South West */
 "CARDINAL_DIRECTION_WSW" = "西南西";
 
+/* Request cancelled error */
+"ERROR_CANCELLED" = "完了前にリクエストがキャンセルされました";
+
+/* A conflict exists with the attempted request */
+"ERROR_CONFLICT" = "コンフリクトが存在します";
+
 /* A generic server error message with an associated error code */
 "ERROR_GENERIC_FORMAT" = "サーバーエラーが発生しました。(%@)";
 
@@ -447,4 +453,3 @@
 
 /* The request with the authority has been rejected */
 "VALIDATION_REJECTED" = "却下";
-

@@ -152,6 +152,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4CD4232D21502AB000F5A851 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4CD4232E21502AB000F5A851 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AirMapUI.strings; sourceTree = "<group>"; };
+		4CD4232F21502AB800F5A851 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4CD4233021502AB800F5A851 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AirMapUI.strings; sourceTree = "<group>"; };
+		4CD4233321502AC400F5A851 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4CD4233421502AC400F5A851 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/AirMapUI.strings; sourceTree = "<group>"; };
+		4CD4233521502AC900F5A851 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4CD4233621502ACA00F5A851 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AirMapUI.strings; sourceTree = "<group>"; };
+		4CD4233721502B9700F5A851 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4CD4233821502B9700F5A851 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/AirMapUI.strings; sourceTree = "<group>"; };
+		4CD4233921502BB200F5A851 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4CD4233A21502BB200F5A851 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/AirMapUI.strings; sourceTree = "<group>"; };
+		4CD4233B21502BD800F5A851 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4CD4233C21502BD800F5A851 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/AirMapUI.strings; sourceTree = "<group>"; };
+		4CD4234821504FCA00F5A851 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4CD4234921504FCA00F5A851 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AirMapUI.strings"; sourceTree = "<group>"; };
+		4CD4234A2150511D00F5A851 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4CD4234B2150511D00F5A851 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/AirMapUI.strings"; sourceTree = "<group>"; };
+		4CDBFCF8215167B500F14620 /* pl-PL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pl-PL"; path = "pl-PL.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		4CDBFCF9215167B500F14620 /* pl-PL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pl-PL"; path = "pl-PL.lproj/AirMapUI.strings"; sourceTree = "<group>"; };
 		9101AE5A20DA5A1A00376C1A /* AirMapTrafficProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapTrafficProperties.swift; sourceTree = "<group>"; };
 		9101AE5B20DA5A1A00376C1A /* CLLocation+AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocation+AirMap.swift"; sourceTree = "<group>"; };
 		9101AE5C20DA5A1A00376C1A /* TrafficClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficClient.swift; sourceTree = "<group>"; };
@@ -266,7 +286,6 @@
 		9101AEE420DA5A1A00376C1A /* GeneratedMessage+AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GeneratedMessage+AirMap.swift"; sourceTree = "<group>"; };
 		9101AEE520DA5A1A00376C1A /* NSData+AirMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+AirMap.swift"; sourceTree = "<group>"; };
 		9101AEE620DA5A1A00376C1A /* CommKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommKey.swift; sourceTree = "<group>"; };
-		9101AF6320DA5A2300376C1A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AirMapUI.strings; sourceTree = "<group>"; };
 		9101AF6420DA5A2300376C1A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AirMapUI.strings; sourceTree = "<group>"; };
 		9101AF6520DA5A2300376C1A /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/AirMapUI.strings; sourceTree = "<group>"; };
 		9101AF6720DA5A2300376C1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AirMapUI.storyboard; sourceTree = "<group>"; };
@@ -807,8 +826,17 @@
 				en,
 				ja,
 				Base,
-				de,
 				cs,
+				fr,
+				de,
+				it,
+				es,
+				hi,
+				th,
+				sv,
+				"zh-Hans",
+				"nb-NO",
+				"pl-PL",
 			);
 			mainGroup = 91532C442003F18600A45481;
 			productRefGroup = 91532C4F2003F18600A45481 /* Products */;
@@ -966,9 +994,18 @@
 		9101AF6220DA5A2300376C1A /* AirMapUI.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9101AF6320DA5A2300376C1A /* de */,
 				9101AF6420DA5A2300376C1A /* ja */,
 				9101AF6520DA5A2300376C1A /* cs */,
+				4CD4232E21502AB000F5A851 /* fr */,
+				4CD4233021502AB800F5A851 /* de */,
+				4CD4233421502AC400F5A851 /* it */,
+				4CD4233621502ACA00F5A851 /* es */,
+				4CD4233821502B9700F5A851 /* hi */,
+				4CD4233A21502BB200F5A851 /* th */,
+				4CD4233C21502BD800F5A851 /* sv */,
+				4CD4234921504FCA00F5A851 /* zh-Hans */,
+				4CD4234B2150511D00F5A851 /* nb-NO */,
+				4CDBFCF9215167B500F14620 /* pl-PL */,
 			);
 			name = AirMapUI.strings;
 			sourceTree = "<group>";
@@ -987,6 +1024,16 @@
 				9101AF6D20DA5A2300376C1A /* ja */,
 				9101AF6E20DA5A2300376C1A /* en */,
 				9101AF6F20DA5A2300376C1A /* cs */,
+				4CD4232D21502AB000F5A851 /* fr */,
+				4CD4232F21502AB800F5A851 /* de */,
+				4CD4233321502AC400F5A851 /* it */,
+				4CD4233521502AC900F5A851 /* es */,
+				4CD4233721502B9700F5A851 /* hi */,
+				4CD4233921502BB200F5A851 /* th */,
+				4CD4233B21502BD800F5A851 /* sv */,
+				4CD4234821504FCA00F5A851 /* zh-Hans */,
+				4CD4234A2150511D00F5A851 /* nb-NO */,
+				4CDBFCF8215167B500F14620 /* pl-PL */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

@@ -1,0 +1,455 @@
+/* Label for advisories that are stup to receive digital notice */
+"ADVISORY_ACCEPTS_DIGITAL_NOTICE" = "يقبل الاشعار الرقمي";
+
+/* Displayed when an advisory has not provided a contact phone */
+"ADVISORY_PHONE_NOT_PROVIDED" = "لم يتم توفير رقم الهاتف";
+
+/* Label and format for displaying the end time of temporary flight restriction */
+"ADVISORY_TFR_ENDS_FORMAT" = "ينتهي: %1$@";
+
+/* Never ending duration for a TFR */
+"ADVISORY_TFR_PERMANENT" = "الدائم";
+
+/* Label and format for displaying the start time of temporary flight restriction */
+"ADVISORY_TFR_STARTS_FORMAT" = "يبدا: %1$@";
+
+/* Format and unit for wildfire advisory in the area unit acres */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_ACRES" = "%1$@ فدان";
+
+/* Format and unit for wildfire advisory in the area unit hectares */
+"ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES" = "%1$@ هكتار";
+
+/* Label for wildfire advisory cells where size is unknown */
+"ADVISORY_WILDFIRE_SIZE_UNKNOWN" = "حجم غير معروف";
+
+/* Call to action when a user has not selected an aircraft */
+"AIRCRAFT_SELECT_AIRCRAFT" = "اختر الطائرة";
+
+/* Title to display for the view creating a new aircraft */
+"AIRCRAFT_TITLE_CREATE_NEW" = "إنشاء الطائرات";
+
+/* Title to display for the view when updating an existing aircraft */
+"AIRCRAFT_TITLE_UPDATE_EXISTING" = "تحديث الطائرات";
+
+/* Name for airspace type Aerial Recreational Area */
+"AIRSPACE_TYPE_AERIAL_REC_AREA" = "المنطقة الترفيهية الجوية";
+
+/* Name for airspace type Airport */
+"AIRSPACE_TYPE_AIRPORT" = "المطار";
+
+/* Name for airspace type AMA Field (Academy of Model Aeronautics) */
+"AIRSPACE_TYPE_AMA_FIELD" = "حقل AMA";
+
+/* Name for airspace type City */
+"AIRSPACE_TYPE_CITY" = "المدينه";
+
+/* Name for airspace type Controlled Airspace */
+"AIRSPACE_TYPE_CONTROLLED" = "المجال الجوي الخاضع للرقابة";
+
+/* Name for airspace type Country */
+"AIRSPACE_TYPE_COUNTRY" = "البلد";
+
+/* Name for airspace type County */
+"AIRSPACE_TYPE_COUNTY" = "مقاطعه";
+
+/* Name for airspace type Custom */
+"AIRSPACE_TYPE_CUSTOM" = "المخصصه";
+
+/* Name for airspace type Embassy */
+"AIRSPACE_TYPE_EMBASSY" = "السفاره";
+
+/* Name for airspace type Emergency */
+"AIRSPACE_TYPE_EMERGENCY" = "نشاط المستجيب الأول";
+
+/* Name for airspace type Federal Building */
+"AIRSPACE_TYPE_FEDERAL_BUILDING" = "المبني الاتحادي";
+
+/* Name for airspace type Flight Information Region */
+"AIRSPACE_TYPE_FIR" = "منطقه معلومات الطيران";
+
+/* Name for airspace type Fire */
+"AIRSPACE_TYPE_FIRE" = "النار";
+
+/* Name for airspace type Gliderport */
+"AIRSPACE_TYPE_GLIDERPORT" = "غليدربورت";
+
+/* Name for airspace type Hazard Area */
+"AIRSPACE_TYPE_HAZARD_AREA" = "منطقه الخطر";
+
+/* Name for airspace type Heliport */
+"AIRSPACE_TYPE_HELIPORT" = "مهبط";
+
+/* Name for airspace type Highway */
+"AIRSPACE_TYPE_HIGHWAY" = "الطريق السريع";
+
+/* Name for airspace type Hospital */
+"AIRSPACE_TYPE_HOSPITAL" = "المستشفي";
+
+/* Name for airspace type Industrial Property */
+"AIRSPACE_TYPE_INDUSTRIAL_PROPERTY" = "الملكية الصناعية";
+
+/* Name for airspace type Japan Base Admin (Smallest unit of Japanse administrative units) */
+"AIRSPACE_TYPE_JAPAN_BASE" = "اليابان قاعده الاداريه";
+
+/* Name for airspace type Military Property */
+"AIRSPACE_TYPE_MILITARY_PROPERTY" = "الممتلكات العسكرية";
+
+/* Name for airspace type National Park */
+"AIRSPACE_TYPE_NATIONAL_PARK" = "الحديقة الوطنية";
+
+/* Name for airspace type NOTAM */
+"AIRSPACE_TYPE_NOTAM" = "NOTAM";
+
+/* Name for airspace type Police Station */
+"AIRSPACE_TYPE_POLICE_STATION" = "مركز الشرطة";
+
+/* Name for airspace type Powerline */
+"AIRSPACE_TYPE_POWERLINE" = "باورلاين";
+
+/* Name for airspace type Power Plant */
+"AIRSPACE_TYPE_POWER_PLANT" = "محطه الطاقة";
+
+/* Name for airspace type Prison */
+"AIRSPACE_TYPE_PRISON" = "السجن";
+
+/* Name for airspace type Railway */
+"AIRSPACE_TYPE_RAILWAY" = "السكك الحديديه";
+
+/* Name for airspace type Residential Property */
+"AIRSPACE_TYPE_RESIDENTIAL_PROPERTY" = "العقارات السكنية";
+
+/* Name for airspace type School */
+"AIRSPACE_TYPE_SCHOOL" = "المدرسه";
+
+/* Name for airspace type Seaplane Base */
+"AIRSPACE_TYPE_SEAPLANE_BASE" = "قاعده الطائرة المائية";
+
+/* Name for airspace type Special Use Airspace */
+"AIRSPACE_TYPE_SPECIAL_USE" = "الاستخدام الخاص المجال الجوي";
+
+/* Name for airspace type Stadium */
+"AIRSPACE_TYPE_STADIUM" = "ملعب";
+
+/* Name for airspace type State */
+"AIRSPACE_TYPE_STATE" = "الدوله";
+
+/* Name for airspace type Subprefecture */
+"AIRSPACE_TYPE_SUBPREFECTURE" = "محافظه";
+
+/* Name for airspace type Supercity (Japan related) */
+"AIRSPACE_TYPE_SUPERCITY" = "Supercity";
+
+/* Name for airspace type FAA Temporary Flight Restriction */
+"AIRSPACE_TYPE_TFR_FAA" = "تقييد الرحلة المؤقتة";
+
+/* Name for airspace type Ultralight Field */
+"AIRSPACE_TYPE_ULM_FIELD" = "[اولترليغت] مجال";
+
+/* Generic catchall placeholder/name for airspace type is new and unknown at time of development but present via the advisories or map sources */
+"AIRSPACE_TYPE_UNCLASSIFIED" = "غير مصنف";
+
+/* Name for airspace type University */
+"AIRSPACE_TYPE_UNIVERSITY" = "جامعه";
+
+/* Name for airspace type Waterway */
+"AIRSPACE_TYPE_WATERWAY" = "الممر المائي";
+
+/* Name for airspace type WildFire */
+"AIRSPACE_TYPE_WILDFIRE" = "الهشيم";
+
+/* The request with the authority has been accepted */
+"AUTHORIZATION_ACCEPTED" = "وافقت";
+
+/* The request with the authority has been cancelled */
+"AUTHORIZATION_CANCELLED_SUBMISSION" = "تم إلغاء التخويل";
+
+/* The request with the authority has not been requested */
+"AUTHORIZATION_NOT_REQUESTED" = "التخويل غير مطلوب";
+
+/* The request with the authority has been made and a response is pending */
+"AUTHORIZATION_PENDING" = "الاذن المعلق";
+
+/* The request with the authority has been rejected */
+"AUTHORIZATION_REJECTED" = "تم رفض التخويل";
+
+/* The request with the authority will be rejected once the flight plan is submitted */
+"AUTHORIZATION_REJECTED_UPON_SUBMISSION" = "رفض عند التقديم";
+
+/* The request with the authority will be accepted once the flight plan is submitted */
+"AUTHORIZATION_UPON_SUBMISSION" = "التفويض عند التقديم";
+
+/* Login message when a user's account has been blacklisted. */
+"AUTH_ERROR_ACCOUNT_BLACKLISTED" = "تمت اللائحة السوداء لحسابك. يرجى الاتصال security@airmap.com";
+
+/* Login message when a user must verify their email address */
+"AUTH_ERROR_EMAIL_NEEDS_VERIFICATION_REQUIRED" = "يجب التحقق من عنوان البريد الكتروني الخاص بك. الرجاء التحقق من البريد الوارد.";
+
+/* Login message when a user failed to authenticate */
+"AUTH_ERROR_UNAUTHORIZED" = "غير المصرح به";
+
+/* Navigation title for failed login attempt */
+"AUTH_FAILED_LOGIN_TITLE" = "تنبيه";
+
+/* Abbreviation for East */
+"CARDINAL_DIRECTION_E" = "ه";
+
+/* Abbreviation for East North East */
+"CARDINAL_DIRECTION_ENE" = "شرق";
+
+/* Abbreviation for East South East */
+"CARDINAL_DIRECTION_ESE" = "Ese";
+
+/* Abbreviation for North */
+"CARDINAL_DIRECTION_N" = "ن";
+
+/* Abbreviation for North East */
+"CARDINAL_DIRECTION_NE" = "ني";
+
+/* Abbreviation for North North East */
+"CARDINAL_DIRECTION_NNNE" = "جنوب";
+
+/* Abbreviation for North North West */
+"CARDINAL_DIRECTION_NNW" = "Nnw";
+
+/* Abbreviation for North West */
+"CARDINAL_DIRECTION_NW" = "Nw";
+
+/* Abbreviation for South */
+"CARDINAL_DIRECTION_S" = "S";
+
+/* Abbreviation for South East */
+"CARDINAL_DIRECTION_SE" = "حد ذاته";
+
+/* Abbreviation for South South East */
+"CARDINAL_DIRECTION_SSE" = "Sse";
+
+/* Abbreviation for South South West */
+"CARDINAL_DIRECTION_SSW" = "جنوب";
+
+/* Abbreviation for South West */
+"CARDINAL_DIRECTION_SW" = "Sw";
+
+/* Abbreviation for West */
+"CARDINAL_DIRECTION_W" = "ث";
+
+/* Abbreviation for West North West */
+"CARDINAL_DIRECTION_WNW" = "Wnw";
+
+/* Abbreviation for West South West */
+"CARDINAL_DIRECTION_WSW" = "غرب";
+
+/* Request cancelled error */
+"ERROR_CANCELLED" = "تم إلغاء الطلب قبل الانتهاء منه";
+
+/* A conflict exists with the attempted request */
+"ERROR_CONFLICT" = "يوجد تعارض";
+
+/* A generic server error message with an associated error code */
+"ERROR_GENERIC_FORMAT" = "ارجع الملقم خطا. (%@)";
+
+/* Response serialization failure error */
+"ERROR_SERIALIZATION" = "ارجع الملقم استجابه غير قابله للمعالجة.";
+
+/* Server failure error */
+"ERROR_SERVER" = "تعذر علي الملقم إكمال الطلب.";
+
+/* Authorization failure error */
+"ERROR_UNAUTHORIZED" = "غير المصرح به. الرجاء التحقق من بيانات اعتماد تسجيل الدخول.";
+
+/* The radius around a point-based flight's center */
+"FLIGHT_DRAWING_RADIUS" = "Radius";
+
+/* Call to action to fine-tune the geometry of a flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_MODIFY_GEOMETRY" = "اسحب اي نقطه للتحرك. اسحب اي نقطه وسط لأضافه نقاط جديده.";
+
+/* Call to action to drag a point to the trash to delete. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAG_TO_TRASH_TO_DELETE" = "اسحب النقطة إلى المهملات لحذفها";
+
+/* Call to action to draw an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_AREA" = "رسم منطقه الطيران";
+
+/* Call to action to draw a path-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_DRAW_FREEHAND_PATH" = "رسم مسار الرحلة";
+
+/* Call to action to drag the center position of a point-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_POSTIION_POINT" = "اسحب نقطه الوسط لوضع منطقه الرحلة.";
+
+/* Call to action to tap the icon to begin drawing a flight area. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_AREA" = "انقر علي أيقونه اليد لرسم منطقه الطيران.";
+
+/* Call to action to tap the icon to begin drawing a flight path. */
+"FLIGHT_DRAWING_TOOLTIP_CTA_TAP_ICON_TO_DRAW_PATH" = "انقر علي أيقونه اليد لرسم مسار الرحلة.";
+
+/* Displayed when the user has drawn an invalid shaping, overlapping with conflicting permitted zones */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_OVERLAPPING_PERMIT_AREAS" = "لا يمكن تراكب منطقه الطيران مع مناطق متطلبات الترخيص المتعارضة.";
+
+/* Call to action to fix self-intersecting geometries of an area-based flight. */
+"FLIGHT_DRAWING_TOOLTIP_ERROR_SELF_INTERSECTING_GEOMETRY" = "منطقه طيران غير صالحه. ضبط منطقه الطيران بحيث لا تتداخل مع نفسها.";
+
+/* The width of a path-based flight extending outward from the centerline */
+"FLIGHT_DRAWING_WIDTH" = "عرض";
+
+/* Title for the button to advance to the next screen */
+"FLIGHT_PLAN_BUTTON_TITLE_NEXT" = "التالي";
+
+/* Title for the button to save and create the flight */
+"FLIGHT_PLAN_BUTTON_TITLE_SAVE" = "حفظ";
+
+/* Call to action title for the user to select an aircraft */
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT" = "اختر الطائرة";
+
+/* Title for the row displaying the name of the aircraft */
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT_NAME" = "الطائرات";
+
+/* Title for the row displaying flight plan buffer */
+"FLIGHT_PLAN_ROW_TITLE_BUFFER" = "المخزن المؤقت";
+
+/* Title for the row displaying flight plan duration */
+"FLIGHT_PLAN_ROW_TITLE_DURATION" = "مده";
+
+/* Title for the row displaying flight plan max altitude AGL (above ground level) */
+"FLIGHT_PLAN_ROW_TITLE_MAX_ALTITUDE" = "الارتفاع الأقصى agl";
+
+/* Call to action title for the user to select a pilot profile */
+"FLIGHT_PLAN_ROW_TITLE_PILOT" = "تحديد التشكيل الجانبي التجريبي";
+
+/* Title for the row displaying flight plan radius */
+"FLIGHT_PLAN_ROW_TITLE_RADIUS" = "Radius";
+
+/* Title for the row displaying flight plan start time */
+"FLIGHT_PLAN_ROW_TITLE_START_TIME" = "يبدا";
+
+/* Title for the section displaying the pilot and aircraft details */
+"FLIGHT_PLAN_SECTION_HEADER_ASSOCIATED" = "الطيار والطائرات";
+
+/* Title for the section displaying flight plan details */
+"FLIGHT_PLAN_SECTION_HEADER_FLIGHT" = "الرحله";
+
+/* Title for the section displaying social sharing features */
+"FLIGHT_PLAN_SECTION_HEADER_SHARE" = "حصة رحلتي";
+
+/* The request with the authority will be reviewed manually sometime after the flight plan is submitted */
+"MANUAL_AUTHORIZATION" = "التفويض اليدوي في انتظار الإرسال";
+
+/* Table section title for other selectable countries */
+"PHONE_COUNTRY_SECTION_OTHER_COUNTRY" = "الاخري";
+
+/* Table section title for the currently selected country */
+"PHONE_COUNTRY_SECTION_SELECTED_COUNTRY" = "بلد مختار";
+
+/* Message that is presented after a phone verification has failed, encouraging the user to send a new code to the phone number provided */
+"PHONE_VERIFICATION_REQUEST_NEW_SMS_CODE" = "طلب رمز جديد للرسائل القصيرة";
+
+/* Message that is presented after a phone verification has failed, encouraging the user to try again */
+"PHONE_VERIFICATION_TRY_AGAIN" = "حاول مرة أخرى";
+
+/* Message presented to a user when the SMS code they input is incorrect and verification of that code has failed */
+"PHONE_VERIFICATION_VERIFICATION_FAILED" = "فشل التحقق من رقم الهاتف";
+
+/* Format for displaying the given + family name of a user. 1) given name 2) family name */
+"PILOT_FULL_NAME_FORMAT" = "%1$@ %2$@";
+
+/* Table row label for FAA registration number */
+"PILOT_PROFILE_FAA_REGISTRATION" = "رقم تسجيل الطيران الفيدرالي";
+
+/* Label for the pilot profile email */
+"PILOT_PROFILE_LABEL_EMAIL" = "البريد الالكتروني";
+
+/* Label for the pilot profile first name */
+"PILOT_PROFILE_LABEL_FIRST_NAME" = "الاسم الأول";
+
+/* Label for the pilot profile last name */
+"PILOT_PROFILE_LABEL_LAST_NAME" = "الاسم الأخير";
+
+/* Label for the pilot profile phone */
+"PILOT_PROFILE_LABEL_PHONE" = "الهاتف";
+
+/* Label for the pilot profile username */
+"PILOT_PROFILE_LABEL_USERNAME" = "المستخدم";
+
+/* Section header for the pilot profile additional info section */
+"PILOT_PROFILE_SECTION_ADDITIONAL" = "معلومات اضافيه";
+
+/* Section header for the pilot profile personal info section */
+"PILOT_PROFILE_SECTION_PERSONAL" = "معلومات شخصيه";
+
+/* Format for displaying a user's number of aircraft and flights */
+"PILOT_PROFILE_STATISTICS_FORMAT" = "%1$@ الطائرات %2$@ رحلات";
+
+/* Displayed for authorities that are setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_ACCEPTS_NOTICE" = "يقبل الاشعار الرقمي";
+
+/* Displayed for authorities that are NOT setup to receive digital notice */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_DOES_NOT_ACCEPT_NOTICE" = "السلطات التالية في هذا المجال لا تقبل الاشعار الرقمي";
+
+/* Displayed in the flight plan review notices tab when there are no notices to display */
+"REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "لا توجد إشعارات لهذه الرحلة.";
+
+/* Label for rulesets that can be optionally enabled by the user */
+"RULESET_SELECTION_TYPE_OPTIONAL" = "الاختياري";
+
+/* Label for rulesets that are part of a group in which one and only one ruleset can be enabled by the user */
+"RULESET_SELECTION_TYPE_PICKONE" = "اختيار واحد";
+
+/* Label for rulesets that must be enabled by the user */
+"RULESET_SELECTION_TYPE_REQUIRED" = "مطلوب";
+
+/* Description for status advisory color Green */
+"STATUS_GREEN_DESCRIPTION" = "اعلاميه";
+
+/* Description for status advisory color Orange */
+"STATUS_ORANGE_DESCRIPTION" = "الاجراء المطلوب";
+
+/* Description for status advisory color Red */
+"STATUS_RED_DESCRIPTION" = "تنظيم الرحلات بصرامة";
+
+/* Description for status advisory color Yellow */
+"STATUS_YELLOW_DESCRIPTION" = "نصائح";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "حركه المرور %1$@الارتفاع %2$@\n%3$@ %4$@ %5$@";
+
+/* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed */
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "حركه المرور %1$@الارتفاع %2$@\n%3$@";
+
+/* Name for the imperial system of measurement */
+"UNITS_IMPERIAL" = "الامبراطوريه";
+
+/* Name for the metric system of measurement */
+"UNITS_METRIC" = "متري";
+
+/* Unit and format for displaying nautical miles */
+"UNITS_NAUTICAL_MILE_FORMAT" = "%@ نانومتر";
+
+/* Unit and format for displaying speed in knots */
+"UNITS_SPEED_FORMAT_KNOTS" = "%@ kts";
+
+/* Unit and format for displaying speed in meters per second */
+"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "%@ م/ث";
+
+/* Unit and format for displaying speed in miles per hour */
+"UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "%@ Mph";
+
+/* Unit and format for displaying a speed range in meters per second */
+"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "%1$@-%2$@ م/ث";
+
+/* Unit and format for displaying a speed range in miles per hour */
+"UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "%1$@-%2$@ Mph";
+
+/* Unit and format for displaying temperature in Celcius */
+"UNITS_TEMPERATURE_CELCIUS_FORMAT" = "%1$@°مئويه";
+
+/* Unit and format for displaying temperature in Fahrenheit */
+"UNITS_TEMPERATURE_FAHRENHEIT_FORMAT" = "%1$@°f";
+
+/* The request with the authority has been accepted */
+"VALIDATION_ACCEPTED" = "التحقق";
+
+/* No validation request has been filed */
+"VALIDATION_NOT_REQUESTED" = "لم يتم طلب التحقق من الصحة";
+
+/* The request with the authority has been made and a response is pending */
+"VALIDATION_PENDING" = "التحقق من الصحة معلق";
+
+/* The request with the authority has been rejected */
+"VALIDATION_REJECTED" = "معلومات مفقوده مرفوضة";

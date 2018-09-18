@@ -238,6 +238,12 @@
 /* Abbreviation for West South West */
 "CARDINAL_DIRECTION_WSW" = "WSW";
 
+/* Request cancelled error */
+"ERROR_CANCELLED" = "Žádost byla zrušena dříve než mohla být dokončena";
+
+/* A conflict exists with the attempted request */
+"ERROR_CONFLICT" = "Existující konflikt";
+
 /* A generic server error message with an associated error code */
 "ERROR_GENERIC_FORMAT" = "Chyba serveru. (%@)";
 
@@ -339,6 +345,9 @@
 
 /* Message presented to a user when the SMS code they input is incorrect and verification of that code has failed */
 "PHONE_VERIFICATION_VERIFICATION_FAILED" = "Ověření telefonního čísla selhalo";
+
+/* Format for displaying the given + family name of a user. 1) given name 2) family name */
+"PILOT_FULL_NAME_FORMAT" = "%1$@ %2$@";
 
 /* Table row label for FAA registration number */
 "PILOT_PROFILE_FAA_REGISTRATION" = "Registrační značka od CAA";
@@ -444,4 +453,3 @@
 
 /* The request with the authority has been rejected */
 "VALIDATION_REJECTED" = "Odmítnutí chybějících informací";
-
