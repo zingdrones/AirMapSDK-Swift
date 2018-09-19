@@ -20,13 +20,13 @@
 "ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES" = "%1$@ 公顷";
 
 /* Label for wildfire advisory cells where size is unknown */
-"ADVISORY_WILDFIRE_SIZE_UNKNOWN" = "大小未知";
+"ADVISORY_WILDFIRE_SIZE_UNKNOWN" = "山火大小未知";
 
 /* Call to action when a user has not selected an aircraft */
 "AIRCRAFT_SELECT_AIRCRAFT" = "选择飞机";
 
 /* Title to display for the view creating a new aircraft */
-"AIRCRAFT_TITLE_CREATE_NEW" = "创建飞机";
+"AIRCRAFT_TITLE_CREATE_NEW" = "创建无人机";
 
 /* Title to display for the view when updating an existing aircraft */
 "AIRCRAFT_TITLE_UPDATE_EXISTING" = "更新飞机";
@@ -44,7 +44,7 @@
 "AIRSPACE_TYPE_CITY" = "城市";
 
 /* Name for airspace type Controlled Airspace */
-"AIRSPACE_TYPE_CONTROLLED" = "受控空域";
+"AIRSPACE_TYPE_CONTROLLED" = "管制空域";
 
 /* Name for airspace type Country */
 "AIRSPACE_TYPE_COUNTRY" = "国家";
@@ -53,13 +53,13 @@
 "AIRSPACE_TYPE_COUNTY" = "县";
 
 /* Name for airspace type Custom */
-"AIRSPACE_TYPE_CUSTOM" = "自 定义";
+"AIRSPACE_TYPE_CUSTOM" = "自定义";
 
 /* Name for airspace type Embassy */
 "AIRSPACE_TYPE_EMBASSY" = "大使馆";
 
 /* Name for airspace type Emergency */
-"AIRSPACE_TYPE_EMERGENCY" = "第一个响应方活动";
+"AIRSPACE_TYPE_EMERGENCY" = "紧急救援人员活动";
 
 /* Name for airspace type Federal Building */
 "AIRSPACE_TYPE_FEDERAL_BUILDING" = "联邦大厦";
@@ -68,7 +68,7 @@
 "AIRSPACE_TYPE_FIR" = "飞行信息区域";
 
 /* Name for airspace type Fire */
-"AIRSPACE_TYPE_FIRE" = "火";
+"AIRSPACE_TYPE_FIRE" = "火灾";
 
 /* Name for airspace type Gliderport */
 "AIRSPACE_TYPE_GLIDERPORT" = "Gliderport";
@@ -80,7 +80,7 @@
 "AIRSPACE_TYPE_HELIPORT" = "停机坪";
 
 /* Name for airspace type Highway */
-"AIRSPACE_TYPE_HIGHWAY" = "公路";
+"AIRSPACE_TYPE_HIGHWAY" = "高速公路";
 
 /* Name for airspace type Hospital */
 "AIRSPACE_TYPE_HOSPITAL" = "医院";
@@ -92,7 +92,7 @@
 "AIRSPACE_TYPE_JAPAN_BASE" = "日本基地管理";
 
 /* Name for airspace type Military Property */
-"AIRSPACE_TYPE_MILITARY_PROPERTY" = "军事财产";
+"AIRSPACE_TYPE_MILITARY_PROPERTY" = "军事基地";
 
 /* Name for airspace type National Park */
 "AIRSPACE_TYPE_NATIONAL_PARK" = "国家公园";
@@ -101,7 +101,7 @@
 "AIRSPACE_TYPE_NOTAM" = "NOTAM";
 
 /* Name for airspace type Police Station */
-"AIRSPACE_TYPE_POLICE_STATION" = "警察局";
+"AIRSPACE_TYPE_POLICE_STATION" = "公安局";
 
 /* Name for airspace type Powerline */
 "AIRSPACE_TYPE_POWERLINE" = "电力线";
@@ -140,7 +140,7 @@
 "AIRSPACE_TYPE_SUPERCITY" = "超级城市";
 
 /* Name for airspace type FAA Temporary Flight Restriction */
-"AIRSPACE_TYPE_TFR_FAA" = "临时航班限制";
+"AIRSPACE_TYPE_TFR_FAA" = "临时飞行限制";
 
 /* Name for airspace type Ultralight Field */
 "AIRSPACE_TYPE_ULM_FIELD" = "超轻型领域";
@@ -158,25 +158,25 @@
 "AIRSPACE_TYPE_WILDFIRE" = "野火";
 
 /* The request with the authority has been accepted */
-"AUTHORIZATION_ACCEPTED" = "批准";
+"AUTHORIZATION_ACCEPTED" = "申请批准了";
 
 /* The request with the authority has been cancelled */
-"AUTHORIZATION_CANCELLED_SUBMISSION" = "授权已取消";
+"AUTHORIZATION_CANCELLED_SUBMISSION" = "申请已取消";
 
 /* The request with the authority has not been requested */
-"AUTHORIZATION_NOT_REQUESTED" = "未请求授权";
+"AUTHORIZATION_NOT_REQUESTED" = "未请求申请";
 
 /* The request with the authority has been made and a response is pending */
-"AUTHORIZATION_PENDING" = "授权待定";
+"AUTHORIZATION_PENDING" = "申请待定";
 
 /* The request with the authority has been rejected */
-"AUTHORIZATION_REJECTED" = "拒绝授权";
+"AUTHORIZATION_REJECTED" = "申请拒绝了";
 
 /* The request with the authority will be rejected once the flight plan is submitted */
-"AUTHORIZATION_REJECTED_UPON_SUBMISSION" = "提交后被拒绝";
+"AUTHORIZATION_REJECTED_UPON_SUBMISSION" = "提交后会被自动拒绝";
 
 /* The request with the authority will be accepted once the flight plan is submitted */
-"AUTHORIZATION_UPON_SUBMISSION" = "提交后的授权";
+"AUTHORIZATION_UPON_SUBMISSION" = "提交后会被自动批准";
 
 /* Login message when a user's account has been blacklisted. */
 "AUTH_ERROR_ACCOUNT_BLACKLISTED" = "你的帐号被列入黑名单了。请联系 security@airmap.com security@airmap";
@@ -185,7 +185,7 @@
 "AUTH_ERROR_EMAIL_NEEDS_VERIFICATION_REQUIRED" = "您的电子邮件地址需要验证。请检查您的收件箱。";
 
 /* Login message when a user failed to authenticate */
-"AUTH_ERROR_UNAUTHORIZED" = "未经 授权";
+"AUTH_ERROR_UNAUTHORIZED" = "未经申请";
 
 /* Navigation title for failed login attempt */
 "AUTH_FAILED_LOGIN_TITLE" = "警报";
@@ -194,16 +194,16 @@
 "CARDINAL_DIRECTION_E" = "电子邮件";
 
 /* Abbreviation for East North East */
-"CARDINAL_DIRECTION_ENE" = "烯";
+"CARDINAL_DIRECTION_ENE" = "ENE";
 
 /* Abbreviation for East South East */
-"CARDINAL_DIRECTION_ESE" = "Ese";
+"CARDINAL_DIRECTION_ESE" = "ESE";
 
 /* Abbreviation for North */
 "CARDINAL_DIRECTION_N" = "N";
 
 /* Abbreviation for North East */
-"CARDINAL_DIRECTION_NE" = "氖";
+"CARDINAL_DIRECTION_NE" = "NE";
 
 /* Abbreviation for North North East */
 "CARDINAL_DIRECTION_NNNE" = "NNE";
@@ -212,28 +212,28 @@
 "CARDINAL_DIRECTION_NNW" = "NNW";
 
 /* Abbreviation for North West */
-"CARDINAL_DIRECTION_NW" = "西北";
+"CARDINAL_DIRECTION_NW" = "NW";
 
 /* Abbreviation for South */
 "CARDINAL_DIRECTION_S" = "S";
 
 /* Abbreviation for South East */
-"CARDINAL_DIRECTION_SE" = "硒";
+"CARDINAL_DIRECTION_SE" = "SE";
 
 /* Abbreviation for South South East */
-"CARDINAL_DIRECTION_SSE" = "Sse";
+"CARDINAL_DIRECTION_SSE" = "SSE";
 
 /* Abbreviation for South South West */
 "CARDINAL_DIRECTION_SSW" = "SSW";
 
 /* Abbreviation for South West */
-"CARDINAL_DIRECTION_SW" = "西 南部";
+"CARDINAL_DIRECTION_SW" = "SW";
 
 /* Abbreviation for West */
 "CARDINAL_DIRECTION_W" = "W";
 
 /* Abbreviation for West North West */
-"CARDINAL_DIRECTION_WNW" = "偏西";
+"CARDINAL_DIRECTION_WNW" = "WNW";
 
 /* Abbreviation for West South West */
 "CARDINAL_DIRECTION_WSW" = "WSW";
@@ -254,7 +254,7 @@
 "ERROR_SERVER" = "服务器无法完成您的请求。";
 
 /* Authorization failure error */
-"ERROR_UNAUTHORIZED" = "未经 授权。请检查登录凭据。";
+"ERROR_UNAUTHORIZED" = "未经申请。请检查登录凭据。";
 
 /* The radius around a point-based flight's center */
 "FLIGHT_DRAWING_RADIUS" = "半径";
@@ -290,16 +290,16 @@
 "FLIGHT_DRAWING_WIDTH" = "宽度";
 
 /* Title for the button to advance to the next screen */
-"FLIGHT_PLAN_BUTTON_TITLE_NEXT" = "下";
+"FLIGHT_PLAN_BUTTON_TITLE_NEXT" = "下一步";
 
 /* Title for the button to save and create the flight */
-"FLIGHT_PLAN_BUTTON_TITLE_SAVE" = "救";
+"FLIGHT_PLAN_BUTTON_TITLE_SAVE" = "保存";
 
 /* Call to action title for the user to select an aircraft */
 "FLIGHT_PLAN_ROW_TITLE_AIRCRAFT" = "选择飞机";
 
 /* Title for the row displaying the name of the aircraft */
-"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT_NAME" = "飞机";
+"FLIGHT_PLAN_ROW_TITLE_AIRCRAFT_NAME" = "无人机";
 
 /* Title for the row displaying flight plan buffer */
 "FLIGHT_PLAN_ROW_TITLE_BUFFER" = "缓冲区";
@@ -326,10 +326,10 @@
 "FLIGHT_PLAN_SECTION_HEADER_FLIGHT" = "飞行";
 
 /* Title for the section displaying social sharing features */
-"FLIGHT_PLAN_SECTION_HEADER_SHARE" = "共享我的航班";
+"FLIGHT_PLAN_SECTION_HEADER_SHARE" = "共享我的飞行计划";
 
 /* The request with the authority will be reviewed manually sometime after the flight plan is submitted */
-"MANUAL_AUTHORIZATION" = "手动授权等待提交";
+"MANUAL_AUTHORIZATION" = "手动申请等待提交";
 
 /* Table section title for other selectable countries */
 "PHONE_COUNTRY_SECTION_OTHER_COUNTRY" = "其他";
@@ -338,7 +338,7 @@
 "PHONE_COUNTRY_SECTION_SELECTED_COUNTRY" = "选定的国家";
 
 /* Message that is presented after a phone verification has failed, encouraging the user to send a new code to the phone number provided */
-"PHONE_VERIFICATION_REQUEST_NEW_SMS_CODE" = "请求新的 SMS 代码";
+"PHONE_VERIFICATION_REQUEST_NEW_SMS_CODE" = "请求新的短信代码";
 
 /* Message that is presented after a phone verification has failed, encouraging the user to try again */
 "PHONE_VERIFICATION_TRY_AGAIN" = "再试一次";
@@ -356,10 +356,10 @@
 "PILOT_PROFILE_LABEL_EMAIL" = "电子邮件";
 
 /* Label for the pilot profile first name */
-"PILOT_PROFILE_LABEL_FIRST_NAME" = "名字";
+"PILOT_PROFILE_LABEL_FIRST_NAME" = "名";
 
 /* Label for the pilot profile last name */
-"PILOT_PROFILE_LABEL_LAST_NAME" = "姓氏";
+"PILOT_PROFILE_LABEL_LAST_NAME" = "姓";
 
 /* Label for the pilot profile phone */
 "PILOT_PROFILE_LABEL_PHONE" = "电话";
@@ -374,7 +374,7 @@
 "PILOT_PROFILE_SECTION_PERSONAL" = "个人信息";
 
 /* Format for displaying a user's number of aircraft and flights */
-"PILOT_PROFILE_STATISTICS_FORMAT" = "%1$@ 飞机 %2$@ 航班";
+"PILOT_PROFILE_STATISTICS_FORMAT" = "%1$@ 飞机 %2$@ 飞行";
 
 /* Displayed for authorities that are setup to receive digital notice */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_ACCEPTS_NOTICE" = "接受数字通知";
@@ -386,10 +386,10 @@
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "这班机没有告示。";
 
 /* Label for rulesets that can be optionally enabled by the user */
-"RULESET_SELECTION_TYPE_OPTIONAL" = "选";
+"RULESET_SELECTION_TYPE_OPTIONAL" = "可选";
 
 /* Label for rulesets that are part of a group in which one and only one ruleset can be enabled by the user */
-"RULESET_SELECTION_TYPE_PICKONE" = "选一个";
+"RULESET_SELECTION_TYPE_PICKONE" = "必选一";
 
 /* Label for rulesets that must be enabled by the user */
 "RULESET_SELECTION_TYPE_REQUIRED" = "必填";
@@ -404,7 +404,7 @@
 "STATUS_RED_DESCRIPTION" = "飞行严密调控";
 
 /* Description for status advisory color Yellow */
-"STATUS_YELLOW_DESCRIPTION" = "建议";
+"STATUS_YELLOW_DESCRIPTION" = "注意";
 
 /* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
 "TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "交通 %1$@\ nAltitude %2$@\n%3$@ %4$@ %5$@";
@@ -413,10 +413,10 @@
 "TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "交通 %1$@\ nAltitude %2$@\n%3$@";
 
 /* Name for the imperial system of measurement */
-"UNITS_IMPERIAL" = "帝国";
+"UNITS_IMPERIAL" = "英制单位";
 
 /* Name for the metric system of measurement */
-"UNITS_METRIC" = "度量";
+"UNITS_METRIC" = "米制";
 
 /* Unit and format for displaying nautical miles */
 "UNITS_NAUTICAL_MILE_FORMAT" = "%@ 纳米";
