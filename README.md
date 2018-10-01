@@ -8,7 +8,7 @@ Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.
 ### Environment
 * iOS 9.0+, 
 * macOS 10.10+, 
-* Swift 4.2
+* Swift 4.1
 * Xcode 9.0+
 
 ### Sign up for an [AirMap Developer Account.](https://dashboard.airmap.io/developer/)
