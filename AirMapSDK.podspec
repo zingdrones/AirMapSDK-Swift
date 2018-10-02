@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 	s.name              = 'AirMapSDK'
 	s.module_name       = 'AirMap'
 	s.author            = 'AirMap, Inc.'
-	s.version           = '2.0.3'
+	s.version           = '2.1.0'
 	s.summary           = 'AirMap SDK for iOS & macOS'
 	s.description       = 'Create Flights, Send Telemetry Data, Get Realtime Traffic Alerts.'
 	s.license           = { :type => 'Apache License, Version 2.0', :file => 'LICENSE' }
@@ -65,7 +65,7 @@ Pod::Spec.new do |s|
 		telemetry.dependency 'AirMapSDK/Core'
 		telemetry.dependency 'CocoaAsyncSocket'
 		telemetry.dependency 'CryptoSwift', '~> 0.10.0'
-		telemetry.dependency 'ProtocolBuffers-Swift', '~> 4.0.4'
+		telemetry.dependency 'ProtocolBuffers-Swift', '~> 4.0.6'
 		telemetry.source_files = 'Source/Telemetry/*'
 	end
 	
