@@ -97,14 +97,14 @@ struct Constants {
 			}
 			return AirMap.configuration.host(for: "telemetry")
 		}
-		
+
 		static var port: UInt16 {
 			if let override = AirMap.configuration.override(for: "telemetry_port"), let port = UInt16(override) {
 				return port
 			}
 			return 16060
 		}
-		
+
 		struct SampleRate {
 			static let position:  RxTimeInterval = .milliseconds(200)
 			static let attitude:  RxTimeInterval = .milliseconds(200)
@@ -146,7 +146,7 @@ struct Constants {
 		static let tileMaximumZoomLevel = 12
 		static let temporalLayerRefreshInterval: RxTimeInterval = .seconds(20)
 		static let futureTemporalWindow: TimeInterval = 4*60*60 // 4 hours
-		
+
 		static var styleUrl: URL {
 			return AirMap.configuration.mapStyle ??
 				URL(string: "https://cdn.airmap.com/static/map-styles/0.11.3/")!

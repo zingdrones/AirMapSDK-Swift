@@ -22,7 +22,7 @@ import Foundation
 import RxSwift
 
 internal class FlightClient: HTTPClient {
-	
+
 	enum FlightClientError: Error {
 		case FlightDoesNotExist
 	}
@@ -127,7 +127,7 @@ internal class FlightClient: HTTPClient {
 			return self.perform(method: .post, path:"/\(flightId)/end", update: flight, auth: credentials)
 		})
 	}
-	
+
 	func end(_ flightId: AirMapFlightId) -> Observable<Void> {
 		return withCredentials().flatMap({ (credentials) -> Observable<Void> in
 			AirMap.logger.debug("End flight", metadata: ["id": .stringConvertible(flightId)])
@@ -145,12 +145,12 @@ internal class FlightClient: HTTPClient {
 			return self.perform(method: .post, path:"/\(flightId)/delete", auth: credentials)
 		})
 	}
-	
+
 	func getFlightPlanByFlightId(_ id: AirMapFlightId) -> Observable<AirMapFlightPlan> {
 		return withCredentials().flatMap({ (credentials) -> Observable<AirMapFlightPlan> in
 			AirMap.logger.debug("Get FlightPlan", metadata: ["flight_id": .stringConvertible(id)])
 			return self.perform(method: .get, path:"/\(id)/plan", auth: credentials)
 		})
 	}
-	
+
 }

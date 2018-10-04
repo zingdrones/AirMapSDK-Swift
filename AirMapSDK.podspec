@@ -1,6 +1,6 @@
 
 Pod::Spec.new do |s|
-	
+
 	s.name              = 'AirMapSDK'
 	s.module_name       = 'AirMap'
 	s.author            = 'AirMap, Inc.'
@@ -18,10 +18,10 @@ Pod::Spec.new do |s|
 	s.cocoapods_version = '>= 1.4.0'
 	s.frameworks = 'Foundation'
 	s.swift_version = '5.0'
-	
+
 	s.ios.deployment_target = '10.0'
 	s.osx.deployment_target = '10.12'
-	
+
 	s.default_subspecs = 'Core', 'SystemStatus', 'Traffic', 'Telemetry', 'UI'
 
 	s.subspec 'Core' do |core|
@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
 		core.dependency 'Logging'
 		core.resources = ['Resources/Core/*.{cer,pdf,xcassets}', 'Resources/Core/Localizations/**/*']
 	end
-	
+
 	s.subspec 'UI' do |ui|
 		ui.xcconfig = { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DAIRMAP_UI' }
 		ui.platform = :ios
@@ -66,14 +66,15 @@ Pod::Spec.new do |s|
 		traffic.dependency 'SwiftMQTT', '> 3.0.0', '~> 3.0'
 		traffic.source_files = 'Source/Traffic/*'
 	end
-	
+
 	s.subspec 'Telemetry' do |telemetry|
 		telemetry.xcconfig = { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DAIRMAP_TELEMETRY' }
 		telemetry.dependency 'AirMapSDK/Core'
 		telemetry.dependency 'CocoaAsyncSocket'
 		telemetry.dependency 'CryptoSwift', '~> 1.0'
 		telemetry.dependency 'SwiftProtobuf', '~> 1.0'
+		telemetry.dependency 'SwiftGRPC'
 		telemetry.source_files = 'Source/Telemetry/**/*'
 	end
-	
+
 end
