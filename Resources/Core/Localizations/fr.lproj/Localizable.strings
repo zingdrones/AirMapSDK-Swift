@@ -385,6 +385,15 @@
 /* Displayed in the flight plan review notices tab when there are no notices to display */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "Il n'y a pas d'avis pour ce vol.";
 
+/* Label for the section header that displays all the Optional rulesets */
+"RULESETS_SECTION_OPTIONAL" = "facultatif";
+
+/* Label for the section header that displays all the Pick One rulesets */
+"RULESETS_SECTION_PICK_ONE" = "Choisissez un";
+
+/* Label for the section header that displays all the Required rulesets */
+"RULESETS_SECTION_REQUIRED" = "Obligatoire";
+
 /* Label for rulesets that can be optionally enabled by the user */
 "RULESET_SELECTION_TYPE_OPTIONAL" = "facultatif";
 
@@ -425,13 +434,13 @@
 "UNITS_SPEED_FORMAT_KNOTS" = "%@ Kts";
 
 /* Unit and format for displaying speed in meters per second */
-"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "%@ m";
+"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "%@ m/s";
 
 /* Unit and format for displaying speed in miles per hour */
 "UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "%@ Mph";
 
 /* Unit and format for displaying a speed range in meters per second */
-"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "%1$@-%2$@ m";
+"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "%1$@-%2$@ m/s";
 
 /* Unit and format for displaying a speed range in miles per hour */
 "UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "%1$@-%2$@ Mph";

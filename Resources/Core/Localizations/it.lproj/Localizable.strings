@@ -385,6 +385,15 @@
 /* Displayed in the flight plan review notices tab when there are no notices to display */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "Non ci sono avvisi per questo volo.";
 
+/* Label for the section header that displays all the Optional rulesets */
+"RULESETS_SECTION_OPTIONAL" = "Opzionale";
+
+/* Label for the section header that displays all the Pick One rulesets */
+"RULESETS_SECTION_PICK_ONE" = "Scegliere uno";
+
+/* Label for the section header that displays all the Required rulesets */
+"RULESETS_SECTION_REQUIRED" = "Obbligatorio";
+
 /* Label for rulesets that can be optionally enabled by the user */
 "RULESET_SELECTION_TYPE_OPTIONAL" = "Opzionale";
 

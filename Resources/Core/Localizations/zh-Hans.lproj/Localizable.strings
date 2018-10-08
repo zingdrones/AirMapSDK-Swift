@@ -385,6 +385,15 @@
 /* Displayed in the flight plan review notices tab when there are no notices to display */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "这班机没有告示。";
 
+/* Label for the section header that displays all the Optional rulesets */
+"RULESETS_SECTION_OPTIONAL" = "可选";
+
+/* Label for the section header that displays all the Pick One rulesets */
+"RULESETS_SECTION_PICK_ONE" = "必选一";
+
+/* Label for the section header that displays all the Required rulesets */
+"RULESETS_SECTION_REQUIRED" = "必填";
+
 /* Label for rulesets that can be optionally enabled by the user */
 "RULESET_SELECTION_TYPE_OPTIONAL" = "可选";
 

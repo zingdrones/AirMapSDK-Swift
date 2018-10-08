@@ -347,7 +347,7 @@
 "PHONE_VERIFICATION_VERIFICATION_FAILED" = "Telefon nummer bekreftelse mislyktes";
 
 /* Format for displaying the given + family name of a user. 1) given name 2) family name */
-"PILOT_FULL_NAME_FORMAT" = "%1$ @ %2$ @";
+"PILOT_FULL_NAME_FORMAT" = "%1$@ %2$@";
 
 /* Table row label for FAA registration number */
 "PILOT_PROFILE_FAA_REGISTRATION" = "FAA registreringsnummer";
@@ -384,6 +384,15 @@
 
 /* Displayed in the flight plan review notices tab when there are no notices to display */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "Finnes det ingen merknader for denne flyturen.";
+
+/* Label for the section header that displays all the Optional rulesets */
+"RULESETS_SECTION_OPTIONAL" = "Valgfritt";
+
+/* Label for the section header that displays all the Pick One rulesets */
+"RULESETS_SECTION_PICK_ONE" = "Velg en";
+
+/* Label for the section header that displays all the Required rulesets */
+"RULESETS_SECTION_REQUIRED" = "Kreves";
 
 /* Label for rulesets that can be optionally enabled by the user */
 "RULESET_SELECTION_TYPE_OPTIONAL" = "Valgfritt";

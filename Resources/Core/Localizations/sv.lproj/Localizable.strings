@@ -385,6 +385,15 @@
 /* Displayed in the flight plan review notices tab when there are no notices to display */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "Det finns inga meddelanden om detta flyg.";
 
+/* Label for the section header that displays all the Optional rulesets */
+"RULESETS_SECTION_OPTIONAL" = "Valfri";
+
+/* Label for the section header that displays all the Pick One rulesets */
+"RULESETS_SECTION_PICK_ONE" = "Välj en";
+
+/* Label for the section header that displays all the Required rulesets */
+"RULESETS_SECTION_REQUIRED" = "Krävs";
+
 /* Label for rulesets that can be optionally enabled by the user */
 "RULESET_SELECTION_TYPE_OPTIONAL" = "Valfri";
 

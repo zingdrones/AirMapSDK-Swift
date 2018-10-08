@@ -5,19 +5,19 @@
 "ADVISORY_PHONE_NOT_PROVIDED" = "Ningún número de teléfono proporcionado";
 
 /* Label and format for displaying the end time of temporary flight restriction */
-"ADVISORY_TFR_ENDS_FORMAT" = "Extremos: 1% $@";
+"ADVISORY_TFR_ENDS_FORMAT" = "Extremos: %1$@";
 
 /* Never ending duration for a TFR */
 "ADVISORY_TFR_PERMANENT" = "Permanente";
 
 /* Label and format for displaying the start time of temporary flight restriction */
-"ADVISORY_TFR_STARTS_FORMAT" = "Comienza: 1% $@";
+"ADVISORY_TFR_STARTS_FORMAT" = "Comienza: %1$@";
 
 /* Format and unit for wildfire advisory in the area unit acres */
-"ADVISORY_WILDFIRE_SIZE_FORMAT_ACRES" = "1% $@ acres";
+"ADVISORY_WILDFIRE_SIZE_FORMAT_ACRES" = "%1$@ acres";
 
 /* Format and unit for wildfire advisory in the area unit hectares */
-"ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES" = "1% $@ hectáreas";
+"ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES" = "%1$@ hectáreas";
 
 /* Label for wildfire advisory cells where size is unknown */
 "ADVISORY_WILDFIRE_SIZE_UNKNOWN" = "Tamaño desconocido";
@@ -245,7 +245,7 @@
 "ERROR_CONFLICT" = "Existe un conflicto";
 
 /* A generic server error message with an associated error code */
-"ERROR_GENERIC_FORMAT" = "El servidor devolvió un error. (% a)";
+"ERROR_GENERIC_FORMAT" = "El servidor devolvió un error. (%@)";
 
 /* Response serialization failure error */
 "ERROR_SERIALIZATION" = "El servidor devolvió una respuesta no procesable.";
@@ -347,7 +347,7 @@
 "PHONE_VERIFICATION_VERIFICATION_FAILED" = "Verificación de número de teléfono no se pudo";
 
 /* Format for displaying the given + family name of a user. 1) given name 2) family name */
-"PILOT_FULL_NAME_FORMAT" = "1% $@ $%2 @";
+"PILOT_FULL_NAME_FORMAT" = "%1$@ %2$@";
 
 /* Table row label for FAA registration number */
 "PILOT_PROFILE_FAA_REGISTRATION" = "Número de registro de FAA";
@@ -374,7 +374,7 @@
 "PILOT_PROFILE_SECTION_PERSONAL" = "Información personal";
 
 /* Format for displaying a user's number of aircraft and flights */
-"PILOT_PROFILE_STATISTICS_FORMAT" = "1% $@ avión, 2% $@ vuelos";
+"PILOT_PROFILE_STATISTICS_FORMAT" = "%1$@ avión, %2$@ vuelos";
 
 /* Displayed for authorities that are setup to receive digital notice */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_ACCEPTS_NOTICE" = "Acepta aviso Digital";
@@ -384,6 +384,15 @@
 
 /* Displayed in the flight plan review notices tab when there are no notices to display */
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "Hay no hay avisos para este vuelo.";
+
+/* Label for the section header that displays all the Optional rulesets */
+"RULESETS_SECTION_OPTIONAL" = "Opcional";
+
+/* Label for the section header that displays all the Pick One rulesets */
+"RULESETS_SECTION_PICK_ONE" = "Elegir uno";
+
+/* Label for the section header that displays all the Required rulesets */
+"RULESETS_SECTION_REQUIRED" = "Obligatorio";
 
 /* Label for rulesets that can be optionally enabled by the user */
 "RULESET_SELECTION_TYPE_OPTIONAL" = "Opcional";
@@ -407,7 +416,7 @@
 "STATUS_YELLOW_DESCRIPTION" = "Avisos de";
 
 /* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
-"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "Tráfico %1$@\nAltitude %2$@\n%3$@ 4% $@ 5% $@";
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "Tráfico %1$@\nAltitude %2$@\n%3$@ %4$@ %5$@";
 
 /* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed */
 "TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "Tráfico %1$@\nAltitude %2$@\n%3$@";
@@ -419,22 +428,22 @@
 "UNITS_METRIC" = "Métrica";
 
 /* Unit and format for displaying nautical miles */
-"UNITS_NAUTICAL_MILE_FORMAT" = "% NM";
+"UNITS_NAUTICAL_MILE_FORMAT" = "%@ NM";
 
 /* Unit and format for displaying speed in knots */
-"UNITS_SPEED_FORMAT_KNOTS" = "% @ kts";
+"UNITS_SPEED_FORMAT_KNOTS" = "%@ kts";
 
 /* Unit and format for displaying speed in meters per second */
-"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "% @ m/s";
+"UNITS_SPEED_FORMAT_METERS_PER_SECOND" = "%@ m/s";
 
 /* Unit and format for displaying speed in miles per hour */
-"UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "% @ mph";
+"UNITS_SPEED_FORMAT_MILES_PER_HOUR" = "%@ mph";
 
 /* Unit and format for displaying a speed range in meters per second */
-"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "% 1$@-%2$ @ m/s";
+"UNITS_SPEED_RANGE_FORMAT_METERS_PER_SECOND" = "%1$@-%2$@ m/s";
 
 /* Unit and format for displaying a speed range in miles per hour */
-"UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "1$@-%2$ % @ mph";
+"UNITS_SPEED_RANGE_FORMAT_MILES_PER_HOUR" = "%1$@-%2$@ mph";
 
 /* Unit and format for displaying temperature in Celcius */
 "UNITS_TEMPERATURE_CELCIUS_FORMAT" = "%1$@°C";
