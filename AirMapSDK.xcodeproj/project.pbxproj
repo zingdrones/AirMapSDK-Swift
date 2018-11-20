@@ -170,6 +170,9 @@
 		4CD4234921504FCA00F5A851 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AirMapUI.strings"; sourceTree = "<group>"; };
 		4CD4234A2150511D00F5A851 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4CD4234B2150511D00F5A851 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/AirMapUI.strings"; sourceTree = "<group>"; };
+		4CD9E47F21A3A07400D07173 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/AirMapUI.strings; sourceTree = "<group>"; };
+		4CD9E48021A3A09900D07173 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4CD9E48121A3A0A700D07173 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/AirMapUI.strings; sourceTree = "<group>"; };
 		4CDBFCF8215167B500F14620 /* pl-PL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pl-PL"; path = "pl-PL.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4CDBFCF9215167B500F14620 /* pl-PL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pl-PL"; path = "pl-PL.lproj/AirMapUI.strings"; sourceTree = "<group>"; };
 		9101AE5A20DA5A1A00376C1A /* AirMapTrafficProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirMapTrafficProperties.swift; sourceTree = "<group>"; };
@@ -837,6 +840,7 @@
 				"zh-Hans",
 				"nb-NO",
 				"pl-PL",
+				nl,
 			);
 			mainGroup = 91532C442003F18600A45481;
 			productRefGroup = 91532C4F2003F18600A45481 /* Products */;
@@ -1006,6 +1010,7 @@
 				4CD4234921504FCA00F5A851 /* zh-Hans */,
 				4CD4234B2150511D00F5A851 /* nb-NO */,
 				4CDBFCF9215167B500F14620 /* pl-PL */,
+				4CD9E48121A3A0A700D07173 /* nl */,
 			);
 			name = AirMapUI.strings;
 			sourceTree = "<group>";
@@ -1014,6 +1019,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9101AF6720DA5A2300376C1A /* Base */,
+				4CD9E47F21A3A07400D07173 /* nl */,
 			);
 			name = AirMapUI.storyboard;
 			sourceTree = "<group>";
@@ -1034,6 +1040,7 @@
 				4CD4234821504FCA00F5A851 /* zh-Hans */,
 				4CD4234A2150511D00F5A851 /* nb-NO */,
 				4CDBFCF8215167B500F14620 /* pl-PL */,
+				4CD9E48021A3A09900D07173 /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
