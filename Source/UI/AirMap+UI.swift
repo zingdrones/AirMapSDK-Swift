@@ -34,12 +34,13 @@ extension AirMap {
 	public class func phoneVerificationViewController(_ pilot: AirMapPilot, phoneVerificationDelegate: AirMapPhoneVerificationDelegate) -> AirMapPhoneVerificationNavController {
 		
 		let storyboard = UIStoryboard(name: "AirMapUI", bundle: AirMapBundle.ui)
-		let nav = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumber") as! AirMapPhoneVerificationNavController
-		nav.phoneVerificationDelegate = phoneVerificationDelegate
-		let phoneVerificationVC = nav.viewControllers.first as! AirMapPhoneVerificationViewController
+		let phoneNav = storyboard.instantiateViewController(withIdentifier: "VerifyPhoneNumber") as! AirMapPhoneVerificationNavController
+		phoneNav.phoneVerificationDelegate = phoneVerificationDelegate
+
+		let phoneVerificationVC = phoneNav.viewControllers.first as! AirMapPhoneVerificationViewController
 		phoneVerificationVC.pilot = pilot
 		
-		return nav
+		return phoneNav
 	}
 	
 	/// Returns a navigation controller that creates or modifies an AirMapAircraft
@@ -109,10 +110,11 @@ extension AirMap {
 				options.closable = true
 			}
 			.withStyle { style in
-				style.logo = LazyImage(name: "airmap_login_logo", bundle: Bundle(for: AirMap.self))
+				let login_logo = UIImage(named: "login_logo", in: Bundle.main, compatibleWith: nil)
+				style.logo = (login_logo != nil) ? LazyImage(name: "login_logo", bundle: Bundle.main) : LazyImage(name: "airmap_login_logo", bundle: Bundle(for: AirMap.self))
 				style.hideTitle = true
 				style.headerColor = UIColor(white: 0.9, alpha: 1.0)
-				style.primaryColor = .airMapLightBlue
+				style.primaryColor = .highlight
 			}
 			.onAuth { credentials in
 				authToken = credentials.idToken
