@@ -38,7 +38,11 @@ open class AirMapMapView: MGLMapView {
 		case light
 		case satellite
 	}
-	
+
+	public var dynamicSource: DynamicAirspaceSource? {
+		didSet { dynamicSource?.delegate = self }
+	}
+
 	/// The current map theme
 	public var theme: Theme = .standard {
 		didSet { themeSubject.onNext(theme) }
@@ -119,6 +123,7 @@ open class AirMapMapView: MGLMapView {
 	private let themeSubject = BehaviorSubject(value: Theme.standard)
 	private let temporalRangeSubject = BehaviorSubject(value: TemporalRange.sliding(window: Constants.Maps.futureTemporalWindow))
 	private let rulesetConfigurationSubject = BehaviorSubject(value: RulesetConfiguration.automatic)
+	private let refreshDynamicAirspaceSourceSubject = BehaviorSubject(value: Void())
 
 	private let disposeBag = DisposeBag()
 }
@@ -236,6 +241,16 @@ extension AirMapMapView {
 			})
 			.subscribe()
 			.disposed(by: disposeBag)
+		
+		Observable.combineLatest(
+				rx.regionIsChanging.debounce(1, scheduler: MainScheduler.instance).mapToVoid(),
+				refreshDynamicAirspaceSourceSubject
+			)
+			.subscribe(onNext: { [unowned self] (_) in
+				let features = self.dynamicSource?.features(in: self.visibleCoordinateBounds)
+				self.
+			})
+			.disposed(by: disposeBag)
 	}
 
 	private func setupAppearance() {
@@ -308,6 +323,9 @@ extension AirMapMapView {
 	}
 
 	// MARK: - Static
+	private static func addDynamicAirspace(airspaces: [Any], to style: MGLStyle, in mapView: AirMapMapView) {
+
+	}
 
 	private static func addRuleset(_ ruleset: AirMapRuleset, to style: MGLStyle, in mapView: AirMapMapView) {
 		
@@ -378,5 +396,11 @@ extension AirMapMapView.RulesetConfiguration: Equatable {
 		default:
 			return false
 		}
+	}
+}
+
+extension AirMapMapView: DynamicAirspaceSourceDelegate {
+	public func shouldRefreshSource() {
+		refreshDynamicAirspaceSourceSubject.onNext(())
 	}
 }
