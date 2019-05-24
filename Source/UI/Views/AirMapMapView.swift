@@ -242,13 +242,16 @@ extension AirMapMapView {
 			.subscribe()
 			.disposed(by: disposeBag)
 		
-		Observable.combineLatest(
+		let updateDynamicAirspaces = Observable.merge(
 				rx.regionIsChanging.debounce(1, scheduler: MainScheduler.instance).mapToVoid(),
 				refreshDynamicAirspaceSourceSubject
 			)
-			.subscribe(onNext: { [unowned self] (_) in
-				let features = self.dynamicSource?.features(in: self.visibleCoordinateBounds)
-				self.
+			.throttle(1, scheduler: MainScheduler.instance)
+		
+		Observable.combineLatest(style, updateDynamicAirspaces)
+			.subscribe(onNext: { [unowned self] (style, _) in
+				let features = self.dynamicSource?.features(in: self.visibleCoordinateBounds) ?? []
+//				AirMapMapView.addDynamicAirspace(features, to: style, in: self)
 			})
 			.disposed(by: disposeBag)
 	}
@@ -400,7 +403,7 @@ extension AirMapMapView.RulesetConfiguration: Equatable {
 }
 
 extension AirMapMapView: DynamicAirspaceSourceDelegate {
-	public func shouldRefreshSource() {
+	public func shouldRefreshFeautures() {
 		refreshDynamicAirspaceSourceSubject.onNext(())
 	}
 }
