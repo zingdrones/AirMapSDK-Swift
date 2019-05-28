@@ -17,6 +17,7 @@ public protocol DynamicAirspace {
 public protocol DynamicAirspaceSource {
 	var delegate: DynamicAirspaceSourceDelegate? { get set }
 	func features(in bounds: MGLCoordinateBounds) -> [DynamicAirspace]
+	func update(bounds: MGLCoordinateBounds)
 //	func features(in bounds: MGLCoordinateBounds, completion: @escaping (Result<[DynamicAirspace]>) -> Void)
 }
 

@@ -137,7 +137,13 @@ extension AirMapMapView {
 	private var airMapMapViewDelegate: AirMapMapViewDelegate? {
 		return rx.delegate.forwardToDelegate() as? AirMapMapViewDelegate
 	}
-	
+
+	// MARK: - Source
+
+	private var dynamicAirspaceSource: MGLShapeSource? {
+		return style?.source(withIdentifier: "dynamic-airspace-source") as? MGLShapeSource
+	}
+
 	// MARK: - Setup
 	
 	private func setup() {
@@ -191,6 +197,14 @@ extension AirMapMapView {
 		// The latest unique rulesets
 		let rulesetConfig = self.rulesetConfigurationSubject
 			.distinctUntilChanged(==)
+
+		rx.mapDidFinishLoadingStyle
+			.debug("mapDidFinishLoadingStyle")
+			.map { $1 }
+			.subscribe(onNext: { [unowned self] (style) in
+				AirMapMapView.setupDynamicAirspaceSource(mapView: self, style: style)
+			})
+			.disposed(by: disposeBag)
 
 		Observable.combineLatest(style, jurisdictions)
 			.flatMapLatest({ [weak self] (style, jurisdictions) -> Observable<Void> in
@@ -248,10 +262,27 @@ extension AirMapMapView {
 			)
 			.throttle(1, scheduler: MainScheduler.instance)
 		
+		rx.regionIsChanging.debounce(1, scheduler: MainScheduler.instance)
+			.mapToVoid()
+			.subscribe(onNext: { [unowned self] (mapview) in
+				self.dynamicSource?.update(bounds: self.visibleCoordinateBounds)
+			})
+			.disposed(by: disposeBag)
+
 		Observable.combineLatest(style, updateDynamicAirspaces)
 			.subscribe(onNext: { [unowned self] (style, _) in
-				let features = self.dynamicSource?.features(in: self.visibleCoordinateBounds) ?? []
-//				AirMapMapView.addDynamicAirspace(features, to: style, in: self)
+				let airMapPolygons = (self.dynamicSource?.features(in: self.visibleCoordinateBounds) ?? [])
+					.compactMap { $0.geometry as? AirMapPolygon }
+
+				var shapes = [MGLPolygonFeature]()
+				for polygon in airMapPolygons {
+					var coordinates = polygon.coordinates.first!
+					let shape = MGLPolygonFeature(coordinates: &coordinates, count: UInt(polygon.coordinates.first!.count))
+					shapes.append(shape)
+				}
+
+				let multiPolygon = MGLShapeCollection(shapes: shapes)
+				self.dynamicAirspaceSource?.shape = multiPolygon
 			})
 			.disposed(by: disposeBag)
 	}
@@ -326,8 +357,21 @@ extension AirMapMapView {
 	}
 
 	// MARK: - Static
-	private static func addDynamicAirspace(airspaces: [Any], to style: MGLStyle, in mapView: AirMapMapView) {
 
+	private static func setupDynamicAirspaceSource(mapView: AirMapMapView, style: MGLStyle) {
+
+		guard mapView.dynamicAirspaceSource == nil else { return }
+		guard let annotationsLayer = style.layer(withIdentifier: "com.mapbox.annotations.points") else { return }
+
+		let draftFlightSourceOptions = [MGLShapeSourceOption.simplificationTolerance: 0]
+		let draftFlightSource = MGLShapeSource(identifier: "dynamic-airspace-source", shape: nil, options: draftFlightSourceOptions)
+		style.addSource(draftFlightSource)
+
+		let fill = MGLFillStyleLayer(identifier: "dynamic-airspace-source|fill", source: draftFlightSource)
+		fill.fillColor = MGLStyleValue(rawValue: .primary)
+		fill.predicate = NSPredicate(format: "%K == %@", "$type", "Polygon")
+		fill.fillOpacity = MGLStyleValue(rawValue: 0.5)
+		style.insertLayer(fill, below: annotationsLayer)
 	}
 
 	private static func addRuleset(_ ruleset: AirMapRuleset, to style: MGLStyle, in mapView: AirMapMapView) {
