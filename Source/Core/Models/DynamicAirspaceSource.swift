@@ -6,11 +6,12 @@
 //
 
 import struct Mapbox.MGLCoordinateBounds
+import class Mapbox.MGLShape
 import RxSwift
 
 public protocol DynamicAirspace {
 	var id: String { get }
-    var geometry: AirMapGeometry { get }
+    var shape: MGLShape { get }
 	var expiration: Date? { get }
 }
 

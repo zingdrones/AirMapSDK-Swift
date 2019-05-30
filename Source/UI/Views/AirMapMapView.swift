@@ -270,19 +270,15 @@ extension AirMapMapView {
 			.disposed(by: disposeBag)
 
 		Observable.combineLatest(style, updateDynamicAirspaces)
-			.subscribe(onNext: { [unowned self] (style, _) in
-				let airMapPolygons = (self.dynamicSource?.features(in: self.visibleCoordinateBounds) ?? [])
-					.compactMap { $0.geometry as? AirMapPolygon }
+			.subscribe(onNext: { [weak self] (style, _) in
+				guard let dynamicSource = self?.dynamicSource,
+					let visibleCoordinateBounds = self?.visibleCoordinateBounds
+				 	else { return }
 
-				var shapes = [MGLPolygonFeature]()
-				for polygon in airMapPolygons {
-					var coordinates = polygon.coordinates.first!
-					let shape = MGLPolygonFeature(coordinates: &coordinates, count: UInt(polygon.coordinates.first!.count))
-					shapes.append(shape)
-				}
+				let shapes = dynamicSource.features(in: visibleCoordinateBounds).map { $0.shape }
 
 				let multiPolygon = MGLShapeCollection(shapes: shapes)
-				self.dynamicAirspaceSource?.shape = multiPolygon
+				self?.dynamicAirspaceSource?.shape = multiPolygon
 			})
 			.disposed(by: disposeBag)
 	}
