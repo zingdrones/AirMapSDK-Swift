@@ -270,6 +270,7 @@ extension AirMapMapView {
 			.disposed(by: disposeBag)
 
 		Observable.combineLatest(style, updateDynamicAirspaces)
+			.observeOn(MainScheduler.instance)
 			.subscribe(onNext: { [weak self] (style, _) in
 				guard let dynamicSource = self?.dynamicSource,
 					let visibleCoordinateBounds = self?.visibleCoordinateBounds
