@@ -61,6 +61,13 @@ internal class FlightPlanClient: HTTPClient {
 			return self.perform(method: .get, path: "/plan/\(flightPlanId)/briefing", auth: credentials)
 		}
 	}
+
+	func getAuthorizations(_ flightPlanId: AirMapFlightPlanId) -> Observable<[AirMapAuthorization]> {
+		return withCredentials().flatMap { (credentials) -> Observable<[AirMapAuthorization]> in
+			AirMap.logger.debug("Get Flight Authorizations", flightPlanId)
+			return self.perform(method: .get, path: "/plan/\(flightPlanId)/authorizations", auth: credentials)
+		}
+	}
 	
 	func submitFlightPlan(_ flightPlan: AirMapFlightPlan, makeFlightPublic: Bool = true) -> Observable<AirMapFlightPlan> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapFlightPlan> in

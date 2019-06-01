@@ -558,14 +558,15 @@ extension AirMapAuthority: ImmutableMappable {
 	}
 }
 
-extension AirMapFlightBriefing.Authorization: ImmutableMappable {
+extension AirMapAuthorization: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		do {
-			authority  	=  try  map.value("authority")
-			status     	= (try? map.value("status")) ?? .rejected
-			message    	=  try  map.value("message")
-			description	=  try  map.value("description")
+			authority       =  try  map.value("authority")
+			status          = (try? map.value("status")) ?? .rejected
+			message         =  try  map.value("message")
+			description	    =  try  map.value("description")
+			referenceNumber =  try? map.value("reference_number")
 		}
 		catch {
 			AirMap.logger.error(error)
@@ -574,10 +575,11 @@ extension AirMapFlightBriefing.Authorization: ImmutableMappable {
 	}
 	
 	public func mapping(map: Map) {
-		authority    >>> map["authority"]
-		status       >>> map["status"]
-		message      >>> map["message"]
-		description  >>> map["description"]
+		authority        >>> map["authority"]
+		status           >>> map["status"]
+		message          >>> map["message"]
+		description      >>> map["description"]
+		referenceNumber  >>> map["reference_number"]
 	}
 }
 

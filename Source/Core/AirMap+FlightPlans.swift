@@ -60,6 +60,15 @@ extension AirMap {
 		rx.getFlightBriefing(flightPlanId).thenSubscribe(completion)
 	}
 	
+	/// Get a authorizations for a given flight plan identifier
+	///
+	/// - Parameters:
+	///   - flightPlanId: The identifier of the flight plan for which to retrieve authorizations
+	///   - completion: A completion handler to call with the flight plan authorizations result
+	public static func getFlightPlanAuthorizations(_ flightPlanId: AirMapFlightPlanId, completion: @escaping (Result<[AirMapAuthorization]>) -> Void) {
+		rx.getFlightPlanAuthorizations(flightPlanId).thenSubscribe(completion)
+	}
+
 	/// Submit a flight plan
 	///
 	/// - Parameters:
