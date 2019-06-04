@@ -123,7 +123,7 @@ open class AirMapMapView: MGLMapView {
 	private let themeSubject = BehaviorSubject(value: Theme.standard)
 	private let temporalRangeSubject = BehaviorSubject(value: TemporalRange.sliding(window: Constants.Maps.futureTemporalWindow))
 	private let rulesetConfigurationSubject = BehaviorSubject(value: RulesetConfiguration.automatic)
-	private let refreshDynamicAirspaceSourceSubject = BehaviorSubject(value: Void())
+	private let refreshDynamicAirspaceSourceSubject = PublishSubject<Void>()
 
 	private let disposeBag = DisposeBag()
 }
@@ -271,15 +271,16 @@ extension AirMapMapView {
 
 		Observable.combineLatest(style, updateDynamicAirspaces)
 			.observeOn(MainScheduler.instance)
-			.subscribe(onNext: { [weak self] (style, _) in
+			.mapToVoid()
+			.subscribe(onNext: { [weak self] (_) in
 				guard let dynamicSource = self?.dynamicSource,
 					let visibleCoordinateBounds = self?.visibleCoordinateBounds
 				 	else { return }
 
 				let shapes = dynamicSource.features(in: visibleCoordinateBounds).map { $0.shape }
-
-				let multiPolygon = MGLShapeCollection(shapes: shapes)
-				self?.dynamicAirspaceSource?.shape = multiPolygon
+	
+				let shapCollection = MGLShapeCollection(shapes: shapes)
+				self?.dynamicAirspaceSource?.shape = shapCollection
 			})
 			.disposed(by: disposeBag)
 	}
