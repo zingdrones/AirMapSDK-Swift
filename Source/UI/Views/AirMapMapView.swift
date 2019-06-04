@@ -366,7 +366,7 @@ extension AirMapMapView {
 		style.addSource(draftFlightSource)
 
 		let fill = MGLFillStyleLayer(identifier: "dynamic-airspace-source|fill", source: draftFlightSource)
-		fill.fillColor = MGLStyleValue(rawValue: .primary)
+		fill.fillColor = MGLStyleValue(rawValue: UIColor.airMapRed)
 		fill.predicate = NSPredicate(format: "%K == %@", "$type", "Polygon")
 		fill.fillOpacity = MGLStyleValue(rawValue: 0.5)
 		style.insertLayer(fill, below: annotationsLayer)
