@@ -365,10 +365,16 @@ extension AirMapMapView {
 		style.addSource(draftFlightSource)
 
 		let fill = MGLFillStyleLayer(identifier: "dynamic-airspace-source|fill", source: draftFlightSource)
-		fill.fillColor = MGLStyleValue(rawValue: UIColor.airMapRed)
+		fill.fillColor = MGLStyleValue(rawValue: .airMapRed)
 		fill.predicate = NSPredicate(format: "%K == %@", "$type", "Polygon")
 		fill.fillOpacity = MGLStyleValue(rawValue: 0.5)
 		style.insertLayer(fill, below: annotationsLayer)
+
+		let line = MGLLineStyleLayer(identifier: "dynamic-airspace|line", source: draftFlightSource)
+		line.lineCap = MGLStyleValue(rawValue: NSValue(mglLineCap: .round))
+		line.lineColor = MGLStyleValue(rawValue: .airMapRed)
+		line.lineWidth = MGLStyleValue(rawValue: 2)
+		style.insertLayer(line, above: fill)
 	}
 
 	private static func addRuleset(_ ruleset: AirMapRuleset, to style: MGLStyle, in mapView: AirMapMapView) {
