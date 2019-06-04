@@ -199,7 +199,6 @@ extension AirMapMapView {
 			.distinctUntilChanged(==)
 
 		rx.mapDidFinishLoadingStyle
-			.debug("mapDidFinishLoadingStyle")
 			.map { $1 }
 			.subscribe(onNext: { [unowned self] (style) in
 				AirMapMapView.setupDynamicAirspaceSource(mapView: self, style: style)
