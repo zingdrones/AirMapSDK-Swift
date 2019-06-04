@@ -10,9 +10,11 @@ import class Mapbox.MGLShape
 import RxSwift
 
 public protocol DynamicAirspace {
-	var id: String { get }
     var shape: MGLShape { get }
-	var expiration: Date? { get }
+	var start: Date? { get }
+	var end: Date? { get }
+	var authorization: Int? { get }
+	var isPublished: Bool? { get }
 }
 
 public protocol DynamicAirspaceSource {
