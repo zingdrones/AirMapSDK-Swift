@@ -268,20 +268,20 @@ extension AirMapMapView {
 			})
 			.disposed(by: disposeBag)
 
-		Observable.combineLatest(style, updateDynamicAirspaces)
-			.observeOn(MainScheduler.instance)
-			.mapToVoid()
-			.subscribe(onNext: { [weak self] (_) in
-				guard let dynamicSource = self?.dynamicSource,
-					let visibleCoordinateBounds = self?.visibleCoordinateBounds
-				 	else { return }
-
-				let shapes = dynamicSource.features(in: visibleCoordinateBounds).map { $0.shape }
-	
-				let shapCollection = MGLShapeCollection(shapes: shapes)
-				self?.dynamicAirspaceSource?.shape = shapCollection
-			})
-			.disposed(by: disposeBag)
+//		Observable.combineLatest(style, updateDynamicAirspaces)
+//			.observeOn(MainScheduler.instance)
+//			.mapToVoid()
+//			.subscribe(onNext: { [weak self] (_) in
+//				guard let dynamicSource = self?.dynamicSource,
+//					let visibleCoordinateBounds = self?.visibleCoordinateBounds
+//				 	else { return }
+//
+//				let shapes = dynamicSource.features(in: visibleCoordinateBounds).map { $0.shape }
+//
+//				let shapCollection = MGLShapeCollection(shapes: shapes)
+//				self?.dynamicAirspaceSource?.shape = shapCollection
+//			})
+//			.disposed(by: disposeBag)
 	}
 
 	private func setupAppearance() {
@@ -334,6 +334,7 @@ extension AirMapMapView {
 		// Add new ruleset sources
 		rulesets
 			.filter({ newSourceIds.contains($0.tileSourceIdentifier) })
+//			.filter({ !$0.id.rawValue.hasPrefix("custom") })
 			.forEach({ (ruleset) in
 				addRuleset(ruleset, to: style, in: mapView)
 			})
@@ -371,6 +372,7 @@ extension AirMapMapView {
 		style.insertLayer(fill, below: annotationsLayer)
 
 		let line = MGLLineStyleLayer(identifier: "dynamic-airspace|line", source: draftFlightSource)
+//		line.predicate = NSPredicate(format: "%K == %@", "$authorization", true)
 		line.lineCap = MGLStyleValue(rawValue: NSValue(mglLineCap: .round))
 		line.lineColor = MGLStyleValue(rawValue: .airMapRed)
 		line.lineWidth = MGLStyleValue(rawValue: 2)
@@ -384,19 +386,40 @@ extension AirMapMapView {
 		let rulesetTileSource = MGLVectorSource(ruleset: ruleset)
 		style.addSource(rulesetTileSource)
 
-		style.airMapBaseStyleLayers(for: ruleset.airspaceTypes)
-			.forEach { baseLayer in
-				if let newLayer = mapView.newLayerClone(of: baseLayer, with: ruleset, from: rulesetTileSource) {
-					AirMap.logger.debug("Adding", ruleset.id, baseLayer.identifier)
-					var layer = newLayer as MGLStyleLayer
-					style.insertLayer(layer, above: baseLayer)
-					mapView.airMapMapViewDelegate?.airMapMapViewDidAddAirspaceType(
-						mapView: mapView, ruleset: ruleset, airspaceType: layer.airspaceType!, layer: &layer
-					)
-				} else {
-					AirMap.logger.error("Could not add layer for", ruleset.id, baseLayer.airspaceType!)
+		if ruleset.id.rawValue.hasPrefix("custom") {
+
+			style.airMapBaseStyleLayers(for: ruleset.airspaceTypes)
+				.forEach { baseLayer in
+					if let newLayer = mapView.newLayerClone(of: baseLayer, with: ruleset, from: rulesetTileSource) {
+						newLayer.predicate = NSPredicate(format: "authorization_level < %@", NSNumber(value: 3))
+
+						AirMap.logger.debug("Adding", ruleset.id, baseLayer.identifier)
+						var layer = newLayer as MGLStyleLayer
+						style.insertLayer(layer, above: baseLayer)
+						mapView.airMapMapViewDelegate?.airMapMapViewDidAddAirspaceType(
+							mapView: mapView, ruleset: ruleset, airspaceType: layer.airspaceType!, layer: &layer
+						)
+					} else {
+						AirMap.logger.error("Could not add layer for", ruleset.id, baseLayer.airspaceType!)
+					}
 				}
-			}
+
+		} else {
+
+			style.airMapBaseStyleLayers(for: ruleset.airspaceTypes)
+				.forEach { baseLayer in
+					if let newLayer = mapView.newLayerClone(of: baseLayer, with: ruleset, from: rulesetTileSource) {
+						AirMap.logger.debug("Adding", ruleset.id, baseLayer.identifier)
+						var layer = newLayer as MGLStyleLayer
+						style.insertLayer(layer, above: baseLayer)
+						mapView.airMapMapViewDelegate?.airMapMapViewDidAddAirspaceType(
+							mapView: mapView, ruleset: ruleset, airspaceType: layer.airspaceType!, layer: &layer
+						)
+					} else {
+						AirMap.logger.error("Could not add layer for", ruleset.id, baseLayer.airspaceType!)
+					}
+				}
+		}
 	}
 	
 	private static func removeRuleset(_ sourceIdentifier: String, from style: MGLStyle, in mapView: AirMapMapView) {
