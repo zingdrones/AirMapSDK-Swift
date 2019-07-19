@@ -268,20 +268,20 @@ extension AirMapMapView {
 			})
 			.disposed(by: disposeBag)
 
-//		Observable.combineLatest(style, updateDynamicAirspaces)
-//			.observeOn(MainScheduler.instance)
-//			.mapToVoid()
-//			.subscribe(onNext: { [weak self] (_) in
-//				guard let dynamicSource = self?.dynamicSource,
-//					let visibleCoordinateBounds = self?.visibleCoordinateBounds
-//				 	else { return }
-//
-//				let shapes = dynamicSource.features(in: visibleCoordinateBounds).map { $0.shape }
-//
-//				let shapCollection = MGLShapeCollection(shapes: shapes)
-//				self?.dynamicAirspaceSource?.shape = shapCollection
-//			})
-//			.disposed(by: disposeBag)
+		Observable.combineLatest(style, updateDynamicAirspaces)
+			.observeOn(MainScheduler.instance)
+			.mapToVoid()
+			.subscribe(onNext: { [weak self] (_) in
+				guard let dynamicSource = self?.dynamicSource,
+					let visibleCoordinateBounds = self?.visibleCoordinateBounds
+				 	else { return }
+
+				let shapes = dynamicSource.features(in: visibleCoordinateBounds).map { $0.shape }
+
+				let shapCollection = MGLShapeCollection(shapes: shapes)
+				self?.dynamicAirspaceSource?.shape = shapCollection
+			})
+			.disposed(by: disposeBag)
 	}
 
 	private func setupAppearance() {
