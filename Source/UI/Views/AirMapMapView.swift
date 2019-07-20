@@ -141,7 +141,7 @@ extension AirMapMapView {
 	// MARK: - Source
 
 	private var dynamicAirspaceSource: MGLShapeSource? {
-		return style?.source(withIdentifier: "dynamic-airspace-source") as? MGLShapeSource
+		return style?.source(withIdentifier: "airmap-dynamic-airspace-source") as? MGLShapeSource
 	}
 
 	// MARK: - Setup
@@ -278,8 +278,8 @@ extension AirMapMapView {
 
 				let shapes = dynamicSource.features(in: visibleCoordinateBounds).map { $0.shape }
 
-				let shapCollection = MGLShapeCollection(shapes: shapes)
-				self?.dynamicAirspaceSource?.shape = shapCollection
+				let shapeCollection = MGLShapeCollectionFeature(shapes: shapes)// MGLShapeCollection(shapes: shapes)
+				self?.dynamicAirspaceSource?.shape = shapeCollection
 			})
 			.disposed(by: disposeBag)
 	}
@@ -334,7 +334,6 @@ extension AirMapMapView {
 		// Add new ruleset sources
 		rulesets
 			.filter({ newSourceIds.contains($0.tileSourceIdentifier) })
-//			.filter({ !$0.id.rawValue.hasPrefix("custom") })
 			.forEach({ (ruleset) in
 				addRuleset(ruleset, to: style, in: mapView)
 			})
@@ -361,18 +360,17 @@ extension AirMapMapView {
 		guard mapView.dynamicAirspaceSource == nil else { return }
 		guard let annotationsLayer = style.layer(withIdentifier: "com.mapbox.annotations.points") else { return }
 
-		let draftFlightSourceOptions = [MGLShapeSourceOption.simplificationTolerance: 0]
-		let draftFlightSource = MGLShapeSource(identifier: "dynamic-airspace-source", shape: nil, options: draftFlightSourceOptions)
-		style.addSource(draftFlightSource)
+		let dynamicAirspaceSourceOptions = [MGLShapeSourceOption.simplificationTolerance: 0]
+		let dynamicAirspaceSource = MGLShapeSource(identifier: "airmap-dynamic-airspace-source", shape: nil, options: dynamicAirspaceSourceOptions)
+		style.addSource(dynamicAirspaceSource)
 
-		let fill = MGLFillStyleLayer(identifier: "dynamic-airspace-source|fill", source: draftFlightSource)
+		let fill = MGLFillStyleLayer(identifier: "airmap-dynamic-airspace-source|fill", source: dynamicAirspaceSource)
 		fill.fillColor = MGLStyleValue(rawValue: .airMapRed)
 		fill.predicate = NSPredicate(format: "%K == %@", "$type", "Polygon")
 		fill.fillOpacity = MGLStyleValue(rawValue: 0.5)
 		style.insertLayer(fill, below: annotationsLayer)
 
-		let line = MGLLineStyleLayer(identifier: "dynamic-airspace|line", source: draftFlightSource)
-//		line.predicate = NSPredicate(format: "%K == %@", "$authorization", true)
+		let line = MGLLineStyleLayer(identifier: "airmap-dynamic-airspace-source|line", source: dynamicAirspaceSource)
 		line.lineCap = MGLStyleValue(rawValue: NSValue(mglLineCap: .round))
 		line.lineColor = MGLStyleValue(rawValue: .airMapRed)
 		line.lineWidth = MGLStyleValue(rawValue: 2)
@@ -436,7 +434,7 @@ extension AirMapMapView {
 			AirMap.logger.debug("Removing", sourceIdentifier)
 			style.removeSource(source)
 		}
-	}	
+	}
 
 	private static func activeRulesets(from jurisdictions: [AirMapJurisdiction], using configuration: RulesetConfiguration) -> [AirMapRuleset] {
 		
