@@ -296,7 +296,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			return
 		}
 
-		var addedTraffic = traffic
+		var addedTraffic = traffic.filter { !$0.id.hasPrefix("flight") }
 		var updatedTraffic = [AirMapTraffic]()
 
 		for added in addedTraffic {
