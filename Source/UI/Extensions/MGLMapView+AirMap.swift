@@ -124,12 +124,22 @@ extension MGLMapView {
 			AirMap.logger.warning("Unsupported layer type:", existingLayer)
 			return nil
 		}
-
+		
 		newLayer.sourceLayerIdentifier = ruleset.id.rawValue + "_" + existingLayer.airspaceType!.rawValue
 		
+		// Loop through each property and copy it to the new layer
 		properties.forEach { key in
 			let baseValue = existingLayer.value(forKey: key)
-			newLayer.setValue(baseValue, forKey: key)
+			
+			// MapBox does not accept empty expressions
+			if let bv = baseValue as? NSExpression {
+				if bv != NSExpression(forConstantValue: "") {
+					newLayer.setValue(baseValue, forKey: key)
+				}
+			} else {
+				newLayer.setValue(baseValue, forKey: key)
+			}
+		
 		}
 		
 		return newLayer
@@ -151,31 +161,26 @@ extension MGLStyle {
 		let airMapBaseLayers = vectorLayers
 			.filter { $0.sourceIdentifier == "airmap" }
 			.filter { $0.airspaceType != nil && types.contains($0.airspaceType!) }
-				
+		
 		return airMapBaseLayers
 	}
 	    
     /// Updates the map labels to one of the supported languages
     func localizeLabels() {
-        
+		
         let currentLanguage = Locale.current.languageCode ?? "en"
-        let supportedLanguages = ["en", "es", "de", "fr", "ru", "zh"]
-        let supportsCurrentLanguage = supportedLanguages.contains(currentLanguage)
-        
+		let mapboxSupportedLanguages = ["en", "es", "fr", "de", "ru", "zh", "pt", "ar", "ja", "ko"]
+        let supportsCurrentLanguage = mapboxSupportedLanguages.contains(currentLanguage)
+		
 		let labelLayers = layers.compactMap { $0 as? MGLSymbolStyleLayer }
-        
+		
         for layer in labelLayers {
-            if let textValue = layer.text as? MGLConstantStyleValue {
-                let nameField: String
-                if supportsCurrentLanguage {
-                    nameField = "{name_\(currentLanguage)}"
-                } else {
-                    nameField = "{name}"
-                }
-                let newValue = textValue.rawValue.replacingOccurrences(of: "{name_en}", with: nameField)
-                layer.text = MGLStyleValue(rawValue: newValue as NSString)
-            }
+			// Check if mapbox supports current locale
+			let localeString = supportsCurrentLanguage ? currentLanguage : "en"
+			let locale = Locale(identifier: localeString)
+			layer.text = layer.text.mgl_expressionLocalized(into: locale)
         }
+		
     }
         
     /// Update the predicates for temporal layers such as .tfr and .notam with a near future time window
@@ -212,7 +217,7 @@ extension MGLStyleLayer {
 	}
 }
 
-extension MGLVectorSource {
+extension MGLVectorTileSource {
 	
 	convenience init(ruleset: AirMapRuleset) {
 		

@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 	}
 	s.cocoapods_version = '>= 1.4.0'
 	s.frameworks = 'Foundation'
-	s.swift_version = '4.1'
+	s.swift_version = '4.2'
 	
 	s.ios.deployment_target = '9.0'
 	s.osx.deployment_target = '10.11'
@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
 		core.dependency 'AppAuth'
 		core.dependency 'ObjectMapper', '< 3.5.0'
 		core.dependency 'SwiftTurf'
-		core.dependency 'KeychainAccess'
+		core.dependency 'KeychainAccess', '<3.2'
 		core.dependency 'RxSwift', '~> 4.0'
 		core.dependency 'RxSwiftExt', '~> 3.4'
 		core.dependency 'RxCocoa', '~> 4.0'
@@ -47,7 +47,8 @@ Pod::Spec.new do |s|
 		ui.dependency 'AirMapSDK/Core'
 		ui.dependency 'PhoneNumberKit'
 		ui.dependency 'RxDataSources'
-		ui.dependency 'Mapbox-iOS-SDK', '<4.0'
+		ui.dependency 'Mapbox-iOS-SDK', '~> 5.1'
+		ui.dependency 'AppAuth'
 		ui.source_files = 'Source/UI/**/{*.swift}'
 		ui.resources = ['Resources/UI/*.{xcassets}', 'Resources/UI/Localizations/**/*']
 	end
