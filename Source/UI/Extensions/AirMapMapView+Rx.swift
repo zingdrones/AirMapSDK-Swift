@@ -113,9 +113,9 @@ extension Reactive where Base: AirMapMapView {
 				return Observable
 					.merge(
 						base.rx.regionIsChanging
-							.throttle(3, latest: true, scheduler: MainScheduler.instance),
+							.throttle(.seconds(3), latest: true, scheduler: MainScheduler.instance),
 						base.rx.regionDidChangeAnimated.map({$0.mapView})
-							.throttle(1, latest: true, scheduler: MainScheduler.instance),
+							.throttle(.seconds(1), latest: true, scheduler: MainScheduler.instance),
 						base.rx.mapDidFinishRenderingMap.map({$0.mapView})
 					)
 					.map({ $0.jurisdictions })

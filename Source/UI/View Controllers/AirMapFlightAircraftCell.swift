@@ -28,7 +28,7 @@ class AirMapFlightAircraftCell: UITableViewCell, Dequeueable {
 	
 	@IBOutlet weak var selectedAircraft: UILabel!
 
-	let aircraft = Variable(nil as AirMapAircraft?)
+	let aircraft = BehaviorRelay<AirMapAircraft?>(value: nil)
 	fileprivate let disposeBag = DisposeBag()
 	
 	override func awakeFromNib() {
@@ -40,7 +40,6 @@ class AirMapFlightAircraftCell: UITableViewCell, Dequeueable {
 	fileprivate func setupBindings() {
 		
 		aircraft
-			.asObservable()
 			.subscribeOn(MainScheduler.instance)
 			.map {
 				let selectAircraftTitle = LocalizedStrings.Aircraft.selectAircraft

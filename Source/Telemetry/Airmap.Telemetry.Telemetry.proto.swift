@@ -10,7 +10,7 @@ import ProtocolBuffers
 public struct Airmap { public struct Telemetry { }}
 
 public extension Airmap.Telemetry {
-    public struct TelemetryRoot {
+	struct TelemetryRoot {
         public static let `default` = TelemetryRoot()
         public var extensionRegistry:ExtensionRegistry
 
@@ -22,7 +22,7 @@ public extension Airmap.Telemetry {
         }
     }
 
-    final public class Position : GeneratedMessage {
+    final class Position : GeneratedMessage {
         public typealias BuilderType = Airmap.Telemetry.Position.Builder
 
         public static func == (lhs: Airmap.Telemetry.Position, rhs: Airmap.Telemetry.Position) -> Bool {
@@ -527,7 +527,7 @@ public extension Airmap.Telemetry {
 
     }
 
-    final public class Attitude : GeneratedMessage {
+    final class Attitude : GeneratedMessage {
         public typealias BuilderType = Airmap.Telemetry.Attitude.Builder
 
         public static func == (lhs: Airmap.Telemetry.Attitude, rhs: Airmap.Telemetry.Attitude) -> Bool {
@@ -914,7 +914,7 @@ public extension Airmap.Telemetry {
 
     }
 
-    final public class Speed : GeneratedMessage {
+    final class Speed : GeneratedMessage {
         public typealias BuilderType = Airmap.Telemetry.Speed.Builder
 
         public static func == (lhs: Airmap.Telemetry.Speed, rhs: Airmap.Telemetry.Speed) -> Bool {
@@ -1301,7 +1301,7 @@ public extension Airmap.Telemetry {
 
     }
 
-    final public class Barometer : GeneratedMessage {
+    final class Barometer : GeneratedMessage {
         public typealias BuilderType = Airmap.Telemetry.Barometer.Builder
 
         public static func == (lhs: Airmap.Telemetry.Barometer, rhs: Airmap.Telemetry.Barometer) -> Bool {

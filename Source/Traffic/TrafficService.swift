@@ -49,7 +49,7 @@ internal class TrafficService: MQTTSessionDelegate {
 	fileprivate var activeTraffic = [AirMapTraffic]()
 	fileprivate var expirationInterval = Constants.Traffic.expirationInterval
 	fileprivate var client = TrafficClient()
-	fileprivate var connectionState = Variable(ConnectionState.disconnected)
+	fileprivate var connectionState = BehaviorRelay<ConnectionState>(value: .disconnected)
 	fileprivate var currentFlight = BehaviorRelay<AirMapFlight?>(value: nil)
 	fileprivate var receivedFlight = BehaviorRelay<AirMapFlight?>(value: nil)
 	fileprivate var isActive = BehaviorRelay<Bool>(value: false)
@@ -74,7 +74,8 @@ internal class TrafficService: MQTTSessionDelegate {
 		let getFlight = activate
 			.mapToVoid()
 
-		let refreshCurrentFlightTimer = Observable<Int>.timer(0, period: 15, scheduler: MainScheduler.instance)
+		let refreshCurrentFlightTimer = Observable<Int>
+			.timer(.seconds(0), period: .seconds(15), scheduler: MainScheduler.instance)
 			.mapToVoid()
 
 		let refreshCurrentFlight = Observable.merge(
@@ -84,7 +85,10 @@ internal class TrafficService: MQTTSessionDelegate {
 			.filter {[unowned self] _ in self.canConnect()}
 			.flatMap(AirMap.rx.getCurrentAuthenticatedPilotFlight)
 			.retry(2)
-			.catchError({ [unowned self] _ in self.connectionState.value = .disconnected; return Observable.of(nil) })
+			.catchError({ [unowned self] _ in
+				self.connectionState.accept(.disconnected)
+				return Observable.of(nil)
+			})
 
 		Observable.merge(refreshCurrentFlight, receivedFlight.asObservable())
 			.bind(to: currentFlight)
@@ -96,7 +100,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			.filter {[unowned self] _ in self.connectionState.value == .connected }
 			.distinctUntilChanged { flight in flight?.id ?? "" }
 			.do(onNext: { [unowned self] (_) in
-				self.connectionState.value = .disconnected
+				self.connectionState.accept(.disconnected)
 				self.removeAllTraffic()
 			})
 
@@ -117,7 +121,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		whenDisconnected
 			.retry()
-			.throttle(1, scheduler: MainScheduler.instance)
+			.throttle(.seconds(1), scheduler: MainScheduler.instance)
 			.map { flight, state in flight }
 			.unwrap()
 			.filter {[unowned self] _ in self.canConnect()}
@@ -130,13 +134,16 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		whenConnected
 			.retry()
-			.throttle(1, scheduler: MainScheduler.instance)
+			.throttle(.seconds(1), scheduler: MainScheduler.instance)
 			.filter {[unowned self] _ in self.canConnect()}
 			.map { flight, state in flight }
 			.unwrap()
 			.flatMap({ [unowned self] flight -> Observable<Void> in
 				return self.subscribeToTraffic(flight)
-					.catchError({ [unowned self] _ in self.connectionState.value = .disconnected;  return Observable.empty() })
+					.catchError({ [unowned self] _ in
+						self.connectionState.accept(.disconnected)
+						return .empty()
+					})
 			})
 			.subscribe()
 			.disposed(by: disposeBag)
@@ -160,9 +167,12 @@ internal class TrafficService: MQTTSessionDelegate {
 		let unsubscribe = unsubscribeFromAllChannels()
 			.do(onDispose: { [unowned self] in
 				self.client.disconnect()
-				self.connectionState.value = .disconnected
+				self.connectionState.accept(.disconnected)
 			})
-			.catchError({ [unowned self] _ in self.connectionState.value = .disconnected;  return Observable.empty() })
+			.catchError({ [unowned self] _ in
+				self.connectionState.accept(.disconnected)
+				return Observable.empty()
+			})
 
 		deactivate
 			.flatMap { (_) -> Observable<Void> in
@@ -171,7 +181,8 @@ internal class TrafficService: MQTTSessionDelegate {
 			.subscribe()
 			.disposed(by: disposeBag)
 
-		let trafficProjectionTimer = Observable<Int>.interval(0.25, scheduler: MainScheduler.asyncInstance).mapToVoid()
+		let trafficProjectionTimer = Observable<Int>
+			.interval(.milliseconds(250), scheduler: MainScheduler.asyncInstance).mapToVoid()
 
 		trafficProjectionTimer
 			.subscribe(onNext: { [weak self] _ in
@@ -179,7 +190,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			})
 			.disposed(by: disposeBag)
 
-		let purgeTrafficTimer = Observable<Int>.interval(5, scheduler: MainScheduler.asyncInstance).mapToVoid()
+		let purgeTrafficTimer = Observable<Int>.interval(.seconds(5), scheduler: MainScheduler.asyncInstance).mapToVoid()
 
 		purgeTrafficTimer
 			.subscribe(onNext: { [weak self] _ in
@@ -308,7 +319,7 @@ internal class TrafficService: MQTTSessionDelegate {
 				// Update values using KVO-compliant mechanisms
 
 				existing.setValuesForKeys([
-					"id":              added.id,
+					"id":              added.id as Any,
 					"direction":       added.direction,
 					"altitude":        added.altitude,
 					"groundSpeed":     added.groundSpeed,
@@ -394,7 +405,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		for updated in updatedTraffic {
 
-			if let index = activeTraffic.index(where: { $0.id == updated.id }) {
+			if let index = activeTraffic.firstIndex(where: { $0.id == updated.id }) {
 				let existing = activeTraffic[index]
 
 				existing.willChangeValue(forKey: "coordinate")
@@ -498,7 +509,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			connectionState.value == .connected,
 			let jsonString = String(data: message.payload, encoding: String.Encoding.utf8),
 			let jsonDict = try? JSONSerialization.jsonObject(with: message.payload, options: []) as? [String: Any],
-			let trafficArray = jsonDict?["traffic"] as? [[String: Any]]
+			let trafficArray = jsonDict["traffic"] as? [[String: Any]]
 		else {
 			AirMap.logger.error(TrafficService.self, "Failed to parse JSON message")
 			return
@@ -522,7 +533,7 @@ internal class TrafficService: MQTTSessionDelegate {
 
 	func mqttDidDisconnect(session: MQTTSession) {
 		AirMap.logger.debug(TrafficService.self, "Disconnected from MQTT")
-		connectionState.value = .disconnected
+		connectionState.accept(.disconnected)
 	}
 	
 	func mqttSocketErrorOccurred(session: MQTTSession) {

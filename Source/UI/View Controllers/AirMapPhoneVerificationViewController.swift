@@ -118,7 +118,7 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
-			.throttle(0.25, scheduler: MainScheduler.instance)
+			.throttle(.milliseconds(250), scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bind(to: rx_loading)
 			.disposed(by: disposeBag)

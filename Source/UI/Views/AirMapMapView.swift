@@ -199,7 +199,7 @@ extension AirMapMapView {
 
 		let range = self.temporalRangeSubject
 		let refresh = Observable<Int>
-			.timer(0, period: Constants.Maps.temporalLayerRefreshInterval, scheduler: MainScheduler.instance)
+			.timer(.seconds(0), period: Constants.Maps.temporalLayerRefreshInterval, scheduler: MainScheduler.instance)
 
 		// Update temporal filters
 		Observable.combineLatest(style, range, refresh)

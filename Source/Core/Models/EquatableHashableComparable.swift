@@ -25,7 +25,7 @@ import Foundation
 extension AirMapRuleset: Hashable, Equatable, Comparable {
 	
 	internal var order: Int {
-		return [.pickOne, .optional, .required].index(of: type)!
+		return AirMapRuleset.SelectionType.AllCases().firstIndex(of: type)!
 	}
 	
 	public func hash(into hasher: inout Hasher) {
@@ -59,7 +59,7 @@ extension AirMapAdvisory.Color: Comparable {
 	}
 	
 	public var order: Int {
-		return AirMapAdvisory.Color.all.index(of: self)!
+		return AirMapAdvisory.Color.all.firstIndex(of: self)!
 	}
 	
 	public static func <(lhs: AirMapAdvisory.Color, rhs: AirMapAdvisory.Color) -> Bool {
@@ -141,7 +141,7 @@ extension AirMapJurisdiction: Hashable, Equatable, Comparable {
 extension AirMapJurisdiction.Region {
 	
 	var order: Int {
-		return [.federal, .federalBackup, .federalStructureBackup, .state, .county, .city, .local].index(of: self)!
+		return AirMapJurisdiction.Region.AllCases().firstIndex(of: self)!
 	}
 }
 
@@ -159,7 +159,7 @@ extension AirMapFlightFeature: Hashable, Equatable {
 extension AirMapFlightFeature.Status: Comparable {
 	
 	var order: Int {
-		return [.conflicting, .missingInfo, .informational, .notConflicting, .unevaluated].index(of: self)!
+		return AirMapFlightFeature.Status.AllCases().firstIndex(of: self)!
 	}
 	
 	public static func <(lhs: AirMapFlightFeature.Status, rhs: AirMapFlightFeature.Status) -> Bool {

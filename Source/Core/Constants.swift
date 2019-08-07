@@ -24,6 +24,7 @@ import UIKit.UIDevice
 
 import ObjectMapper
 import AppAuth
+import RxSwift
 
 struct Constants {
 
@@ -99,10 +100,10 @@ struct Constants {
 		}
 		
 		struct SampleRate {
-			static let position:  TimeInterval = 1/5
-			static let attitude:  TimeInterval = 1/5
-			static let speed:     TimeInterval = 1/5
-			static let barometer: TimeInterval = 20
+			static let position:  RxTimeInterval = .milliseconds(200)
+			static let attitude:  RxTimeInterval = .milliseconds(200)
+			static let speed:     RxTimeInterval = .milliseconds(200)
+			static let barometer: RxTimeInterval = .seconds(20)
 		}
 	}
 
@@ -133,7 +134,7 @@ struct Constants {
 		static let rulesetSourcePrefix = "airmap_ruleset_"
 		static let tileMinimumZoomLevel = 7
 		static let tileMaximumZoomLevel = 12
-		static let temporalLayerRefreshInterval: TimeInterval = 20
+		static let temporalLayerRefreshInterval: RxTimeInterval = .seconds(20)
 		static let futureTemporalWindow: TimeInterval = 4*60*60 // 4 hours
 		
 		static var styleUrl: URL {

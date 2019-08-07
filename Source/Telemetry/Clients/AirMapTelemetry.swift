@@ -46,7 +46,7 @@ struct AirMapTelemetry {
 			
 			let latestFlightId = telemetry.map { $0.flightId }
 				.distinctUntilChanged()
-				.throttle(5, scheduler: MainScheduler.instance)
+				.throttle(.seconds(5), scheduler: MainScheduler.instance)
 			
 			let session = latestFlightId
 				.flatMap { id in
@@ -89,7 +89,7 @@ struct AirMapTelemetry {
 				.throttle(rate.barometer, scheduler: bgScheduler)
 			
 			Observable.from([position, attitude, speed, barometer]).merge()
-				.buffer(timeSpan: 1, count: 20, scheduler: bgScheduler)
+				.buffer(timeSpan: .seconds(1), count: 20, scheduler: bgScheduler)
 				.observeOn(serialScheduler)
 				.subscribe(onNext: Client.sendMessages)
 				.disposed(by: disposeBag)
@@ -145,7 +145,7 @@ struct AirMapTelemetry {
 				)
 			}
 
-			let data = Data(bytes: packet.bytes())
+			let data = Data(packet.bytes())
 			Session.socket.sendData(data)
 		}
 		
