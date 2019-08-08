@@ -79,7 +79,7 @@ internal class HTTPClient {
 					"method": .string(method.rawValue),
 					"object": .string(String(describing: T.self)),
 					"params": .stringConvertible(params),
-					"path": .string(path),
+					"path": .string(self.absolute(path)),
 					])
 
 				let headers = self.defaultHeaders(with: auth?.token)
@@ -90,14 +90,14 @@ internal class HTTPClient {
 							if let error = error as? AirMapError, case AirMapError.cancelled = error {
 								AirMap.logger.trace("HTTP Request Cancelled", metadata: [
 									"method": .string(method.rawValue),
-									"path": .string(path),
+									"path": .string(self.absolute(path)),
 								])
 								observer.onCompleted()
 							} else {
 								AirMap.logger.error("HTTP Request Failed", metadata: [
 									"method": .string(method.rawValue),
 									"params": .stringConvertible(params),
-									"path": .string(path),
+									"path": .string(self.absolute(path)),
 									"error": .string(error.localizedDescription)
 									])
 								observer.onError(error)
@@ -106,7 +106,7 @@ internal class HTTPClient {
 							AirMap.logger.trace("HTTP Request Succeeded", metadata: [
 								"method": .string(method.rawValue),
 								"object": .string(String(describing: T.self)),
-								"path": .string(path),
+								"path": .string(self.absolute(path)),
 								])
 							observer.on(.next(response.result.value!))
 							observer.on(.completed)
@@ -127,7 +127,7 @@ internal class HTTPClient {
 					"method": .string(method.rawValue),
 					"object": .string(String(describing: T.self)),
 					"params": .stringConvertible(params),
-					"path": .string(path),
+					"path": .string(self.absolute(path)),
 					])
 
 				let headers = self.defaultHeaders(with: auth?.token)
@@ -138,14 +138,14 @@ internal class HTTPClient {
 							if let error = error as? AirMapError, case AirMapError.cancelled = error {
 								AirMap.logger.trace("HTTP Request Cancelled", metadata: [
 									"method": .string(method.rawValue),
-									"path": .string(path),
+									"path": .string(self.absolute(path)),
 									])
 								observer.onCompleted()
 							} else {
 								AirMap.logger.error("HTTP Request Failed", metadata: [
 									"method": .string(method.rawValue),
 									"params": .stringConvertible(params),
-									"path": .string(path),
+									"path": .string(self.absolute(path)),
 									"error": .string(error.localizedDescription)
 									])
 								observer.onError(error)
@@ -154,7 +154,7 @@ internal class HTTPClient {
 							AirMap.logger.trace("HTTP Request Succeeded", metadata: [
 								"method": .string(method.rawValue),
 								"object": .string(String(describing: T.self)),
-								"path": .string(path),
+								"path": .string(self.absolute(path)),
 								])
 							observer.on(.next(response.result.value))
 							observer.on(.completed)
@@ -175,7 +175,7 @@ internal class HTTPClient {
 					"method": .string(method.rawValue),
 					"object": .string(String(describing: T.self)),
 					"params": .stringConvertible(params),
-					"path": .string(path),
+					"path": .string(self.absolute(path)),
 					])
 
 				let headers = self.defaultHeaders(with: auth?.token)
@@ -186,14 +186,14 @@ internal class HTTPClient {
 							if let error = error as? AirMapError, case AirMapError.cancelled = error {
 								AirMap.logger.trace("HTTP Request Cancelled", metadata: [
 									"method": .string(method.rawValue),
-									"path": .string(path),
+									"path": .string(self.absolute(path)),
 									])
 								observer.onCompleted()
 							} else {
 								AirMap.logger.error("HTTP Request Failed", metadata: [
 									"method": .string(method.rawValue),
 									"params": .stringConvertible(params),
-									"path": .string(path),
+									"path": .string(self.absolute(path)),
 									"error": .string(error.localizedDescription)
 									])
 								observer.onError(error)
@@ -202,7 +202,7 @@ internal class HTTPClient {
 							AirMap.logger.trace("HTTP Request Succeeded", metadata: [
 								"method": .string(method.rawValue),
 								"object": .string(String(describing: T.self)),
-								"path": .string(path),
+								"path": .string(self.absolute(path)),
 								])
 							observer.on(.next(response.result.value!))
 							observer.on(.completed)
@@ -222,7 +222,7 @@ internal class HTTPClient {
 				AirMap.logger.trace("Enqueueing HTTP Request", metadata: [
 					"method": .string(method.rawValue),
 					"params": .stringConvertible(params),
-					"path": .string(path),
+					"path": .string(self.absolute(path)),
 					])
 
 				let headers = self.defaultHeaders(with: auth?.token)
@@ -233,14 +233,14 @@ internal class HTTPClient {
 							if let error = error as? AirMapError, case AirMapError.cancelled = error {
 								AirMap.logger.trace("HTTP Request Cancelled", metadata: [
 									"method": .string(method.rawValue),
-									"path": .string(path),
+									"path": .string(self.absolute(path)),
 									])
 								observer.onCompleted()
 							} else {
 								AirMap.logger.error("HTTP Request Failed", metadata: [
 									"method": .string(method.rawValue),
 									"params": .stringConvertible(params),
-									"path": .string(path),
+									"path": .string(self.absolute(path)),
 									"error": .string(error.localizedDescription)
 									])
 								observer.onError(error)
