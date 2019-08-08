@@ -33,22 +33,22 @@ internal class AircraftClient: HTTPClient {
 	}
 	
 	func searchManufacturers(by name: String) -> Observable<[AirMapAircraftManufacturer]> {
-		AirMap.logger.debug("Search Aircraft Manufacturers by Name", name)
+		AirMap.logger.debug("Search Aircraft Manufacturers", metadata: ["name": .string(name)])
 		return perform(method: .get, path: "/manufacturer", params: ["q": name])
 	}
 
 	func listModels(by manufacturerId: AirMapAircraftManufacturerId) -> Observable<[AirMapAircraftModel]> {
-		AirMap.logger.debug("Get Manufacturer Models", manufacturerId)
+		AirMap.logger.debug("Get Manufacturer Models", metadata: ["manufacturer": .stringConvertible(manufacturerId)])
 		return perform(method: .get, path: "/model", params: ["manufacturer": manufacturerId])
 	}
 
 	func searchModels(by name: String) -> Observable<[AirMapAircraftModel]> {
-		AirMap.logger.debug("Search Aircraft Models by Name", name)
+		AirMap.logger.debug("Search Aircraft Models by Name", metadata: ["name": .string(name)])
 		return perform(method: .get, path: "/model", params: ["q": name])
 	}
 
 	func getModel(_ modelId: AirMapAircraftModelId) -> Observable<AirMapAircraftModel> {
-		AirMap.logger.debug("Get Model", modelId)
+		AirMap.logger.debug("Get Model", metadata: ["model": .stringConvertible(modelId)])
 		return perform(method: .get, path: "/model/\(modelId)")
 	}
 }

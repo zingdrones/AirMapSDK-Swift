@@ -47,18 +47,18 @@ internal class RuleClient: HTTPClient {
 	}
 	
 	func getRulesetsEvaluated(by flightPlanId: AirMapFlightPlanId) -> Observable<[AirMapFlightBriefing.Ruleset]> {
-		AirMap.logger.debug("Getting evaluated rulesets for flight_plan_id", flightPlanId)
+		AirMap.logger.debug("Getting evaluated rulesets", metadata: ["flight_plan_id": .stringConvertible(flightPlanId)])
 		return AirMap.flightPlanClient.getBriefing(flightPlanId).map { $0.rulesets }
 	}
 	
 	func getRulesets(by rulesetIds: [AirMapRulesetId]) -> Observable<[AirMapRuleset]> {
-		AirMap.logger.debug("Getting rules for ruleset:", rulesetIds)
+		AirMap.logger.debug("Getting rules", metadata: ["rulesets": .stringConvertible(rulesetIds)])
 		let params = ["rulesets": rulesetIds.map { $0.rawValue }.joined(separator: ",")]
 		return perform(method: .get, path: "/rule", params: params)
 	}
 	
 	func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?) -> Observable<[AirMapFlightBriefing.Ruleset]> {
-		AirMap.logger.debug("Getting airspace evaluation")
+		AirMap.logger.debug("Getting airspace evaluation", metadata: ["rulesets": .stringConvertible(rulesetIds)])
 		let params: [String: Any] = [
 			"rulesets": rulesetIds.csv,
 			"geometry": geometry.params(),

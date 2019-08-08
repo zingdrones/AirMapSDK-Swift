@@ -167,7 +167,7 @@ class AuthService: NSObject {
 			switch self.authState {
 
 			case .loggedOut:
-				AirMap.logger.error("failed to get credentials", AirMapError.unauthorized)
+				AirMap.logger.error("Failed to get credentials", metadata: ["error": .stringConvertible(AirMapError.unauthorized)])
 				observer.onError(AirMapError.unauthorized)
 
 			case .anonymous(let token):

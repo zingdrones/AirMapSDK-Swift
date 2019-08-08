@@ -28,12 +28,12 @@ internal class AirspaceClient: HTTPClient {
 	}
 	
 	func getAirspace(_ airspaceId: AirMapAirspaceId) -> Observable<AirMapAirspace> {
-		AirMap.logger.debug("Get Airspace", airspaceId)
+		AirMap.logger.debug("Get Airspace", metadata: ["id" : .stringConvertible(airspaceId)])
 		return perform(method: .get, path:"/\(airspaceId)")
 	}
 
 	func listAirspace(_ airspaceIds: [AirMapAirspaceId]) -> Observable<[AirMapAirspace]> {
-		AirMap.logger.debug("Get Airspace", airspaceIds)
+		AirMap.logger.debug("Get Airspace", metadata: ["ids" : .stringConvertible(airspaceIds)])
 		let params = [
 			"ids": airspaceIds.csv
 		]

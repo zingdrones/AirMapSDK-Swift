@@ -148,7 +148,7 @@ extension AirMap {
 	fileprivate static func canSendTelemetry() throws {
 	
 		guard AirMap.authService.isAuthorized else {
-			logger.error(self, "Please login before sending telemetry data.")
+			logger.error("Failed to send telemetry data", metadata: ["error": .stringConvertible("unauthorized")])
 			throw TelemetryError.invalidCredentials
 		}
 	}

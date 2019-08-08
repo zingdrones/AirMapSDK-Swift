@@ -93,7 +93,9 @@ public class AirMapAircraftViewController: UITableViewController, AnalyticsTrack
 					})
 			}
 			.flatMap(AirMap.rx.listAircraft)
-			.do(onError: { AirMap.logger.error($0) })
+			.do(onError: {
+				AirMap.logger.error("Failed to list aircraft", metadata: ["error": .stringConvertible($0.localizedDescription)])
+			})
 			.ignoreErrors()
 			.bind(to: aircraft)
 			.disposed(by: disposeBag)

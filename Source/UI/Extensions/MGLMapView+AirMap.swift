@@ -121,7 +121,7 @@ extension MGLMapView {
 			newLayer = MGLSymbolStyleLayer(identifier: layerId, source: source)
 			properties = commonProps+symbolProps
 		default:
-			AirMap.logger.warning("Unsupported layer type:", existingLayer)
+			AirMap.logger.warning("Unsupported layer type", metadata: ["layer": .stringConvertible(existingLayer)])
 			return nil
 		}
 		

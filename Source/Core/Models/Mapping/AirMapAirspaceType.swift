@@ -19,7 +19,7 @@
 //
 
 /// The airspace type/category
-public enum AirMapAirspaceType: String {
+public enum AirMapAirspaceType: String, CustomStringConvertible {
 	
 	case airport             = "airport"
 	/// Academy of Model Aeronautics (AMA) Field
@@ -119,5 +119,9 @@ public enum AirMapAirspaceType: String {
 		case .waterway:             return localized.waterway
 		case .wildfire:             return localized.wildfire
 		}
+	}
+
+	public var description: String {
+		return self.title
 	}
 }

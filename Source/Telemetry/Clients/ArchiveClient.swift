@@ -29,7 +29,12 @@ internal class ArchiveClient: HTTPClient {
 
 	func queryFlightTelemetry(for flightId: AirMapFlightId, from: Date?, to: Date?, sampleRate: SampleRate?) -> Observable<ArchivedTelemetry> {
 
-		AirMap.logger.debug("Query Flight Telemetry", flightId as Any, from as Any, to as Any, sampleRate as Any)
+		AirMap.logger.debug("Query Flight Telemetry", metadata: [
+			"flight": .stringConvertible(flightId),
+			"start": .stringConvertible(from ?? ""),
+			"end": .stringConvertible(to ?? ""),
+			"rate": .stringConvertible(sampleRate ?? "")
+			])
 
 		var params = [String : Any]()
 		params["flight_id"] = flightId.rawValue

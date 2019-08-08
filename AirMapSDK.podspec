@@ -19,8 +19,8 @@ Pod::Spec.new do |s|
 	s.frameworks = 'Foundation'
 	s.swift_version = '5.0'
 	
-	s.ios.deployment_target = '9.0'
-	s.osx.deployment_target = '10.11'
+	s.ios.deployment_target = '10.0'
+	s.osx.deployment_target = '10.12'
 	
 	s.default_subspecs = 'Core', 'Traffic', 'Telemetry', 'UI'
 
@@ -36,7 +36,7 @@ Pod::Spec.new do |s|
 		core.dependency 'RxSwift', '~> 5.0'
 		core.dependency 'RxSwiftExt', '~> 5.0'
 		core.dependency 'RxCocoa', '~> 5.0'
-		core.dependency 'Log'
+		core.dependency 'Logging'
 		core.resources = ['Resources/Core/*.{cer,pdf,xcassets}', 'Resources/Core/Localizations/**/*']
 	end
 	

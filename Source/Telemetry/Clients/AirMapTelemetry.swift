@@ -52,7 +52,7 @@ struct AirMapTelemetry {
 				.flatMap { id in
 					AirMap.flightClient.getCommKey(by: id)
 						.catchError({ (error) -> Observable<CommKey> in
-							AirMap.logger.error("Failed to acquire encryption key for flight telemetry", error)
+							AirMap.logger.error("Failed to acquire telemetry encryption key", metadata: ["error": .stringConvertible(error.localizedDescription)])
 							return .empty()
 						})
 						.map { Session(flightId: id, commKey: $0) }

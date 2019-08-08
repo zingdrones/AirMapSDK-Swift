@@ -152,15 +152,14 @@ internal class TrafficService: MQTTSessionDelegate {
 			.subscribe(onNext: { [unowned self] state in
 				switch state {
 				case .connecting:
-					AirMap.logger.debug(TrafficService.self, "Connecting…")
+					AirMap.logger.info("Traffic Service Connecting…")
 				case .connected:
-					AirMap.logger.debug(TrafficService.self, "Connected")
+					AirMap.logger.info("Traffic Service Connected")
 					self.delegate?.airMapTrafficServiceDidConnect?()
 				case .disconnected:
-					AirMap.logger.debug(TrafficService.self, "Disconnected")
+					AirMap.logger.info("Traffic Service Disconnected")
 					self.delegate?.airMapTrafficServiceDidDisconnect?()
 				}
-				AirMap.logger.debug(state)
 			})
 			.disposed(by: disposeBag)
 
@@ -236,7 +235,10 @@ internal class TrafficService: MQTTSessionDelegate {
 						if error == .none {
 							observer.onNext(.connected)
 						} else {
-							AirMap.logger.error(error.description)
+							AirMap.logger.error("Failed to connect to traffic", metadata: [
+								"flight": .stringConvertible(flight.id ?? ""),
+								"error": .string(error.description)]
+							)
 							observer.onError(TrafficServiceError.connectionFailed)
 							observer.onNext(.disconnected)
 						}
@@ -260,7 +262,10 @@ internal class TrafficService: MQTTSessionDelegate {
 			self.client.subscribe(to: channel, delivering: .atLeastOnce) { error in
 				if error == .none {
 					self.client.currentChannels.append(channel)
-					AirMap.logger.debug(TrafficService.self, "Subscribed to \(channel)")
+					AirMap.logger.debug("Subscribed to traffic", metadata: [
+						"flight": .stringConvertible(flight.id ?? ""),
+						"channel": .string(channel)]
+					)
 					observer.onCompleted()
 				} else {
 					observer.onError(TrafficServiceError.subscriptionFailed)
@@ -279,9 +284,11 @@ internal class TrafficService: MQTTSessionDelegate {
 			}
 			self.client.unSubscribe(from: channels) { error in
 				if error == .none {
-					AirMap.logger.debug(TrafficService.self, "Unsubscribed from channels", channels)
+					AirMap.logger.debug("Unsubscribed from traffic", metadata: [
+						"channels": .stringConvertible(channels)]
+					)
 				} else {
-					AirMap.logger.debug(TrafficService.self, error.description)
+					AirMap.logger.debug("Failed to unsubscribe from traffic", metadata: ["error": .stringConvertible(error)])
 					observer.onError(TrafficServiceError.subscriptionFailed)
 				}
 				self.client.currentChannels = []
@@ -495,15 +502,15 @@ internal class TrafficService: MQTTSessionDelegate {
 
 		switch error {
 		case .none:
-			AirMap.logger.trace("Traffic disconnected")
+			AirMap.logger.trace("Successfully disconnected from MQTT service")
 		default:
-			AirMap.logger.trace(error.description)
+			AirMap.logger.trace("Failed to disconnect from MQTT service", metadata: ["error": .stringConvertible(error)])
 		}
 	}
 
 	func mqttDidReceive(message: MQTTMessage, from session: MQTTSession) {
 
-		AirMap.logger.trace(TrafficService.self, "Did receive data")
+		AirMap.logger.trace("Received message from MQTT service")
 
 		guard
 			connectionState.value == .connected,
@@ -511,7 +518,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			let jsonDict = try? JSONSerialization.jsonObject(with: message.payload, options: []) as? [String: Any],
 			let trafficArray = jsonDict["traffic"] as? [[String: Any]]
 		else {
-			AirMap.logger.error(TrafficService.self, "Failed to parse JSON message")
+			AirMap.logger.error("Failed to parse MQTT traffic payload")
 			return
 		}
         
@@ -528,16 +535,16 @@ internal class TrafficService: MQTTSessionDelegate {
 	}
 
 	func mqttDidAcknowledgePing(from session: MQTTSession) {
-		AirMap.logger.trace("MQTT did receive pong from broker")
+		AirMap.logger.trace("Receive pong from MQTT service")
 	}
 
 	func mqttDidDisconnect(session: MQTTSession) {
-		AirMap.logger.debug(TrafficService.self, "Disconnected from MQTT")
+		AirMap.logger.trace("Disconnected from MQTT service")
 		connectionState.accept(.disconnected)
 	}
 	
 	func mqttSocketErrorOccurred(session: MQTTSession) {
-		AirMap.logger.error(TrafficService.self, "MQTTSession socket error")
+		AirMap.logger.error("MQTTSession encountered socket error")
 	}
 
 	deinit {

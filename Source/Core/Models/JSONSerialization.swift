@@ -34,7 +34,7 @@ extension AirMapAirspaceStatus: ImmutableMappable {
 			advisories  =  try map.value("advisories")
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapAirspaceStatus", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -104,7 +104,7 @@ extension AirMapAdvisory: ImmutableMappable {
 		}
 			
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapAdvisory", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -378,7 +378,7 @@ extension AirMapRuleset: ImmutableMappable {
 			jurisdictionRegion = try? map.value("jurisdiction.region")
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapRuleset", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -401,7 +401,7 @@ fileprivate class AirMapAirspaceTypeTransform: TransformType {
 				if let airspaceType = AirMapAirspaceType(rawValue: rawValue) {
 					airspaceTypes.append(airspaceType)
 				} else {
-					AirMap.logger.debug("Unknown airspace type", rawValue)
+					AirMap.logger.debug("Failed to parse AirMapAirspaceType", metadata: ["type": .string(rawValue)])
 				}
 			}
 			return airspaceTypes
@@ -509,7 +509,7 @@ extension AirMapFlightBriefing: ImmutableMappable {
 			validations    = (try? map.value("validations")) ?? []
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapFlightBriefing", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -533,7 +533,7 @@ extension AirMapFlightBriefing.Validation: ImmutableMappable {
 			description	=  try  map.value("description")
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapFlightBriefing.Validation", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -547,7 +547,7 @@ extension AirMapAuthority: ImmutableMappable {
 			name = try map.value("name")
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapAuthority", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -569,7 +569,7 @@ extension AirMapFlightBriefing.Authorization: ImmutableMappable {
 			description     =  try  map.value("description")
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapFlightBriefing.Authorization", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -606,7 +606,7 @@ extension AirMapJurisdiction: ImmutableMappable {
 			rulesets = try mapper.mapArray(JSONArray: updatedJSON)
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapJurisdiction", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -630,7 +630,7 @@ extension AirMapFlightFeature: ImmutableMappable {
 			isCalculated    = (try? map.value("is_calculated")) ?? false
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapFlightFeature", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -671,7 +671,7 @@ extension AirMapWeather: ImmutableMappable {
 			observations    = try map.value("weather")
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapWeather", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}
@@ -697,7 +697,7 @@ extension AirMapWeather.Observation: ImmutableMappable {
 			windGusting   =  try? map.value("wind.gusting")
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse AirMapWeather.Observation", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
 	}

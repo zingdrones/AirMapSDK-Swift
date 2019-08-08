@@ -297,14 +297,20 @@ extension AirMapMapView {
 		style.airMapBaseStyleLayers(for: ruleset.airspaceTypes)
 			.forEach { baseLayer in
 				if let newLayer = mapView.newLayerClone(of: baseLayer, with: ruleset, from: rulesetTileSource) {
-					AirMap.logger.debug("Adding", ruleset.id, baseLayer.identifier)
+					AirMap.logger.debug("Adding airspace layer", metadata: [
+						"ruleset": .stringConvertible(ruleset.id),
+						"type": .stringConvertible(baseLayer.airspaceType ?? "unknown")]
+					)
 					var layer = newLayer as MGLStyleLayer
 					style.insertLayer(layer, above: baseLayer)
 					mapView.airMapMapViewDelegate?.airMapMapViewDidAddAirspaceType(
 						mapView: mapView, ruleset: ruleset, airspaceType: layer.airspaceType!, layer: &layer
 					)
 				} else {
-					AirMap.logger.error("Could not add layer for", ruleset.id, baseLayer.airspaceType!)
+					AirMap.logger.error("Failed to add airspace layer", metadata: [
+						"ruleset": .stringConvertible(ruleset.id),
+						"type": .stringConvertible(baseLayer.airspaceType ?? "unknown")]
+					)
 				}
 		}
 	}
@@ -320,7 +326,7 @@ extension AirMapMapView {
 		}
 
 		if let source = style.source(withIdentifier: sourceIdentifier) {
-			AirMap.logger.debug("Removing", sourceIdentifier)
+			AirMap.logger.debug("Removing tile source", metadata: ["id": .string(sourceIdentifier)])
 			style.removeSource(source)
 		}
 	}

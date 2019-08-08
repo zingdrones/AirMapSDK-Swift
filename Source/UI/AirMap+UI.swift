@@ -51,7 +51,7 @@ extension AirMap {
 	public class func aircraftNavController(_ aircraft: AirMapAircraft?, delegate: AirMapAircraftNavControllerDelegate) -> AirMapAircraftNavController? {
 		
 		guard AirMap.authService.isAuthorized else {
-			AirMap.logger.error(AirMap.self, "Cannot create or modify aicraft; user not authenticated")
+			AirMap.logger.error("Failed to create or modify aicraft", metadata: ["error": .string("unauthenticated")])
 			return nil
 		}
 		
