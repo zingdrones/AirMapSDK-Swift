@@ -45,6 +45,7 @@ public enum AirMapAirspaceType: String, CustomStringConvertible {
 	case militaryProperty    = "military_property"
 	/// Notice To Airmen
 	case notam               = "notam"
+	case obstacle            = "obstacle"
 	case park                = "park"
 	case policeStation       = "police_station"
 	case powerline           = "powerline"
@@ -97,6 +98,7 @@ public enum AirMapAirspaceType: String, CustomStringConvertible {
 		case .japanBase:            return localized.japanBase
 		case .militaryProperty:     return localized.militaryProperty
 		case .notam:                return localized.notam
+		case .obstacle:             return localized.obstacle
 		case .park:                 return localized.park
 		case .policeStation:        return localized.policeStation
 		case .powerline:            return localized.powerline

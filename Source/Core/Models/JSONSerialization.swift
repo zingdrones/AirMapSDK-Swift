@@ -52,7 +52,6 @@ extension AirMapAdvisory: ImmutableMappable {
 			id            =  try  map.value("id")
 			color         =  try  map.value("color")
 			lastUpdated   = (try? map.value("last_updated", using: dateTransform)) ?? Date()
-			type          =  try  map.value("type")
 			city          =  try? map.value("city")
 			state         =  try? map.value("state")
 			country       =  try  map.value("country")
@@ -65,6 +64,7 @@ extension AirMapAdvisory: ImmutableMappable {
 			coordinate = Coordinate2D(latitude: latitude, longitude: longitude)
 			
 			let airspaceType: AirMapAirspaceType = (try? map.value("type")) ?? .unclassified
+			type = airspaceType
 			name = (try? map.value("name") as String) ?? airspaceType.title
 			
 			let props: [String: Any] = try map.value("properties")
