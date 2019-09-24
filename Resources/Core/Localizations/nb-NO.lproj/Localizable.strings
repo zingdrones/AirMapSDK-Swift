@@ -160,7 +160,7 @@
 /* The request with the authority has been accepted */
 "AUTHORIZATION_ACCEPTED" = "Godkjent";
 
-/* The request with the authority has been cancelled */
+/* The request with the authority has been invalidated */
 "AUTHORIZATION_CANCELLED_SUBMISSION" = "Autorisasjon avbrutt";
 
 /* The request with the authority has not been requested */

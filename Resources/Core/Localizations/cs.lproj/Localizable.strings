@@ -26,7 +26,7 @@
 "AIRCRAFT_SELECT_AIRCRAFT" = "Výběr stroje";
 
 /* Title to display for the view creating a new aircraft */
-"AIRCRAFT_TITLE_CREATE_NEW" = "Vytvoření stroje";
+"AIRCRAFT_TITLE_CREATE_NEW" = "Vložit stroj";
 
 /* Title to display for the view when updating an existing aircraft */
 "AIRCRAFT_TITLE_UPDATE_EXISTING" = "Aktualizovat stroj";
@@ -160,7 +160,7 @@
 /* The request with the authority has been accepted */
 "AUTHORIZATION_ACCEPTED" = "Schváleno";
 
-/* The request with the authority has been cancelled */
+/* The request with the authority has been invalidated */
 "AUTHORIZATION_CANCELLED_SUBMISSION" = "Ověření zamítnuto";
 
 /* The request with the authority has not been requested */
@@ -386,22 +386,22 @@
 "REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES" = "Na tento let nejsou žádné oznámení.";
 
 /* Label for the section header that displays all the Optional rulesets */
-"RULESETS_SECTION_OPTIONAL" = "Volitelný";
+"RULESETS_SECTION_OPTIONAL" = "Podle volby";
 
 /* Label for the section header that displays all the Pick One rulesets */
 "RULESETS_SECTION_PICK_ONE" = "Vybrat jeden";
 
 /* Label for the section header that displays all the Required rulesets */
-"RULESETS_SECTION_REQUIRED" = "Vyžadováno";
+"RULESETS_SECTION_REQUIRED" = "Povinná";
 
 /* Label for rulesets that can be optionally enabled by the user */
-"RULESET_SELECTION_TYPE_OPTIONAL" = "Volitelný";
+"RULESET_SELECTION_TYPE_OPTIONAL" = "Volitelná";
 
 /* Label for rulesets that are part of a group in which one and only one ruleset can be enabled by the user */
 "RULESET_SELECTION_TYPE_PICKONE" = "Vybrat jeden";
 
 /* Label for rulesets that must be enabled by the user */
-"RULESET_SELECTION_TYPE_REQUIRED" = "Vyžadováno";
+"RULESET_SELECTION_TYPE_REQUIRED" = "Povinná";
 
 /* Description for status advisory color Green */
 "STATUS_GREEN_DESCRIPTION" = "Informační";
@@ -416,7 +416,7 @@
 "STATUS_YELLOW_DESCRIPTION" = "Upozornění";
 
 /* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
-"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "Provoz %1$@\nLetová výška %2$@\n%3$@ %4$@ %5$@";
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "Provoz %1$@ Letová výška %2$@ %3$@ %4$@ %5$@";
 
 /* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed */
 "TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "Provoz %1$@\nLetová výška %2$@\n%3$@";
@@ -425,7 +425,7 @@
 "UNITS_IMPERIAL" = "Univerzální";
 
 /* Name for the metric system of measurement */
-"UNITS_METRIC" = "Metrický";
+"UNITS_METRIC" = "Metrické";
 
 /* Unit and format for displaying nautical miles */
 "UNITS_NAUTICAL_MILE_FORMAT" = "%@ NM";

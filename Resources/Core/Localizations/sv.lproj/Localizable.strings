@@ -160,7 +160,7 @@
 /* The request with the authority has been accepted */
 "AUTHORIZATION_ACCEPTED" = "Godkänd";
 
-/* The request with the authority has been cancelled */
+/* The request with the authority has been invalidated */
 "AUTHORIZATION_CANCELLED_SUBMISSION" = "Auktorisering avbruten";
 
 /* The request with the authority has not been requested */
@@ -416,10 +416,10 @@
 "STATUS_YELLOW_DESCRIPTION" = "Rådgivande";
 
 /* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) distance, 4) direction, 5) time */
-"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "Trafik %1$@\nHöjd %2$@\n%3$@ %4$@ %5$@";
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_AND_DISTANCE_FORMAT" = "Trafik %1$@ Höjd %2$@ %3$@ %4$@ %5$@";
 
 /* Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed */
-"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "Trafik %1$@\nHöjd %2$@\n%3$@";
+"TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT" = "Trafik %1$@ Höjd %2$@ %3$@";
 
 /* Name for the imperial system of measurement */
 "UNITS_IMPERIAL" = "Brittisk måttenhet";
