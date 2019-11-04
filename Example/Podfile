@@ -1,18 +1,18 @@
 use_frameworks!
 
 target 'AirMapSDK-Example-iOS' do
-	platform :ios, '10.0'
+	platform :ios, '13.0'
 	pod 'AirMapSDK', :path => '../'
 end
-
-target 'AirMapSDKTests' do
-	platform :ios, '10.0'
-	pod 'AirMapSDK', :path => '../'
-	pod 'Quick'
-	pod 'Nimble'
-	pod 'OHHTTPStubs'
-	pod 'OHHTTPStubs/Swift'
-end
+#
+#target 'AirMapSDKTests' do
+#	platform :ios, '13.0'
+#	pod 'AirMapSDK', :path => '../'
+#	pod 'Quick'
+#	pod 'Nimble'
+#	pod 'OHHTTPStubs'
+#	pod 'OHHTTPStubs/Swift'
+#end
 
 post_install do |installer|
   # List of Pods to use as Swift 3.2

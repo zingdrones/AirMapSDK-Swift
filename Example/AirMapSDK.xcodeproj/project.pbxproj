@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A636AF8B3C8752A0D6274A5 /* Pods_AirMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2761FDCAAA7E787FA97DDCF1 /* Pods_AirMapSDKTests.framework */; };
+		03870B108F4EB0578A5B3A6F /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8735A8FE7F9CFA41695614F3 /* Pods_AirMapSDK_Example_iOS.framework */; };
+		4C1E0ED72368FFEF00234172 /* CustomMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1E0ED62368FFEF00234172 /* CustomMapView.swift */; };
+		4C536A602367ADAA0073EF18 /* SimpleMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C536A5F2367ADAA0073EF18 /* SimpleMapView.swift */; };
+		4C536A622367BB890073EF18 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C536A612367BB890073EF18 /* SceneDelegate.swift */; };
+		4C536A642368AA7A0073EF18 /* ExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C536A632368AA7A0073EF18 /* ExamplesView.swift */; };
 		4C8F4ECF212DCBA4003CF4DC /* airmap.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C8F4ECE212DCBA4003CF4DC /* airmap.config.json */; };
 		5C24433F1D470CC900FB7F8A /* CoordinateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F11781D275AF10053CEA2 /* CoordinateFactory.swift */; };
 		5C3B7B8A1D3EA8C0004705EA /* pilot_authorized_get_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 5C3B7B891D3EA8C0004705EA /* pilot_authorized_get_success.json */; };
@@ -55,7 +59,6 @@
 		91D551DD1E272D4B000C0A5D /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D551D91E272B82000C0A5D /* RulesTests.swift */; };
 		91F9006D1D37448C005B1084 /* StatusAdvisoriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */; };
 		91F9006F1D3744CD005B1084 /* status_advisories_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 91F9006E1D3744CD005B1084 /* status_advisories_success.json */; };
-		98E1F849F08162296148AC35 /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CD2C392C6F9C055108F0F47 /* Pods_AirMapSDK_Example_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,10 +72,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2761FDCAAA7E787FA97DDCF1 /* Pods_AirMapSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirMapSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		276608810D8DAED6F91BA14A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		288721D886A20948A40E2C95 /* Pods-AirMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDKTests/Pods-AirMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
-		3CD2C392C6F9C055108F0F47 /* Pods_AirMapSDK_Example_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirMapSDK_Example_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CB92A7F15F2E825967C3954 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDK-Example-iOS.debug.xcconfig"; path = "Target Support Files/Pods-AirMapSDK-Example-iOS/Pods-AirMapSDK-Example-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		4C1E0ED62368FFEF00234172 /* CustomMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapView.swift; sourceTree = "<group>"; };
+		4C536A5F2367ADAA0073EF18 /* SimpleMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleMapView.swift; sourceTree = "<group>"; };
+		4C536A612367BB890073EF18 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		4C536A632368AA7A0073EF18 /* ExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesView.swift; sourceTree = "<group>"; };
 		4C8F4ECE212DCBA4003CF4DC /* airmap.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = airmap.config.json; sourceTree = "<group>"; };
 		5C3B7B891D3EA8C0004705EA /* pilot_authorized_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = pilot_authorized_get_success.json; path = Fixtures/pilot_authorized_get_success.json; sourceTree = "<group>"; };
 		5C3B7B8B1D3EA8CE004705EA /* PilotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PilotTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -94,6 +99,8 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		73A68E3150D3B04CFF6AF7D2 /* AirMapSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AirMapSDK.podspec; path = ../AirMapSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7E2AE7680BAEC7E2C889A7A2 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDK-Example-iOS.release.xcconfig"; path = "Target Support Files/Pods-AirMapSDK-Example-iOS/Pods-AirMapSDK-Example-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		8735A8FE7F9CFA41695614F3 /* Pods_AirMapSDK_Example_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirMapSDK_Example_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9109E7B71D2DB7BA00C119E8 /* status_get_polygon_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_polygon_success.json; path = Fixtures/status_get_polygon_success.json; sourceTree = "<group>"; };
 		9109E7B91D2DB8A100C119E8 /* status_get_path_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_get_path_success.json; path = Fixtures/status_get_path_success.json; sourceTree = "<group>"; };
 		910F11701D274A450053CEA2 /* TestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
@@ -129,9 +136,6 @@
 		91D551DB1E272C17000C0A5D /* rules_local_get_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rules_local_get_success.json; sourceTree = "<group>"; };
 		91F9006C1D37448C005B1084 /* StatusAdvisoriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StatusAdvisoriesTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		91F9006E1D3744CD005B1084 /* status_advisories_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = status_advisories_success.json; path = Fixtures/status_advisories_success.json; sourceTree = "<group>"; };
-		B252013569FB3FDE25559E35 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDK-Example-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDK-Example-iOS/Pods-AirMapSDK-Example-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		BE917BACED830F4B7A7AAFAC /* Pods-AirMapSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDKTests/Pods-AirMapSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E159E1C351E7393CBBB92746 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirMapSDK-Example-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirMapSDK-Example-iOS/Pods-AirMapSDK-Example-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		F22062793E9F961EED1127FB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,7 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98E1F849F08162296148AC35 /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */,
+				03870B108F4EB0578A5B3A6F /* Pods_AirMapSDK_Example_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,13 +152,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A636AF8B3C8752A0D6274A5 /* Pods_AirMapSDKTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C536A5E2367A3CA0073EF18 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				4C536A632368AA7A0073EF18 /* ExamplesView.swift */,
+				4C1E0ED62368FFEF00234172 /* CustomMapView.swift */,
+				4C536A612367BB890073EF18 /* SceneDelegate.swift */,
+				4C536A5F2367ADAA0073EF18 /* SimpleMapView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -165,8 +179,8 @@
 				607FACD11AFB9204008FA782 /* Products */,
 				918451101D270C64003B3D26 /* Tests */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
-				6843848A28D72893BD2BEF74 /* Pods */,
-				F09067CE733491D54F7FEE83 /* Frameworks */,
+				D45844A2055D09136A97B92E /* Pods */,
+				A9B0CA588AE981C5D20CB463 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,6 +196,7 @@
 		607FACD21AFB9204008FA782 /* Example iOS */ = {
 			isa = PBXGroup;
 			children = (
+				4C536A5E2367A3CA0073EF18 /* SwiftUI */,
 				91D1A4E31FE345A200B9C563 /* Maps */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				91C06EA41F631973007B08EE /* ExamplesViewController.swift */,
@@ -206,17 +221,6 @@
 				9120A3B01D5E6B0500262F08 /* ATTRIBUTION */,
 			);
 			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		6843848A28D72893BD2BEF74 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B252013569FB3FDE25559E35 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */,
-				E159E1C351E7393CBBB92746 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */,
-				BE917BACED830F4B7A7AAFAC /* Pods-AirMapSDKTests.debug.xcconfig */,
-				288721D886A20948A40E2C95 /* Pods-AirMapSDKTests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		9109E7BB1D2DE42600C119E8 /* Test Cases */ = {
@@ -306,13 +310,21 @@
 			path = Maps;
 			sourceTree = "<group>";
 		};
-		F09067CE733491D54F7FEE83 /* Frameworks */ = {
+		A9B0CA588AE981C5D20CB463 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3CD2C392C6F9C055108F0F47 /* Pods_AirMapSDK_Example_iOS.framework */,
-				2761FDCAAA7E787FA97DDCF1 /* Pods_AirMapSDKTests.framework */,
+				8735A8FE7F9CFA41695614F3 /* Pods_AirMapSDK_Example_iOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D45844A2055D09136A97B92E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2CB92A7F15F2E825967C3954 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */,
+				7E2AE7680BAEC7E2C889A7A2 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,11 +334,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "AirMapSDK-Example-iOS" */;
 			buildPhases = (
-				C7B856CE66B26F5DB96A906D /* [CP] Check Pods Manifest.lock */,
+				401421937DB2262432BD1059 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				8DD89661225207C6F3F32658 /* [CP] Embed Pods Frameworks */,
+				3E688B432A503BF83186C257 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -341,11 +353,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 918451161D270C64003B3D26 /* Build configuration list for PBXNativeTarget "AirMapSDKTests" */;
 			buildPhases = (
-				A2BDF9270E9FE49300F6CF70 /* [CP] Check Pods Manifest.lock */,
 				9184510B1D270C64003B3D26 /* Sources */,
 				9184510C1D270C64003B3D26 /* Frameworks */,
 				9184510D1D270C64003B3D26 /* Resources */,
-				1E252C3C3C8C751F3EFEE542 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -394,6 +404,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -452,73 +463,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E252C3C3C8C751F3EFEE542 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AirMapSDKTests/Pods-AirMapSDKTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AirMapSDK/AirMap.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
-				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
-				"${BUILT_PRODUCTS_DIR}/Logging/Logging.framework",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/1BF93521-4C77-3633-A539-01336F1D64E9.bcsymbolmap",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/9D189C8A-78FE-3297-847F-34B05A3A6906.bcsymbolmap",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
-				"${BUILT_PRODUCTS_DIR}/ProtocolBuffers-Swift/ProtocolBuffers.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftMQTT/SwiftMQTT.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftTurf/SwiftTurf.framework",
-				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
-				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
-				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AirMap.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Logging.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
-				"${BUILT_PRODUCTS_DIR}/1BF93521-4C77-3633-A539-01336F1D64E9.bcsymbolmap",
-				"${BUILT_PRODUCTS_DIR}/9D189C8A-78FE-3297-847F-34B05A3A6906.bcsymbolmap",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtocolBuffers.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMQTT.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftTurf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AirMapSDKTests/Pods-AirMapSDKTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8DD89661225207C6F3F32658 /* [CP] Embed Pods Frameworks */ = {
+		3E688B432A503BF83186C257 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -535,8 +480,8 @@
 				"${BUILT_PRODUCTS_DIR}/Logging/Logging.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/1BF93521-4C77-3633-A539-01336F1D64E9.bcsymbolmap",
-				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/9D189C8A-78FE-3297-847F-34B05A3A6906.bcsymbolmap",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/F6FDF133-0198-394E-9C8F-5043F94B4790.bcsymbolmap",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/B4615DAE-86F8-35AB-B4D1-B1F1420E374A.bcsymbolmap",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ProtocolBuffers-Swift/ProtocolBuffers.framework",
@@ -560,8 +505,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Logging.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
-				"${BUILT_PRODUCTS_DIR}/1BF93521-4C77-3633-A539-01336F1D64E9.bcsymbolmap",
-				"${BUILT_PRODUCTS_DIR}/9D189C8A-78FE-3297-847F-34B05A3A6906.bcsymbolmap",
+				"${BUILT_PRODUCTS_DIR}/F6FDF133-0198-394E-9C8F-5043F94B4790.bcsymbolmap",
+				"${BUILT_PRODUCTS_DIR}/B4615DAE-86F8-35AB-B4D1-B1F1420E374A.bcsymbolmap",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtocolBuffers.framework",
@@ -578,34 +523,20 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AirMapSDK-Example-iOS/Pods-AirMapSDK-Example-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A2BDF9270E9FE49300F6CF70 /* [CP] Check Pods Manifest.lock */ = {
+		401421937DB2262432BD1059 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AirMapSDKTests-checkManifestLockResult.txt",
+			outputFileListPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C7B856CE66B26F5DB96A906D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-AirMapSDK-Example-iOS-checkManifestLockResult.txt",
 			);
@@ -624,10 +555,14 @@
 				5C24433F1D470CC900FB7F8A /* CoordinateFactory.swift in Sources */,
 				91C06EA51F631973007B08EE /* ExamplesViewController.swift in Sources */,
 				91824BA71F625B8D00ADBC31 /* AdvisoriesViewController.swift in Sources */,
+				4C536A642368AA7A0073EF18 /* ExamplesView.swift in Sources */,
+				4C536A602367ADAA0073EF18 /* SimpleMapView.swift in Sources */,
 				91824BA51F621BBD00ADBC31 /* RulesetsViewController.swift in Sources */,
 				91C06EA71F6322D6007B08EE /* LoginExampleViewController.swift in Sources */,
 				916F46101FEDF8440070A0C0 /* CustomStylingMapViewController.swift in Sources */,
+				4C536A622367BB890073EF18 /* SceneDelegate.swift in Sources */,
 				91D1A4E51FE34BF700B9C563 /* AdvancedMapViewController.swift in Sources */,
+				4C1E0ED72368FFEF00234172 /* CustomMapView.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				919BBE171FDFA26B000224B9 /* SimpleMapViewController.swift in Sources */,
 			);
@@ -740,7 +675,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -792,7 +727,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -804,16 +739,16 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B252013569FB3FDE25559E35 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */;
+			baseConfigurationReference = 2CB92A7F15F2E825967C3954 /* Pods-AirMapSDK-Example-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "AirMapSDK-Example-iOS.entitlements";
 				DEVELOPMENT_TEAM = 9P9UW98328;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.airmap.AirMapSDK-Example-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -823,16 +758,16 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E159E1C351E7393CBBB92746 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */;
+			baseConfigurationReference = 7E2AE7680BAEC7E2C889A7A2 /* Pods-AirMapSDK-Example-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "AirMapSDK-Example-iOS.entitlements";
 				DEVELOPMENT_TEAM = 9P9UW98328;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.airmap.AirMapSDK-Example-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -842,12 +777,11 @@
 		};
 		918451171D270C64003B3D26 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BE917BACED830F4B7A7AAFAC /* Pods-AirMapSDKTests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMapSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -859,11 +793,10 @@
 		};
 		918451181D270C64003B3D26 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 288721D886A20948A40E2C95 /* Pods-AirMapSDKTests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.airmap.AirMapSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
