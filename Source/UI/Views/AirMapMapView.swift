@@ -184,6 +184,13 @@ extension AirMapMapView {
 		let rulesetConfig = self.rulesetConfigurationSubject
 			.distinctUntilChanged(==)
 
+		AirMap.authService.authState.asObservable()
+			.map { $0.accessToken }
+			.distinctUntilChanged(==)
+			.withLatestFrom(style) { ($1, $0) }
+			.subscribe(onNext: AirMapMapView.configureJurisdictions)
+			.disposed(by: disposeBag)
+
 		Observable.combineLatest(jurisdictions, style, rulesetConfig)
 			.subscribe(onNext: { [unowned self] (jurisdictions, style, rulesetConfig) in
 
@@ -292,11 +299,44 @@ extension AirMapMapView {
 
 	// MARK: - Static
 
+	private static func configureJurisdictions(in style: MGLStyle, with authToken: String?) {
+		
+		if let source = style.source(withIdentifier: "jurisdictions") as? MGLVectorTileSource, let layer = style.layer(withIdentifier: "jurisdictions") {
+			style.removeLayer(layer)
+			style.removeSource(source)
+		}
+
+		guard style.source(withIdentifier: "jurisdictions") == nil else { return }
+
+		var access = ""
+		if let token = authToken {
+			access = "?access_token=\(token)"
+		}
+
+		let jurisdictionsUrl = Constants.Api.jurisdictionsUrl + access
+		let source = MGLVectorTileSource(identifier: "jurisdictions", tileURLTemplates: [jurisdictionsUrl], options: [
+			.minimumZoomLevel: Constants.Maps.tileMinimumZoomLevel,
+			.maximumZoomLevel: Constants.Maps.tileMaximumZoomLevel,
+		])
+
+		let layer = MGLFillStyleLayer(identifier: "jurisdictions", source: source)
+		layer.sourceLayerIdentifier = "jurisdictions"
+
+		layer.fillColor = NSExpression(forConstantValue: UIColor.clear)
+		layer.fillOpacity = NSExpression(forConstantValue: 1)
+
+		style.addSource(source)
+		style.insertLayer(layer, at: 0)
+	}
+
 	private static func addRuleset(_ ruleset: AirMapRuleset, to style: MGLStyle, in mapView: AirMapMapView) {
 
 		guard style.source(withIdentifier: ruleset.tileSourceIdentifier) == nil else { return }
 
-		let rulesetTileSource = MGLVectorTileSource(ruleset: ruleset)
+		guard let rulesetTileSource = MGLVectorTileSource(ruleset: ruleset) else {
+			AirMap.logger.error("Failed to create tile source", metadata: ["Ruleset": .string(ruleset.tileSourceIdentifier)])
+			return
+		}
 		style.addSource(rulesetTileSource)
 
 		style.airMapBaseStyleLayers(for: ruleset.airspaceTypes)

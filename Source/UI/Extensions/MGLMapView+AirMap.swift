@@ -199,7 +199,7 @@ extension MGLStyleLayer {
 
 extension MGLVectorTileSource {
 	
-	convenience init(ruleset: AirMapRuleset) {
+	convenience init?(ruleset: AirMapRuleset) {
 		
 		let layerNames = ruleset.airspaceTypes.map { $0.rawValue }.joined(separator: ",")
 		let options = [
@@ -213,8 +213,20 @@ extension MGLVectorTileSource {
 		case .metric:
 			units = "si"
 		}
-		let sourcePath = Constants.Api.tileDataUrl + "/\(ruleset.id.rawValue)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.apiKey)&units=\(units)"
-		
+
+		let query = [
+			"apikey": AirMap.configuration.apiKey,
+			"access_token": AirMap.authToken,
+			"units": units
+		]
+		.compactMap { key, value in
+			guard let value = value else { return nil }
+			return key + "=" + value
+		}
+		.joined(separator: "&")
+
+		let sourcePath = Constants.Api.tileDataUrl + "/\(ruleset.id.rawValue)/\(layerNames)/{z}/{x}/{y}?\(query)"
+
 		self.init(identifier: ruleset.tileSourceIdentifier, tileURLTemplates: [sourcePath], options: options)
 	}
 }
