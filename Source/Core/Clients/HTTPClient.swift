@@ -67,11 +67,15 @@ internal class HTTPClient {
 		return AirMap.authService.performWithOptionalCredentials()
 	}
 
-	private func defaultHeaders(with accessToken: String?) -> HTTPHeaders {
+	private func defaultHeaders(with accessToken: String? = nil) -> HTTPHeaders {
 		var headers = [String: String]()
 		headers[Header.accept.rawValue] = MimeType.JSON.rawValue
 		headers[Header.apiKey.rawValue] = AirMap.configuration.apiKey
-		headers[Header.authorization.rawValue] = "Bearer \(accessToken ?? "")"
+
+		if let accessToken = accessToken {
+			headers[Header.authorization.rawValue] = "Bearer \(accessToken)"
+		}
+
 		return headers
 	}
 	
