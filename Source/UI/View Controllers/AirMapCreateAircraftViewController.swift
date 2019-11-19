@@ -26,8 +26,12 @@ class AirMapCreateAircraftViewController: UITableViewController {
 	
 	var aircraft: AirMapAircraft!
 	
-	@IBOutlet var nextButton: UIButton!
+	@IBOutlet var saveButton: UIButton!
+	@IBOutlet var saveBarButton: UIBarButtonItem!
+	@IBOutlet var cancelBarButton: UIBarButtonItem!
 	@IBOutlet weak var nickName: UITextField!
+	@IBOutlet weak var serialNumber: UITextField!
+	@IBOutlet weak var registrationNumber: UITextField!
 	@IBOutlet weak var makeAndModel: UILabel!
 	@IBOutlet weak var makeAndModelCell: UITableViewCell!
 	
@@ -89,19 +93,27 @@ class AirMapCreateAircraftViewController: UITableViewController {
 	}
 	
 	override var inputAccessoryView: UIView? {
-		return nextButton
+		return saveButton
 	}
 	
 	// MARK: - Setup
 	
 	fileprivate func setupBindings() {
-
+		
 		let nickNameObs = nickName.rx.text.asObservable()
+		let serialNumberObs = serialNumber.rx.text.asObservable()
+		let registrationNumberObs = registrationNumber.rx.text.asObservable()
 		let modelObs = model.asObservable()
 		
-		Observable.combineLatest(nickNameObs, modelObs) { ($0, $1) }
-			.subscribe(onNext: { [unowned self] nickname, model in
-				
+		Observable
+			.combineLatest(
+				nickNameObs,
+				modelObs,
+				serialNumberObs,
+				registrationNumberObs
+			) { ($0, $1, $2, $3) }
+			.subscribe(onNext: { [unowned self] nickname, model, serialNumber, registrationNumber in
+				// TODO: Add serial and registration number
 				switch self.mode {
 				case .create:
 					guard let nickname = nickname, let model = model else { return }
@@ -119,12 +131,18 @@ class AirMapCreateAircraftViewController: UITableViewController {
 			.bind(to: makeAndModel.rx.text)
 			.disposed(by: disposeBag)
 		
-		Observable
+		let isSaveEnabled = Observable
 			.combineLatest(modelObs, nickNameObs) { (model: $0, nickName: $1) }
 			.map { $0.model != nil && !($0.nickName ?? "").isEmpty }
-			.bind(to: nextButton.rx.isEnabled)
+
+		isSaveEnabled
+			.bind(to: saveButton.rx.isEnabled)
 			.disposed(by: disposeBag)
 		
+		isSaveEnabled
+			.bind(to: saveBarButton.rx.isEnabled)
+			.disposed(by: disposeBag)
+
 		activityIndicator.asObservable()
 			.throttle(.milliseconds(250), scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
@@ -133,7 +151,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 	}
 	
 	fileprivate func setupBranding() {
-		nextButton.backgroundColor = .primary
+		saveButton.backgroundColor = .primary
 	}
 
 	// MARK: - Navigation
