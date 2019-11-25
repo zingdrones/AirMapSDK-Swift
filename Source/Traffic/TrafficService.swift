@@ -97,8 +97,8 @@ internal class TrafficService: MQTTSessionDelegate {
 		let state = connectionState.asObservable()
 
 		let flightWhileConnected = currentFlight.asObservable()
-			.filter {[unowned self] _ in self.connectionState.value == .connected }
 			.distinctUntilChanged { flight in flight?.id ?? "" }
+			.filter {[unowned self] _ in self.connectionState.value == .connected }
 			.do(onNext: { [unowned self] (_) in
 				self.connectionState.accept(.disconnected)
 				self.removeAllTraffic()
@@ -127,7 +127,7 @@ internal class TrafficService: MQTTSessionDelegate {
 			.filter {[unowned self] _ in self.canConnect()}
 			.flatMap({ [unowned self] flight -> Observable<ConnectionState> in
 				return self.connectWithFlight(flight)
-					.catchError({ _ in return Observable.just( .disconnected) })
+					.catchError({ _ in return Observable.just(.disconnected) })
 			})
 			.bind(to: connectionState)
 			.disposed(by: disposeBag)
