@@ -99,7 +99,7 @@ struct Constants {
 			if let override = AirMap.configuration.override(for: "telemetry_port"), let port = UInt16(override) {
 				return port
 			}
-			return 16060
+			return 7070
 		}
 		
 		struct SampleRate {
