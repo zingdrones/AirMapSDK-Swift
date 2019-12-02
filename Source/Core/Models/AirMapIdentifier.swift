@@ -82,6 +82,7 @@ public typealias AirMapAdvisoryId              = AirMapStringIdentifier<AirMapAd
 public typealias AirMapAircraftId              = AirMapStringIdentifier<AirMapAircraft>
 public typealias AirMapAircraftManufacturerId  = AirMapStringIdentifier<AirMapAircraftManufacturer>
 public typealias AirMapAircraftModelId         = AirMapStringIdentifier<AirMapAircraftModel>
+public typealias AirMapRegistrationId         = AirMapStringIdentifier<AirMapRegistration>
 public typealias AirMapFlightId                = AirMapStringIdentifier<AirMapFlight>
 public typealias AirMapAuthorityId             = AirMapStringIdentifier<AirMapAuthority>
 public typealias AirMapRulesetId               = AirMapStringIdentifier<AirMapRuleset>
