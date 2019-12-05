@@ -130,8 +130,8 @@ extension Reactive where Base: AirMap {
 		return AirMap.pilotClient.getAircraftRegistration(registrationId, aircraftId)
 	}
 
-	public static func createAircraftRegistration(_ registration: AirMapAircraftRegistration) -> Observable<AirMapAircraftRegistration> {
-		return AirMap.pilotClient.createAircraftRegistration(registration)
+	public static func createAircraftRegistration(_ registration: AirMapAircraftRegistration, _ aircraftId: AirMapAircraftId) -> Observable<AirMapAircraftRegistration> {
+		return AirMap.pilotClient.createAircraftRegistration(registration, aircraftId)
 	}
 
 	public static func updateAircraftRegistration(_ registration: AirMapAircraftRegistration) -> Observable<AirMapAircraftRegistration> {

@@ -91,8 +91,8 @@ extension AirMap {
 	/// - Parameters:
 	///   - registration: The aircraft to Create a registration on
 	///   - completion: A completion handler to call with the Result
-	public static func createAircraftRegistration(_ registration: AirMapAircraftRegistration, completion: @escaping (Result<AirMapAircraftRegistration>) -> Void) {
-		rx.createAircraftRegistration(registration).thenSubscribe(completion)
+	public static func createAircraftRegistration(_ registration: AirMapAircraftRegistration, _ aircraftId: AirMapAircraftId, completion: @escaping (Result<AirMapAircraftRegistration>) -> Void) {
+		rx.createAircraftRegistration(registration, aircraftId).thenSubscribe(completion)
 	}
 
 	/// Update the provided registration

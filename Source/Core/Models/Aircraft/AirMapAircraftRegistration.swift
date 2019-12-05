@@ -24,9 +24,9 @@ import ObjectMapper
 public class AirMapAircraftRegistration: ImmutableMappable {
 
 	public var id: AirMapAircraftRegistrationId?
-	public let authority: String
-	public let number: String
-	public let name: String
+	public var authority: String
+	public var number: String
+	public var name: String
 	public var aircraftId: AirMapAircraftId?
 
 	public init(authority: String, number: String, name: String) {
@@ -47,5 +47,11 @@ public class AirMapAircraftRegistration: ImmutableMappable {
 			AirMap.logger.error("Failed to parse AirMapAircraftRegistration", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
+	}
+
+	public func mapping(map: Map) {
+		number       >>>   map["registration_number"]
+		authority    >>>   map["registration_authority"]
+		name         >>>   map["name"]
 	}
 }

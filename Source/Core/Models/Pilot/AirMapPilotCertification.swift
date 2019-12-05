@@ -39,4 +39,8 @@ public class AirMapPilotCertification: ImmutableMappable {
 		}
 	}
 
+	public func mapping(map: Map) {
+		certificationAuthority   >>>   map["certification_authority"]
+		certificationId          >>>   map["certification_id"]
+	}
 }

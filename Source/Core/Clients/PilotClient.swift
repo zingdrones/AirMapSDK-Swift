@@ -155,22 +155,21 @@ internal class PilotClient: HTTPClient {
 		return withCredentials().flatMap { (credentials) -> Observable<[AirMapAircraftRegistration]> in
 			AirMap.logger.debug("List registrations", metadata: ["registration": .stringConvertible(aircraft.id ?? "")])
 			guard let aircraftId = aircraft.id else { return .error(PilotClientError.invalidAircraftIdentifier) }
-			return self.perform(method: .get, path: "/\(credentials.pilot)/aircraft/\(aircraftId.rawValue)/registration)", auth: credentials)
+			return self.perform(method: .get, path: "/\(credentials.pilot)/aircraft/\(aircraftId.rawValue)/registration", auth: credentials)
 		}
 	}
 
 	func getAircraftRegistration(_ registrationId: AirMapAircraftRegistrationId, _ aircraftId: AirMapAircraftId) -> Observable<AirMapAircraftRegistration> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapAircraftRegistration> in
 			AirMap.logger.debug("GET registration", metadata: ["registration": .stringConvertible(registrationId)])
-			return self.perform(method: .get, path: "/\(credentials.pilot)/aircraft/\(aircraftId)/registration)\(registrationId)", auth: credentials)
+			return self.perform(method: .get, path: "/\(credentials.pilot)/aircraft/\(aircraftId)/registration/\(registrationId)", auth: credentials)
 		}
 	}
 
-	func createAircraftRegistration(_ registration: AirMapAircraftRegistration) -> Observable<AirMapAircraftRegistration> {
+	func createAircraftRegistration(_ registration: AirMapAircraftRegistration, _ aircraftId: AirMapAircraftId) -> Observable<AirMapAircraftRegistration> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapAircraftRegistration> in
 			AirMap.logger.debug("Create registration", metadata: ["registration": .stringConvertible(registration.id ?? "")])
-			guard let aircraftId = registration.aircraftId else { return .error(PilotClientError.invalidAircraftRegistrationIdentifier) }
-			return self.perform(method: .post, path: "/\(credentials.pilot)/aircraft/\(aircraftId)/registration)", params: registration.toJSON(), update: registration, auth: credentials)
+			return self.perform(method: .post, path: "/\(credentials.pilot)/aircraft/\(aircraftId)/registration", params: registration.toJSON(), update: registration, auth: credentials)
 		}
 	}
 
@@ -178,14 +177,14 @@ internal class PilotClient: HTTPClient {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapAircraftRegistration> in
 			AirMap.logger.debug("Update registration", metadata: ["registration": .stringConvertible(registration.id ?? "")])
 			guard let aircraftRegistrationId = registration.id, let aircraftId = registration.aircraftId else { return .error(PilotClientError.invalidAircraftRegistrationIdentifier) }
-			return self.perform(method: .patch, path: "/\(credentials.pilot)/aircraft/\(aircraftId)/registration)\(aircraftRegistrationId)", params: registration.toJSON(), update: registration, auth: credentials)
+			return self.perform(method: .patch, path: "/\(credentials.pilot)/aircraft/\(aircraftId)/registration/\(aircraftRegistrationId)", params: registration.toJSON(), update: registration, auth: credentials)
 		}
 	}
 
 	func deleteAircraftRegistration(_ registrationId: AirMapAircraftRegistrationId, _ aircraftId: AirMapAircraftId) -> Observable<Void> {
 		return withCredentials().flatMap { (credentials) -> Observable<Void> in
 			AirMap.logger.debug("Delete Registration", metadata: ["id": .stringConvertible(registrationId)])
-			return self.perform(method: .delete, path: "/\(credentials.pilot)/aircraft/\(aircraftId)/registration\(registrationId)", auth: credentials)
+			return self.perform(method: .delete, path: "/\(credentials.pilot)/aircraft/\(aircraftId)/registration/\(registrationId)", auth: credentials)
 		}
 	}
 }
