@@ -23,11 +23,17 @@ import ObjectMapper
 
 public class AirMapAircraftRegistration: ImmutableMappable {
 
-	public let id: AirMapAircraftRegistrationId?
+	public var id: AirMapAircraftRegistrationId?
 	public let authority: String
 	public let number: String
 	public let name: String
-	public let aircraftId: AirMapAircraftId
+	public var aircraftId: AirMapAircraftId?
+
+	public init(authority: String, number: String, name: String) {
+		self.authority = authority
+		self.number = number
+		self.name = name
+	}
 
 	required public init(map: Map) throws {
 		do {

@@ -97,4 +97,48 @@ extension AirMap {
 		rx.deleteAircraft(aircraft).thenSubscribe(completion)
 	}
 
+	/// List the currently authenticated pilot's certification
+	///
+	/// - Parameters:
+	///   - completion: A completion handler to call with the Result
+	public static func listPilotCertifications(_ completion: @escaping (Result<[AirMapPilotCertification]>) -> Void) {
+		rx.listPilotCertifications().thenSubscribe(completion)
+	}
+
+	/// Get a certificate by its id
+	///
+	/// - Parameters:
+	///   - certificationId: The unique identifier associated with the registration
+	///   - completion: A completion handler to call with the Result
+	public static func getPilotCertification(_ certificationId: AirMapPilotCertificationId, completion: @escaping (Result<AirMapPilotCertification>) -> Void) {
+		rx.getPilotCertification(certificationId).thenSubscribe(completion)
+	}
+
+	/// Create a new certification
+	///
+	/// - Parameters:
+	///   - certification: The certification to Create
+	///   - completion: A completion handler to call with the Result
+	public static func createPilotCertification(_ certification: AirMapPilotCertification, completion: @escaping (Result<AirMapPilotCertification>) -> Void) {
+		rx.createPilotCertification(certification).thenSubscribe(completion)
+	}
+
+	/// Update the provided certication
+	///
+	/// - Parameters:
+	///   - certification: The certification to Update
+	///   - completion: A completion handler to call with the Result
+	public static func updatePilotCertification(_ certification: AirMapPilotCertification, completion: @escaping (Result<AirMapPilotCertification>) -> Void) {
+		rx.updatePilotCertification(certification).thenSubscribe(completion)
+	}
+
+	/// Delete the provided certification
+	///
+	/// - Parameters:
+	///   - certificationId: The unique identifier associated with the certification
+	///   - completion: A completion handler to call with the Result
+	public static func deletePilotCertification(_ certificationId: AirMapPilotCertificationId, completion: @escaping (Result<Void>) -> Void) {
+		rx.deletePilotCertification(certificationId).thenSubscribe(completion)
+	}
+
 }

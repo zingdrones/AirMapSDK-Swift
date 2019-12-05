@@ -22,10 +22,11 @@ import UIKit
 
 public protocol AirMapAircraftNavControllerDelegate: class {
 	func aircraftNavController(_ navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft)
+	func aircraftRegistrationNavController(_ navController: AirMapAircraftNavController, didCreateOrModify registration: AirMapAircraftRegistration)
 }
 
 open class AirMapAircraftNavController: UINavigationController {
 
 	weak var aircraftDelegate: AirMapAircraftNavControllerDelegate?
-	
+
 }

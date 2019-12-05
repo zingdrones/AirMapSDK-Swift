@@ -27,7 +27,8 @@ public class AirMapAircraftViewController: UITableViewController, AnalyticsTrack
 	public var screenName = "List Aircraft"
 	
 	public let selectedAircraft = BehaviorRelay(value: nil as AirMapAircraft?)
-	
+	public let selectedAircraftRegistration = BehaviorRelay(value: nil as AirMapAircraftRegistration?)
+
 	fileprivate let activityIndicator = ActivityTracker()
 	fileprivate let aircraft = BehaviorRelay(value: [AirMapAircraft]())
 	fileprivate let disposeBag = DisposeBag()
@@ -139,6 +140,11 @@ extension AirMapAircraftViewController: AirMapAircraftNavControllerDelegate {
 	
 	public func aircraftNavController(_ navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
 		selectedAircraft.accept(aircraft)
+		navigationController?.dismiss(animated: true, completion: nil)
+	}
+
+	public func aircraftRegistrationNavController(_ navController: AirMapAircraftNavController, didCreateOrModify registration: AirMapAircraftRegistration) {
+		selectedAircraftRegistration.accept(registration)
 		navigationController?.dismiss(animated: true, completion: nil)
 	}
 }

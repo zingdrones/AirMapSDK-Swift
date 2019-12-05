@@ -122,6 +122,25 @@ extension Reactive where Base: AirMap {
 		return AirMap.pilotClient.deleteAircraft(aircraft)
 	}
 
+	public static func listAircraftRegistrations(_ aircraft: AirMapAircraft) -> Observable<[AirMapAircraftRegistration]> {
+		return AirMap.pilotClient.listAircraftRegistrations(aircraft)
+	}
+
+	public static func getAircraftRegistration(_ registrationId: AirMapAircraftRegistrationId, _ aircraftId: AirMapAircraftId) -> Observable<AirMapAircraftRegistration> {
+		return AirMap.pilotClient.getAircraftRegistration(registrationId, aircraftId)
+	}
+
+	public static func createAircraftRegistration(_ registration: AirMapAircraftRegistration) -> Observable<AirMapAircraftRegistration> {
+		return AirMap.pilotClient.createAircraftRegistration(registration)
+	}
+
+	public static func updateAircraftRegistration(_ registration: AirMapAircraftRegistration) -> Observable<AirMapAircraftRegistration> {
+		return AirMap.pilotClient.updateAircraftRegistration(registration)
+	}
+	public static func deleteAircraftRegistration(_ registrationId: AirMapAircraftRegistrationId, _ aircraftId: AirMapAircraftId) -> Observable<Void> {
+		return AirMap.pilotClient.deleteAircraftRegistration(registrationId, aircraftId)
+	}
+
 	public static func listManufacturers() -> Observable<[AirMapAircraftManufacturer]> {
 		return AirMap.aircraftClient.listManufacturers()
 	}
@@ -164,6 +183,26 @@ extension Reactive where Base: AirMap {
 
 	public static func verifySMS(_ token: String) -> Observable<AirMapPilotVerified> {
 		return AirMap.pilotClient.verifySMS(token: token)
+	}
+
+	public static func listPilotCertifications() -> Observable<[AirMapPilotCertification]> {
+		return AirMap.pilotClient.listPilotCertifications()
+	}
+
+	public static func getPilotCertification(_ certificationId: AirMapPilotCertificationId) -> Observable<AirMapPilotCertification> {
+		return AirMap.pilotClient.getPilotCertification(certificationId)
+	}
+
+	public static func createPilotCertification(_ certification: AirMapPilotCertification) -> Observable<AirMapPilotCertification> {
+		return AirMap.pilotClient.createPilotCertification(certification)
+	}
+
+	public static func updatePilotCertification(_ certification: AirMapPilotCertification) -> Observable<AirMapPilotCertification> {
+		return AirMap.pilotClient.updatePilotCertification(certification)
+	}
+
+	public static func deletePilotCertification(_ certificationId: AirMapPilotCertificationId) -> Observable<Void> {
+		return AirMap.pilotClient.deletePilotCertification(certificationId)
 	}
 }
 

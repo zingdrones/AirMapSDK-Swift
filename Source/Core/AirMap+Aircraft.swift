@@ -67,4 +67,51 @@ extension AirMap {
 		rx.getModel(modelId).thenSubscribe(completion)
 	}
 
+	/// List the aircraft's registrations
+	///
+	/// - Parameters:
+	///   - aircraft: The aircraft to List registrations
+	///   - completion: A completion handler to call with the Result
+	public static func listAircraftRegistrations(_ aircraft: AirMapAircraft, _ completion: @escaping (Result<[AirMapAircraftRegistration]>) -> Void) {
+		rx.listAircraftRegistrations(aircraft).thenSubscribe(completion)
+	}
+
+	/// Get a registration by its id and aircraft id
+	///
+	/// - Parameters:
+	///   - registrationId: The unique identifier associated with the registration
+	///   - aircraftId: The unique identifier associated with the aircraft
+	///   - completion: A completion handler to call with the Result
+	public static func getAircraftRegistration(_ registrationId: AirMapAircraftRegistrationId, _ aircraftId: AirMapAircraftId, completion: @escaping (Result<AirMapAircraftRegistration>) -> Void) {
+		rx.getAircraftRegistration(registrationId, aircraftId).thenSubscribe(completion)
+	}
+
+		/// Create a new registration
+	///
+	/// - Parameters:
+	///   - registration: The aircraft to Create a registration on
+	///   - completion: A completion handler to call with the Result
+	public static func createAircraftRegistration(_ registration: AirMapAircraftRegistration, completion: @escaping (Result<AirMapAircraftRegistration>) -> Void) {
+		rx.createAircraftRegistration(registration).thenSubscribe(completion)
+	}
+
+	/// Update the provided registration
+	///
+	/// - Parameters:
+	///   - registration: The aircraft to Create a registration on
+	///   - completion: A completion handler to call with the Result
+	public static func updateAircraftRegistration(_ registration: AirMapAircraftRegistration, completion: @escaping (Result<AirMapAircraftRegistration>) -> Void) {
+		rx.updateAircraftRegistration(registration).thenSubscribe(completion)
+	}
+
+	/// Delete the provided registration
+	///
+	/// - Parameters:
+	///   - registrationId: The unique identifier associated with the registration
+	///   - aircraftId: The unique identifier associated with the aircraft
+	///   - completion: A completion handler to call with the Result
+	public static func deleteAircraftRegistration(_ registrationId: AirMapAircraftRegistrationId, _ aircraftId: AirMapAircraftId, completion: @escaping (Result<Void>) -> Void) {
+		rx.deleteAircraftRegistration(registrationId, aircraftId).thenSubscribe(completion)
+	}
+
 }
