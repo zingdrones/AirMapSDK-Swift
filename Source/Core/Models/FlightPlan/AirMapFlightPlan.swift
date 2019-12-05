@@ -51,6 +51,9 @@ public class AirMapFlightPlan: Mappable {
 	// Flight Features
 	public var flightFeaturesValue = [AirMapFlightFeatureId: Any]()
 
+	// Operation Description
+	public var operationDescription: String?
+
 	// Assigned once a flight plan is submitted and a flight is created
 	public internal(set) var flightId: AirMapFlightId?
 
