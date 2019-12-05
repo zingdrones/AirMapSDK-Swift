@@ -18,7 +18,7 @@ PODS:
     - AirMapSDK/Core
     - CocoaAsyncSocket
     - CryptoSwift (~> 1.0)
-    - ProtocolBuffers-Swift (~> 4.0.6)
+    - SwiftProtobuf (~> 1.0)
   - AirMapSDK/Traffic (4.0.0.alpha.1):
     - AirMapSDK/Core
     - SwiftMQTT (> 3.0.0, ~> 3.0)
@@ -63,7 +63,6 @@ PODS:
   - PhoneNumberKit/PhoneNumberKitCore (3.0.0)
   - PhoneNumberKit/UIKit (3.0.0):
     - PhoneNumberKit/PhoneNumberKitCore
-  - ProtocolBuffers-Swift (4.0.6)
   - Quick (2.1.0)
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
@@ -84,6 +83,7 @@ PODS:
     - RxCocoa (~> 5.0)
     - RxSwiftExt/Core
   - SwiftMQTT (3.0.1)
+  - SwiftProtobuf (1.7.0)
   - SwiftTurf (0.3.3)
 
 DEPENDENCIES:
@@ -107,7 +107,6 @@ SPEC REPOS:
     - ObjectMapper
     - OHHTTPStubs
     - PhoneNumberKit
-    - ProtocolBuffers-Swift
     - Quick
     - RxCocoa
     - RxDataSources
@@ -116,13 +115,15 @@ SPEC REPOS:
     - RxSwiftExt
     - SwiftMQTT
     - SwiftTurf
+  trunk:
+    - SwiftProtobuf
 
 EXTERNAL SOURCES:
   AirMapSDK:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AirMapSDK: ef3430b5ad90466b490a6a0a8e788f27cd9a09e9
+  AirMapSDK: bb25dbb97dc30728e0f2bbcf676ae2f686786add
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AppAuth: bce82c76043657c99d91e7882e8a9e1a93650cd4
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
@@ -135,7 +136,6 @@ SPEC CHECKSUMS:
   ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
   OHHTTPStubs: 9cbce6364bec557cc3439aa6bb7514670d780881
   PhoneNumberKit: 86019c972ef6904bcad11b46a6b8a91184d51117
-  ProtocolBuffers-Swift: 09b5cfcc641ab512d6aaa1d2cc3879a40432052c
   Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
@@ -143,6 +143,7 @@ SPEC CHECKSUMS:
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   RxSwiftExt: 4564187392cc53823ef241fa4a11647861567026
   SwiftMQTT: 983eeb29e8c8173ed953e0238d2f99b79ff3ccd2
+  SwiftProtobuf: 4fd9645e69b72cbae6ec8da5be0cdd20ca6565dd
   SwiftTurf: 340da9dbf60fe7ded0cac158657ec463269d581c
 
 PODFILE CHECKSUM: 49598a7476ee36a4c507bb3b31b4ae89b2632a65
