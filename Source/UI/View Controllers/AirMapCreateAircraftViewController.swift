@@ -25,7 +25,8 @@ import RxRelay
 class AirMapCreateAircraftViewController: UITableViewController {
 	
 	var aircraft: AirMapAircraft!
-	
+	var aircraftRegistration: AirMapAircraftRegistration!
+
 	@IBOutlet var saveButton: UIButton!
 	@IBOutlet var saveBarButton: UIBarButtonItem!
 	@IBOutlet var cancelBarButton: UIBarButtonItem!
@@ -70,6 +71,17 @@ class AirMapCreateAircraftViewController: UITableViewController {
 			model.accept(aircraft.model)
 			makeAndModelCell.accessoryType = .none
 			makeAndModelCell.textLabel?.alpha = 0.5
+
+			AirMap.rx.listAircraftRegistrations(aircraft)
+				.trackActivity(activityIndicator)
+				.subscribe(onNext: { [weak self] (registrations) in
+					guard let registration = registrations.first else { return }
+					self?.aircraftRegistration = registration
+					self?.serialNumber.text = registration.authority
+					self?.registrationNumber.text = registration.number
+				})
+			.disposed(by: disposeBag)
+
 		}
 		
 		setupBindings()
@@ -104,16 +116,14 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		let serialNumberObs = serialNumber.rx.text.asObservable()
 		let registrationNumberObs = registrationNumber.rx.text.asObservable()
 		let modelObs = model.asObservable()
-		
+
 		Observable
 			.combineLatest(
 				nickNameObs,
-				modelObs,
-				serialNumberObs,
-				registrationNumberObs
-			) { ($0, $1, $2, $3) }
-			.subscribe(onNext: { [unowned self] nickname, model, serialNumber, registrationNumber in
-				// TODO: Add serial and registration number
+				modelObs
+			) { ($0, $1) }
+			.subscribe(onNext: { [unowned self] nickname, model in
+
 				switch self.mode {
 				case .create:
 					guard let nickname = nickname, let model = model else { return }
@@ -124,7 +134,23 @@ class AirMapCreateAircraftViewController: UITableViewController {
 				}
 			})
 			.disposed(by: disposeBag)
-		
+
+		Observable
+			.combineLatest(
+				serialNumberObs,
+				registrationNumberObs
+			) { ($0, $1) }
+			.subscribe(onNext: { [weak self] serialNumber, registrationNumber in
+				guard let serialNumber = serialNumber, let registrationNumber = registrationNumber else { return }
+				if self?.aircraftRegistration == nil {
+					self?.aircraftRegistration = AirMapAircraftRegistration(authority: serialNumber, number: registrationNumber, name: "")
+				} else {
+					self?.aircraftRegistration.authority = serialNumber
+					self?.aircraftRegistration.number = registrationNumber
+				}
+			})
+			.disposed(by: disposeBag)
+
 		model.asObservable()
 			.unwrap()
 			.map { [$0.manufacturer.name, $0.name].compactMap { $0 }.joined(separator: " ") }
@@ -173,12 +199,32 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		
 		trackEvent(.tap, label: "Save Button")
 
-		let action: Observable<AirMapAircraft>
+		let action: Observable<(AirMapAircraft, AirMapAircraftRegistration)>
 		switch mode {
 		case .create:
-			action = AirMap.rx.createAircraft(aircraft).trackActivity(activityIndicator)
+			action = AirMap.rx.createAircraft(aircraft)
+				.flatMap { [unowned self] (aircraft) -> Observable<(AirMapAircraft, AirMapAircraftRegistration)> in
+					return Observable.zip(
+						Observable.of(aircraft),
+						AirMap.rx.createAircraftRegistration(self.aircraftRegistration, aircraft.id!)
+					)
+				}
+				.trackActivity(activityIndicator)
 		case .update:
-			action = AirMap.rx.updateAircraft(aircraft).trackActivity(activityIndicator)
+
+			let registrationAction: Observable<AirMapAircraftRegistration>
+
+			if aircraftRegistration.id == nil {
+				registrationAction = AirMap.rx.createAircraftRegistration(aircraftRegistration, aircraft.id!)
+			} else {
+				registrationAction = AirMap.rx.updateAircraftRegistration(aircraftRegistration)
+			}
+
+			action = Observable.zip(
+				AirMap.rx.updateAircraft(aircraft),
+				registrationAction
+			)
+			.trackActivity(activityIndicator)
 		}
 
 		action
@@ -186,6 +232,8 @@ class AirMapCreateAircraftViewController: UITableViewController {
 				self?.resignFirstResponder()
 				self?.navigationController?.aircraftDelegate?
 					.aircraftNavController(self!.navigationController!, didCreateOrModify: self!.aircraft)
+				self?.navigationController?.aircraftDelegate?
+					.aircraftRegistrationNavController(self!.navigationController!, didCreateOrModify: self!.aircraftRegistration)
 			})
 			.subscribe()
 			.disposed(by: disposeBag)
