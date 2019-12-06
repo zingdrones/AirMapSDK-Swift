@@ -23,9 +23,14 @@ import ObjectMapper
 
 public class AirMapPilotCertification: ImmutableMappable {
 
-	public let id: AirMapPilotCertificationId?
+	public var id: AirMapPilotCertificationId?
 	public let certificationAuthority: String
-	public let certificationId: String
+	public var certificationId: String
+
+	public init (certificationId: String) {
+		self.certificationAuthority = ""
+		self.certificationId = certificationId
+	}
 
 	required public init(map: Map) throws {
 		do {
@@ -40,7 +45,6 @@ public class AirMapPilotCertification: ImmutableMappable {
 	}
 
 	public func mapping(map: Map) {
-		certificationAuthority   >>>   map["certification_authority"]
 		certificationId          >>>   map["certification_id"]
 	}
 }

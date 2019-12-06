@@ -51,8 +51,8 @@ public class AirMapFlightPlan: Mappable {
 	// Flight Features
 	public var flightFeaturesValue = [AirMapFlightFeatureId: Any]()
 
-	// Operation Description
-	public var operationDescription: String?
+	// Flight Description
+	public var flightDescription: String?
 
 	// Assigned once a flight plan is submitted and a flight is created
 	public internal(set) var flightId: AirMapFlightId?
@@ -102,7 +102,8 @@ public class AirMapFlightPlan: Mappable {
 		rulesetIds          <-   map["rulesets"]
 		flightId            <-  (map["flight_id"], AirMapIdTransform())
 		flightFeaturesValue <-  (map["flight_features"], AirMapIdDictionaryTransform())
-		
+		flightDescription   <-   map["flight_description"]
+
 		switch map.mappingType {
 		
 		case .toJSON:
