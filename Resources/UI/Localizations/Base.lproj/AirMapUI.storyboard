@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -194,7 +194,7 @@
                         <attributedString key="userComments">
                             <fragment content="CREATE_AIRCRAFT_TITLE|Title for the view where you can create a new aircraft">
                                 <attributes>
-                                    <font key="NSFont" metaFont="controlContent" size="11"/>
+                                    <font key="NSFont" metaFont="message" size="11"/>
                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
                             </fragment>
@@ -205,6 +205,7 @@
                         <outlet property="makeAndModelCell" destination="T4Z-O1-0zC" id="63F-0x-jK1"/>
                         <outlet property="nickName" destination="blN-px-yT6" id="3oy-l1-Bxa"/>
                         <outlet property="registrationNumber" destination="xop-Y2-9wg" id="bTS-bh-26r"/>
+                        <outlet property="saveBarButton" destination="6be-O4-cnC" id="ply-uc-gte"/>
                         <outlet property="saveButton" destination="K03-vU-4zj" id="exl-c6-EYd"/>
                         <outlet property="serialNumber" destination="FQ5-gQ-VS1" id="VUL-eP-e2Z"/>
                     </connections>
@@ -226,7 +227,7 @@
                     <attributedString key="userComments">
                         <fragment content="CREATE_AIRCRAFT_SAVE_BUTTON|Title for the button that saves a user's changes to a new or existing aircraft">
                             <attributes>
-                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                <font key="NSFont" metaFont="message" size="11"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                             </attributes>
                         </fragment>
@@ -955,7 +956,7 @@ AirMap will send you a text message when your digital notice has been successful
                         <attributedString key="userComments">
                             <fragment content="MANUFACTURERS_TITLE|Title for the view that displays a list of all aircraft manufacturers">
                                 <attributes>
-                                    <font key="NSFont" metaFont="controlContent" size="11"/>
+                                    <font key="NSFont" metaFont="message" size="11"/>
                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
                             </fragment>
