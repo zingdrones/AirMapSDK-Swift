@@ -98,7 +98,8 @@ internal class PilotClient: HTTPClient {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapPilotCertification> in
 			AirMap.logger.debug("Update Certifications", metadata: ["Certification": .stringConvertible(certification.id ?? "")])
 			guard let certificationId = certification.id else { return .error(PilotClientError.invalidPilotCertificationIdentifier) }
-			return self.perform(method: .patch, path: "/\(credentials.pilot)/certification/\(certificationId)", params: certification.toJSON(), update: certification, auth: credentials)
+			let params = ["certification_id": certificationId]
+			return self.perform(method: .patch, path: "/\(credentials.pilot)/certification/\(certificationId)", params: params, update: certification, auth: credentials)
 		}
 	}
 
