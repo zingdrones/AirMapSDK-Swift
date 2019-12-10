@@ -29,7 +29,6 @@ class AirMapCreateAircraftViewController: UITableViewController {
 
 	@IBOutlet var saveButton: UIButton!
 	@IBOutlet var saveBarButton: UIBarButtonItem!
-	@IBOutlet var cancelBarButton: UIBarButtonItem!
 	@IBOutlet weak var nickName: UITextField!
 	@IBOutlet weak var serialNumber: UITextField!
 	@IBOutlet weak var registrationNumber: UITextField!
