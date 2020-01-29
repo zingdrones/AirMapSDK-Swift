@@ -97,8 +97,8 @@ internal class PilotClient: HTTPClient {
 	func updatePilotCertification(_ certification: AirMapPilotCertification) -> Observable<AirMapPilotCertification> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapPilotCertification> in
 			AirMap.logger.debug("Update Certifications", metadata: ["Certification": .stringConvertible(certification.id ?? "")])
-			guard let certificationId = certification.id else { return .error(PilotClientError.invalidPilotCertificationIdentifier) }
-			let params = ["certification_id": certificationId]
+			guard let certificationId = certification.id?.rawValue else { return .error(PilotClientError.invalidPilotCertificationIdentifier) }
+			let params = ["certification_id": certification.certificationId]
 			return self.perform(method: .patch, path: "/\(credentials.pilot)/certification/\(certificationId)", params: params, update: certification, auth: credentials)
 		}
 	}
