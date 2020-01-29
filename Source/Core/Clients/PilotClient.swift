@@ -106,7 +106,7 @@ internal class PilotClient: HTTPClient {
 	func deletePilotCertification(_ certificationId: AirMapPilotCertificationId) -> Observable<Void> {
 		return withCredentials().flatMap { (credentials) -> Observable<Void> in
 			AirMap.logger.debug("Delete Certifications", metadata: ["Certification": .stringConvertible(certificationId)])
-			return self.perform(method: .patch, path: "/\(credentials.pilot)/certification/\(certificationId)", auth: credentials)
+			return self.perform(method: .delete, path: "/\(credentials.pilot)/certification/\(certificationId)", auth: credentials)
 		}
 	}
 
