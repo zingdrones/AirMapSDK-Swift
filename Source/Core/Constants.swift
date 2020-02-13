@@ -57,6 +57,9 @@ struct Constants {
 		static var rulesUrl: String {
 			return url(for: "rules", v: 1)
 		}
+		static var systemUrl: String {
+			return url(for: "system", v: 1)
+		}
 		static var tileDataUrl: String {
 			return url(for: "tiledata", v: 1)
 		}
@@ -108,6 +111,10 @@ struct Constants {
 			static let speed:     RxTimeInterval = .milliseconds(200)
 			static let barometer: RxTimeInterval = .seconds(20)
 		}
+	}
+
+	struct SystemStatus {
+		static let timeout: TimeInterval = 5.0
 	}
 
 	struct Traffic {
