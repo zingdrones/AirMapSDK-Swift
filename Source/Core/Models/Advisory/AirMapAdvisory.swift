@@ -108,11 +108,16 @@ public struct AirMapAdvisory {
 	}
 	
 	/// Controlled Airspace advisory properties
-	public struct ControlledAirspaceProperties: AdvisoryProperties, HasOptionalURL {
+	public struct ControlledAirspaceProperties: AdvisoryProperties, HasOptionalURL, HasAuthorization {
 		public let type: String?
 		public let isLaancProvider: Bool?
 		public let supportsAuthorization: Bool?
 		public let url: URL?
+		public let icao: String?
+		public let airportID: String?
+		public let airportName: String?
+		public let ceiling: Double?
+		public let floor: Double?
 	}
 	
 	/// City properties
@@ -208,6 +213,19 @@ public protocol HasOptionalURL {
 public protocol HasOptionalDescription {
 	var description: String? { get }
 }
+
+public protocol HasOptionalTimeRange {
+	var startTime: Date? { get }
+	var endTime: Date? { get }
+}
+
+public protocol HasAuthorization {
+	var isLaancProvider: Bool?  { get }
+	var supportsAuthorization: Bool?  { get }
+	var floor: Double? { get }
+	var ceiling: Double? { get }
+}
+
 
 // MARK: - CustomStringConvertible
 
