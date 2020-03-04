@@ -529,7 +529,6 @@ extension AirMapFlightBriefing: ImmutableMappable {
 			rulesets       =  try  map.value("rulesets")
 			status         =  try  map.value("airspace")
 			authorizations = (try? map.value("authorizations")) ?? []
-			validations    = (try? map.value("validations")) ?? []
 		}
 		catch {
 			AirMap.logger.error("Failed to parse AirMapFlightBriefing", metadata: ["error": .string(error.localizedDescription)])
@@ -543,22 +542,6 @@ extension AirMapFlightBriefing.Ruleset: ImmutableMappable {
 	public init(map: Map) throws {
 		id    = try map.value("id")
 		rules = try map.value("rules")
-	}
-}
-
-extension AirMapFlightBriefing.Validation: ImmutableMappable {
-	
-	public init(map: Map) throws {
-		do {
-			authority  	=  try  map.value("authority")
-			status     	= (try? map.value("status")) ?? .rejected
-			message    	=  try  map.value("message")
-			description	=  try  map.value("description")
-		}
-		catch {
-			AirMap.logger.error("Failed to parse AirMapFlightBriefing.Validation", metadata: ["error": .string(error.localizedDescription)])
-			throw error
-		}
 	}
 }
 
