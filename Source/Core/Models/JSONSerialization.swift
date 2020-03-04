@@ -532,6 +532,7 @@ extension AirMapFlightBriefing: ImmutableMappable {
 		do {
 			createdAt      =  try  map.value("created_at", using: dateTransform)
 			rulesets       =  try  map.value("rulesets")
+			flightFeatures = (try? map.value("flight_features")) ?? []
 			status         =  try  map.value("airspace")
 			authorizations = (try? map.value("authorizations")) ?? []
 		}
