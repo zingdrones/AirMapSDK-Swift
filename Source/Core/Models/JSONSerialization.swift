@@ -66,43 +66,45 @@ extension AirMapAdvisory: ImmutableMappable {
 			let airspaceType: AirMapAirspaceType = (try? map.value("type")) ?? .unclassified
 			type = airspaceType
 			name = (try? map.value("name") as String) ?? airspaceType.title
-			
-			let props: [String: Any] = try map.value("properties")
 
-			switch airspaceType {
-			case .airport:
-				properties = AirportProperties(JSON: props)
-			case .amaField:
-				properties = AMAFieldProperties(JSON: props)
-			case .controlledAirspace:
-				properties = ControlledAirspaceProperties(JSON: props)
-			case .city:
-				properties = CityProperties(JSON: props)
-			case .custom:
-				properties = CustomProperties(JSON: props)
-			case .emergency:
-				properties = EmergencyProperties(JSON: props)
-			case .heliport:
-				properties = HeliportProperties(JSON: props)
-			case .notam:
-				properties = NOTAMProperties(JSON: props)
-			case .notification:
-				properties = NotificationProperties(JSON: props)
-			case .park:
-				properties = ParkProperties(JSON: props)
-			case .powerPlant:
-				properties = PowerPlantProperties(JSON: props)
-			case .school:
-				properties = SchoolProperties(JSON: props)
-			case .specialUse:
-				properties = SpecialUseProperties(JSON: props)
-			case .tfr:
-				properties = TFRProperties(JSON: props)
-			case .university:
-				properties = UniversityProperties(JSON: props)
-			case .wildfire:
-				properties = WildfireProperties(JSON: props)
-			default:
+			if let props: [String: Any] = try? map.value("properties") {
+				switch airspaceType {
+				case .airport:
+					properties = AirportProperties(JSON: props)
+				case .amaField:
+					properties = AMAFieldProperties(JSON: props)
+				case .controlledAirspace:
+					properties = ControlledAirspaceProperties(JSON: props)
+				case .city:
+					properties = CityProperties(JSON: props)
+				case .custom:
+					properties = CustomProperties(JSON: props)
+				case .emergency:
+					properties = EmergencyProperties(JSON: props)
+				case .heliport:
+					properties = HeliportProperties(JSON: props)
+				case .notam:
+					properties = NOTAMProperties(JSON: props)
+				case .notification:
+					properties = NotificationProperties(JSON: props)
+				case .park:
+					properties = ParkProperties(JSON: props)
+				case .powerPlant:
+					properties = PowerPlantProperties(JSON: props)
+				case .school:
+					properties = SchoolProperties(JSON: props)
+				case .specialUse:
+					properties = SpecialUseProperties(JSON: props)
+				case .tfr:
+					properties = TFRProperties(JSON: props)
+				case .university:
+					properties = UniversityProperties(JSON: props)
+				case .wildfire:
+					properties = WildfireProperties(JSON: props)
+				default:
+					properties = nil
+				}
+			} else {
 				properties = nil
 			}
 		}
