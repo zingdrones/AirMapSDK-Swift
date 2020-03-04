@@ -186,6 +186,11 @@ extension AirMapAdvisory.ControlledAirspaceProperties: ImmutableMappable {
 		isLaancProvider        =  try? map.value("laanc")
 		supportsAuthorization  =  try? map.value("authorization")
 		url                    =  try? map.value("url", using: URLTransform())
+		icao                   =  try? map.value("icao")
+ 		airportID              =  try? map.value("airport_id")
+ 		airportName            =  try? map.value("airport_name")
+ 		ceiling                =  try? map.value("ceiling")
+ 		floor                  =  try? map.value("floor")
 	}
 }
 
