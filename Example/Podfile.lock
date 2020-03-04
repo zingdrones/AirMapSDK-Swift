@@ -6,7 +6,7 @@ PODS:
     - AirMapSDK/Traffic (= 4.0.0.alpha.1)
     - AirMapSDK/UI (= 4.0.0.alpha.1)
   - AirMapSDK/Core (4.0.0.alpha.1):
-    - Alamofire
+    - Alamofire (~> 4.9.0)
     - AppAuth
     - KeychainAccess (~> 3.2.0)
     - Logging
@@ -131,7 +131,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AirMapSDK: 13df82bfa14c5c715014f979d87a60a23915fc3a
+  AirMapSDK: 840e7e1278c2d4810fc9eb44f326ec6f43716a7e
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
