@@ -33,14 +33,14 @@ internal class FlightPlanClient: HTTPClient {
 	
 	func create(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapFlightPlan> in
-			AirMap.logger.debug("Create Flight Plan", flightPlan)
+			AirMap.logger.debug("Create Flight Plan")
 			return self.perform(method: .post, path: "/plan", params: flightPlan.toJSON(), update: flightPlan, auth: credentials)
 		}
 	}
 	
 	func update(_ flightPlan: AirMapFlightPlan) -> Observable<AirMapFlightPlan> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapFlightPlan> in
-			AirMap.logger.debug("Update Flight Plan", flightPlan)
+			AirMap.logger.debug("Update Flight Plan", metadata: ["id": .stringConvertible(flightPlan.id ?? "")])
 			guard let flightPlanId = flightPlan.id else {
 				return Observable.error(FlightPlanClientError.flightPlanDoesntExistCreateFirst)
 			}
@@ -50,21 +50,21 @@ internal class FlightPlanClient: HTTPClient {
 	
 	func get(_ flightPlanId: AirMapFlightPlanId) -> Observable<AirMapFlightPlan> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapFlightPlan> in
-			AirMap.logger.debug("Get Flight Plan", flightPlanId)
+			AirMap.logger.debug("Get Flight Plan", metadata: ["id": .stringConvertible(flightPlanId)])
 			return self.perform(method: .get, path: "/plan/\(flightPlanId)", auth: credentials)
 		}
 	}
 		
 	func getBriefing(_ flightPlanId: AirMapFlightPlanId) -> Observable<AirMapFlightBriefing> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapFlightBriefing> in
-			AirMap.logger.debug("Get Flight Briefing", flightPlanId)
+			AirMap.logger.debug("Get Flight Briefing", metadata: ["id": .stringConvertible(flightPlanId)])
 			return self.perform(method: .get, path: "/plan/\(flightPlanId)/briefing", auth: credentials)
 		}
 	}
 	
 	func getFlightPlanAuthorizationsByFlightPlanIds(_ ids: [AirMapFlightPlanId]) -> Observable<[AirMapFlightPlanAuthorizations]> {
 		return withCredentials().flatMap({ (credentials) -> Observable<[AirMapFlightPlanAuthorizations]> in
-			AirMap.logger.debug("Get Authorization for Flight Plan ids", ids)
+			AirMap.logger.debug("Get Authorizations for Flight Plans", metadata: ["ids": .stringConvertible(ids)])
 			let params = [ "flight_plan_ids": ids.csv ]
 			return self.perform(method: .get, path: "/plan/batch/authorizations", params: params, auth: credentials)
 		})
@@ -72,10 +72,10 @@ internal class FlightPlanClient: HTTPClient {
 	
 	func submitFlightPlan(_ flightPlan: AirMapFlightPlan, makeFlightPublic: Bool = true) -> Observable<AirMapFlightPlan> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapFlightPlan> in
+			AirMap.logger.debug("Submit Flight Plan", metadata: ["id": .stringConvertible(flightPlan.id ?? "")])
 			guard let flightPlanId = flightPlan.id else {
 				return Observable.error(FlightPlanClientError.flightPlanDoesntExistCreateFirst)
 			}
-			AirMap.logger.debug("Submit Flight Plan", flightPlanId)
 			let params = ["public": makeFlightPublic]
 			return self.perform(method: .post, path: "/plan/\(flightPlanId)/submit", params: params, update: flightPlan, auth: credentials)
 		}
@@ -83,7 +83,7 @@ internal class FlightPlanClient: HTTPClient {
 	
 	func deleteFlightPlan(_ flightPlanId: AirMapFlightPlanId) -> Observable<Void> {
 		return withCredentials().flatMap { (credentials) -> Observable<Void> in
-			AirMap.logger.debug("Delete Flight Plan", flightPlanId)
+			AirMap.logger.debug("Delete Flight Plan", metadata: ["id": .stringConvertible(flightPlanId)])
 			return self.perform(method: .delete, path: "/plan/\(flightPlanId)", auth: credentials)
 		}
 	}

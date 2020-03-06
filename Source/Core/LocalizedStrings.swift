@@ -102,10 +102,16 @@ public struct LocalizedStrings {
 		
 		public static let japanBase = NSLocalizedString("AIRSPACE_TYPE_JAPAN_BASE", bundle: bundle, value: "Japan Base Admin", comment: "Name for airspace type Japan Base Admin (Smallest unit of Japanse administrative units)")
 				
+		public static let landingSite = NSLocalizedString("AIRSPACE_TYPE_LANDING_SITE", bundle: bundle, value: "Landing Site", comment: "Name for airspace type landing site")
+
 		public static let militaryProperty = NSLocalizedString("AIRSPACE_TYPE_MILITARY_PROPERTY", bundle: bundle, value: "Military Property", comment: "Name for airspace type Military Property")
 		
 		public static let notam = NSLocalizedString("AIRSPACE_TYPE_NOTAM", bundle: bundle, value: "NOTAM", comment: "Name for airspace type NOTAM")
 		
+		public static let notification = NSLocalizedString("AIRSPACE_TYPE_NOTIFICATION", bundle: bundle, value: "Notification", comment: "Name for airspace type Notification")
+
+		public static let obstacle = NSLocalizedString("AIRSPACE_TYPE_OBSTACLE", bundle: bundle, value: "Obstacle", comment: "Name for airspace type Obstacle")
+
 		public static let park = NSLocalizedString("AIRSPACE_TYPE_NATIONAL_PARK", bundle: bundle, value: "National Park", comment: "Name for airspace type National Park")
 		
 		public static let policeStation = NSLocalizedString("AIRSPACE_TYPE_POLICE_STATION", bundle: bundle, value: "Police Station", comment: "Name for airspace type Police Station")
@@ -362,7 +368,20 @@ public struct LocalizedStrings {
 		
 		public static let temperatureFormatFahrenheit = NSLocalizedString("UNITS_TEMPERATURE_FAHRENHEIT_FORMAT", bundle: bundle, value: "%1$@°F", comment: "Unit and format for displaying temperature in Fahrenheit")
 	}
-	
+
+	public struct SystemStatus {
+
+		public static let degradedLevel = NSLocalizedString("SYSTEM_STATUS_DEGRADED_LEVEL", bundle: bundle, value: "Degraded", comment: "System status value when the status is degraded")
+
+		public static let failedLevel = NSLocalizedString("SYSTEM_STATUS_FAILED_LEVEL", bundle: bundle, value: "Failed", comment: "System status value when the status is failed")
+
+		public static let maintenanceLevel = NSLocalizedString("SYSTEM_STATUS_MAINTENANCE_LEVEL", bundle: bundle, value: "Maintenance", comment: "System status value when the status is maintenance")
+
+		public static let normalLevel = NSLocalizedString("SYSTEM_STATUS_NORMAL_LEVEL", bundle: bundle, value: "Normal", comment: "System status value when the status is normal")
+
+		public static let unknownLevel = NSLocalizedString("SYSTEM_STATUS_UNKNOWN_LEVEL", bundle: bundle, value: "Unknown", comment: "System status value when the status is unknown")
+	}
+
 	public struct Traffic {
 		
 		public static let alertWithAircraftIdFormat = NSLocalizedString("TRAFFIC_ALERT_WITH_AIRCRAFT_ID_FORMAT", bundle: bundle, value: "Traffic %1$@\nAltitude %2$@\n%3$@", comment: "Format for traffic alerts. 1) aircraft id, 2) altitude, 3) ground speed")

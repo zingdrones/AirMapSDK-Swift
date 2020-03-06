@@ -49,7 +49,7 @@ public struct AirMapFlightFeature {
 	/// - informational: The status cannot be computationally evaluated but is provided for informational purposes
 	/// - notConflicting: The feature has been evaluated as non-conflicting based on the flight plan properties or input provided
 	/// - unevaluated: The feature has not yet been evaluated by the AirMap rules engine
-	public enum Status: String {
+	public enum Status: String, CaseIterable {
 		case conflicting
 		case missingInfo = "missing_info"
 		case informational

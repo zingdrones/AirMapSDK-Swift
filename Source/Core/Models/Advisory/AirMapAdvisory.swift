@@ -143,6 +143,20 @@ public struct AirMapAdvisory {
 		public let effective: Date?
 	}
 	
+	/// NOTAM advisory properties
+	public struct NOTAMProperties: AdvisoryProperties {
+		public let body: String?
+		public let startTime: Date?
+		public let endTime: Date?
+		public let type: String?
+	}
+
+	/// Notification advisory properties
+	public struct NotificationProperties: AdvisoryProperties, HasOptionalURL {
+		public let body: String?
+		public let url: URL?
+	}
+
 	/// Park advisory properties
 	public struct ParkProperties: AdvisoryProperties, HasOptionalURL {
 		public let type: String?
@@ -169,6 +183,7 @@ public struct AirMapAdvisory {
 	/// TFR advisory properties
 	public struct TFRProperties: AdvisoryProperties, HasOptionalURL {
 		public let url: URL?
+		public let body: String?
 		public let startTime: Date?
 		public let endTime: Date?
 		public let type: String?

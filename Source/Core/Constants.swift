@@ -24,6 +24,7 @@ import UIKit.UIDevice
 
 import ObjectMapper
 import AppAuth
+import RxSwift
 
 struct Constants {
 
@@ -47,11 +48,17 @@ struct Constants {
 		static var flightUrl: String {
 			return url(for: "flight", v: 2)
 		}
+		static var jurisdictionsUrl: String {
+			return Constants.Api.tileDataUrl + "/base-jurisdiction/{z}/{x}/{y}"
+		}
 		static var pilotUrl: String {
 			return url(for: "pilot", v: 2)
 		}
 		static var rulesUrl: String {
 			return url(for: "rules", v: 1)
+		}
+		static var systemUrl: String {
+			return url(for: "system", v: 1)
 		}
 		static var tileDataUrl: String {
 			return url(for: "tiledata", v: 1)
@@ -99,11 +106,15 @@ struct Constants {
 		}
 		
 		struct SampleRate {
-			static let position:  TimeInterval = 1/5
-			static let attitude:  TimeInterval = 1/5
-			static let speed:     TimeInterval = 1/5
-			static let barometer: TimeInterval = 20
+			static let position:  RxTimeInterval = .milliseconds(200)
+			static let attitude:  RxTimeInterval = .milliseconds(200)
+			static let speed:     RxTimeInterval = .milliseconds(200)
+			static let barometer: RxTimeInterval = .seconds(20)
 		}
+	}
+
+	struct SystemStatus {
+		static let timeout: TimeInterval = 5.0
 	}
 
 	struct Traffic {
@@ -133,7 +144,7 @@ struct Constants {
 		static let rulesetSourcePrefix = "airmap_ruleset_"
 		static let tileMinimumZoomLevel = 7
 		static let tileMaximumZoomLevel = 12
-		static let temporalLayerRefreshInterval: TimeInterval = 20
+		static let temporalLayerRefreshInterval: RxTimeInterval = .seconds(20)
 		static let futureTemporalWindow: TimeInterval = 4*60*60 // 4 hours
 		
 		static var styleUrl: URL {

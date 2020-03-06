@@ -26,10 +26,10 @@ public class AirMapAircraftViewController: UITableViewController, AnalyticsTrack
 	
 	public var screenName = "List Aircraft"
 	
-	public let selectedAircraft = Variable(nil as AirMapAircraft?)
+	public let selectedAircraft = BehaviorRelay(value: nil as AirMapAircraft?)
 	
 	fileprivate let activityIndicator = ActivityTracker()
-	fileprivate let aircraft = Variable([AirMapAircraft]())
+	fileprivate let aircraft = BehaviorRelay(value: [AirMapAircraft]())
 	fileprivate let disposeBag = DisposeBag()
 	
 	public override func viewDidLoad() {
@@ -93,13 +93,15 @@ public class AirMapAircraftViewController: UITableViewController, AnalyticsTrack
 					})
 			}
 			.flatMap(AirMap.rx.listAircraft)
-			.do(onError: { AirMap.logger.error($0) })
+			.do(onError: {
+				AirMap.logger.error("Failed to list aircraft", metadata: ["error": .stringConvertible($0.localizedDescription)])
+			})
 			.ignoreErrors()
 			.bind(to: aircraft)
 			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
-			.throttle(0.25, scheduler: MainScheduler.instance)
+			.throttle(.milliseconds(250), scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
@@ -136,7 +138,7 @@ public class AirMapAircraftViewController: UITableViewController, AnalyticsTrack
 extension AirMapAircraftViewController: AirMapAircraftNavControllerDelegate {
 	
 	public func aircraftNavController(_ navController: AirMapAircraftNavController, didCreateOrModify aircraft: AirMapAircraft) {
-		selectedAircraft.value = aircraft
+		selectedAircraft.accept(aircraft)
 		navigationController?.dismiss(animated: true, completion: nil)
 	}
 }

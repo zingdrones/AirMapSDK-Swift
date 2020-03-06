@@ -34,37 +34,48 @@ internal class RuleClient: HTTPClient {
 	func getJurisdictions(intersecting geometry: AirMapGeometry) -> Observable<[AirMapJurisdiction]> {
 		AirMap.logger.debug("Getting jurisdictions intersecting geometry")
 		let params = ["geometry": geometry.params()]
-		return perform(method: .post, path: "/", params: params).map { $0.jurisdictions }
+		return withOptionalCredentials().flatMap { (credentials) -> Observable<[AirMapJurisdiction]> in
+			return self.perform(method: .post, path: "/", params: params, auth: credentials).map { $0.jurisdictions }
+		}
 	}
 	
 	func getRuleset(by identifier: AirMapRulesetId) -> Observable<AirMapRuleset> {
-		return perform(method: .get, path: "/" + identifier.rawValue)
+		return withOptionalCredentials().flatMap { (credentials) -> Observable<AirMapRuleset> in
+			return self.perform(method: .get, path: "/" + identifier.rawValue, auth: credentials)
+		}
 	}
 	
 	func getRulesets(intersecting geometry: AirMapGeometry) -> Observable<[AirMapRuleset]> {
 		let params = ["geometry": geometry.params()]
-		return perform(method: .post, path: "/", params: params)
+		return withOptionalCredentials().flatMap { (credentials) -> Observable<[AirMapRuleset]> in
+			return self.perform(method: .post, path: "/", params: params, auth: credentials)
+		}
 	}
 	
 	func getRulesetsEvaluated(by flightPlanId: AirMapFlightPlanId) -> Observable<[AirMapFlightBriefing.Ruleset]> {
-		AirMap.logger.debug("Getting evaluated rulesets for flight_plan_id", flightPlanId)
+		AirMap.logger.debug("Getting evaluated rulesets", metadata: ["flight_plan_id": .stringConvertible(flightPlanId)])
 		return AirMap.flightPlanClient.getBriefing(flightPlanId).map { $0.rulesets }
 	}
 	
 	func getRulesets(by rulesetIds: [AirMapRulesetId]) -> Observable<[AirMapRuleset]> {
-		AirMap.logger.debug("Getting rules for ruleset:", rulesetIds)
+		AirMap.logger.debug("Getting rules", metadata: ["rulesets": .stringConvertible(rulesetIds)])
 		let params = ["rulesets": rulesetIds.map { $0.rawValue }.joined(separator: ",")]
-		return perform(method: .get, path: "/rule", params: params)
+		return withOptionalCredentials().flatMap { (credentials) -> Observable<[AirMapRuleset]> in
+			return self.perform(method: .get, path: "/rule", params: params, auth: credentials)
+		}
 	}
 	
 	func getRulesetsEvaluated(from geometry: AirMapPolygon, rulesetIds: [AirMapRulesetId], flightFeatureValues: [String: Any]?) -> Observable<[AirMapFlightBriefing.Ruleset]> {
-		AirMap.logger.debug("Getting airspace evaluation")
+		AirMap.logger.debug("Getting airspace evaluation", metadata: ["rulesets": .stringConvertible(rulesetIds)])
 		let params: [String: Any] = [
 			"rulesets": rulesetIds.csv,
 			"geometry": geometry.params(),
 			"flight_features": flightFeatureValues ?? [:]
 		]
-		return perform(method: .post, path: "/evaluation", params: params, keyPath: "data.rulesets")
+
+		return withOptionalCredentials().flatMap { (credentials) -> Observable<[AirMapFlightBriefing.Ruleset]> in
+			return self.perform(method: .post, path: "/evaluation", params: params, keyPath: "data.rulesets", auth: credentials)
+		}
 	}
 	
 }

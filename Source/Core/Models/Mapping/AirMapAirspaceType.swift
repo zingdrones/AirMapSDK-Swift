@@ -19,7 +19,7 @@
 //
 
 /// The airspace type/category
-public enum AirMapAirspaceType: String {
+public enum AirMapAirspaceType: String, CustomStringConvertible {
 	
 	case airport             = "airport"
 	/// Academy of Model Aeronautics (AMA) Field
@@ -42,9 +42,12 @@ public enum AirMapAirspaceType: String {
 	case hospital            = "hospital"
 	case industrialProperty  = "industrial_property"
 	case japanBase           = "jpn_base"
+	case landingSite         = "landing_site"
 	case militaryProperty    = "military_property"
 	/// Notice To Airmen
 	case notam               = "notam"
+	case notification        = "notification"
+	case obstacle            = "obstacle"
 	case park                = "park"
 	case policeStation       = "police_station"
 	case powerline           = "powerline"
@@ -95,8 +98,11 @@ public enum AirMapAirspaceType: String {
 		case .industrialProperty:   return localized.industrialProperty
 		case .hospital:             return localized.hospital
 		case .japanBase:            return localized.japanBase
+		case .landingSite:          return localized.landingSite
 		case .militaryProperty:     return localized.militaryProperty
 		case .notam:                return localized.notam
+		case .notification:         return localized.notification
+		case .obstacle:             return localized.obstacle
 		case .park:                 return localized.park
 		case .policeStation:        return localized.policeStation
 		case .powerline:            return localized.powerline
@@ -119,5 +125,9 @@ public enum AirMapAirspaceType: String {
 		case .waterway:             return localized.waterway
 		case .wildfire:             return localized.wildfire
 		}
+	}
+
+	public var description: String {
+		return self.title
 	}
 }

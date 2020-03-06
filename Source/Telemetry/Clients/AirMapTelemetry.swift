@@ -20,7 +20,7 @@
 
 import Foundation
 import CocoaAsyncSocket
-import ProtocolBuffers
+import SwiftProtobuf
 import CryptoSwift
 import RxSwift
 
@@ -28,11 +28,11 @@ struct AirMapTelemetry {
 	
 	class Client {
 		
-		func sendTelemetry(_ flightId: AirMapFlightId, message: ProtoBufMessage) {
+		func sendTelemetry(_ flightId: AirMapFlightId, message: Message) {
 			telemetry.onNext((flightId, message))
 		}
 		
-		private let telemetry = PublishSubject<(flightId: AirMapFlightId, message: ProtoBufMessage)>()
+		private let telemetry = PublishSubject<(flightId: AirMapFlightId, message: Message)>()
 		private let disposeBag = DisposeBag()
 
 		private let bgScheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -46,13 +46,13 @@ struct AirMapTelemetry {
 			
 			let latestFlightId = telemetry.map { $0.flightId }
 				.distinctUntilChanged()
-				.throttle(5, scheduler: MainScheduler.instance)
+				.throttle(.seconds(5), scheduler: MainScheduler.instance)
 			
 			let session = latestFlightId
 				.flatMap { id in
 					AirMap.flightClient.getCommKey(by: id)
 						.catchError({ (error) -> Observable<CommKey> in
-							AirMap.logger.error("Failed to acquire encryption key for flight telemetry", error)
+							AirMap.logger.error("Failed to acquire telemetry encryption key", metadata: ["error": .string(error.localizedDescription)])
 							return .empty()
 						})
 						.map { Session(flightId: id, commKey: $0) }
@@ -65,7 +65,7 @@ struct AirMapTelemetry {
 				.filter { flightSession, telemetry in
 					telemetry.flightId == flightSession.flightId
 				}
-				.map { (session: Session, telemetry: (flightId: AirMapFlightId, message: ProtoBufMessage)) in
+				.map { (session: Session, telemetry: (flightId: AirMapFlightId, message: Message)) in
 					(session: session, message: telemetry.message)
 				}
 				.share()
@@ -73,34 +73,38 @@ struct AirMapTelemetry {
 			let rate = Constants.Telemetry.SampleRate.self
 			
 			let position = flightMessages
-				.filter { $1 is Airmap.Telemetry.Position }
+				.filter { $1 is Telemetry_Position }
 				.throttle(rate.position, scheduler: bgScheduler)
 			
 			let attitude = flightMessages
-				.filter { $1 is Airmap.Telemetry.Attitude }
+				.filter { $1 is Telemetry_Attitude }
 				.throttle(rate.attitude, scheduler: bgScheduler)
 
 			let speed = flightMessages
-				.filter { $1 is Airmap.Telemetry.Speed }
+				.filter { $1 is Telemetry_Speed }
 				.throttle(rate.speed, scheduler: bgScheduler)
 			
 			let barometer = flightMessages
-				.filter { $1 is Airmap.Telemetry.Barometer }
+				.filter { $1 is Telemetry_Barometer }
 				.throttle(rate.barometer, scheduler: bgScheduler)
 			
 			Observable.from([position, attitude, speed, barometer]).merge()
-				.buffer(timeSpan: 1, count: 20, scheduler: bgScheduler)
+				.buffer(timeSpan: .seconds(1), count: 20, scheduler: bgScheduler)
 				.observeOn(serialScheduler)
 				.subscribe(onNext: Client.sendMessages)
 				.disposed(by: disposeBag)
 		}
 		
-		private static func sendMessages(_ telemetry: [(session: Session, message: ProtoBufMessage)]) {
+		private static func sendMessages(_ telemetry: [(session: Session, message: Message)]) {
             
             guard let session = telemetry.first?.session else { return }
             
 			let messages = telemetry.map { $0.message }
-			session.send(messages)
+			do {
+				try session.send(messages)
+			} catch {
+				AirMap.logger.error("failed to send message", metadata: ["error": .string(error.localizedDescription)])
+			}
 		}
 	}
 	
@@ -121,9 +125,9 @@ struct AirMapTelemetry {
 			self.commKey = commKey
 		}
 		
-		func send(_ messages: [ProtoBufMessage]) {
+		func send(_ messages: [Message]) throws {
 
-			let payload = messages.flatMap { msg in msg.telemetryBytes() }
+			let payload = try messages.flatMap { msg in try msg.telemetryBytes() }
 			let packet: Packet
 			let serial = nextPacketId()
 			
@@ -132,7 +136,7 @@ struct AirMapTelemetry {
 				let iv = AirMapTelemetry.generateIV()
 				let key = commKey.bytes()
 				
-				let encryptedPayload = try! AES(key: key, blockMode: CBC(iv: iv), padding: .pkcs7).encrypt(payload)
+				let encryptedPayload = try AES(key: key, blockMode: CBC(iv: iv), padding: .pkcs7).encrypt(payload)
 
 				packet = Packet(
 					serial: serial, flightId: flightId, payload: encryptedPayload,
@@ -145,7 +149,7 @@ struct AirMapTelemetry {
 				)
 			}
 
-			let data = Data(bytes: packet.bytes())
+			let data = Data(packet.bytes())
 			Session.socket.sendData(data)
 		}
 		

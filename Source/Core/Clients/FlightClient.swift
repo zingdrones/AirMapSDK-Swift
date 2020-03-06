@@ -74,8 +74,7 @@ internal class FlightClient: HTTPClient {
 		params["enhance"     ] = String(enhanced ?? false)
 		params["geometry"    ] = geometry?.params()
 
-		AirMap.logger.debug("Get Flights", params)
-
+		AirMap.logger.debug("Get Flights", metadata: ["parameters": .stringConvertible(params)])
 		return self.perform(method: .get, params: params, keyPath: "data.results", auth: credentials)
 	}
 
@@ -85,8 +84,6 @@ internal class FlightClient: HTTPClient {
 		let endAfter = fromDate
 		let startBeforeNow = toDate == nil
 		let startBefore = toDate
-
-		AirMap.logger.debug("Get Public Flights", endAfterNow as Any, endAfter as Any, startBefore as Any, startBeforeNow as Any)
 
 		return list(limit: limit, startBefore: startBefore, startBeforeNow: startBeforeNow, endAfter: endAfter, endAfterNow: endAfterNow, within: geometry)
 	}
@@ -105,7 +102,7 @@ internal class FlightClient: HTTPClient {
 
 	func get(_ flightId: AirMapFlightId) -> Observable<AirMapFlight> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapFlight> in
-			AirMap.logger.debug("Get flight", flightId)
+			AirMap.logger.debug("GET flight", metadata: ["id": .stringConvertible(flightId)])
 			var params = [String : Any]()
 			params["enhance"] = String(true) as AnyObject?
 			return self.perform(method: .get, path:"/\(flightId)", params: params, auth: credentials)
@@ -114,7 +111,7 @@ internal class FlightClient: HTTPClient {
 
 	func create(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
 		return withCredentials().flatMap { (credentials) -> Observable<AirMapFlight> in
-			AirMap.logger.debug("Create flight", flight)
+			AirMap.logger.debug("Create flight")
 			let type: AirMapFlightGeometryType = flight.geometry?.type ?? .point
 			return self.perform(method: .post, path:"/\(type.rawValue)", params: flight.params(), update: flight, auth: credentials)
 		}
@@ -122,9 +119,9 @@ internal class FlightClient: HTTPClient {
 
 	func end(_ flight: AirMapFlight) -> Observable<AirMapFlight> {
 		return withCredentials().flatMap({ (credentials) -> Observable<AirMapFlight> in
-			AirMap.logger.debug("End flight", flight)
+			AirMap.logger.debug("End flight", metadata: ["id": .stringConvertible(flight.id ?? "")])
 			guard let flightId = flight.id else {
-				AirMap.logger.error(self, FlightClientError.FlightDoesNotExist)
+				AirMap.logger.error("Failed to end flight", metadata: ["error": .string("flight does not have a valid id")])
 				return .error(FlightClientError.FlightDoesNotExist)
 			}
 			return self.perform(method: .post, path:"/\(flightId)/end", update: flight, auth: credentials)
@@ -133,16 +130,16 @@ internal class FlightClient: HTTPClient {
 	
 	func end(_ flightId: AirMapFlightId) -> Observable<Void> {
 		return withCredentials().flatMap({ (credentials) -> Observable<Void> in
-			AirMap.logger.debug("End flight", flightId)
+			AirMap.logger.debug("End flight", metadata: ["id": .stringConvertible(flightId)])
 			return self.perform(method: .post, path:"/\(flightId)/end", auth: credentials)
 		})
 	}
 
 	func delete(_ flight: AirMapFlight) -> Observable<Void> {
 		return withCredentials().flatMap({ (credentials) -> Observable<Void> in
-			AirMap.logger.debug("Delete flight", flight)
+			AirMap.logger.debug("Delete flight", metadata: ["id": .stringConvertible(flight.id ?? "")])
 			guard let flightId = flight.id else {
-				AirMap.logger.error(self, FlightClientError.FlightDoesNotExist)
+				AirMap.logger.error("Failed to delete flight", metadata: ["error": .string("flight does not have a valid id")])
 				return .error(FlightClientError.FlightDoesNotExist)
 			}
 			return self.perform(method: .post, path:"/\(flightId)/delete", auth: credentials)
@@ -151,7 +148,7 @@ internal class FlightClient: HTTPClient {
 	
 	func getFlightPlanByFlightId(_ id: AirMapFlightId) -> Observable<AirMapFlightPlan> {
 		return withCredentials().flatMap({ (credentials) -> Observable<AirMapFlightPlan> in
-			AirMap.logger.debug("Get FlightPlan for Flight id", id)
+			AirMap.logger.debug("Get FlightPlan", metadata: ["flight_id": .stringConvertible(id)])
 			return self.perform(method: .get, path:"/\(id)/plan", auth: credentials)
 		})
 	}

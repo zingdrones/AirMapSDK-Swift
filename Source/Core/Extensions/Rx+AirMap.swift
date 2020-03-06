@@ -27,25 +27,25 @@ extension ObservableType {
 		return self.map { _ -> Void in }
 	}
 
-	public func asOptional() -> Observable<E?> {
+	public func asOptional() -> Observable<Element?> {
 		return self.map {
 			Optional.some($0)
 		}
 	}
 	
-	public func then(onNext: ((E) throws -> Void)? = nil, onError: ((Swift.Error) throws -> Void)? = nil, onCompleted: (() throws -> Void)? = nil, onSubscribe: (() -> ())? = nil, onSubscribed: (() -> ())? = nil, onDispose: (() -> ())? = nil)
-		-> Observable<E> {
+	public func then(onNext: ((Element) throws -> Void)? = nil, onError: ((Swift.Error) throws -> Void)? = nil, onCompleted: (() throws -> Void)? = nil, onSubscribe: (() -> ())? = nil, onSubscribed: (() -> ())? = nil, onDispose: (() -> ())? = nil)
+		-> Observable<Element> {
 			return `do`(onNext: onNext, onError: onError, onCompleted: onCompleted, onSubscribe: onSubscribe, onSubscribed: onSubscribed, onDispose: onDispose)
 	}
 	
-	func thenSubscribe(_ result: @escaping (Result<E>) -> Void) {
+	func thenSubscribe(_ result: @escaping (Result<Element>) -> Void) {
 		
 		self
 			.subscribe(
-				onNext:  { result(Result<E>.value($0)) },
+				onNext:  { result(Result<Element>.value($0)) },
 				onError: {
 					let error = $0 as? AirMapError ?? AirMapError.unknown(underlying: $0)
-					result(Result<E>.error(error))
+					result(Result<Element>.error(error))
 			})
 			.disposed(by: AirMap.disposeBag)
 	}	
@@ -53,14 +53,14 @@ extension ObservableType {
 
 extension Observable where Element: Equatable {
 	
-	public func filter(_ value: E) -> Observable<E> {
+	public func filter(_ value: Element) -> Observable<Element> {
 		return filter { $0 == value }
 	}
 }
 
 extension SharedSequence {
 	
-	public func mapToVoid() -> SharedSequence<S, Void> {
+	public func mapToVoid() -> SharedSequence<SharingStrategy, Void> {
 		return map { _ in Void() }
 	}
 }

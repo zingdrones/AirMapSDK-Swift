@@ -84,7 +84,7 @@ open class AirMapMapView: MGLMapView {
 	/// The time range for which temporal layers are displayed on the map.
 	public var activeTemporalRange: TemporalRange {
 		get { return try! temporalRangeSubject.value() }
-		set { temporalRangeSubject.onNext(activeTemporalRange) }
+		set { temporalRangeSubject.onNext(newValue) }
 	}
 
 	/// All jurisidictions intersecting the map's bounds/viewport. Each jurisdiction also provides the rulesets
@@ -150,6 +150,7 @@ extension AirMapMapView {
 			fatalError("A Mapbox access token is required to use the AirMap SDK UI map component. " +
 				"https://www.mapbox.com/help/define-access-token/")
 		}
+
 		MGLAccountManager.accessToken = token
 	}
 
@@ -184,8 +185,18 @@ extension AirMapMapView {
 		let rulesetConfig = self.rulesetConfigurationSubject
 			.distinctUntilChanged(==)
 
+		let accessToken = AirMap.authService.authState.asObservable()
+			.map { $0.accessToken }
+			.distinctUntilChanged(==)
+		
+		Observable.combineLatest(style, accessToken)
+			.subscribe(onNext: AirMapMapView.configureJurisdictions)
+			.disposed(by: disposeBag)
+
 		Observable.combineLatest(jurisdictions, style, rulesetConfig)
-			.subscribe(onNext: { [unowned self] (jurisdictions, style, rulesetConfig) in
+			.observeOn(MainScheduler.asyncInstance)
+			.subscribe(onNext: { [weak self] (jurisdictions, style, rulesetConfig) in
+				guard let `self` = self else { return }
 
 				// Configure the map with the active rulesets
 				// Notify the delegate of available jurisdictions and activated rulesets
@@ -199,7 +210,7 @@ extension AirMapMapView {
 
 		let range = self.temporalRangeSubject
 		let refresh = Observable<Int>
-			.timer(0, period: Constants.Maps.temporalLayerRefreshInterval, scheduler: MainScheduler.instance)
+			.timer(.seconds(0), period: Constants.Maps.temporalLayerRefreshInterval, scheduler: MainScheduler.instance)
 
 		// Update temporal filters
 		Observable.combineLatest(style, range, refresh)
@@ -216,7 +227,7 @@ extension AirMapMapView {
 		// Localize and transition style
 		style
 			.subscribe(onNext: { (style) in
-				style.localizeLabels()
+				style.localizeLabels(into: Locale.current)
 				style.transition = MGLTransitionMake(1, 0)
 			})
 			.disposed(by: disposeBag)
@@ -230,12 +241,15 @@ extension AirMapMapView {
 		let airMapLogo = UIImage(named: "map_logo", in: AirMapBundle.ui, compatibleWith: nil)
 		airMapLogoView = UIImageView(image: airMapLogo)
 
-		logoView.contentMode = .right
-		logoView.addSubview(airMapLogoView)
+		attributionButtonMargins = CGPoint(x: 6, y: 10)
+		logoViewMargins = CGPoint(x: 30, y: 10)
+		logoViewPosition = .bottomRight
 
+		insertSubview(airMapLogoView, aboveSubview: logoView)
+		airMapLogoView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			logoView.rightAnchor.constraint(equalTo: attributionButton.leftAnchor, constant: -6),
-			logoView.heightAnchor.constraint(equalToConstant: 23)
+			airMapLogoView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+			airMapLogoView.centerYAnchor.constraint(equalTo: logoView.centerYAnchor)
 			])
 
 		isPitchEnabled = false
@@ -244,7 +258,7 @@ extension AirMapMapView {
 
 	// MARK: - Configuration
 	private static func configure(mapView: AirMapMapView, style: MGLStyle, with rulesets: [AirMapRuleset]) {
-
+		
 		let rulesetSourceIds = rulesets
 			.filter { $0.airspaceTypes.count > 0 }
 			.map { $0.tileSourceIdentifier }
@@ -287,24 +301,68 @@ extension AirMapMapView {
 
 	// MARK: - Static
 
+	private static func configureJurisdictions(in style: MGLStyle, with authToken: String?) {
+		
+		if let source = style.source(withIdentifier: "jurisdictions") as? MGLVectorTileSource, let layer = style.layer(withIdentifier: "jurisdictions") {
+			style.removeLayer(layer)
+			style.removeSource(source)
+		}
+
+		guard style.source(withIdentifier: "jurisdictions") == nil else { return }
+
+		let query = [
+			"apikey": AirMap.configuration.apiKey,
+			"access_token": AirMap.authToken,
+		]
+		.compactMap { key, value in
+			guard let value = value else { return nil }
+			return key + "=" + value
+		}
+		.joined(separator: "&")
+
+		let jurisdictionsUrl = Constants.Api.jurisdictionsUrl + "?" + query
+		let source = MGLVectorTileSource(identifier: "jurisdictions", tileURLTemplates: [jurisdictionsUrl], options: [
+			.minimumZoomLevel: Constants.Maps.tileMinimumZoomLevel,
+			.maximumZoomLevel: Constants.Maps.tileMaximumZoomLevel,
+		])
+
+		let layer = MGLFillStyleLayer(identifier: "jurisdictions", source: source)
+		layer.sourceLayerIdentifier = "jurisdictions"
+
+		layer.fillColor = NSExpression(forConstantValue: UIColor.clear)
+		layer.fillOpacity = NSExpression(forConstantValue: 1)
+
+		style.addSource(source)
+		style.insertLayer(layer, at: 0)
+	}
+
 	private static func addRuleset(_ ruleset: AirMapRuleset, to style: MGLStyle, in mapView: AirMapMapView) {
 
 		guard style.source(withIdentifier: ruleset.tileSourceIdentifier) == nil else { return }
 
-		let rulesetTileSource = MGLVectorTileSource(ruleset: ruleset)
+		guard let rulesetTileSource = MGLVectorTileSource(ruleset: ruleset) else {
+			AirMap.logger.error("Failed to create tile source", metadata: ["Ruleset": .string(ruleset.tileSourceIdentifier)])
+			return
+		}
 		style.addSource(rulesetTileSource)
 
 		style.airMapBaseStyleLayers(for: ruleset.airspaceTypes)
 			.forEach { baseLayer in
 				if let newLayer = mapView.newLayerClone(of: baseLayer, with: ruleset, from: rulesetTileSource) {
-					AirMap.logger.debug("Adding", ruleset.id, baseLayer.identifier)
+					AirMap.logger.debug("Adding airspace layer", metadata: [
+						"ruleset": .stringConvertible(ruleset.id),
+						"type": .stringConvertible(baseLayer.airspaceType ?? "unknown")]
+					)
 					var layer = newLayer as MGLStyleLayer
 					style.insertLayer(layer, above: baseLayer)
 					mapView.airMapMapViewDelegate?.airMapMapViewDidAddAirspaceType(
 						mapView: mapView, ruleset: ruleset, airspaceType: layer.airspaceType!, layer: &layer
 					)
 				} else {
-					AirMap.logger.error("Could not add layer for", ruleset.id, baseLayer.airspaceType!)
+					AirMap.logger.error("Failed to add airspace layer", metadata: [
+						"ruleset": .stringConvertible(ruleset.id),
+						"type": .stringConvertible(baseLayer.airspaceType ?? "unknown")]
+					)
 				}
 		}
 	}
@@ -320,7 +378,7 @@ extension AirMapMapView {
 		}
 
 		if let source = style.source(withIdentifier: sourceIdentifier) {
-			AirMap.logger.debug("Removing", sourceIdentifier)
+			AirMap.logger.debug("Removing tile source", metadata: ["id": .string(sourceIdentifier)])
 			style.removeSource(source)
 		}
 	}

@@ -69,7 +69,7 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 	
 	var customFields = [AirMapPilotProfileField]()
 
-	public var pilot: Variable<AirMapPilot?>!
+	public var pilot: BehaviorRelay<AirMapPilot?>!
 	
 	@IBOutlet weak var fullName: UILabel!
 	@IBOutlet weak var statisticsLabel: UILabel!
@@ -261,7 +261,7 @@ public class AirMapPilotProfileViewController: UITableViewController, AnalyticsT
 			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
-			.throttle(0.25, scheduler: MainScheduler.instance)
+			.throttle(.milliseconds(250), scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bind(to: rx_loading)
 			.disposed(by: disposeBag)

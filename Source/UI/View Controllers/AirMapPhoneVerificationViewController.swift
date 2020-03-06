@@ -51,7 +51,6 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupDefaultCountryCode()
 		setupPhoneNumberField()
 		setupBindings()
 		setupBranding()
@@ -74,7 +73,12 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 		
 		phone.becomeFirstResponder()
 	}
-	
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		phone.resignFirstResponder()
+	}
+
 	override var inputAccessoryView: UIView? {
 		return submitButton
 	}
@@ -118,7 +122,7 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
-			.throttle(0.25, scheduler: MainScheduler.instance)
+			.throttle(.milliseconds(250), scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
@@ -127,16 +131,10 @@ class AirMapPhoneVerificationViewController: UITableViewController, AnalyticsTra
 	fileprivate func setupBranding() {
 		submitButton.backgroundColor = .primary
 	}
-
-	fileprivate func setupDefaultCountryCode() {
-		regionCode = Locale.current.regionCode ?? "US"
-		country.text = Locale.current.localizedString(forRegionCode: regionCode) ?? "United States"
-		phone?.defaultRegion = regionCode
-	}
 	
 	fileprivate func setupPhoneNumberField() {
 		
-		phone?.defaultRegion = regionCode
+		phone.inputAccessoryView = submitButton
 	}
 	
 	// MARK: - Instance Methods

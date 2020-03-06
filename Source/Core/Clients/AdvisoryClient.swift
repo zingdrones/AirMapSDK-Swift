@@ -57,22 +57,29 @@ internal class AdvisoryClient: HTTPClient {
 	}
 
 	func getAirspaceStatus(within geometry: AirMapGeometry, under rulesetIds: [AirMapRulesetId], from start: Date? = nil, to end: Date? = nil) -> Observable<AirMapAirspaceStatus> {
-		
-		AirMap.logger.debug("Get Rules under", rulesetIds)
+
+		AirMap.logger.debug("GET Rules", metadata: ["ruleset_ids": .stringConvertible(rulesetIds)])
+
 		var params = [String: Any]()
 		params["geometry"] = geometry.params()
 		params["rulesets"] = rulesetIds.csv
 		params["start"] = start?.iso8601String()
 		params["end"] = end?.iso8601String()
 		
-		return perform(method: .post, path: "/airspace", params: params)
+		return withOptionalCredentials().flatMap { (credentials) -> Observable<AirMapAirspaceStatus> in
+			return self.perform(method: .post, path: "/airspace", params: params, auth: credentials)
+		}
 	}
-	
+
 	// MARK: - Weather
 	
 	func getWeatherForecast(at coordinate: Coordinate2D, from: Date?, to: Date?) -> Observable<AirMapWeather> {
-		
-		AirMap.logger.debug("GET Weather", coordinate)
+
+		AirMap.logger.debug("GET Weather", metadata: [
+			"lat": .stringConvertible(coordinate.latitude),
+			"lon": .stringConvertible(coordinate.longitude)
+		])
+
 		var params = [String: Any]()
 		params["latitude"] = coordinate.latitude
 		params["longitude"] = coordinate.longitude

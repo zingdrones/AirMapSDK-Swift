@@ -20,7 +20,7 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
+import RxRelay
 
 class AirMapCreateAircraftViewController: UITableViewController {
 	
@@ -40,7 +40,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 		return aircraft?.id == nil ? .create : .update
 	}
 	
-	fileprivate var model = Variable(nil as AirMapAircraftModel?)
+	fileprivate var model = BehaviorRelay(value: nil as AirMapAircraftModel?)
 	
 	private let activityIndicator = ActivityTracker()
 	private let disposeBag = DisposeBag()
@@ -63,7 +63,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 
 			tableView.allowsSelection = false
 			nickName.text = aircraft.nickname
-			model.value = aircraft.model
+			model.accept(aircraft.model)
 			makeAndModelCell.accessoryType = .none
 			makeAndModelCell.textLabel?.alpha = 0.5
 		}
@@ -126,7 +126,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 			.disposed(by: disposeBag)
 		
 		activityIndicator.asObservable()
-			.throttle(0.25, scheduler: MainScheduler.instance)
+			.throttle(.milliseconds(250), scheduler: MainScheduler.instance)
 			.distinctUntilChanged()
 			.bind(to: rx_loading)
 			.disposed(by: disposeBag)
@@ -177,7 +177,7 @@ class AirMapCreateAircraftViewController: UITableViewController {
 extension AirMapCreateAircraftViewController: AirMapAircraftModelSelectionDelegate {
 	
 	func didSelectAircraftModel(_ model: AirMapAircraftModel?) {
-		self.model.value = model
+		self.model.accept(model)
 		dismiss(animated: true, completion: nil)
 	}
 

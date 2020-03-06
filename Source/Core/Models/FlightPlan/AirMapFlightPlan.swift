@@ -81,7 +81,7 @@ public class AirMapFlightPlan: Mappable {
 			takeoffCoordinate = Coordinate2D(latitude: takeoffLatitude, longitude: takeoffLongitude)
 		}
 		catch {
-			AirMap.logger.error(error)
+			AirMap.logger.error("Failed to parse flight plan", metadata: ["error": .stringConvertible(error.localizedDescription)])
 			return nil
 		}
 	}

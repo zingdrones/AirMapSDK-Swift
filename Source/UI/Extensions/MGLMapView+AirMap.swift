@@ -121,7 +121,7 @@ extension MGLMapView {
 			newLayer = MGLSymbolStyleLayer(identifier: layerId, source: source)
 			properties = commonProps+symbolProps
 		default:
-			AirMap.logger.warning("Unsupported layer type:", existingLayer)
+			AirMap.logger.warning("Unsupported layer type", metadata: ["layer": .stringConvertible(existingLayer)])
 			return nil
 		}
 		
@@ -164,25 +164,7 @@ extension MGLStyle {
 		
 		return airMapBaseLayers
 	}
-	    
-    /// Updates the map labels to one of the supported languages
-    func localizeLabels() {
-		
-        let currentLanguage = Locale.current.languageCode ?? "en"
-		let mapboxSupportedLanguages = ["en", "es", "fr", "de", "ru", "zh", "pt", "ar", "ja", "ko"]
-        let supportsCurrentLanguage = mapboxSupportedLanguages.contains(currentLanguage)
-		
-		let labelLayers = layers.compactMap { $0 as? MGLSymbolStyleLayer }
-		
-        for layer in labelLayers {
-			// Check if mapbox supports current locale
-			let localeString = supportsCurrentLanguage ? currentLanguage : "en"
-			let locale = Locale(identifier: localeString)
-			layer.text = layer.text.mgl_expressionLocalized(into: locale)
-        }
-		
-    }
-        
+
     /// Update the predicates for temporal layers such as .tfr and .notam with a near future time window
 	func updateTemporalFilters(from start: Date, to end: Date) {
         
@@ -194,14 +176,12 @@ extension MGLStyle {
             .forEach({ (layer) in
                 let startInt = Int(start.timeIntervalSince1970)
                 let endInt = Int(end.timeIntervalSince1970)
-                let overlapsWithStart = NSPredicate(format: "start <= %i && %i <= end", startInt, startInt)
-                let overlapsWithEnd = NSPredicate(format: "start <= %i && %i <= end", endInt, endInt)
-                let isPermanent = NSPredicate(format: "permanent == YES")
-                let hasNoEnd = NSPredicate(format: "end == NULL")
-                let isNotBase = NSPredicate(format: "base == NULL")
-                let timePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [overlapsWithStart, overlapsWithEnd, isPermanent, hasNoEnd])
-                layer.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [timePredicate, isNotBase])
-            })
+
+				layer.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+					NSPredicate(format: "permanent != NULL && permanent == YES"),
+					NSPredicate(format: "start <= %i && (end == NULL || end >= %i)", endInt, startInt)
+				])
+			})
     }
 }
 
@@ -219,7 +199,7 @@ extension MGLStyleLayer {
 
 extension MGLVectorTileSource {
 	
-	convenience init(ruleset: AirMapRuleset) {
+	convenience init?(ruleset: AirMapRuleset) {
 		
 		let layerNames = ruleset.airspaceTypes.map { $0.rawValue }.joined(separator: ",")
 		let options = [
@@ -233,8 +213,20 @@ extension MGLVectorTileSource {
 		case .metric:
 			units = "si"
 		}
-		let sourcePath = Constants.Api.tileDataUrl + "/\(ruleset.id.rawValue)/\(layerNames)/{z}/{x}/{y}?apikey=\(AirMap.configuration.apiKey)&units=\(units)"
-		
+
+		let query = [
+			"apikey": AirMap.configuration.apiKey,
+			"access_token": AirMap.authToken,
+			"units": units
+		]
+		.compactMap { key, value in
+			guard let value = value else { return nil }
+			return key + "=" + value
+		}
+		.joined(separator: "&")
+
+		let sourcePath = Constants.Api.tileDataUrl + "/\(ruleset.id.rawValue)/\(layerNames)/{z}/{x}/{y}?\(query)"
+
 		self.init(identifier: ruleset.tileSourceIdentifier, tileURLTemplates: [sourcePath], options: options)
 	}
 }

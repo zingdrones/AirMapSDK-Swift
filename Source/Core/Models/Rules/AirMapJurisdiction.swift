@@ -34,14 +34,14 @@ public struct AirMapJurisdiction {
 	public let rulesets: [AirMapRuleset]
 	
 	/// An enumeration of possible region types
-	public enum Region: String {
+	public enum Region: String, CaseIterable {
 		case federal
+		case federalBackup = "federal backup"
+		case federalStructureBackup = "federal structure backup"
 		case state
 		case county
 		case city
 		case local
-		case federalBackup = "federal backup"
-		case federalStructureBackup = "federal structure backup"
 	}
 }
 
