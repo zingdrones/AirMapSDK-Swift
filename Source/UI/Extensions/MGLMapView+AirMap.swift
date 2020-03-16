@@ -124,8 +124,9 @@ extension MGLMapView {
 			AirMap.logger.warning("Unsupported layer type", metadata: ["layer": .stringConvertible(existingLayer)])
 			return nil
 		}
-		
-		newLayer.sourceLayerIdentifier = ruleset.id.rawValue + "_" + existingLayer.airspaceType!.rawValue
+
+		guard let airspace = existingLayer.airspaceType else { return nil }
+		newLayer.sourceLayerIdentifier = sourceLayerId(ruleset: ruleset, airspace: airspace)
 		
 		// Loop through each property and copy it to the new layer
 		properties.forEach { key in
@@ -144,7 +145,29 @@ extension MGLMapView {
 		
 		return newLayer
 	}
-		
+
+	func highlightLayer(with airspace: AirMapAirspaceType, from ruleset: AirMapRuleset, from source: MGLSource) -> MGLLineStyleLayer {
+		let layerId = highlightLayerId(ruleset: ruleset, airspace: airspace)
+		let layer = MGLLineStyleLayer(identifier: layerId, source: source)
+		layer.sourceLayerIdentifier = sourceLayerId(ruleset: ruleset, airspace: airspace)
+		layer.lineColor = NSExpression(forConstantValue: UIColor.yellow)
+		layer.lineWidth = NSExpression(forConstantValue: 5)
+		layer.predicate = NSPredicate(format: "airspace_id == %i", "")
+		return layer
+	}
+
+	func sourceLayerId(ruleset: AirMapRuleset, airspace: AirMapAirspaceType) -> String {
+		return ruleset.id.rawValue + "_" + airspace.rawValue
+	}
+
+	func highlightLayerId(ruleset: AirMapRuleset, airspace: AirMapAirspaceType) -> String {
+		return highlightLayerId(rulesetId: ruleset.id.rawValue, airspace: airspace.rawValue)
+	}
+
+	func highlightLayerId(rulesetId: String, airspace: String) -> String {
+		return [airspace, rulesetId, "line", "highlight"].joined(separator: "|")
+
+	}
 }
 
 extension MGLStyle {
