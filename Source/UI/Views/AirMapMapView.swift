@@ -102,15 +102,6 @@ open class AirMapMapView: MGLMapView {
 	/// If you wish to remove the AirMap wordmark, please contact our sales team to discuss an Enterprise plan
 	public var airMapLogoView: UIImageView!
 
-	/// Bool indicating if airspace highlighting is enabled.
-	/// When true a user can tap on an airspace and have it highlight.
-	/// Default: True
-	public var isHighlightEnabled: Bool = true {
-		didSet {
-			unhighlight()
-		}
-	}
-
 	// MARK: - Init
 
 	public override init(frame: CGRect) {
@@ -130,7 +121,6 @@ open class AirMapMapView: MGLMapView {
 	private let rulesetConfigurationSubject = BehaviorSubject(value: RulesetConfiguration.automatic)
 
 	private let disposeBag = DisposeBag()
-	private var highlightedLayerId: String?
 }
 
 // MARK: - Private
@@ -150,7 +140,6 @@ extension AirMapMapView {
 		setupAccessToken()
 		setupBindings()
 		setupAppearance()
-		setupHighlight()
 	}
 
 	private func setupAccessToken() {
@@ -265,51 +254,6 @@ extension AirMapMapView {
 
 		isPitchEnabled = false
 		allowsRotating = false
-	}
-
-//		addGestureRecognizer(singleTap)
-		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(highlight(sender:))))
-	}
-
-	// MARK: - Highlight
-
-	// TODO: Make private?
-	// TODO: Unhighlight after clicking same layer
-	// TODO: Identify bottleknecks seems to be a bit slow
-	@objc func highlight(sender: UITapGestureRecognizer) {
-
-		unhighlight()
-
-		// Get the CGPoint where the user tapped.
-		let point = sender.location(in: self)
-
-		guard let style = style else { return }
-		let layers = style.layers
-			.compactMap { $0.identifier.hasPrefix("airmap") ? $0.identifier : nil }
-
-		let features = visibleFeatures(at: point, styleLayerIdentifiers: Set(layers))
-		guard
-			let feature = features.first,
-			let airspace = feature.attributes["category"] as? String,
-			let rulesetId = feature.attributes["ruleset_id"] as? String,
-			let airspaceId = feature.attributes["airspace_id"] as? Int
-			else { return }
-
-		let layerId = highlightLayerId(rulesetId: rulesetId, airspace: airspace)
-		highlightedLayerId = layerId
-
-		guard let highlightLayer = style.layers.first(where: { $0.identifier == layerId }) as? MGLLineStyleLayer else { return }
-		highlightLayer.predicate = NSPredicate(format: "airspace_id == %i", airspaceId)
-	}
-
-	private func unhighlight() {
-		guard
-			let highlightedLayerId = highlightedLayerId,
-			let layer = style?.layers.first(where: { $0.identifier == highlightedLayerId}) as? MGLLineStyleLayer
-		else { return }
-
-		layer.predicate = NSPredicate(format: "airspace_id == %i", "")
-		self.highlightedLayerId = nil
 	}
 
 	// MARK: - Configuration
@@ -435,9 +379,7 @@ extension AirMapMapView {
 			}
 			style.insertLayer(highlightLayer, above: last)
 		}
-
 	}
-
 
 	private static func removeRuleset(_ sourceIdentifier: String, from style: MGLStyle, in mapView: AirMapMapView) {
 

@@ -164,7 +164,7 @@ extension MGLMapView {
 		return highlightLayerId(rulesetId: ruleset.id.rawValue, airspace: airspace.rawValue)
 	}
 
-	func highlightLayerId(rulesetId: String, airspace: String) -> String {
+	public func highlightLayerId(rulesetId: String, airspace: String) -> String {
 		return [airspace, rulesetId, "line", "highlight"].joined(separator: "|")
 
 	}

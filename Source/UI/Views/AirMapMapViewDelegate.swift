@@ -54,19 +54,6 @@ public protocol AirMapMapViewDelegate: MGLMapViewDelegate {
 	///   - mapView: The map instance associated with the callback event
 	///   - airspaceType: The airspace type the layer represented
 	func airMapMapViewDidRemoveAirspaceType(mapView: AirMapMapView, airspaceType: AirMapAirspaceType)
-
-	/// Optional callback which is called whenever an airspace is highlighted
-	///
-	/// - Parameters:
-	///   - mapView: The map instance associated with the callback event
-	///   - airspaceType: The airspace type the layer highlighted
-	func airMapMapViewDidHighlightAirspace(mapView: AirMapMapView, airspaceType: AirMapAirspaceType)
-
-	/// Optional callback which is called whenever an airspace is unhighlighted
-	///
-	/// - Parameters:
-	///   - mapView: The map instance associated with the callback event
-	func airMapMapViewDidUnhighlightAirspace(mapView: AirMapMapView)
 }
 
 // Default implementations making protocol conformance optional
@@ -76,6 +63,4 @@ extension MGLMapViewDelegate {
 	public func airMapMapViewRegionDidChange(mapView: AirMapMapView, jurisdictions: [AirMapJurisdiction], activeRulesets: [AirMapRuleset]) {}
 	public func airMapMapViewDidAddAirspaceType(mapView: AirMapMapView, ruleset: AirMapRuleset, airspaceType: AirMapAirspaceType, layer: inout MGLStyleLayer) {}
 	public func airMapMapViewDidRemoveAirspaceType(mapView: AirMapMapView, airspaceType: AirMapAirspaceType) {}
-	public func airMapMapViewDidHighlightAirspace(mapView: AirMapMapView, airspaceType: AirMapAirspaceType) {}
-	public func airMapMapViewDidUnhighlightAirspace(mapView: AirMapMapView) {}
 }
