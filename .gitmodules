@@ -1,0 +1,3 @@
+[submodule "interfaces/airmap/public"]
+	path = interfaces/airmap/public
+	url = git@github.com:airmap/interfaces.git

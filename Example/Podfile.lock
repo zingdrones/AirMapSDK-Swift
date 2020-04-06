@@ -20,9 +20,7 @@ PODS:
     - Starscream (~> 3.1)
   - AirMapSDK/Telemetry (4.0.0):
     - AirMapSDK/Core
-    - CocoaAsyncSocket
-    - CryptoSwift (~> 1.0)
-    - SwiftProtobuf (~> 1.0)
+    - gRPC-Swift
   - AirMapSDK/Traffic (4.0.0):
     - AirMapSDK/Core
     - SwiftMQTT (> 3.0.0, ~> 3.0)
@@ -38,9 +36,25 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.3.0)
   - AppAuth/Core (1.3.0)
   - AppAuth/ExternalUserAgent (1.3.0)
-  - CocoaAsyncSocket (7.6.3)
-  - CryptoSwift (1.3.0)
+  - CGRPCZlib (1.0.0-alpha.11)
+  - CNIOAtomics (2.15.0)
+  - CNIOBoringSSL (2.7.0)
+  - CNIOBoringSSLShims (2.7.0):
+    - CNIOBoringSSL (= 2.7.0)
+  - CNIODarwin (2.15.0)
+  - CNIOHTTPParser (2.15.0)
+  - CNIOLinux (2.15.0)
+  - CNIOSHA1 (2.15.0)
   - Differentiator (4.0.1)
+  - gRPC-Swift (1.0.0-alpha.11):
+    - CGRPCZlib (= 1.0.0-alpha.11)
+    - Logging (~> 1.0)
+    - SwiftNIO (~> 2.0)
+    - SwiftNIOHTTP2 (~> 1.0)
+    - SwiftNIOSSL (= 2.7.0)
+    - SwiftNIOTLS (~> 2.0)
+    - SwiftNIOTransportServices (~> 1.0)
+    - SwiftProtobuf (~> 1.8.0)
   - KeychainAccess (3.2.1)
   - Logging (1.2.0)
   - Mapbox-iOS-SDK (5.7.0):
@@ -90,11 +104,49 @@ PODS:
     - RxSwiftExt/Core
   - Starscream (3.1.1)
   - SwiftMQTT (3.0.1)
+  - SwiftNIO (2.15.0):
+    - CNIOAtomics (= 2.15.0)
+    - CNIODarwin (= 2.15.0)
+    - CNIOLinux (= 2.15.0)
+    - CNIOSHA1 (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+  - SwiftNIOConcurrencyHelpers (2.15.0):
+    - CNIOAtomics (= 2.15.0)
+  - SwiftNIOFoundationCompat (2.15.0):
+    - SwiftNIO (= 2.15.0)
+  - SwiftNIOHPACK (1.11.0):
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+    - SwiftNIOHTTP1 (= 2.15.0)
+  - SwiftNIOHTTP1 (2.15.0):
+    - CNIOHTTPParser (= 2.15.0)
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+  - SwiftNIOHTTP2 (1.11.0):
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+    - SwiftNIOHPACK (= 1.11.0)
+    - SwiftNIOHTTP1 (= 2.15.0)
+    - SwiftNIOTLS (= 2.15.0)
+  - SwiftNIOSSL (2.7.0):
+    - CNIOBoringSSL (= 2.7.0)
+    - CNIOBoringSSLShims (= 2.7.0)
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+    - SwiftNIOTLS (= 2.15.0)
+  - SwiftNIOTLS (2.15.0):
+    - SwiftNIO (= 2.15.0)
+  - SwiftNIOTransportServices (1.5.1):
+    - SwiftNIO (~> 2.0)
+    - SwiftNIOConcurrencyHelpers (~> 2.0)
+    - SwiftNIOFoundationCompat (~> 2.0)
+    - SwiftNIOTLS (~> 2.0)
   - SwiftProtobuf (1.8.0)
   - SwiftTurf (0.3.3)
 
 DEPENDENCIES:
   - AirMapSDK (from `../`)
+  - gRPC-Swift (= 1.0.0-alpha.11)
   - Nimble
   - OHHTTPStubs
   - OHHTTPStubs/Swift
@@ -104,9 +156,16 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AppAuth
-    - CocoaAsyncSocket
-    - CryptoSwift
+    - CGRPCZlib
+    - CNIOAtomics
+    - CNIOBoringSSL
+    - CNIOBoringSSLShims
+    - CNIODarwin
+    - CNIOHTTPParser
+    - CNIOLinux
+    - CNIOSHA1
     - Differentiator
+    - gRPC-Swift
     - KeychainAccess
     - Logging
     - Mapbox-iOS-SDK
@@ -123,6 +182,15 @@ SPEC REPOS:
     - RxSwiftExt
     - Starscream
     - SwiftMQTT
+    - SwiftNIO
+    - SwiftNIOConcurrencyHelpers
+    - SwiftNIOFoundationCompat
+    - SwiftNIOHPACK
+    - SwiftNIOHTTP1
+    - SwiftNIOHTTP2
+    - SwiftNIOSSL
+    - SwiftNIOTLS
+    - SwiftNIOTransportServices
     - SwiftProtobuf
     - SwiftTurf
 
@@ -131,12 +199,19 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AirMapSDK: 5348b1e2718a792e021dbb7946a758df3015aee5
+  AirMapSDK: 7a15b965e86a31cad2297edb130e1a23c4b4a017
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
-  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
-  CryptoSwift: 1283821600233bdbeb96d7b389c3288c3bf77211
+  CGRPCZlib: e595387378d0601be796e858dd30c505458c4b1f
+  CNIOAtomics: ba49b1c86f281e1ecfd84c9205fbc27a81826847
+  CNIOBoringSSL: 227001cfdaabdbe49404014ac492e11e363f14be
+  CNIOBoringSSLShims: d2acb8e92ccc88b935033d208965ae9919ec114f
+  CNIODarwin: 2e341dd283fa3972706568b12925366145a8e2cd
+  CNIOHTTPParser: 25e1d1bc84c0612cbbbd6baedc4be05d77a17e01
+  CNIOLinux: 61598a8e49510207acb74c87f8fc11f762f76b5a
+  CNIOSHA1: 7b1dcceef9682aef4c6578b9fc67f87a03f0c48e
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  gRPC-Swift: af309f6e39b98cfd1d6a6dbfa369da6f5916598f
   KeychainAccess: d5470352939ced6d6f7fb51cb2e67aae51fc294f
   Logging: 7838d379d234d7e5ae1265fa02804a9084caf04c
   Mapbox-iOS-SDK: 1b7cb0e739247d20ef75f5f14aa6ce34e1f0660f
@@ -153,9 +228,18 @@ SPEC CHECKSUMS:
   RxSwiftExt: 4ca80336f43c28f11a2825cdd2fc61dd6c044697
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftMQTT: 983eeb29e8c8173ed953e0238d2f99b79ff3ccd2
+  SwiftNIO: c9889dcd8aed2655af9163b42fc11ebd4ce94252
+  SwiftNIOConcurrencyHelpers: 2357037a16e9c51880c01b896a5ac3cd41066044
+  SwiftNIOFoundationCompat: f09ee499a8a9c636ec9007f73c5a1cedc23dcad3
+  SwiftNIOHPACK: 906596511ff9d1e095b7a72a0011351591bcae03
+  SwiftNIOHTTP1: b05f4061ba18482006a264a5aa087bbcd35d153c
+  SwiftNIOHTTP2: 3a52499594c6ec073af2a2801cf3c5d3d1c8700f
+  SwiftNIOSSL: a48f8db466ffaab6fdc9fcbec7591726b48d2653
+  SwiftNIOTLS: 51580e51240d1a4d51efb2d317e92cf243181042
+  SwiftNIOTransportServices: c7d36493d9bd18cbbc0115a1631533dfe1146e97
   SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
   SwiftTurf: 340da9dbf60fe7ded0cac158657ec463269d581c
 
-PODFILE CHECKSUM: 49598a7476ee36a4c507bb3b31b4ae89b2632a65
+PODFILE CHECKSUM: 001e860b6598bcc7e888cec35e6f8c2fa43647d2
 
 COCOAPODS: 1.8.4

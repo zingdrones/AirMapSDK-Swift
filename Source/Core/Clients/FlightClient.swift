@@ -31,18 +31,6 @@ internal class FlightClient: HTTPClient {
 		super.init(basePath: Constants.Api.flightUrl)
 	}
 
-	#if AIRMAP_TELEMETRY
-	/// Get a communications encryption key for a given flight
-	///
-	/// - Parameter flightId: The flight identifier for which to request an encryption key
-	/// - Returns: A comm key Observable
-	func getCommKey(by flightId: AirMapFlightId) -> Observable<CommKey> {
-		return withCredentials().flatMap { (credentials) -> Observable<CommKey> in
-			return self.perform(method: .post, path: "/\(flightId.rawValue)/start-comm", auth: credentials)
-		}
-	}
-	#endif
-
 	func list(credentials: AuthService.Credentials? = nil,
 	          limit: Int? = nil,
 	          pilotId: AirMapPilotId? = nil,

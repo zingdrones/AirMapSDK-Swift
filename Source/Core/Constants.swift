@@ -95,21 +95,20 @@ struct Constants {
 			if let override = AirMap.configuration.override(for: "telemetry_host") {
 				return override
 			}
-			return AirMap.configuration.host(for: "telemetry")
+			return AirMap.configuration.host(for: "api")
 		}
 		
-		static var port: UInt16 {
-			if let override = AirMap.configuration.override(for: "telemetry_port"), let port = UInt16(override) {
+		static var port: Int {
+			if let override = AirMap.configuration.override(for: "telemetry_port"), let port = Int(override) {
 				return port
 			}
-			return 16060
+			return 443
 		}
 		
-		struct SampleRate {
-			static let position:  RxTimeInterval = .milliseconds(200)
-			static let attitude:  RxTimeInterval = .milliseconds(200)
-			static let speed:     RxTimeInterval = .milliseconds(200)
-			static let barometer: RxTimeInterval = .seconds(20)
+		struct RateLimit {
+			static let atmosphere: RxTimeInterval = .seconds(10)
+			static let spatial:  RxTimeInterval = .milliseconds(200)
+			static let vehicle: RxTimeInterval = .milliseconds(200)
 		}
 	}
 

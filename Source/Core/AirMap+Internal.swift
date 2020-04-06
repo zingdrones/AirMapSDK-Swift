@@ -19,9 +19,6 @@
 //
 
 import RxSwift
-#if AIRMAP_TELEMETRY
-import CocoaAsyncSocket
-#endif
 
 extension AirMap {
 
@@ -39,8 +36,6 @@ extension AirMap {
 
 	#if AIRMAP_TELEMETRY
 	internal static let archiveClient = ArchiveClient()
-	internal static let telemetryClient = AirMapTelemetry.Client()
-	internal static let telemetrySocket = GCDAsyncUdpSocket()
 	#endif
 
 	#if AIRMAP_TRAFFIC

@@ -124,25 +124,4 @@ class FlightTests: TestCase {
 		}
 	}
 
-	func testGetCommKey() {
-
-		let flight = FlightFactory.defaultFlight()
-		let url = Config.AirMapApi.flightUrl + "/\(flight.flightId!)/start-comm"
-
-		stub(.post, url, with: "flight_comm_key_success.json") { request in
-			expect(request.bodyJson().keys.count).to(equal(0))
-		}
-
-		waitUntil { done in
-			AirMap.flightClient.getCommKey(flight: flight)
-				.subscribe(
-					onNext: { comm in
-						expect(comm.key).to(equal("00001111222233334444555566667777")) },
-					onError: { expect($0).to(beNil()); done() },
-					onCompleted: done
-				)
-				.disposed(by: self.disposeBag)
-		}
-	}
-
 }

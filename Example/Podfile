@@ -3,6 +3,7 @@ use_frameworks!
 target 'AirMapSDK-Example-iOS' do
 	platform :ios, '10.0'
 	pod 'AirMapSDK', :path => '../'
+	pod 'gRPC-Swift', '1.0.0-alpha.11'
 end
 
 target 'AirMapSDKTests' do

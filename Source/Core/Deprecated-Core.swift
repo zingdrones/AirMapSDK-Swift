@@ -40,6 +40,17 @@ extension AirMap {
 	@available(*, unavailable, message: "Use listCurrentAuthenticatedPilotFlights instead of listFlights")
 	public static func listFlights(for pilotId: AirMapPilotId, limit: Int? = 100, completion: @escaping (Result<[AirMapFlight]>) -> Void) {}
 
+	@available(*, unavailable, message: "Removed. Create a TelemetryClient and send telemetry using associated methods connect and send methods.")
+	public static func sendTelemetryData(_ flightId: AirMapFlightId, velocity: (x: Float, y: Float, z: Float)) throws {}
+
+	@available(*, unavailable, message: "Removed. Create a TelemetryClient and send telemetry using associated methods connect and send methods.")
+	public static func sendTelemetryData(_ flightId: AirMapFlightId, yaw: Float, pitch: Float, roll: Float) throws {}
+
+	@available(*, unavailable, message: "Removed. Create a TelemetryClient and send telemetry using associated methods connect and send methods.")
+	public static func sendTelemetryData(_ flightId: AirMapFlightId, baro: Float) throws {}
+
+	@available(*, unavailable, message: "Removed. Create a TelemetryClient and send telemetry using associated methods connect and send methods.")
+	public static func sendTelemetryData(_ flightId: AirMapFlightId, coordinate: Coordinate2D, altitudeAgl: Float?, altitudeMsl: Float?, horizontalAccuracy: Float? = nil) throws {}
 }
 
 extension Reactive where Base: AirMap {
