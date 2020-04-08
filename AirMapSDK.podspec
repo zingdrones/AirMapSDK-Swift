@@ -74,4 +74,11 @@ Pod::Spec.new do |s|
 		telemetry.source_files = 'Source/Telemetry/**/*'
 	end
 
+	s.subspec 'DJI' do |dji|
+		dji.xcconfig = { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DAIRMAP_DJI' }
+		dji.dependency 'AirMapSDK/Telemetry'
+		dji.dependency 'DJI-SDK-iOS'
+		dji.source_files = 'Source/DJI/**/*'
+	end
+
 end

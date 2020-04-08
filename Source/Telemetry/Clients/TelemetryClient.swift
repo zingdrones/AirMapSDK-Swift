@@ -48,6 +48,7 @@ public class TelemetryClient {
 
 		self.delegate = delegate
 		setupBindings()
+		try! connect()
 	}
 
 	/// Connect to the telemetry service
@@ -140,6 +141,8 @@ public class TelemetryClient {
 
 	private func setupBindings() {
 
+//		let authToken = AirMap.authService.authState.mapAt(\.accessToken)
+
 		// Individually throttle each report type
 		let rateLimit = Constants.Telemetry.RateLimit.self
 		let bgScheduler = ConcurrentDispatchQueueScheduler(qos: .utility)
@@ -176,6 +179,11 @@ public class TelemetryClient {
 extension TelemetryClient: ConnectivityStateDelegate {
 
 	public func connectivityStateDidChange(from oldState: ConnectivityState, to newState: ConnectivityState) {
+		AirMap.logger.debug("telemetry client transitioned state",
+							metadata: [
+								"old_state": .string(String(describing: oldState)),
+								"new_state": .string(String(describing: newState)),
+		])
 		// TODO: Check expiry of token before reconnect and update call options
 		delegate?.airMapTelemetryDidChangeConnectivity(newState)
 	}
