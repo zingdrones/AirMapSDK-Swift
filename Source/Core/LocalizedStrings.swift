@@ -176,9 +176,7 @@ public struct LocalizedStrings {
 	}
 	
 	public struct Advisory {
-		
-		public static let phoneNumberNotProvided = NSLocalizedString("ADVISORY_PHONE_NOT_PROVIDED", bundle: bundle, value: "No Phone Number Provided", comment: "Displayed when an advisory has not provided a contact phone")
-		
+				
 		public static let tfrStartsFormat = NSLocalizedString("ADVISORY_TFR_STARTS_FORMAT", bundle: bundle, value: "Starts: %1$@", comment: "Label and format for displaying the start time of temporary flight restriction")
 		
 		public static let tfrEndsFormat = NSLocalizedString("ADVISORY_TFR_ENDS_FORMAT", bundle: bundle, value: "Ends: %1$@", comment: "Label and format for displaying the end time of temporary flight restriction")
@@ -190,8 +188,6 @@ public struct LocalizedStrings {
 		public static let wildfireSizeFormatHectares = NSLocalizedString("ADVISORY_WILDFIRE_SIZE_FORMAT_HECTARES", bundle: bundle, value: "%1$@ Hectares", comment: "Format and unit for wildfire advisory in the area unit hectares")
 		
 		public static let wildfireSizeUnknown = NSLocalizedString("ADVISORY_WILDFIRE_SIZE_UNKNOWN", bundle: bundle, value: "Size Unknown", comment: "Label for wildfire advisory cells where size is unknown")
-		
-		public static let acceptsDigitalNotice = NSLocalizedString("ADVISORY_ACCEPTS_DIGITAL_NOTICE", bundle: bundle, value: "Accepts Digital Notice", comment: "Label for advisories that are stup to receive digital notice")
 	}
 	
 	public struct FlightDrawing {
@@ -251,10 +247,6 @@ public struct LocalizedStrings {
 	public struct ReviewFlightPlanNotices {
 		
 		public static let headerNoNotices = NSLocalizedString("REVIEW_FLIGHT_PLAN_NOTICES_TAB_SECTION_HEADER_NO_NOTICES", bundle: bundle, value: "There are no notices for this flight.", comment: "Displayed in the flight plan review notices tab when there are no notices to display")
-		
-		public static let acceptsDigitalNotice = NSLocalizedString("REVIEW_FLIGHT_PLAN_NOTICES_TAB_ACCEPTS_NOTICE", bundle: bundle, value: "Accepts Digital Notice", comment: "Displayed for authorities that are setup to receive digital notice")
-		
-		public static let doesNotacceptsDigitalNotice = NSLocalizedString("REVIEW_FLIGHT_PLAN_NOTICES_TAB_DOES_NOT_ACCEPT_NOTICE", bundle: bundle, value: "The following authorities in this area do not accept digital notice", comment: "Displayed for authorities that are NOT setup to receive digital notice")
 	}
 	
 	public struct Ruleset {
