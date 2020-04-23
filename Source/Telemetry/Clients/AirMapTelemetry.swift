@@ -73,19 +73,19 @@ struct AirMapTelemetry {
 			let rate = Constants.Telemetry.SampleRate.self
 			
 			let position = flightMessages
-				.filter { $1 is Telemetry_Position }
+				.filter { $1 is Measurements_Position }
 				.throttle(rate.position, scheduler: bgScheduler)
 			
 			let attitude = flightMessages
-				.filter { $1 is Telemetry_Attitude }
+				.filter { $1 is Measurements_Orientation }
 				.throttle(rate.attitude, scheduler: bgScheduler)
 
 			let speed = flightMessages
-				.filter { $1 is Telemetry_Speed }
+				.filter { $1 is Measurements_Velocity }
 				.throttle(rate.speed, scheduler: bgScheduler)
 			
 			let barometer = flightMessages
-				.filter { $1 is Telemetry_Barometer }
+				.filter { $1 is Measurements_Acceleration }
 				.throttle(rate.barometer, scheduler: bgScheduler)
 			
 			Observable.from([position, attitude, speed, barometer]).merge()

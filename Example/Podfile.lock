@@ -21,10 +21,10 @@ PODS:
   - AirMapSDK/Telemetry (4.0.1):
     - AirMapSDK/Core
     - CocoaAsyncSocket
-    - CryptoSwift (~> 0.10.0)
-    - SwiftGRPC
-    - SwiftProtobuf (= 1.1.2)
-  - AirMapSDK/Traffic (2.0.3):
+    - CryptoSwift (~> 1.0)
+    - gRPC-Swift (= 1.0.0-alpha.11)
+    - SwiftProtobuf (~> 1.0)
+  - AirMapSDK/Traffic (4.0.1):
     - AirMapSDK/Core
     - SwiftMQTT (> 3.0.0, ~> 3.0)
   - AirMapSDK/UI (4.0.1):
@@ -33,45 +33,43 @@ PODS:
     - Mapbox-iOS-SDK (~> 5.1)
     - PhoneNumberKit (~> 3.0)
     - RxDataSources
-  - Alamofire (4.7.3)
-  - Auth0 (1.13.0):
-    - SimpleKeychain
-  - BoringSSL (10.0.6):
-    - BoringSSL/Implementation (= 10.0.6)
-    - BoringSSL/Interface (= 10.0.6)
-  - BoringSSL/Implementation (10.0.6):
-    - BoringSSL/Interface (= 10.0.6)
-  - BoringSSL/Interface (10.0.6)
-  - CocoaAsyncSocket (7.6.3)
-  - CryptoSwift (0.10.0)
-  - Differentiator (3.1.0)
-  - gRPC-Core (1.12.0):
-    - gRPC-Core/Implementation (= 1.12.0)
-    - gRPC-Core/Interface (= 1.12.0)
-  - gRPC-Core/Implementation (1.12.0):
-    - BoringSSL (~> 10.0)
-    - gRPC-Core/Interface (= 1.12.0)
-    - nanopb (~> 0.3)
-  - gRPC-Core/Interface (1.12.0)
-  - JWTDecode (2.1.1)
-  - Lock (2.7.0):
-    - Auth0 (~> 1.13)
-    - Lock/Classic (= 2.7.0)
-  - Lock/Classic (2.7.0):
-    - Auth0 (~> 1.13)
-  - Log (1.0)
-  - Mapbox-iOS-SDK (3.7.8)
-  - nanopb (0.3.8):
-    - nanopb/decode (= 0.3.8)
-    - nanopb/encode (= 0.3.8)
-  - nanopb/decode (0.3.8)
-  - nanopb/encode (0.3.8)
+  - Alamofire (4.9.1)
+  - AppAuth (1.3.0):
+    - AppAuth/Core (= 1.3.0)
+    - AppAuth/ExternalUserAgent (= 1.3.0)
+  - AppAuth/Core (1.3.0)
+  - AppAuth/ExternalUserAgent (1.3.0)
+  - CGRPCZlib (1.0.0-alpha.11)
+  - CNIOAtomics (2.15.0)
+  - CNIOBoringSSL (2.7.1)
+  - CNIOBoringSSLShims (2.7.1):
+    - CNIOBoringSSL (= 2.7.1)
+  - CNIODarwin (2.15.0)
+  - CNIOHTTPParser (2.15.0)
+  - CNIOLinux (2.15.0)
+  - CNIOSHA1 (2.15.0)
+  - CocoaAsyncSocket (7.6.4)
+  - CryptoSwift (1.3.1)
+  - Differentiator (4.0.1)
+  - gRPC-Swift (1.0.0-alpha.11):
+    - CGRPCZlib (= 1.0.0-alpha.11)
+    - Logging (= 1.2.0)
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOHTTP2 (= 1.11.0)
+    - SwiftNIOSSL (= 2.7.1)
+    - SwiftNIOTransportServices (= 1.3.0)
+    - SwiftProtobuf (= 1.8.0)
+  - KeychainAccess (3.2.1)
+  - Logging (1.2.0)
+  - Mapbox-iOS-SDK (5.8.0):
+    - MapboxMobileEvents (= 0.10.2)
+  - MapboxMobileEvents (0.10.2)
   - Nimble (7.3.1)
-  - ObjectMapper (3.3.0)
-  - OHHTTPStubs (6.1.0):
-    - OHHTTPStubs/Default (= 6.1.0)
-  - OHHTTPStubs/Core (6.1.0)
-  - OHHTTPStubs/Default (6.1.0):
+  - ObjectMapper (3.5.2)
+  - OHHTTPStubs (9.0.0):
+    - OHHTTPStubs/Default (= 9.0.0)
+  - OHHTTPStubs/Core (9.0.0)
+  - OHHTTPStubs/Default (9.0.0):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
@@ -90,25 +88,65 @@ PODS:
   - PhoneNumberKit/UIKit (3.2.0):
     - PhoneNumberKit/PhoneNumberKitCore
   - Quick (1.3.2)
-  - RxCocoa (4.3.1):
-    - RxSwift (~> 4.0)
-  - RxDataSources (3.1.0):
-    - Differentiator (~> 3.0)
-    - RxCocoa (~> 4.0)
-    - RxSwift (~> 4.0)
-  - RxSwift (4.3.1)
-  - RxSwiftExt (3.3.0):
-    - RxSwiftExt/Core (= 3.3.0)
-  - RxSwiftExt/Core (3.3.0):
-    - RxSwift (~> 4.0)
-  - SimpleKeychain (0.8.1)
-  - SwiftGRPC (0.6.0):
-    - BoringSSL (~> 10.0)
-    - gRPC-Core (~> 1.12.0)
-    - SwiftProtobuf (~> 1.1.1)
-  - SwiftMQTT (3.0.0)
-  - SwiftProtobuf (1.1.2)
-  - SwiftTurf (0.3.2)
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.1)
+  - RxSwiftExt (5.2.0):
+    - RxSwiftExt/Core (= 5.2.0)
+    - RxSwiftExt/RxCocoa (= 5.2.0)
+  - RxSwiftExt/Core (5.2.0):
+    - RxSwift (~> 5.0)
+  - RxSwiftExt/RxCocoa (5.2.0):
+    - RxCocoa (~> 5.0)
+    - RxSwiftExt/Core
+  - Starscream (3.1.1)
+  - SwiftMQTT (3.0.1)
+  - SwiftNIO (2.15.0):
+    - CNIOAtomics (= 2.15.0)
+    - CNIODarwin (= 2.15.0)
+    - CNIOLinux (= 2.15.0)
+    - CNIOSHA1 (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+  - SwiftNIOConcurrencyHelpers (2.15.0):
+    - CNIOAtomics (= 2.15.0)
+  - SwiftNIOFoundationCompat (2.15.0):
+    - SwiftNIO (= 2.15.0)
+  - SwiftNIOHPACK (1.11.0):
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+    - SwiftNIOHTTP1 (= 2.15.0)
+  - SwiftNIOHTTP1 (2.15.0):
+    - CNIOHTTPParser (= 2.15.0)
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+  - SwiftNIOHTTP2 (1.11.0):
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+    - SwiftNIOHPACK (= 1.11.0)
+    - SwiftNIOHTTP1 (= 2.15.0)
+    - SwiftNIOTLS (= 2.15.0)
+  - SwiftNIOSSL (2.7.1):
+    - CNIOBoringSSL (= 2.7.1)
+    - CNIOBoringSSLShims (= 2.7.1)
+    - SwiftNIO (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+    - SwiftNIOTLS (= 2.15.0)
+  - SwiftNIOTLS (2.15.0):
+    - SwiftNIO (= 2.15.0)
+  - SwiftNIOTransportServices (1.3.0):
+    - SwiftNIO (~> 2.0)
+    - SwiftNIOConcurrencyHelpers (~> 2.0)
+    - SwiftNIOFoundationCompat (~> 2.0)
+    - SwiftNIOTLS (~> 2.0)
+  - SwiftProtobuf (1.8.0)
+  - SwiftTurf (0.3.3)
 
 DEPENDENCIES:
   - AirMapSDK (from `../`)
@@ -120,17 +158,23 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - Auth0
-    - BoringSSL
+    - AppAuth
+    - CGRPCZlib
+    - CNIOAtomics
+    - CNIOBoringSSL
+    - CNIOBoringSSLShims
+    - CNIODarwin
+    - CNIOHTTPParser
+    - CNIOLinux
+    - CNIOSHA1
     - CocoaAsyncSocket
     - CryptoSwift
     - Differentiator
-    - gRPC-Core
-    - JWTDecode
-    - Lock
-    - Log
+    - gRPC-Swift
+    - KeychainAccess
+    - Logging
     - Mapbox-iOS-SDK
-    - nanopb
+    - MapboxMobileEvents
     - Nimble
     - ObjectMapper
     - OHHTTPStubs
@@ -141,9 +185,17 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - RxSwiftExt
-    - SimpleKeychain
-    - SwiftGRPC
+    - Starscream
     - SwiftMQTT
+    - SwiftNIO
+    - SwiftNIOConcurrencyHelpers
+    - SwiftNIOFoundationCompat
+    - SwiftNIOHPACK
+    - SwiftNIOHTTP1
+    - SwiftNIOHTTP2
+    - SwiftNIOSSL
+    - SwiftNIOTLS
+    - SwiftNIOTransportServices
     - SwiftProtobuf
     - SwiftTurf
 
@@ -152,33 +204,48 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AirMapSDK: 4595f30a04fd01b6ea17e27420b5f8373b672450
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  Auth0: 7e99e1ca69543bc243d9687fd612057072f3eaaf
-  BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
-  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
-  CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
-  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
-  gRPC-Core: 9696b220565b283e021cf2722d473a4a74b7622a
-  JWTDecode: 83e8b381aafe27158d9f692cbdca2b12d61d460c
-  Lock: 2b1486153f8bc2205ec180a1957c5717597a4b8a
-  Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
-  Mapbox-iOS-SDK: a8b55533ef5c5e91b5a26533bd4fb0ec88a3b994
-  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  AirMapSDK: 46b293c66fb9d596dc5446717a150798587ab4ef
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
+  CGRPCZlib: e595387378d0601be796e858dd30c505458c4b1f
+  CNIOAtomics: ba49b1c86f281e1ecfd84c9205fbc27a81826847
+  CNIOBoringSSL: e4766830ab6d7c7fcd3618331f05fcb11638314d
+  CNIOBoringSSLShims: c3f3c6f05b7ce9b576521328a5b1b566d8f4665b
+  CNIODarwin: 2e341dd283fa3972706568b12925366145a8e2cd
+  CNIOHTTPParser: 25e1d1bc84c0612cbbbd6baedc4be05d77a17e01
+  CNIOLinux: 61598a8e49510207acb74c87f8fc11f762f76b5a
+  CNIOSHA1: 7b1dcceef9682aef4c6578b9fc67f87a03f0c48e
+  CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
+  CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  gRPC-Swift: 79f04da038f9a62005271d5b638611ce1bb31304
+  KeychainAccess: d5470352939ced6d6f7fb51cb2e67aae51fc294f
+  Logging: 7838d379d234d7e5ae1265fa02804a9084caf04c
+  Mapbox-iOS-SDK: 02590a60fe300810c55432219a0caaa1338fbafb
+  MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
-  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
-  OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
-  PhoneNumberKit: 62003f40ff75315fd3738286558bc365365ac222
+  ObjectMapper: b53ae947d370bf89423e86be7d4e2d2b2a8d3f40
+  OHHTTPStubs: cb29d2a9d09a828ecb93349a2b0c64f99e0db89f
+  PhoneNumberKit: df411d46177d1492da84e10b6c093846dd861452
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
-  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
-  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
-  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
-  RxSwiftExt: 81afb48ab0602f503147417baeb3989d64c7687d
-  SimpleKeychain: e2485c28d82fcece35e9e41faeac42ebfe614815
-  SwiftGRPC: 465792c0e09dcb083d19d97137cee71b4f4f8b6f
-  SwiftMQTT: acd344613d39c0371de62f9f494e129ca14da9d1
-  SwiftProtobuf: 7147b8ec19c8c0694a45155d989ea9e6dedaf51f
-  SwiftTurf: 6ec29121fdb688a223aefca350843a9880e1489f
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  RxSwiftExt: 4ca80336f43c28f11a2825cdd2fc61dd6c044697
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  SwiftMQTT: 983eeb29e8c8173ed953e0238d2f99b79ff3ccd2
+  SwiftNIO: c9889dcd8aed2655af9163b42fc11ebd4ce94252
+  SwiftNIOConcurrencyHelpers: 2357037a16e9c51880c01b896a5ac3cd41066044
+  SwiftNIOFoundationCompat: f09ee499a8a9c636ec9007f73c5a1cedc23dcad3
+  SwiftNIOHPACK: 906596511ff9d1e095b7a72a0011351591bcae03
+  SwiftNIOHTTP1: b05f4061ba18482006a264a5aa087bbcd35d153c
+  SwiftNIOHTTP2: 3a52499594c6ec073af2a2801cf3c5d3d1c8700f
+  SwiftNIOSSL: 7c82b8393a6b69a3ef9b12fe74240e92c2bd7add
+  SwiftNIOTLS: 51580e51240d1a4d51efb2d317e92cf243181042
+  SwiftNIOTransportServices: 26d40c589fc8fe667af51b06ef0aa49fbc9ae7f2
+  SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
+  SwiftTurf: 340da9dbf60fe7ded0cac158657ec463269d581c
 
 PODFILE CHECKSUM: 42d84e0a72bb4043c774f83eafe8b99485752176
 

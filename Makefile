@@ -1,24 +1,42 @@
-protos_path := interfaces/grpc
+AIRMAP_PROTOS_PATH = interfaces/grpc
+AIRMAP_PROTOS := $(shell find $(AIRMAP_PROTOS_PATH) -name '*.proto')
 
-protos_telemetry := \
-	$(protos_path)/ids.proto \
-	$(protos_path)/measurements.proto \
-	$(protos_path)/telemetry.proto \
-	$(protos_path)/units.proto \
+GOOGLE_PROTOS_PATH = .build/protobuf/src/google/protobuf
 
-target_proto_dir_telemetry := Source/Telemetry/grpc
+TARGET_PROTO_PATH = Source/Telemetry/grpc
+SWIFT_BUILD_PATH:= .build/grpc-swift/.build/release
+PROTOC_GEN_SWIFT=${SWIFT_BUILD_PATH}/protoc-gen-swiftgrpc
+PROTOC_GEN_GRPC_SWIFT=${SWIFT_BUILD_PATH}/protoc-gen-grpc-swift
+
 
 all: bootstrap protos
+from-scratch: really-clean bootstrap protos
+protos: 	
+	@mkdir -p $(TARGET_PROTO_PATH)
+	@for x in $(AIRMAP_PROTOS); do \
+		protoc $$x -I$(AIRMAP_PROTOS_PATH) -I$(GOOGLE_PROTOS_PATH) --swift_out=$(TARGET_PROTO_PATH) --grpc-swift_out=$(TARGET_PROTO_PATH) --plugin=${PROTOC_GEN_SWIFT} --plugin=${PROTOC_GEN_GRPC_SWIFT}; \
+	 done
 
-protos:
-	mkdir -p $(target_proto_dir_telemetry) || true
-	PATH=:.build/grpc-swift:$$PATH protoc --swift_out=$(target_proto_dir_telemetry) --swiftgrpc_out=Client=true,Server=false:$(target_proto_dir_telemetry) -I$(protos_path) $(protos_telemetry)
+# protos:
+# 	mkdir -p TARGET_PROTO_PATH || true
+# 	protoc $(AIRMAP_PROTOS) \
+# 		--plugin=${PROTOC_GEN_SWIFT} \
+# 		--plugin=${PROTOC_GEN_GRPC_SWIFT} \
+# 		--swift_out=$(TARGET_PROTO_PATH) \
+# 		--swiftgrpc_out=$(TARGET_PROTO_PATH) \
+# 		-I$(AIRMAP_PROTOS_PATH) \
+# 		-I$(GOOGLE_PROTOS_PATH) \
+		
 
 bootstrap:
-	mkdir -p .build || true
-	cd .build && git clone https://github.com/grpc/grpc-swift || true
-	cd .build/grpc-swift && make
+	git clone https://github.com/grpc/grpc-swift .build/grpc-swift || true
+	git clone https://github.com/protocolbuffers/protobuf .build/protobuf || true
+	make -C .build/grpc-swift plugins
+	# Renaming plugin to expected name
+	cd .build/grpc-swift/.build/release && mv -f protoc-gen-swift protoc-gen-swiftgrpc
 
 clean:
+	rm -rf $(TARGET_PROTO_PATH) || true
+
+really-clean: clean
 	rm -rf .build || true
-	rm -rf $(target_proto_dir_telemetry)

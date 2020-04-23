@@ -31,13 +31,13 @@ extension Message {
 
 	var messageType: MessageType {
 		switch self {
-		case is Telemetry_Position:
+		case is Measurements_Position:
 			return .position
-		case is Telemetry_Attitude:
+		case is Measurements_Orientation:
 			return .attitude
-		case is Telemetry_Speed:
+		case is Measurements_Velocity:
 			return .speed
-		case is Telemetry_Barometer:
+		case is Measurements_Acceleration:
 			return .barometer
 		default:
 			fatalError("Unsupported Message Type")

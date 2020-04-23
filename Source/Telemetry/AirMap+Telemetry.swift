@@ -38,9 +38,9 @@ extension AirMap {
 	public typealias Orientation = (yaw: Float, pitch: Float, roll: Float)
 
 	public enum AltitudeReference {
-		case Ground
-		case GPS
-		case MeanSeaLevel
+		case ground
+		case gps
+		case meanSeaLevel
 	}
 
 	/// Send positional telemetry to AirMap
@@ -57,40 +57,40 @@ extension AirMap {
 	/// - Throws: TelemetryError.invalidCredentials if the user is unable to send telemtry
 	public static func sendPositionalTelemetry(_ id: AirMapFlightId, coordinate: Coordinate2D, altitude: Altitude, velocity: Velocity?, orientation: Orientation?) throws {
 
-		try canSendTelemetry()
+//		try canSendTelemetry()
 
-		telemetryClient.sendTelemetry(flight: id, report: AirMapTelemetry.Report.with { (report) in
+		telemetryClient.sendTelemetry(flight: id, report: Telemetry_Report.with { (report) in
 			report.observed = .init(date: Date())
-			report.details = .spatial(AirMapTelemetry.Report.Spatial.with { (spatial) in
-				spatial.position = AirMapPosition.with({ (pos) in
-					pos.coordinate = AirMapCoordinate2D.with({ (coord) in
-						coord.latitude = AirMapDegrees.with({ $0.value = coordinate.latitude })
-						coord.longitude = AirMapDegrees.with({ $0.value = coordinate.longitude })
+			report.details = .spatial(Telemetry_Report.Spatial.with { (spatial) in
+				spatial.position = Measurements_Position.with({ (pos) in
+					pos.absolute.coordinate = Measurements_Coordinate2D.with({ (coord) in
+						coord.latitude = Units_Degrees.with({ $0.value = coordinate.latitude })
+						coord.longitude = Units_Degrees.with({ $0.value = coordinate.longitude })
 					})
-					pos.altitude = AirMapAltitude.with { (alt) in
-						alt.height = AirMapMeters.with ({ $0.value = altitude.height })
+					pos.absolute.altitude = Measurements_Altitude.with { (alt) in
+						alt.height = Units_Meters.with ({ $0.value = altitude.height })
 						switch altitude.reference {
-						case .Ground:
+						case .ground:
 							alt.reference = .surface
-						case .GPS:
+						case .gps:
 							alt.reference = .ellipsoid
-						case .MeanSeaLevel:
+						case .meanSeaLevel:
 							alt.reference = .geoid
 						}
 					}
 				})
 				if let velocity = velocity {
-					spatial.velocity = AirMapVelocity.with({ (v) in
-						v.x = AirMapMetersPerSecond.with({ $0.value = Double(velocity.x) })
-						v.y = AirMapMetersPerSecond.with({ $0.value = Double(velocity.y) })
-						v.z = AirMapMetersPerSecond.with({ $0.value = Double(velocity.z) })
+					spatial.velocity = Measurements_Velocity.with({ (v) in
+						v.cartesian.x = Units_MetersPerSecond.with({ $0.value = Double(velocity.x) })
+						v.cartesian.y = Units_MetersPerSecond.with({ $0.value = Double(velocity.y) })
+						v.cartesian.z = Units_MetersPerSecond.with({ $0.value = Double(velocity.z) })
 					})
 				}
 				if let orientation = orientation {
-					spatial.orientation = AirMapOrientation.with({ (orien) in
-						orien.yaw   = AirMapDegrees.with{ $0.value = Double(orientation.yaw)}
-						orien.pitch = AirMapDegrees.with{ $0.value = Double(orientation.pitch)}
-						orien.roll  = AirMapDegrees.with{ $0.value = Double(orientation.roll)}
+					spatial.orientation = Measurements_Orientation.with({ (orien) in
+						orien.yaw   = Units_Degrees.with{ $0.value = Double(orientation.yaw)}
+						orien.pitch = Units_Degrees.with{ $0.value = Double(orientation.pitch)}
+						orien.roll  = Units_Degrees.with{ $0.value = Double(orientation.roll)}
 					})
 				}
 			})
@@ -108,56 +108,56 @@ extension AirMap {
 	/// - Throws: TelemetryError.invalidCredentials if the user is unable to send telemtry
 	public static func sendAtmosphericTelemetry(_ id: AirMapFlightId, coordinate: Coordinate2D, altitude: Altitude?, baro: Double?, temperature: Double?) throws {
 
-		try canSendTelemetry()
+//		try canSendTelemetry()
 
 		guard baro != nil || temperature != nil else {
 			throw TelemetryError.invalidData
 		}
 
-		telemetryClient.sendTelemetry(flight: id, report: AirMapTelemetry.Report.with { (report) in
-			report.observed = .init(date: Date())
-			report.details = AirMapTelemetry.Report.OneOf_Details.atmospheric(AirMapTelemetry.Report.Atmospheric.with({ (atmos) in
-				atmos.position = AirMapPosition.with({ (pos) in
-					pos.coordinate = AirMapCoordinate2D.with({ (coord) in
-						coord.latitude = AirMapDegrees.with({ $0.value = coordinate.latitude })
-						coord.longitude = AirMapDegrees.with({ $0.value = coordinate.longitude })
-					})
-				})
-				if let altitude = altitude {
-					atmos.position.altitude = AirMapAltitude.with { (alt) in
-						alt.height = AirMapMeters.with ({ $0.value = altitude.height })
-						switch altitude.reference {
-						case .Ground:
-							alt.reference = .surface
-						case .GPS:
-							alt.reference = .ellipsoid
-						case .MeanSeaLevel:
-							alt.reference = .geoid
-						}
-					}
-				}
-				if let baro = baro {
-					atmos.pressure = AirMapPressure.with({ (press) in
-						press.units = AirMapPascal.with({ $0.value = baro })
-					})
-				}
-				if let temperature = temperature {
-					atmos.temperature = AirMapTemperature.with({ (temp) in
-						temp.degrees = AirMapCelsius.with({ $0.value = temperature})
-					})
-				}
-			}))
-		})
+//		telemetryClient.sendTelemetry(flight: id, report: Telemetry_Report.with { (report) in
+//			report.observed = .init(date: Date())
+//			report.details = Telemetry_Report.OneOf_Details.atmospheric(Telemetry_Report.Atmospheric.with({ (atmos) in
+//				atmos.position = Position.with({ (pos) in
+//					pos.coordinate = Airmap_Coordinate2D.with({ (coord) in
+//						coord.latitude = Airmap_Degrees.with({ $0.value = coordinate.latitude })
+//						coord.longitude = Airmap_Degrees.with({ $0.value = coordinate.longitude })
+//					})
+//				})
+//				if let altitude = altitude {
+//					atmos.position.altitude = Airmap_Altitude.with { (alt) in
+//						alt.height = Airmap_Meters.with ({ $0.value = altitude.height })
+//						switch altitude.reference {
+//						case .ground:
+//							alt.reference = .surface
+//						case .gps:
+//							alt.reference = .ellipsoid
+//						case .meanSeaLevel:
+//							alt.reference = .geoid
+//						}
+//					}
+//				}
+//				if let baro = baro {
+//					atmos.pressure = Airmap_Pressure.with({ (press) in
+//						press.units = Airmap_Pascal.with({ $0.value = baro })
+//					})
+//				}
+//				if let temperature = temperature {
+//					atmos.temperature = Airmap_Temperature.with({ (temp) in
+//						temp.degrees = Airmap_Celsius.with({ $0.value = temperature})
+//					})
+//				}
+//			}))
+//		})
 	}
 
 	/// Verify the user can send telemetry data
 	///
 	/// - Throws: TelemetryError.invalidCredentials if the user is unable to send telemtry
-	fileprivate static func canSendTelemetry() throws {
-		guard AirMap.authService.isAuthorized else {
-			logger.error("Failed to send telemetry data", metadata: ["error": .stringConvertible("unauthorized")])
-			throw TelemetryError.invalidCredentials
-		}
-	}
+//	fileprivate static func canSendTelemetry() throws {
+//		guard AirMap.authService.isAuthorized else {
+//			logger.error("Failed to send telemetry data", metadata: ["error": .stringConvertible("unauthorized")])
+//			throw TelemetryError.invalidCredentials
+//		}
+//	}
 
 }
