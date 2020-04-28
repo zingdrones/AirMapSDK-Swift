@@ -9,7 +9,7 @@ CORE_PROTOS = \
 CORE_PROTOS_TARGET_PATH = Source/Core/Generated
 
 TELEMETRY_PROTOS = \
-	$(AIRMAP_PROTOS_PATH)/telemetry/tracking.proto \
+	$(AIRMAP_PROTOS_PATH)/tracking/tracking.proto \
 	$(AIRMAP_PROTOS_PATH)/telemetry/telemetry.proto \
 	$(AIRMAP_PROTOS_PATH)/tracking/identity.proto \
 	$(AIRMAP_PROTOS_PATH)/system/ack.proto \
