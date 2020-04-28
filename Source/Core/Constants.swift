@@ -95,21 +95,25 @@ struct Constants {
 			if let override = AirMap.configuration.override(for: "telemetry_host") {
 				return override
 			}
-			return AirMap.configuration.host(for: "telemetry")
+			return "test.api.airmap.com"
+//			return AirMap.configuration.host(for: "telemetry")
 		}
 
 		static var port: UInt16 {
 			if let override = AirMap.configuration.override(for: "telemetry_port"), let port = UInt16(override) {
 				return port
 			}
-			return 16060
+			return 443
 		}
 
+		// TODO: Throttle at multiple points?
 		struct SampleRate {
-			static let position:  RxTimeInterval = .milliseconds(200)
-			static let attitude:  RxTimeInterval = .milliseconds(200)
-			static let speed:     RxTimeInterval = .milliseconds(200)
-			static let barometer: RxTimeInterval = .seconds(20)
+			static let position:    RxTimeInterval = .milliseconds(200)
+			static let attitude:    RxTimeInterval = .milliseconds(200)
+			static let speed:       RxTimeInterval = .milliseconds(200)
+			static let barometer:   RxTimeInterval = .seconds(20)
+			static let spatial:     RxTimeInterval = .milliseconds(200)
+			static let atmospheric: RxTimeInterval = .seconds(20)
 		}
 	}
 

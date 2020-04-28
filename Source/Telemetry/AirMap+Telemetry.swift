@@ -61,6 +61,16 @@ extension AirMap {
 
 		telemetryClient.sendTelemetry(flight: id, report: Telemetry_Report.with { (report) in
 			report.observed = .init(date: Date())
+			report.identities = [
+				Tracking_Identity.with({ (identity) in
+					identity.operation.operationID = Ids_Operation.with({ (operation_id) in
+						operation_id.asString = id.rawValue
+					})
+					identity.operation.serviceProviderID = Ids_USS.with({ (id_uss) in
+						id_uss.asString = "0"
+					})
+				})
+			]
 			report.details = .spatial(Telemetry_Report.Spatial.with { (spatial) in
 				spatial.position = Measurements_Position.with({ (pos) in
 					pos.absolute.coordinate = Measurements_Coordinate2D.with({ (coord) in
@@ -96,7 +106,7 @@ extension AirMap {
 			})
 		})
 	}
-
+}
 	/// Send atmospheric telemetry to AirMap
 	///
 	/// - Parameters:
@@ -106,13 +116,13 @@ extension AirMap {
 	///   - baro: The barometric pressure in Pascals (~100,000 Pa)
 	///   - temperature: The ambient temperature in degrees Celsius (C°)
 	/// - Throws: TelemetryError.invalidCredentials if the user is unable to send telemtry
-	public static func sendAtmosphericTelemetry(_ id: AirMapFlightId, coordinate: Coordinate2D, altitude: Altitude?, baro: Double?, temperature: Double?) throws {
+//	public static func sendAtmosphericTelemetry(_ id: AirMapFlightId, coordinate: Coordinate2D, altitude: Altitude?, baro: Double?, temperature: Double?) throws {
 
 //		try canSendTelemetry()
 
-		guard baro != nil || temperature != nil else {
-			throw TelemetryError.invalidData
-		}
+//		guard baro != nil || temperature != nil else {
+//			throw TelemetryError.invalidData
+//		}
 
 //		telemetryClient.sendTelemetry(flight: id, report: Telemetry_Report.with { (report) in
 //			report.observed = .init(date: Date())
@@ -148,7 +158,7 @@ extension AirMap {
 //				}
 //			}))
 //		})
-	}
+//	}
 
 	/// Verify the user can send telemetry data
 	///
@@ -160,4 +170,4 @@ extension AirMap {
 //		}
 //	}
 
-}
+

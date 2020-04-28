@@ -22,6 +22,8 @@ import Swift
 import RxSwift
 import RxSwiftExt
 import GRPC
+import NIO
+import NIOHPACK
 
 class TelemetryClient {
 
@@ -35,49 +37,81 @@ class TelemetryClient {
 	private let disposeBag = DisposeBag()
 	private let scheduler = MainScheduler.instance
 
+
+	private var client: Telemetry_CollectorClient?
+	private var call: BidirectionalStreamingCall<Telemetry_Update.FromProvider, Telemetry_Update.ToProvider>?
+
+	private let connection: ClientConnection
+	private let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+	private let tls = ClientConnection.Configuration.TLS()
+	private let target = ConnectionTarget.hostAndPort(
+							Constants.Telemetry.host,
+							Int(Constants.Telemetry.port))
+
 	init() {
-//
-//		let channel = Channel(
-//			address: "localhost:7090",
-//			secure: false,
-//			arguments: []
-//		)
-//		let client = Airmap_TelemetryProviderServiceClient(channel: channel)
-//		let call = try! client.connectUpdates(completion: nil)
-//
-//		let channelState = Observable<Channel.ConnectivityState>.create { (observer) -> Disposable in
-//			channel.subscribe { (state) in
-//				observer.onNext(state)
-//			}
-//			return Disposables.create()
-//		}
-//
-//		let spatial = reports
-//			.filter(TelemetryClient.isSpatialReport)
-//			.throttle(Constants.Airmap_Telemetry.SampleRate.spatial, scheduler: scheduler)
-//
-//		let atmospheric = reports
-//			.filter(TelemetryClient.isAtmosphericReport)
-//			.throttle(Constants.Airmap_Telemetry.SampleRate.atmospheric, scheduler: scheduler)
-//
-//		let updates = Observable
-//			.merge(spatial, atmospheric)
-//			.map(TelemetryClient.trafficUpdate)
-//
-//		let channelReady = channelState
-//			.debug("Channel State")
-//			.filter(.ready)
-//
-//		channelReady
-//			.flatMapLatest { (_) -> Observable<Void> in
-//				updates
-//					.flatMap(call.send)
-//					.debug("send")
-//					.ignoreErrors()
-//					.takeUntil(channelState)
-//			}
-//			.subscribe()
-//			.disposed(by: disposeBag)
+
+		let configuration = ClientConnection.Configuration(target: target, eventLoopGroup: group, tls: tls)
+		connection = ClientConnection(configuration: configuration)
+		print(target)
+
+		let spatial = reports
+			.filter(TelemetryClient.isSpatialReport)
+			.throttle(Constants.Telemetry.SampleRate.spatial, scheduler: scheduler)
+
+		let atmospheric = reports
+			.filter(TelemetryClient.isAtmosphericReport)
+			.throttle(Constants.Telemetry.SampleRate.atmospheric, scheduler: scheduler)
+
+		let updates = Observable
+			.merge(spatial, atmospheric)
+			.map(TelemetryClient.trafficUpdate)
+
+		updates
+			.subscribe(onNext: { [weak self] (updateFromProvider) in
+				let loop = self?.call?.sendMessage(updateFromProvider)
+//				loop.
+			})
+			.disposed(by: disposeBag)
+
+		if let token = AirMap.authToken {
+			connect(with: token)
+		}
+	}
+
+	private func connect(with accessToken: String) {
+		print("connect(with accessToken")
+		print("connect(with \(accessToken)")
+
+		let headers = HPACKHeaders([("authorization", "Bearer \(accessToken)"), ("x-api-key", AirMap.configuration.apiKey)])
+		let defaultCallOptions = CallOptions(customMetadata: headers)
+		client = Telemetry_CollectorClient(channel: connection, defaultCallOptions: defaultCallOptions)
+
+		call = client?.connectProvider(handler: { (updateToProvider) in
+			print("updateToProvider")
+			print(updateToProvider)
+		})
+
+		call?.status.whenFailure({ (error) in
+			print("error")
+			print(error)
+		})
+
+		call?.status.whenSuccess({ (status) in
+			print("error")
+			print(status)
+		})
+
+		call?.status.whenComplete({ (complete) in
+			print("whenComplete")
+			print(complete)
+		})
+
+	}
+
+	private func disconnect() {
+		_ = call?.cancel()
+		client = nil
+		call = nil
 	}
 }
 
@@ -91,11 +125,9 @@ extension TelemetryClient {
 		if let details = flightReport.report.details, case .atmosphere(flightReport.report.atmosphere) = details { return true } else { return false }
 	}
 
-//	private static func trafficUpdate(from next: FlightReport) -> Telemetry_Update.FromProvider {
-//		return .with({ (update) in
-//			update.submitted = .init(date: Date())
-//			update.flight = Airmap_FlightId.with({ $0.asString = next.flightId.rawValue })
-//			update.reports = [next.report]
-//		})
-//	}
+	private static func trafficUpdate(from next: FlightReport) -> Telemetry_Update.FromProvider {
+		return .with({ (update) in
+			update.report = next.report
+		})
+	}
 }

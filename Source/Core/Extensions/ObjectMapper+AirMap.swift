@@ -70,9 +70,9 @@ public class GeoJSONToAirMapGeometryTransform: TransformType {
 	public init() {}
 	
 	public func transformFromJSON(_ value: Any?) -> AirMapGeometry? {
-		
+
 		guard let geometry = value as? JSON, let type = geometry["type"] as? String else { return nil }
-		
+
 		switch type {
 		case "Polygon":
 			guard let points = geometry["coordinates"] as? [[[Double]]]  else { return nil }
@@ -81,7 +81,7 @@ public class GeoJSONToAirMapGeometryTransform: TransformType {
 				.map { poly in poly.map { ($0[1], $0[0]) }
 					.map(Coordinate2D.init)
 				}
-			
+
 			return AirMapPolygon(coordinates: coords)
 
 		case "LineString":
