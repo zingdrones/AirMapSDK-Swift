@@ -56,6 +56,9 @@ public struct AirMapAdvisory {
 	/// Additional metadata specific to the advisory type
 	public let properties: AdvisoryProperties?
 
+	/// Describes the list of intervals the advisory is active
+	public let timesheets: [Timesheet]?
+
 	/// Any requirements necessary to operate within the advisory
 	public let requirements: AirMapAdvisoryRequirements?
 
@@ -75,7 +78,7 @@ public struct AirMapAdvisory {
 	}	
 	
 	/// Airport advisory properties
-	public struct AirportProperties: AdvisoryProperties, HasOptionalURL, HasOptionalDescription {
+	public struct AirportProperties: AdvisoryProperties, HasOptionalURL, HasOptionalDescription, HasOptionalPhoneNumber {
 		public let identifier: String?
 		public let phone: String?
 		public let tower: Bool?
@@ -97,7 +100,7 @@ public struct AirMapAdvisory {
 	}
 	
 	/// Heliport advisory properties
-	public struct HeliportProperties: AdvisoryProperties {
+	public struct HeliportProperties: AdvisoryProperties, HasOptionalPhoneNumber {
 		public let identifier: String?
 		public let paved: Bool?
 		public let phone: String?
@@ -202,12 +205,97 @@ public struct AirMapAdvisory {
 		public let effective: Date?
 		public let size: Hectares?
 	}
+
+
+	/// A time sheet to describe when the airspace is active
+	public struct Timesheet {
+		/// nil if the active state is unkown
+		public let active: Bool?
+		public let timesheetData: Data?
+
+		/// Models raw timesheet data
+		public struct Data {
+			/// UTC offset in hours
+			public let offsetUTC: Int?
+			public let excluded: Bool?
+			public let daylightSavingAdjust: Bool?
+			public let day: DayDescriptor?
+			public let dayTil: DayDescriptor?
+			public let start: DataMarker?
+			public let end: DataMarker?
+		}
+
+		/// DayDescriptor bundles up the localized name and enum of Day
+		public struct DayDescriptor {
+			public let name: String
+			public let day: Day
+		}
+
+		/// EventDescriptor bundles up the localized name and enum of Event
+		public struct EventDescriptor {
+			public let name: String
+			public let event: Event
+		}
+
+		/// DataMarker models a relative marker in time
+		public struct DataMarker {
+			public let event: EventDescriptor?
+			public let eventInterpretation: EventInterpretationDescriptor?
+			public let eventOffset: Int?
+			public let time: Timesheet.Time?
+			public let date: Timesheet.Date?
+		}
+
+		/// Time models the relative time of a timesheet
+		public struct Time {
+			public let hour: Int
+			public let minute: Int
+		}
+
+		/// Date models the relative date of a timesheet
+		public struct Date {
+			public let month: Int
+			public let day: Int
+		}
+
+		public enum Day: String, CaseIterable {
+			case monday = "day_monday"
+			case tuesday = "day_tuesday"
+			case wednesday = "day_wednesday"
+			case thursday = "day_thursday"
+			case friday = "day_friday"
+			case saturday = "day_saturday"
+			case sunday = "day_sunday"
+			case workDay = "day_work_day"
+			case beforeWorkDay = "day_before_work_day"
+			case afterWorkDay = "day_after_work_day"
+			case holiday = "day_holiday"
+			case beforeHoliday = "day_before_holiday"
+			case afterHoliday = "day_after_holiday"
+			case busyFriday = "day_busy_friday"
+			case any = "day_any"
+		}
+
+		public enum Event: String, CaseIterable {
+			case sunrise = "event_sunrise"
+			case sunset = "event_sunset"
+		}
+
+		public enum EventInterpretationDescriptor: String {
+			case earliest = "event_interpretation_earliest"
+			case latest = "event_interpretation_latest"
+		}
+	}
 }
 
 public protocol AdvisoryProperties {}
 
 public protocol HasOptionalURL {
 	var url: URL? { get }
+}
+
+public protocol HasOptionalPhoneNumber {
+	var phone: String? { get }
 }
 
 public protocol HasOptionalDescription {

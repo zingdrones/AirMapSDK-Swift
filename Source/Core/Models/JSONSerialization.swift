@@ -58,7 +58,8 @@ extension AirMapAdvisory: ImmutableMappable {
 			ruleId        =  try  map.value("rule_id")
 			rulesetId     =  try  map.value("ruleset_id")
 			requirements  =  try? map.value("requirements")
-			
+			timesheets    =  try? map.value("schedule")
+
 			let latitude  = try map.value("latitude") as Double
 			let longitude = try map.value("longitude") as Double
 			coordinate = Coordinate2D(latitude: latitude, longitude: longitude)
@@ -113,6 +114,63 @@ extension AirMapAdvisory: ImmutableMappable {
 			AirMap.logger.error("Failed to parse AirMapAdvisory", metadata: ["error": .string(error.localizedDescription)])
 			throw error
 		}
+	}
+}
+
+extension AirMapAdvisory.Timesheet: ImmutableMappable {
+	public init(map: Map) throws {
+		active         =  try? map.value("active")
+		timesheetData  =  try? map.value("data")
+	}
+}
+
+extension AirMapAdvisory.Timesheet.Data: ImmutableMappable {
+	public init(map: Map) throws {
+		offsetUTC             =  try? map.value("utc_offset")
+		excluded              =  try? map.value("excluded")
+		daylightSavingAdjust  =  try? map.value("daylight_saving_adjust")
+		day                   =  try? map.value("day")
+		dayTil                =  try? map.value("day_til")
+		start                 =  try? map.value("start")
+		end                   =  try? map.value("end")
+	}
+}
+
+extension AirMapAdvisory.Timesheet.DayDescriptor: ImmutableMappable {
+	public init(map: Map) throws {
+		name  =  try map.value("name")
+		day   =  try map.value("id")
+	}
+}
+
+extension AirMapAdvisory.Timesheet.EventDescriptor: ImmutableMappable {
+	public init(map: Map) throws {
+		name  =  try map.value("name")
+		event =  try map.value("id")
+	}
+}
+
+extension AirMapAdvisory.Timesheet.DataMarker: ImmutableMappable {
+	public init(map: Map) throws {
+		event                 =  try? map.value("event")
+		eventInterpretation   =  try? map.value("event_interpretation")
+		eventOffset           =  try? map.value("event_offset")
+		time                  =  try? map.value("time")
+		date                  =  try? map.value("date")
+	}
+}
+
+extension AirMapAdvisory.Timesheet.Time: ImmutableMappable {
+	public init(map: Map) throws {
+		hour     =  try map.value("hour")
+		minute   =  try map.value("minute")
+	}
+}
+
+extension AirMapAdvisory.Timesheet.Date: ImmutableMappable {
+	public init(map: Map) throws {
+		month =  try map.value("month")
+		day   =  try map.value("day")
 	}
 }
 
