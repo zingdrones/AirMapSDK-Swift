@@ -70,7 +70,7 @@ Pod::Spec.new do |s|
 	s.subspec 'Telemetry' do |telemetry|
 		telemetry.xcconfig = { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DAIRMAP_TELEMETRY' }
 		telemetry.dependency 'AirMapSDK/Core'
-		telemetry.dependency 'gRPC-Swift'
+		telemetry.dependency 'gRPC-Swift', '1.0.0-alpha.11'
 		telemetry.source_files = 'Source/Telemetry/**/*'
 	end
 
