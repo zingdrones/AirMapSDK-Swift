@@ -123,6 +123,17 @@ extension AirMapFlight: Equatable, Hashable {
 	}
 }
 
+extension AirMapFlightPlan: Equatable, Hashable {
+
+	public func hash(into hasher: inout Hasher) {
+		return hasher.combine(id?.rawValue.hashValue ?? startTime.hashValue)
+	}
+
+	static public func ==(lhs: AirMapFlightPlan, rhs: AirMapFlightPlan) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+}
+
 extension AirMapJurisdiction: Hashable, Equatable, Comparable {
 	
 	public static func ==(lhs: AirMapJurisdiction, rhs: AirMapJurisdiction) -> Bool {
