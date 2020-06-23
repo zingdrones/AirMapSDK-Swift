@@ -154,6 +154,10 @@ open class AirMapMapView: MGLMapView {
 	private let allowedJurisdictionsSubject = BehaviorSubject(value: nil as [AirMapJurisdictionId]?)
 
 	private let disposeBag = DisposeBag()
+
+	// MARK: - Internal
+
+	internal var defaultPredicates = [String: NSPredicate]()
 }
 
 // MARK: - Private
@@ -213,6 +217,15 @@ extension AirMapMapView {
 			.flatMapLatest({ [unowned self] (_) -> Observable<MGLStyle> in
 				return self.rx.mapDidFinishLoadingStyle.map({$1})
 			})
+			.do(onNext: { [weak self] (style) in
+				self?.defaultPredicates = [String: NSPredicate]()
+				style.layers
+					.filter { $0.identifier.hasPrefix(Constants.Maps.airmapLayerPrefix)}
+					.compactMap { $0 as? MGLVectorStyleLayer }
+					.forEach({ (layer) in
+						self?.defaultPredicates[layer.identifier] = layer.predicate
+					})
+			})
 
 		// The latest unique rulesets
 		let rulesetConfig = self.rulesetConfigurationSubject
@@ -231,9 +244,13 @@ extension AirMapMapView {
 
 		let range = Observable.combineLatest(temporalRangeSubject, refresh)
 			.withLatestFrom(temporalRangeSubject)
+			.distinctUntilChanged()
 
-		Observable.combineLatest(jurisdictions, style, rulesetConfig)
-			.withLatestFrom(range) { (jurisdictions: $0.0, style: $0.1, rulesetConfig: $0.2, range: $1) }
+		let mapConfigurables = Observable.combineLatest(jurisdictions, style, rulesetConfig)
+			.share()
+
+		mapConfigurables
+			.withLatestFrom(range) { ($0.0, $0.1, $0.2, $1) }
 			.observeOn(MainScheduler.asyncInstance)
 			.subscribe(onNext: { [weak self] (jurisdictions, style, rulesetConfig, range) in
 				guard let `self` = self else { return }
@@ -248,19 +265,23 @@ extension AirMapMapView {
 			})
 			.disposed(by: disposeBag)
 
-		// Reload base style when updating the temporal range or toggling inactive airspace filter
-		Observable.combineLatest(range, showInactiveAirspaceSubject.distinctUntilChanged())
-			.debounce(.milliseconds(100), scheduler: MainScheduler.instance)
-			.subscribe(onNext: { [weak self] (_) in
-				self?.reloadStyle(nil)
+		range
+			.withLatestFrom(mapConfigurables) { ($1.0, $1.1, $1.2, $0) }
+			.subscribe(onNext: { [weak self] (jurisdictions, style, rulesetConfig, range) in
+				guard let `self` = self else { return }
+
+				let activeRulesets = AirMapMapView.activeRulesets(from: jurisdictions, using: rulesetConfig)
+				AirMapMapView.update(range: range, in: self, for: style, with: activeRulesets)
 			})
 			.disposed(by: disposeBag)
 
+
 		// Hide inactive airspace when `showInactiveAirspace` is toggled
-		style
-			.withLatestFrom(showInactiveAirspaceSubject) { ($0, $1) }
-			.subscribe(onNext: { (style, showInactiveAirspace) in
-				if !showInactiveAirspace {
+		Observable.combineLatest(style, showInactiveAirspaceSubject.distinctUntilChanged())
+			.subscribe(onNext: { [weak self] (style, showInactiveAirspace) in
+				if showInactiveAirspace {
+					style.showInactiveAirspace(defaultPredicates: self?.defaultPredicates ?? [:])
+				} else {
 					style.hideInactiveAirspace()
 				}
 			})
@@ -299,6 +320,7 @@ extension AirMapMapView {
 	}
 
 	// MARK: - Configuration
+
 	private static func configure(mapView: AirMapMapView, style: MGLStyle, with rulesets: [AirMapRuleset], range: TemporalRange) {
 
 		let rulesetSourceIds = rulesets
@@ -322,6 +344,31 @@ extension AirMapMapView {
 		// Add new ruleset sources
 		rulesets
 			.filter({ newSourceIds.contains($0.tileSourceIdentifier) })
+			.forEach({ (ruleset) in
+				addRuleset(ruleset, to: style, in: mapView, for: range)
+			})
+	}
+
+	// MARK: - Update
+
+	private static func update(range: TemporalRange, in mapView: AirMapMapView, for style: MGLStyle, with rulesets: [AirMapRuleset]) {
+
+		let temporalSourceIds = rulesets
+			.filter { $0.airspaceTypes.count > 0 }
+			.filter { (ruleset) -> Bool in
+				return Set(Constants.Maps.temporalAirspaceTypes).intersection(ruleset.airspaceTypes).count > 0
+			}
+			.map { $0.tileSourceIdentifier }
+
+		// Refresh all temporal ruleset ids
+		temporalSourceIds
+			.forEach({ id in
+				removeRuleset(id, from: style, in: mapView)
+			})
+
+		// Add new ruleset sources
+		rulesets
+			.filter({ temporalSourceIds.contains($0.tileSourceIdentifier) })
 			.forEach({ (ruleset) in
 				addRuleset(ruleset, to: style, in: mapView, for: range)
 			})
