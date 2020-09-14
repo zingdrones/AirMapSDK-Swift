@@ -638,8 +638,9 @@ extension AirMapAuthority: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		do {
-			id   = try map.value("id")
-			name = try map.value("name")
+			id       = try map.value("id")
+			name     = try map.value("name")
+			facility = try map.value("facility")
 		}
 		catch {
 			AirMap.logger.error("Failed to parse AirMapAuthority", metadata: ["error": .string(error.localizedDescription)])
@@ -657,11 +658,14 @@ extension AirMapFlightBriefing.Authorization: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		do {
-			authority       =  try  map.value("authority")
-			status          = (try? map.value("status")) ?? .rejected
-			message         =  try  map.value("message")
-			referenceNumber =  try? map.value("reference_number")
-			description     =  try  map.value("description")
+			authority        =  try  map.value("authority")
+			status           = (try? map.value("status")) ?? .rejected
+			message          =  try  map.value("message")
+			airspaceCategory =  try? map.value("airspace_category")
+			geometry         =  try?  map.value("geometry", using: GeoJSONToAirMapGeometryTransform())
+			notices          = (try? map.value("notices")) ?? []
+			referenceNumber  =  try? map.value("reference_number")
+			description      =  try  map.value("description")
 		}
 		catch {
 			AirMap.logger.error("Failed to parse AirMapFlightBriefing.Authorization", metadata: ["error": .string(error.localizedDescription)])
@@ -673,7 +677,25 @@ extension AirMapFlightBriefing.Authorization: ImmutableMappable {
 		authority    >>> map["authority"]
 		status       >>> map["status"]
 		message      >>> map["message"]
+		notices      >>> map["notices"]
 		description  >>> map["description"]
+	}
+}
+
+extension AirMapFlightBriefing.Notice: ImmutableMappable {
+
+	public init(map: Map) throws {
+		do {
+			message = try map.value("message")
+		}
+		catch {
+			AirMap.logger.error("Failed to parse AirMapFlightBriefing.Notice", metadata: ["error": .string(error.localizedDescription)])
+			throw error
+		}
+	}
+
+	public func mapping(map: Map) {
+		message >>> map["message"]
 	}
 }
 
