@@ -52,7 +52,7 @@ public struct AirMapFlightBriefing {
 	public struct Authorization {
 		
 		/// The authoritive entity issuing the authorization
-		public let authority: AirMapAuthority
+		public let authority: AirMapAuthority?
 		
 		/// The description of the authorization
 		public let description: String

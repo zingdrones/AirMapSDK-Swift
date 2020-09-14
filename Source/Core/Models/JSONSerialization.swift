@@ -658,7 +658,7 @@ extension AirMapFlightBriefing.Authorization: ImmutableMappable {
 	
 	public init(map: Map) throws {
 		do {
-			authority        =  try  map.value("authority")
+			authority        =  try?  map.value("authority")
 			status           = (try? map.value("status")) ?? .rejected
 			message          =  try  map.value("message")
 			airspaceCategory =  try? map.value("airspace_category")
