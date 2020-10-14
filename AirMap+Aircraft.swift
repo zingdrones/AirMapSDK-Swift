@@ -21,7 +21,7 @@
 import Foundation
 
 extension AirMap {
-	
+
 	// MARK: - Aircraft
 
 	/// List of all aircraft manufacturers
@@ -48,7 +48,7 @@ extension AirMap {
 	public static func listModels(by manufacturerId: AirMapAircraftManufacturerId, completion: @escaping (Result<[AirMapAircraftModel]>) -> Void) {
 		rx.listModels(by: manufacturerId).thenSubscribe(completion)
 	}
-	
+
 	/// Search all models by an aircraft's name
 	///
 	/// - Parameters:
