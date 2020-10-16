@@ -24,10 +24,10 @@ import ObjectMapper
 /// The status of the agreement
 public final class AirMapAgreementStatus: ImmutableMappable {
 
-	/// A bool indicating if the user has agreed to this agreement
-	let hasAgreed: Bool
+	/// A bool indicating if the user has agreed to the latest agreement
+	let hasAgreedToLatestVersion: Bool
 
 	public init(map: Map) throws {
-		hasAgreed =  try map.value("has_agreed_to_latest_version")
+		hasAgreedToLatestVersion = try map.value("has_agreed_to_latest_version")
 	}
 }

@@ -38,12 +38,13 @@ final public class AirMapAgreement: ImmutableMappable {
 	/// The type of agreement
 	public let type: AirMapAgreementType?
 
-	/// A bool indicating if the user has agreed to this agreement
-	public internal(set) var hasAgreed: Bool = false
+	/// A bool indicating if the user has agreed to the latest agreement
+	public let hasAgreedToLatestVersion: Bool
 
 	public init(map: Map) throws {
-		id        =  try  map.value("id")
-		version   =  try  map.value("version")
-		type      =  try? map.value("type")
+		id                       =  try  map.value("id")
+		version                  =  try  map.value("version")
+		type                     =  try? map.value("type")
+		hasAgreedToLatestVersion =  (try? map.value("has_agreed_to_latest_version")) ?? false
 	}
 }

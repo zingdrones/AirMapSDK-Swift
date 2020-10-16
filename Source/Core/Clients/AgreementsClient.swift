@@ -32,8 +32,6 @@ internal class AgreementsClient: HTTPClient {
 		return withCredentials().flatMap { (credentials) -> Observable<[AirMapAgreement]> in
 			AirMap.logger.debug("List Agreements")
 			return self.perform(method: .get, path: "/authority/\(authorityId.rawValue)", auth: credentials)
-		}.flatMap { [unowned self] (agreements) -> Observable<[AirMapAgreement]> in
-			return Observable.zip(agreements.map(self.getAgreement))
 		}
 	}
 
@@ -63,13 +61,5 @@ internal class AgreementsClient: HTTPClient {
 			AirMap.logger.debug("Agree to Agreement", metadata: ["id": .stringConvertible(agreementId)])
 			return self.perform(method: .post, path: "/agreement/\(agreementId.rawValue)/agree", auth: credentials)
 		}
-	}
-
-	private func getAgreement(agreement: AirMapAgreement) -> Observable<AirMapAgreement> {
-		return hasAgreedToAgreement(with: agreement.id)
-			.map { (status) -> AirMapAgreement in
-				agreement.hasAgreed = status.hasAgreed
-				return agreement
-			}
 	}
 }
