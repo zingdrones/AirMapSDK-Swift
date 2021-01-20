@@ -28,6 +28,10 @@ internal class AgreementsClient: HTTPClient {
 
 	// MARK: - Agreements
 
+	func anonymousListAgreements(from authorityId: AirMapAuthorityId) -> Observable<[AirMapAgreement]> {
+		return self.perform(method: .get, path: "/authority/\(authorityId.rawValue)")
+	}
+
 	func listAgreements(from authorityId: AirMapAuthorityId) -> Observable<[AirMapAgreement]> {
 		return withCredentials().flatMap { (credentials) -> Observable<[AirMapAgreement]> in
 			AirMap.logger.debug("List Agreements")
@@ -38,10 +42,7 @@ internal class AgreementsClient: HTTPClient {
 	}
 
 	func getAgreementDocument(with agreementId: AirMapAgreementId) -> Observable<AirMapAgreementDocument> {
-		return withCredentials().flatMap { (credentials) -> Observable<AirMapAgreementDocument> in
-			AirMap.logger.debug("Get Agreement Document", metadata: ["id": .stringConvertible(agreementId)])
-			return self.perform(method: .get, path: "/agreement/\(agreementId.rawValue)", auth: credentials)
-		}
+		return self.perform(method: .get, path: "/agreement/\(agreementId.rawValue)")
 	}
 
 	func getAgreementPDF(with agreementId: AirMapAgreementId) -> Observable<Data> {
@@ -58,10 +59,11 @@ internal class AgreementsClient: HTTPClient {
 		}
 	}
 
-	func agreeToAgreement(with agreementId: AirMapAgreementId) -> Observable<Void> {
+	func agreeToAgreement(with agreementId: AirMapAgreementId, date: Date = Date()) -> Observable<Void> {
 		return withCredentials().flatMap { (credentials) -> Observable<Void> in
-			AirMap.logger.debug("Agree to Agreement", metadata: ["id": .stringConvertible(agreementId)])
-			return self.perform(method: .post, path: "/agreement/\(agreementId.rawValue)/agree", auth: credentials)
+			AirMap.logger.debug("Agree to Agreement", metadata: ["id": .stringConvertible(agreementId), "agree_date": .stringConvertible(date.iso8601String())])
+			let params = ["agree_date": date.iso8601String()]
+			return self.perform(method: .post, path: "/agreement/\(agreementId.rawValue)/agree", params: params, auth: credentials)
 		}
 	}
 

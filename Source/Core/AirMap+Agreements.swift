@@ -24,7 +24,16 @@ extension AirMap {
 	
 	// MARK: - Agreements
 
-	/// List of all Agreements from an authority
+	/// List all Agreements from an authority without being authorized
+	///
+	/// - Parameters:
+	///  - authorityId: The id of the authority to get the agreements from
+	/// - completion: A completion handler to call with the Result
+	public static func anonymousListAgreements(from authorityId: AirMapAuthorityId, _ completion: @escaping (Result<[AirMapAgreement]>) -> Void) {
+		rx.anonymousListAgreements(from: authorityId).thenSubscribe(completion)
+	}
+
+	/// List all Agreements from an authority
 	///
 	/// - Parameters:
 	///  - authorityId: The id of the authority to get the agreements from
@@ -56,7 +65,7 @@ extension AirMap {
 	/// - Parameters:
 	///   - agreementId: The id of the agreement to get
 	///   - completion: A completion handler to call with the Result
-	public static func hasAgreedToAgreement(with agreementId: AirMapAgreementId, completion: @escaping (Result<AirMapAgreementStatus>) -> Void) {
+	public static func hasAgreedToAgreement(with agreementId: AirMapAgreementId, _ completion: @escaping (Result<AirMapAgreementStatus>) -> Void) {
 		rx.hasAgreedToAgreement(with: agreementId).thenSubscribe(completion)
 	}
 
@@ -64,9 +73,9 @@ extension AirMap {
 	///
 	/// - Parameters:
 	///   - agreementId: The id of the agreement to agree to
+	///   - date: The date when the agreement was agreed to
 	///   - completion: A completion handler to call with the Result
-	public static func agreeToAgreement(with agreementId: AirMapAgreementId, completion: @escaping (Result<Void>) -> Void) {
-		rx.agreeToAgreement(with: agreementId).thenSubscribe(completion)
+	public static func agreeToAgreement(with agreementId: AirMapAgreementId, date: Date = Date(), _ completion: @escaping (Result<Void>) -> Void) {
+		rx.agreeToAgreement(with: agreementId, date: date).thenSubscribe(completion)
 	}
-
 }

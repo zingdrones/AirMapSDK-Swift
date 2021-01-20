@@ -317,3 +317,14 @@ extension AirMapMapView.TemporalRange: Hashable {
 		hasher.combine(effectiveEnd)
 	}
 }
+
+extension AirMapAgreement: Hashable {
+
+	public static func ==(lhs: AirMapAgreement, rhs: AirMapAgreement) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(id)
+	}
+}

@@ -222,6 +222,10 @@ extension Reactive where Base: AirMap {
 /// Documentation found in AirMap+Agreements.swift
 extension Reactive where Base: AirMap {
 
+	public static func anonymousListAgreements(from authorityId: AirMapAuthorityId) -> Observable<[AirMapAgreement]> {
+		return AirMap.agreementsClient.anonymousListAgreements(from: authorityId)
+	}
+
 	public static func listAgreements(from authorityId: AirMapAuthorityId) -> Observable<[AirMapAgreement]> {
 		return AirMap.agreementsClient.listAgreements(from: authorityId)
 	}
@@ -238,8 +242,8 @@ extension Reactive where Base: AirMap {
 		return AirMap.agreementsClient.hasAgreedToAgreement(with: agreementId)
 	}
 
-	public static func agreeToAgreement(with agreementId: AirMapAgreementId) -> Observable<Void> {
-		return AirMap.agreementsClient.agreeToAgreement(with: agreementId)
+	public static func agreeToAgreement(with agreementId: AirMapAgreementId, date: Date = Date()) -> Observable<Void> {
+		return AirMap.agreementsClient.agreeToAgreement(with: agreementId, date: date)
 	}
 }
 
