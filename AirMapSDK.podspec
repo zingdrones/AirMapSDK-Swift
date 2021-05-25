@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 	s.documentation_url = 'https://developers.airmap.com/docs/getting-started-ios'
 	s.social_media_url  = 'https://twitter.com/AirMapIO'
 	s.source = {
-		:git => 'https://github.com/zingdrones/AirMapSDK-Swift.git',
+		:git => 'https://github.com/AirMap/AirMapSDK-Swift.git',
 		:tag => s.version.to_s
 	}
 	s.cocoapods_version = '>= 1.4.0'
